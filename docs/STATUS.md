@@ -29,7 +29,7 @@
 | **質量是客觀的折返頻率或次數** | **【已否定】** | 錯誤。質量是 Dirac 方程中手徵通道混合的複數振幅演化參數，不能解釋為真實折返事件。 | `handoff_v1.0.md#4.3` |
 | **Checkerboard 鋸齒是電子真實軌跡** | **【已否定】** | 錯誤。這些鋸齒路徑是路徑積分中的虛歷史疊加，不代表粒子真實運動軌跡。 | `handoff_v1.0.md#4.1` |
 | **單向延遲傳播核行列式可作幾何選擇** | **【已否定】** | 錯誤。單向延遲矩陣 $D_C$ 在因果偏序排序下必然為嚴格下三角矩陣，其行列式為定值，看不到網絡結構。 | `handoff_v1.0.md#8` |
-| **物質選幾何核心假說** | **【提案】** | 非時空因果網因無法承載穩定的費米子傳播而量子相消；類流形網絡則獲得相對增強。 | `handoff_v1.0.md#7.3` |
+| **物質選幾何核心假說** | **【提案，範圍已限縮】** | 非時空因果網因無法承載穩定的費米子傳播而量子相消；類流形網絡則獲得相對增強。**注意**：此假說原本設想的機制（費米子行列式的相消相位壓低 KR）已因下一列「Q_test 特徵值對稱與行列式相位固定」而受限——任何 BdG 型算子 $\begin{pmatrix} mI & R\\ R^\dagger & -mI \end{pmatrix}$ 在代數結構上都不可能提供可相消的複數相位，這與 $R$ 內部裝的具體因果結構無關（已用任意隨機 $R$ 驗證）。因此本假說若要以「相位相消」的原始形式成立，需要換一種不是這個對稱形狀的候選算子；目前 Gate C 已改為聚焦「費米子如何與因果集重力作用量互動」，不再單靠費米子相位獨立相消。 | `handoff_v1.0.md#7.3`, `tests/test_gate_a_testbed.py` |
 | **雙區塊 Q_test 診斷算子** | **【提案】** | 將傳播核與伴隨矩陣結合為 $Q_{\text{test}} = \begin{pmatrix} mI & R_C \\ R_C^\dagger & -mI \end{pmatrix}$ 可以解除三角退化，提供非平凡特徵譜。 | `handoff_v1.0.md#9.2` |
 | **Q_test 特徵值對稱與行列式相位固定** | **【已確認】** | $Q_{\text{test}}$ 的特徵值成對出現（$\pm\sqrt{m^2 + \sigma_k^2}$），因此行列式實虛相位和正負號固定。各網絡間無可互相抵消的量子相位，無法單獨作為幾何選擇的相消機制。 | `tests/test_gate_a_testbed.py` |
 | **附加相位場的標籤不變性** | **【已確認】** | 當隨機相位 $U_{ij}$ 從數字 ID 分離並定義為隨時空置換的附加物理場資料時，重新標記事件編號後 $Q_{\text{test}}$ 的特徵值與行列式嚴格不變。 | `tests/test_gate_a_testbed.py` |
@@ -150,10 +150,12 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
   *關聯*：因果集路徑和中的熵與連結作用量，提及典型 KR 結構之層級分配。
 - **Path Integral Suppression of Badly Behaved Causal Sets**, arXiv:2209.00327。
   *關聯*：因果集路徑積分中 Badly Behaved Causal Sets 被重力作用量強烈壓低，降低了單獨靠物質相位壓低 KR 的物理要求。
-- **Causal Set Graph Observables**, arXiv:2605.27514。
-  *關聯*：2026 年的因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
-- **Lorentzian Spectral Geometry with Causal Sets**, arXiv:1611.09947。
-  *關聯*：提及「組合三角算子與伴隨算子，用特徵譜進行幾何結構診斷」的學術定位與先例。
+- **Eichhorn, Mack, Le & Wagner**, *Charting Causal Set Configuration Space with Graph Observables*, arXiv:2605.27514（2026）。
+  *關聯*：因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
+- **Yazdi, Letizia & Kempf**, *Lorentzian Spectral Geometry with Causal Sets*, arXiv:2008.02291。
+  *關聯*：計算因果矩陣衍生算子（含區塊三角算子與伴隨算子組合）的譜，並在最多 9 個事件的所有因果集上測試其分類能力——方法論與 Gate A 現階段工作高度重疊，應優先精讀。
+- **Yazdi & Kempf**, *Towards Spectral Geometry for Causal Sets*, arXiv:1611.09947。
+  *關聯*：上一篇的前身論文，證明因果矩陣衍生算子的譜具有「重新標記不變性」(relabeling invariance)，與本專案 §9.3 的標籤不變性要求直接對應，是現成的學術先例。
 
 ### 5.2 已查明並修正之文獻錯配
 請確保在後續討論或引用時，**不要混淆以下編號**：
@@ -163,6 +165,9 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 - **arXiv:1703.07556** **不是** Sorkin 原始的宇宙常數論證論文。
 - **arXiv:2111.05659** **不是** Sverdlov 的 *Spinor fields in Causal Set Theory*（該論文為 **arXiv:0808.2956**）。
 - **DOI 10.1007/s11005-021-01467-1** 對應因果費米子系統的熵 (entropy) 論文，**不是**一般性理論總覽。
+- **arXiv:1611.09947** 是 Yazdi & Kempf 的 *Towards Spectral Geometry for Causal Sets*（2016），**不是** *Lorentzian Spectral Geometry with Causal Sets*；後者的正確編號是 **arXiv:2008.02291**（Yazdi, Letizia & Kempf, 2020）。
 
 ---
-*狀態頁更新記錄：v1.0 (2026-08-23) - 初始化狀態總表與附錄速查。*
+*狀態頁更新記錄：*
+*v1.0 (2026-08-23) - 初始化狀態總表與附錄速查。*
+*v1.2 (2026-08-24) - 修正 arXiv:1611.09947 / 2008.02291 引用錯置（見附錄 5.2）；為「物質選幾何核心假說」補上因 Q_test 相位固定而受限的範圍註記。*
