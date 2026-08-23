@@ -35,6 +35,10 @@
 | **附加相位場的標籤不變性** | **【已確認】** | 當隨機相位 $U_{ij}$ 從數字 ID 分離並定義為隨時空置換的附加物理場資料時，重新標記事件編號後 $Q_{\text{test}}$ 的特徵值與行列式嚴格不變。 | `tests/test_gate_a_testbed.py` |
 | **Q_test 的結構敏感性（而非幾何選擇）** | **【已確認】** | $Q_{\text{test}}$ 的特徵譜與 $\log|\det|$ 在不同因果網絡間（如鏈、反鏈、KR、Poisson 灑點）具備結構敏感性，可作為幾何結構的診斷工具，但不能證明物質能選出幾何。 | `tests/test_gate_a_testbed.py` |
 | **區間大小 $|I(j,i)|$ 足以描述自旋傳輸** | **【已否定】** | 錯誤。區間大小僅為純量，自旋傳輸必須具備 Clifford 代數結構或框架傳輸規則。 | `handoff_v1.0.md#9.4` |
+| **Ignatowski 類無光相對論限制** | **【已知】** | 可以在不假設光速不變下限制慣性系變換；不同公理化版本假設不同，不宣稱存在唯一「公認五條最小公理」。 | `docs/foundations/kinematic_selection.md` |
+| **因果共形重建 (Malament/HKM)** | **【已知】** | 在適當條件下決定 continuum metric 的 conformal structure；Malament/HKM 是在既有 Lorentzian spacetime 類別中的重建定理，不能誤寫成「任意偏序會產生 Lorentzian spacetime」。 | `docs/foundations/kinematic_selection.md` |
+| **非平凡因果偏序排除歐氏特徵 (G0-B)** | **【提案】** | 非平凡、有一致過去/未來方向的 causal partial order 是否可以排除 Euclidean signature。 | `docs/foundations/kinematic_selection.md` |
+| **多公理融合排除伽利略極限 (G0-C)** | **【提案】** | causal order + local finiteness + number-volume correspondence + 適當均勻性/非緊緻條件，是否可以排除 Galilean K=0，從而要求有限 invariant causal speed。此提案尚未獲得證明，且 local finiteness 單獨不得寫成可推出有限 c。 | `docs/foundations/kinematic_selection.md` |
 
 ---
 
@@ -152,6 +156,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
   *關聯*：2026 年的因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
 - **Lorentzian Spectral Geometry with Causal Sets**, arXiv:1611.09947。
   *關聯*：提及「組合三角算子與伴隨算子，用特徵譜進行幾何結構診斷」的學術定位與先例。
+- **Nicholas 2026**, arXiv:2606.25993。
+  *關聯*：湧現運動學基準 (emergent kinematics benchmark)。注意其非 pre-spacetime 理論，因為已預設 $\mathbb{R}^n$ 與不變間隔函數 $D$。
 
 ### 5.2 已查明並修正之文獻錯配
 請確保在後續討論或引用時，**不要混淆以下編號**：
@@ -161,6 +167,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 - **arXiv:1703.07556** **不是** Sorkin 原始的宇宙常數論證論文。
 - **arXiv:2111.05659** **不是** Sverdlov 的 *Spinor fields in Causal Set Theory*（該論文為 **arXiv:0808.2956**）。
 - **DOI 10.1007/s11005-021-01467-1** 對應因果費米子系統的熵 (entropy) 論文，**不是**一般性理論總覽。
+- **arXiv:1910.02780**：為 Dragan & Ekert 的 *Quantum principle of relativity*，**禁止**作為能量—動量關係的文獻依據。
 
 ---
-*狀態頁更新記錄：v1.0 (2026-08-23) - 初始化狀態總表與附錄速查。*
+*狀態頁更新記錄：v1.1 (2026-08-24) - 新增 Gate 0 運動學選擇狀態與 Nicholas 2026 文獻、修正 arXiv:1910.02780 引用錯配。*

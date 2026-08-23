@@ -237,12 +237,15 @@ $|I(j,i)|$（事件 $j$ 與 $i$ 之間的因果區間大小）只是一個純量
 ### 10.2 現在位於哪裡
 我們已越過純比喻階段，但尚未跨過第一個背景獨立（Background Independent）的建模門檻。已知 1+1 維模型能在既有時空重現 Dirac 傳播；現在要證明的是，在沒有既有時空背景時，仍能定義正確的費米子動力學。
 
-### 10.3 接下來的五道關卡
-本專案的長遠發展分為以下五個階段，在 GitHub 中已對應建立為 Issues 進行追蹤：
+### 10.3 接下來的六道關卡
+本專案的長遠發展分為以下階段，在 GitHub 中已對應建立為 Issues 進行追蹤（Gate 0 作為前置奠基，Gate D 在概念上拆分為 D1/D2，可保留既有 Issue 編號，在 Issue 4 內或子文件中明確標示）：
+- **關卡 0｜Kinematic Selection**：核心問題是探討為什麼從一般 relativity-without-light 運動學可能性中選出 Lorentzian 而非 Euclidean signature？為什麼選出有限 invariant causal speed，而非 Galilean $K=0$？詳見 [kinematic_selection.md](file:///c:/Users/dr174/Desktop/光速基礎宇宙論/docs/foundations/kinematic_selection.md)。
 - **關卡 A｜有限因果網測試台**：建立 chain、antichain、三層 KR 類以及 Poisson sprinkled 因果集，定義候選 $Q_C$，檢查標籤不變、非三角退化與譜差異。
 - **關卡 B｜重現已知粒子**：先在接近 1+1 維流形的因果集上回復 Dirac 傳播，再處理 3+1 維、自旋與手徵。
 - **關卡 C｜幾何選擇**：探討費米子如何加強、削弱或改變由因果集重力作用量（Causal Set Action）驅動的幾何選擇，而非將全部壓低責任交給物質相位。
-- **關卡 D｜湧現時空與重力**：從偏序、計數和有效傳播重建維度、距離、固有時間、勞侖茲對稱與廣義相對論極限。
+- **關卡 D｜湧現時空與重力（Issue 4）**：概念上拆分為兩部分：
+  - **D1 Emergent Spacetime Kinematics**：dimension、Lorentzian signature、null cone、finite invariant speed、Lorentz invariance、proper time。
+  - **D2 Emergent Gravity**：curvature、equivalence principle、gravitational dynamics、GR/Einstein-equation limit。
 - **關卡 E｜可否證預測**：算出有限事件密度或非局域核造成的第一個可測修正，並通過既有高精度實驗限制。
 
 ### 10.4 下一個最小工作包（已於 v1.1 測試台完成基礎，下一步修訂中）
