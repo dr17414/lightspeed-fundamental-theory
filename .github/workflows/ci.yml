@@ -27,3 +27,4 @@ jobs:
     - name: Run regression tests
       run: |
         python tests/test_appendix_b.py
+        python tests/test_gate_a_testbed.py

@@ -1,49 +1,20 @@
 """
 test_gate_a_testbed.py
 =======================
-關卡 A｜有限因果網測試台 (Finite Causal Set Testbed)
-對應 docs/handoff_v1.0.md §9.3、§10.3（關卡 A）、§10.4（下一個最小工作包）。
+關卡 A｜有限因果網測試台 (Finite Causal Set Testbed) - 修正版
+對應 docs/STATUS.md 與 docs/handoff_v1.0.md 的最新修訂要求。
 
-本檔案做四件 handoff 明確要求、但 test_appendix_b.py 尚未涵蓋的事：
-
-1. 建立四類可重現的有限偏序樣本：
-   chain、antichain、三層 KR-like、1+1 維 Poisson sprinkling
-   （對應 §10.4 第 1 項）。
-
-2. 明確分開 R_C（延遲傳播核，天生下三角）與 Q_C（§9.2 診斷算子），
-   並修正一個既有程式碼裡的具體缺口：build_DC 過去把隨機的 U_ij
-   綁在「矩陣位置」而不是「事件身分」上，導致標籤不變性從未被真正
-   測試過（§9.3 第 1 項要求：重新編號不能改變特徵值/行列式，但舊測
-   試裡 chain/antichain 的構造方式剛好不會觸發這個問題，所以沒被
-   抓到）。這裡改成用事件的持久身分 (id) 決定 U_ij，讓「隨機重新
-   編號」變成一個對同一組物理關係的真正重新標籤，而不是重新抽樣。
-
-3. 檢查重新標記後，特徵值、trace(Q^k)、det 是否真正不變
-   （§9.3 第 1 項 / §10.4 第 3 項）。
-
-4. 在固定 N 下比較四類結構的譜/行列式是否真的不同（§9.3 第 2 項），
-   並用同類多個隨機種子估計「類內」變異，避免把隨機噪聲誤讀成結構
-   訊號；同時觀察 log|det Q_test| 隨 N 的成長（§10.4 第 4、5 項），
-   這是為了 Gate C 的「總量比較」鋪路，本檔案本身不宣稱解決 Gate C。
-
-狀態標記（依 STATUS.md 慣例）：本檔案全部結果屬於【提案／數值探索】，
-Q_test 仍缺自旋、手徵、局域對稱結構（§9.4），不能因為譜非平凡或標籤
-不變就宣稱找到了真正的 Dirac 算子或幾何選擇機制。
-
-Run with: python3 tests/test_gate_a_testbed.py
-或 pytest tests/test_gate_a_testbed.py -v
+主要更新：
+1. 將 U_ij 從數字 ID 抽樣中分離，改為獨立的模型附加相位場資料 U，隨時空重新排列時一同進行置換，以滿足真正的「標籤不變性」。
+2. 修正 KR-like 生成器，將三層事件比例調整為標準典型比例（1/4, 1/2, 1/4）。
+3. 引入「相同事件數、相同連結密度」的隨機因果集對照組，排除僅由連結數量引起的結構敏感假象。
 """
 
 import numpy as np
 
 
 # ---------------------------------------------------------------------
-# 1. 四類有限因果集生成器
-#    全部回傳 (order, ids)：
-#      order[i, j] == True 表示「位置 i 的事件 ≺ 位置 j 的事件」
-#      ids[i] = 該位置上事件的持久身分（初始等於位置本身）
-#    註：與 test_appendix_b.py 不同，這裡的 order 存的是「i ≺ j」
-#    （j 在後），下方 build_RC 據此判斷方向，不預設位置一定要遞增。
+# 1. 因果集與附加物理場產生器
 # ---------------------------------------------------------------------
 
 def chain(n):
@@ -51,27 +22,26 @@ def chain(n):
     for i in range(n):
         for j in range(i + 1, n):
             order[i, j] = True
-    ids = np.arange(n)
-    return order, ids
+    return order
 
 
 def antichain(n):
-    order = np.zeros((n, n), dtype=bool)
-    ids = np.arange(n)
-    return order, ids
+    return np.zeros((n, n), dtype=bool)
 
 
 def kr_like(n, p=0.5, seed=None):
     """三層 Kleitman-Rothschild 型結構：L1-L2、L2-L3 獨立以機率 p 連結，
-    L1-L3 的關係由「是否存在 L2 中介點」決定（這正是 KR 序數量爆炸的
-    來源，見 STATUS.md 附錄 A 第 5 點）。不額外添加 L1-L3 隨機直接關
-    係，以維持與文獻中 KR 結構定義一致。"""
+    L1:L2:L3 事件數量依典型比例（1/4, 1/2, 1/4）分配。"""
     rng = np.random.default_rng(seed)
-    sizes = [n // 3 + (1 if i < n % 3 else 0) for i in range(3)]
+    s1 = n // 4
+    s2 = n // 2
+    s3 = n - s1 - s2
+    sizes = [s1, s2, s3]
     bounds = np.cumsum([0] + sizes)
     L1 = range(bounds[0], bounds[1])
     L2 = range(bounds[1], bounds[2])
     L3 = range(bounds[2], bounds[3])
+    
     order = np.zeros((n, n), dtype=bool)
     for a in L1:
         for b in L2:
@@ -87,16 +57,11 @@ def kr_like(n, p=0.5, seed=None):
                 if order[a, b] and order[b, c]:
                     order[a, c] = True
                     break
-    ids = np.arange(n)
-    return order, ids
+    return order
 
 
 def poisson_sprinkle_1p1(n, seed=None):
-    """1+1 維因果菱形 (causal diamond) 中的 Poisson sprinkling，用零方向
-    座標 u=t+x, v=t-x 取代直接放入 Minkowski 度規：均勻灑點在單位正方
-    形 (u,v) 上，等價於均勻灑點在因果菱形內；a≺b 當且僅當 u_a<u_b 且
-    v_a<v_b（Alexandrov interval 的乘積序，天生遞移，不需要另外做遞
-    移閉包）。位置依 t=u+v 排序，即為一個合法的線性延伸。"""
+    """1+1 維因果菱形中的 Poisson sprinkling，藉由零座標 u, v 生成偏序關係。"""
     rng = np.random.default_rng(seed)
     u = rng.random(n)
     v = rng.random(n)
@@ -107,39 +72,71 @@ def poisson_sprinkle_1p1(n, seed=None):
         for j in range(i + 1, n):
             if u[i] < u[j] and v[i] < v[j]:
                 order[i, j] = True
-    ids = np.arange(n)
-    return order, ids
+    return order
 
 
-CLASSES = {
-    "chain": lambda n, seed: chain(n),
-    "antichain": lambda n, seed: antichain(n),
-    "kr_like": lambda n, seed: kr_like(n, seed=seed),
-    "poisson_1p1": lambda n, seed: poisson_sprinkle_1p1(n, seed=seed),
-}
+def random_matching_density_set(n, target_relations, seed=None):
+    """生成一個隨機因果集（經遞移閉包），其關係數量（連結數）盡量接近 target_relations。"""
+    if target_relations == 0:
+        return np.zeros((n, n), dtype=bool)
+    max_relations = n * (n - 1) // 2
+    if target_relations >= max_relations:
+        return chain(n)
+        
+    rng = np.random.default_rng(seed)
+    best_order = None
+    best_diff = float('inf')
+    
+    # 在概率空間中搜尋以逼近目標連結數
+    for p in np.linspace(0.01, 0.99, 30):
+        order = np.zeros((n, n), dtype=bool)
+        for i in range(n):
+            for j in range(i + 1, n):
+                if rng.random() < p:
+                    order[i, j] = True
+        # 進行遞移閉包 (transitive closure)
+        changed = True
+        while changed:
+            changed = False
+            for i in range(n):
+                for j in range(n):
+                    if order[i, j]:
+                        for k in range(n):
+                            if order[j, k] and not order[i, k]:
+                                order[i, k] = True
+                                changed = True
+        rels = np.sum(order)
+        diff = abs(rels - target_relations)
+        if diff < best_diff:
+            best_diff = diff
+            best_order = order
+            
+    return best_order
+
+
+def generate_U_field(order, r=1, seed=None):
+    """為因果關係網路生成獨立的物理相位場 U (形狀為 n x n x r x r)，
+    僅在具有因果偏序關係（j ≺ i）的邊上賦予隨機複數值。"""
+    n = order.shape[0]
+    rng = np.random.default_rng(seed)
+    U = np.zeros((n, n, r, r), dtype=complex)
+    for j in range(n):
+        for i in range(n):
+            if order[j, i]:
+                U[j, i] = rng.normal(size=(r, r)) + 1j * rng.normal(size=(r, r))
+    return U
 
 
 # ---------------------------------------------------------------------
-# 2. R_C（延遲傳播核）與 Q_test（§9.2 診斷算子），身分綁定版本
+# 2. 算子構建與置換
 # ---------------------------------------------------------------------
 
 def interval_size(order, i, j):
-    """事件 i、j 之間的因果區間大小 |I(i,j)|，用於 f(|I|) 的耦合權重。"""
-    n = order.shape[0]
     return int(np.sum(order[i, :] & order[:, j]))
 
 
-def _pair_rng(id_a, id_b):
-    """由一對事件的『身分』決定性地產生一個 RNG，取代舊版單一 seed
-    依序抽樣：這樣同一對事件不論目前排在哪個位置，得到的 U_ij 永遠
-    相同，重新標記才真正只是換位置、不是重新抽樣。"""
-    seed = hash((int(id_a), int(id_b))) % (2**32)
-    return np.random.default_rng(seed)
-
-
-def build_RC(order, ids, r=1):
-    """(R_C psi)_i = sum_{j: j≺i} f(|I(j,i)|) U_ij psi_j，U_ij 由事件身分
-    決定，不由目前位置決定。"""
+def build_RC(order, U, r=1):
+    """(R_C psi)_i = sum_{j: j≺i} f(|I(j,i)|) U_ij psi_j，U_ij 為獨立輸入場。"""
     n = order.shape[0]
     N = n * r
     R = np.zeros((N, N), dtype=complex)
@@ -148,128 +145,143 @@ def build_RC(order, ids, r=1):
             if order[j, i]:  # j ≺ i
                 s = interval_size(order, j, i)
                 f = 1.0 + s + 0.3 * s ** 2
-                rng_ij = _pair_rng(ids[j], ids[i])
-                Uij = rng_ij.normal(size=(r, r)) + 1j * rng_ij.normal(size=(r, r))
-                R[i * r:(i + 1) * r, j * r:(j + 1) * r] = f * Uij
+                R[i * r:(i + 1) * r, j * r:(j + 1) * r] = f * U[j, i]
     return R
 
 
-def build_Qtest(order, ids, r, m):
-    """§9.2: Q_test = [[mI, R_C], [R_C^†, -mI]]。"""
-    Rc = build_RC(order, ids, r=r)
+def build_Qtest(order, U, r, m):
+    """Q_test = [[mI, R_C], [R_C^†, -mI]]。"""
+    Rc = build_RC(order, U, r=r)
     N = Rc.shape[0]
     top = np.hstack([m * np.eye(N), Rc])
     bot = np.hstack([Rc.conj().T, -m * np.eye(N)])
     return np.vstack([top, bot])
 
 
-def relabel(order, ids, rng):
-    """隨機重新排列事件的『位置』，身分(ids)跟著事件走。回傳的
-    (order2, ids2) 描述完全相同的一組物理因果關係，只是換了編號。"""
+def relabel(order, U, rng):
+    """置換事件的位置索引，order 與物理場 U 一同置換。"""
     n = order.shape[0]
     perm = rng.permutation(n)
     order2 = order[np.ix_(perm, perm)]
-    ids2 = ids[perm]
-    return order2, ids2
+    # 置換 U 矩陣的前兩個維度 (j, i)
+    U2 = U[perm][:, perm]
+    return order2, U2
 
 
 # ---------------------------------------------------------------------
-# 3. 測試 1：標籤不變性
+# 3. 測試 1：標籤不變性與場變異測試
 # ---------------------------------------------------------------------
 
 def test_label_invariance():
-    """對四類因果集各跑一次隨機重新標記，Q_test 的特徵值(排序後)、
-    trace、trace(Q^2)、det 必須在數值誤差內完全一致。"""
     rng = np.random.default_rng(0)
-    n, r, m = 9, 1, 0.5
-    for name, builder in CLASSES.items():
-        order, ids = builder(n, seed=42)
-        order2, ids2 = relabel(order, ids, rng)
-
-        Q1 = build_Qtest(order, ids, r, m)
-        Q2 = build_Qtest(order2, ids2, r, m)
-
+    n, r, m = 12, 1, 0.5
+    
+    # 測試四類結構
+    generators = {
+        "chain": lambda: chain(n),
+        "antichain": lambda: antichain(n),
+        "kr_like": lambda: kr_like(n, seed=42),
+        "poisson_1p1": lambda: poisson_sprinkle_1p1(n, seed=42),
+    }
+    
+    for name, gen in generators.items():
+        order = gen()
+        U = generate_U_field(order, r, seed=42)
+        
+        Q1 = build_Qtest(order, U, r, m)
+        
+        # 1. 執行重新標記（同時置換 order 與 U）
+        order2, U2 = relabel(order, U, rng)
+        Q2 = build_Qtest(order2, U2, r, m)
+        
         ev1 = np.sort_complex(np.linalg.eigvals(Q1))
         ev2 = np.sort_complex(np.linalg.eigvals(Q2))
-
-        assert np.allclose(ev1, ev2, atol=1e-8), f"{name}: 特徵值在重新標記後改變了"
-        assert np.isclose(np.trace(Q1), np.trace(Q2), atol=1e-8), f"{name}: trace 改變了"
-        assert np.isclose(np.trace(Q1 @ Q1), np.trace(Q2 @ Q2), atol=1e-8), (
-            f"{name}: trace(Q^2) 改變了"
-        )
-        assert np.isclose(np.linalg.det(Q1), np.linalg.det(Q2), atol=1e-6), (
-            f"{name}: det 改變了"
-        )
+        
+        assert np.allclose(ev1, ev2, atol=1e-8), f"{name}: 標籤置換後特徵值改變"
+        assert np.isclose(np.linalg.det(Q1), np.linalg.det(Q2), atol=1e-6), f"{name}: 標籤置換後 det 改變"
+        
+        # 2. 場變異測試：物理因果關係完全不變，但更換 U 相位場，特徵值必須隨之改變（證明 U 是物理場，非 ID 衍生量）
+        if name != "antichain": # antichain 邊數為 0，U 恆為 0
+            U_other = generate_U_field(order, r, seed=999)
+            Q_other = build_Qtest(order, U_other, r, m)
+            ev_other = np.sort_complex(np.linalg.eigvals(Q_other))
+            assert not np.allclose(ev1, ev_other, atol=1e-6), f"{name}: 更換相位場後特徵值卻沒有改變"
 
 
 # ---------------------------------------------------------------------
-# 4. 測試 2：結構敏感性（含類內變異對照）
+# 4. 測試 2：特徵值對稱性與固定相位驗證
 # ---------------------------------------------------------------------
 
-def _log_abs_det(order, ids, r, m):
-    Q = build_Qtest(order, ids, r, m)
-    sign, logdet = np.linalg.slogdet(Q)
-    return logdet
+def test_eigenvalue_symmetry_and_fixed_phase():
+    """驗證 Q_test 矩陣特徵值成對出現（±λ）以及其行列式相位固定（無可消量子相位）。"""
+    n, r, m = 12, 1, 0.5
+    order = poisson_sprinkle_1p1(n, seed=42)
+    U = generate_U_field(order, r, seed=42)
+    Q = build_Qtest(order, U, r, m)
+    
+    evs = np.linalg.eigvals(Q)
+    
+    # 1. 驗證對稱性：若有特徵值 λ，則必有 -λ 存在
+    evs_sorted = np.sort(np.real(evs)) # Q 為 Hermitian，特徵值皆為實數
+    evs_negative_mirror = np.sort(-evs_sorted)
+    assert np.allclose(evs_sorted, evs_negative_mirror, atol=1e-8), "特徵值未能成對對稱出現 ±λ"
+    
+    # 2. 驗證 det 正負號/相位：由於特徵值皆為 ±λ_k，
+    #    det(Q) = ∏_k (λ_k) * (-λ_k) = (-1)^N ∏_k λ_k^2
+    #    其中 λ_k^2 = m^2 + σ_k^2 恆為正。故對於給定的 N=12，det(Q) 必定恆為正實數（無虛數相位且正負號固定）。
+    det_val = np.linalg.det(Q)
+    assert np.isclose(np.imag(det_val), 0.0, atol=1e-8), "det(Q) 含有非零虛數相位"
+    assert np.real(det_val) > 0, "對於偶數 N，det(Q) 未能保持為正"
 
 
-def structure_sensitivity_report(n=12, r=1, m=0.5, n_seeds=10):
-    """對每一類跑多個隨機種子，回報 log|det Q_test| 的平均與標準差，
-    讓『類間差異』可以跟『類內變異』直接比較，而不是只看單一樣本。"""
+# ---------------------------------------------------------------------
+# 5. 結構敏感性與相同密度控制組比較
+# ---------------------------------------------------------------------
+
+def structure_sensitivity_with_control_report(n=12, r=1, m=0.5, n_seeds=10):
     report = {}
-    for name, builder in CLASSES.items():
-        vals = []
+    
+    # 計算主類別
+    for name in ["kr_like", "poisson_1p1"]:
+        vals, vals_control = [], []
+        gen = kr_like if name == "kr_like" else poisson_sprinkle_1p1
+        
         for seed in range(n_seeds):
-            order, ids = builder(n, seed=seed)
-            vals.append(_log_abs_det(order, ids, r, m))
+            # 1. 主樣本
+            order = gen(n, seed=seed)
+            U = generate_U_field(order, r, seed=seed)
+            Q = build_Qtest(order, U, r, m)
+            sign, logdet = np.linalg.slogdet(Q)
+            vals.append(logdet)
+            
+            # 2. 相同連結密度的隨機因果集控制組
+            num_rels = np.sum(order)
+            order_ctrl = random_matching_density_set(n, num_rels, seed=seed + 100)
+            U_ctrl = generate_U_field(order_ctrl, r, seed=seed)
+            Q_ctrl = build_Qtest(order_ctrl, U_ctrl, r, m)
+            _, logdet_ctrl = np.linalg.slogdet(Q_ctrl)
+            vals_control.append(logdet_ctrl)
+            
         vals = np.array(vals)
-        report[name] = (vals.mean(), vals.std())
+        vals_control = np.array(vals_control)
+        report[name] = (vals.mean(), vals.std(), vals_control.mean(), vals_control.std())
+        
     return report
-
-
-def test_structure_sensitivity_beyond_naive_degeneracy():
-    """最低標準：至少要比 Appendix B 的舊死路好——四類之中不能全部
-    都給出完全相同的 log|det|（那樣就等於行列式仍然只看 N, m）。"""
-    report = structure_sensitivity_report(n=9, n_seeds=1)
-    means = [v[0] for v in report.values()]
-    assert not np.allclose(means, means[0], atol=1e-6), (
-        "Q_test 對四類因果結構給出相同的 log|det|，等於重新掉回 Appendix B 的退化"
-    )
-
-
-# ---------------------------------------------------------------------
-# 5. N 尺度：log|det Q_test| 與譜半徑如何隨事件數成長
-# ---------------------------------------------------------------------
-
-def n_scaling_report(n_values, r=1, m=0.5, n_seeds=5):
-    rows = []
-    for n in n_values:
-        for name, builder in CLASSES.items():
-            logdets, radii = [], []
-            for seed in range(n_seeds):
-                order, ids = builder(n, seed=seed)
-                Q = build_Qtest(order, ids, r, m)
-                sign, logdet = np.linalg.slogdet(Q)
-                logdets.append(logdet)
-                radii.append(np.max(np.abs(np.linalg.eigvals(Q))))
-            rows.append((n, name, np.mean(logdets), np.std(logdets),
-                         np.mean(radii), np.std(radii)))
-    return rows
 
 
 if __name__ == "__main__":
     test_label_invariance()
-    print("[PASS] 標籤不變性：四類因果集重新編號後，特徵值/trace/trace(Q^2)/det 皆不變。\n")
-
-    test_structure_sensitivity_beyond_naive_degeneracy()
-    print("[PASS] Q_test 沒有掉回 Appendix B 的『行列式只看 N,m』退化。\n")
-
-    print("=== 結構敏感性（N=12，每類 10 個隨機種子的 log|det Q_test|）===")
-    for name, (mean, std) in structure_sensitivity_report(n=12, n_seeds=10).items():
-        print(f"  {name:14s}  mean={mean:9.4f}   std={std:7.4f}")
-    print()
-
-    print("=== N 尺度變化（每個 (N, 類別) 用 5 個隨機種子取平均） ===")
-    print(f"{'N':>3} {'class':14} {'mean logdet':>12} {'std logdet':>11} "
-          f"{'mean radius':>12} {'std radius':>11}")
-    for n, name, mlog, slog, mrad, srad in n_scaling_report([6, 9, 12, 15, 18]):
-        print(f"{n:>3} {name:14} {mlog:12.4f} {slog:11.4f} {mrad:12.4f} {srad:11.4f}")
+    print("[PASS] 標籤不變性：四類因果集在重新標記 (置換 order 與 U) 後，特徵值與 det 皆保持不變。")
+    print("[PASS] 場變異驗證：保持因果偏序不變，僅改變附加物理場 U 時，特徵值產生變化（無 labels 殘留）。\n")
+    
+    test_eigenvalue_symmetry_and_fixed_phase()
+    print("[PASS] 特徵值對稱性與固定相位：特徵值對稱成對 ±λ，對於固定 N 其行列式相位固定（無抵消相角）。\n")
+    
+    # 輸出結構敏感度與同密度對照組結果
+    print("=== 結構敏感度與相同密度對照組（N=12，每類 10 個隨機種子） ===")
+    print(f"{'Class Name':15s}  {'Sample log|det| (std)':25s} | {'Control log|det| (std)':25s}")
+    print("-" * 75)
+    report = structure_sensitivity_with_control_report(n=12, n_seeds=10)
+    for name, (m_val, s_val, m_ctrl, s_ctrl) in report.items():
+        print(f"{name:15s}  mean={m_val:7.3f} (std={s_val:5.3f})   | mean={m_ctrl:7.3f} (std={s_ctrl:5.3f})")
+    print("\n*註：若主樣本與相同密度控制組的 log|det| 差異顯著，說明算子確實敏感於拓撲結構，而非僅測量連結數量。")

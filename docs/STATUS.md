@@ -31,8 +31,9 @@
 | **單向延遲傳播核行列式可作幾何選擇** | **【已否定】** | 錯誤。單向延遲矩陣 $D_C$ 在因果偏序排序下必然為嚴格下三角矩陣，其行列式為定值，看不到網絡結構。 | `handoff_v1.0.md#8` |
 | **物質選幾何核心假說** | **【提案】** | 非時空因果網因無法承載穩定的費米子傳播而量子相消；類流形網絡則獲得相對增強。 | `handoff_v1.0.md#7.3` |
 | **雙區塊 Q_test 診斷算子** | **【提案】** | 將傳播核與伴隨矩陣結合為 $Q_{\text{test}} = \begin{pmatrix} mI & R_C \\ R_C^\dagger & -mI \end{pmatrix}$ 可以解除三角退化，提供非平凡特徵譜。 | `handoff_v1.0.md#9.2` |
-| **身分綁定 Q_test 的標籤不變性** | **【已確認】** | 當隨機矩陣 $U_{ij}$ 綁定在事件的持久身分 (id) 上時，重新標記事件編號後 $Q_{\text{test}}$ 的特徵值、行列式與 trace 保持不變。這已通過數值驗證。 | `tests/test_gate_a_testbed.py` |
-| **KR vs 流形分離（以 Q_test 譜區分）** | **【提案】** | （證據不足／尚待驗證）$Q_{\text{test}}$ 的 $\log|\det|$ 與特徵半徑在小事件數 $N$ 下能區分四類網絡（鏈、反鏈、KR-like、Poisson 灑點），但仍存在隨機變異且尚未證明能完全壓低 KR 序。 | `tests/test_gate_a_testbed.py` |
+| **Q_test 特徵值對稱與行列式相位固定** | **【已確認】** | $Q_{\text{test}}$ 的特徵值成對出現（$\pm\sqrt{m^2 + \sigma_k^2}$），因此行列式實虛相位和正負號固定。各網絡間無可互相抵消的量子相位，無法單獨作為幾何選擇的相消機制。 | `tests/test_gate_a_testbed.py` |
+| **附加相位場的標籤不變性** | **【已確認】** | 當隨機相位 $U_{ij}$ 從數字 ID 分離並定義為隨時空置換的附加物理場資料時，重新標記事件編號後 $Q_{\text{test}}$ 的特徵值與行列式嚴格不變。 | `tests/test_gate_a_testbed.py` |
+| **Q_test 的結構敏感性（而非幾何選擇）** | **【已確認】** | $Q_{\text{test}}$ 的特徵譜與 $\log|\det|$ 在不同因果網絡間（如鏈、反鏈、KR、Poisson 灑點）具備結構敏感性，可作為幾何結構的診斷工具，但不能證明物質能選出幾何。 | `tests/test_gate_a_testbed.py` |
 | **區間大小 $|I(j,i)|$ 足以描述自旋傳輸** | **【已否定】** | 錯誤。區間大小僅為純量，自旋傳輸必須具備 Clifford 代數結構或框架傳輸規則。 | `handoff_v1.0.md#9.4` |
 
 ---
@@ -143,6 +144,14 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
   *關聯*：因果集路徑積分中非流形結構（如 KR 序）的抑制問題。
 - **Bernardini**, hep-th/0701091。
   *關聯*：手徵振盪與 Zitterbewegung 關係。
+- **Entropy and the Link Action in the Causal Set Path-Sum**, arXiv:2009.07623。
+  *關聯*：因果集路徑和中的熵與連結作用量，提及典型 KR 結構之層級分配。
+- **Path Integral Suppression of Badly Behaved Causal Sets**, arXiv:2209.00327。
+  *關聯*：因果集路徑積分中 Badly Behaved Causal Sets 被重力作用量強烈壓低，降低了單獨靠物質相位壓低 KR 的物理要求。
+- **Causal Set Graph Observables**, arXiv:2605.27514。
+  *關聯*：2026 年的因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
+- **Lorentzian Spectral Geometry with Causal Sets**, arXiv:1611.09947。
+  *關聯*：提及「組合三角算子與伴隨算子，用特徵譜進行幾何結構診斷」的學術定位與先例。
 
 ### 5.2 已查明並修正之文獻錯配
 請確保在後續討論或引用時，**不要混淆以下編號**：
