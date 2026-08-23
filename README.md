@@ -23,6 +23,9 @@
 ├── LICENSE-CODE            # 程式碼授權條款 (MIT License)
 ├── LICENSE-DOCS            # 文件內容授權條款 (CC-BY-4.0 License)
 ├── docs/
+│   ├── foundations/        # Layer 0：前時空基礎假說層
+│   │   ├── README.md       # 基礎假說層目錄索引
+│   │   └── invariant_projection_hypothesis.md # 前時空不變量／投影假說提案
 │   ├── handoff_v1.0.md     # 完整交接文件（本 repo 的「事實來源」）
 │   └── STATUS.md           # 常駐更新的【已知/已確認/提案/已否定】結論與附錄速查表
 ├── tests/
