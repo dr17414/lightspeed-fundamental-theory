@@ -239,7 +239,11 @@ $|I(j,i)|$（事件 $j$ 與 $i$ 之間的因果區間大小）只是一個純量
 
 ### 10.3 接下來的六道關卡
 本專案的長遠發展分為以下階段，在 GitHub 中已對應建立為 Issues 進行追蹤（Gate 0 作為前置奠基，Gate D 在概念上拆分為 D1/D2，可保留既有 Issue 編號，在 Issue 4 內或子文件中明確標示）：
-- **關卡 0｜Kinematic Selection**：核心問題是探討為什麼從一般 relativity-without-light 運動學可能性中選出 Lorentzian 而非 Euclidean signature？為什麼選出有限 invariant causal speed，而非 Galilean $K=0$？詳見 [kinematic_selection.md](file:///c:/Users/dr174/Desktop/光速基礎宇宙論/docs/foundations/kinematic_selection.md)。
+- **關卡 0｜Kinematic Selection**：核心問題是探討為什麼從一般 relativity-without-light 運動學可能性中選出 Lorentzian 而非 Euclidean signature？為什麼選出有限 invariant causal speed，而非 Galilean $K=0$？詳見 [kinematic_selection.md](file:///c:/Users/dr174/Desktop/光速基礎宇宙論/docs/foundations/kinematic_selection.md)。包含以下子研究架構：
+  - **Gate 0A**：Relativity-without-light / kinematic classification
+  - **Gate 0B**：Can causality exclude Euclidean-signature branch K<0?
+  - **Gate 0C**：Can Galilean K=0 be excluded under causal-order invariance, local finiteness and additional physical assumptions? (目前為提案／條件式論證，尚未證明)
+  - **Gate 0C'**：Geometry leakage / amplitude / dynamical-dimension diagnostics
 - **關卡 A｜有限因果網測試台**：建立 chain、antichain、三層 KR 類以及 Poisson sprinkled 因果集，定義候選 $Q_C$，檢查標籤不變、非三角退化與譜差異。
 - **關卡 B｜重現已知粒子**：先在接近 1+1 維流形的因果集上回復 Dirac 傳播，再處理 3+1 維、自旋與手徵。
 - **關卡 C｜幾何選擇**：探討費米子如何加強、削弱或改變由因果集重力作用量（Causal Set Action）驅動的幾何選擇，而非將全部壓低責任交給物質相位。

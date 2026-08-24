@@ -23,3 +23,30 @@
 ## 4. 當前共識與研究學風
 - **誠實與透明**：我們不將「探索性筆記」包裝為已發表的物理成果。目前專案尚無任何完整理論，僅處於「可行性驗證與玩具模型階段」，並已確立數個具體死路。
 - **歡迎挑戰**：我們將本專案公開在 GitHub，期望任何人都能隨時指出「這在某某論文中已做過」或「這在數學上不成立」，這比將討論留在私人對話中更具科學價值。
+
+## 5. 數值協作的經驗教訓 (Numerical Collaboration Lessons)
+
+在專案開發過程中，我們如實記錄了以下四個曾發生的數值與邏輯問題，這也是多模型交叉檢查（Multi-model cross-checking）在研究中發揮作用的體現：
+1. **零模誤判問題**：在早期的特徵譜分析中，因使用了不適當的 relative threshold（相對閾值），將正常的小特徵值（eigenvalues）誤判為結構性的「真零模」或代數零模。
+2. **數據矛盾問題**：在同一份分析報告中，曾出現兩張互相矛盾的數據表格，但在初稿產出時未能立即察覺。
+3. **區間豐度常數實作錯誤**：在 interval abundance 的 normalization / convention 實作中，曾誤用不一致的常數定義，導致無法與文獻基準對齊。
+4. **遞移閉包溢位問題**：在 transitive closure 的計數中，曾因使用 `int8` 數據類型導致 path-count overflow，從而產生錯誤的偏序關係與結構分析。
+
+多模型的交叉比對與獨立演算法重構，成功阻止了這些錯誤數值結果被盲目升格為物理學詮釋。
+
+---
+
+## 6. 研究紀律與防線規範
+
+為了維持研究的嚴謹性，本專案確立以下兩大鐵律：
+
+### 數值驗證鐵律 (Numerical Validation Rule)
+任何數值結果在進行物理詮釋或理論設計之前，必須**至少通過以下三項檢查**：
+1. **內部一致性檢查 (Internal Consistency Check)**：如檢查代數恆等式（例如 $\text{rank}(R R^\dagger) = \text{rank}(R)$，若浮點數有誤差應明確標記為 `numerical rank loss after squaring`而非 `structural nullity`）。
+2. **極限與精確解對齊 (Limiting / Exactly-solvable-case Check)**：在已知極限（如連續極限、平直時空）下， discrete operator 必須退化回已知物理值。
+3. **獨立演算法交叉驗證 (Independent Algorithmic Cross-check)**：同一個指標必須由兩個獨立編寫的演算法進行驗證，能寫成自動測試的則納入 CI 自動化驗收。
+
+### 文獻校準鐵律 (Literature Calibration Rule)
+1. **禁止過度升格**：不得將學術文獻中的「approximately / roughly / consistent with」等模糊表述，自行升格為精確的數值驗收條件（例如 3D 的 fluctuation exponent 收斂速度應作為實測觀察值，而非精確的文獻驗收指標）。
+2. **禁止因合理而省略檢驗**：不得因為數值結果「看起來很合理」而跳過原始文獻的精確公式對照與獨立基準（benchmark）對齊。驗收標準的嚴謹程度，完全由原始文獻實際聲稱的內容決定。
+

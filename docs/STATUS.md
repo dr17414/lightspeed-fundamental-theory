@@ -21,7 +21,7 @@
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
 
-| 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 |
+| 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
 | **光狀虛歷史量子總和可表現有質量傳播** | **【已知】** | 在 1+1 維 Feynman Checkerboard 模型中，以光速前進的鋸齒路徑經疊加後可重現 Dirac 傳播子。 | `handoff_v1.0.md#4.1` |
 | **因果集 Order + Number = Geometry** | **【已知】** | 離散因果偏序關係加上事件數量可以對應時空幾何，且其隨機離散化與勞侖茲對稱相容。 | `handoff_v1.0.md#4.5` |
@@ -29,7 +29,7 @@
 | **質量是客觀的折返頻率或次數** | **【已否定】** | 錯誤。質量是 Dirac 方程中手徵通道混合的複數振幅演化參數，不能解釋為真實折返事件。 | `handoff_v1.0.md#4.3` |
 | **Checkerboard 鋸齒是電子真實軌跡** | **【已否定】** | 錯誤。這些鋸齒路徑是路徑積分中的虛歷史疊加，不代表粒子真實運動軌跡。 | `handoff_v1.0.md#4.1` |
 | **單向延遲傳播核行列式可作幾何選擇** | **【已否定】** | 錯誤。單向延遲矩陣 $D_C$ 在因果偏序排序下必然為嚴格下三角矩陣，其行列式為定值，看不到網絡結構。 | `handoff_v1.0.md#8` |
-| **物質選幾何核心假說** | **【提案】** | 非時空因果網因無法承載穩定的費米子傳播而量子相消；類流形網絡則獲得相對增強。 | `handoff_v1.0.md#7.3` |
+| **物質選幾何核心假說** | **【提案，範圍已限縮】** | 非時空因果網因無法承載穩定的費米子傳播而量子相消；類流形網絡則獲得相對增強。**注意**：此假說原本設想的機制（費米子行列式的相消相位壓低 KR）已因下一列「Q_test 特徵值對稱與行列式相位固定」而受限——任何 BdG 型算子 $\begin{pmatrix} mI & R\\ R^\dagger & -mI \end{pmatrix}$ 在代數結構上都不可能提供可相消的複數相位，這與 $R$ 內部裝的具體因果結構無關（已用任意隨機 $R$ 驗證）。因此本假說若要以「相位相消」的原始形式成立，需要換一種不是這個對稱形狀的候選算子；目前 Gate C 已改為聚焦「費米子如何與因果集重力作用量互動」，不再單靠費米子相位獨立相消。 | `handoff_v1.0.md#7.3`, `tests/test_gate_a_testbed.py` |
 | **雙區塊 Q_test 診斷算子** | **【提案】** | 將傳播核與伴隨矩陣結合為 $Q_{\text{test}} = \begin{pmatrix} mI & R_C \\ R_C^\dagger & -mI \end{pmatrix}$ 可以解除三角退化，提供非平凡特徵譜。 | `handoff_v1.0.md#9.2` |
 | **Q_test 特徵值對稱與行列式相位固定** | **【已確認】** | $Q_{\text{test}}$ 的特徵值成對出現（$\pm\sqrt{m^2 + \sigma_k^2}$），因此行列式實虛相位和正負號固定。各網絡間無可互相抵消的量子相位，無法單獨作為幾何選擇的相消機制。 | `tests/test_gate_a_testbed.py` |
 | **附加相位場的標籤不變性** | **【已確認】** | 當隨機相位 $U_{ij}$ 從數字 ID 分離並定義為隨時空置換的附加物理場資料時，重新標記事件編號後 $Q_{\text{test}}$ 的特徵值與行列式嚴格不變。 | `tests/test_gate_a_testbed.py` |
@@ -38,7 +38,13 @@
 | **Ignatowski 類無光相對論限制** | **【已知】** | 可以在不假設光速不變下限制慣性系變換；不同公理化版本假設不同，不宣稱存在唯一「公認五條最小公理」。 | `docs/foundations/kinematic_selection.md` |
 | **因果共形重建 (Malament/HKM)** | **【已知】** | 在適當條件下決定 continuum metric 的 conformal structure；Malament/HKM 是在既有 Lorentzian spacetime 類別中的重建定理，不能誤寫成「任意偏序會產生 Lorentzian spacetime」。 | `docs/foundations/kinematic_selection.md` |
 | **非平凡因果偏序排除歐氏特徵 (G0-B)** | **【提案】** | 非平凡、有一致過去/未來方向的 causal partial order 是否可以排除 Euclidean signature。 | `docs/foundations/kinematic_selection.md` |
-| **多公理融合排除伽利略極限 (G0-C)** | **【提案】** | causal order + local finiteness + number-volume correspondence + 適當均勻性/非緊緻條件，是否可以排除 Galilean K=0，從而要求有限 invariant causal speed。此提案尚未獲得證明，且 local finiteness 單獨不得寫成可推出有限 c。 | `docs/foundations/kinematic_selection.md` |
+| **多公理融合排除伽利略極限 (G0-C)** | **【提案／條件式論證】** | causal order + local finiteness + number-volume correspondence + 適當均勻性/非緊緻條件，是否可以排除 Galilean K=0，從而要求有限 invariant causal speed。此提案尚未獲得證明，且 local finiteness 單獨不得寫成可推出有限 c。 | `docs/foundations/kinematic_selection.md` |
+| **前時空不變量／投影假說** | **【提案】** | 探索事件、因果關係與量子振幅是否本身可由更底層的不變結構產生。目前沒有候選數學定義，僅作為基礎研究支線。 | `docs/foundations/invariant_projection_hypothesis.md` |
+| **Smeared causal-set d'Alembertian benchmark** | **【已確認／Benchmark】** | $B_{\epsilon}^{(2)}$ 通過 1+1D 連續極限基準驗證，符合對應 mesoscale $\xi$ 下的波動算子極限，且波動係數隨 density 上升符合 $N^{-0.6}$ 左右之收斂速度；$B_{\epsilon}^{(3)}$ 通過獨立 2+1D 基準驗證，利用已發表 3D 係數在 past cone 上順利回復 $\Box$。 | `benchmarks/b_eps_2d.py`, `benchmarks/b_eps_3d.py` |
+| **Momentum-space 2D continuum operator** | **【已確認】** | 已數值驗證 2D continuum averaged nonlocal d'Alembertian 的動量空間特徵：IR 極限下回復 continuum $\Box$，UV 極限下飽和為常數（$g \cdot \xi^2 \to -2$）。尚未進入 spectral dimension 計算，需進一步導入 regularization 與 Wick rotation。 | `analysis/gmom_2d.py` |
+| **Pure-order 診斷 (Myrheim-Meyer Profile)** | **【未證明增量價值／輔助診斷】** | 單一維度估算量不足以證明 manifold-likeness。KR 類結構的 global MM 維度可給出約 2.37 的漂亮數值，但結構非 manifold-like。scale-resolved/local MM profile 雖可做跨尺度穩定性診斷，但尚未證明其相較於 interval abundance 具有額外辨識價值。 | `benchmarks/order_bench.py`, `benchmarks/run_order_bench.py` |
+| **Q_test squared diffusion recipe** | **【已否定作為 physical diffusion generator】** | 目前無物理推導支持 $L_Q = Q_{\text{test}}^2 - m^2 I$ 可直接解釋為 causal-set geometry 的 diffusion generator。此外該構造會使數值條件數平方，嚴重破壞低端譜的浮點解析。但 $Q_{\text{test}}$ 本身仍保留為 Gate A 結構診斷工具。 | `tests/test_gate_a_testbed.py` |
+| **Hasse/link graph diffusion** | **【已否定作為目前的 continuum dimension probe】** | 全因果集 Hasse/link 圖上的擴散過程無法在閔考斯基撒點上可靠重現連續維度，此與 Lorentzian 因果集的固有非定域性相容，表明該 probe 本身不適用，而非撒點或因果集主線失敗。 | `benchmarks/order_bench.py`, `benchmarks/run_order_bench.py` |
 
 ---
 
@@ -112,7 +118,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 - **因果關係／偏序 (Partial Order)**：僅記錄事件間的先後影響關係，不能有時間回圈。
 - **量子振幅 (Amplitude)**：帶大小與相位的複數權重；所有可能性先相加再平方產生機率。
 - **波函數 (Wavefunction)**：在特定描述基底（如位置）下，將量子振幅整理成一個函數。
-- **德布羅意物質波 (de Broglie Wave)**：有動量物質在既有時空中的相位規律；不是底層振幅的同義詞。
+- **德布羅意物質波 (de Broglie Wave)**：有動量物質在既有時空中的相位規律；不是底層振幅 of same state.
 - **虛歷史 (Virtual Histories)**：路徑積分中的數學可能性，不代表粒子真實走過的路。
 - **固有時間 (Proper Time)**：跟著有質量物體的理想時鐘量到的時間；光狀路徑的固有時間為零。
 - **端點類時間隔 (Proper Interval)**：起點與終點的時空位移長度，可非零，即便每一小段都是光狀。
@@ -137,7 +143,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 - **Surya**, *Directions in Causal Set Quantum Gravity*, arXiv:1103.6272。
   *關聯*：因果集基本結構、非局域性與研究綜述。
 - **Sorkin**, arXiv:0710.1675。
-  *關聯*：宇宙常數漲落預測的啟發式成功論證。
+  *關聯*：宇宙常數裝落預測的啟發式成功論證。
 - **Sverdlov**, *Spinor fields in Causal Set Theory*, arXiv:0808.2956。
   *關聯*：因果集上的 spinor 探索；其「費米子促使流形湧現」屬推測，非已證實的行列式抑制。
 - **Noldus**, *Free Fermions on causal sets*, arXiv:1305.0443。
@@ -152,10 +158,12 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
   *關聯*：因果集路徑和中的熵與連結作用量，提及典型 KR 結構之層級分配。
 - **Path Integral Suppression of Badly Behaved Causal Sets**, arXiv:2209.00327。
   *關聯*：因果集路徑積分中 Badly Behaved Causal Sets 被重力作用量強烈壓低，降低了單獨靠物質相位壓低 KR 的物理要求。
-- **Causal Set Graph Observables**, arXiv:2605.27514。
-  *關聯*：2026 年的因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
-- **Lorentzian Spectral Geometry with Causal Sets**, arXiv:1611.09947。
-  *關聯*：提及「組合三角算子與伴隨算子，用特徵譜進行幾何結構診斷」的學術定位與先例。
+- **Eichhorn, Mack, Le & Wagner**, *Charting Causal Set Configuration Space with Graph Observables*, arXiv:2605.27514（2026）。
+  *關聯*：因果集圖觀察量研究，提供以已發表之因果集算子（如 $B$、$i(B-B^\dagger)$、圖拉普拉斯譜）作為觀察基底的參照。
+- **Yazdi, Letizia & Kempf**, *Lorentzian Spectral Geometry with Causal Sets*, arXiv:2008.02291。
+  *關聯*：計算因果矩陣衍生算子（含區塊三角算子與伴隨算子組合）的譜，並在最多 9 個事件的所有因果集上測試其分類能力——方法論與 Gate A 現階段工作高度重疊，應優先精讀。
+- **Yazdi & Kempf**, *Towards Spectral Geometry for Causal Sets*, arXiv:1611.09947。
+  *關聯*：上一篇的前身論文，證明因果矩陣衍生算子的譜具有「重新標記不變性」(relabeling invariance)，與本專案 §9.3 的標籤不變性要求直接對應，是現成的學術先例。
 - **Nicholas 2026**, arXiv:2606.25993。
   *關聯*：湧現運動學基準 (emergent kinematics benchmark)。注意其非 pre-spacetime 理論，因為已預設 $\mathbb{R}^n$ 與不變間隔函數 $D$。
 
@@ -167,7 +175,11 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 - **arXiv:1703.07556** **不是** Sorkin 原始的宇宙常數論證論文。
 - **arXiv:2111.05659** **不是** Sverdlov 的 *Spinor fields in Causal Set Theory*（該論文為 **arXiv:0808.2956**）。
 - **DOI 10.1007/s11005-021-01467-1** 對應因果費米子系統的熵 (entropy) 論文，**不是**一般性理論總覽。
+- **arXiv:1611.09947** 是 Yazdi & Kempf 的 *Towards Spectral Geometry for Causal Sets*（2016），**不是** *Lorentzian Spectral Geometry with Causal Sets*；後者的正確編號是 **arXiv:2008.02291**（Yazdi, Letizia & Kempf, 2020）。
 - **arXiv:1910.02780**：為 Dragan & Ekert 的 *Quantum principle of relativity*，**禁止**作為能量—動量關係的文獻依據。
 
 ---
-*狀態頁更新記錄：v1.1 (2026-08-24) - 新增 Gate 0 運動學選擇狀態與 Nicholas 2026 文獻、修正 arXiv:1910.02780 引用錯配。*
+*狀態頁更新記錄：*
+*v1.0 (2026-08-23) - 初始化狀態總表與附錄速查。*
+*v1.1 (2026-08-24) - 新增 Gate 0 運動學選擇狀態與 Nicholas 2026 文獻、修正 arXiv:1910.02780 引用錯配。*
+*v1.2 (2026-08-24) - 修正 arXiv:1611.09947 / 2008.02291 引用錯置（見附錄 5.2）；為「物質選幾何核心假說」補上因 Q_test 相位固定而受限的範圍註記。*

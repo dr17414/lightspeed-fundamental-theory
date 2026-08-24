@@ -15,6 +15,23 @@
 - **不宣稱**推翻或取代標準模型、廣義相對論或任何已確立的物理學。
 - **不是**「AI 發現新物理」的宣傳。本專案是人類提出物理直覺、多個 AI 系統交叉校對數學與文獻、並在大量推導被否定後留下的殘骸。詳細誕生過程請見 [專案產出過程說明 (HOW_THIS_WAS_MADE.md)](HOW_THIS_WAS_MADE.md)。
 
+## 目前研究進度 / Current Status
+### 目前已完成：
+- **Finite causal-set diagnostic testbed** (診斷測試台)
+- **Numerical validation infrastructure** (不變量與防溢位數值驗證)
+- **1+1D and 2+1D smeared causal-set d'Alembertian benchmarks** (smeared 算子連續極限校準)
+- **First continuum momentum-space calibration in 1+1D** (動量空間 IR/UV 飽和分析)
+
+### 目前正在進入：
+- **Literature-faithful regularization / spectral-dimension benchmark** (文獻一致性正則化與譜維度基準建立)
+
+### 尚未完成：
+- **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
+- **Manifold selection** (流形選擇/幾何相消機制)
+- **Emergent spacetime** (時空湧現)
+- **Gravity** (重力與愛因斯坦方程式極限)
+- **Falsifiable new prediction** (可否證的物理預測)
+
 ## 專案目錄結構 / Directory Structure
 
 ```
@@ -25,13 +42,13 @@
 ├── docs/
 │   ├── handoff_v1.0.md     # 完整交接文件（本 repo 的「事實來源」）
 │   ├── STATUS.md           # 常駐更新的【已知/已確認/提案/已否定】結論與附錄速查表
-│   └── foundations/
-│       └── kinematic_selection.md # Gate 0 入口：運動學選擇（Lorentzian 與有限 c 的選擇問題）
-├── tests/
-│   └── test_appendix_b.py  # 迴歸測試：確認已發現的數學死路持續成立，不被後續修改悄悄繞過
-└── .github/
-    └── workflows/
-        └── ci.yml          # GitHub Actions CI：自動跑測試，保障已否定的方案保持失效
+│   └── foundations/        # Layer 0 / Gate 0 基礎研究與假說層
+│       ├── README.md       # 基礎假說層目錄索引
+│       ├── invariant_projection_hypothesis.md # 前時空不變量／投影假說提案
+│       └── kinematic_selection.md             # Gate 0 入口：運動學選擇（Lorentzian 與有限 c 的選擇問題）
+├── tests/                  # 測試程式夾（含 invariants、Q_test 與迴歸測試）
+├── benchmarks/             # 基準效能與收斂驗證腳本夾（含 smeared d'Alembertian 2D/3D 與 order 驗證）
+└── analysis/               # 分析腳本夾（含 2D 動量空間運算特徵分析）
 ```
 
 ## 為什麼公開 / Why this is public
