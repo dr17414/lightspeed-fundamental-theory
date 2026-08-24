@@ -40,8 +40,8 @@
 ├── LICENSE-CODE            # 程式碼授權條款 (MIT License)
 ├── LICENSE-DOCS            # 文件內容授權條款 (CC-BY-4.0 License)
 ├── docs/
-│   ├── handoff_v1.0.md     # 完整交接文件（本 repo 的「事實來源」）
-│   ├── STATUS.md           # 常駐更新的【已知/已確認/提案/已否定】結論與附錄速查表
+│   ├── handoff_v1.0.md     # 歷史完整交接與背景文件
+│   ├── STATUS.md           # 目前研究狀態的最新事實來源 / current source of truth
 │   └── foundations/        # Layer 0 / Gate 0 基礎研究與假說層
 │       ├── README.md       # 基礎假說層目錄索引
 │       ├── invariant_projection_hypothesis.md # 前時空不變量／投影假說提案
@@ -58,6 +58,8 @@
 
 ## 如何參與與交流 / How to contribute
 - **提提案或修正**：請先閱讀 [交接文件 (docs/handoff_v1.0.md)](docs/handoff_v1.0.md) 與 [狀態表 (docs/STATUS.md)](docs/STATUS.md)。
+  > [!TIP]
+  > 新對話、新協作者或 AI 應優先閱讀 `docs/STATUS.md` 取得目前最新研究狀態，再用 `docs/handoff_v1.0.md` 補足歷史背景。
 - **進行修改**：任何修改或提案提交 PR 前，必須先通過本地的 `tests/` 迴歸測試。
 - **六道關卡 Issues**：我們使用 GitHub Issues 對應研究路線圖的「六道關卡」（含 Gate 0 前置與 Gate A~E），每個關卡都有對應的 Issue 與 Checklist（參見 Issues 頁面，Gate D 已概念拆分為 D1/D2 但保留原 Issue 4 編號）。
 - **直覺探討**：未成形的直覺、物理聯想或大膽猜想，請發布在 **GitHub Discussions**，不要與正式提案混在 Issues 或代碼庫中。
