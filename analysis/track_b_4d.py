@@ -27,6 +27,25 @@ from scipy import integrate, special
 A = -2.0
 DELTA_COEFF = 4.0 / np.pi
 
+# Below this Z the a + 8/Z + integral form is destroyed by catastrophic
+# cancellation: the 8/Z term and the integral must cancel to leave a result of
+# size Z, so by Z ~ 1e-7 the returned value has the WRONG SIGN.  It used to do
+# so silently.
+#
+# Measured relative error of this form against the closed form:
+#     Z = 1e-4  ->  1.4e-07
+#     Z = 3e-5  ->  6.5e-07
+#     Z = 1e-5  ->  7.6e-06
+#     Z = 3e-6  ->  5.1e-05
+#     Z = 1e-6  ->  6.8e-04
+#     Z = 1e-9  ->  wrong sign
+# The threshold is set where the form is still good to ~1e-7 rather than merely
+# where it stops being catastrophic; a first draft put it at 1e-6, which admits
+# results already 0.07% off.  Callers wanting the deep IR must use
+# analysis/track_b_4d_irsafe (validated to Z ~ 1e-10) or the closed form in
+# analysis/track_b_4d_analytic.
+Z_MIN_DIRECT = 1e-4
+
 
 def f_smooth(u):
     """Smooth part of Eq. (A36), with u>=0."""
@@ -48,6 +67,12 @@ def smooth_g_integral(Z):
     Z = float(Z)
     if not np.isfinite(Z) or Z <= 0.0:
         raise ValueError("stage-1 implementation is restricted to real Z>0")
+    if Z < Z_MIN_DIRECT:
+        raise ValueError(
+            f"direct integral is not usable below Z={Z_MIN_DIRECT:g} "
+            "(catastrophic cancellation between 8/Z and the integral; the "
+            "result changes sign). Use analysis.track_b_4d_irsafe.g_ir_safe "
+            "or analysis.track_b_4d_analytic.g_closed instead.")
     q = np.sqrt(Z)
 
     def integrand(s):
@@ -70,4 +95,6 @@ def g_spacelike(Z):
         return A + float(delta_g(z)) + smooth_g_integral(z)
     if np.any(~np.isfinite(Z)) or np.any(Z <= 0.0):
         raise ValueError("stage-1 implementation is restricted to real Z>0")
+    if np.any(Z < Z_MIN_DIRECT):
+        raise ValueError(f"direct integral is not usable below Z={Z_MIN_DIRECT:g}")
     return np.array([A + float(delta_g(z)) + smooth_g_integral(z) for z in Z])
