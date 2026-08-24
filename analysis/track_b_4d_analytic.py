@@ -94,7 +94,7 @@ def _ew_E1(w):
     zero, and the product comes out as nan -- which is what the first draft of
     this module did at Z = 1e4.  For large Re(w) the standard asymptotic series
     (DLMF 6.12.1) gives the product directly:
-        emw E_1(w) ~ (1/w) sum_k (-1)^k k! / w^k .
+        e^w E_1(w) ~ (1/w) sum_k (-1)^k k! / w^k .
     At Re(w) > 60 truncating at k = 20 leaves a remainder of order 1e-17, and
     the series is at its most accurate on the positive real axis, which is
     exactly where the overflow problem lives.  Near and on the cut (Re(w) < 0)
@@ -205,16 +205,12 @@ def winding_number(R=100.0, eps=1e-6, n=3000):
     the product in double precision.
     """
     lo = np.log(R / eps)
-    # 1) lower edge of the cut, from -eps outward to -R
     t = -eps * np.exp(lo * np.linspace(0.0, 1.0, n + 1))
     seg1 = t + CUT_SIDE * 1j * _I0
-    # 2) large circle, arg from -pi to +pi
     th = np.linspace(-np.pi, np.pi, 4 * n + 1)[1:]
     seg2 = R * np.exp(1j * th)
-    # 3) upper edge of the cut, from -R back in to -eps
     t = -R * np.exp(-lo * np.linspace(0.0, 1.0, n + 1))
     seg3 = t - CUT_SIDE * 1j * _I0
-    # 4) small circle at the origin, arg from +pi to -pi (clockwise)
     th = np.linspace(np.pi, -np.pi, n + 1)[1:]
     seg4 = eps * np.exp(1j * th)
 
@@ -223,7 +219,7 @@ def winding_number(R=100.0, eps=1e-6, n=3000):
     if np.any(vals == 0):
         raise ValueError("g vanishes on the contour; move R or eps")
     d = np.diff(np.angle(vals))
-    d = (d + np.pi) % (2 * np.pi) - np.pi          # unwrap step by step
+    d = (d + np.pi) % (2 * np.pi) - np.pi
     return float(d.sum() / (2 * np.pi))
 
 

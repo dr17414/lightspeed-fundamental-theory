@@ -86,10 +86,10 @@ def R(x):
 
 
 def g_ir_safe(Z):
-    """g(Z) with the Z^-1 and Z^0 terms cancel analytically."""
+    """g(Z) with the Z^-1 and Z^0 terms cancelled analytically."""
     Z = float(Z)
     if not np.isfinite(Z) or Z <= 0.0:
-        raise ValueErro("real Z > 0 only")
+        raise ValueError("real Z > 0 only")
     q = np.sqrt(Z)
     # 4 pi s^2 f_smooth(s^2) = -(24 s^2 - 12 s^4 + s^6) e^{-s^2/2}
     val, _ = integrate.quad(
