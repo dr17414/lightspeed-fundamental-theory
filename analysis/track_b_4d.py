@@ -1,7 +1,7 @@
 """Track B, stage 1: 4D operator of Saravani--Aslanbeigi, arXiv:1502.01655.
 
 This module implements ONLY the source-faithful position/momentum kernel on the
-spacelike Euclidean-side section Z>0.  It deliberately does not yet implement
+real spacelike section Z>0.  It deliberately does not yet implement
 complex-plane stability, quantum spectral density, Wick rotation, P(s), or d_s.
 
 Primary source: arXiv:1502.01655 v2
