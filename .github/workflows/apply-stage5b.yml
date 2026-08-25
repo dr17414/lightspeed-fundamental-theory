@@ -1,0 +1,64 @@
+name: Apply Stage 5B STATUS
+
+on:
+  push:
+    branches: [ stage5b-limited-result-b ]
+    paths: [ .github/workflows/apply-stage5b.yml ]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install test dependencies
+        run: pip install numpy scipy pytest mpmath
+      - name: Verify formal payload and patch STATUS
+        env:
+          ROWS_B64: fCAqKlN0YWdlIDVCLTLvvJrkuInlgLwgcmFuay1iYXNlZCBsaW5rIGNoYW5uZWwgJFxjaGlcaW5ce1UsVixcYm90XH0kKiogfCAqKuOAkOacrOWwiOahiOaVuOWAvOe1kOaenO+8j+iouuaWt+W3peWFt+OAkSoqIHwg5bCNIGxpbmsgJHhcbGVzc2RvdCB5JCDlrprnvqkgJFxEZWx0YSByX1U9cl9VKHkpLXJfVSh4KSTjgIEkXERlbHRhIHJfVj1yX1YoeSktcl9WKHgpJO+8myRcRGVsdGEgcl9VPlxEZWx0YSByX1YkIOiomCAkVSTjgIHlj43kuYvoqJggJFYk44CB55u4562J5b+F6aCI6KiYICRcYm90JOOAgnRpZSDoi6XnoazloZ7pgLLku7vkuIAgc2VjdG9yIOacg+egtOWjnuWFqOWfnyAkVVxsZWZ0cmlnaHRhcnJvdyBWJCBjb3ZhcmlhbmNl44CC5Zu65a6aIHNvdXJjZS1vZi1yZWNvcmTvvIgkTj0zMDAkLCBzZWVkIDU1MDAy77yJ5YWx5pyJIDEzMjggbGlua3PjgIExNiB0aWVz77yIMS4yMCXvvInvvJvpnZ4gdGllIOeahCByYW5rIOiouuaWt+iIhyBzZWFsZWQgY29udGludXVtICRcbWF0aHJte3NpZ259KFxEZWx0YSB1LVxEZWx0YSB2KSQg5LiA6Ie0546H57SEIDk3LjQl44CC5q2k57WQ5p6c5Y+q6K2J5piOICRcY2hpJCDmmK/mnInnlKjnmoQgKipnbG9iYWwgb3JkZXIrbnVtYmVyIGRpYWdub3N0aWMqKu+8jOS4jeW+l+eoseeCuiBsb2NhbCBjaGlyYWxpdHnjgIIgfCBgYW5hbHlzaXMvc3RhZ2U1Yl9saW5rX2NoYW5uZWwucHlgLCBgdGVzdHMvdGVzdF9zdGFnZTViX2xpbmtfY2hhbm5lbC5weWAgfAp8ICoqU3RhZ2UgNUItMu+8mnJhbmstYmFzZWQgJFxjaGkkIOS4jeaYryBtaWNyb3Njb3BpYyBsaW5rLWxvY2FsIHJ1bGUqKiB8ICoq44CQ5bey56K66KqN77yP5pys5bCI5qGI5qeL6YCg5oCn5LuL5YWl44CRKiogfCBsaW5rIOeahCBvcGVuIEFsZXhhbmRyb3YgaW50ZXJ2YWwg5L6d5a6a576p54K656m677yM5L2GICRcRGVsdGEgcl9VLFxEZWx0YSByX1YkIOacg+ioiOaVuCBpbnRlcnZhbCDlpJbnmoQgbnVsbC1jb29yZGluYXRlIHN0cmlwc+OAguWbuuWumuS7i+WFpea4rOippuWwjSA2MCDmop3kvY4gbWFyZ2luIGxpbmtz77yM5YOF5ZyoIGludGVydmFsIOWkluWKoOWFpeWFg+e0oOOAgeS/neaMgeWFqOmDqOiIiuWFg+e0oOmWkyBvcmRlciByZWxhdGlvbiDkuI3ororkuJTkv53mjIHljp8gJHhcbGVzc2RvdCB5JCBsaW5r77yMNjAvNjAg5Y+v57+76L2JICRcY2hpJO+8m+aJgOmcgOWKoOWFpeWFg+e0oOS4reS9jeaVuOeCuiAz44CC5pWFKirmraQgcmFuay1iYXNlZCAkXGNoaSQqKiDmmI7norrkvp3os7QgbGluayDlpJYgcG9wdWxhdGlvbu+8jOS4jeaYryBtaWNyb3Njb3BpYyBsaW5rLWxvY2FsIG9ic2VydmFibGXjgILnr4TlnI3pmZDlrprvvJrmraTntZDoq5YqKuS4jeS4u+W8teS7u+S9leW9ouW8j+eahCBsb2NhbCB0d28tc3RhdGUgaW50ZXJuYWwgc3BhY2Ug6YO95LiN5Y+v6IO95a2Y5ZyoKirvvJvlhYjliY3jgIxudW1iZXIg5piv6auU56mN6YeP5omA5Lul5Lu75L2VIG9yZGVyK251bWJlciDmp4vpgKDlv4XnhLbpnZ7lsYDln5/jgI3kuYvpgY7lvLfoqqrms5Xlt7LmkqTlm57jgIIgfCBgZG9jcy9TVEFHRTVCX1JFU1VMVF9CLm1kYCwgYGFuYWx5c2lzL3N0YWdlNWJfbGlua19jaGFubmVsLnB5YCwgYHRlc3RzL3Rlc3Rfc3RhZ2U1Yl9saW5rX2NoYW5uZWwucHlgIHwKfCAqKkJIUyDlsI0gaW50cmluc2ljIG5lYXJlc3QtbmVpZ2hib3VyIC8gZmluaXRlLXZhbGVuY3kgY29uc3RydWN0aW9uIOeahOmZkOWItioqIHwgKirjgJDlt7Lnn6XvvI9TdGFnZSA1QiDoqK3oqIjntITmnZ/jgJEqKiB8IEJvbWJlbGxp4oCTSGVuc29u4oCTU29ya2luLCBhclhpdjpnci1xYy8wNjA1MDA2LCBUaGVvcmVtIDHvvJpmdWxsIE1pbmtvd3NraSBQb2lzc29uIHNwcmlua2xpbmcg5LiN5a2Y5Zyo5YiwIHNwYWNldGltZSBkaXJlY3Rpb24g55qEIG1lYXN1cmFibGUgTG9yZW50ei1lcXVpdmFyaWFudCBtYXDvvJvoq5bmlofkuKbmjIflh7rmnInpmZDmlrnlkJHpm4blkIjoiIcgZmluaXRlLXZhbGVuY3kgZ3JhcGgg5Lqm54Sh5rOV5Zyo5L+d5oyBIExvcmVudHogaW52YXJpYW5jZSDkuIvnlLEgc3ByaW5rbGluZyBpbnRyaW5zaWMg5Zyw6YG45Ye644CC5Zug5q2k44CM5q+P5YCLIGV2ZW50IGludHJpbnNpYyDmjJHkuIDlgIsgJFUkIOmEsOWxheiIh+S4gOWAiyAkViQg6YSw5bGF44CN55qEIGNoZWNrZXJib2FyZCDlvI8gbmVhcmVzdC1uZWlnaGJvdXIg5Li757ea5pKk5Zue44CCKirkvZznlKjln58qKu+8muWumueQhuWatOagvOmHneWwjSBmdWxsIE1pbmtvd3NraSBzcHJpbmtsaW5n77yb5pyJ6ZmQIGRpYW1vbmQg5Y+v5ZCrIGJvdW5kYXJ5LWluZHVjZWQgZGlyZWN0aW9u77yM5LiN6IO95oqK5pyJ6ZmQ5Y2A5Z+f5oiQ5Yqf55W25oiQIGludHJpbnNpYyBmdWxsLXNwYWNldGltZSBsb2NhbCBydWxlIOeahOitieaTmuOAgiB8IGBkb2NzL1NUQUdFNUJfUkVTVUxUX0IubWRgIHwK
+          VER_B64: KnYxLjEwICgyMDI2LTA4LTI2KSAtIFN0YWdlIDVCLTIg5bCB5a2YIGxpbWl0ZWQgUmVzdWx0IELvvJrlsIcgbGluay1jaGFubmVsIOiouuaWt+aUueeCuiAkVS9WL1xib3QkIOS4ieWAvOS7peS/neaMgSBzZWN0b3Itc3dhcCBjb3ZhcmlhbmNl77yb5Zu65a6aICROPTMwMCQgc291cmNlLW9mLXJlY29yZCDpoa/npLogcmFuay1iYXNlZCAkXGNoaSQg54K66auY55u46ZecIGdsb2JhbCBkaWFnbm9zdGlj77yM5L2G5qeL6YCg5oCnIHJlbW90ZS1wb3B1bGF0aW9uIGludGVydmVudGlvbiDlnKjkv53mjIHoiIogb3JkZXIgcmVsYXRpb24g6IiHIGxpbmsg5pys6Lqr5LiN6K6K5pmC5Y+vIDYwLzYwIOe/u+i9iSAkXGNoaSTvvIzmlYXmraQgJFxjaGkkIOS4jeaYryBtaWNyb3Njb3BpYyBsaW5rLWxvY2FsIHJ1bGXjgILlhbHlvaLoq5borYnkuYvkvZznlKjln5/mlLbnqoTngrrjgIxtZXRyaWMgbGluay1kaXJlY3Rpb24g5LiN5pivIHB1cmUtb3JkZXIgZGF0Ye+8jOmcgCBudW1iZXIvdm9sdW1lIOijnOi2s+OAje+8jOS4jeWGjeiqpOWvq+aIkCBjaGFubmVsIOamguW/teS4jeWtmOWcqOOAguWPpuato+W8j+iomOWFpSBCSFMgZnVsbC1NaW5rb3dza2kgbm8tZGlyZWN0aW9uIC8gZmluaXRlLXZhbGVuY3kg57SE5p2f77yMY2hlY2tlcmJvYXJkIG5lYXJlc3QtbmVpZ2hib3VyIOS4u+e3muaSpOWbnu+8m+aYjueiuuS4jeWuo+eoseS7u+S9lSBsb2NhbCB0d28tc3RhdGUgaW50ZXJuYWwgZmliZXIg55qG5LiN5Y+v6IO944CCKgo=
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, os, subprocess
+          p=Path('docs/STATUS.md')
+          pre=subprocess.check_output(['git','hash-object',str(p)],text=True).strip()
+          assert pre == '04ecbe3785e95028ffc1eef2d2b2ddf0fa54fe37', pre
+          expected={
+            'analysis/stage5b_link_channel.py':'201ed65079832e5c6544eb72661cf153821fc8ae',
+            'tests/test_stage5b_link_channel.py':'aa65d4ed26ac6e92f06606ae7c99ffd66306e588',
+            'docs/STAGE5B_RESULT_B.md':'a7496f5da03241b007c5edcaf8d7c767ae713e24',
+          }
+          for f,h in expected.items():
+              got=subprocess.check_output(['git','hash-object',f],text=True).strip()
+              assert got == h, (f,got,h)
+          s=p.read_text(encoding='utf-8')
+          rows=base64.b64decode(os.environ['ROWS_B64']).decode('utf-8')
+          ver=base64.b64decode(os.environ['VER_B64']).decode('utf-8')
+          anchor='| **Stage 5A small-$N$ dimension-2 假陽性警告**'
+          line=next(x for x in s.splitlines(True) if x.startswith(anchor))
+          assert 'Stage 5B-2：三值' not in s
+          s=s.replace(line,line+rows,1)
+          marker='*v1.9 (2026-08-26) - Stage 5A 完成：'
+          i=s.index(marker)
+          s=s[:i]+ver+s[i:]
+          p.write_text(s,encoding='utf-8',newline='\n')
+          post=subprocess.check_output(['git','hash-object',str(p)],text=True).strip()
+          assert post == 'ab0a68138f18af24ec953b0bb160d54e91a8fa42', post
+          PY
+      - name: Verify integrity
+        run: python3 verify_integrity.py
+      - name: Run Stage 5A and 5B regressions
+        run: pytest -q tests/test_stage5a_realizer.py tests/test_stage5b_link_channel.py
+      - name: Commit STATUS v1.10
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/STATUS.md
+          git commit -m 'Stage 5B limited Result B formalization'
+          git push
