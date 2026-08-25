@@ -81,12 +81,31 @@ def u_raw(Z, D):
     return -pref * tot
 
 
-def build(D, zlo, zhi, npts=801):
-    """Spline u on [zlo, zhi]; use ASS's own asymptotics outside."""
-    a_ = COEFFS[D]['a']
-    bU = b_uv(D)
+def build_operator(a, u_raw, u_ir, u_uv, zlo, zhi, npts=801):
+    """Generic operator builder.  The NUMERICAL METHOD is shared; the PHYSICS is
+    supplied per operator.
+
+    This split is the control variable for the Track A / Track B comparison.
+    Everything about how the answer is computed -- log-Z grid, cubic spline,
+    interpolation, the regularization formula, the momentum measure, d_s() --
+    is identical for both tracks.  What differs is only the operator itself:
+
+        a      : the UV constant, g -> a
+        u_raw  : u(Z) = a - g(Z), evaluated directly (never as a - g, which
+                 cancels catastrophically once g is near a)
+        u_ir   : u as Z -> 0, used below zlo
+        u_uv   : u as Z -> inf, used above zhi
+
+    The previous build(D, ...) hard-coded the UV branch as u ~ -b_uv/Z^(D/2).
+    That is correct for the minimal GCB family and WRONG for any operator with a
+    different subleading power.  Feeding Track B (u ~ -8/Z) through it would
+    force u ~ 1/Z^2 above zhi and manufacture d_s^UV -> 2 -- i.e. it would
+    overwrite Track B's physics with Track A's and then "find" that they agree.
+    Forcing a shared asymptotic is not a controlled comparison; it is a changed
+    operator.
+    """
     L = np.linspace(np.log10(zlo), np.log10(zhi), npts)
-    uv = np.array([u_raw(10.0 ** x, D) for x in L])
+    uv = np.array([u_raw(10.0 ** x) for x in L])
     if not np.all(uv < 0):
         bad = 10.0 ** L[uv >= 0]
         raise AssertionError(f"u must be negative; failed at Z = {bad[:5]}")
@@ -96,13 +115,25 @@ def build(D, zlo, zhi, npts=801):
         Z = np.asarray(Z, float)
         Lv = np.log10(Z)
         mid = -10.0 ** spl(np.clip(Lv, L[0], L[-1]))
-        ir = a_ + Z                    # g~ -> -Z          [ASS (3.13)]
-        uvb = -bU / Z ** (D / 2)       # g~ -> a + b Z^-D/2 [ASS (3.16)]
-        return np.where(Lv < L[0], ir, np.where(Lv > L[-1], uvb, mid))
+        return np.where(Lv < L[0], u_ir(Z), np.where(Lv > L[-1], u_uv(Z), mid))
 
-    g_of = lambda Z: a_ - u_of(Z)
-    g_reg = lambda Z: a_ * g_of(Z) / u_of(Z)          # BBMM (5)
+    g_of = lambda Z: a - u_of(Z)
+    g_reg = lambda Z: a * g_of(Z) / u_of(Z)          # BBMM (5)
     return g_of, u_of, g_reg
+
+
+def build(D, zlo, zhi, npts=801):
+    """Minimal GCB of ASS, dimension D.  Thin wrapper over build_operator with
+    that family's own asymptotics: u -> a + Z in the IR [ASS (3.13)] and
+    u -> -b_uv/Z^(D/2) in the UV [ASS (3.16)].  Behaviour is unchanged."""
+    a_ = COEFFS[D]['a']
+    bU = b_uv(D)
+    return build_operator(
+        a_,
+        lambda Z: u_raw(Z, D),
+        lambda Z: a_ + Z,
+        lambda Z: -bU / Z ** (D / 2),
+        zlo, zhi, npts)
 
 
 def d_s(gfun, s, D, zlo=1e-18, zhi=1e18, npts=300000):

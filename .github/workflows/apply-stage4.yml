@@ -1,0 +1,85 @@
+name: Apply Stage 4 verified payload
+
+on:
+  push:
+    branches:
+      - stage4-spectral-dimension-comparison
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and verify Stage 4 payload
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64, hashlib, io, pathlib, subprocess, tarfile
+
+          root = pathlib.Path(".")
+          transfer = root / ".stage4_transfer"
+          chunks = []
+          for i in range(22):
+              p = transfer / f"chunk{i:02d}"
+              chunks.append(p.read_text(encoding="ascii"))
+          payload = base64.b85decode("".join(chunks).encode("ascii"))
+          got = hashlib.sha256(payload).hexdigest()
+          expected = "dfdd39f5129a69ef30445cfbb1d3c8fbec4d9a3e0039c108f22a185fae2a03cd"
+          if got != expected:
+              raise SystemExit(f"payload sha256 mismatch: {got} != {expected}")
+
+          expected_sha = {
+              "tests/test_stage4_comparison.py":
+                  "92528a60055069316f64fbb7c6c746dc528c93fc13e447a18bc9774fb8f9e303",
+              "docs/STATUS.md":
+                  "50bdb537deae30f849917056d27a591aff9767b8b57f4d8657f4f1ab1580d58d",
+          }
+          expected_blob = {
+              "tests/test_stage4_comparison.py":
+                  "21397c7bc81deb6c2f7ea3096c22f4a79afc5f9e",
+              "docs/STATUS.md":
+                  "6bc7b74f09690222ae149b57ecf3adb17c25dcc4",
+              "analysis/spectral_dim_D.py":
+                  "d482382456fb02d71b4ee7d8b0b994d6f155583b",
+              "analysis/track_b_spectral_dim.py":
+                  "fae2d9dbe643033105544106ae356e8a4f0a4628",
+          }
+
+          with tarfile.open(fileobj=io.BytesIO(payload), mode="r:gz") as tf:
+              names = [m.name for m in tf.getmembers()]
+              if set(names) != set(expected_sha):
+                  raise SystemExit(f"unexpected archive members: {names}")
+              tf.extractall(root)
+
+          for path, expected in expected_sha.items():
+              data = (root / path).read_bytes()
+              got = hashlib.sha256(data).hexdigest()
+              if got != expected:
+                  raise SystemExit(f"{path} sha256 mismatch: {got} != {expected}")
+
+          for path, expected in expected_blob.items():
+              got = subprocess.check_output(
+                  ["git", "hash-object", path], text=True
+              ).strip()
+              if got != expected:
+                  raise SystemExit(f"{path} git blob mismatch: {got} != {expected}")
+
+          subprocess.check_call(["python", "verify_integrity.py"])
+          print("Stage 4 payload verified byte-exactly.")
+          PY
+
+      - name: Commit verified Stage 4
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add analysis/spectral_dim_D.py analysis/track_b_spectral_dim.py tests/test_stage4_comparison.py docs/STATUS.md
+          git commit -m "Stage 4: fair spectral-dimension comparison"
+          git push
