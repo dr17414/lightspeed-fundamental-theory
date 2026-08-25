@@ -20,7 +20,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from analysis.stage5b_link_channel import (  # noqa: E402
     BOTTOM,
     benchmark,
-    flip_by_remote_population,
+    REMOTE_MIN_OLD_INTERVAL,
+    flip_by_link_external_population,
     link_matrix,
     metric_channel,
     order_from_uv,
@@ -65,7 +66,7 @@ def test_monotone_reparameterisation_preserves_order_and_rank_channel():
     assert flips > 0
 
 
-def test_remote_population_can_flip_rank_channel_without_breaking_link():
+def test_link_external_population_can_flip_rank_channel_without_breaking_link():
     rng = np.random.default_rng(7)
     u, v, R = sprinkle_2d_with_coords(120, rng)
     L = link_matrix(R)
@@ -80,13 +81,12 @@ def test_remote_population_can_flip_rank_channel_without_breaking_link():
             cand.append((margin, x, y))
     _, x, y = min(cand)
 
-    _, _, res = flip_by_remote_population(u, v, x, y)
+    _, _, res = flip_by_link_external_population(u, v, x, y)
     assert res.old_channel in ("U", "V")
     assert res.new_channel in ("U", "V")
     assert res.old_channel != res.new_channel
     assert res.old_relation_preserved
     assert res.link_preserved
-    assert res.all_added_outside_interval
 
 
 def test_source_of_record_benchmark_is_pinned():
@@ -95,12 +95,17 @@ def test_source_of_record_benchmark_is_pinned():
     assert b["ties"] == 16
     assert b["intervention_flips"] == 60
     assert b["interventions"] == 60
-    assert b["median_added"] == 3.0
+    assert b["median_added"] == 5.5
+    assert b["total_added"] == 320
     assert b["all_old_relations_preserved"]
     assert b["all_links_preserved"]
-    assert b["all_added_outside_interval"]
     assert b["conformal_metric_flips"] == 150
     assert b["conformal_metric_comparable"] == 1328
+    assert b["remote_min_old_interval_threshold"] == REMOTE_MIN_OLD_INTERVAL == 5
+    assert b["remote_candidates_scanned"] == 186
+    assert b["min_old_interval_to_y"] == 5
+    assert b["median_old_interval_to_y"] == 8.0
+    assert b["max_old_interval_to_y"] == 21
 
 
 def test_rank_diagnostic_is_correlated_but_not_identical_to_metric_target():

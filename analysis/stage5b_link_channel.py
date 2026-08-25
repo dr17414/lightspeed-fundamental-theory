@@ -23,9 +23,11 @@ It records two limits:
      metric link-direction target, not a no-go for every possible two-state
      internal space.
   2. The rank diagnostic uses population in strips outside the empty link
-     Alexandrov interval.  A constructive remote-population intervention can
-     change chi while preserving all old-old order relations and preserving the
-     target pair as a link.  Hence this particular chi is not a microscopic
+     Alexandrov interval.  A constructive link-external intervention can change
+     chi while preserving all old-old order relations and preserving the target
+     pair as a link.  The benchmark separately requires an intrinsic order-depth
+     threshold, so "outside the interval" is not misreported as independent
+     remoteness evidence.  Hence this particular chi is not a microscopic
      link-local rule.
 
 Independent literature constraint
@@ -47,6 +49,7 @@ from dataclasses import dataclass
 import numpy as np
 
 BOTTOM = "BOTTOM"
+REMOTE_MIN_OLD_INTERVAL = 5
 
 
 def sprinkle_2d_with_coords(N: int, rng: np.random.Generator):
@@ -119,22 +122,28 @@ class InterventionResult:
     new_dV: int
     old_relation_preserved: bool
     link_preserved: bool
-    all_added_outside_interval: bool
+    old_interval_to_y_counts: tuple[int, ...]
 
 
 def _is_link(R: np.ndarray, x: int, y: int) -> bool:
     return bool(R[x, y] and not np.any(R[x] & R[:, y]))
 
 
-def flip_by_remote_population(
+def flip_by_link_external_population(
     u: np.ndarray, v: np.ndarray, x: int, y: int
 ) -> tuple[np.ndarray, np.ndarray, InterventionResult]:
-    """Constructively flip rank_channel by adding points outside I(x,y).
+    """Constructively flip rank_channel using population outside I(x,y).
 
-    If chi=U, add points with u<u_x but v_x<v<v_y.  They increase Delta r_V
-    only.  If chi=V, use the exchanged construction.  The old-old order matrix
-    is unchanged because no old coordinates move; every added point is outside
-    the open Alexandrov interval I(x,y), so an existing x<.y link remains a link.
+    If chi=U, add points with u<u_x but v_x<v<v_y. They increase Delta r_V
+    only. If chi=V, use the exchanged construction. No old coordinates move,
+    so every old-old order relation is exactly preserved. Because the target
+    pair remains a link, no added point lies in the open Alexandrov interval.
+
+    The returned ``old_interval_to_y_counts`` is the independent intrinsic
+    separation diagnostic: for every added point w it counts only *pre-existing*
+    events z with w<z<y. The source-of-record benchmark requires this count to
+    be at least REMOTE_MIN_OLD_INTERVAL for every added point; link preservation
+    itself is not treated as evidence of remoteness.
     """
     R0 = order_from_uv(u, v)
     if not _is_link(R0, x, y):
@@ -147,18 +156,22 @@ def flip_by_remote_population(
     dV0 = int(rV0[y] - rV0[x])
     nadd = abs(dU0 - dV0) + 1
 
-    # Deterministic distinct locations.  They are deliberately outside I(x,y)
-    # on the low side of the *other* null coordinate.
-    frac = (np.arange(1, nadd + 1, dtype=float) / (nadd + 1))
+    # Put the active coordinate near the x-side of its slab and the other
+    # coordinate on the low outer wing. This tends to create substantial
+    # causal depth to y, but the benchmark accepts a candidate only after the
+    # order-theoretic depth has been measured; coordinates are not the criterion.
+    frac = np.linspace(0.04, 0.12, nadd)
+    lowfrac = np.linspace(0.02, 0.08, nadd)
     if old == "U":
         # Increase only the V-rank gap.
-        unew = u[x] * (0.05 + 0.10 * frac)
+        unew = u[x] * lowfrac
         vnew = v[x] + frac * (v[y] - v[x])
     else:
         # Increase only the U-rank gap.
         unew = u[x] + frac * (u[y] - u[x])
-        vnew = v[x] * (0.05 + 0.10 * frac)
+        vnew = v[x] * lowfrac
 
+    n0 = len(u)
     ua = np.concatenate([u, unew])
     va = np.concatenate([v, vnew])
     Ra = order_from_uv(ua, va)
@@ -167,9 +180,11 @@ def flip_by_remote_population(
     dUa = int(rUa[y] - rUa[x])
     dVa = int(rVa[y] - rVa[x])
 
-    outside = []
-    for k in range(len(u), len(ua)):
-        outside.append(not (Ra[x, k] and Ra[k, y]))
+    # Intrinsic depth: count only old events in each I(w,y), so the intervention
+    # cannot make itself look remote by adding its own intermediate points.
+    old_depths = []
+    for k in range(n0, len(ua)):
+        old_depths.append(int(np.sum(Ra[k, :n0] & Ra[:n0, y])))
 
     result = InterventionResult(
         old_channel=old,
@@ -179,9 +194,9 @@ def flip_by_remote_population(
         old_dV=dV0,
         new_dU=dUa,
         new_dV=dVa,
-        old_relation_preserved=bool(np.array_equal(Ra[: len(u), : len(u)], R0)),
+        old_relation_preserved=bool(np.array_equal(Ra[:n0, :n0], R0)),
         link_preserved=_is_link(Ra, x, y),
-        all_added_outside_interval=bool(all(outside)),
+        old_interval_to_y_counts=tuple(old_depths),
     )
     return ua, va, result
 
@@ -224,8 +239,9 @@ def benchmark(seed: int = 55002, N: int = 300, interventions: int = 60):
             metric_comparable += 1
             metric_flips += (before != after)
 
-    # Select low-margin links so an O(1) remote intervention is visible.  This
-    # is a constructive witness, not an unbiased population estimate.
+    # Constructive witness, not an unbiased population estimate. Sort by rank
+    # margin, but accept a link only if every added point is intrinsically
+    # order-separated from y by at least REMOTE_MIN_OLD_INTERVAL old events.
     candidates = sorted(
         [
             (abs(int(rU[y] - rU[x]) - int(rV[y] - rV[x])), x, y)
@@ -233,11 +249,22 @@ def benchmark(seed: int = 55002, N: int = 300, interventions: int = 60):
         ],
         key=lambda t: (t[0], t[1], t[2]),
     )
-    chosen = candidates[:interventions]
     results = []
-    for _, x, y in chosen:
-        _, _, res = flip_by_remote_population(u, v, x, y)
+    candidates_scanned = 0
+    for _, x, y in candidates:
+        candidates_scanned += 1
+        _, _, res = flip_by_link_external_population(u, v, x, y)
+        if min(res.old_interval_to_y_counts) < REMOTE_MIN_OLD_INTERVAL:
+            continue
         results.append(res)
+        if len(results) == interventions:
+            break
+    if len(results) != interventions:
+        raise RuntimeError(
+            f"only {len(results)} links met intrinsic order-depth threshold "
+            f"{REMOTE_MIN_OLD_INTERVAL}"
+        )
+    all_depths = [d for r in results for d in r.old_interval_to_y_counts]
 
     return {
         "N": N,
@@ -251,9 +278,14 @@ def benchmark(seed: int = 55002, N: int = 300, interventions: int = 60):
         "interventions": len(results),
         "intervention_flips": sum(r.old_channel != r.new_channel for r in results),
         "median_added": float(np.median([r.added for r in results])) if results else float("nan"),
+        "total_added": int(sum(r.added for r in results)),
+        "remote_min_old_interval_threshold": REMOTE_MIN_OLD_INTERVAL,
+        "remote_candidates_scanned": candidates_scanned,
+        "min_old_interval_to_y": int(min(all_depths)),
+        "median_old_interval_to_y": float(np.median(all_depths)),
+        "max_old_interval_to_y": int(max(all_depths)),
         "all_old_relations_preserved": all(r.old_relation_preserved for r in results),
         "all_links_preserved": all(r.link_preserved for r in results),
-        "all_added_outside_interval": all(r.all_added_outside_interval for r in results),
     }
 
 

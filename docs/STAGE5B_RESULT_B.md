@@ -62,9 +62,13 @@ The source-of-record intervention makes this dependence constructive. For a link
 u_w<u_x,\qquad v_x<v_w<v_y.
 \]
 
-These new elements lie outside `I(x,y)`. They leave all pre-existing order relations unchanged, preserve `x<.y` as a link, leave `Delta r_U` unchanged, and increase only `Delta r_V`. The `V` case is obtained by exchanging `U` and `V`.
+They leave all pre-existing order relations unchanged, preserve `x<.y` as a link, leave `Delta r_U` unchanged, and increase only `Delta r_V`. The `V` case is obtained by exchanging `U` and `V`. Merely saying that the new points are outside `I(x,y)` is **not** an independent remoteness test: if an added point entered the open interval, the target pair would cease to be a link. The benchmark therefore measures a separate, purely order-theoretic quantity for every added point `w`,
 
-In the fixed benchmark, 60/60 selected low-margin links flip channel; the median number of added elements is 3. This is a constructive witness that this rank-based `chi` is **not** a microscopic link-local rule.
+\[
+|I(w,y)\cap C_{\rm old}|,
+\]
+
+counting only pre-existing events between `w` and `y`. The 60 intervention targets are selected only when **every** added point has this count at least 5. In the fixed run, 60/60 selected links flip channel; 320 points are added in total, the median is 5.5 added points per link, and the order-depth counts over all added points have min/median/max `5 / 8 / 21`. Thus the evidence is accurately described as an **order-separated link-external intervention**, not merely as "outside the empty link interval" and not as an unquantified claim of macroscopic remoteness. This is a constructive witness that this rank-based `chi` is **not** a microscopic link-local rule.
 
 This does **not** prove that every possible local two-state internal space is impossible.
 
@@ -84,7 +88,7 @@ Scope: BHS applies strictly to **full Minkowski sprinklings**. Finite causal dia
 
 1. Stage 5A can provide a highly canonical pair of **global** null-order sectors at tested finite `N`.
 2. A metric link-direction target is not pure-order data; number/volume information is needed.
-3. The tested rank-based three-valued `chi` obtains that information from population outside the empty link interval and is therefore not a microscopic link-local rule; remote-population interventions can flip it without breaking the link or altering any old-old relation.
+3. The tested rank-based three-valued `chi` obtains that information from population outside the empty link interval and is therefore not a microscopic link-local rule; order-separated link-external interventions can flip it without breaking the link or altering any old-old relation.
 4. Independently, BHS rules out an intrinsic Lorentz-equivariant finite-direction / finite-valency nearest-neighbour construction on a full Minkowski sprinkling.
 
 **The No-Go does not claim that any local two-state internal space is impossible.**
