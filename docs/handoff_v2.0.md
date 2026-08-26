@@ -1,7 +1,8 @@
 # Handoff v2.0 — 交接文件（Stage 5B 完成 → Stage 5C 開始前）
 
-基準 main：`40105831802909c4b3386b6e29249f1c149d1359`
-STATUS v1.10，全庫 104 passed，`verify_integrity.py` 通過，repo 39 檔。
+初稿基準（本文件建立前的 main）：`40105831802909c4b3386b6e29249f1c149d1359`
+首次併入 main：`4693aba86a5e7c04bbbe4b082db2b6d9e10963f3`；合併後 repo 40 檔。
+初稿基準的驗證狀態：STATUS v1.10，全庫 104 passed，`verify_integrity.py` 通過。
 
 **`docs/STATUS.md` 是唯一的 source of truth。** 本文件只補 STATUS 沒有、
 但下一階段需要的東西：已評估但未採用的替代方案、未決項、以及方法學規則。
