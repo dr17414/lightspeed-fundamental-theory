@@ -1,7 +1,8 @@
 # Stage 5C D.1 第 3 項 — Reference-Probe Feasibility 預登記
 
-狀態：**【已確認／預登記完成；尚未執行】**。本文件所列 protocol 必須先 commit，
-且該 commit hash 必須寫入執行 manifest，才可執行任何一次 probe run。
+狀態：**【已執行／CONTROL-VIABLE】**。Protocol body 以 commit `49b5cf32` 為 frozen
+版本；執行結果見 `docs/STAGE5C_D1_3_PROBE_RESULTS.md`。48 段 seeds 與 witness split
+均已永久 burned。以下內容保留執行前契約原貌，不因結果事後改寫。
 
 基準：`docs/STAGE5C_ACCEPTANCE.md` v0.8、`docs/STAGE5C_C8_4_HARD_CONTROLS.md`（修訂後）。
 
