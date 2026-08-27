@@ -77,6 +77,14 @@ $s=(0.05,0.05)$、$t=(0.50,0.05)$ 與 C8.4 §3.1 相同。矩形為閉集；連�
 $h$、kernel、平滑與面積公式在執行前固定，不得依結果調整。此 estimator 只需作
 candidate-independent control diagnostic，不宣稱是最優或無偏的 $L_\theta$ estimator。
 
+**已知 finite-$N$ 收縮（interpretation guard）.** 在已 burned 的 development blocks
+上，因每個 box 的 expected count 只有約 $3.3$，Jeffreys $+1/2$ 使
+$E[\widehat L]\approx+0.057/-0.051$，相對 continuum 真值
+$L_+\approx+0.085$、$L_-\approx-0.091$ 向零收縮約 $38\%$。這不妨礙它作方向與 standardized-effect
+diagnostic；但任何報告都**不得**把 $\widehat L$ 的數值當成 $L_\theta$ 的一致或無偏
+估計。三個同 pair-count blocks 的 matching-pair effects 為 $0.400/0.346/0.411$；
+這些只是執行前的 burned-data power diagnostic，不得回充 future witness evidence。
+
 **檢定**：對 witness split 的 matched pairs $\{(A_i,B_i)\}$ 取
 $\Delta_i=\widehat L(A_i)-\widehat L(B_i)$，以 paired sign-flip randomization
 （$200{,}000$ 次，加一修正 $p=(b+1)/(200001)$）檢定 $\mathbb E[\Delta]=0$。
@@ -165,7 +173,8 @@ equal-size label permutation 檢定兩側 mean-score difference；**不得**為�
 - Arm N：不是以「$p>0.01$」接受虛無。預登記等效界 $\delta_N=0.15$；以 paired
   standardized mean 的 two-one-sided $t$ tests（TOST）檢定
   $H_0:d_N\le-0.15\ \text{or}\ d_N\ge0.15$。只有通過 multiplicity gate 才證成
-  operational equivalence。未通過一律判 INCONCLUSIVE；若另有方向差異證據，只能
+  operational equivalence，且 witness matched cohort 必須另滿足 $n_N\ge900$ 的
+  專屬 power gate。未通過一律判 INCONCLUSIVE；若另有方向差異證據，只能
   標為疑似 protocol bias，Q 結果仍作廢。
 - Arm Q：方向 $T_+>T_-$、標準化 paired effect $\ge0.30$，且通過 multiplicity gate，
   才算偵測到。
@@ -201,11 +210,17 @@ calibration，$b=3,4,5$ 為 witness。RNG 固定為 PCG64DXSM；生成、matchin
 blinding 全沿用 C8.4。以上 48 段在本文件 commit 後即視為 reserved，首次生成後全部
 burned；不得替換失敗 block。
 
-每個 Q/N witness block 必須各自先通過 C8.4 的 pairs／coverage／SMD／KS gates；三個
-blocks 合併後至少有 $3\times192=576$ pairs。P 每側固定使用三個 witness evaluation
-pools，共 2304 samples。以最保守 Holm 首階 $\alpha=0.0025$ 的常態近似，$n=576$ 的
-paired test 對 $d=0.30$ 具 power $>0.999$；因此原文件所稱「power 已固定」現在有
-明確的樣本下界。若 cohort gate 未達，判 INCONCLUSIVE，不得縮小 effect floor。
+每個 Q/N witness block 必須各自先通過 C8.4 的 pairs／coverage／SMD／KS gates；Q 的
+三個 blocks 合併後至少有 $3\times192=576$ pairs。P 每側固定使用三個 witness
+evaluation pools，共 2304 samples。以最保守 Holm 首階 $\alpha=0.0025$ 的常態近似，
+$n_Q=576$ 的 paired difference test 對 $d=0.30$ 具 power $>0.999$。
+
+該數字**不適用於 N 的等效性 claim**。在真差異為零、$\delta_N=0.15$、Holm 首階
+$\alpha=0.0025$ 下，$n_N=576$ 的 TOST power 只有約 $0.572$；故 N 另設
+**$n_N\ge900$** 的硬性 cohort gate，此時最保守 power 約 $0.910$（若 N 如 burned
+development audit 預期取得約 1041 pairs，約為 $0.958$）。選擇提高 $n_N$，而不把
+$\delta_N$ 放寬至 $0.20$，以保留較強的等效性宣稱。任何 Q/N cohort gate 未達均判
+INCONCLUSIVE；不得放寬 effect/equivalence margin，也不得替換已保留 seeds。
 
 witness split **揭露一次即 burned**；若需第二次，必須另立 protocol amendment、
 重新 freeze，且不得重用任何上述 seed。

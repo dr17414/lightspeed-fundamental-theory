@@ -217,8 +217,27 @@ $T_-$，以 calibration scale 標準化）：
 | `relation_density` | $+0.042$ | $-0.002$ | $+0.011$ | $-0.048$ | 否 |
 
 local density inhomogeneity **確實大量洩漏進全域 height 與 interval-abundance
-統計**（height 達 $0.43$–$0.51$ SD，四組同號），而 matching 正是把這些配平到
-匹配後 max SMD $\approx0.11$。`relation_density` 則如 §2.2 的解析結果在零附近抖動。
+統計**（height 達 $0.43$–$0.51$ SD，四組同號），而 matching 正是把這些 order
+statistics 配平到匹配後 max SMD $\approx0.11$。`relation_density` 則如 §2.2 的解析
+結果在零附近抖動。
+
+但「全域 order statistic 被配平」**不能直接推出**「local continuum contrast 被
+大幅吃掉」。用同一 pool、同一 pair count 比較隨機配對與實際 matching pairs 上的
+Layer-1 oracle estimator，得到：
+
+| seed block | 隨機配對 $d$ | matching 配對 $d$ |
+| :--- | ---: | ---: |
+| `960/961/962/963M` | $0.3859$ | $0.4000$ |
+| `970/971/972/973M` | $0.3598$ | $0.3459$ |
+| `980/981/982/983M` | $0.4269$ | $0.4105$ |
+| 平均 | $0.3909$ | $0.3855$ |
+
+like-for-like 的平均衰減只有約 $1.4\%$。先前把未匹配 Cohen's $d=0.552$ 與匹配後
+paired $d\approx0.386$ 直接比較，混用了不同標準化量，誤把約 $\sqrt2$ 的尺度差解讀
+成 signal attenuation；該比較作廢。正確結論是：**原先「global scalar 不可能碰到
+local signal」的推理不成立，但在這三個 development blocks 上，matching 幾乎未動
+oracle 可見的 local continuum contrast。**這是 exploratory diagnostic，不是 future
+probe 的 confirmatory evidence。
 
 正確陳述因此是：
 
@@ -228,7 +247,9 @@ local density inhomogeneity **確實大量洩漏進全域 height 與 interval-ab
 > order-only 構造偵測的差異。
 
 這是有利也有不利的：兩個 target 從純 order 資料本來就系統性可分（故 control
-非退化），但 matching 依設計吃掉了其中相當大的一部分，殘餘量未經量測。
+非退化），且 oracle 通道的 local contrast 已量測為幾乎未衰減；**尚未量測的是條件於
+11 維 baseline 後的 order-only residual discriminability**。最帶 target 資訊的已知
+order statistics 正是 matching 所配平者，因此風險現在集中在 Layer 2，而不是 Layer 1。
 
 **風險與後續.** 若殘餘 power 實際為零，則每個候選都會拿到 Axis B FAIL，而該失敗
 會被誤記為候選的失敗。因此 D.1 第 3 項必須先做 candidate-independent 的
@@ -433,9 +454,10 @@ module-boundary proof；後者仍是 Freeze-1a blocker。
 
 ### 尚未完成
 
-1. **residual discriminability 未確認**，且此為目前最高風險項。全域 height 與
-   interval-abundance 統計吸收了相當大一部分 local density 差異（§4），條件於
-   11 維 baseline 之後是否仍有 order-only 可偵測的資訊，尚無量測。若殘餘 power
+1. **order-only residual discriminability 未確認**，且此為目前最高風險項。Layer-1
+   oracle contrast 在三個 development blocks 上只衰減約 $1.4\%$，但全域 height 與
+   interval-abundance 等已知 target-bearing order statistics 被 matching 配平（§4）；
+   條件於 11 維 baseline 之後是否仍有 order-only 可偵測資訊，尚無量測。若殘餘 power
    為零，每個候選都會拿到 Axis B FAIL 並被誤記為候選失敗。D.1 第 3 項必須先做
    兩層 reference-probe feasibility；其預登記 freeze 且完成判決之前本 control
    不得用於任何候選評估；
