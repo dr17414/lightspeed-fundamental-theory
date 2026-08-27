@@ -1,8 +1,8 @@
-# Stage 5C — Derived Two-Sector Nonlocal Kernel Acceptance Specification (v0.7)
+# Stage 5C — Derived Two-Sector Nonlocal Kernel Acceptance Specification (v0.8)
 
-狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.7 已通過 Claude／GPT 交叉審查。本文件只固定 acceptance contract；附錄 D.1 九項交付物尚未完成，故目前**不構成 Freeze-1a**，不得開始候選設計或 confirmatory evaluation。
+狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.8 納入 C8.4 獨立復檢所發現的 covariate-addition 繞道。本文件只固定 acceptance contract；附錄 D.1 九項尚未在單一 freeze commit 全部完成，故目前**不構成 Freeze-1a**，不得開始候選設計或 confirmatory evaluation。
 
-修訂基準：`docs/STAGE5C_ACCEPTANCE_AUDIT.md`（STATUS v1.12）的獨立審計判決「規格需修訂」，以及 v0.2、v0.3、v0.4、v0.5、v0.6 的後續獨立 review。
+修訂基準：`docs/STAGE5C_ACCEPTANCE_AUDIT.md`（STATUS v1.12）的獨立審計判決「規格需修訂」，v0.2–v0.7 的後續獨立 review，以及 `docs/STAGE5C_C8_4_HARD_CONTROLS.md` 的跨 seed 復檢。
 
 驗證於 main `d9b13dd`：41 檔、`verify_integrity.py` 通過、104 passed。
 （依 handoff §0 版本核對規則，本行為**歷史快照**，不隨 HEAD 更新。）
@@ -408,7 +408,7 @@ $$P\ \longrightarrow\ (\prec,\#,U,V,\text{phase})\ \longrightarrow\ K_{ab}(x,y),
 
 **〔依審計修正〕擾動結果不得回頭修改 protocol。** v0.1 寫「若某路徑不起作用就刪除該路徑並更新 C8 匹配清單」——那是看完結果後改 protocol。修正為：
 
-> 裝飾性路徑的發現**只作為報告項**。C8 baseline 由 C8.1 在 Freeze-1a 固定，**永不因 C4 的結果而縮減**。候選只能依 C8.1 的限制增加合格 nuisance covariates，不能減少。
+> 裝飾性路徑的發現**只作為報告項**。C8 baseline 由 C8.1 在 Freeze-1a 固定，**永不因 C4 的結果而縮減**。候選只能依 C8.1 的限制提議增加 nuisance covariates；新增項必須先通過 C8.1 的 provenance 與 power-preservation qualification，否則不得加入。
 
 **為何 C4 存在.** 本專案三次失敗（單向三角行列式 $\det D_C$ 為定值、$Q_{\rm test}$ 的 $\pm\sqrt{m^2+\sigma_k^2}$ 配對固定行列式相位、$Q_{\rm test}$ 敏感性）全部是「$R$ 進不去」，且都是算完之後才發現。
 
@@ -463,7 +463,16 @@ v0.1 只有「必須給出不同結果」一軸，審計正確指出：**單純�
 
 Freeze-1a baseline 至少含：元素數 $N$、relation density（ordering fraction）、link density、height 分布、以及 interval abundance 的低階項。C8.4 的獨立交付物必須把「分布／低階項」展開為精確函數、階數、binning、距離、容差、matching algorithm、未配對處理與成功率門檻；只列名稱不構成 Freeze-1a。
 
-baseline matching 主要作用於 Axis B 的 target pairs；Axis A 若比較固定物理區域的不同密度，$N$ 本來就不同，不得誤要求跨密度匹配 $N$。候選新增項不得是 $K$／reported observable 的 descendant、sealed target label、L4 oracle 或看過 holdout 後才選出的量；新增後若無足夠 matched samples，判 INCONCLUSIVE，不得放寬 baseline。
+baseline matching 主要作用於 Axis B 的 target pairs；Axis A 若比較固定物理區域的不同密度，$N$ 本來就不同，不得誤要求跨密度匹配 $N$。
+
+候選在 Freeze-2a 提議的新增 covariate 必須同時滿足以下**先於候選輸出求值**的資格條件：
+
+1. 它是從整個 causet 計算的 permutation／label-invariant **global scalar summary**，不是 local profile、指定 evaluation point／region 的 statistic，亦不是以 target 差異的空間位置為基準的量；
+2. 它不得是 $K$／reported observable 的 descendant、sealed target label、L4 oracle、target-definition proxy，或看過 holdout 後才選出的量；
+3. 必須在 Freeze-1a 指定的 candidate-independent covariate-qualification split 上，**不讀取任何候選輸出**地重跑 matching，且仍同時滿足既定 coverage、matched-pair、SMD、KS 與 Axis-B power floor；qualification split 揭露後即 burned，不得反覆換 split 挑到通過；
+4. 若新增項解析上或在上述 qualification 中把預登記的 continuum contrast 當成 nuisance 配平、使 $L_+-L_-$ 的既定 sensitivity test 失去可執行性，該新增項判 **PROTOCOL-INVALID 並不得加入**；不得把它造成的失配記為 C8 的 INCONCLUSIVE。
+
+只有已通過上述資格的新增項，在之後 fresh confirmatory batch 因普通抽樣變異未達 cohort conditions 時，才記 INCONCLUSIVE。這個區分封住「合法增加一個 local target proxy，主動殺掉 Axis B，再以 INCONCLUSIVE 退場」的繞道。
 
 #### C8.2 Axis A — Universality（同一 continuum target）
 
@@ -479,17 +488,24 @@ baseline matching 主要作用於 Axis B 的 target pairs；Axis A 若比較固�
 - **F** — 分得開但差異落在 within-target 漲落內 $\Rightarrow$ 不算通過。
 - **E** — matched-pair manifest + coverage／power table + between-target effect 與 Axis-A noise 的 joint report。
 
-#### C8.4 對照組選擇的未決問題〔本規格不解決，列為 blocking open item〕
+#### C8.4 對照組交付要求與目前狀態
 
 審計指出 v0.1 建議的 $D=2$ vs $D=3$ 對照與 domain 衝突：若候選只定義在 order-dimension-2／$\kappa=1$，多數 $D=3$ 樣本直接 **OUT-OF-DOMAIN**，不能作為主要 discrimination pass。
 
 同時：**KR orders vs sprinkling 太容易**（高度差 $3$ vs $\sqrt N$ 量級），不算通過。
 
-因此需要**定義域內的困難對照**。在候選存在前設計 candidate-independent control 正是 Freeze-1a 的工作，並不構成循環；禁止的是看過候選輸出後才挑對照。該獨立交付物必須在 Freeze-1a 完成並寫入本規格，且不得參考任何候選。
+因此需要**定義域內的困難對照**。在候選存在前設計 candidate-independent control 正是 Freeze-1a 的工作，並不構成循環；禁止的是看過候選輸出後才挑對照。該獨立交付物不得參考任何候選。
 
 交付物至少須含：兩側 target 的 domain proof、外部預測的 primary-observable 差異與方向、C8.1 精確 matching protocol、matching coverage／OUT-OF-DOMAIN rate、Axis A/B 的 power analysis、RNG/hash manifest，以及 target metadata 不回流到 construction 的隔離測試。
 
-> **本項未完成前，C8 無法執行，Stage 5C-1 不得宣告通過。**
+candidate-independent 核心交付物現已見 `docs/STAGE5C_C8_4_HARD_CONTROLS.md`：完整
+dimension-$\le2$ domain 與 $\kappa=1$ stratum 都能在固定 11 維 global-scalar
+baseline 下通過足夠樣本量的 filter-then-match benchmark，且跨 seed replication
+已把 raw pool 從 512 提升為 768。這解決了「對照族是否可構造」本身，**但不等於
+Freeze-1a 已完成**：該文件的 continuum endpoint 尚須與 D.1 第 3 項的
+basis-invariant primary observable／smearing／norm 合法對接，並與第 6 項的全域
+multiplicity rule 一起在單一 freeze commit 固定。此前 C8 仍不得執行 confirmatory
+evaluation，Stage 5C-1 仍不得宣告通過。
 
 ---
 
@@ -659,9 +675,9 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 計算上限或已凍結 evaluator 的技術缺失屬 INCONCLUSIVE，**既非 PASS 亦非物理 No-Go**。若 object/evaluator/threshold/split 根本未依 freeze 完成，則是 PROTOCOL-INVALID：不得執行或解讀結果，不能用 INCONCLUSIVE 掩蓋規格未完成。
 
-### 9.4 BOUNDED-SEARCH-EXHAUSTED 與 SPEC-INFEASIBLE 的意義〔v0.6 重寫，v0.7 修正型別〕
+### 9.4 BOUNDED-SEARCH-EXHAUSTED 與 SPEC-INFEASIBLE 的意義〔v0.6 重寫，v0.7 修正型別，v0.8 更新現況〕
 
-附錄 D 的 Freeze-1x 交付物有可能經認真嘗試後仍無法構造。目前辨識出的最高風險項是 **D.1 第 5 項（C8.4 定義域內困難對照）**：若在 order-dimension-2／$\kappa=1$ 之內找不到一對「外部已知應該不同、且可依 C8.1 匹配」的 continuum targets，則 C8 無法執行，Stage 5C-1 無法宣告通過。
+附錄 D 的 Freeze-1x 交付物有可能經認真嘗試後仍無法構造。D.1 第 5 項原本是主要例子；v0.8 已有完整 dimension-$\le2$ 與 $\kappa=1$ 的 candidate-independent control family，故該項的「對照族不存在」風險已解除。現存風險是 D.1 第 3 項能否把其 continuum endpoint 合法對接到 basis-invariant primary observable／smearing／norm。下列兩種狀態仍適用於此項及其他 Freeze deliverables。
 
 **這不是候選的失敗，也不是流程卡關。** 但 v0.5 在此犯了與 §9.2 同一型、只是高一層的錯誤：從「某個有限嘗試類找不到」直接推到「規格前提不可行」。v0.6 分成兩級。
 
@@ -753,7 +769,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 2. **C5 diagnostic form**：明定 evaluation-only pure-order diagnostic 的選擇、定義與不回流測試。
 3. **C6/C7/C8 evaluator contract**：nested-region／boundary selectors、primary observable、massless target、smearing、norm、planted alternatives。
 4. **C8.1 exact matching protocol**：低階項、binning、距離、容差、matching algorithm、未配對處理、coverage threshold。
-5. **C8.4 domain-internal difficult controls**：domain proof、外部預測差異、power analysis、RNG/hash manifest。
+5. **C8.4 domain-internal difficult controls**：domain proof、外部預測差異、power analysis、RNG/hash manifest。candidate-independent 可構造性與跨 seed matching 已交付於 `docs/STAGE5C_C8_4_HARD_CONTROLS.md`；仍須與第 3、6 項在單一 freeze commit 對接後才算 DELIVERED。
 6. **全域 confirmatory control**：`docs/stage5c_confirmatory_ledger.md` schema、attempt id 規則，以及跨 candidate version／batch／stage 的 attempt cap 或 family-wise $\alpha$/e-value spending rule。
 7. **C9/C10 immutable core 與反繞道規則**〔v0.6 新增，v0.7 擴充〕：依 §5.2.1(i)，C9 與 C10 的**判準本身**必須在此固定並凍結。另依 §5.2.1(iii)，兩類能使 core 失效的自由度一併固定：
    - **(iii-a)** 任何能使 core criterion 失效的容差，其**形式與上界規則**；
@@ -767,9 +783,9 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
    **未作出聲明**才是 PENDING。依 §5.2.1(v)，在 mapping 完成前這些文獻一律只有動機性資格。路徑一經聲明即凍結；事後改採路徑 B 屬 protocol amendment，須進 amendment ledger。
 9. **兩本帳的 schema**〔v0.6 新增〕：`docs/stage5c_development_log.md`（append-only、事後登記、不佔統計預算）與 `docs/stage5c_protocol_amendment_log.md`（implementation 修改紀錄、不佔統計預算），與第 6 項的 confirmatory ledger 三者分離，職責不得混用。
 
-本規格 v0.7 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始候選設計或 Stage 5C-1 confirmatory evaluation。
+本規格 v0.8 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始候選設計或 Stage 5C-1 confirmatory evaluation。
 
-**風險註記.** 第 5 項（C8.4）是**目前辨識出的最高風險項**（不排除其他項亦有風險）。若在明定構造類 $\mathcal G$ 內窮盡搜尋未果，依 §9.4.1 判 **BOUNDED-SEARCH-EXHAUSTED**；唯有另行證明 $\mathcal G$ 的 completeness，才可依 §9.4.2 升格為 **SPEC-INFEASIBLE**。兩者皆**不得**改以降低 C8 門檻的方式繞過。
+**風險註記.** 第 5 項原先的「對照族能否構造」風險已由獨立交付物解除；目前其最高實質存活風險移到第 3 項：evaluation-only $L_\theta$ 能否合法下降為同一個 basis-invariant primary observable／smearing／norm。若此 mapping 失敗，必須在候選存在前版本化修改或撤回 control，不得硬接，也不得降低 C8 門檻。
 
 ### D.2 Freeze-1b deferred items（只阻塞 Stage 5C-2）
 
@@ -826,3 +842,17 @@ v0.5 未改動任何 v0.4 已通過的實質條款。其中第 1、2 項的處�
 | **4. 附錄 E 表格損壞**（兩列多出第三欄） | **接受**，兩列的補註合併回第二欄；全表已驗證每列均為兩欄 |
 
 v0.7 未放寬任何 gate。Freeze-1a blocker 仍為九項，其中第 7 項擴充、第 8 項由 mapping 改為路徑聲明。
+
+---
+
+## 附錄 H — C8.4 獨立復檢處置〔v0.8〕
+
+| 復檢發現 | v0.8 處置 |
+| :--- | :--- |
+| 512-per-target source run 位於 matching gate 邊緣，跨 seed 只有 2/5 同時通過 pair-count 與 coverage | 接受。C8.4 source pool 提升為 768；四組獨立 replication blocks 全部通過，且結果與 seeds 寫入獨立交付物。512 結果保留為 sample-size sensitivity evidence，不再承重 |
+| 256-per-target 的 $\kappa=1$ 失敗被誤歸因於 domain restriction | 接受。等 pool 的未過濾 control 同樣失敗；$\kappa=1$ 在 512 與 768 raw pools 皆通過 filter-then-match。結論改為小 pool 不足，非 $\kappa$ 本身不可行 |
+| 「covariate 只能增加」允許新增 local target proxy，合法消滅 Axis-B power | 接受。C8.1 新增 covariate 限為 label-invariant global scalar summary，排除 local profile／target proxy，並須在 candidate-independent qualification split 上保持既定 cohort 與 power floor；故意或實質吞掉 continuum contrast者判 PROTOCOL-INVALID，不得把結果轉記為 C8 INCONCLUSIVE |
+
+v0.8 未降低任何 C8 門檻，也未設計或評估任何候選 kernel。C8.4 對照族的
+candidate-independent 可構造性已確認；Freeze-1a 仍須完成 D.1 第 3、6 項整合及
+其餘 blockers。

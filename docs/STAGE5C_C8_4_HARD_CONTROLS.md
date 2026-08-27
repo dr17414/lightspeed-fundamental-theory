@@ -10,8 +10,8 @@ matching protocol 的第一個完整可執行實例。結論是：**在不設計
 `BOUNDED-SEARCH-EXHAUSTED` 或 `SPEC-INFEASIBLE`。
 
 這只是 Freeze-1a 前的 candidate-independent feasibility artifact。依定稿規格，
-附錄 D.1 九項仍須全部完成，並在一個明確引用 acceptance-spec commit
-`3b1fb48c51a2b6e608d526a993b103ec4ab2cba9` 的單一 freeze commit 中固定，才算
+附錄 D.1 九項仍須全部完成，並在一個明確引用
+`docs/STAGE5C_ACCEPTANCE.md` v0.8 定稿 commit 的單一 freeze commit 中固定，才算
 Freeze-1a；本文件與本輪程式 commit 本身都**不是** freeze。
 
 ---
@@ -82,12 +82,32 @@ $N=96$ 的補充稽核結果為：
 
 在最終 11 維 baseline 下重跑最後一組 validation，取兩側前 243 個
 $\kappa=1$ 樣本後只保留 60 對：coverage $0.2469$、max SMD $0.2146$、
-max KS $0.1334$。它同時未達 coverage $\ge0.35$ 與 max SMD $\le0.20$，所以
-**目前對 $\kappa=1$ 限縮 domain 的結論是未通過／待更大 pool 的
-candidate-independent 驗證，不得寫成可執行性已確認**。這不影響下文對完整
-dimension-$\le2$ control domain 的正結果；但未來候選若自行限縮至 $\kappa=1$，
-在該候選存在前沒有另一個通過的固定 protocol，就只能對 C8 記 INCONCLUSIVE，
-不得放寬 caliper。
+max KS $0.1334$。但這個 raw pool 只有 256；同 seeds 的**未過濾** control 也只得
+60/256 對、coverage $0.2344$、max SMD $0.2139$。故該失敗不能歸因於
+$\kappa=1$，它只證明 256-per-target 不足以承重任何 domain 的可行性結論。
+
+以 source-of-record seeds 將 raw pool 增至 512，$\kappa=1$ retained counts
+（calibration $T_+/T_-$、validation $T_+/T_-$）為
+$490/496/492/493$；依固定規則在各 split 取兩側前
+$\min(n_+,n_-)$ 個 retained samples（retained seeds 依整數 seed 升序，不依任何
+feature 或 target-local quantity 排序），filter-then-match 得 194/492 對、coverage
+$0.3943$、max SMD $0.1297$、max KS $0.1340$，已通過全部 gate。正式 768 raw-pool
+基準的 retained counts 為 $733/746/732/738$，取 $733$ calibration 與 $732$
+validation per target 後得：
+
+| 指標 | $\kappa=1$ 結果 | threshold |
+| :--- | ---: | ---: |
+| matched pairs | 343 | $\ge192$ |
+| coverage | 0.468579235 | $\ge0.35$ |
+| max absolute SMD | 0.168554669 | $\le0.20$ |
+| max KS distance | 0.113702624 | $\le0.18$ |
+
+同一 768-pool 的兩個 splits 合計 retention 為 $T_+$ 的 $1465/1536=0.9538$
+與 $T_-$ 的 $1484/1536=0.9661$；兩比例 z-test 的 $|z|=1.75$（雙尾
+$p\approx0.080$），未檢出 target-dependent retention，但這不是二者相等的證明。
+**結論改為：完整 dimension-$\le2$ 與 $\kappa=1$ 限縮 domain 均已證實在固定
+protocol 下可執行；256-pool 負結果保留為 sample-size sensitivity，不再作
+$\kappa$ 的負面證據。**
 
 ### 2.2 三個「容易量」在解析上已匹配
 
@@ -166,7 +186,7 @@ $u\leftrightarrow v$ 也保持 $q(u)q(v)$，不會把 $+\theta$ 變成 $-\theta$
 ## 4. C8.1 精確 matching protocol 實例
 
 同一 $N$ 內，對每個 causet 從 relation matrix $R$ 計算下列 11 維 nuisance vector；
-所有量都 label-invariant，且不讀 target metadata：
+所有量都是 whole-causet global scalars、label-invariant，且不讀 target metadata：
 
 1. `relation_density`：$|R|/\binom N2$；
 2. `link_density`：$N_0/\binom N2$，$N_0$ 為 open interval 空的 related pairs；
@@ -179,6 +199,12 @@ $u\leftrightarrow v$ 也保持 $q(u)q(v)$，不會把 $+\theta$ 變成 $-\theta$
 `link_density` 即 $m=0$，因此 interval abundance 不重複放 $m=0$。interval
 abundance 作為 manifoldlike causal-set 診斷的文獻只作選擇此 nuisance family 的
 動機；本項的定義與門檻由上列明文和 executable tests 承重。
+
+這個 control 能同時保持低階平衡與非零 continuum contrast 的關鍵是：上述 11 項
+只量 whole-causet global scalars，而 $T_+$／$T_-$ 的已知差異是 local conformal
+density inhomogeneity。故 matching 不把定義 control 的 local profile 本身當成
+nuisance 配平。未來不得為了改善表面平衡而加入 local profile、指定
+source/sink/region 的 statistic，或任何 target-definition proxy。
 
 匹配演算法固定為：
 
@@ -195,36 +221,74 @@ abundance 作為 manifoldlike causal-set 診斷的文獻只作選擇此 nuisance
    matched pairs $\ge192$、每欄 absolute SMD $\le0.20$、每欄 two-sample
    KS distance $\le0.18$。任一不符即 INCONCLUSIVE，不得放寬或刪除變數。
 
-候選在 Freeze-2a 只能增加符合 acceptance spec C8.1 provenance 限制的 nuisance
-covariates；新增後匹配失敗仍是 INCONCLUSIVE，不能回頭移除 baseline。
+候選在 Freeze-2a 只能**提議**增加符合 acceptance spec C8.1 provenance 限制的
+nuisance covariates。新增項須為 label-invariant global scalar，並在不讀候選輸出的
+candidate-independent qualification split 上仍通過全部 cohort／balance／power
+門檻；若它解析上或實際上把 local continuum contrast 配平、使 Axis B 失去
+可執行性，該新增判 PROTOCOL-INVALID 並不得加入，不能把它造成的失配轉記為 C8
+INCONCLUSIVE。只有已先通過 qualification 的新增項，在 future fresh batch 因普通
+抽樣變異失配時，才可記 INCONCLUSIVE。baseline 永不移除。
 
 ---
 
 ## 5. Source-of-record feasibility run
 
-`analysis/stage5c_hard_controls.py::benchmark(n=96,pool_size=512)` 使用四個互不重疊
+`analysis/stage5c_hard_controls.py::benchmark(n=96,pool_size=768)` 使用四個互不重疊
 的 PCG64DXSM seed ranges：
 
 | split | target | seed range |
 | :--- | :--- | :--- |
-| calibration | $T_+$ | `510000000..510000511` |
-| calibration | $T_-$ | `520000000..520000511` |
-| validation | $T_+$ | `530000000..530000511` |
-| validation | $T_-$ | `540000000..540000511` |
+| calibration | $T_+$ | `510000000..510000767` |
+| calibration | $T_-$ | `520000000..520000767` |
+| validation | $T_+$ | `530000000..530000767` |
+| validation | $T_-$ | `540000000..540000767` |
 
 結果：
 
 | 指標 | 結果 | feasibility threshold |
 | :--- | ---: | ---: |
-| matched pairs | 205 | $\ge192$ |
-| coverage | 0.400390625 | $\ge0.35$ |
-| max absolute SMD | 0.150219436 | $\le0.20$ |
-| max KS distance | 0.141463415 | $\le0.18$ |
-| median standardized distance | 1.701926936 | pair caliper $\le2$ |
-| p90 standardized distance | 1.918984193 | pair caliper $\le2$ |
+| matched pairs | 361 | $\ge192$ |
+| coverage | 0.470052083 | $\ge0.35$ |
+| max absolute SMD | 0.161585461 | $\le0.20$ |
+| max KS distance | 0.108033241 | $\le0.18$ |
+| median standardized distance | 1.665519034 | pair caliper $\le2$ |
+| p90 standardized distance | 1.904361143 | pair caliper $\le2$ |
 
-所以這不是 KR-vs-sprinkling 那種不匹配就能分出的 easy control；近 60% 樣本因
+所以這不是 KR-vs-sprinkling 那種不匹配就能分出的 easy control；超過一半樣本因
 嚴格 pair caliper 未配對，保留下來的 cohort 才達到預定低階平衡。
+
+### 5.1 為何 512 不再承重
+
+原 512-pool source run 雖得 205 pairs／coverage 0.4004，但四組額外獨立 seed
+blocks 顯示該設計點在門檻邊緣：
+
+| raw pool | seed block | pairs | coverage | pairs gate | coverage gate |
+| ---: | :--- | ---: | ---: | :---: | :---: |
+| 512 | `510/520/530/540M` | 205 | 0.4004 | PASS | PASS |
+| 512 | `810/820/830/840M` | 197 | 0.3848 | PASS | PASS |
+| 512 | `910/911/912/913M` | 181 | 0.3535 | FAIL | PASS |
+| 512 | `920/921/922/923M` | 174 | 0.3398 | FAIL | FAIL |
+| 512 | `930/931/932/933M` | 173 | 0.3379 | FAIL | FAIL |
+
+只有 2/5 blocks 同時通過，因此 512 的單次正結果不能作 freeze 可行性的承重證據。
+這不是 seed 挑選指控：原 seeds 在開跑前固定且自然；問題是未留 sampling-variation
+餘裕。
+
+### 5.2 768 的跨 seed replication
+
+將唯一設計變更限制為 raw pool 由 512 增至 768；$N$、$\theta$、11 維 baseline、
+calipers、matching 與所有門檻均不變。四個獨立 replication blocks 結果為：
+
+| seed block（cal $+/-$；val $+/-$） | pairs | coverage | max SMD | max KS |
+| :--- | ---: | ---: | ---: | ---: |
+| `910/911/912/913M` | 356 | 0.4635 | 0.1360 | 0.0871 |
+| `920/921/922/923M` | 305 | 0.3971 | 0.1269 | 0.0852 |
+| `930/931/932/933M` | 312 | 0.4062 | 0.1055 | 0.0609 |
+| `940/941/942/943M` | 330 | 0.4297 | 0.1328 | 0.0788 |
+
+四組全部同時通過 pairs、coverage、SMD、KS，且最差值仍有可見餘裕。這些 seeds
+只屬 development replication，全部 burned；表格證明的是 protocol feasibility，
+不是 future candidate 的 confirmatory evidence。
 
 ---
 
@@ -246,11 +310,11 @@ $\sqrt n\,0.30-z_{0.995}$ 的預登記 normal-approximation lower-bound check；
 正式 Freeze-1a 整合時還須與 D.1 第 6 項的全域 multiplicity／spending rule 對齊。
 若全域規則要求更小的局部 $\alpha$，只能增加樣本數，不得降低 effect floor。
 
-對完整 dimension-$\le2$ control domain，source-of-record 已保有 205 對，足以
-支撐上述 192-pair power floor。對 $\kappa=1$ 限縮 domain，不能只用 retention
-比例乘上 nominal coverage 推算，因為 $\kappa$ 與 nuisance features 可能相關；
-必須另做實際 filter-then-match 的較大-pool benchmark。在該 benchmark 通過前，
-不預登記一個看似足夠但未驗證的 raw-pool 數字。
+對完整 dimension-$\le2$ control domain，768-pool source-of-record 保有 361 對；
+對 $\kappa=1$ 限縮 domain，實際 filter-then-match 保有 343 對。兩者都超過
+192-pair power floor；這裡沒有用 retention 比例外推。future Freeze-2a 若宣告其他
+更窄 domain，仍須在候選輸出被求值前另做該 predicate 的 filter-then-match audit，
+不得由本結果外推。
 
 ---
 
@@ -280,7 +344,9 @@ CI 已固定以下 falsifiers：
 3. baseline features 對事件任意 relabelling 不變；
 4. 每個 control causet 都通過 dimension-$\le2$ comparability-graph 檢查；
 5. RNG 首樣本 hash 固定；
-6. matching benchmark 必須保持非零 coverage 與低階 balance。
+6. 768-pool matching benchmark 必須保持預登記 coverage／pair-count／SMD／KS gates；
+7. $\kappa=1$ filter 使用 Stage 5A 的 `kappa()` observable，而非 implication-class
+   數量的替代 predicate。
 
 這是 API-level isolation，不宣稱已完成 D.1 第 2／3 項所要求的完整 static taint／
 module-boundary proof；後者仍是 Freeze-1a blocker。
@@ -296,7 +362,8 @@ module-boundary proof；後者仍是 Freeze-1a blocker。
 - 給出不靠候選、方向預定的 continuum target；
 - 將 C8.1 的低階項、binning、距離、caliper、matching、unmatched handling 與
   coverage/balance threshold 全部具體化；
-- 完成 source-of-record matching、$\kappa=1$ audit、power 下界與 RNG/hash manifest；
+- 完成 768-pool source-of-record、四組跨 seed replication、$\kappa=1$
+  filter-then-match audit、power 下界與 RNG/hash manifest；
 - 全程未設計或評估任何候選 $K$。
 
 ### 尚未完成
@@ -308,6 +375,6 @@ module-boundary proof；後者仍是 Freeze-1a blocker。
    是否足夠保守；
 3. 本輪沒有產生或揭露任何 confirmatory holdout；上述 seeds 全屬
    candidate-independent protocol development，未來不得冒充 candidate holdout；
-4. Freeze-1a 仍為 PENDING，候選設計禁令不變。
-5. $\kappa=1$ 限縮 domain 的 256-per-side audit 未達 matching gate；此負結果已
-   保留，後續只能在候選出現前增加 development pool 重新驗證，不能改門檻。
+4. Freeze-1a 仍為 PENDING，候選設計禁令不變；
+5. 256-per-side 的完整與 $\kappa=1$ audits 都不足；負結果保留為 sample-size
+   sensitivity，不能再被解讀成 $\kappa=1$ domain 不可行。

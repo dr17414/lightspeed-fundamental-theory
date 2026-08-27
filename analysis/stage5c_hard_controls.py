@@ -46,7 +46,19 @@ MIN_MATCH_COVERAGE = 0.35
 MIN_MATCHED_PAIRS = 192
 MAX_ABSOLUTE_SMD = 0.20
 MAX_KS_DISTANCE = 0.18
-SOURCE_OF_RECORD_POOL_SIZE = 512
+SOURCE_OF_RECORD_POOL_SIZE = 768
+SOURCE_OF_RECORD_BASES = {
+    "calibration_plus": 510_000_000,
+    "calibration_minus": 520_000_000,
+    "validation_plus": 530_000_000,
+    "validation_minus": 540_000_000,
+}
+REPLICATION_BASES = (
+    (910_000_000, 911_000_000, 912_000_000, 913_000_000),
+    (920_000_000, 921_000_000, 922_000_000, 923_000_000),
+    (930_000_000, 931_000_000, 932_000_000, 933_000_000),
+    (940_000_000, 941_000_000, 942_000_000, 943_000_000),
+)
 FEATURE_NAMES = (
     "relation_density",
     "link_density",
@@ -341,18 +353,53 @@ def feature_pool(n: int, theta: float, seeds: range) -> np.ndarray:
     )
 
 
+def kappa_one_feature_pool(
+    n: int, theta: float, seeds: range
+) -> tuple[np.ndarray, np.ndarray]:
+    """Filter by the candidate-independent Stage-5A ``kappa == 1`` domain.
+
+    The retained seed list is returned so the attrition and exact truncation
+    used by the domain audit remain reproducible.  Importing ``kappa`` lazily
+    keeps the ordinary C8.4 benchmark independent of the expensive realizer
+    enumeration.
+    """
+    from analysis.stage5a_kappa import kappa
+
+    features: list[np.ndarray] = []
+    retained_seeds: list[int] = []
+    for seed in seeds:
+        sample = sprinkle_control(n, theta, seed)
+        if kappa(sample.order) == 1:
+            features.append(baseline_features(sample.order))
+            retained_seeds.append(seed)
+    if not features:
+        raise ValueError("kappa=1 filter retained no samples")
+    return np.vstack(features), np.asarray(retained_seeds, dtype=np.int64)
+
+
+def _normalize_seed_bases(
+    seed_bases: dict[str, int] | tuple[int, int, int, int] | None,
+) -> dict[str, int]:
+    if seed_bases is None:
+        return dict(SOURCE_OF_RECORD_BASES)
+    if isinstance(seed_bases, tuple):
+        if len(seed_bases) != 4:
+            raise ValueError("seed-base tuple must have four entries")
+        return dict(zip(SOURCE_OF_RECORD_BASES, map(int, seed_bases)))
+    if set(seed_bases) != set(SOURCE_OF_RECORD_BASES):
+        raise ValueError("seed-base mapping has the wrong split keys")
+    return {key: int(value) for key, value in seed_bases.items()}
+
+
 def benchmark(
-    n: int = 96, pool_size: int = SOURCE_OF_RECORD_POOL_SIZE
+    n: int = 96,
+    pool_size: int = SOURCE_OF_RECORD_POOL_SIZE,
+    seed_bases: dict[str, int] | tuple[int, int, int, int] | None = None,
 ) -> dict[str, object]:
     """Deterministic feasibility benchmark with disjoint calibration/validation."""
     if pool_size < 64:
         raise ValueError("pool_size must be at least 64")
-    bases = {
-        "calibration_plus": 510_000_000,
-        "calibration_minus": 520_000_000,
-        "validation_plus": 530_000_000,
-        "validation_minus": 540_000_000,
-    }
+    bases = _normalize_seed_bases(seed_bases)
     cp = feature_pool(
         n,
         CONTROL_THETA,
@@ -400,6 +447,74 @@ def benchmark(
             "validation_plus": int(np.sum(vp[:, 0] == 1.0)),
             "validation_minus": int(np.sum(vm[:, 0] == 1.0)),
         },
+    }
+
+
+def replication_benchmarks(
+    n: int = 96, pool_size: int = SOURCE_OF_RECORD_POOL_SIZE
+) -> tuple[dict[str, object], ...]:
+    """Run the four frozen cross-seed feasibility replications."""
+    return tuple(
+        benchmark(n=n, pool_size=pool_size, seed_bases=bases)
+        for bases in REPLICATION_BASES
+    )
+
+
+def kappa_one_benchmark(
+    n: int = 96,
+    pool_size: int = SOURCE_OF_RECORD_POOL_SIZE,
+    seed_bases: dict[str, int] | tuple[int, int, int, int] | None = None,
+) -> dict[str, object]:
+    """Filter-then-match audit for a candidate domain restricted to kappa=1.
+
+    Equal raw pools need not retain equal counts.  The frozen audit rule keeps
+    the first ``min(count_plus, count_minus)`` samples in ascending seed order
+    within each split before scaling or matching.  No candidate output or
+    target-local continuum metadata participates in that truncation.
+    """
+    if pool_size < 64:
+        raise ValueError("pool_size must be at least 64")
+    bases = _normalize_seed_bases(seed_bases)
+    cp, cp_seeds = kappa_one_feature_pool(
+        n,
+        CONTROL_THETA,
+        range(bases["calibration_plus"], bases["calibration_plus"] + pool_size),
+    )
+    cm, cm_seeds = kappa_one_feature_pool(
+        n,
+        -CONTROL_THETA,
+        range(bases["calibration_minus"], bases["calibration_minus"] + pool_size),
+    )
+    vp, vp_seeds = kappa_one_feature_pool(
+        n,
+        CONTROL_THETA,
+        range(bases["validation_plus"], bases["validation_plus"] + pool_size),
+    )
+    vm, vm_seeds = kappa_one_feature_pool(
+        n,
+        -CONTROL_THETA,
+        range(bases["validation_minus"], bases["validation_minus"] + pool_size),
+    )
+    calibration_count = min(len(cp), len(cm))
+    validation_count = min(len(vp), len(vm))
+    scale = calibration_scale(cp[:calibration_count], cm[:calibration_count])
+    matched = match_controls(vp[:validation_count], vm[:validation_count], scale)
+    return {
+        "n": n,
+        "raw_pool_size_per_target": pool_size,
+        "retained_counts": {
+            "calibration_plus": len(cp_seeds),
+            "calibration_minus": len(cm_seeds),
+            "validation_plus": len(vp_seeds),
+            "validation_minus": len(vm_seeds),
+        },
+        "calibration_count_per_target_after_truncation": calibration_count,
+        "validation_count_per_target_after_truncation": validation_count,
+        "matched_pairs": len(matched.left_indices),
+        "coverage": matched.coverage,
+        "max_smd": matched.max_standardized_mean_difference,
+        "max_ks": matched.max_ks_distance,
+        "seed_bases": bases,
     }
 
 

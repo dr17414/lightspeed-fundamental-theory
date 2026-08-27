@@ -6,7 +6,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from analysis.stage5a_kappa import implication_classes  # noqa: E402
+from analysis.stage5a_kappa import implication_classes, kappa  # noqa: E402
 from analysis.stage5c_hard_controls import (  # noqa: E402
     CONTROL_THETA,
     FEATURE_NAMES,
@@ -14,6 +14,8 @@ from analysis.stage5c_hard_controls import (  # noqa: E402
     MAX_KS_DISTANCE,
     MIN_MATCH_COVERAGE,
     MIN_MATCHED_PAIRS,
+    REPLICATION_BASES,
+    SOURCE_OF_RECORD_BASES,
     SOURCE_OF_RECORD_POOL_SIZE,
     baseline_features,
     benchmark,
@@ -23,6 +25,8 @@ from analysis.stage5c_hard_controls import (  # noqa: E402
     expected_ordering_fraction,
     legendre_mode_2,
     log_chiral_transfer,
+    kappa_one_feature_pool,
+    replication_benchmarks,
     sample_hash,
     sprinkle_control,
 )
@@ -107,8 +111,36 @@ def test_rng_hash_manifest_is_pinned():
 def test_matching_benchmark_is_nontrivial_and_balanced():
     """CI reruns the complete source-of-record feasibility benchmark."""
     result = benchmark(n=96, pool_size=SOURCE_OF_RECORD_POOL_SIZE)
+    assert SOURCE_OF_RECORD_POOL_SIZE == 768
+    assert result["seed_bases"] == SOURCE_OF_RECORD_BASES
+    assert len(REPLICATION_BASES) == 4
+    assert result["matched_pairs"] == 361
+    assert np.isclose(result["coverage"], 0.4700520833333333)
+    assert np.isclose(result["max_smd"], 0.16158546089604894)
+    assert np.isclose(result["max_ks"], 0.10803324099722988)
+    assert np.isclose(result["median_distance"], 1.6655190336322285)
+    assert np.isclose(result["p90_distance"], 1.904361142701321)
     assert all(count == 0 for count in result["chain_counts"].values())
     assert result["matched_pairs"] >= MIN_MATCHED_PAIRS
     assert result["coverage"] >= MIN_MATCH_COVERAGE
     assert result["max_smd"] <= MAX_ABSOLUTE_SMD
     assert result["max_ks"] <= MAX_KS_DISTANCE
+
+
+def test_kappa_one_domain_filter_uses_the_stage5a_observable():
+    seeds = range(670_000_000, 670_000_008)
+    features, retained = kappa_one_feature_pool(32, CONTROL_THETA, seeds)
+    expected = [
+        seed
+        for seed in seeds
+        if kappa(sprinkle_control(32, CONTROL_THETA, seed).order) == 1
+    ]
+    assert retained.tolist() == expected
+    assert features.shape == (len(expected), len(FEATURE_NAMES))
+
+
+def test_replication_runner_uses_all_frozen_seed_blocks():
+    results = replication_benchmarks(n=32, pool_size=64)
+    assert tuple(
+        tuple(result["seed_bases"].values()) for result in results
+    ) == REPLICATION_BASES
