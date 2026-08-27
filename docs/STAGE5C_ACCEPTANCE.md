@@ -501,8 +501,12 @@ baseline matching 主要作用於 Axis B 的 target pairs；Axis A 若比較固�
 candidate-independent 核心交付物現已見 `docs/STAGE5C_C8_4_HARD_CONTROLS.md`：完整
 dimension-$\le2$ domain 與 $\kappa=1$ stratum 都能在固定 11 維 global-scalar
 baseline 下通過足夠樣本量的 filter-then-match benchmark，且跨 seed replication
-已把 raw pool 從 512 提升為 768。這解決了「對照族是否可構造」本身，**但不等於
-Freeze-1a 已完成**：該文件的 continuum endpoint 尚須與 D.1 第 3 項的
+已把 raw pool 從 512 提升為 768。設計點固定後另有三個全新 out-of-sample blocks
+通過全部 matching gates；先前用來選擇 768 的 blocks 只列 exploratory evidence，
+不再回充為可行性證據。這解決了 matchability，但匹配前稽核亦顯示 local density
+差異會洩漏進 global height／interval 統計，故 **residual discriminability 尚未確認**。
+在 reference-probe 預登記完成並取得判決前，不得把 Axis-B 無差異記為候選失敗。
+這些進展仍**不等於 Freeze-1a 已完成**：該文件的 continuum endpoint 尚須與 D.1 第 3 項的
 basis-invariant primary observable／smearing／norm 合法對接，並與第 6 項的全域
 multiplicity rule 一起在單一 freeze commit 固定。此前 C8 仍不得執行 confirmatory
 evaluation，Stage 5C-1 仍不得宣告通過。

@@ -200,11 +200,44 @@ $u\leftrightarrow v$ 也保持 $q(u)q(v)$，不會把 $+\theta$ 變成 $-\theta$
 abundance 作為 manifoldlike causal-set 診斷的文獻只作選擇此 nuisance family 的
 動機；本項的定義與門檻由上列明文和 executable tests 承重。
 
-這個 control 能同時保持低階平衡與非零 continuum contrast 的關鍵是：上述 11 項
-只量 whole-causet global scalars，而 $T_+$／$T_-$ 的已知差異是 local conformal
-density inhomogeneity。故 matching 不把定義 control 的 local profile 本身當成
-nuisance 配平。未來不得為了改善表面平衡而加入 local profile、指定
-source/sink/region 的 statistic，或任何 target-definition proxy。
+上述 11 項都只量 whole-causet global scalars，而 $T_+$／$T_-$ 的定義性差異是
+local conformal density inhomogeneity。**但先前版本由此推論「matching 不會把
+local signal 當成 nuisance 配平」，該推論過強，已撤回。**
+
+獨立復檢在 768-pool 的四個 block 上量了**匹配前**的 signed SMD（$T_+$ 減
+$T_-$，以 calibration scale 標準化）：
+
+| covariate | blk1 | blk2 | blk3 | blk4 | 四組同號 |
+| :--- | ---: | ---: | ---: | ---: | :---: |
+| `height_over_sqrt_n` | $+0.430$ | $+0.463$ | $+0.512$ | $+0.366$ | 是 |
+| `height_cdf_0.6` | $+0.157$ | $+0.346$ | $+0.258$ | $+0.227$ | 是 |
+| `height_cdf_0.4` | $+0.104$ | $+0.218$ | $+0.146$ | $+0.144$ | 是 |
+| `interval_abundance_2` | $-0.094$ | $-0.206$ | $-0.157$ | $-0.102$ | 是 |
+| `interval_abundance_4` | $-0.165$ | $-0.083$ | $-0.205$ | $-0.142$ | 是 |
+| `relation_density` | $+0.042$ | $-0.002$ | $+0.011$ | $-0.048$ | 否 |
+
+local density inhomogeneity **確實大量洩漏進全域 height 與 interval-abundance
+統計**（height 達 $0.43$–$0.51$ SD，四組同號），而 matching 正是把這些配平到
+匹配後 max SMD $\approx0.11$。`relation_density` 則如 §2.2 的解析結果在零附近抖動。
+
+正確陳述因此是：
+
+> 本文件目前只確認 **matchability**——存在一個固定 protocol，能在 11 維 global
+> baseline 上把兩個定義域內 target 平衡到預登記門檻。它**尚未確認 residual
+> discriminability**——即條件於這 11 項之後，matched cohort 是否仍保留可被
+> order-only 構造偵測的差異。
+
+這是有利也有不利的：兩個 target 從純 order 資料本來就系統性可分（故 control
+非退化），但 matching 依設計吃掉了其中相當大的一部分，殘餘量未經量測。
+
+**風險與後續.** 若殘餘 power 實際為零，則每個候選都會拿到 Axis B FAIL，而該失敗
+會被誤記為候選的失敗。因此 D.1 第 3 項必須先做 candidate-independent 的
+reference-probe feasibility；在其預登記 freeze 且完成判決之前，本 control 不得用於
+任何候選評估。
+
+未來仍不得為了改善表面平衡而加入 local profile、指定 source/sink/region 的
+statistic，或任何 target-definition proxy；該禁令與上述撤回無關，且由 acceptance
+spec v0.8 的 C8.1 covariate-qualification 條款承重。
 
 匹配演算法固定為：
 
@@ -274,10 +307,15 @@ blocks 顯示該設計點在門檻邊緣：
 這不是 seed 挑選指控：原 seeds 在開跑前固定且自然；問題是未留 sampling-variation
 餘裕。
 
-### 5.2 768 的跨 seed replication
+### 5.2 選擇 768 時使用的 exploratory evidence
 
 將唯一設計變更限制為 raw pool 由 512 增至 768；$N$、$\theta$、11 維 baseline、
-calipers、matching 與所有門檻均不變。四個獨立 replication blocks 結果為：
+calipers、matching 與所有門檻均不變。
+
+下表四個 block 是**選擇 768 這個設計點時所使用的 exploratory evidence**。依
+acceptance spec §5.3，exploratory 結果可以決定「要不要改設計點」，但**不得回頭
+充當該設計點的可行性證據**；先前版本把它們登記為 768 的 replication evidence，
+屬循環，已降級：
 
 | seed block（cal $+/-$；val $+/-$） | pairs | coverage | max SMD | max KS |
 | :--- | ---: | ---: | ---: | ---: |
@@ -286,9 +324,33 @@ calipers、matching 與所有門檻均不變。四個獨立 replication blocks �
 | `930/931/932/933M` | 312 | 0.4062 | 0.1055 | 0.0609 |
 | `940/941/942/943M` | 330 | 0.4297 | 0.1328 | 0.0788 |
 
-四組全部同時通過 pairs、coverage、SMD、KS，且最差值仍有可見餘裕。這些 seeds
-只屬 development replication，全部 burned；表格證明的是 protocol feasibility，
-不是 future candidate 的 confirmatory evidence。
+四組全部同時通過 pairs、coverage、SMD、KS。這些 seeds 全部 burned。**它們只證明
+「768 值得一試」，不構成 768 的可行性證據**（見 §5.3）。
+
+### 5.3 設計固定後的 out-of-sample feasibility evidence
+
+在 raw pool 固定為 768 之後才抽取、且未曾用於選擇任何設計參數的三個獨立 block：
+
+| seed block（cal $+/-$；val $+/-$） | pairs | coverage | max SMD | max KS | 判定 |
+| :--- | ---: | ---: | ---: | ---: | :---: |
+| `960/961/962/963M` | 344 | 0.4479 | 0.1574 | 0.1076 | PASS |
+| `970/971/972/973M` | 335 | 0.4362 | 0.0905 | 0.0716 | PASS |
+| `980/981/982/983M` | 332 | 0.4323 | 0.1741 | 0.0843 | PASS |
+
+三組同時通過全部四道門檻。**768 的 matchability 可行性由本表承重**，§5.2 只作
+決策紀錄。這些 seeds 同樣全部 burned，不得作 future candidate 的 confirmatory
+evidence。
+
+### 5.4 非阻塞診斷：max-over-columns 的維度效應
+
+`max absolute SMD` 是對欄取極大值，欄數增加時期望值會機械性上升。以四個
+768-block 的 44 個 per-column $|$SMD$|$ 經驗分布做 bootstrap：欄數
+$11\to20$ 時 $E[\max]$ 僅由 $0.105$ 升至 $0.113$，且 $P(\max>0.20)\approx0$。
+
+因此此效應在目前尺度**可忽略**，新增 covariate 不會因維度而被誤殺；若某新增項
+未過 max-SMD 門檻，應解讀為該欄實質失衡。這是一項**非阻塞診斷紀錄，不是普遍
+定理**：它只在本 baseline、本 $N$、本 pool size 的經驗分布下成立，欄數大幅增加
+或改變 $N$ 時必須重估。
 
 ---
 
@@ -362,19 +424,28 @@ module-boundary proof；後者仍是 Freeze-1a blocker。
 - 給出不靠候選、方向預定的 continuum target；
 - 將 C8.1 的低階項、binning、距離、caliper、matching、unmatched handling 與
   coverage/balance threshold 全部具體化；
-- 完成 768-pool source-of-record、四組跨 seed replication、$\kappa=1$
-  filter-then-match audit、power 下界與 RNG/hash manifest；
+- 完成 768-pool source-of-record、$\kappa=1$ filter-then-match audit、power 下界
+  與 RNG/hash manifest；
+- 完成設計固定後的 out-of-sample feasibility evidence（§5.3 三個 block）；
 - 全程未設計或評估任何候選 $K$。
+
+**已確認的範圍限於 matchability。** 見 §4：residual discriminability 尚未確認。
 
 ### 尚未完成
 
-1. D.1 第 3 項尚須把 C6/C7/C8 primary observable、smearing 與 norm 統一；若其
+1. **residual discriminability 未確認**，且此為目前最高風險項。全域 height 與
+   interval-abundance 統計吸收了相當大一部分 local density 差異（§4），條件於
+   11 維 baseline 之後是否仍有 order-only 可偵測的資訊，尚無量測。若殘餘 power
+   為零，每個候選都會拿到 Axis B FAIL 並被誤記為候選失敗。D.1 第 3 項必須先做
+   兩層 reference-probe feasibility；其預登記 freeze 且完成判決之前本 control
+   不得用於任何候選評估；
+2. D.1 第 3 項尚須把 C6/C7/C8 primary observable、smearing 與 norm 統一；若其
    object contract 與本文件的 $L_\theta$ 無法形成合法 mapping，必須在看見候選前
    修改或撤回本 control，不得硬接；
-2. D.1 第 6 項尚須提供全域 multiplicity rule，之後才能確定局部 $\alpha=0.01$
+3. D.1 第 6 項尚須提供全域 multiplicity rule，之後才能確定局部 $\alpha=0.01$
    是否足夠保守；
-3. 本輪沒有產生或揭露任何 confirmatory holdout；上述 seeds 全屬
+4. 本輪沒有產生或揭露任何 confirmatory holdout；上述 seeds 全屬
    candidate-independent protocol development，未來不得冒充 candidate holdout；
-4. Freeze-1a 仍為 PENDING，候選設計禁令不變；
-5. 256-per-side 的完整與 $\kappa=1$ audits 都不足；負結果保留為 sample-size
+5. Freeze-1a 仍為 PENDING，候選設計禁令不變；
+6. 256-per-side 的完整與 $\kappa=1$ audits 都不足；負結果保留為 sample-size
    sensitivity，不能再被解讀成 $\kappa=1$ domain 不可行。
