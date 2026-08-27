@@ -771,7 +771,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 1. **C3b evaluator form**：sector-blind lift space、projection／quotient construction、basis-covariant invariant-norm family。
 2. **C5 diagnostic form**：明定 evaluation-only pure-order diagnostic 的選擇、定義與不回流測試。
-3. **C6/C7/C8 evaluator contract**：nested-region／boundary selectors、primary observable、massless target、smearing、norm、planted alternatives。
+3. **C6/C7/C8 evaluator contract**：nested-region／boundary selectors、primary observable、massless target、smearing、norm、planted alternatives。C8.4 matched cohort 的 residual-discriminability reference probe 已預登記於 `docs/STAGE5C_D1_3_REFERENCE_PROBE.md`，但尚未執行；其判決與本項的統一 object mapping 都完成前，本項仍為 PENDING。
 4. **C8.1 exact matching protocol**：低階項、binning、距離、容差、matching algorithm、未配對處理、coverage threshold。
 5. **C8.4 domain-internal difficult controls**：domain proof、外部預測差異、power analysis、RNG/hash manifest。candidate-independent 可構造性與跨 seed matching 已交付於 `docs/STAGE5C_C8_4_HARD_CONTROLS.md`；仍須與第 3、6 項在單一 freeze commit 對接後才算 DELIVERED。
 6. **全域 confirmatory control**：`docs/stage5c_confirmatory_ledger.md` schema、attempt id 規則，以及跨 candidate version／batch／stage 的 attempt cap 或 family-wise $\alpha$/e-value spending rule。
