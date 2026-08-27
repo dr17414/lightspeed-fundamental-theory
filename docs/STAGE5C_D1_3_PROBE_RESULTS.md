@@ -83,6 +83,14 @@ claim family，未參與 Holm、未改變判決；但 frozen protocol §0 又明
 診斷是必要 gate，必須在 fresh protocol／fresh seeds 下事前登記，不能用本次已揭露
 witness 追認。
 
+**反證優先例外。** 上述 output-only firewall 不得用來壓低與登記判決衝突的
+事後證據。若未登記診斷顯示某項登記判決的必要前提可能失效，source-of-record
+必須公開且僅公開 `POSTHOC-CONFLICT`（不得公開數值、方向、feature family 或權重），
+並同步在 development log 記錄、暫停該 verdict 的承重資格、開立 protocol amendment；
+只有 fresh protocol／fresh seeds 的預登記檢驗可以解除衝突。與判決相容的事後診斷
+仍維持隔離，不得另記 `NO-CONFLICT` 或作正面佐證。這是一條不對稱的 falsification
+規則：禁止未登記佐證升格，但不容許輸出限制消音已知反證。
+
 ---
 
 ## 5. 語意上限
