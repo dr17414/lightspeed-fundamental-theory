@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.2 草案；尚未 freeze】** — 經第一輪獨立 review 修正，仍待交叉復檢。
+狀態：**【提案／v0.3 草案；尚未 freeze】** — 經第二輪獨立 review 修正，仍待交叉復檢。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -165,10 +165,11 @@ branch、截斷或 regulator，其定義域與上界規則一併固定。任何�
 pointwise product 的替代端點，必須先交付合法的 distribution-product／renormalization
 prescription，否則判 PROTOCOL-INVALID。
 
-reported quantity 是 causet-level $\mathcal O_C$ 的 ensemble mean、variance／concentration
+reported quantity 是 causet-level $\mathcal O_C$ 的 ensemble law、mean、variance／concentration
 與 continuum extrapolation。一般 $\mathbb E[\mathfrak I_G(M_C)]\ne
-\mathfrak I_G(\mathbb E[M_C])$；不得以後者替代前者，除非已預先證明 $M_C$ concentration、
-$\mathfrak I_G$ 在 relevant domain 連續，且 nonlinear bias 在登記容差內。
+\mathfrak I_G(\mathbb E[M_C])$；continuum target 必須依 §4.2 的 candidate-independent
+random-measure law 事前固定。invariant-of-mean 只可在 §4.2 的 concentration／continuity／
+uniform-integrability theorem 已證時作為同一 target 的計算簡化，不得依 $K$ 的結果換型。
 
 ---
 
@@ -217,19 +218,31 @@ C8 的 intrinsic selector。C7 若使用 gate-specific test-function selector，
 解法是**不許最佳化，只許依序取第一個合格者**：
 
 > $\mathcal F_\Sigma$ 的成員在**任何成員求值前的 selector-prereg commit** 固定一個
-> 評測順序。依序對每個成員執行 §6 的 selection-split feasibility，取第一個通過者；
+> 評測順序。先依 §6a-S 作 contrast-free batch prefilter，再保持原始順序依次執行
+> §6a-E selection-split feasibility，取第一個完整通過者；
 > **不得**評測全部成員再取效應量最大者。
 
 first-past-the-post **不會自行消除 selection bias**。第一個通過者必須在完全 fresh、
 事前保留的 selector-confirmation split 上，以不重擬、不改 threshold 的方式重跑 §6；
 confirmation 亦全過後才可記 `SELECTOR-VIABLE` 並寫入最終 Freeze-1a commit。若失敗，
-該成員與資料 burned，再依事前規則決定是否續測下一成員；每一步都消耗預登記的
-family-wise $\alpha$／e-value spending。不得用 selection split 的 effect estimate 作端點
+該成員與資料 burned，再依事前規則決定是否續測下一成員；每個進入 6a-E 的成員都依
+原始 family 位置使用預登記的 family-wise $\alpha$／e-value spending。不得用 selection split 的 effect estimate 作端點
 承重數值。
 
 因此時間順序是：selector-prereg commit $\to$ sequential selection／fresh confirmation
 $\to$ 最終單一 Freeze-1a commit。已評測成員、兩種 split、判決與 spending 均記入
 獨立 selector ledger；不得混入 protocol-amendment log，也不得回充 candidate holdout。
+
+**6a-S 與 6a-E 的資料與多重性分工必須分開。** 6a-S 全部是 contrast-free 的
+selector／measure prefilter，只能在**同一 target 內**的獨立 blocks 上批次執行，且其
+data streams 必須與 6a-E 的 between-target streams 不相交。通過 6a-S 的成員仍保留
+selector-prereg commit 中的原始順序；只有會讀取 $T_+$ vs $T_-$ contrast 的 6a-E
+採嚴格 sequential first-past-the-post、fresh confirmation 與 family-wise spending。
+6a-S 淘汰本身不消耗 contrast family 的 $\alpha$，但也**不得**把被淘汰位置的配置
+靜默重分配給後續成員；除非 selector-prereg commit 已固定一個具有效性證明的 recycling
+rule，否則 6a-E 的配置以原始有序 family 為準。日後若任何 6a-S 檢定改為讀取
+between-target contrast，它自動改列 6a-E，受相同序列、fresh-confirmation 與 spending
+管制；不得只改名稱保留 batch screening。
 
 ---
 
@@ -238,30 +251,49 @@ $\to$ 最終單一 Freeze-1a commit。已評測成員、兩種 split、判決與
 ### 4.1 型別正確的 induced measure
 
 $\Sigma$ 不需定位任何座標點。先以 raw ensemble 說明型別：對離散樣本 $C$ 及其 sealed embedding coordinates
-$X_i=(u_i,v_i)$，先定義隨機 weighted pair measure
+$X_i=(u_i,v_i)$，先定義隨機 weighted pair measure 及其完整機率律
 
 $$
-\nu^{C}_{\Sigma,\varphi}
+\widetilde\nu^{C}_{\Sigma,\varphi}
 =\mathcal N_C^{-1}\!\!\sum_{(i,j)\in\Sigma(C)}
 \varphi_C(i,j)\,\delta_{(X_i,X_j)},
 \qquad
-\bar\nu_{\theta}=\mathbb E_{C\sim T_\theta}[\nu^{C}_{\Sigma,\varphi}].
+\nu^{C,\epsilon}_{\Sigma,\varphi}=R_{\epsilon,g}
+  \widetilde\nu^{C}_{\Sigma,\varphi},
+\qquad
+\Pi^{(N,\epsilon)}_{\theta,g}=\operatorname{Law}_{C\sim T^{(N)}_{\theta,g}}
+  (\nu^{C,\epsilon_g}_{\Sigma_g,\varphi_g}),
+\qquad
+\Pi^{\mathrm{cont}}_{\theta,g}
+=\lim_{(N,\epsilon)\to(\infty,0)}\Pi^{(N,\epsilon)}_{\theta,g},
+\qquad
+\bar\nu^{\mathrm{cont}}_{\theta,g}
+=\mathbb E_{\nu\sim\Pi^{\mathrm{cont}}_{\theta,g}}[\nu].
 $$
 
-$\bar\nu_\theta$ 是位於 ordered spacetime-pair space（四個 coordinate components）上的
+$g\in\{C6,C7,C8\}$ 指 gate-specific sampling／selector instance；上式的 limit 是弱收斂
+或 contract 另行指定的更強 topology，且必須在 §6a-E 證明存在。下文簡寫
+$\Pi_{\theta,g}=\Pi^{\mathrm{cont}}_{\theta,g}$；$\bar\nu^{\mathrm{cont}}_{\theta,g}$
+只是其第一矩。
+$R_{\epsilon,g}$ 是在 selector-prereg commit 固定的**線性** mollifier／regulator；
+$N\to\infty$、$\epsilon_g\to0$（或固定 physical smearing scale）的聯合順序、rate 與
+admissible test-function topology 必須一併預登記。
+$\bar\nu^{\mathrm{cont}}_{\theta,g}$ 是位於 ordered spacetime-pair space（四個 coordinate components）上的
 有限 signed／complex measure；其 base measure、orientation、是否排除 diagonal／contact
 set、以及 total variation bound 必須明寫。要與 distribution $S_\theta$ pairing，它在固定
 mollifier／regulator 後必須收斂到 admissible smooth compactly-supported test density（或
 另證明 $S_\theta$ 對該較弱 measure class 為 order-zero distribution）。finite empirical
-delta measure 本身不自動屬於 test-function space。只有在 $\varphi=1$ 且再作明定 normalization
+delta measure $\widetilde\nu^C$ 本身不自動屬於 test-function space。只有在 $\varphi=1$ 且再作明定 normalization
 時，才把對應的非負 measure 稱為 $\mu_\theta$。不得把 variable pair count 的 raw intensity、
 conditional-on-selection probability 與 normalized density 靜默混用。
 
-**C8 必須使用 matched induced measure。** Axis B 的 continuum target 不是上式的 raw
-$\bar\nu_\theta$，而是 $\bar\nu_{\theta\mid\mathcal M}$：expectation 必須涵蓋 C8.1 的
+**C8 必須使用 matched induced-measure law。** Axis B 的 continuum target 不是上式的 raw
+$\Pi_{\theta,C8}$ 或 $\bar\nu^{\mathrm{cont}}_{\theta,C8}$，而是 matching lifecycle 誘導的 joint two-arm law
+$\Pi_{\mathcal M}$ 及其 arm marginals $\Pi_{\theta\mid\mathcal M}$；expectation 必須涵蓋 C8.1 的
 兩臂 pool generation、calibration scale、matching、calipers、unmatched handling 與 pair
-weights，再條件於樣本被納入 matched cohort。$\mathcal M$ 是 joint two-arm procedure，
-不能以兩個獨立 raw marginals 代替。$T_+$ vs $T_+$／$T_-$ vs $T_-$ null controls 亦須走
+weights，再條件於樣本被納入 matched cohort。其 continuum 第一矩才記為
+$\bar\nu^{\mathrm{cont}}_{\theta\mid\mathcal M}$。$\mathcal M$ 是 joint two-arm procedure，不能以兩個
+獨立 raw marginals 代替。$T_+$ vs $T_+$／$T_-$ vs $T_-$ null controls 亦須走
 同一 $\mathcal M$ lifecycle。C6/C7 的 gate-specific measures 則按各自預登記 sampling
 design 另記，不得與 C8 measure 靜默混用。
 
@@ -281,18 +313,34 @@ $\mathcal M$ 誘導的 joint matched-pair law 與 covariance。不得把 paired 
 
 ### 4.2 連續預測
 
-若 §2.3 的 concentration 條件成立，candidate-independent continuum matrix target 為
+continuum target 從一開始就由 §4.1 的**完整、candidate-independent induced-measure law**
+定義。令
 
-$$M^{\mathrm{cont}}_{\theta,g}
-=\left\langle S_\theta,\bar\nu_{\theta,g}\right\rangle,
-\qquad
-\mathcal O^{\mathrm{cont}}_{\theta,g}=\mathfrak I_G(M^{\mathrm{cont}}_{\theta,g}),$$
+$$
+Z^{\mathrm{cont}}_{\theta,g}(\nu)
+=\mathfrak I_G\!\left(\left\langle S_\theta,\nu\right\rangle\right),
+\qquad \nu\sim\Pi_{\theta,g},
+$$
 
-其中 $g\in\{C6,C7,C8\}$ 指各 gate 已預登記的 sampling／selector instance；C8 時
-$\bar\nu_{\theta,C8}=\bar\nu_{\theta\mid\mathcal M}$。
+並以其 law、mean、variance／quantiles 作登記的 continuum predictions；若 primary scalar
+是 mean，則
 
-若 concentration 不成立，必須直接預登記 continuum ensemble functional
-$\lim\mathbb E[\mathfrak I_G(M_C)]$ 與其 fluctuation law；不得偷換成 invariant of mean。
+$$
+\mathcal O^{\mathrm{cont}}_{\theta,g}
+=\mathbb E_{\nu\sim\Pi_{\theta,g}}
+ \left[\mathfrak I_G\!\left(\left\langle S_\theta,\nu\right\rangle\right)\right].
+$$
+
+只有在 selector-prereg contract 指定的 continuum sequence 上，另證
+$\Pi_{\theta,g}$ concentration、$\mathfrak I_G$ 在 relevant domain 連續、所需矩具
+uniform integrability，且 nonlinear bias 在登記容差內時，才可使用簡化式
+$\mathfrak I_G(\langle S_\theta,\bar\nu^{\mathrm{cont}}_{\theta,g}\rangle)$。此簡化是已證 theorem 的
+計算捷徑，**不是**依 candidate 表現選擇的替代 target。若條件不成立，完整 law-based
+target 仍原封不動；不得在 Freeze-2a 從 invariant-of-mean 靜默切換成 mean-of-invariant，
+或反向切換。
+
+C8 時上式必須對 $\Pi_{\mathcal M}$ 的 joint matched-pair law 計算 paired contrast 與
+variance，不能只用兩個 $\Pi_{\theta\mid\mathcal M}$ marginals 重建獨立-arm variance。
 
 此處 $\langle\cdot,\cdot\rangle$ 是 bi-spinor distribution 對 §4.1 test measure 的**線性**
 pairing，不是 pointwise determinant。$S_\theta$ 依 §1 的 bi-spinor 宣告構造；contact／boundary
@@ -301,12 +349,15 @@ singularity 若使 pairing 不存在，必須在候選前修正 test space 或�
 $T_+$ 與 $T_-$ 的預測差可以來自 $\bar\nu_\theta$、$S_\theta$，或兩者共同作用；本 contract
 **不要求** $\mu_+\ne\mu_-$。完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$ 的方向、
 最小差距與 numerical uncertainty 必須在最終 Freeze-1a 前由 §6 的 fresh confirmation 承重。
+Freeze-1a 固定 $\Pi$、continuum sequence、允許的 concentration theorem、統計 functional
+與誤差門檻；6b 只檢查 candidate 的離散 endpoint law／moments 是否收斂到這個既定 target，
+不得替 contract 選 target。
 
 ### 4.3 Smearing $\varphi$
 
 $\varphi_C$ 必須：relabeling-invariant；只依賴 order 與 $\#$；在 selector-prereg commit
-固定形式與所有尺度參數的上界規則；且其與 $\Sigma,\mathcal N$ 共同誘導的 $\bar\nu_\theta$
-存在穩定 continuum limit。若 $\varphi$ 可為負或複數，須另報 total variation／phase
+固定形式與所有尺度參數的上界規則；且其與 $\Sigma,\mathcal N$ 共同誘導的
+$\Pi^{(N,\epsilon)}_{\theta,g}$ 存在穩定 continuum limit。若 $\varphi$ 可為負或複數，須另報 total variation／phase
 cancellation 與數值穩定性，不能只報 signed mean。
 
 ---
@@ -351,13 +402,17 @@ $\mathcal O$ 的 candidate realization 是 $K$ 的泛函，而 Freeze-1a 時 $K$
 | **S2 relabel** | 隨機置換下共變 | 逐位元 |
 | **S3 sector swap** | 不變，或符合宣告 covariance | 逐位元 |
 | **S4 blinding／capacity** | payload falsifier；L2/L3 ledger 與 family bound | 全部通過 |
-| **S5 $\bar\nu_\theta$ 穩定性** | 獨立 block 間 weighted measure 的預登記距離、total mass／variation | 在容差內 |
+| **S5 $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 穩定性** | **同一 target 內**獨立 blocks 間 random-measure law／weighted mean measure 的預登記距離、total mass／variation | 在容差內 |
 | **S6 coverage／well-conditioning** | pair coverage、contact/boundary exclusion、$\mathcal N$、effective sample size | 全過 floor |
 
 **不得**把 $\mu_+\ne\mu_-$ 或其他 induced-distribution divergence 設為 selector 的普遍
 必要條件：完整 endpoint 差可以只由 $S_\theta$ 產生；反之 measure 有差也可能在
 $\mathfrak I_G\circ\langle S_\theta,\cdot\rangle$ 下完全抵消。distribution divergence
 可作 secondary diagnostic，但不能替代 6a-E。
+
+S1–S6 皆不得讀取 between-target contrast；可在各 target 內批次執行。其資料必須與
+6a-E selection／confirmation streams 分離。若修改後有任何 S 檢定接觸 between-target
+contrast，依 §3.5 自動改列 6a-E 並納入 sequential spending。
 
 ### 6.3 6a-E：candidate-independent endpoint-evaluator 檢定
 
@@ -369,21 +424,35 @@ $\mathfrak I_G\circ\langle S_\theta,\cdot\rangle$ 下完全抵消。distribution
 | **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline TOST | 各自等效 |
 | **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind／wrong-direction objects 經同一 endpoint | 全部按預登記方向可分 |
 | **E4 distributional well-posedness** | smearing 前後、regulator removal、contact/boundary、兩個獨立 implementation | pairing 存在、收斂且互相吻合 |
-| **E5 power／multiplicity** | E1–E4 在預登記樣本量、全域 spending 下的 power | 每個承重 claim $\ge0.90$ |
+| **E5-D detection power／multiplicity** | E1／E3 的 directional detection claims，在預登記樣本量與 multiplicity-adjusted $\alpha$ 下 | 每個承重 detection claim power $\ge0.90$ |
+| **E5-E equivalence power／multiplicity** | E2 各 null arm 的 TOST／等效性 claim；由預登記 margin $\delta_E$、null variance／最壞分布與 multiplicity-adjusted $\alpha$ 反推 cohort floor | 每個承重 equivalence claim power $\ge0.90$ 且實際 cohort 達 floor |
 
 E2 的必要性與 reference probe arm N 相同；E3 則是 acceptance spec C7 明定的 planted-
-alternative 要求。E1–E5 的統計量、effect floor、equivalence margin、sample size、seed 段、
+alternative 要求。E1–E4 與 E5-D／E5-E 的統計量、effect floor、equivalence margin、sample size、seed 段、
 regulator sequence 與 failure semantics 全部在 selector-prereg commit 固定，不得在看過
 任何成員結果後修改。selection split 通過後仍須依 §3.5 以 fresh confirmation 重驗。
-planted objects 僅為 evaluator-side positive／negative controls，須與 construction module
-隔離；其矩陣、權重、test functions 與成功模式不得列為候選材料或回流 C0 construction。
+E4 是 analysis／numerics 的 well-posedness claim，依預登記 error bound、coverage／convergence
+criterion 與 implementation agreement 驗收；不得用「power $\ge0.90$」這個不適用的標籤
+取代其誤差證明。6a-E 是唯一讀取 between-target contrast 的 selector 階段，必須依 §3.5
+按原始 family 順序執行並納入 family-wise spending。
+
+planted objects 僅為 evaluator-side positive／negative controls，**容許使用 L4 oracle**
+（含 sealed coordinates、$\gamma$ 與 $\theta$）來構造，並須與 construction module 隔離；
+其矩陣、權重、test functions 與成功模式不得列為候選材料或回流 C0 construction。
+正因 planted family 可使用 C0 禁止進入 construction 的 oracle，**E3 PASS 只證明 evaluator
+能區分這些 oracle-built objects；對是否存在合規的 order-only $K$、或該 $K$ 能否產生
+相同物件，沒有任何蘊涵，也不得作為 Stage 5C-1 可行性證據。**
 
 ### 6.4 6b：candidate endpoint realization（Freeze-2a 執行）
 
-端點層級另需：$\mathcal O$ 的離散值收斂到 $\mathcal O^{\text{cont}}_\theta$（收斂率預登記）；
+端點層級另需：$\mathcal O_C$ 的離散 endpoint law 及其承重 moments／quantiles 收斂到
+§4.2 固定的 $Z^{\mathrm{cont}}_{\theta,g}$ law（收斂率預登記）；
 $T_+$ 與 $T_-$ 的離散端點差達預登記 effect floor 且方向正確；null control 等效；
 且該差異在 §2.2 已證明的 invariant 層次成立，而非依賴任何 covariant 中間量。
-6b 的失敗是 candidate-specific FAIL；6a-S／6a-E 未完成或失敗時則 control／protocol
+§4.2 的 concentration 簡化若獲准，只是 continuum target 的 theorem-backed 計算法；
+6b 不得依 candidate 重新開啟或撤回該選擇。收斂不成立時依事前規則記 candidate-level
+FAIL，數值解析度不足則記 INCONCLUSIVE，**不得**改用另一 endpoint definition。6b 的
+實質失敗是 candidate-specific FAIL；6a-S／6a-E 未完成或失敗時則 control／protocol
 尚不可用，**不得**把風險轉嫁成候選 FAIL。
 
 ---
@@ -451,8 +520,8 @@ residual-power 前提必須依 §6 重新建立。
 - §1.4 的 global fiber trivialization、pairing／reality、完整 basis group $G$ 與其
   invariant-family proof；
 - $\mathfrak I_G$、$\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance；
-- $\bar\nu_\theta$ 的 base measure、contact／boundary treatment、continuum／regulator sequence；
-- E1–E5 的統計量、effect／equivalence floors、planted-alternative family、power 與 seed ranges；
+- $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
+- E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - 任何 $K$ 的形式；
 - C9／C10 的 immutable core（屬 D.1 第 7 項）。
@@ -463,7 +532,7 @@ residual-power 前提必須依 §6 重新建立。
 
 ---
 
-## 附錄 A — v0.2 獨立 review 處置
+## 附錄 A — v0.2–v0.3 獨立 review 處置
 
 | 發現 | 處置 |
 | :--- | :--- |
@@ -478,3 +547,7 @@ residual-power 前提必須依 §6 重新建立。
 | 因候選尚不存在而把全部 endpoint feasibility 推到 Freeze-2a | §6 拆 6a-S／6a-E／6b；continuum contrast、null、planted alternatives、distributional well-posedness 與 power 均須候選前通過 |
 | 把常數 conformal factor 稱為 order+number 不可觀測 | 撤回；改要求宣告 continuum sequence 與 dimensional covariance |
 | 強迫 C6/C7/C8 使用字面相同 selector | 改為共用 typed architecture，但允許事前固定的 gate-specific selector instances |
+| E3 planted controls 被誤讀為 order-only $K$ 的存在性證據 | 明定 planted objects 可用 L4 oracle；E3 PASS 對 Stage 5C-1 construction feasibility 零蘊涵 |
+| E2 等效性沿用 detection-power 宣稱 | E5 拆成 detection 與 equivalence；後者須由 margin、adjusted $\alpha$ 與 null variance／最壞分布反推自己的 cohort floor |
+| 6a-S／6a-E 的批次、序列與 spending 邊界不清 | S 限於同 target、contrast-free batch prefilter；E 才能讀 contrast，依原始 family 順序接受 FPTP、fresh confirmation 與 family-wise spending |
+| concentration 依 candidate 決定 continuum endpoint 型別 | 改以完整 candidate-independent law $\Pi_{\theta,g}$ 定義 mean-of-invariant；只有 theorem 條件成立時才允許 invariant-of-mean 作等價簡化，6b 不得換 target |
