@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.3 草案；尚未 freeze】** — 經第二輪獨立 review 修正，仍待交叉復檢。
+狀態：**【提案／v0.4 草案；尚未 freeze】** — 經第三輪獨立 review 修正，仍待 fork 決策。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -76,8 +76,13 @@ $\iota_{\text{sf}}$ 的合法性完全依賴 1+1D 的兩個 global null total or
 
 宣告 fiber 上的雙線性 pairing $\langle\cdot,\cdot\rangle$、reality structure，以及
 是否存在把所有 $F_x$ 識別為同一 model fiber 的**全域 trivialization**。令
+$W=L_U\oplus L_V$；對目前只以裸 smeared matrix $M$ 作 endpoint 的 fixed-slot contract，
+可容許群須精確寫為
 
-$$G=\{B\in GL(2,\mathbb C):\ B\ \text{保持宣告的 pairing 與 reality structure}\}.$$
+$$
+G=\operatorname{Stab}_{GL(W)}(\{L_U,L_V\})
+\cap\operatorname{Aut}(\text{pairing},\text{reality},\text{basis conventions}).
+$$
 
 $G$ **必須包含** sector swap $\sigma_x$（Stage 5A 的 $S_2$ 商）。若 dossier 只允許
 global basis change，必須明寫其物理與離散來源；在此已證明的全域 trivialization 下，
@@ -97,6 +102,17 @@ $$G_R(x,y)\longmapsto B_xG_R(x,y)B_y^{-1}$$
 一般**不是** scalar；必須先提供合法的 transport／pairing／composition 把兩端 indices
 收縮。沒有 connection primitive 時，不得一面宣稱 local covariance，一面使用 global
 similarity 的不變量。
+
+此處必須區分：任意 $B\in GL(W)$ 仍可作**被動座標變換**，但須同時搬動 sector
+projectors、pairing 與 reality tensors；它不等於上述把 sector slots 固定、只對 $M$
+作用的 gauge group。若要採 full passive covariance，endpoint 必須把這些 tensors 一起
+納入 typed functional，不能仍引用裸 $M$ 的 invariant family。
+
+`docs/STAGE5C_D1_4_BASIS_GROUP.md` 已證明 fixed-slot 群只可落在
+$S_2\subseteq G\subseteq(\mathbb C^\times)^2\rtimes S_2$，並給出各代表性 fork 的
+invariant algebra；但 A／B 尚未選定。非緊 full monomial fork 在完整矩陣 domain 上不存在
+continuous positive invariant norm，與 C3b norm gate 有條件衝突。故 §1.4 仍為
+**PENDING fork**，不得把該文件誤引為 $G$ 已 freeze。
 
 ---
 
@@ -119,11 +135,11 @@ $\sigma_x$」**不能**推出全部 $G$-不變量由 $\operatorname{tr}M$ 與 $\
 trace／determinant 決定（零矩陣與 $\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$
 已有相同 trace／determinant）。
 
-因此 Freeze-1a 必須在 §1.4 的 $G$、pairing、reality 與 global/local basis convention
-固定後，另交付**完整 invariant-family proof**。只有在額外證明「作用為單一矩陣的
-full $GL(2,\mathbb C)$ similarity，且只取相應的 holomorphic polynomial invariants」時，
-才可採 trace／determinant 生成陳述；若 $G$ 是 pairing-preserving subgroup、作用涉及
-$M^\dagger$，或只含 sector swap，不變量集合都須重算。
+因此 Freeze-1a 必須先固定 §1.4 的 $G$、pairing、reality 與 global/local basis convention，
+再引用 `docs/STAGE5C_D1_4_BASIS_GROUP.md` 中對應 fork 的完整 invariant-family proof。
+現行 fixed-slot contract 的 $G$ 嚴格落在 monomial stabilizer 內，故 full
+$GL(2,\mathbb C)$ similarity 的 trace／determinant 生成捷徑**不可用**；若作用涉及
+$M^\dagger$、只含 sector swap，或選其他中間 subgroup，皆須使用該文件相應結果或重算。
 
 在已證明的 massless diagonal special case
 $M=\operatorname{diag}(m_U,m_V)$，任何 polynomial sector-symmetric endpoint 可由
@@ -517,8 +533,8 @@ residual-power 前提必須依 §6 重新建立。
 ## 10. 本文件刻意不固定的事
 
 - $\mathcal F_\Sigma$ 的**具體成員**——需與 GPT 議定後才寫入，且一經寫入即凍結；
-- §1.4 的 global fiber trivialization、pairing／reality、完整 basis group $G$ 與其
-  invariant-family proof；
+- §1.4 的 global fiber trivialization、pairing／reality 與 basis-group fork **選定**；
+  invariant-family algebra 已有 PENDING-fork 交付物，但尚未形成單一 frozen $G$；
 - $\mathfrak I_G$、$\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance；
 - $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
@@ -551,3 +567,7 @@ residual-power 前提必須依 §6 重新建立。
 | E2 等效性沿用 detection-power 宣稱 | E5 拆成 detection 與 equivalence；後者須由 margin、adjusted $\alpha$ 與 null variance／最壞分布反推自己的 cohort floor |
 | 6a-S／6a-E 的批次、序列與 spending 邊界不清 | S 限於同 target、contrast-free batch prefilter；E 才能讀 contrast，依原始 family 順序接受 FPTP、fresh confirmation 與 family-wise spending |
 | concentration 依 candidate 決定 continuum endpoint 型別 | 改以完整 candidate-independent law $\Pi_{\theta,g}$ 定義 mean-of-invariant；只有 theorem 條件成立時才允許 invariant-of-mean 作等價簡化，6b 不得換 target |
+| 把一般被動 $GL(2)$ 換基與 fixed-slot gauge group 混同 | §1.4 改以 sector-line stabilizer 與 declared structures 之交定義 $G$；full passive covariance 必須同步搬動 projectors／pairing／reality tensors |
+| 非緊 monomial fork 被當成只稍弱的合法選項 | §1.4 交付物以 nilpotent orbit closure 證明完整 domain 不存在 continuous positive invariant norm，與 C3b gate 有條件衝突 |
+| $\Delta$ 被誤列為 C3b non-degeneracy 必要條件 | 改為 $\Delta\ne0$ 只是非純量的充分 witness；$\Delta=0$ 不得單獨判 FAIL |
+| ideal planted representatives 被誤當成全 domain 可分離 | monomial 全純族不能分離 blind／chiral 代表與其單側 triangular degeneration；E3 必須驗完整 admissible domain |
