@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.6 草案；尚未 freeze】** — basis-group fork B 與 ambient norm 已定案；endpoint 與其餘 contract 仍待完成。
+狀態：**【提案／v0.7 草案；尚未 freeze】** — fork B、ambient norm 與完整 invariant algebra 已交付；primary endpoint 與其餘 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -126,6 +126,14 @@ $T^2\rtimes S_2$-invariance 由 basis-group 文件命題 6 證明。這只 disch
 existence；C3b 的 blind-space quotient／projection、aggregate norm 與 effect-size threshold
 仍未固定，不得把此見證升格為 C3b 已交付。
 
+`docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 已交付 fork B 的完整 complexified-real invariant
+ring：生成集由
+$A=a+d,P=ad,W=bc,S=|b|^2+|c|^2,Q=|a-d|^2,
+R=(a-d)(|b|^2-|c|^2)$ 及其共軛構成，final relation ideal 由 symmetric rank-one
+$3\times3$ matrix 的六個 $2\times2$ minors 生成。該交付物**不選** primary
+$\mathfrak I_G$；只固定一條強制限制：holomorphic-only primary family 無法分離已登記的
+triangular degeneration pairs，故 E3 承重 endpoint 必須含涉及 $M^\dagger$ 的實不變量。
+
 ---
 
 ## 2. Primary observable
@@ -147,8 +155,9 @@ $\sigma_x$」**不能**推出全部 $G$-不變量由 $\operatorname{tr}M$ 與 $\
 trace／determinant 決定（零矩陣與 $\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$
 已有相同 trace／determinant）。
 
-因此 Freeze-1a 必須引用 §1.4 已定案的 fork B、pairing 與 global basis convention，並補完
-對應的 primary real invariant family、reality／adjoint 細節及 planted-family proof。
+因此 Freeze-1a 必須引用 §1.4 已定案的 fork B、pairing、global basis convention 與完整
+invariant algebra，並從中選定 primary real $\mathfrak I_G$，補完 reality／adjoint 細節及
+planted-family proof。
 現行 fixed-slot contract 的 $G$ 嚴格落在 monomial stabilizer 內，故 full
 $GL(2,\mathbb C)$ similarity 的 trace／determinant 生成捷徑**不可用**；若作用涉及
 $M^\dagger$、只含 sector swap，或選其他中間 subgroup，皆須使用該文件相應結果或重算。
@@ -545,8 +554,8 @@ residual-power 前提必須依 §6 重新建立。
 ## 10. 本文件刻意不固定的事
 
 - $\mathcal F_\Sigma$ 的**具體成員**——需與 GPT 議定後才寫入，且一經寫入即凍結；
-- §1.4 fork B 雖已選定，仍須把 global fiber trivialization、reality／adjoint 與 primary
-  **real** invariant family 寫成單一 frozen typed contract；
+- §1.4 fork B 與完整 invariant algebra 雖已交付，仍須把 global fiber trivialization、
+  reality／adjoint 與選定的 primary **real** $\mathfrak I_G$ 寫成單一 frozen typed contract；
 - $\mathfrak I_G$、$\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance；
 - $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；

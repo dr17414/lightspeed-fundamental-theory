@@ -1,8 +1,8 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
-狀態：**【交付物草案／v0.4；fork B 已定案，尚未 freeze】** — ambient invariant norm 已構造；primary invariant family 仍待固定。
+狀態：**【交付物草案／v0.5；fork B 已定案，尚未 freeze】** — ambient norm 與完整 invariant algebra 已交付；primary endpoint 仍待固定。
 
-範圍：observable contract v0.3 §1.4 的 candidate-independent 交付物。
+範圍：observable contract v0.7 §1.4 的 candidate-independent 交付物。
 驗證於 main `8ae8e7d`：52 檔、integrity 通過、130 passed。（歷史快照。）
 
 ---
@@ -285,7 +285,7 @@ quantity 並重寫 gate；兩者都不得在候選出現後才做。
 跨 pair／sample 的 aggregate norm、權重與 effect-size threshold 仍須另行預登記。不得把
 ambient Frobenius norm 的存在誤寫成整個 C3b evaluator form 已交付。
 
-### 4.5 下一份完整性證明的必要修正：separation 不等於 ring generation
+### 4.5 完整性證明的必要修正：separation 不等於 ring generation
 
 對 fork B，torus 層確有
 $a,d,bc,|b|^2,|c|^2$ 及其共軛等基本實不變量；再取 swap 後，review 提議的
@@ -304,14 +304,16 @@ $(x,\bar x,y)\mapsto(-x,-\bar x,-y)$，故二次不變量除 $x^2,\bar x^2,xy,\b
 bigrading 下，前兩者的 degrees 為 $(2,0),(0,2)$，而 $x\bar x$ 為 $(1,1)$。
 
 在複數點值上，$x^2$ 的確把 $x$ 決定到 sign，故原候選仍可能**分離軌道**；這正是為何
-不能以 numerical collision 或 separation 成功反推 ring generation。下一份交付物若承重
-「完整生成」，至少須從
+不能以 numerical collision 或 separation 成功反推 ring generation。完整生成證明須從
 
 $$a+d,\ ad,\ bc,\ |b|^2+|c|^2,\ |a-d|^2,
 \ (a-d)(|b|^2-|c|^2)$$
 
-及其共軛出發，交付解析生成證明與 relations；本節只固定必要修正，不提前宣稱該 proof
-已完成。
+及其共軛出發。`docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 現已交付解析 Hilbert-basis／
+second-Veronese 證明與 final six-minor relation ideal，並證明 $|a-d|^2$ 對 ring generation
+必要、對點值 separation 不必要。該文件同時限制 holomorphic-only endpoint：它保留的
+invariant information 與 noncompact complexification 相同，無法分離兩組已登記 degeneration
+pairs；但不得把此資訊退化誤寫成 fork B 的群或 Frobenius norm 已消失。
 
 ---
 
@@ -426,8 +428,9 @@ Claude review 正確排除了 L4，但把 $h$ 改列 L3 仍與 frozen acceptance
 - 這些結構不是 evaluator-only oracle，亦不得誤列 L4。
 
 在 P1、P2——均為現行 acceptance discipline 的具名實例——下，**fork B 定案**。
-這只完成 basis-group／pairing 子決策；$\mathfrak I_G$ 的完整 real invariant family、primary
-endpoint、wrong-direction E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
+這只完成 basis-group／pairing 子決策；完整 real invariant algebra 已由
+`docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 交付，但 primary $\mathfrak I_G$、
+wrong-direction E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
 Freeze-1a 仍為 **PENDING**。本節沒有設計候選 $K$。
 
 ---
@@ -458,3 +461,7 @@ swap 加完整 relative-phase invariance 迫使 $h=p\mathbb 1$，以及該 $h$ �
 isometry group 為 $T^2\rtimes S_2$。
 v0.4 再以命題 6 與 deterministic compact-monomial cases 鎖住 Frobenius norm 的正定性與
 $G$-invariance；這只 discharge ambient-norm existence，不代替 C3b quotient contract。
+v0.5 接入 `tests/test_stage5c_invariant_algebra.py`：完整 invariant algebra 的解析證明由獨立
+交付物承擔；測試只鎖 torus Hilbert basis 的有界窮舉、六條 final syzygy identities、
+$Q=|z_1|$ 與兩組 degeneration witnesses，以及含真實碰撞的結構化格點回歸，不冒充
+全域生成／分離證明。
