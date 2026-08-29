@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.4 草案；尚未 freeze】** — 經第三輪獨立 review 修正，仍待 fork 決策。
+狀態：**【提案／v0.5 草案；尚未 freeze】** — basis-group fork B 已定案；endpoint 與其餘 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -109,10 +109,16 @@ projectors、pairing 與 reality tensors；它不等於上述把 sector slots �
 納入 typed functional，不能仍引用裸 $M$ 的 invariant family。
 
 `docs/STAGE5C_D1_4_BASIS_GROUP.md` 已證明 fixed-slot 群只可落在
-$S_2\subseteq G\subseteq(\mathbb C^\times)^2\rtimes S_2$，並給出各代表性 fork 的
-invariant algebra；但 A／B 尚未選定。非緊 full monomial fork 在完整矩陣 domain 上不存在
-continuous positive invariant norm，與 C3b norm gate 有條件衝突。故 §1.4 仍為
-**PENDING fork**，不得把該文件誤引為 $G$ 已 freeze。
+$S_2\subseteq G\subseteq(\mathbb C^\times)^2\rtimes S_2$，並以兩項具名前提完成 fork B：
+C3b 的 norm 是完整 object domain 上連續正定的 invariant norm；C0 最小 primitive 紀律要求
+只宣告該 norm 所需的最小結構，並採其完整 stabilizer。據此宣告
+
+$$h=p\mathbb 1\quad(p>0),\qquad G=T^2\rtimes S_2,
+\qquad G_{\mathrm{eff}}=U(1)\rtimes S_2.$$
+
+$h/\mathbb R_{>0}$ 是 **declared L2 pairing／adjoint scaffold**，不是 poset-derived 亦不是
+L4 oracle；整體尺度 $p$ 吸收到 $\mathcal N$，只有其數值若被保留才按 L3 normalization
+計入。此決議沒有選定 primary $\mathfrak I_G$，也不表示 §1.4 或本 contract 已 freeze。
 
 ---
 
@@ -135,8 +141,8 @@ $\sigma_x$」**不能**推出全部 $G$-不變量由 $\operatorname{tr}M$ 與 $\
 trace／determinant 決定（零矩陣與 $\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$
 已有相同 trace／determinant）。
 
-因此 Freeze-1a 必須先固定 §1.4 的 $G$、pairing、reality 與 global/local basis convention，
-再引用 `docs/STAGE5C_D1_4_BASIS_GROUP.md` 中對應 fork 的完整 invariant-family proof。
+因此 Freeze-1a 必須引用 §1.4 已定案的 fork B、pairing 與 global basis convention，並補完
+對應的 primary real invariant family、reality／adjoint 細節及 planted-family proof。
 現行 fixed-slot contract 的 $G$ 嚴格落在 monomial stabilizer 內，故 full
 $GL(2,\mathbb C)$ similarity 的 trace／determinant 生成捷徑**不可用**；若作用涉及
 $M^\dagger$、只含 sector swap，或選其他中間 subgroup，皆須使用該文件相應結果或重算。
@@ -533,8 +539,8 @@ residual-power 前提必須依 §6 重新建立。
 ## 10. 本文件刻意不固定的事
 
 - $\mathcal F_\Sigma$ 的**具體成員**——需與 GPT 議定後才寫入，且一經寫入即凍結；
-- §1.4 的 global fiber trivialization、pairing／reality 與 basis-group fork **選定**；
-  invariant-family algebra 已有 PENDING-fork 交付物，但尚未形成單一 frozen $G$；
+- §1.4 fork B 雖已選定，仍須把 global fiber trivialization、reality／adjoint 與 primary
+  **real** invariant family 寫成單一 frozen typed contract；
 - $\mathfrak I_G$、$\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance；
 - $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；

@@ -1,6 +1,6 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
-狀態：**【交付物草案／v0.2；判決為 PENDING fork】** — 經獨立 review 修正，尚未 freeze。
+狀態：**【交付物草案／v0.3；fork B 已定案，尚未 freeze】** — basis-group 子決策已完成；primary invariant family 仍待固定。
 
 範圍：observable contract v0.3 §1.4 的 candidate-independent 交付物。
 驗證於 main `8ae8e7d`：52 檔、integrity 通過、130 passed。（歷史快照。）
@@ -15,7 +15,8 @@
   在本文件中判為無效。
 - **不設計候選 $K$。**
 - **E3 planted controls 不得用於證明 $G$、合格 $\Sigma$ 或 order-only $K$ 存在**（見 §8）。
-- **$G$ 未被唯一固定**，故本文件交付具名 fork，不作選擇（§7）。
+- **不把 basis-group 決議誤寫成整份 D.1 第 3 項完成。** §7 只定案 $G$ 與 pairing 的
+  provenance；primary endpoint $\mathfrak I_G$、smearing／normalization 與統計門檻仍未 freeze。
 
 ---
 
@@ -93,7 +94,8 @@ slot basis 自動推出它們全都物理可觀測。
 $\bar G=G/(G\cap Z)$。例如 $S_2$ 與 $Z\cdot S_2$ 對 $M$ 的有效作用相同；
 $T^2\rtimes S_2$ 的有效連續部分是 $U(1)$，$N$ 的有效連續部分是 $\mathbb C^\times$。
 
-現有規格只固定上述區間，沒有唯一固定其中的 subgroup；§7 因而保留 fork。
+只靠上述群論區間不能唯一固定 subgroup；§7 另以 C3b 的正定 invariant-norm gate 與
+C0 的最小 primitive／完整 stabilizer 紀律完成選擇。這兩項前提均具名，不冒充純群論定理。
 
 ---
 
@@ -250,6 +252,19 @@ $|b|^2+|c|^2$ 對 $0$ 與 nilpotent 分別為 $0$ 與 $1$，**分離 §4.3 的�
 > $\|J\|_G=\|tJ\|_G\to\|0\|_G=0$，矛盾。因此 full noncompact fork C
 > **不存在**這種 invariant norm。
 
+以上例子可推廣到任何有效對角子群 $H\le\mathbb C^\times$ 的非緊情形：模長映射
+$|\cdot|:H\to\mathbb R_{>0}$ 無界；利用群的取逆封閉性，可取 $r_n\in H$ 使
+$|r_n|\to0$，故 $r_nJ\to0$。因此只要完整矩陣 domain 含 $J$，任何非緊 $H$ 都沒有
+全域連續正定 invariant norm。這個結論**不需要**先窮盡 $\mathbb C^\times$ 的全部閉子群。
+
+特別注意，清單
+$\{1,\mu_n,U(1),\mathbb R_{>0}\!\cdot\!\mu_n,\mathbb C^\times\}$
+並不窮盡 topologically closed subgroups；例如
+$\langle 2e^{i\vartheta}\rangle=\{2^ke^{ik\vartheta}:k\in\mathbb Z\}$
+在 $\mathbb C^\times$ 中閉，卻一般不在該清單。若改稱 complex algebraic subgroup，
+$U(1)$ 與 $\mathbb R_{>0}$ 本身又不屬該分類。因此 §7 使用上面的通用 compactness 論證，
+不以錯誤的閉子群清單承重。
+
 這使 fork C 不只是「分離力較弱」：若 C3b 的 invariant-norm family 指的是上述連續正定
 scalar norm，且 object domain 含 nilpotent direction，fork C 與既有 gate **不相容**。
 若要保留 C，只能在 Freeze-1a 事前限制 domain，或把 norm 改成 relative／projective
@@ -299,33 +314,75 @@ quantity 並重寫 gate；兩者都不得在候選出現後才做。
 
 ---
 
-## 7. 判決：PENDING fork
+## 7. 判決：fork B（兩項具名前提下唯一）
 
-$G$ **未被現有前提唯一決定**。已確定的是：對目前 fixed-slot、$M$-only contract，
+對目前 fixed-slot、$M$-only contract，已確定
 $S_2\subseteq G\subseteq N$；一般 sector-mixing matrix 只能作同時搬動 projectors 的被動
-座標變換，不能偷換成裸 $M$ 的 gauge action。下表是三個**代表性** fork，不宣稱窮盡
-所有 swap-containing subgroups（其他 pairing／reality choices 仍可能給出中間 subgroup）：
+座標變換，不能偷換成裸 $M$ 的 gauge action。歷史上需比較的代表性 fork 如下；表格不宣稱
+窮盡全部 abstract subgroups：
 
 | fork | $G$ | 何時成立 | 全純不變量 | 分離能力 |
 | :--- | :--- | :--- | :--- | :--- |
 | **A** | 有效作用 $S_2$ | basis contract 固定 relative normalization／phase；可以是宣告 convention，不冒充 derived physics | $\mathbb C[a{+}d,ad,b{+}c,bc,(a{-}d)(b{-}c)]$ | 分離全部 $S_2$ 軌道（命題 2） |
 | **B** | $T^2\rtimes S_2$（緊；有效連續部 $U(1)$） | 宣告 swap-compatible positive Hermitian structure，固定模、保留 relative phase | $\mathbb C[\operatorname{tr},\det,bc]$ | 全純僅分離閉軌道；存在分離全部軌道的 real polynomial family（命題 5） |
 | **C** | $(\mathbb C^\times)^2\rtimes S_2$（非緊；有效連續部 $\mathbb C^\times$） | 不固定 relative norm | 同 B | 非閉軌道不可由 continuous invariants 分離；全域 continuous positive invariant norm 不存在 |
-| **D** | 其他 $S_2\subseteq G\subseteq N$ | 其他 swap-compatible pairing／reality／basis declarations | 必須重算 | 必須重證 |
+| **D** | 其他 $S_2\subseteq G\subseteq N$ | 額外 swap-compatible pairing／reality／basis declarations | 必須重算 | 必須重證 |
 
-**本文件的評估**：Stage 5A 只導出無序 sector lines；A 的固定 basis convention 與 B 的
-Hermitian structure 都是額外宣告，必須進 provenance／primitive ledger，且不得報為由 poset
-湧現。兩者皆能提供 C3b 所需的連續 invariant norm，但會得到不同 invariant family。
+### 7.1 前提 P1：C3b 的 norm 是連續正定 invariant norm
 
-C 則有更強的阻塞：在包含 nilpotent direction 的完整矩陣 domain 上，它與 C3b 的 continuous
-positive invariant norm 要求不相容。故 C 不能與 A/B 並列為「不加條件即可合法」的選項；
-保留 C 必須先在候選存在前完成 domain restriction 或 protocol amendment，並重驗 C3b/E3，
-不能只接受較弱分離力。
+Acceptance spec C3b 已要求預先登記 basis-covariant invariant-norm family 與 effect size。
+本決議把「norm」照字面固定為完整 object domain 上的**連續、正定** scalar norm；若改成
+seminorm、relative／projective quantity，或事後刪掉 nilpotent directions，均屬 protocol
+amendment，不能沿用本判決。
 
-**依指示不在本文件選定 A 或 B。** 下一個決策必須明寫：採固定 relative basis convention，
-或採 swap-compatible positive Hermitian evaluator structure；其來源、construction 是否可見、
-以及 C0 ledger 分級一併固定。選定前，§1.4、$\mathfrak I_G$、wrong-direction E3 與 D.1
-第 3 項皆維持 PENDING。
+由 §4.4 的一般 orbit-closure 論證，有效對角子群 $H\le\mathbb C^\times$ 必須緊。
+任何 $\mathbb C^\times$ 的緊子群都包含於 $U(1)$；$U(1)$ 的閉子群只有有限循環群
+$\mu_n$ 與 $U(1)$ 本身。故 P1 把可行有效作用縮到
+
+$$H\in\{1,\mu_n,U(1)\}.$$
+
+### 7.2 前提 P2：只宣告 norm 所需的最小 L2 結構，並取其完整 stabilizer
+
+Stage 5A 給的是兩條無序 complex sector lines，沒有 preferred relative phase。為實作 P1，
+本決議宣告一個與 swap 相容的正定 Hermitian pairing $h$，但**不**另宣告 relative-phase
+標記；$G$ 定義為這些已宣告結構的完整 automorphism group，不可任意再挑一個較小 subgroup。
+這是 C0 最小 primitive／capacity ledger 在本子問題的具體含義，不是群論定理。
+
+在 sector slot representatives 中，一般 swap-compatible positive Hermitian form 為
+
+$$h=\begin{pmatrix}p&q\\q&p\end{pmatrix},\qquad p>|q|,\quad p,q\in\mathbb R.$$
+
+若 $q\ne0$，$h$ 會固定兩條 sector lines 的相對 phase：對
+$D=\operatorname{diag}(e^{i\phi},e^{i\psi})$，條件 $D^\dagger hD=h$ 迫使
+$e^{i(\psi-\phi)}=1$。這正是 Stage 5A 未給出的額外 basis-phase primitive。
+P2 因而排除 $q\ne0$，留下
+
+$$\boxed{h=p\,\mathbb 1,\qquad p>0.}$$
+
+反之，$h=p\mathbb 1$ 的完整 fixed-line isometry group 恰為
+$T^2\rtimes S_2$；商掉作用平凡的共同相位中心後，
+
+$$\boxed{G=T^2\rtimes S_2,\qquad G_{\mathrm{eff}}=U(1)\rtimes S_2.}$$
+
+因此 $\mu_n$ 或有效 $S_2$ 不是「較少 primitive」：要把完整 $U(1)$ stabilizer 人為縮小，
+必須再宣告離散或完整的 relative-phase convention。A 比 B 多固定 relative phase；以
+「B 的 pairing 是額外結構」為理由改選 A 並不融貫，因 A 含有 B 所需的 norm scaffold，
+還另加 phase structure。
+
+### 7.3 Ledger 分級與決議範圍
+
+Claude review 正確排除了 L4，但把 $h$ 改列 L3 仍與 frozen acceptance spec 衝突：spec §4.1
+明列 **pairing／adjoint／basis-phase convention 為 L2 quantum scaffolding**。故本決議登記：
+
+- $h/\mathbb R_{>0}$（兩條 sector lines 正交、等長）是 **declared L2**，不是 poset-derived；
+- 整體正尺度 $p$ 不作獨立物理參數，吸收到 §4 的 normalization $\mathcal N$；若保留其數值，
+  該數值才按 **L3 normalization** 計入；
+- 這些結構不是 evaluator-only oracle，亦不得誤列 L4。
+
+在 P1、P2——均為現行 acceptance discipline 的具名實例——下，**fork B 定案**。
+這只完成 basis-group／pairing 子決策；$\mathfrak I_G$ 的完整 real invariant family、primary
+endpoint、wrong-direction E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
+Freeze-1a 仍為 **PENDING**。本節沒有設計候選 $K$。
 
 ---
 
@@ -337,6 +394,8 @@ positive invariant norm 要求不相容。故 C 不能與 A/B 並列為「不加
 - 命題 1 只限制 fixed-slot、$M$-only gauge group；它不禁止同時搬動 sector projectors 的
   一般被動 $GL(W)$ 座標變換。若未來撤回 Stage 5A sector decomposition，stabilizer contract
   本身也須重寫。
+- fork B 的唯一性是相對於 §7 的 P1/P2；若正式修改 C3b 的 norm 型別，或新增有 provenance
+  的 relative-phase primitive，必須重開此決議，不得稱為推翻純群論定理。
 - 全部結論限於 **1+1D**（C11）。
 
 ---
@@ -348,3 +407,6 @@ positive invariant norm 要求不相容。故 C 不能與 A/B 並列為「不加
 命題 4 的 blind／chiral orbit-closure 反例、命題 5 的 compact witness 與 noncompact norm
 no-go、§3.3 的 local 權重、similarity 中心 kernel、被動 $GL(2)$ 搬動 projectors 與
 fixed-slot monomial stabilizer 的區分，以及 §5 判別式的正確邏輯方向。
+v0.3 另鎖住：遺漏於簡化清單的 closed spiral subgroup 仍觸發非緊 orbit-closure no-go、
+swap 加完整 relative-phase invariance 迫使 $h=p\mathbb 1$，以及該 $h$ 的完整 fixed-line
+isometry group 為 $T^2\rtimes S_2$。

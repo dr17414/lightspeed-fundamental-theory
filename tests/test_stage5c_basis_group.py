@@ -122,6 +122,45 @@ def test_noncompact_orbit_closes_on_zero_and_forbids_a_continuous_positive_invar
     # converge to its value at zero, contradicting positive definiteness.
 
 
+def test_closed_spiral_subgroup_omitted_by_the_naive_list_has_the_same_norm_obstruction():
+    """A discrete radial spiral is closed in C* but is not R_+ times a finite phase group."""
+    nilpotent = np.array([[0.0, 1.0], [0.0, 0.0]], dtype=complex)
+    generator = 2.0 * np.exp(1j * np.sqrt(2.0))
+    moved_norms = []
+    for exponent in (1, 4, 12):
+        ratio = generator ** (-exponent)
+        basis = np.diag([ratio, 1.0]).astype(complex)
+        moved = basis @ nilpotent @ np.linalg.inv(basis)
+        assert np.allclose(moved, ratio * nilpotent)
+        moved_norms.append(np.linalg.norm(moved))
+    assert moved_norms[0] > moved_norms[1] > moved_norms[2]
+    assert moved_norms[-1] < 1e-3
+
+
+def test_swap_and_full_relative_phase_invariance_force_scalar_hermitian_pairing():
+    p, q = 2.0, 0.4
+    pairing = np.array([[p, q], [q, p]], dtype=complex)
+    assert np.allclose(SWAP.conj().T @ pairing @ SWAP, pairing)
+
+    relative_phase = np.diag([1j, 1.0]).astype(complex)
+    assert not np.allclose(relative_phase.conj().T @ pairing @ relative_phase, pairing)
+
+    scalar_pairing = p * np.eye(2, dtype=complex)
+    assert np.allclose(relative_phase.conj().T @ scalar_pairing @ relative_phase, scalar_pairing)
+    assert np.allclose(SWAP.conj().T @ scalar_pairing @ SWAP, scalar_pairing)
+
+
+def test_scalar_pairing_has_full_compact_monomial_stabilizer():
+    pairing = 3.0 * np.eye(2, dtype=complex)
+    phases = (0.17, 1.31)
+    diagonal = np.diag(np.exp(1j * np.array(phases)))
+    for basis in (diagonal, SWAP @ diagonal):
+        assert np.allclose(basis.conj().T @ pairing @ basis, pairing)
+
+    noncompact = np.diag([2.0, 1.0]).astype(complex)
+    assert not np.allclose(noncompact.conj().T @ pairing @ noncompact, pairing)
+
+
 def test_local_endpoint_bases_give_relative_determinant_but_not_relative_trace():
     matrix = np.array([[2.0, 3.0], [5.0, 7.0]], dtype=complex)
     ax, bx, ay, by = 2.0, 3.0, 5.0, 7.0
