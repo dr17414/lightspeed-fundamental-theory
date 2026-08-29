@@ -1,6 +1,6 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
-狀態：**【交付物草案／v0.3；fork B 已定案，尚未 freeze】** — basis-group 子決策已完成；primary invariant family 仍待固定。
+狀態：**【交付物草案／v0.4；fork B 已定案，尚未 freeze】** — ambient invariant norm 已構造；primary invariant family 仍待固定。
 
 範圍：observable contract v0.3 §1.4 的 candidate-independent 交付物。
 驗證於 main `8ae8e7d`：52 檔、integrity 通過、130 passed。（歷史快照。）
@@ -270,6 +270,49 @@ scalar norm，且 object domain 含 nilpotent direction，fork C 與既有 gate 
 若要保留 C，只能在 Freeze-1a 事前限制 domain，或把 norm 改成 relative／projective
 quantity 並重寫 gate；兩者都不得在候選出現後才做。
 
+> **命題 6（fork B 的 ambient invariant norm）.** fork B 定案後令
+> $$\|M\|_F=\sqrt{\operatorname{tr}(MM^\dagger)}.$$
+> 對任意 $B\in T^2\rtimes S_2$，$B^{-1}=B^\dagger$，故
+> $$M'=BMB^\dagger
+> \quad\Longrightarrow\quad
+> M'M'^\dagger=BMM^\dagger B^\dagger,$$
+> 由 trace 的 cyclicity 得 $\|M'\|_F=\|M\|_F$。此外
+> $\|M\|_F=0\iff M=0$，且有限維下連續；所以它是在完整
+> $M_2(\mathbb C)$ domain 上的連續、正定、$G$-不變 norm。$\square$
+
+命題 6 **discharge 了 P1 的 ambient-norm 存在性**，不再只是「緊群應有某個 norm」的
+抽象保證。但它沒有完成 C3b：sector-blind lift space、projection／quotient construction、
+跨 pair／sample 的 aggregate norm、權重與 effect-size threshold 仍須另行預登記。不得把
+ambient Frobenius norm 的存在誤寫成整個 C3b evaluator form 已交付。
+
+### 4.5 下一份完整性證明的必要修正：separation 不等於 ring generation
+
+對 fork B，torus 層確有
+$a,d,bc,|b|^2,|c|^2$ 及其共軛等基本實不變量；再取 swap 後，review 提議的
+
+$$a+d,\quad ad,\quad bc,\quad |b|^2+|c|^2,
+\quad (a-d)(|b|^2-|c|^2)$$
+
+及其共軛是自然的 orbit-separating 候選。但若要宣稱**生成完整實多項式不變量環**，該表
+少了
+
+$$\boxed{|a-d|^2.}$$
+
+令 $x=a-d$、$y=|b|^2-|c|^2$。swap 同時作
+$(x,\bar x,y)\mapsto(-x,-\bar x,-y)$，故二次不變量除 $x^2,\bar x^2,xy,\bar x y,y^2$
+外還有 $x\bar x=|a-d|^2$。它不是 $x^2$ 與 $\bar x^2$ 的多項式：在 $(x,\bar x)$ 的
+bigrading 下，前兩者的 degrees 為 $(2,0),(0,2)$，而 $x\bar x$ 為 $(1,1)$。
+
+在複數點值上，$x^2$ 的確把 $x$ 決定到 sign，故原候選仍可能**分離軌道**；這正是為何
+不能以 numerical collision 或 separation 成功反推 ring generation。下一份交付物若承重
+「完整生成」，至少須從
+
+$$a+d,\ ad,\ bc,\ |b|^2+|c|^2,\ |a-d|^2,
+\ (a-d)(|b|^2-|c|^2)$$
+
+及其共軛出發，交付解析生成證明與 relations；本節只固定必要修正，不提前宣稱該 proof
+已完成。
+
 ---
 
 ## 5. Planted classes 的可分離性
@@ -328,7 +371,7 @@ $S_2\subseteq G\subseteq N$；一般 sector-mixing matrix 只能作同時搬動 
 | **C** | $(\mathbb C^\times)^2\rtimes S_2$（非緊；有效連續部 $\mathbb C^\times$） | 不固定 relative norm | 同 B | 非閉軌道不可由 continuous invariants 分離；全域 continuous positive invariant norm 不存在 |
 | **D** | 其他 $S_2\subseteq G\subseteq N$ | 額外 swap-compatible pairing／reality／basis declarations | 必須重算 | 必須重證 |
 
-### 7.1 前提 P1：C3b 的 norm 是連續正定 invariant norm
+### 7.1 P1：norm 型別是 protocol commitment；存在性已構造性 discharge
 
 Acceptance spec C3b 已要求預先登記 basis-covariant invariant-norm family 與 effect size。
 本決議把「norm」照字面固定為完整 object domain 上的**連續、正定** scalar norm；若改成
@@ -340,6 +383,9 @@ amendment，不能沿用本判決。
 $\mu_n$ 與 $U(1)$ 本身。故 P1 把可行有效作用縮到
 
 $$H\in\{1,\mu_n,U(1)\}.$$
+
+選定 fork B 後，命題 6 的 $\|\cdot\|_F$ 已顯式滿足這個要求。因此 P1 仍是「不得事後
+弱化 norm 型別或刪 domain」的 protocol commitment，但不再含有未證的 existence premise。
 
 ### 7.2 前提 P2：只宣告 norm 所需的最小 L2 結構，並取其完整 stabilizer
 
@@ -410,3 +456,5 @@ fixed-slot monomial stabilizer 的區分，以及 §5 判別式的正確邏輯�
 v0.3 另鎖住：遺漏於簡化清單的 closed spiral subgroup 仍觸發非緊 orbit-closure no-go、
 swap 加完整 relative-phase invariance 迫使 $h=p\mathbb 1$，以及該 $h$ 的完整 fixed-line
 isometry group 為 $T^2\rtimes S_2$。
+v0.4 再以命題 6 與 deterministic compact-monomial cases 鎖住 Frobenius norm 的正定性與
+$G$-invariance；這只 discharge ambient-norm existence，不代替 C3b quotient contract。

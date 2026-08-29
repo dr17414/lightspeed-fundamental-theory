@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.5 草案；尚未 freeze】** — basis-group fork B 已定案；endpoint 與其餘 contract 仍待完成。
+狀態：**【提案／v0.6 草案；尚未 freeze】** — basis-group fork B 與 ambient norm 已定案；endpoint 與其餘 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -119,6 +119,12 @@ $$h=p\mathbb 1\quad(p>0),\qquad G=T^2\rtimes S_2,
 $h/\mathbb R_{>0}$ 是 **declared L2 pairing／adjoint scaffold**，不是 poset-derived 亦不是
 L4 oracle；整體尺度 $p$ 吸收到 $\mathcal N$，只有其數值若被保留才按 L3 normalization
 計入。此決議沒有選定 primary $\mathfrak I_G$，也不表示 §1.4 或本 contract 已 freeze。
+
+fork B 的 ambient norm 已有顯式見證
+$\|M\|_F=\sqrt{\operatorname{tr}(MM^\dagger)}$；其連續性、正定性與
+$T^2\rtimes S_2$-invariance 由 basis-group 文件命題 6 證明。這只 discharge ambient-norm
+existence；C3b 的 blind-space quotient／projection、aggregate norm 與 effect-size threshold
+仍未固定，不得把此見證升格為 C3b 已交付。
 
 ---
 

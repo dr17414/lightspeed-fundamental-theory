@@ -161,6 +161,28 @@ def test_scalar_pairing_has_full_compact_monomial_stabilizer():
     assert not np.allclose(noncompact.conj().T @ pairing @ noncompact, pairing)
 
 
+def test_frobenius_norm_is_positive_and_invariant_for_fork_b():
+    matrices = [
+        np.zeros((2, 2), dtype=complex),
+        np.array([[1.0, 2.0j], [3.0 - 1.0j, -4.0]], dtype=complex),
+        np.array([[0.0, 1.0], [0.0, 0.0]], dtype=complex),
+    ]
+    bases = [
+        np.diag([1.0, 1.0]).astype(complex),
+        np.diag([np.exp(0.37j), np.exp(-1.11j)]),
+        SWAP @ np.diag([np.exp(0.23j), np.exp(2.07j)]),
+    ]
+
+    for matrix in matrices:
+        norm_squared = float(np.trace(matrix @ matrix.conj().T).real)
+        assert norm_squared >= 0.0
+        assert np.isclose(norm_squared, 0.0) == np.allclose(matrix, 0.0)
+        for basis in bases:
+            moved = basis @ matrix @ basis.conj().T
+            moved_norm_squared = float(np.trace(moved @ moved.conj().T).real)
+            assert np.isclose(moved_norm_squared, norm_squared)
+
+
 def test_local_endpoint_bases_give_relative_determinant_but_not_relative_trace():
     matrix = np.array([[2.0, 3.0], [5.0, 7.0]], dtype=complex)
     ax, bx, ay, by = 2.0, 3.0, 5.0, 7.0
