@@ -281,8 +281,10 @@ quantity 並重寫 gate；兩者都不得在候選出現後才做。
 > $M_2(\mathbb C)$ domain 上的連續、正定、$G$-不變 norm。$\square$
 
 命題 6 **discharge 了 P1 的 ambient-norm 存在性**，不再只是「緊群應有某個 norm」的
-抽象保證。但它沒有完成 C3b：sector-blind lift space、projection／quotient construction、
-跨 pair／sample 的 aggregate norm、權重與 effect-size threshold 仍須另行預登記。不得把
+抽象保證。但它沒有完成 C3b：後續 review 已證明 program-level API blindness 不是 output
+space 的線性子空間，而 ${A\otimes f}$ 是 rank-one Segre cone、不能取 quotient。
+`docs/STAGE5C_C3B_BLIND_DISTANCE.md` 已交付其 SVD distance form；program／capability schema、
+pair domain／weights、nontriviality 與 effect-size／noise thresholds 仍須另行預登記。不得把
 ambient Frobenius norm 的存在誤寫成整個 C3b evaluator form 已交付。
 
 ### 4.5 完整性證明的必要修正：separation 不等於 ring generation
@@ -460,7 +462,8 @@ v0.3 另鎖住：遺漏於簡化清單的 closed spiral subgroup 仍觸發非緊
 swap 加完整 relative-phase invariance 迫使 $h=p\mathbb 1$，以及該 $h$ 的完整 fixed-line
 isometry group 為 $T^2\rtimes S_2$。
 v0.4 再以命題 6 與 deterministic compact-monomial cases 鎖住 Frobenius norm 的正定性與
-$G$-invariance；這只 discharge ambient-norm existence，不代替 C3b quotient contract。
+$G$-invariance；這只 discharge ambient-norm existence，不代替 C3b 的 source／capability
+axis 或 rank-one blind-variety distance contract。
 v0.5 接入 `tests/test_stage5c_invariant_algebra.py`：完整 invariant algebra 的解析證明由獨立
 交付物承擔；測試只鎖 torus Hilbert basis 的有界窮舉、六條 final syzygy identities、
 $Q=|z_1|$ 與兩組 degeneration witnesses，以及含真實碰撞的結構化格點回歸，不冒充

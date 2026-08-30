@@ -1,8 +1,8 @@
-# Stage 5C — Derived Two-Sector Nonlocal Kernel Acceptance Specification (v0.8)
+# Stage 5C — Derived Two-Sector Nonlocal Kernel Acceptance Specification (v0.9)
 
-狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.8 納入 C8.4 獨立復檢所發現的 covariate-addition 繞道。本文件只固定 acceptance contract；附錄 D.1 九項尚未在單一 freeze commit 全部完成，故目前**不構成 Freeze-1a**，不得開始候選設計或 confirmatory evaluation。
+狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.9 修正 C3b 把 program/provenance class 誤當成 pointwise linear blind space 的型別錯誤，並加入 rank-one blind-variety 的有限作用域。本文件只固定 acceptance contract；附錄 D.1 九項尚未在單一 freeze commit 全部完成，故目前**不構成 Freeze-1a**，不得開始候選設計或 confirmatory evaluation。
 
-修訂基準：`docs/STAGE5C_ACCEPTANCE_AUDIT.md`（STATUS v1.12）的獨立審計判決「規格需修訂」，v0.2–v0.7 的後續獨立 review，以及 `docs/STAGE5C_C8_4_HARD_CONTROLS.md` 的跨 seed 復檢。
+修訂基準：`docs/STAGE5C_ACCEPTANCE_AUDIT.md`（STATUS v1.12）的獨立審計判決「規格需修訂」，v0.2–v0.8 的後續獨立 review，以及 `docs/STAGE5C_C8_4_HARD_CONTROLS.md` 的跨 seed 復檢。
 
 驗證於 main `d9b13dd`：41 檔、`verify_integrity.py` 通過、104 passed。
 （依 handoff §0 版本核對規則，本行為**歷史快照**，不隨 HEAD 更新。）
@@ -170,8 +170,8 @@ Stage 5B 的 witness 證明的是：**同一抽象 poset 的 pure-order function
 
 | Freeze | 凍結內容 | 最遲完成時點 |
 | :--- | :--- | :--- |
-| **Freeze-1a** | C0–C8（含 C3b，下同）的 verdict taxonomy；C3b blind-space／projection 與 invariant-norm **形式**；C5 diagnostic 的選擇與形式；C6 selectors；C7/C8 primary observable、massless target、smearing、norm、planted alternatives；C8.1 matching protocol；C8.4 controls；batch lifecycle；全域 confirmatory ledger 與跨版本 multiplicity/attempt budget | 任何候選設計及 Stage 5C-1 confirmatory evaluation 前 |
-| **Freeze-2a** | 該候選的 $K$、object/basis contract、normalization、C0–C8（含 C3b）的 L3 family／參數、domain、blind-space／norm 的 object-specific instantiation、數值門檻、樣本數、RNG/seed | 接觸 Stage 5C-1 fresh holdout A 前 |
+| **Freeze-1a** | C0–C8（含 C3b，下同）的 verdict taxonomy；C3b capability-restricted source audit、rank-one blind-variety distance 與 invariant-norm **形式**；C5 diagnostic 的選擇與形式；C6 selectors；C7/C8 primary observable、massless target、smearing、norm、planted alternatives；C8.1 matching protocol；C8.4 controls；batch lifecycle；全域 confirmatory ledger 與跨版本 multiplicity/attempt budget | 任何候選設計及 Stage 5C-1 confirmatory evaluation 前 |
+| **Freeze-2a** | 該候選的 $K$、object/basis contract、normalization、C0–C8（含 C3b）的 L3 family／參數、domain、source-audit instantiation、blind-variety norm 的 object-specific instantiation、數值門檻、樣本數、RNG/seed | 接觸 Stage 5C-1 fresh holdout A 前 |
 | **Freeze-1b** | C9 finite test-function space／projector 的形式、spectral criteria、CAR/sum-rule/analytic-stability criteria、獨立 pipeline 的結構要求 | Stage 5C-2 confirmatory evaluation 前；不阻塞 Stage 5C-1 |
 | **Freeze-2b** | 同一候選的 $W$ 導出、state、pairing、quantum prescription、representation mapping、pipeline 實例與 C9 數值容差 | 接觸 Stage 5C-2 fresh holdout B 前 |
 | **Freeze-1c** | C10 massive target、dispersion、primary observable、smearing、norm 與 evaluator form | Stage 5C-3 confirmatory evaluation 前；不阻塞 Stage 5C-1/2 |
@@ -373,18 +373,44 @@ Stage 5A source-of-record：$P(\kappa=1)$ 在 $N=20,50,100,200,400$ 為 $0.765,0
 
 **修訂陳述.** 因為 $\{U,V\}$ 本身由 $P$ 導出，C3b **不是**「sector 帶入了額外資訊」的 information-theoretic 主張，也不能靠任意替換 $U,V$ 製造物理反事實。它是較便宜的**表示／來源 preflight**：在 object / basis contract 固定後，排除候選只是把 pure-order scalar objects 經固定 fiber matrices 抬升成 $2\times2$ 外觀，而沒有非平凡使用 realizer-derived structure。
 
-Freeze-1a 必須在任何候選存在前定義 basis-covariant 的 **sector-blind lift space、projection／quotient construction 與 invariant-norm family**：blind space 包含所有不呼叫 sector／realizer API 的 pure-order scalar coefficient functions 與固定 fiber endomorphisms 的有限線性組合，不能只排除單一 tensor product。Freeze-2a 只能依已宣告的 object/basis contract 實例化該空間與 norm，並固定數值門檻；不得讓候選反過來選擇衡量自身非退化性的空間或 norm。
+**v0.9 型別修正.** 「不呼叫 sector／realizer API 的程式」是一個 capability／provenance
+class，不是固定 causet 上輸出值的線性子空間。若在
+$V=\operatorname{End}(F)\otimes\mathbb C^{\mathcal D}$ 中允許任意 fixed endomorphisms 與
+任意 scalar coefficient functions 的有限線性組合，取四個 matrix units 即張成**整個** $V$；
+此時 quotient 為零，任何 non-degeneracy gate 都不可能通過。故 v0.8 的
+「blind-space projection／quotient」要求作廢，不得以改名方式沿用。
+
+Freeze-1a 改為同時固定兩個**不可互相替代**的檢查：
+
+1. **source／capability preflight**：註冊 sector／realizer API boundary、允許依賴、禁止的
+   內部重算／lookup，以及 static dependency／taint／module-ablation 證據形式；這一層判定
+   construction 是否屬 API-blind program class，不能由輸出矩陣的距離代替；
+2. **rank-one blind-variety diagnostic**：只排除最簡單的
+   $\mathcal B_1=\{A\otimes f\}$ fixed-endomorphism lift，以 basis-covariant weighted
+   Frobenius distance 與無量綱 effect size 驗收。$\mathcal B_1$ 是 Segre cone，不是線性
+   空間；其距離**不**涵蓋 API-free 的多項有限和，故不得宣稱為完整 sector-dependence test。
+
+Freeze-2a 只能依已宣告的 object／basis contract 實例化上述 form 並固定數值門檻；不得讓
+候選反過來選擇衡量自身非退化性的 API boundary、pair domain、weight、norm 或 null model。
 
 - **T** —
-1. 驗證 Freeze-1a 的 sector-blind lift space、projection／quotient 與 invariant norm 涵蓋固定 endomorphisms 的有限線性組合並具 basis covariance，再依 Freeze-2a 的 object/basis contract 作無歧義實例化；
-2. 以 static dependency／taint、module boundary 或 source-level proof 證明候選確實使用 realizer-derived API，且不能在內部繞過介面由 $P$ 偷偷重算後偽裝成 ablation；
-3. 以登記的 invariant norm 計算 sector-sensitive 分量的相對大小；
-4. 沿 §5.4 的密度序列重算，檢查**renormalized、dimensionless** sector-sensitive effect 不趨零；
-5. 只有在存在合法、仍位於 domain 內的介入時才使用 C4 perturbation。任意塞入不是 $P$ realizer 的 $U,V$ 只能作 software diagnostic，不能作物理 acceptance evidence。
+1. 以 static dependency／taint、module boundary 或 source-level proof 證明候選確實使用
+   realizer-derived API，且不能在內部繞過介面由 $P$ 偷偷重算後偽裝成 ablation；人工
+   sector-erasure 只可作 software preflight，不得冒充物理反事實；
+2. 驗證 $\mathcal B_1$、pair domain、separable weight 與 Frobenius distance 的 basis covariance，
+   並依 Freeze-2a object／basis contract 作無歧義實例化；
+3. 以登記的 invariant norm 計算到 $\mathcal B_1$ 的 renormalized、dimensionless 相對距離；
+4. 沿 §5.4 的密度序列重算，檢查該 effect 不趨零；
+5. 只有在存在合法、仍位於 domain 內的介入時才使用 C4 perturbation。任意塞入不是 $P$
+   realizer 的 $U,V$ 只能作 software diagnostic，不能作物理 acceptance evidence。
 
-- **P** — Freeze-1a 的 blind-space／norm form 與 source dependency audit 通過；renormalized norm 比值 $>$ Freeze-2a 登記門檻，且在密度序列上不衰減至零（candidate-specific scaling form 與容許區間在 Freeze-2a 登記）。
-- **F** — 「我們建了 two-sector kernel」，實際上是 scalar kernel 戴上 $2\times2$ 的帽子；或 sector slot 被用到但其內容與 $\{U,V\}$ 的 order 來源無關。
-- **E** — blind-space 定義／basis-covariance proof + source dependency evidence + norm 表 + 密度序列曲線；合法時再附 C4 擾動對照。
+- **P** — source／capability preflight 與 $\mathcal B_1$ distance 兩者都通過；renormalized
+  distance 比值 $>$ Freeze-2a 登記門檻，且在密度序列上不衰減至零。任何一軸不得代替另一軸。
+- **F** — 「我們建了 two-sector kernel」，實際上是 scalar kernel 戴上 $2\times2$ 的帽子；
+  或雖以多個 fixed matrices 取得 rank $>1$，construction 仍未使用登記的 sector／realizer
+  capability；或 sector slot 被用到但其內容與 $\{U,V\}$ 的 order 來源無關。
+- **E** — capability graph／source dependency evidence + $\mathcal B_1$ basis-covariance proof +
+  singular-spectrum／distance 表 + 密度序列曲線；合法時再附 C4 擾動對照。
 
 **$\phi$ 的地位.** v0.1 的計數比例 $\phi$ 降級為：**僅在已宣告 diagonal chiral propagation 表示時**的**可選充分 witness**，不是通用必要條件。
 
@@ -579,7 +605,7 @@ BBMM 指出 $d>2$ 時這類 causal-set-derived operator 的譜函數非正定；
   1. **massive benchmark**：與已知 1+1D massive Dirac propagation 比對（ensemble 陳述，同 §5.1）；
   2. **massless limit**：沿 basis contract 所定義的 zero-mixing family 必須連續回到 C7 的結果，且不得重新校準。若 E2/E3 的 mass-like quantity 不可直接調，須在 Freeze-2c 指定可操作的 ensemble／deformation path；不能只寫形式上的 $m\to0$；
   3. **units / scaling**：mass-like quantity 對 $\rho$、nonlocality scale、L3 參數的依賴必須明寫。E1 可保留為 explicit deformation；若只是一個自由校準常數，則 E2/E3 emergence claim FAIL；
-  4. **post-mixing revalidation**：加入 representation-independent mixing 後，逐項重跑 **C0、C1、C2、C3、C3b、C4、C5、C6、C8、C9**；C7 則在 zero-mixing member 重驗 massless recovery，並由本 gate 的 massive benchmark 驗證非零 mixing。mixing rule、mass scale 或 state 改變均須重新進 C0 ledger/capacity audit；C3b 必須在 mixing 後重新檢查 blind-space quotient，不能讓 mixing 把 sector-blind lift 偽裝成 sector-sensitive。若 basis contract 將 mixing 放在特定 blocks，可使用該表示，但不得把 off-diagonal 當普遍定義。
+  4. **post-mixing revalidation**：加入 representation-independent mixing 後，逐項重跑 **C0、C1、C2、C3、C3b、C4、C5、C6、C8、C9**；C7 則在 zero-mixing member 重驗 massless recovery，並由本 gate 的 massive benchmark 驗證非零 mixing。mixing rule、mass scale 或 state 改變均須重新進 C0 ledger/capacity audit；C3b 必須在 mixing 後重新執行 source／capability audit 與 rank-one blind-variety distance，不能讓 mixing 把 API-blind lift 偽裝成 sector-sensitive。若 basis contract 將 mixing 放在特定 blocks，可使用該表示，但不得把 off-diagonal 當普遍定義。
 - **P** — massive target、dispersion relation、primary observable、smearing 與 norm 在 Freeze-1c 固定；candidate-specific effect、scaling、massless-path 與 quantum tolerances 在 Freeze-2c 登記並全部通過。
 - **F** — 外加 $m$ 或 mixing matrix 本身不使 E1 失格；但把 E1 重新命名為 E2/E3「質量湧現」，或在 nonzero mixing 上誤套原 massless-decoupling PASS，均判 FAIL。
 - **E** — massive benchmark 表 + zero-mixing 極限曲線 + C0／C1／C2／C3／C3b／C4／C5／C6／C8／C9 逐項 revalidation report + zero-mixing C7 regression。
@@ -722,7 +748,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 | 審計 finding | v0.3 狀態 |
 | :--- | :--- |
-| C3b 公式錯誤（錯殺 off-diagonal 表示、冗餘排除式、精確 $\neq$、正比例不保證 continuum 存活、syntactic 使用） | **全部接受**；v0.3 再補 blind lift space、有限線性組合、source dependency 與「derived sector 不能任意獨立擾動」限定；$\phi$ 只作可選 witness |
+| C3b 公式錯誤（錯殺 off-diagonal 表示、冗餘排除式、精確 $\neq$、正比例不保證 continuum 存活、syntactic 使用） | **全部接受**；v0.3 曾補 blind lift space／有限線性組合，該型別已由 v0.9 撤回並改為 capability preflight + rank-one blind variety；source dependency 與「derived sector 不能任意獨立擾動」限定保留；$\phi$ 只作可選 witness |
 | §2.1 過強 | **接受**，收窄為只約束 continuum recovery claim；補 active re-embedding vs passive diffeomorphism 區分（§5.1） |
 | C9 以 C0 為由刪除協變分解，邏輯不成立 | **接受並更正**，evaluator 的 Clifford 用法列為 L4 oracle（§3） |
 | 裸 $\rho_{ab}\succeq0$ 預設過多且不完整 | **接受**，C9 改兩層 + 列出全部預設為 §3 宣告項 |
@@ -747,7 +773,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 | $W$ 可與候選脫鉤、缺 gate-object mapping 被誤判 INCONCLUSIVE | 強制 $\mathcal K/G_R\to W\to\rho$ 導出鏈；新增 PROTOCOL-INVALID |
 | C7 又寫回 $K_{UV}=K_{VU}=0$ | 改為 basis-invariant chiral decoupling；block-zero 只可作已證明表示下的翻譯 |
 | finite-causet positivity 只抽樣 test functions | 改為完整允許子空間的全譜／factorization + residual bound |
-| C3b 單一 tensor-product 漏洞與 C4 invalid counterfactual | blind lift space 納入固定 endomorphism 有限線性組合；derived data 只接受 domain-valid evidence |
+| C3b 單一 tensor-product 漏洞與 C4 invalid counterfactual | v0.3 曾把 blind lift space 擴成固定 endomorphism 有限線性組合；此解法因張成整個 $V$ 已由 v0.9 撤回，改採 source audit + 有限作用域 rank-one diagnostic；derived data 只接受 domain-valid evidence |
 | 同一 holdout 可在重新 Freeze-2 後再用 | v0.3 已規定 holdout 揭露即 burned；v0.4 分流為 Freeze-2a/2b/2c，修改後必須 fresh independent batch |
 | phase seed 與 L3 零參數複雜規則可偷渡容量 | seed 不得挑選；結論對 phase ensemble；L3 加 function/source/capacity audit |
 | C8 baseline 名稱不夠可執行、Axis A/B 適用範圍未分 | C8.1 要求精確函數、binning、距離、容差、algorithm；matching 主要限 Axis B |
@@ -758,7 +784,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 | v0.3 殘留問題 | v0.4 處置 |
 | :--- | :--- |
-| C3b blind space 與 invariant norm form 留在 Freeze-2，允許候選自訂退化性尺度 | **接受**；form 移至 Freeze-1a，Freeze-2a 只允許 object-specific instantiation 與數值門檻 |
+| C3b blind space 與 invariant norm form 留在 Freeze-2，允許候選自訂退化性尺度 | **接受但由 v0.9 型別修正**；Freeze-1a 固定 capability audit 與 rank-one blind-variety distance form，Freeze-2a 只允許 object-specific instantiation 與數值門檻；不存在 pointwise blind-space quotient |
 | 單體 Freeze-1 與附錄內容不一致，且 C9/C10 會阻塞 5C-1 | **接受**；拆為 Freeze-1a/2a、1b/2b、1c/2c，分別在 5C-1/2/3 前生效 |
 | C10 post-mixing 漏重驗 C0、C1、C3b，且 `C2–C6` 對 C3b 有語法歧義 | **接受**；改為 C0、C1、C2、C3、C3b、C4、C5、C6、C8、C9 逐項列舉 |
 | nearest-neighbour 違規被記為純 FAIL | **接受**；改為 CONDITIONAL-FORK，因此 S5C-Claim FAIL，但可保存為另一 conditional project |
@@ -772,7 +798,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 ### D.1 Freeze-1a blockers（阻塞候選設計與 Stage 5C-1）
 
-1. **C3b evaluator form**：sector-blind lift space、projection／quotient construction、basis-covariant invariant-norm family。
+1. **C3b evaluator form**：capability-restricted source audit、rank-one Segre blind-variety、basis-covariant weighted distance 與 null／continuum-survival 規則。
 2. **C5 diagnostic form**：明定 evaluation-only pure-order diagnostic 的選擇、定義與不回流測試。
 3. **C6/C7/C8 evaluator contract**：nested-region／boundary selectors、primary observable、massless target、smearing、norm、planted alternatives。C8.4 matched cohort 的 residual-discriminability reference probe 已依 `docs/STAGE5C_D1_3_REFERENCE_PROBE.md` 執行並判 **CONTROL-VIABLE**（結果見 `docs/STAGE5C_D1_3_PROBE_RESULTS.md`）；但這只完成前置可行性判決，統一 object／observable／selector／smearing／norm mapping 尚未交付，故本項仍為 PENDING。
 4. **C8.1 exact matching protocol**：低階項、binning、距離、容差、matching algorithm、未配對處理、coverage threshold。
@@ -790,7 +816,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
    **未作出聲明**才是 PENDING。依 §5.2.1(v)，在 mapping 完成前這些文獻一律只有動機性資格。路徑一經聲明即凍結；事後改採路徑 B 屬 protocol amendment，須進 amendment ledger。
 9. **兩本帳的 schema**〔v0.6 新增〕：`docs/stage5c_development_log.md`（append-only、事後登記、不佔統計預算）與 `docs/stage5c_protocol_amendment_log.md`（implementation 修改紀錄、不佔統計預算），與第 6 項的 confirmatory ledger 三者分離，職責不得混用。
 
-本規格 v0.8 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始候選設計或 Stage 5C-1 confirmatory evaluation。
+本規格 v0.9 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始候選設計或 Stage 5C-1 confirmatory evaluation。
 
 **風險註記.** 第 5 項原先的「對照族能否構造」風險已由獨立交付物解除；目前其最高實質存活風險移到第 3 項：evaluation-only $L_\theta$ 能否合法下降為同一個 basis-invariant primary observable／smearing／norm。若此 mapping 失敗，必須在候選存在前版本化修改或撤回 control，不得硬接，也不得降低 C8 門檻。
 
@@ -863,3 +889,19 @@ v0.7 未放寬任何 gate。Freeze-1a blocker 仍為九項，其中第 7 項擴�
 v0.8 未降低任何 C8 門檻，也未設計或評估任何候選 kernel。C8.4 對照族的
 candidate-independent 可構造性已確認；Freeze-1a 仍須完成 D.1 第 3、6 項整合及
 其餘 blockers。
+
+---
+
+## 附錄 I — C3b blind-space 型別修正〔v0.9〕
+
+| 復檢發現 | v0.9 處置 |
+| :--- | :--- |
+| $\{A\otimes f\}$ 是 Segre cone，不能作 quotient | 改用 weighted distance；只稱 rank-one blind-variety diagnostic |
+| fixed matrices 與任意 scalar functions 的有限和在固定 causet 上張成整個 $V$ | 撤回 pointwise blind-space／projection 要求；API-blindness 改由 capability／source provenance 判定 |
+| rank $>1$ 可由 API-free 多項 fixed lifts 產生 | C3b PASS 強制 source audit 與 value-level distance 兩軸皆過；$\rho$ 不得單獨承重 |
+| pure row weighting 其實仍保持 rank one | 真正禁止的是 slot–pair 不可分離 weighting；fiber norm 另由已凍結的 Frobenius pairing 固定 |
+| $\sqrt3/2$ 只在 pair dimension $D\ge4$ 可達 | 一般上界改為 $\sqrt{1-1/r}$，$r=\min(4,D)$；空 domain 不得評估 |
+| $K=0$ 位於 blind cone | exact zero 判 C3b FAIL；near-zero 先由 scale-aware nontriviality gate 處理，但不得取得 PASS |
+
+v0.9 沒有降低 C3b：它移除一個數學上等於全空間、因而不可執行的 quotient，改成可稽核的
+source／capability preflight 加上有限作用域的 rank-one distance。全程未設計或評估候選 $K$。

@@ -1,10 +1,10 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.7 草案；尚未 freeze】** — fork B、ambient norm 與完整 invariant algebra 已交付；primary endpoint 與其餘 contract 仍待完成。
+狀態：**【提案／v0.8 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra 與 C3b blind-variety distance form 已交付；primary endpoint 與其餘 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
-基準：`docs/STAGE5C_ACCEPTANCE.md` v0.8+、`docs/STAGE5C_C8_4_HARD_CONTROLS.md`、
+基準：`docs/STAGE5C_ACCEPTANCE.md` v0.9+、`docs/STAGE5C_C8_4_HARD_CONTROLS.md`、
 `docs/STAGE5C_D1_3_REFERENCE_PROBE.md`、`docs/STAGE5C_D1_3_PROBE_RESULTS.md`。
 驗證於 main `b5a1b79`：50 檔、integrity 通過、128 passed。（歷史快照，不隨 HEAD 更新。）
 
@@ -123,8 +123,11 @@ L4 oracle；整體尺度 $p$ 吸收到 $\mathcal N$，只有其數值若被保�
 fork B 的 ambient norm 已有顯式見證
 $\|M\|_F=\sqrt{\operatorname{tr}(MM^\dagger)}$；其連續性、正定性與
 $T^2\rtimes S_2$-invariance 由 basis-group 文件命題 6 證明。這只 discharge ambient-norm
-existence；C3b 的 blind-space quotient／projection、aggregate norm 與 effect-size threshold
-仍未固定，不得把此見證升格為 C3b 已交付。
+existence。`docs/STAGE5C_C3B_BLIND_DISTANCE.md` 另已固定 value-level rank-one Segre
+blind-variety 的 SVD 距離形式，並修正「任意 fixed endomorphism 有限和」其實張成整個
+pointwise output space、不能取 quotient 的型別錯誤。C3b 的 program／capability schema、
+pair domain／weights、非平凡性與 effect-size／noise／continuum thresholds 仍未具體固定；
+不得把 ambient norm 或距離形式升格為 C3b 已完整交付。
 
 `docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 已交付 fork B 的完整 complexified-real invariant
 ring：生成集由
@@ -560,6 +563,8 @@ residual-power 前提必須依 §6 重新建立。
 - $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
+- C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
+  weights、nontriviality／effect-size／noise／continuum calibration；
 - 任何 $K$ 的形式；
 - C9／C10 的 immutable core（屬 D.1 第 7 項）。
 

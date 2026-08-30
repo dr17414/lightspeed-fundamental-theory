@@ -214,9 +214,10 @@ invariant-ring 證明與 compact-group separation theorem 承擔。
 ## 8. 尚未完成
 
 - **primary $\mathfrak I_G$ 未選定**——本文件只交付可用族與 §6 的強制限制。
-- C3b 的 **blind-space quotient、projection、aggregate norm 與 effect-size threshold**
-  仍未完成（`753d9ea` 只完成 ambient norm $\|M\|_F$）。$Q$ 與 $S$ 是候選材料，但
-  quotient 上的 norm 需另行構造。
+- C3b 的 program／source capability schema，以及 rank-one blind-variety contract 的具體
+  domain／weights、nontriviality／effect-size／noise／continuum calibration 仍未完成。
+  `docs/STAGE5C_C3B_BLIND_DISTANCE.md` 只固定 SVD distance form；本文件只提供 ambient
+  invariant algebra，兩者皆不能代替其餘 contract。
 - 生成集的**極小性**未證（只證了生成性與 $Q$ 的不可約化）。
 - 全部結論限 **1+1D**（C11），且依賴 fork B 的 L2 宣告；撤回該宣告則 §6 起全部失效。
 
