@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.8 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra 與 C3b blind-variety distance form 已交付；primary endpoint 與其餘 contract 仍待完成。
+狀態：**【提案／v0.9 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form 與 primary 二維 invariant endpoint 已交付；selector／measure／smearing／normalization、完整 planted controls 與統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -118,7 +118,9 @@ $$h=p\mathbb 1\quad(p>0),\qquad G=T^2\rtimes S_2,
 
 $h/\mathbb R_{>0}$ 是 **declared L2 pairing／adjoint scaffold**，不是 poset-derived 亦不是
 L4 oracle；整體尺度 $p$ 吸收到 $\mathcal N$，只有其數值若被保留才按 L3 normalization
-計入。此決議沒有選定 primary $\mathfrak I_G$，也不表示 §1.4 或本 contract 已 freeze。
+計入。basis-group 決議本身沒有選定 primary $\mathfrak I_G$；其後
+`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md` 已另行選定二維 real invariant vector。這仍不表示
+§1.4 或本 contract 已 freeze。
 
 fork B 的 ambient norm 已有顯式見證
 $\|M\|_F=\sqrt{\operatorname{tr}(MM^\dagger)}$；其連續性、正定性與
@@ -133,9 +135,16 @@ pair domain／weights、非平凡性與 effect-size／noise／continuum threshol
 ring：生成集由
 $A=a+d,P=ad,W=bc,S=|b|^2+|c|^2,Q=|a-d|^2,
 R=(a-d)(|b|^2-|c|^2)$ 及其共軛構成，final relation ideal 由 symmetric rank-one
-$3\times3$ matrix 的六個 $2\times2$ minors 生成。該交付物**不選** primary
-$\mathfrak I_G$；只固定一條強制限制：holomorphic-only primary family 無法分離已登記的
-triangular degeneration pairs，故 E3 承重 endpoint 必須含涉及 $M^\dagger$ 的實不變量。
+$3\times3$ matrix 的六個 $2\times2$ minors 生成。該代數交付物本身不選 primary；後續
+primary endpoint 交付物已依其限制固定
+
+$$
+\mathfrak I_G(M)=\left(\frac{Q-2|W|}{N^2},\frac{S}{N^2}\right),\qquad
+N^2=\operatorname{tr}(MM^\dagger).
+$$
+
+它是二維 real invariant vector，不是單一純量；完整證明、sharp bounds 與推論上限見
+`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`。wrong-direction E3 仍未完成。
 
 ---
 
@@ -143,7 +152,7 @@ triangular degeneration pairs，故 E3 承重 endpoint 必須含涉及 $M^\dagge
 
 ### 2.1 型別要求
 
-primary observable $\mathcal O$ 是由 $G_R$（或 $\mathcal K$）建構的**實值純量**，且
+primary observable $\mathcal O$ 是由 $G_R$（或 $\mathcal K$）建構的**有限維實值向量**，且
 
 > 離散側與連續側必須是**同一個 typed、basis-covariant 數學泛函**。可有兩個獨立
 > implementation，但須共用一份形式規格、以 planted finite cases 逐項證明 mapping
@@ -158,9 +167,9 @@ $\sigma_x$」**不能**推出全部 $G$-不變量由 $\operatorname{tr}M$ 與 $\
 trace／determinant 決定（零矩陣與 $\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$
 已有相同 trace／determinant）。
 
-因此 Freeze-1a 必須引用 §1.4 已定案的 fork B、pairing、global basis convention 與完整
-invariant algebra，並從中選定 primary real $\mathfrak I_G$，補完 reality／adjoint 細節及
-planted-family proof。
+因此 Freeze-1a 必須引用 §1.4 已定案的 fork B、pairing、global basis convention、完整
+invariant algebra 與已選定的二維 real $\mathfrak I_G$，並補完 reality／adjoint 細節及
+尚缺的 planted-family proof。
 現行 fixed-slot contract 的 $G$ 嚴格落在 monomial stabilizer 內，故 full
 $GL(2,\mathbb C)$ similarity 的 trace／determinant 生成捷徑**不可用**；若作用涉及
 $M^\dagger$、只含 sector swap，或選其他中間 subgroup，皆須使用該文件相應結果或重算。
@@ -175,7 +184,7 @@ $$\operatorname{tr}M=m_U+m_V,\qquad \det M=m_U m_V,$$
 
 真正的硬條件是：
 
-> 被報告的 C6/C7/C8 純量 $\mathfrak I_G(M)$ 必須對已宣告的 $G$ 不變，特別是對
+> 被報告的 C6/C7/C8 向量 $\mathfrak I_G(M)$ 的每個分量必須對已宣告的 $G$ 不變，特別是對
 > $U\leftrightarrow V$ 不變。任何單獨指認「$U$ 通道」或「$V$ 通道」的最終端點
 > **不可容許**；但可用的 invariant family 不得在 $G$ 固定前預先冒充為 trace／determinant。
 
@@ -183,7 +192,7 @@ $$\operatorname{tr}M=m_U+m_V,\qquad \det M=m_U m_V,$$
 只導出無序對。
 
 **允許 covariant 中間量.** 內部可使用有序對或非不變中間量，但必須宣告其變換律，
-且**最終報告的純量必須不變**。covariant 中間量不得被引用為結果。
+且**最終報告的向量分量必須不變**。covariant 中間量不得被引用為結果。
 
 ### 2.3 端點的一般形式：先 linear smearing，再取 invariant
 
@@ -199,11 +208,15 @@ $$M_C[K;\Sigma,\varphi]
 \mathcal O_C[K;\Sigma,\varphi]=\mathfrak I_G(M_C).$$
 
 continuum 側以 §4 的同一 weighted test measure pairing 得到 $M_\theta^{\rm cont}$，再取
-$\mathfrak I_G$。$\mathfrak I_G$ 必須在 Freeze-1a 固定為**實值、dimensional-consistent**
-且具 §2.2 proof 的 scalar functional；若含 determinant、absolute value、complex phase、
+$\mathfrak I_G$。$\mathfrak I_G$ 已固定為具 §2.2 proof 的二維、實值、
+dimensional-consistent vector map；若含 determinant、absolute value、complex phase、
 branch、截斷或 regulator，其定義域與上界規則一併固定。任何確實需要 nonlinear
 pointwise product 的替代端點，必須先交付合法的 distribution-product／renormalization
 prescription，否則判 PROTOCOL-INVALID。
+
+現行 $|W|=\sqrt{W\bar W}$ 採唯一非負 branch，且作用在 linear smearing 後的有限矩陣，
+不涉及 distribution 的 pointwise product。任何報告用 scalar aggregation 只可在 Freeze-1a
+事前固定，且不得取代二維 law 或逐分量 planted separation。
 
 reported quantity 是 causet-level $\mathcal O_C$ 的 ensemble law、mean、variance／concentration
 與 continuum extrapolation。一般 $\mathbb E[\mathfrak I_G(M_C)]\ne
@@ -362,8 +375,8 @@ Z^{\mathrm{cont}}_{\theta,g}(\nu)
 \qquad \nu\sim\Pi_{\theta,g},
 $$
 
-並以其 law、mean、variance／quantiles 作登記的 continuum predictions；若 primary scalar
-是 mean，則
+並以其 joint law、mean vector、covariance／marginal quantiles 作登記的 continuum predictions；
+若 primary statistic 是 mean vector，則
 
 $$
 \mathcal O^{\mathrm{cont}}_{\theta,g}
@@ -460,9 +473,9 @@ contrast，依 §3.5 自動改列 6a-E 並納入 sequential spending。
 
 | 檢定 | 內容 | 通過條件 |
 | :--- | :--- | :--- |
-| **E1 continuum contrast** | 完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$，含 integration uncertainty | 方向正確且 effect $\ge$ floor |
-| **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline TOST | 各自等效 |
-| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind／wrong-direction objects 經同一 endpoint | 全部按預登記方向可分 |
+| **E1 continuum contrast** | 完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$，含 integration uncertainty | 通過預登記的二維 contrast region／joint effect floor |
+| **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline multivariate equivalence test | 各自落入預登記 equivalence region |
+| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind／wrong-direction objects 經同一 endpoint | 全部按預登記二維 region／逐分量樣式可分 |
 | **E4 distributional well-posedness** | smearing 前後、regulator removal、contact/boundary、兩個獨立 implementation | pairing 存在、收斂且互相吻合 |
 | **E5-D detection power／multiplicity** | E1／E3 的 directional detection claims，在預登記樣本量與 multiplicity-adjusted $\alpha$ 下 | 每個承重 detection claim power $\ge0.90$ |
 | **E5-E equivalence power／multiplicity** | E2 各 null arm 的 TOST／等效性 claim；由預登記 margin $\delta_E$、null variance／最壞分布與 multiplicity-adjusted $\alpha$ 反推 cohort floor | 每個承重 equivalence claim power $\ge0.90$ 且實際 cohort 達 floor |
@@ -476,6 +489,11 @@ criterion 與 implementation agreement 驗收；不得用「power $\ge0.90$」�
 取代其誤差證明。6a-E 是唯一讀取 between-target contrast 的 selector 階段，必須依 §3.5
 按原始 family 順序執行並納入 family-wise spending。
 
+因 $\mathfrak I_G$ 為二維，E1／E2 的 joint metric、covariance handling、simultaneous region
+與 multiplicity 必須在 selector-prereg commit 固定；不得把兩個分量事後挑一個報告，亦
+不得用候選資料選 projection。E3 的五類代數符號樣式只完成部分 form proof；
+wrong-direction 的 region／方向仍是 blocking open item。
+
 planted objects 僅為 evaluator-side positive／negative controls，**容許使用 L4 oracle**
 （含 sealed coordinates、$\gamma$ 與 $\theta$）來構造，並須與 construction module 隔離；
 其矩陣、權重、test functions 與成功模式不得列為候選材料或回流 C0 construction。
@@ -485,9 +503,10 @@ planted objects 僅為 evaluator-side positive／negative controls，**容許使
 
 ### 6.4 6b：candidate endpoint realization（Freeze-2a 執行）
 
-端點層級另需：$\mathcal O_C$ 的離散 endpoint law 及其承重 moments／quantiles 收斂到
+端點層級另需：$\mathcal O_C$ 的離散 joint endpoint law 及其承重 moments／quantiles 收斂到
 §4.2 固定的 $Z^{\mathrm{cont}}_{\theta,g}$ law（收斂率預登記）；
-$T_+$ 與 $T_-$ 的離散端點差達預登記 effect floor 且方向正確；null control 等效；
+$T_+$ 與 $T_-$ 的離散端點差落入預登記二維 acceptance region 並達 joint effect floor；
+null control 通過預登記 multivariate equivalence region；
 且該差異在 §2.2 已證明的 invariant 層次成立，而非依賴任何 covariant 中間量。
 §4.2 的 concentration 簡化若獲准，只是 continuum target 的 theorem-backed 計算法；
 6b 不得依 candidate 重新開啟或撤回該選擇。收斂不成立時依事前規則記 candidate-level
@@ -557,9 +576,10 @@ residual-power 前提必須依 §6 重新建立。
 ## 10. 本文件刻意不固定的事
 
 - $\mathcal F_\Sigma$ 的**具體成員**——需與 GPT 議定後才寫入，且一經寫入即凍結；
-- §1.4 fork B 與完整 invariant algebra 雖已交付，仍須把 global fiber trivialization、
-  reality／adjoint 與選定的 primary **real** $\mathfrak I_G$ 寫成單一 frozen typed contract；
-- $\mathfrak I_G$、$\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance；
+- §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付，仍須把
+  global fiber trivialization、reality／adjoint 與 endpoint 寫成單一 frozen typed contract；
+- $\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance，以及二維 endpoint 的
+  joint-law metric／只供報告使用的 scalar aggregation；
 - $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；

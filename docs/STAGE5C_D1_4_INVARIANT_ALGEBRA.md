@@ -1,12 +1,13 @@
 # Stage 5C §1.4 續 — 固定 $G$ 下的 invariant algebra
 
-狀態：**【交付物草案／v0.1】** — 經獨立 review 修正，尚未 freeze。
+狀態：**【已確認之代數交付物／v0.2；尚未 freeze】** — primary endpoint 已由後續獨立交付物選定。
 
 前置：fork B 已定案，$h=p\mathbb 1$、$G=T^2\rtimes S_2$、$G_{\rm eff}=U(1)\rtimes S_2$。
 驗證於 main `753d9ea`：54 檔、integrity 通過、147 passed。（歷史快照。）
 
-本文件**不選定** primary $\mathfrak I_G$，只交付 invariant algebra、其關係，以及一條對
-$\mathfrak I_G$ 的**強制限制**。
+本文件本身**不選定** primary $\mathfrak I_G$，只交付 invariant algebra、其關係，以及一條對
+$\mathfrak I_G$ 的**強制限制**。後續選定見
+`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`；不得把後續結果倒寫成本文件的代數前提。
 
 ---
 
@@ -213,7 +214,8 @@ invariant-ring 證明與 compact-group separation theorem 承擔。
 
 ## 8. 尚未完成
 
-- **primary $\mathfrak I_G$ 未選定**——本文件只交付可用族與 §6 的強制限制。
+- primary $\mathfrak I_G$ 已由後續交付物選定為二維 real invariant vector；本文件仍只承重
+  可用族與 §6 的強制限制，其選定證明與推論上限由該交付物承擔。
 - C3b 的 program／source capability schema，以及 rank-one blind-variety contract 的具體
   domain／weights、nontriviality／effect-size／noise／continuum calibration 仍未完成。
   `docs/STAGE5C_C3B_BLIND_DISTANCE.md` 只固定 SVD distance form；本文件只提供 ambient

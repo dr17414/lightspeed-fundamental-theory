@@ -1,6 +1,6 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
-狀態：**【交付物草案／v0.5；fork B 已定案，尚未 freeze】** — ambient norm 與完整 invariant algebra 已交付；primary endpoint 仍待固定。
+狀態：**【已確認之代數交付物／v0.6；fork B 已定案，尚未 freeze】** — ambient norm、完整 invariant algebra 與後續 primary endpoint 已交付。
 
 範圍：observable contract v0.7 §1.4 的 candidate-independent 交付物。
 驗證於 main `8ae8e7d`：52 檔、integrity 通過、130 passed。（歷史快照。）
@@ -431,7 +431,8 @@ Claude review 正確排除了 L4，但把 $h$ 改列 L3 仍與 frozen acceptance
 
 在 P1、P2——均為現行 acceptance discipline 的具名實例——下，**fork B 定案**。
 這只完成 basis-group／pairing 子決策；完整 real invariant algebra 已由
-`docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 交付，但 primary $\mathfrak I_G$、
+`docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 交付；primary $\mathfrak I_G$ 已由
+`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md` 選定為二維 real invariant vector，但
 wrong-direction E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
 Freeze-1a 仍為 **PENDING**。本節沒有設計候選 $K$。
 

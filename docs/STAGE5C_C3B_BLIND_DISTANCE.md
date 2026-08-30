@@ -1,6 +1,6 @@
 # Stage 5C — C3b Blind-Variety Distance Contract
 
-狀態：**【交付物草案／v0.2】** — 經獨立 review 修正；尚未 freeze。
+狀態：**【已確認之 evaluator form／v0.3；尚未 freeze】** — primary endpoint 已由後續獨立交付物選定。
 
 前置：fork B 已定案（$h=p\mathbb 1$、$G=T^2\rtimes S_2$）；ambient norm $\|M\|_F$ 已交付
 （`753d9ea`）；invariant algebra 已交付（`2f48fd04`）。
@@ -287,7 +287,8 @@ $\rho>0$ 是「非 rank-one」的充要條件，但不是 program-level sector d
 - $\mathcal D$ 的具體選擇未定；
 - null arm 的等效性 $\delta$、power 與 cohort floor 未定；
 - capability API boundary、taint／ablation schema 與禁止的 reimplementation rule 尚未具體固定；
-- primary $\mathfrak I_G$ 未選定；D.1 第 3 項與 Freeze-1a 仍為 PENDING。
+- primary $\mathfrak I_G$ 已由後續交付物選定，但它不完成本節上述 calibration／capability
+  項；D.1 第 3 項與 Freeze-1a 仍為 PENDING。
 
 ---
 
