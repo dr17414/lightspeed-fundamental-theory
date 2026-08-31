@@ -144,7 +144,9 @@ N^2=\operatorname{tr}(MM^\dagger).
 $$
 
 它是二維 real invariant vector，不是單一純量；完整證明、sharp bounds 與推論上限見
-`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`。wrong-direction E3 仍未完成。
+`docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`。第一分量中 $|W|$ 的係數 $2$ 是具名 evaluator
+convention，不是代數定理；更改須走 protocol amendment。其符號只作記帳，不得解讀為
+物理方向。wrong-direction E3 仍未完成。
 
 ---
 

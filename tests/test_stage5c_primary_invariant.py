@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from analysis.stage5c_primary_invariant import (  # noqa: E402
     COMPONENT_BOUNDS,
+    COUPLING_COEFFICIENT,
     ambient_norm_squared,
     holomorphic_family,
     planted_classes,
@@ -160,5 +161,10 @@ def test_absolute_product_uses_the_unique_nonnegative_branch():
     matrix = np.array([[0.3 + 0.2j, 1.0 + 2.0j], [-0.7 + 0.4j, -0.1j]])
     first, second = unnormalised_components(matrix)
     a, b, c, d = matrix.ravel()
-    assert np.isclose(first, abs(a - d) ** 2 - 2.0 * np.sqrt(abs((b * c) * np.conj(b * c))))
+    assert COUPLING_COEFFICIENT == 2.0
+    assert np.isclose(
+        first,
+        abs(a - d) ** 2
+        - COUPLING_COEFFICIENT * np.sqrt(abs((b * c) * np.conj(b * c))),
+    )
     assert np.isclose(second, abs(b) ** 2 + abs(c) ** 2)

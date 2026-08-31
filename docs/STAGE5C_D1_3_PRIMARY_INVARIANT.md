@@ -45,6 +45,11 @@ $$
 兩分量依序稱 `split_minus_coupling` 與 `off_diagonal_power`。$|W|$ 使用唯一的非負
 平方根 $\sqrt{W\bar W}$；它在 $W=0$ 連續但不必可微，本 contract 不要求可微性。
 
+係數 $2$ 是**宣告的 evaluator convention，不是由 invariant algebra 推導**。對一般
+$c>0$，$((Q-c|W|)/N^2,S/N^2)$ 對目前五個登記類別仍有同一組符號樣式與分離性；取
+$c=2$ 只使第一分量的 sharp lower bound 恰為 $-1$，與第二分量的 upper bound 對齊。
+此常數按 O(1) evaluator form 登記；日後更改是 protocol amendment，不是 bug fix。
+
 ### 1.1 單一連續純量確實不夠，但正確理由是三叉結構
 
 > **命題 PI-1.** 若連續實值 invariant $\phi$ 要把 sector-blind 點與至少三個已登記、
@@ -103,7 +108,7 @@ $|W|^2$ 錯除以 $N^2$，而是選擇同樣可用、二次的 $|W|$。
 ## 3. Sharp bounds 與零點
 
 $$
--1\le\frac{Q-2|W|}{N^2}\le2,qquad
+-1\le\frac{Q-2|W|}{N^2}\le2,\qquad
 0\le\frac{S}{N^2}\le1.
 $$
 
@@ -139,6 +144,8 @@ $\mathbb E[\mathfrak I_G(M_C)]\ne\mathfrak I_G(\mathbb E[M_C])$；兩邊不得�
 ## 5. 推論上限與仍未完成項
 
 - 五類分離只對上表已登記的代數 planted families；不主張全軌道分離。
+- 第一分量的正／負號是 $Q$ 與 $|W|$ 相對大小的**記帳標記，不是物理傳播方向**；
+  特別不得把正號命名成「chiral direction」或用它預判仍 PENDING 的 wrong-direction E3。
 - **wrong-direction control 仍未完成。** 它需要 orientation／continuum mapping；本文件的
   五類代數分離不能冒充 observable contract E3 已完整交付。
 - planted objects 是 evaluator-side L4 controls；其可分不蘊涵合規 order-only $K$ 存在。

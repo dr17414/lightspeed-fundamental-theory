@@ -13,6 +13,9 @@ import numpy as np
 
 COMPONENT_NAMES = ("split_minus_coupling", "off_diagonal_power")
 COMPONENT_BOUNDS = ((-1.0, 2.0), (0.0, 1.0))
+# Declared evaluator convention: this value is not derived from the invariant
+# algebra.  Changing it is a protocol amendment, not a corrective bug fix.
+COUPLING_COEFFICIENT = 2.0
 
 
 @dataclass(frozen=True)
@@ -51,7 +54,7 @@ def unnormalised_components(matrix: np.ndarray) -> tuple[float, float]:
     q = abs(a - d) ** 2
     s = abs(b) ** 2 + abs(c) ** 2
     abs_w = abs(b * c)
-    return float(q - 2.0 * abs_w), float(s)
+    return float(q - COUPLING_COEFFICIENT * abs_w), float(s)
 
 
 def primary_endpoint(
