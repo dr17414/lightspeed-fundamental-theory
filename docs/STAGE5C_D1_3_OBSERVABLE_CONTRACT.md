@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.9 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form 與 primary 二維 invariant endpoint 已交付；selector／measure／smearing／normalization、完整 planted controls 與統計 contract 仍待完成。
+狀態：**【提案／v0.10 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint 與 wrong-direction 的 gauge 邊界已交付；selector／measure／smearing／normalization、active wrong-support control 與統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -477,7 +477,7 @@ contrast，依 §3.5 自動改列 6a-E 並納入 sequential spending。
 | :--- | :--- | :--- |
 | **E1 continuum contrast** | 完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$，含 integration uncertainty | 通過預登記的二維 contrast region／joint effect floor |
 | **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline multivariate equivalence test | 各自落入預登記 equivalence region |
-| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind／wrong-direction objects 經同一 endpoint | 全部按預登記二維 region／逐分量樣式可分 |
+| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind 與 active wrong-support objects 經同一 typed pipeline／endpoint；全域 sector swap 另作 invariance arm | discrimination arms 先過 orbit-admissibility，再按預登記二維 joint-law regions／逐分量規則可分；swap arm 逐位元相同 |
 | **E4 distributional well-posedness** | smearing 前後、regulator removal、contact/boundary、兩個獨立 implementation | pairing 存在、收斂且互相吻合 |
 | **E5-D detection power／multiplicity** | E1／E3 的 directional detection claims，在預登記樣本量與 multiplicity-adjusted $\alpha$ 下 | 每個承重 detection claim power $\ge0.90$ |
 | **E5-E equivalence power／multiplicity** | E2 各 null arm 的 TOST／等效性 claim；由預登記 margin $\delta_E$、null variance／最壞分布與 multiplicity-adjusted $\alpha$ 反推 cohort floor | 每個承重 equivalence claim power $\ge0.90$ 且實際 cohort 達 floor |
@@ -493,8 +493,12 @@ criterion 與 implementation agreement 驗收；不得用「power $\ge0.90$」�
 
 因 $\mathfrak I_G$ 為二維，E1／E2 的 joint metric、covariance handling、simultaneous region
 與 multiplicity 必須在 selector-prereg commit 固定；不得把兩個分量事後挑一個報告，亦
-不得用候選資料選 projection。E3 的五類代數符號樣式只完成部分 form proof；
-wrong-direction 的 region／方向仍是 blocking open item。
+不得用候選資料選 projection。E3 的五類代數符號樣式只完成部分 form proof。依
+`docs/STAGE5C_E3_WRONG_DIRECTION.md`，全域 $\sigma_x$ sector swap 是 $G$-gauge，只能作
+invariance arm；真正的 wrong direction 必須是固定 continuum frame 與 output legs、改動
+support feeding 的 active typed intervention。它須先通過 orbit-admissibility，再以完整參數域的
+endpoint-law separation 承重；$X\notin G\cdot R$ 本身不保證本二維 endpoint 可分。
+selector tuple 與 active intervention 尚未定案，故此項仍是 blocking open item。
 
 planted objects 僅為 evaluator-side positive／negative controls，**容許使用 L4 oracle**
 （含 sealed coordinates、$\gamma$ 與 $\theta$）來構造，並須與 construction module 隔離；

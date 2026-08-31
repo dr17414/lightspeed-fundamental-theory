@@ -1,8 +1,8 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
-狀態：**【已確認之代數交付物／v0.6；fork B 已定案，尚未 freeze】** — ambient norm、完整 invariant algebra 與後續 primary endpoint 已交付。
+狀態：**【已確認之代數交付物／v0.7；fork B 已定案，尚未 freeze】** — ambient norm、完整 invariant algebra、後續 primary endpoint 與 wrong-direction gauge 邊界已交付。
 
-範圍：observable contract v0.7 §1.4 的 candidate-independent 交付物。
+範圍：observable contract v0.10 §1.4 的 candidate-independent 交付物。
 驗證於 main `8ae8e7d`：52 檔、integrity 通過、130 passed。（歷史快照。）
 
 ---
@@ -328,7 +328,8 @@ pairs；但不得把此資訊退化誤寫成 fork B 的群或 Frobenius norm 已
 | sector-blind | $M=f\,\mathbb 1$ | 可分離 | **不可與** $f\mathbb 1+\lambda E_{12}$ **分離** | 可分離 |
 | chiral（解耦、不等） | $M=\mathrm{diag}(m_U,m_V)$，$m_U\ne m_V$ | 可分離 | **不可與** $M+\lambda E_{12}$ **分離** | 可分離 |
 | symmetric diffusion | $M=\begin{pmatrix}f&g\\g&f\end{pmatrix}$，$g\ne0$ | 可分離 | 其 $bc=g^2\ne0$ 軌道為閉，可與其他閉軌道分離 | 可分離 |
-| wrong-direction | 由方向約定決定 | 需 §7 定案後才可判定 | 同左 | 同左 |
+| 全域 sector swap | $M\mapsto\sigma_xM\sigma_x$ | gauge／必須不變 | gauge／必須不變 | gauge／必須不變 |
+| active wrong-support | 由 selector／support／continuum-frame typed intervention 定義 | PENDING；先驗 orbit gate，再驗 endpoint-law separation | 同左 | 同左 |
 | nilpotent 型退化 | $\begin{pmatrix}0&\lambda\\0&0\end{pmatrix}$ | 可分離 | **不可與零矩陣分離**（命題 4） | 可分離 |
 
 其中 $\Delta=(\operatorname{tr}M)^2-4\det M$ 為判別式，$S_2$-不變且屬 §4.2 的族。
@@ -343,8 +344,11 @@ pairs；但不得把此資訊退化誤寫成 fork B 的群或 Frobenius norm 已
    邏輯方向必須寫清楚：$M=f\mathbb 1\Rightarrow\Delta=0$，所以
    $\Delta\ne0$ 是「非純量」的**充分 witness**；但它不是 sector non-degeneracy 的必要條件，
    而 $\Delta=0$ 也不得單獨判 C3b FAIL。
-2. wrong-direction class 的可分離性依賴方向／orientation、chiral identification、adjoint／
-   reality 與 continuum-target mapping；在這些宣告及 fork 未定前無法判定。
+2. 全域 sector swap 已因 $\sigma_x\in G$ 確認為 gauge，不能登記成 discrimination class。
+   真正的 wrong-direction class 依賴 direction／orientation、chiral identification、adjoint／
+   reality、selector support 與 continuum-target mapping；須作 active typed intervention。
+   其不在 correct orbit 只是必要條件，仍須另證已選 endpoint 在完整凍結參數域上可分；詳見
+   `docs/STAGE5C_E3_WRONG_DIRECTION.md`。
 
 ---
 
@@ -433,7 +437,7 @@ Claude review 正確排除了 L4，但把 $h$ 改列 L3 仍與 frozen acceptance
 這只完成 basis-group／pairing 子決策；完整 real invariant algebra 已由
 `docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md` 交付；primary $\mathfrak I_G$ 已由
 `docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md` 選定為二維 real invariant vector，但
-wrong-direction E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
+active wrong-support E3、smearing／normalization 與統計門檻仍待固定，D.1 第 3 項及
 Freeze-1a 仍為 **PENDING**。本節沒有設計候選 $K$。
 
 ---
