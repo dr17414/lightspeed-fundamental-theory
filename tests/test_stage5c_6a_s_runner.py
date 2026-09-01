@@ -3,8 +3,11 @@
 from dataclasses import fields
 from inspect import signature
 import json
+import os
 from pathlib import Path
+import stat
 import sys
+from unittest.mock import patch
 
 import pytest
 
@@ -148,8 +151,21 @@ def test_frozen_counts_cover_every_expected_cell():
 
 def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
     path = tmp_path / "arm.ndjson"
-    with AppendOnlyLedger(path, _header("plus", COMMIT)) as ledger:
-        ledger.append("terminal_error", target="plus", category="backend", message="test")
+    synced_types = []
+    real_fsync = os.fsync
+
+    def observe_fsync(fd):
+        kind = "directory" if stat.S_ISDIR(os.fstat(fd).st_mode) else "file"
+        synced_types.append(kind)
+        return real_fsync(fd)
+
+    with patch("analysis.stage5c_6a_s_runner.os.fsync", side_effect=observe_fsync):
+        with AppendOnlyLedger(path, _header("plus", COMMIT)) as ledger:
+            ledger.append(
+                "terminal_error", target="plus", category="backend", message="test"
+            )
+    assert synced_types[0] == "directory"
+    assert "file" in synced_types[1:]
     records = read_ledger(path)
     assert [row["sequence"] for row in records] == [0, 1]
     assert records[1]["previous_sha256"] == records[0]["record_sha256"]
@@ -265,6 +281,36 @@ def test_interruption_is_inconclusive_and_mixed_target_is_invalid():
     records.pop()
     assert {row.verdict for row in adjudicate_arm_records(records).selector_verdicts} == {
         Verdict.INCONCLUSIVE
+    }
+
+
+def test_claim_must_precede_generation_and_unknown_selector_is_invalid():
+    records = _complete_records()
+    claim_index = next(
+        index for index, row in enumerate(records) if row.get("record_type") == "seed_claim"
+    )
+    generated_index = next(
+        index
+        for index, row in enumerate(records)
+        if row.get("record_type") == "sample_generated"
+    )
+    records[claim_index], records[generated_index] = (
+        records[generated_index],
+        records[claim_index],
+    )
+    assert {row.verdict for row in adjudicate_arm_records(records).selector_verdicts} == {
+        Verdict.PROTOCOL_INVALID
+    }
+
+    records = _complete_records()
+    forged = dict(next(row for row in records if row.get("record_type") == "block_pair"))
+    forged.update(
+        selector='{"name":"unregistered","parameters":[]}',
+        selector_name="unregistered",
+    )
+    records.insert(-1, forged)
+    assert {row.verdict for row in adjudicate_arm_records(records).selector_verdicts} == {
+        Verdict.PROTOCOL_INVALID
     }
 
 

@@ -35,7 +35,8 @@ combined ledger 只保存每個 selector 的 plus／minus categorical verdict �
 
 每個 reserved cell 的固定順序是：
 
-1. 以 exclusive-create、append-only NDJSON ledger 寫入 `seed_claim`；
+1. 以 exclusive-create 建立 append-only NDJSON ledger，先 `fsync` parent directory 以固定新建
+   directory entry，再寫入 `seed_claim`；
 2. `seed_claim` 標記 `BURNED_ON_CLAIM_BEFORE_GENERATION`，寫入後立即 `fsync`；
 3. 只有 durable claim 成功後才呼叫 `sprinkle_control()`；
 4. generator 回傳且 schema 驗證成功後再 append＋`fsync` `sample_generated`。

@@ -131,6 +131,19 @@ class AppendOnlyLedger:
         self.path = Path(path)
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_APPEND
         self._fd = os.open(self.path, flags, 0o600)
+        try:
+            directory_flags = os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+            directory_fd = os.open(self.path.parent, directory_flags)
+            try:
+                # Persist the newly created directory entry before any claim
+                # can be written and before any reserved generator can run.
+                os.fsync(directory_fd)
+            finally:
+                os.close(directory_fd)
+        except Exception:
+            os.close(self._fd)
+            self._fd = None
+            raise
         self._sequence = 0
         self._previous_sha256 = "0" * 64
         self.records: list[dict] = []
@@ -548,6 +561,16 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
     }
     if any(row.get("record_type") not in allowed_types for row in rows):
         global_invalid.append("unregistered record type")
+    expected_selector_tokens = {
+        _selector_token(name, parameters) for name, parameters in evaluation_order()
+    }
+    selector_rows = [
+        row
+        for row in rows
+        if row.get("record_type") in {"causet_selector", "block_pair"}
+    ]
+    if any(row.get("selector") not in expected_selector_tokens for row in selector_rows):
+        global_invalid.append("record references an unregistered selector")
     if any(
         row.get("target") != target
         for row in rows
@@ -589,6 +612,16 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
     }
     if len(claim_cells) != len(claims) or len(generated_cells) != len(generated):
         global_invalid.append("duplicate seed record")
+    claim_positions = {
+        (row.get("n_index"), row.get("block"), row.get("case"), row.get("seed")): index
+        for index, row in enumerate(rows)
+        if row.get("record_type") == "seed_claim"
+    }
+    generated_positions = {
+        (row.get("n_index"), row.get("block"), row.get("case"), row.get("seed")): index
+        for index, row in enumerate(rows)
+        if row.get("record_type") == "sample_generated"
+    }
     for row in claims:
         try:
             expected = preregistered_seed(
@@ -609,6 +642,12 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
         global_invalid.append("excess reserved samples")
     if not generated_cells.issubset(claim_cells):
         global_invalid.append("sample generated without prior seed claim")
+    if any(
+        cell not in claim_positions
+        or claim_positions[cell] >= generated_position
+        for cell, generated_position in generated_positions.items()
+    ):
+        global_invalid.append("sample generation did not follow its durable seed claim")
     expected_seed_cells = {
         (n_index, block, case, preregistered_seed(str(target), n_index, block, case))
         for n_index in range(len(CARDINALITIES))
