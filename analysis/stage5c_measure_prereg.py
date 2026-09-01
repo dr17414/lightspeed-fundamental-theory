@@ -34,13 +34,18 @@ MIN_KISH_ESS = 32.0
 MIN_ESS_FRACTION = 0.95
 MASS_TOLERANCE = 1.0e-12
 
-# First non-zero Fourier shell on the dimensionless unit 4-cube.  This fixed,
-# target-independent grid has no optimiser, random features, or fitted scale.
+# One representative from every conjugate pair in the first non-zero Fourier
+# shell on the dimensionless unit 4-cube.  For real measures F(-w)=conj(F(w)),
+# so this is 40 complex / 80 real degrees of freedom, with no duplicated data.
+def _canonical_half_shell(index: tuple[int, ...]) -> bool:
+    return next(component for component in index if component != 0) > 0
+
+
 FOURIER_FREQUENCIES = np.asarray(
     [
         tuple(2.0 * np.pi * k for k in index)
         for index in product((-1, 0, 1), repeat=4)
-        if index != (0, 0, 0, 0)
+        if index != (0, 0, 0, 0) and _canonical_half_shell(index)
     ],
     dtype=float,
 )
@@ -73,6 +78,11 @@ def preregistered_seed(target: str, n_index: int, block: int, case: int) -> int:
     """
     if target not in TARGET_SEED_BASES:
         raise MeasureProtocolError("target must be 'plus' or 'minus'")
+    for name, value in (("n_index", n_index), ("block", block), ("case", case)):
+        if isinstance(value, (bool, np.bool_)) or not isinstance(
+            value, (int, np.integer)
+        ):
+            raise MeasureProtocolError(f"{name} must be a non-boolean integer")
     if not 0 <= n_index < len(CARDINALITIES):
         raise MeasureProtocolError("n_index is outside the frozen sequence")
     if not 0 <= block < BLOCKS_PER_TARGET:
@@ -159,8 +169,6 @@ def gaussian_mollifier_density(
     query_points: np.ndarray,
     pair_coordinates: np.ndarray,
     probability_weights: np.ndarray,
-    *,
-    epsilon: float = SMEARING_EPSILON,
 ) -> np.ndarray:
     """Evaluate the fixed mass-one Gaussian regulator R_epsilon nu on R^4."""
     query = np.asarray(query_points, dtype=float)
@@ -170,8 +178,7 @@ def gaussian_mollifier_density(
         raise MeasureProtocolError("query points must be one finite (q,4) array")
     if weights.shape != (atoms.shape[0],) or np.any(weights < 0.0):
         raise MeasureProtocolError("one non-negative weight is required per atom")
-    if not np.isfinite(epsilon) or epsilon <= 0.0:
-        raise MeasureProtocolError("epsilon must be finite and positive")
+    epsilon = SMEARING_EPSILON
     squared = np.sum((query[:, None, :] - atoms[None, :, :]) ** 2, axis=2)
     coefficient = (2.0 * np.pi * epsilon**2) ** -2
     return coefficient * (np.exp(-squared / (2.0 * epsilon**2)) @ weights)
@@ -180,8 +187,6 @@ def gaussian_mollifier_density(
 def fourier_signature(
     pair_coordinates: np.ndarray,
     probability_weights: np.ndarray,
-    *,
-    epsilon: float = SMEARING_EPSILON,
 ) -> np.ndarray:
     """Finite spectral signature of the regulated probability measure."""
     atoms = _validated_pair_coordinates(pair_coordinates)
@@ -190,6 +195,7 @@ def fourier_signature(
         raise MeasureProtocolError("one non-negative weight is required per atom")
     if abs(float(weights.sum()) - 1.0) > MASS_TOLERANCE:
         raise MeasureProtocolError("Fourier signature requires probability weights")
+    epsilon = SMEARING_EPSILON
     phase = atoms @ FOURIER_FREQUENCIES.T
     raw = weights @ np.exp(1j * phase)
     regulator = np.exp(
@@ -209,11 +215,19 @@ def mean_signature_distance(left: np.ndarray, right: np.ndarray) -> float:
     return float(np.max(np.abs(a.mean(axis=0) - b.mean(axis=0))))
 
 
-def random_law_energy_distance(left: np.ndarray, right: np.ndarray) -> float:
-    """Energy distance between laws of finite regulated-measure signatures.
+def _real_signature_embedding(signatures: np.ndarray) -> np.ndarray:
+    value = np.asarray(signatures, dtype=complex)
+    return np.concatenate([value.real, value.imag], axis=1) / np.sqrt(
+        len(FOURIER_FREQUENCIES)
+    )
 
-    Complex signatures are embedded in R^160 and divided by sqrt(80), fixing a
-    dimension-independent scale.  The non-negative V-statistic is used.
+
+def random_law_energy_statistic(left: np.ndarray, right: np.ndarray) -> float:
+    """Signed unbiased U-statistic for the energy distance squared.
+
+    The finite-sample value may be negative.  Keeping that sign is essential:
+    including the within-block diagonal terms would create a positive null bias
+    driven by per-causet dispersion and selected-pair count.
     """
     a = np.asarray(left, dtype=complex)
     b = np.asarray(right, dtype=complex)
@@ -221,19 +235,23 @@ def random_law_energy_distance(left: np.ndarray, right: np.ndarray) -> float:
         raise MeasureProtocolError("signature blocks must share feature dimension")
     if a.shape[1] != len(FOURIER_FREQUENCIES) or min(len(a), len(b)) < 2:
         raise MeasureProtocolError("signature blocks violate the frozen schema")
-    scale = np.sqrt(len(FOURIER_FREQUENCIES))
-    ar = np.concatenate([a.real, a.imag], axis=1) / scale
-    br = np.concatenate([b.real, b.imag], axis=1) / scale
+    ar = _real_signature_embedding(a)
+    br = _real_signature_embedding(b)
 
-    def average_distance(x: np.ndarray, y: np.ndarray) -> float:
-        return float(np.linalg.norm(x[:, None, :] - y[None, :, :], axis=2).mean())
-
-    squared = (
-        2.0 * average_distance(ar, br)
-        - average_distance(ar, ar)
-        - average_distance(br, br)
+    cross = float(
+        np.linalg.norm(ar[:, None, :] - br[None, :, :], axis=2).mean()
     )
-    return float(np.sqrt(max(0.0, squared)))
+
+    def off_diagonal_average(x: np.ndarray) -> float:
+        distances = np.linalg.norm(x[:, None, :] - x[None, :, :], axis=2)
+        return float(distances.sum() / (len(x) * (len(x) - 1)))
+
+    return 2.0 * cross - off_diagonal_average(ar) - off_diagonal_average(br)
+
+
+def random_law_energy_distance(left: np.ndarray, right: np.ndarray) -> float:
+    """Non-negative reporting transform of the signed U-statistic."""
+    return float(np.sqrt(max(0.0, random_law_energy_statistic(left, right))))
 
 
 def passes_s5(left: np.ndarray, right: np.ndarray) -> bool:
@@ -270,5 +288,6 @@ __all__ = [
     "passes_s5",
     "preregistered_seed",
     "random_law_energy_distance",
+    "random_law_energy_statistic",
     "uniform_pair_weights",
 ]

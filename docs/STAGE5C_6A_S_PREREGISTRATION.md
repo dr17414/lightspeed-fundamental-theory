@@ -59,7 +59,7 @@ $$\widetilde\nu^C_\Sigma
 冒充為獨立 observations**；inferential unit 仍是 causet。
 
 $\varphi$ 與 $\mathcal N_C$ 只由 selector output count（因而只由 order）決定，沒有自由
-尺度、optimizer、lookup、負權重或 complex phase。若 $mathcal N_C=0$，這是 selection
+尺度、optimizer、lookup、負權重或 complex phase。若 $\mathcal N_C=0$，這是 selection
 failure，不得更換 normalization。
 
 ### 2.3 Linear regulator $R_\epsilon$
@@ -77,11 +77,18 @@ e^{-\|z-z'\|_2^2/(2\epsilon^2)}}{(2\pi\epsilon^2)^2}
 \,d\widetilde\nu(z').
 $$
 
-這是 linear、positive、mass-preserving 的 Schwartz regulator。它在 unit null-coordinate box
-的尺度 convention 下固定，不由任一 target 或 selector 結果調整。本階段採**固定 physical
-smearing scale**，不宣稱 $epsilon\to0$；未來 6a-E/E4 必須用同一尺度證明 continuum
+這是 linear、positive，且在 ambient $\mathbb R^4$ 上 mass-preserving 的 Schwartz regulator。
+它在 unit null-coordinate box 的尺度 convention 下固定，不由任一 target 或 selector 結果
+調整；executable API 不接受 caller 覆寫 $\epsilon$。限制回 $[0,1]^4$ 時並不
+mass-preserving，boundary leakage 必須由 E4 量化。本階段採
+**固定 physical smearing scale**，不宣稱 $\epsilon\to0$；未來 6a-E/E4 必須用同一尺度證明 continuum
 distribution pairing 存在並由兩個獨立 implementation 重現。若 E4 失敗，只能依 amendment
 流程修改，不能在執行 6a-S 後靜默換 regulator。
+
+**6a-S 對 $\epsilon$ 的能力上限.** 第一個 Fourier shell 對 $\epsilon=1/16$ 只有溫和衰減；
+S5 並未被設計成 smearing-scale discrimination test，不能宣稱它「驗證」或「鎖住」
+$\epsilon$。本 prereg 只固定 convention；其物理／distributional 適切性與 boundary leakage
+完全推遲到 E4。S5 通過對 $\epsilon$ 的正確性沒有獨立蘊涵。
 
 ### 2.4 Dimensional covariance
 
@@ -101,10 +108,12 @@ primary endpoint $\mathfrak I_G$ 對 smeared matrix 的共同非零 scalar resca
 
 ### 3.1 Regulated Fourier signature
 
-取 unit four-cube 的第一個非零 Fourier shell
+取 unit four-cube 第一個非零 Fourier shell 的 conjugation-nonredundant half-shell
 
 $$
-\Omega=\{2\pi k:k\in\{-1,0,1\}^4,\ k\ne0\},\qquad |\Omega|=80.
+\Omega_+=\{2\pi k:k\in\{-1,0,1\}^4,\ k\ne0,
+\text{ first nonzero component of }k\text{ is positive}\},
+\qquad |\Omega_+|=40.
 $$
 
 對每個 causet measure 記錄
@@ -112,11 +121,13 @@ $$
 $$
 F_\omega(\nu^{C,\epsilon})
 =e^{-\epsilon^2\|\omega\|^2/2}
-\sum_a w_a e^{i\omega\cdot z_a},\qquad \omega\in\Omega.
+\sum_a w_a e^{i\omega\cdot z_a},\qquad \omega\in\Omega_+.
 $$
 
 此 grid 沒有 fitted bandwidth、random features、optimizer 或 target-dependent projection。
-zero mode 由 total-mass gate 獨立精確檢查，故不重複收入 signature。
+zero mode 由 total-mass gate 獨立精確檢查，故不重複收入 signature。因 measure 為實，
+$F_{-\omega}=\overline{F_\omega}$；完整 80 modes 只有 40 個 complex／80 個 real 自由度，
+所以 source-of-record 不重複儲存 conjugate modes。
 
 ### 3.2 Weighted-mean measure distance
 
@@ -124,7 +135,7 @@ zero mode 由 total-mass gate 獨立精確檢查，故不重複收入 signature�
 
 $$
 d_{\rm mean}(A,B)=
-\max_{\omega\in\Omega}\left|
+\max_{\omega\in\Omega_+}\left|
 \frac1{|A|}\sum_{C\in A}F_\omega(C)-
 \frac1{|B|}\sum_{C\in B}F_\omega(C)
 \right|.
@@ -136,14 +147,22 @@ $$d_{\rm mean}\le0.20.$$
 
 ### 3.3 Random-measure law distance
 
-把 80 個 complex signatures 實化成 $\mathbb R^{160}$，並除以 $\sqrt{80}$。對其兩個
-empirical laws 使用 non-negative V-statistic energy distance
+把 40 個 complex signatures 實化成 $\mathbb R^{80}$，並除以 $\sqrt{40}$。對兩個
+independent blocks $A=(A_i)_{i=1}^n$、$B=(B_j)_{j=1}^m$ 使用保留符號的 unbiased
+U-statistic
 
 $$
-d_{\rm law}=
-\left[2\overline{\|A-B\|}-
-\overline{\|A-A'\|}-\overline{\|B-B'\|}\right]_+^{1/2}.
+\widehat E_U=
+\frac{2}{nm}\sum_{i,j}\|A_i-B_j\|
+-\frac{1}{n(n-1)}\sum_{i\ne i'}\|A_i-A_{i'}\|
+-\frac{1}{m(m-1)}\sum_{j\ne j'}\|B_j-B_{j'}\|,
+\qquad
+d_{\rm law}=\sqrt{[\widehat E_U]_+}.
 $$
+
+$\widehat E_U$ 的 finite-sample 值允許為負，raw signed value 必須保存並報告；只在形成
+non-negative reporting／gate quantity $d_{\rm law}$ 時取 positive part。within-block sums
+明確排除 diagonal，避免 V-statistic 把 per-causet dispersion／pair count 轉成正的 null bias。
 
 預登記 equivalence margin：
 
@@ -199,13 +218,18 @@ $$\operatorname{seed}=b_\pm+10^6i+10^4j+k.$$
 - **S3**：C8 family sector-blind，sector swap 逐位元不變。
 - **S4**：`BlindedCase` payload falsifier、closed capacity 11 與完整 ledger 全過。
 
+其中五個 depth-grid members 已依 DEV-0008 的 pre-execution audit，由原本不具 pair-balance
+且破壞 order duality 的 `source_depth_band`，改為 `endpoint_depth_mass_band`。新規則先以
+$d_-(x)+d_+(y)$ 對 causal pair 分層，再按每個 score level 的 pair-mass midquantile 套用
+同一組 $0,.2,.4,.6,.8,1$ half-open grid；同一 score level 不拆分。capacity 仍為 11。
+
 ### 5.2 S5 gates
 
 對每個 selector、target、$N$ 的 $\binom42=6$ 組 block pairs：
 
 - total mass 與 total variation 各在 $1\pm10^{-12}$；
 - $d_{\rm mean}\le0.20$；
-- $d_{\rm law}\le0.20$。
+- signed $\widehat E_U$ 完整保存，且 $d_{\rm law}=\sqrt{[\widehat E_U]_+}\le0.20$。
 
 任一組超標，該 selector 記 `6a-S FAIL`；不得刪掉該 block 或改 margin。
 

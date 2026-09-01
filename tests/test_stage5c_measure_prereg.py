@@ -26,6 +26,7 @@ from analysis.stage5c_measure_prereg import (  # noqa: E402
     passes_s5,
     preregistered_seed,
     random_law_energy_distance,
+    random_law_energy_statistic,
     uniform_pair_weights,
 )
 
@@ -55,6 +56,16 @@ def test_seed_manifest_rejects_unregistered_cells():
             preregistered_seed(*arguments)
 
 
+@pytest.mark.parametrize("bad_index", [True, np.bool_(False), 0.5, "0"])
+def test_seed_manifest_rejects_non_integer_cell_coordinates(bad_index):
+    with pytest.raises(MeasureProtocolError):
+        preregistered_seed("plus", bad_index, 0, 0)
+    with pytest.raises(MeasureProtocolError):
+        preregistered_seed("plus", 0, bad_index, 0)
+    with pytest.raises(MeasureProtocolError):
+        preregistered_seed("plus", 0, 0, bad_index)
+
+
 def test_phi_one_and_pair_count_normalisation_make_probability_measure():
     weights, normalization = uniform_pair_weights(137)
     probability = normalised_weights(weights, normalization)
@@ -78,11 +89,13 @@ def test_s1_s6_floors_are_not_silently_excluded():
         measure_diagnostics(101, 100)
 
 
-def test_fourier_grid_is_exact_first_nonzero_shell():
-    assert FOURIER_FREQUENCIES.shape == (80, 4)
+def test_fourier_grid_is_nonredundant_half_of_first_nonzero_shell():
+    assert FOURIER_FREQUENCIES.shape == (40, 4)
     scaled = FOURIER_FREQUENCIES / (2.0 * np.pi)
     assert set(np.unique(scaled)) == {-1.0, 0.0, 1.0}
     assert not np.any(np.all(scaled == 0.0, axis=1))
+    modes = {tuple(row) for row in scaled.astype(int)}
+    assert not any(tuple(-np.asarray(mode)) in modes for mode in modes)
     assert not FOURIER_FREQUENCIES.flags.writeable
 
 
@@ -96,6 +109,10 @@ def test_gaussian_regulator_is_linear_and_uses_frozen_scale():
     )
     assert SMEARING_EPSILON == 1.0 / 16.0
     assert np.allclose(left, right, rtol=1e-13, atol=0.0)
+    with pytest.raises(TypeError):
+        gaussian_mollifier_density(
+            query, atoms, np.array([0.25, 0.75]), epsilon=1.0 / 8.0
+        )
 
 
 def test_signature_is_relabel_invariant_and_gaussian_damped():
@@ -112,22 +129,46 @@ def test_signature_is_relabel_invariant_and_gaussian_damped():
     moved = fourier_signature(atoms[permutation], probability[permutation])
     assert np.allclose(signature, moved, rtol=0.0, atol=1e-15)
     assert np.all(np.abs(signature) <= 1.0)
+    with pytest.raises(TypeError):
+        fourier_signature(atoms, probability, epsilon=1.0 / 8.0)
 
 
 def test_same_target_metrics_are_zero_on_identical_blocks():
     rng = np.random.default_rng(41)
-    signatures = rng.normal(size=(12, 80)) + 1j * rng.normal(size=(12, 80))
+    signatures = rng.normal(size=(12, 40)) + 1j * rng.normal(size=(12, 40))
     assert mean_signature_distance(signatures, signatures) == 0.0
     assert random_law_energy_distance(signatures, signatures) == 0.0
     assert passes_s5(signatures, signatures)
 
 
 def test_same_target_metrics_detect_a_large_shift():
-    left = np.zeros((8, 80), dtype=complex)
-    right = np.ones((8, 80), dtype=complex)
+    left = np.zeros((8, 40), dtype=complex)
+    right = np.ones((8, 40), dtype=complex)
     assert mean_signature_distance(left, right) == pytest.approx(1.0)
     assert random_law_energy_distance(left, right) > 0.2
     assert not passes_s5(left, right)
+
+
+def test_u_statistic_removes_v_statistic_null_bias_in_expectation():
+    """Exhaust the iid Bernoulli law for two observations in each block."""
+    blocks = [
+        np.asarray([[a] * 40, [b] * 40], dtype=complex)
+        for a in (0.0, 1.0)
+        for b in (0.0, 1.0)
+    ]
+    u_values = [random_law_energy_statistic(a, b) for a in blocks for b in blocks]
+
+    def v_statistic(a, b):
+        ar = np.concatenate([a.real, a.imag], axis=1) / np.sqrt(40)
+        br = np.concatenate([b.real, b.imag], axis=1) / np.sqrt(40)
+        distance = lambda x, y: np.linalg.norm(
+            x[:, None, :] - y[None, :, :], axis=2
+        ).mean()
+        return 2 * distance(ar, br) - distance(ar, ar) - distance(br, br)
+
+    v_values = [v_statistic(a, b) for a in blocks for b in blocks]
+    assert np.mean(u_values) == pytest.approx(0.0, abs=1e-15)
+    assert np.mean(v_values) > 0.0
 
 
 def test_measure_api_rejects_wrong_shapes_mass_and_domain():

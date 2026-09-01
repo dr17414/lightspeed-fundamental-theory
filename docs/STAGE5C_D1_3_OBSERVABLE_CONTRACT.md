@@ -281,7 +281,7 @@ protocol amendment。
 
 `docs/STAGE5C_6A_S_PREREGISTRATION.md` 另固定這 11 點共同使用的 C8 numerical layer：
 $\varphi=1$、$\mathcal N_C=|\Sigma(C)|$、$\epsilon=1/16$ 的 linear Gaussian regulator、
-80 維 complex Fourier signature、同 target block distances、S1/S5/S6 門檻、
+40 維 complex（80 維 real）nonredundant Fourier signature、同 target block distances、S1/S5/S6 門檻、
 $N=64,96,128$、4 blocks × 64 causets 與專屬 seed manifest。該文件尚未執行，且不固定
 6a-E／C6／C7；不得把 preregistration 寫成 6a-S PASS 或 D.1 第 3 項完成。
 

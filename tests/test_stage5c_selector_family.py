@@ -101,6 +101,17 @@ def test_relabel_covariance_uses_permutation_not_its_inverse():
     assert wrongly_recovered != _as_set(base)
 
 
+def test_every_registered_selector_is_relabel_covariant():
+    case = _case(n=96, seed=107)
+    permutation = np.roll(np.arange(case.order.shape[0]), 11)
+    moved_case = relabel(case, permutation)
+    for name, parameters in evaluation_order():
+        base = apply_selector(name, parameters, case)
+        moved = apply_selector(name, parameters, moved_case)
+        recovered = {(int(permutation[x]), int(permutation[y])) for x, y in moved}
+        assert recovered == _as_set(base)
+
+
 def test_all_registered_selectors_are_deterministic_domain_subsets():
     case = _case()
     domain = _as_set(admissible_pairs(case))
@@ -123,15 +134,26 @@ def test_all_relations_is_the_first_and_has_coverage_one():
     assert selection_coverage(selection, case) == 1.0
 
 
-def test_depth_bands_are_half_open_and_partition_related_pairs():
-    order = np.triu(np.ones((6, 6), dtype=bool), k=1)
+def test_endpoint_depth_mass_bands_are_half_open_and_partition_pairs():
+    order = np.triu(np.ones((20, 20), dtype=bool), k=1)
     case = BlindedCase("chain", order)
     selections = [
-        _as_set(apply_selector("source_depth_band", (low, high), case))
+        _as_set(apply_selector("endpoint_depth_mass_band", (low, high), case))
         for low, high in zip(DEPTH_ENDPOINTS[:-1], DEPTH_ENDPOINTS[1:])
     ]
     assert set().union(*selections) == _as_set(admissible_pairs(case))
     assert sum(len(selection) for selection in selections) == len(set().union(*selections))
+
+
+def test_endpoint_depth_mass_bands_are_order_dual_invariant():
+    case = _case(n=96, seed=109)
+    reversed_case = BlindedCase("dual", case.order.T.copy())
+    for low, high in zip(DEPTH_ENDPOINTS[:-1], DEPTH_ENDPOINTS[1:]):
+        forward = apply_selector("endpoint_depth_mass_band", (low, high), case)
+        backward = apply_selector(
+            "endpoint_depth_mass_band", (low, high), reversed_case
+        )
+        assert _as_set(forward) == {(int(y), int(x)) for x, y in backward}
 
 
 def test_empty_selection_is_not_mislabelled_as_out_of_domain():
@@ -185,6 +207,8 @@ def test_unregistered_members_parameters_and_permutations_are_rejected():
     case = _case()
     with pytest.raises(SelectorProtocolError):
         apply_selector("sector_rank_band", (), case)
+    with pytest.raises(SelectorProtocolError):
+        apply_selector("source_depth_band", (0.8, 1.0), case)
     with pytest.raises(SelectorProtocolError):
         apply_selector("interval_exact", (99,), case)
     with pytest.raises(SelectorProtocolError):
