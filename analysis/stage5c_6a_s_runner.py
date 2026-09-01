@@ -451,6 +451,14 @@ def run_target_arm(
                                 and d_law <= MAX_RANDOM_LAW_ENERGY_DISTANCE
                             ),
                         )
+            ledger.append(
+                "arm_data_complete",
+                target=target,
+                seed_claim_count=EXPECTED_CASES_PER_ARM,
+                sample_generated_count=EXPECTED_CASES_PER_ARM,
+                selector_count=CAPACITY_LIMIT,
+                block_pairs_per_selector=EXPECTED_BLOCK_PAIRS_PER_SELECTOR,
+            )
         except (RunnerProtocolError, SelectorProtocolError) as exc:
             ledger.append(
                 "terminal_error",
@@ -535,6 +543,7 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
         "sample_generated",
         "causet_selector",
         "block_pair",
+        "arm_data_complete",
         "terminal_error",
     }
     if any(row.get("record_type") not in allowed_types for row in rows):
@@ -550,6 +559,23 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
         global_invalid.append("runner protocol error")
     if any(row.get("category") == "backend" for row in errors):
         global_inconclusive.append("backend or resource interruption")
+    completion = [
+        row for row in rows if row.get("record_type") == "arm_data_complete"
+    ]
+    if not completion:
+        global_inconclusive.append("arm data phase lacks completion marker")
+    elif len(completion) != 1:
+        global_invalid.append("duplicate arm data completion marker")
+    else:
+        expected_completion = {
+            "target": target,
+            "seed_claim_count": EXPECTED_CASES_PER_ARM,
+            "sample_generated_count": EXPECTED_CASES_PER_ARM,
+            "selector_count": CAPACITY_LIMIT,
+            "block_pairs_per_selector": EXPECTED_BLOCK_PAIRS_PER_SELECTOR,
+        }
+        if any(completion[0].get(key) != value for key, value in expected_completion.items()):
+            global_invalid.append("arm data completion marker disagrees with schema")
 
     claims = [row for row in rows if row.get("record_type") == "seed_claim"]
     generated = [row for row in rows if row.get("record_type") == "sample_generated"]
@@ -770,12 +796,28 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
 def adjudicate_arm_ledger(path: str | Path) -> ArmAdjudication:
     records = read_ledger(path)
     expected_rows = [row for row in records if row.get("record_type") == "arm_selector_verdict"]
+    completion_rows = [row for row in records if row.get("record_type") == "arm_complete"]
     result = adjudicate_arm_records(records)
     if expected_rows:
         if len(expected_rows) != CAPACITY_LIMIT or len(
             {row.get("selector") for row in expected_rows}
         ) != CAPACITY_LIMIT:
             raise LedgerValidationError("stored arm verdict schema is not one row per selector")
+        for row in expected_rows:
+            token = row.get("selector")
+            matches = [
+                value
+                for value in result.selector_verdicts
+                if _selector_token(value.selector_name, value.parameters) == token
+            ]
+            if (
+                len(matches) != 1
+                or row.get("target") != result.target
+                or row.get("selector_name") != matches[0].selector_name
+                or row.get("parameters") != list(matches[0].parameters)
+                or not isinstance(row.get("reasons"), list)
+            ):
+                raise LedgerValidationError("stored arm verdict row violates schema")
         observed = {
             row.get("selector"): row.get("verdict") for row in expected_rows
         }
@@ -785,13 +827,44 @@ def adjudicate_arm_ledger(path: str | Path) -> ArmAdjudication:
         }
         if observed != calculated:
             raise LedgerValidationError("stored arm verdicts do not match adjudicator")
+        if (
+            len(completion_rows) != 1
+            or completion_rows[0].get("target") != result.target
+            or completion_rows[0].get("selector_verdict_count") != CAPACITY_LIMIT
+        ):
+            raise LedgerValidationError("completed arm ledger lacks one valid arm_complete row")
+    elif completion_rows:
+        raise LedgerValidationError("arm_complete exists without stored selector verdicts")
     return result
+
+
+def _validate_categorical_arm(arm: ArmAdjudication) -> None:
+    _header(arm.target, arm.protocol_commit)
+    expected = {
+        _selector_token(name, parameters) for name, parameters in evaluation_order()
+    }
+    observed = [
+        _selector_token(row.selector_name, row.parameters)
+        for row in arm.selector_verdicts
+    ]
+    if len(observed) != CAPACITY_LIMIT or set(observed) != expected:
+        raise RunnerProtocolError("arm verdict schema is not exactly one row per selector")
+    if any(
+        row.target != arm.target
+        or not isinstance(row.verdict, Verdict)
+        or not isinstance(row.reasons, tuple)
+        or any(not isinstance(reason, str) for reason in row.reasons)
+        for row in arm.selector_verdicts
+    ):
+        raise RunnerProtocolError("categorical arm row violates the frozen schema")
 
 
 def combine_arm_adjudications(
     plus: ArmAdjudication, minus: ArmAdjudication
 ) -> tuple[CombinedSelectorVerdict, ...]:
     """Combine categorical verdicts only; no numeric cross-arm path exists."""
+    _validate_categorical_arm(plus)
+    _validate_categorical_arm(minus)
     arms = {plus.target: plus, minus.target: minus}
     if set(arms) != {"plus", "minus"}:
         raise RunnerProtocolError("combination requires one plus and one minus arm")

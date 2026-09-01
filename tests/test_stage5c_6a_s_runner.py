@@ -114,6 +114,16 @@ def _complete_records(target="plus"):
                             "s5_pass": True,
                         }
                     )
+    records.append(
+        {
+            "record_type": "arm_data_complete",
+            "target": target,
+            "seed_claim_count": EXPECTED_CASES_PER_ARM,
+            "sample_generated_count": EXPECTED_CASES_PER_ARM,
+            "selector_count": 11,
+            "block_pairs_per_selector": EXPECTED_BLOCK_PAIRS_PER_SELECTOR,
+        }
+    )
     return records
 
 
@@ -251,6 +261,12 @@ def test_interruption_is_inconclusive_and_mixed_target_is_invalid():
         Verdict.PROTOCOL_INVALID
     }
 
+    records = _complete_records()
+    records.pop()
+    assert {row.verdict for row in adjudicate_arm_records(records).selector_verdicts} == {
+        Verdict.INCONCLUSIVE
+    }
+
 
 def _categorical_arm(target, verdict=Verdict.PASS, commit=COMMIT):
     return ArmAdjudication(
@@ -299,6 +315,16 @@ def test_combiner_uses_frozen_precedence_and_matching_commit():
     }
     with pytest.raises(RunnerProtocolError):
         combine_arm_adjudications(plus, _categorical_arm("minus", commit="b" * 40))
+    forged_rows = list(_categorical_arm("minus").selector_verdicts)
+    forged_rows[0] = ArmSelectorVerdict(
+        "plus",
+        forged_rows[0].selector_name,
+        forged_rows[0].parameters,
+        forged_rows[0].verdict,
+        forged_rows[0].reasons,
+    )
+    with pytest.raises(RunnerProtocolError):
+        combine_arm_adjudications(plus, ArmAdjudication("minus", COMMIT, tuple(forged_rows)))
 
 
 def test_stored_verdicts_are_recomputed_not_trusted(tmp_path):

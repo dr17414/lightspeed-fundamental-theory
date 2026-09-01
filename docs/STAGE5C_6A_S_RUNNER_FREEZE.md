@@ -59,6 +59,7 @@ hash chain；修改、刪列、插列、重排或 non-finite JSON 都使 ledger 
 | `causet_selector` | selector／parameters、cell／case id／seed、selected/domain pairs、coverage、normalization、mass、TV、Kish ESS／fraction、S1/S2/S3/S4/S6 flags | 每 causet × 11 點 |
 | `block_pair` | selector／parameters、target、$N$、兩個 block ids、$d_{\rm mean}$、signed $\widehat E_U$、$d_{\rm law}$、S5 flag | 每 selector × target × $N$ × 6 pairs |
 | `terminal_error` | target、`protocol` 或 `backend` category、error class/message | 可稽核中斷時 |
+| `arm_data_complete` | expected seed／sample／selector／block-pair counts | 全部 raw data 成功落盤後、adjudication 前 |
 | `arm_selector_verdict` | 單一 target、selector／parameters、verdict、reasons | arm adjudication 後 |
 | `arm_complete` | target、11 verdict count | 單臂正常收尾 |
 | `selector_verdict` | selector／parameters、兩個 categorical arm verdicts、final verdict | 獨立 combined ledger |
