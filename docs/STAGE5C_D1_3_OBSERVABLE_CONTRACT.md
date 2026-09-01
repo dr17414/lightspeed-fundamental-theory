@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.10 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint 與 wrong-direction 的 gauge 邊界已交付；selector／measure／smearing／normalization、active wrong-support control 與統計 contract 仍待完成。
+狀態：**【提案／v0.11 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 的結構形式已交付；selector 的完整 6a-S prereg、measure／smearing／normalization、active wrong-support control 與統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -250,6 +250,11 @@ C6 的 nested-region／bulk-boundary strata 依 acceptance spec C6 可使用 L4 
 C8 的 intrinsic selector。C7 若使用 gate-specific test-function selector，亦須獨立明列
 其 L4 權限。不得用「共用 contract」把 C6/C7 的 oracle 權限偷偷帶入 $\Sigma_{C8}$。
 
+active wrong-support E3 同屬後一類：它可在 evaluator-side 的完整 typed tuple
+$(\Sigma_{C7/E3},\varphi,\mathcal D,\iota_{\rm sf},\text{continuum frame})$ 上使用事前登記的
+L4 support mapping。它不要求 $\Sigma_{C8}$ sector-aware，也不得以此理由把
+$\Delta r_U,\Delta r_V$ 或其他 handoff candidate materials 匯入 C8 family。
+
 ### 3.3 不變性
 
 - **relabeling-invariant**：元素標號置換下，$\Sigma$ 隨之共變（選出的對集合被同一置換搬動）。
@@ -266,6 +271,13 @@ C8 的 intrinsic selector。C7 若使用 gate-specific test-function selector，
   仍屬無界容量。此 ledger 沿用 acceptance spec §4.1–4.2 的 L2/L3 capacity audit。
 - **Provenance**：$\mathcal F_\Sigma$ 的每個成員必須有書面來源理由，且只許引用
   數學必要條件、既有 STATUS 結論，或依 spec §5.2.1(v) 具**承重資格**的外部文獻。
+
+`docs/STAGE5C_SELECTOR_FAMILY.md` 已固定 C8 intrinsic selector 的**結構層**：11 個依序評測的
+參數點、closed capacity、typed `BlindedCase` firewall、relabel covariance 與逐 member
+provenance。這不是完整 prereg，更不是 6a-S PASS；$\varphi$、$\mathcal N$、induced-measure
+metric、ESS、cohort／exclusion floors、seeds 與 failure semantics 尚未凍結。結構交付物亦明定
+$\Delta r_U,\Delta r_V$ 不得由 handoff candidate-material 記錄帶入 C8 family；任何變更須走
+protocol amendment。
 
 ### 3.5 選取規則：first-past-the-post，不得 argmax〔反擬合〕
 

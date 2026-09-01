@@ -1,8 +1,8 @@
 # Stage 5C E3 — Wrong-Direction 類別邊界
 
 狀態：**【部分交付／PENDING】**。全域 sector swap 的 gauge/invariance 判決已完成；真正的
-wrong-support intervention 要等 selector、test function、pair domain 與 continuum-frame mapping
-定案後才能構造。本文件不設計候選 $K$，不接觸 holdout。
+wrong-support intervention 要等 gate-specific selector、test function、pair domain 與
+continuum-frame mapping 定案後才能構造。本文件不設計候選 $K$，不接觸 holdout。
 
 歷史基準：main `36605dc`（62 檔、integrity 通過、177 passed）。
 
@@ -117,6 +117,19 @@ $$\mathcal T=(\Sigma,\varphi,\mathcal D,\iota_{\rm sf},\text{continuum frame/map
 $\Sigma$ 未必單獨承載 sector-labelled direction；因此原草案「只對調 $\Sigma$」的寫法撤回。
 實際 intervention 必須在整個 $\mathcal T$ 型別定案後逐欄列明，且不得由候選結果反推。
 
+### 3.2 與 C8 intrinsic selector 的隔離
+
+`docs/STAGE5C_SELECTOR_FAMILY.md` 固定的是 sector-blind $\Sigma_{C8}$，只服務 C8
+distributional test。active wrong-support 不要求它 sector-aware；E3 應另行登記 evaluator-side
+$\Sigma_{C7/E3}$／test-function support mapping，並可依既定 L4 權限使用 continuum frame、
+$\iota_{\rm sf}$ 與 planted object。這些 oracle 只可出考卷，對合規 order-only $K$ 的存在性
+零蘊涵且不得回流 construction。
+
+handoff §2.3 記錄的 $\Delta r_U,\Delta r_V$ 仍是未採納 candidate materials，不列入 C8
+selector，也不因 E3 需要方向控制而獲得默示豁免。若未來另案把它們用作 order-only
+sector-aware selector，須先走 protocol amendment，處理 $\kappa>1$ orbit、enumeration cap、
+sector-swap covariance 與 capacity；本文件沒有作此授權。
+
 ---
 
 ## 4. 非採納的 algebraic stress witnesses
@@ -151,7 +164,7 @@ $$I_1(T)+I_2(T)=1-\frac{2\operatorname{Re}(m_U\bar m_V)}{N^2},
 - planted objects 可使用 L4 oracle，所以其通過對 order-only 候選 $K$ 的存在性零蘊涵。
 - primary 第一分量的符號仍只是代數記帳，不能用來定義 correct/wrong direction。
 
-仍未完成：typed selector/intervention、continuum mapping、smearing／normalization、完整參數域、
+仍未完成：gate-specific typed selector/intervention、continuum mapping、smearing／normalization、完整參數域、
 joint-law regions、effect/equivalence thresholds、power 與 fresh confirmation。因此 D.1 第 3 項及
 Freeze-1a 維持 **PENDING**。
 
