@@ -1,10 +1,11 @@
 # Stage 5C — C8 Selector Family $\Sigma$：結構定義
 
-狀態：**【candidate-independent 結構交付物；尚非完整 selector prereg／尚未 freeze】**。
+狀態：**【candidate-independent 結構交付物；C8 6a-S prereg 已另行交付／尚未執行】**。
 
 本段只固定 C8 intrinsic selector 的型別、有限 family、順序、capacity 與 provenance。不執行
-6a-S、不讀 between-target contrast、不設計候選 $K$。完整 6a-S 尚需 $\varphi$、$\mathcal N$、
-induced-measure metric、effective-sample-size 與數值門檻另行凍結。
+6a-S、不讀 between-target contrast、不設計候選 $K$。$\varphi$、$\mathcal N$、
+induced-measure metric、effective-sample-size、數值門檻與 reserved seeds 已由
+`docs/STAGE5C_6A_S_PREREGISTRATION.md` 另行預登記；該 prereg 不倒改本文件的 family。
 
 歷史基準：main `e5a6f2b`（64 檔、integrity 通過、184 passed）。
 
@@ -25,6 +26,11 @@ induced-measure metric、effective-sample-size 與數值門檻另行凍結。
    contract 一起預登記。
 5. 「誘導測度必須偏離均勻」不是 selector 的必要條件，且與 observable contract §6.2 的
    明文禁令衝突。concentration/divergence 只能作不改判的 secondary diagnostic。
+6. **pre-execution feasibility audit 撤回 `source_depth_band`.** 把 element height-CDF 的
+   $0.2$ grid 直接移植成 pair-source filter，不能保留 element-balance；頂端 band 在
+   $N=64,96,128$ 系統性低於 prereg 的 32-pair／0.005 floors，且 source-only 定義破壞
+   order up/down duality。reserved 1.3B／1.4B streams 尚未生成，故在執行前改為下列
+   pair-mass-balanced、order-dual `endpoint_depth_mass_band`；capacity 與 grid 均不變。
 
 ---
 
@@ -57,7 +63,7 @@ $\Sigma$ 只決定 pair membership；$\varphi$ 給權重；$\mathcal N$ 進入 $
   完整 6a-S prereg 固定。
 - $\mathcal D\ne\varnothing$ 但某 member 選不到 pair：`SelectorSelectionError`，是 S1/S6
   feasibility failure，不得偷換成 OUT-OF-DOMAIN。
-- raw coverage 只報告，不在本輪用未證成的上下界改判。
+- raw coverage 在結構層只報告；numerical prereg 另事前固定 0.005 floor，不得執行後改動。
 
 ---
 
@@ -82,7 +88,7 @@ $\Sigma$ 只決定 pair membership；$\varphi$ 給權重；$\mathcal N$ 進入 $
 | 1 | `all_relations` | `()` | 1 | $\mathcal D$ 本身；最少額外 primitive、完整非局域 baseline |
 | 2 | `links` | `()` | 1 | C8.1 已凍結的 link-density 診斷；選全部 links，不選單一鄰居 |
 | 3 | `interval_exact` | $m=1,2,3,4$ | 4 | C8.1 已凍結的 interval-abundance orders |
-| 4 | `source_depth_band` | $[0,.2),[.2,.4),[.4,.6),[.6,.8),[.8,1]$ | 5 | C8.1 已凍結的 height-CDF endpoints |
+| 4 | `endpoint_depth_mass_band` | $[0,.2),[.2,.4),[.4,.6),[.6,.8),[.8,1]$ | 5 | order-dual endpoint-depth score；C8.1 height-CDF grid 提供 closed quantile grid |
 
 總 capacity **11**，closed limit 亦為 **11**，不保留可事後填入的 12–24 空位。任何新增、
 刪除、改順序或改 grid 都是 protocol amendment。
@@ -95,8 +101,20 @@ evaluator 定義。這不授權候選 construction import $|I(x,y)|$，也不得
 member 順序回流成候選建議。
 
 `valency_band` 自原草案移除：其唯一具體來源靠近已隔離的 reference-probe bank，違反 §2 的
-no-bank-input 規則。原 quartile depth grid亦改回既有 C8.1 的 $0.2$ endpoints，避免另造沒有
-provenance 的 constants。
+no-bank-input 規則。depth family 保留既有 C8.1 的 $0.2$ grid，避免另造沒有 provenance 的
+constants；但 DEV-0008 證明 element CDF 的均分性不會自動轉移到 source-filtered pair set，
+所以不能保留原 `source_depth_band` 的語意。
+
+修正版對每個 causal pair $(x,y)$ 定義
+
+$$s(x,y)=d_-(x)+d_+(y),$$
+
+其中 $d_-$ 是 longest-chain past depth、$d_+$ 是 order-dual future depth。以每個 distinct
+$s$ level 所承載的 pair count 建 cumulative pair mass，並把整個 level 放在其 mass
+midquantile 所屬的 half-open band；同 score level 不依 label 拆分。故五個 bands 恰好
+partition $\mathcal D$，在 order reversal $(x,y)\mapsto(y,x)$ 下逐位元對應，且不使用
+coordinates、target 或 RNG。pair-mass quantile 因 ties 不保證精確 20%，所以 32／0.005
+floors 仍須由 6a-S 逐 causet驗收，不能由定義自動宣稱 PASS。
 
 ### 3.2 完整 capacity ledger
 
@@ -144,16 +162,17 @@ weighted measure 的 total variation／ESS。任何 relative-to-uniform concentr
 
 - `BlindedCase` firewall、poset 型別、domain/subset/uniqueness；
 - relabel covariance，並證測試會拒絕錯誤的 inverse permutation；
+- `endpoint_depth_mass_band` 的 order-dual invariance、pair partition 與舊 member 名稱拒絕；
 - family/grid/order、half-open boundary convention、capacity 與完整 ledger；
 - `all_relations` coverage 恰為 1，避免以無 provenance 上限排除最小 selector；
 - empty domain 與 empty selection 的不同型別。
 
-這些只是 6a-S 的**結構前置**，不能記成 6a-S PASS。完整 6a-S 還要先凍結 $\varphi$、
-$\mathcal N$、induced-measure distance、ESS、coverage/exclusion thresholds、cohort floor、seeds
-與 failure semantics，且使用與 6a-E 不相交的資料流。
+這些只是 6a-S 的**結構前置**，不能記成 6a-S PASS。完整 numerical prereg 已在
+`docs/STAGE5C_6A_S_PREREGISTRATION.md` 固定，且使用與 6a-E 不相交的資料流；reserved
+streams 尚未生成，故仍不得記 6a-S PASS。
 
-因此下一個 commit **不得直接執行完整 6a-S**。下一步應先完成 smearing／normalization／
-6a-S numerical prereg；只有其 commit 固定後才可執行 6a-S。
+因此只有在 smearing／normalization／6a-S numerical prereg 的 commit 固定後，下一個段落
+才可依該文件一次執行 6a-S；不得同時修改門檻、family 或 seed manifest。
 
 ---
 
@@ -163,4 +182,4 @@ $\mathcal N$、induced-measure distance、ESS、coverage/exclusion thresholds、
 handoff candidate materials 來選 member。它不證明 selector viable、不證明 E3 viable，也不
 蘊涵 order-only $K$ 存在。
 
-D.1 第 3 項、active wrong-support E3、完整 selector prereg 與 Freeze-1a 均維持 **PENDING**。
+D.1 第 3 項、active wrong-support E3、6a-S execution／6a-E 與 Freeze-1a 均維持 **PENDING**。

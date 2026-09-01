@@ -83,13 +83,19 @@ FROZEN_FAMILY: tuple[SelectorMember, ...] = (
         source_dependencies=("docs/STAGE5C_C8_4_HARD_CONTROLS.md#4",),
     ),
     SelectorMember(
-        name="source_depth_band",
+        name="endpoint_depth_mass_band",
         parameter_points=tuple(
             (DEPTH_ENDPOINTS[i], DEPTH_ENDPOINTS[i + 1])
             for i in range(len(DEPTH_ENDPOINTS) - 1)
         ),
-        form="select x<y by source past-depth/height in [lo,hi), final band [lo,1]",
-        provenance="C8.1 frozen height-CDF endpoints 0.2,0.4,0.6,0.8",
+        form=(
+            "select x<y by pair-mass midquantile of "
+            "past_depth(x)+future_depth(y) in [lo,hi), final band [lo,1]"
+        ),
+        provenance=(
+            "order-dual endpoint-depth score on causal pairs; C8.1 frozen "
+            "height-CDF grid 0.2,0.4,0.6,0.8 supplies the closed quantile grid"
+        ),
         source_dependencies=("docs/STAGE5C_C8_4_HARD_CONTROLS.md#4",),
         branch_count=1,
     ),
@@ -190,25 +196,33 @@ def _rule_interval_exact(order: np.ndarray, parameters: tuple) -> np.ndarray:
     return np.argwhere(order & (interval_cardinalities(order) == wanted))
 
 
-def _rule_source_depth_band(order: np.ndarray, parameters: tuple) -> np.ndarray:
+def _rule_endpoint_depth_mass_band(order: np.ndarray, parameters: tuple) -> np.ndarray:
     low, high = parameters
-    depth = past_depth(order)
-    height = int(depth.max())
-    if height <= 0:
-        return np.empty((0, 2), dtype=np.int64)
-    fraction = depth / height
+    pairs = _admissible_pairs(order)
+    if pairs.shape[0] == 0:
+        return pairs
+    past = past_depth(order)
+    future = past_depth(order.T)
+    score = past[pairs[:, 0]] + future[pairs[:, 1]]
+    pair_mass_midquantile = np.empty(len(pairs), dtype=float)
+    cumulative = 0
+    for value in np.unique(score):
+        mask = score == value
+        mass = int(mask.sum())
+        pair_mass_midquantile[mask] = (cumulative + 0.5 * mass) / len(pairs)
+        cumulative += mass
     if high == 1.0:
-        inside = (fraction >= low) & (fraction <= high)
+        inside = (pair_mass_midquantile >= low) & (pair_mass_midquantile <= high)
     else:
-        inside = (fraction >= low) & (fraction < high)
-    return np.argwhere(order & inside[:, None])
+        inside = (pair_mass_midquantile >= low) & (pair_mass_midquantile < high)
+    return pairs[inside]
 
 
 _RULES = {
     "all_relations": _rule_all_relations,
     "links": _rule_links,
     "interval_exact": _rule_interval_exact,
-    "source_depth_band": _rule_source_depth_band,
+    "endpoint_depth_mass_band": _rule_endpoint_depth_mass_band,
 }
 
 

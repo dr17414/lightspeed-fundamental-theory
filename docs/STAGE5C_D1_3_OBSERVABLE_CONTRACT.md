@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.11 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 的結構形式已交付；selector 的完整 6a-S prereg、measure／smearing／normalization、active wrong-support control 與統計 contract 仍待完成。
+狀態：**【提案／v0.12 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 的結構形式已交付；C8 smearing／normalization／6a-S numerical prereg 已交付但尚未執行。6a-E、active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -274,10 +274,16 @@ $\Delta r_U,\Delta r_V$ 或其他 handoff candidate materials 匯入 C8 family�
 
 `docs/STAGE5C_SELECTOR_FAMILY.md` 已固定 C8 intrinsic selector 的**結構層**：11 個依序評測的
 參數點、closed capacity、typed `BlindedCase` firewall、relabel covariance 與逐 member
-provenance。這不是完整 prereg，更不是 6a-S PASS；$\varphi$、$\mathcal N$、induced-measure
-metric、ESS、cohort／exclusion floors、seeds 與 failure semantics 尚未凍結。結構交付物亦明定
+provenance。這個 selector-family 文件本身不是完整 prereg，更不是 6a-S PASS；其後續
+numerical layer 由下列獨立文件固定。結構交付物亦明定
 $\Delta r_U,\Delta r_V$ 不得由 handoff candidate-material 記錄帶入 C8 family；任何變更須走
 protocol amendment。
+
+`docs/STAGE5C_6A_S_PREREGISTRATION.md` 另固定這 11 點共同使用的 C8 numerical layer：
+$\varphi=1$、$\mathcal N_C=|\Sigma(C)|$、$\epsilon=1/16$ 的 linear Gaussian regulator、
+40 維 complex（80 維 real）nonredundant Fourier signature、同 target block distances、S1/S5/S6 門檻、
+$N=64,96,128$、4 blocks × 64 causets 與專屬 seed manifest。該文件尚未執行，且不固定
+6a-E／C6／C7；不得把 preregistration 寫成 6a-S PASS 或 D.1 第 3 項完成。
 
 ### 3.5 選取規則：first-past-the-post，不得 argmax〔反擬合〕
 
@@ -427,6 +433,12 @@ $\varphi_C$ 必須：relabeling-invariant；只依賴 order 與 $\#$；在 selec
 $\Pi^{(N,\epsilon)}_{\theta,g}$ 存在穩定 continuum limit。若 $\varphi$ 可為負或複數，須另報 total variation／phase
 cancellation 與數值穩定性，不能只報 signed mean。
 
+**C8 已具體化.** `docs/STAGE5C_6A_S_PREREGISTRATION.md` 對 C8 固定
+$\varphi_C(x,y)=1$，並把 linear regulator 固定為 ordered pair space $\mathbb R^4$ 上
+$\epsilon=1/16$ 的 mass-one Gaussian。這是 fixed physical smearing scale，6a-S 不作
+$\epsilon\to0$ 主張；continuum pairing 仍須在 6a-E/E4 以相同尺度驗證。C6/C7 的
+gate-specific instances 尚未由此授權。
+
 ---
 
 ## 5. Normalization $\mathcal N$
@@ -442,6 +454,10 @@ $\mathcal N$ 的作用是讓端點跨 causet、跨密度、跨連續／離散可
    cardinality 正是 continuum volume 的離散對應。只有在已宣告的 matched-$N$／ratio
    endpoint 中證明 scale cancellation 後，才可要求 invariance；
 4. $\mathcal N=0$ 或數值不穩定時判 INCONCLUSIVE，不得改換 $\mathcal N$。
+
+**C8 已具體化.** C8 固定 $\mathcal N_C=|\Sigma(C)|$，故 induced measure 是非負
+probability measure、total mass／variation 為 1、Kish weight ESS 為 selected-pair count。
+ESS 不被解讀成同一 causet 內 pairs 的獨立樣本數；統計單位仍是 causet。
 
 ---
 
@@ -480,6 +496,11 @@ $\mathfrak I_G\circ\langle S_\theta,\cdot\rangle$ 下完全抵消。distribution
 S1–S6 皆不得讀取 between-target contrast；可在各 target 內批次執行。其資料必須與
 6a-E selection／confirmation streams 分離。若修改後有任何 S 檢定接觸 between-target
 contrast，依 §3.5 自動改列 6a-E 並納入 sequential spending。
+
+**C8 numerical prereg.** S1–S6 的 exact C8 design、finite-resolution random-measure metric、
+floors、failure semantics 與 reserved streams 已由 `docs/STAGE5C_6A_S_PREREGISTRATION.md`
+固定。commit 前不得生成其 seeds；執行時 11 點仍採 batch prefilter，不得先看結果再改
+family、margin 或 normalization。
 
 ### 6.3 6a-E：candidate-independent endpoint-evaluator 檢定
 
@@ -591,14 +612,16 @@ residual-power 前提必須依 §6 重新建立。
 
 ---
 
-## 10. 本文件刻意不固定的事
+## 10. 本文件仍未固定的事
 
-- $\mathcal F_\Sigma$ 的**具體成員**——需與 GPT 議定後才寫入，且一經寫入即凍結；
+- $\mathcal F_\Sigma$ 的具體 11 點已由 selector-family 文件固定；仍未固定的是其 6a-E
+  sequential selection／confirmation outcome 與最終單一採用 member；
 - §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付，仍須把
   global fiber trivialization、reality／adjoint 與 endpoint 寫成單一 frozen typed contract；
-- $\varphi$、$\mathcal N$ 的具體函數形式與 dimensional covariance，以及二維 endpoint 的
-  joint-law metric／只供報告使用的 scalar aggregation；
-- $\Pi_{\theta,g}$／$\bar\nu_{\theta,g}$ 的 base measure、joint matched law、contact／boundary treatment、continuum／regulator sequence；
+- C8 的 $\varphi$、$\mathcal N$、fixed-scale regulator、6a-S metric／門檻已交付；仍未固定
+  C6/C7 instances、二維 endpoint 的 6a-E joint-law metric／只供報告使用的 scalar aggregation；
+- C8 的 finite-$N$ 6a-S law 已預登記；仍未固定 $\Pi_{\mathcal M}$ 的 6a-E joint matched law、
+  continuum proof、E4 contact／boundary treatment，以及 C6/C7 measure instances；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
