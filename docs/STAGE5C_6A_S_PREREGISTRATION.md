@@ -251,6 +251,13 @@ $d_{\rm law}$ 在本 prereg 只承擔 gross-breakage tripwire；即使全部通�
 random-measure law stable。S5 的可承重 finite-resolution evidence 是已登記 Fourier means
 的 $d_{\rm mean}$；完整 law／continuum stability 仍留給 6a-E/E4。
 
+**已知 $d_{\rm mean}$ binding cell.** DEV-0010 在 development-only 3.0B segment 上把
+$N=64$ 的 `endpoint_depth_mass_band(0.8,1.0)` 識別為最緊的同分布 block-pair cell：兩個
+targets 的已報 null p99 約 `0.122/0.123`、p99.9 約 `0.146/0.151`，各 5000 draws 的最大值
+為 `0.172/0.171`，仍低於 0.20。這是 pre-execution tail-risk registration，不是 calibrated
+family-wise false-FAIL probability，也不改 margin；若 reserved run 超過 0.20，仍依原規格
+記 `6a-S FAIL`，不得事後稱為 null tail 而重跑、換 block 或放寬 margin。
+
 ### 5.3 S6 gates
 
 每個 causet逐一要求：
@@ -279,7 +286,10 @@ normalization 被靜默修改。
 
 ---
 
-## 6. 尚未完成
+## 6. Runner freeze 與尚未完成
+
+runner／ledger／adjudicator 已由 `docs/STAGE5C_6A_S_RUNNER_FREEZE.md` 與
+`analysis/stage5c_6a_s_runner.py` 固定；本 prereg commit 仍未生成任何 reserved sample。
 
 本文件刻意不固定或不宣稱：
 
@@ -292,5 +302,6 @@ normalization 被靜默修改。
 - candidate endpoint、候選 $K$、C3b candidate-specific instantiation；
 - Freeze-1a 完成。
 
-所以本 prereg commit 後唯一獲准的下一步，是依本文件一次執行 6a-S 並寫 append-only
-selector ledger；不得直接開始 6a-E 或候選設計。
+所以 runner freeze 合併並重新核對 `main` 後，唯一獲准的下一步，是依該 main commit
+分別一次執行兩個 6a-S arms、寫兩份 append-only arm ledgers，再只以 categorical verdicts
+形成 combined ledger；不得直接開始 6a-E 或候選設計。

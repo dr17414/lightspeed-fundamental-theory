@@ -22,10 +22,10 @@ BLOCKS_PER_TARGET = 4
 TARGET_SEED_BASES = {"plus": 1_300_000_000, "minus": 1_400_000_000}
 SMEARING_EPSILON = 1.0 / 16.0
 
-# 6a-S equivalence margins.  They are fixed before the reserved streams are
+# 6a-S operational gates: d_mean uses an equivalence margin, while d_law is a
+# gross-breakage tripwire.  Both are fixed before the reserved streams are
 # touched and apply to every selector, target, N, and pair of independent
-# blocks.  They are operational finite-resolution gates, not a theorem of full
-# weak convergence.
+# blocks.  Neither is a theorem of full weak convergence or law stability.
 MAX_MEAN_SIGNATURE_DISTANCE = 0.20
 MAX_RANDOM_LAW_ENERGY_DISTANCE = 0.20
 MIN_SELECTED_PAIRS = 32
