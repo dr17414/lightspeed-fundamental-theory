@@ -164,14 +164,22 @@ $\widehat E_U$ 的 finite-sample 值允許為負，raw signed value 必須保存
 non-negative reporting／gate quantity $d_{\rm law}$ 時取 positive part。within-block sums
 明確排除 diagonal，避免 V-statistic 把 per-causet dispersion／pair count 轉成正的 null bias。
 
-預登記 equivalence margin：
+預登記 gross-breakage tripwire threshold：
 
 $$d_{\rm law}\le0.20.$$
 
-兩個 0.20 margins 沿用本專案 C8.1 candidate-independent balance contract 的 maximal
-standardized discrepancy 尺度作 operational tolerance，但不把不同統計量冒充為同一量，
-也不宣稱它們給出 family-wise hypothesis-test $p$ 值。所有 11 個 selector、兩個 target、
-三個 $N$、六組 block pairs 均須逐一通過；不平均、不挑最好的一個 block pair。
+$d_{\rm law}$ 這一臂只作 gross numerical breakage tripwire。DEV-0009 的 pre-execution
+development audit 顯示，移除 V-statistic null bias 後，$0.20$ 對明顯的 cross-$N$ law
+difference 仍缺乏 power；因此 $d_{\rm law}$ 通過**不構成 random-measure law stability 的
+獨立證據**，也不得與 $d_{\rm mean}$ 並稱為兩個等效性判決。本 prefilter 的實際承重為
+$d_{\rm mean}$ 與 S1/S6 floors；$d_{\rm mean}$ 本身也只檢查已登記 Fourier means，不能外推
+成完整 law stability。
+
+$d_{\rm mean}$ 的 $0.20$ equivalence margin 與 $d_{\rm law}$ 的 $0.20$ tripwire threshold
+沿用本專案 C8.1 candidate-independent balance contract 的 maximal standardized discrepancy
+尺度作 operational tolerance，但不把不同統計量冒充為同一量，也不宣稱它們給出
+family-wise hypothesis-test $p$ 值。所有 11 個 selector、兩個 target、三個 $N$、六組
+block pairs 均須逐一通過；不平均、不挑最好的一個 block pair。
 
 relative-to-uniform divergence 與 $T_+$/$T_-$ measure difference只可作不改判 secondary
 diagnostic；本次執行明禁計算後者。
@@ -223,6 +231,13 @@ $$\operatorname{seed}=b_\pm+10^6i+10^4j+k.$$
 $d_-(x)+d_+(y)$ 對 causal pair 分層，再按每個 score level 的 pair-mass midquantile 套用
 同一組 $0,.2,.4,.6,.8,1$ half-open grid；同一 score level 不拆分。capacity 仍為 11。
 
+**已知 floor-binding cell.** DEV-0009 在 development-only 2.9B streams 上把
+`interval_exact(4)`、$N=64$ 識別為最靠近 32-pair floor 的已知 cell：每 target 各 384
+causets 的觀察最小值為 38 與 43；以該 audit 的常態近似外推，正式兩 targets、四 blocks
+合計 512 causets 約有 $3\%$ 機率至少一次跌破 floor。這只是事前風險估計，不是 calibrated
+failure probability，也不改 gate：若 reserved execution 任一 causet 少於 32 pairs，該
+selector 仍須記 `6a-S FAIL`；不得事後降低 floor、排除 sample 或改記 `INCONCLUSIVE`。
+
 ### 5.2 S5 gates
 
 對每個 selector、target、$N$ 的 $\binom42=6$ 組 block pairs：
@@ -231,7 +246,10 @@ $d_-(x)+d_+(y)$ 對 causal pair 分層，再按每個 score level 的 pair-mass 
 - $d_{\rm mean}\le0.20$；
 - signed $\widehat E_U$ 完整保存，且 $d_{\rm law}=\sqrt{[\widehat E_U]_+}\le0.20$。
 
-任一組超標，該 selector 記 `6a-S FAIL`；不得刪掉該 block 或改 margin。
+任一組超標，該 selector 記 `6a-S FAIL`；不得刪掉該 block 或改 margin／threshold。
+$d_{\rm law}$ 在本 prereg 只承擔 gross-breakage tripwire；即使全部通過，也不得獨立宣稱
+random-measure law stable。S5 的可承重 finite-resolution evidence 是已登記 Fourier means
+的 $d_{\rm mean}$；完整 law／continuum stability 仍留給 6a-E/E4。
 
 ### 5.3 S6 gates
 
