@@ -1,10 +1,11 @@
 # Stage 5C — C8 Selector Family $\Sigma$：結構定義
 
-狀態：**【candidate-independent 結構交付物；尚非完整 selector prereg／尚未 freeze】**。
+狀態：**【candidate-independent 結構交付物；C8 6a-S prereg 已另行交付／尚未執行】**。
 
 本段只固定 C8 intrinsic selector 的型別、有限 family、順序、capacity 與 provenance。不執行
-6a-S、不讀 between-target contrast、不設計候選 $K$。完整 6a-S 尚需 $\varphi$、$\mathcal N$、
-induced-measure metric、effective-sample-size 與數值門檻另行凍結。
+6a-S、不讀 between-target contrast、不設計候選 $K$。$\varphi$、$\mathcal N$、
+induced-measure metric、effective-sample-size、數值門檻與 reserved seeds 已由
+`docs/STAGE5C_6A_S_PREREGISTRATION.md` 另行預登記；該 prereg 不倒改本文件的 family。
 
 歷史基準：main `e5a6f2b`（64 檔、integrity 通過、184 passed）。
 
@@ -148,12 +149,12 @@ weighted measure 的 total variation／ESS。任何 relative-to-uniform concentr
 - `all_relations` coverage 恰為 1，避免以無 provenance 上限排除最小 selector；
 - empty domain 與 empty selection 的不同型別。
 
-這些只是 6a-S 的**結構前置**，不能記成 6a-S PASS。完整 6a-S 還要先凍結 $\varphi$、
-$\mathcal N$、induced-measure distance、ESS、coverage/exclusion thresholds、cohort floor、seeds
-與 failure semantics，且使用與 6a-E 不相交的資料流。
+這些只是 6a-S 的**結構前置**，不能記成 6a-S PASS。完整 numerical prereg 已在
+`docs/STAGE5C_6A_S_PREREGISTRATION.md` 固定，且使用與 6a-E 不相交的資料流；reserved
+streams 尚未生成，故仍不得記 6a-S PASS。
 
-因此下一個 commit **不得直接執行完整 6a-S**。下一步應先完成 smearing／normalization／
-6a-S numerical prereg；只有其 commit 固定後才可執行 6a-S。
+因此只有在 smearing／normalization／6a-S numerical prereg 的 commit 固定後，下一個段落
+才可依該文件一次執行 6a-S；不得同時修改門檻、family 或 seed manifest。
 
 ---
 
@@ -163,4 +164,4 @@ $\mathcal N$、induced-measure distance、ESS、coverage/exclusion thresholds、
 handoff candidate materials 來選 member。它不證明 selector viable、不證明 E3 viable，也不
 蘊涵 order-only $K$ 存在。
 
-D.1 第 3 項、active wrong-support E3、完整 selector prereg 與 Freeze-1a 均維持 **PENDING**。
+D.1 第 3 項、active wrong-support E3、6a-S execution／6a-E 與 Freeze-1a 均維持 **PENDING**。
