@@ -1,6 +1,8 @@
 # Stage 5C execution ledgers
 
-The repository owner explicitly authorized public disclosure of the complete plus-arm ledger on 2026-09-02, after PR #14 recorded the incident summary.
+Consent record: in the ChatGPT project session on 2026-09-02, after PR #14 recorded the
+incident summary, the repository owner replied `兩者皆是` to the two explicit pending choices:
+merge PR #14 and publish the complete plus-arm ledger. Publication occurred only after that reply.
 
 `stage5c_6a_s_plus_protocol_invalid.ndjson.gz.part00` 至 `part17` 是
 `docs/STAGE5C_6A_S_EXECUTION_INCIDENT.md` 所記 plus-arm ledger 的固定 49,152-byte 分片；
@@ -26,4 +28,6 @@ cat stage5c_6a_s_plus_protocol_invalid.ndjson.gz.part?? \
 ```
 
 此 ledger 的正式語意是 `PROTOCOL-INVALID` incident evidence，不得用來事後重判 6a-S、
-形成跨 target numerical contrast，或作候選設計輸入。
+形成跨 target numerical contrast，或作候選設計輸入。1.3B streams 已永久 burned；任何
+replacement run 均不得把它們當作 control、comparison、calibration 或 power-estimation
+input，也不得與仍未生成的 1.4B minus manifest 配對。

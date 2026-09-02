@@ -57,15 +57,15 @@ NDJSON 為 6,839,409 bytes，SHA-256：
 2cb781fce848e321f4e523b004cd2e3e2166c974fdf44e9abe553417e45469fd
 ```
 
-另生成 deterministic gzip（不含原檔時間戳）；其 SHA-256 為：
+repo 依使用者明確公開授權，以
+`results/stage5c_6a_s_plus_protocol_invalid.ndjson.gz.part00` 至 `part17` 封存
+deterministic gzip（不含原檔時間戳）；依 `results/README.md` 串接後的 SHA-256 為：
 
 ```text
 520c42f8c523031763dde10f1086c1a6c43f855950afc1fae5097933729ccd63
 ```
 
-本次 public-repo incident commit 只公開 counts、hashes、正式 categorical verdict 與根因
-稽核，不公開逐 seed／逐 selector ledger payload；完整 ledger 的公開披露必須另有明確授權，
-且不得藉此改變本 incident 的正式語意。
+分片只改變傳輸封裝，不改變 ledger bytes 或本 incident 的正式語意。
 
 1.4B minus manifest **未 claim、未生成、未讀取**。發現 plus protocol-invalid 後沒有啟動
 第二臂，避免在已無法依原 freeze 形成有效 combined verdict 時額外消耗 reserved seeds。
@@ -92,6 +92,12 @@ NDJSON 為 6,839,409 bytes，SHA-256：
 不是 `6a-S FAIL`，也不能因下節的根因分析而事後改成 PASS。minus 未執行，因此不存在
 combined ledger 或 6a-S final verdict。
 
+**PASS／INVALID 切分的機制限制.** 超出固定 $10^{-12}$ 絕對容差的頻率隨 selected-pair
+count 增加：`all_relations` 最高，五個 depth bands 次之，而 pair count 較低的 `links` 與
+四個 `interval_exact` 沒有觸發。故本表的五點 PASS／六點 INVALID 切分是浮點 roundoff
+與 pair count 的產物，沒有 selector scientific-quality 的排序意義；不得寫成「6a-S 篩掉
+六點、留下五點」。
+
 ---
 
 ## 4. Candidate-independent incident analysis
@@ -114,6 +120,27 @@ $\operatorname{ESS}=|\Sigma(C)|$ 的 roundoff 會超過固定絕對容差。單�
 | depth band `(0.6,0.8)` | 16 / 768 | $1.7053\times10^{-12}$ |
 | depth band `(0.8,1.0)` | 24 / 768 | $1.5916\times10^{-12}$ |
 
+### 4.1 被 precedence 遮住的完整 gate audit
+
+`PROTOCOL-INVALID` precedence 會隱藏同一 selector 已累積的 scientific-failure reasons；因此
+不能只由 categorical verdict 推論 S1／S5／S6。以下由公開 plus ledger 的 raw fields 依凍結
+公式逐項重算，不信任 stored verdict／boolean：
+
+| protocol-invalid selector | S1 failures / 768 | S5 failures / 18 | S6 failures / 768 | min pairs | min coverage | max $d_{\rm mean}$ | max $d_{\rm law}$ |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `all_relations` | 0 | 0 | 0 | 799 | 1.0000 | 0.04322 | 0.02061 |
+| depth band `(0.0,0.2)` | 0 | 0 | 0 | 121 | 0.1377 | 0.07763 | 0.04117 |
+| depth band `(0.2,0.4)` | 0 | 0 | 0 | 105 | 0.1035 | 0.06781 | 0.03023 |
+| depth band `(0.4,0.6)` | 0 | 0 | 0 | 102 | 0.1009 | 0.05872 | 0.03175 |
+| depth band `(0.6,0.8)` | 0 | 0 | 0 | 99 | 0.1031 | 0.05633 | 0.01220 |
+| depth band `(0.8,1.0)` | 0 | 0 | 0 | 109 | 0.1292 | 0.06400 | 0.03962 |
+
+六點合計沒有 non-finite field；S2／S3／S4 false rows 亦為 0。normalization 逐筆恰等於
+selected-pair integer；total mass／TV 的最大絕對誤差為 $6.67\times10^{-16}$，ESS fraction
+的最大絕對誤差約 $4.7\times10^{-15}$。因此此次單臂 raw evidence 的 S1、S5、S6
+failure counts 確為 0；這只排除同一 plus arm 中被 precedence 遮住的 scientific gate
+failure，**不**把正式 `PROTOCOL-INVALID` 改判為 PASS，也不形成兩臂 final verdict。
+
 同批 rows 的 normalization 與 coverage 重算差為 0；ESS fraction 的最大差約
 $4.7\times10^{-15}$。所以 incident 是 runner/adjudicator 對理論整數恆等式使用不具尺度
 穩健性的浮點絕對比較，不是已登記 floor／margin 的科學失敗。
@@ -132,4 +159,11 @@ $K$。
 3. 在執行 minus 或任何 replacement plus seeds 前，必須另立顯式 protocol amendment，固定
    尺度穩健且可機械驗證的 ESS identity check、fresh seed lifecycle 與對現存 1.4B manifest
    的處置；amendment 必須先 commit、review、merge，才能再次生成 reserved samples。
-4. 本 incident 不授權 6a-E、active wrong-support、候選設計或 holdout access。
+4. §4.1 的單臂 raw gate 數字只可承擔 root-cause audit；不得引用為「本次本來會 PASS」、
+   replacement run 預期會 PASS、selector viability、calibration、power estimate 或門檻調整
+   的正面證據。
+5. 1.3B streams 已永久 burned，不得在 replacement run 中作 control、comparison、
+   calibration 或 power-estimation input，也不得與未生成的 1.4B minus manifest 配對。
+6. amendment 必須對齊 prereg §5.4 與 runner freeze：把 internal recomputation mismatch
+   是否構成第五類 `PROTOCOL-INVALID` 來源明文固定，不得再由 executable layer單獨擴張。
+7. 本 incident 不授權 6a-E、active wrong-support、候選設計或 holdout access。
