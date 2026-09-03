@@ -103,6 +103,14 @@ attestation、burn-registry 等 custody metadata 的 commits，但禁止 selecto
 grid、hard controls、threshold 或 adjudicator code 在兩臂之間漂移。digest mismatch 在 claim
 前拒絕啟動或拒絕 combine，不形成新的 scientific threshold。
 
+上述 digest 精確保證的是 **first-party code bytes**。數值 runtime 另由每個 `run_header` 與
+attestation 的 `runtime_environment` 固定 `sys.version`、`numpy.__version__`、
+`scipy.__version__`；prerequisite 與當前 process、plus 與 minus 的三欄必須逐字相同，否則在
+claim 前拒絕或禁止 combine。CI 同時 pin Python 3.12.13、NumPy 2.3.5、SciPy 1.17.0、pytest
+9.1.1 與 mpmath 1.4.1，避免 dependency resolver 在 staged commits 間漂移。這個版本鎖不宣稱
+不同 CPU／BLAS implementation 逐位元等價；它只封住未登記的 interpreter／library-version
+變動，且不構成新的 scientific threshold。
+
 ---
 
 ## 3. 新 seed manifests 與永久除役
@@ -183,6 +191,11 @@ replacement arm 的 control、comparison、calibration 或 power-estimate input�
    `docs/stage5c_6a_s_dress_rehearsal_attestation.json`；
 4. 該 commit 經 CI／review／merge 後，1.5B replacement plus 才取得執行資格。
 
+若 3.1B rehearsal 完成後發現必須修改四個 protocol-invariant files，既有 digest 與 registry
+ratchet 會同時禁止就地修改後進入 1.5B、也禁止重跑 3.1B。唯一合法出口是先立
+AMEND-0002，登記全新的 dress execution profile 與未使用 seed base（例如 3.2B），經
+review／merge 後重走完整 rehearsal；不得刪改 DEV-0012／registry 或挑選既有多份 ledger。
+
 attestation schema 固定為：
 
 ```json
@@ -193,6 +206,11 @@ attestation schema 固定為：
   "target": "plus",
   "protocol_invariant_digest": "64-lowercase-hex",
   "burn_registry_sha256_at_start": "64-lowercase-hex",
+  "runtime_environment": {
+    "python": "exact sys.version string",
+    "numpy": "exact numpy.__version__ string",
+    "scipy": "exact scipy.__version__ string"
+  },
   "ledger_sha256": "64-lowercase-hex",
   "ledger_protocol_commit": "40-lowercase-hex",
   "seed_manifest": "development-3.1b",

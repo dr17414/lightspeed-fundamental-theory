@@ -16,7 +16,8 @@ lifecycle、header schema、ESS identity check 與 arm-ordering 部分。runner 
 `stage5c-6a-s-runner-v2-amendment-001`、ledger schema version 為 2；本文件未被取代的
 contrast firewall、write-ahead claim、hash chain、raw ledger fields 與 categorical-only
 combiner 仍有效。另新增四個承重 code files 的 `protocol_invariant_digest` 與 committed
-append-only burn registry；精確定義以 amendment §2.4、§3.1 為準。
+append-only burn registry，並以 `runtime_environment` 鎖定 Python／NumPy／SciPy 版本；
+精確定義以 amendment §2.4、§3.1 為準。
 
 ---
 
@@ -30,15 +31,15 @@ caller 不能覆寫。
 
 每個 target 各產生一份獨立 ledger，並各自得到 11 個 categorical arm verdict。唯一可同時
 接收兩臂輸出的 `combine_arm_adjudications()` 只接受 `ArmAdjudication`；其 schema 只含
-execution profile、target、protocol commit、protocol-invariant／burn-registry digests、selector
-id、categorical verdict 與 reasons，沒有 signature、
+execution profile、target、protocol commit、protocol-invariant／burn-registry digests、runtime
+environment、selector id、categorical verdict 與 reasons，沒有 signature、
 coordinates、seed-level diagnostics 或任何 real-valued target summary。因此 combine 階段
 無法形成 $T_+$ vs $T_-$ numerical contrast。
 
 combined ledger 只保存每個 selector 的 plus／minus categorical verdict 與最終 verdict；
 兩臂因中間 attestation commit 可有不同 protocol commits，但四個承重 code files 的
 `protocol_invariant_digest` 必須完全相同。digest 不同、target 重複或 selector schema 不完整，
-直接拒絕 combine。
+直接拒絕 combine；Python／NumPy／SciPy version tuple 不同也直接拒絕。
 
 ---
 
@@ -71,7 +72,7 @@ hash chain；修改、刪列、插列、重排或 non-finite JSON 都使 ledger 
 
 | record type | 必要內容 | 寫入時點 |
 | :--- | :--- | :--- |
-| `run_header` | schema version、protocol tag／commit、四檔 protocol-invariant digest、啟動時 burn-registry SHA-256、execution profile、單一 target、seed manifest／base、expected counts、contrast forbidden marker | exclusive-create 時第一列 |
+| `run_header` | schema version、protocol tag／commit、四檔 protocol-invariant digest、啟動時 burn-registry SHA-256、`sys.version`／NumPy／SciPy versions、execution profile、單一 target、seed manifest／base、expected counts、contrast forbidden marker | exclusive-create 時第一列 |
 | `seed_claim` | target、$N$/index、block、case、seed、burned state | generator 前且已 `fsync` |
 | `sample_generated` | 同一 cell 與 seed | generator/schema 成功後 |
 | `causet_selector` | selector／parameters、cell／case id／seed、selected/domain pairs、coverage、normalization、mass、TV、Kish ESS／fraction、S1/S2/S3/S4/S6 flags | 每 causet × 11 點 |
@@ -125,7 +126,8 @@ python -m analysis.stage5c_6a_s_runner run-arm PROFILE TARGET LEDGER \
 
 `PROFILE` 只能是 `development-dress-rehearsal` 或 `replacement-reserved`；profile／target
 組合、seed base、burn-registry prefix 與 prerequisite 由 Amendment-001 封閉。所有 ledger
-必須放在 checkout 外。prerequisite ledger 的 protocol-invariant digest 必須等於當前 checkout；
+必須放在 checkout 外。prerequisite ledger 的 protocol-invariant digest 必須等於當前 checkout，
+runtime environment 也必須等於當前 process；
 replacement 兩臂完成後才可執行：
 
 ```bash

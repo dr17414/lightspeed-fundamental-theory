@@ -29,6 +29,7 @@ from analysis.stage5c_6a_s_runner import (  # noqa: E402
     ArmSelectorVerdict,
     CombinedSelectorVerdict,
     LedgerValidationError,
+    RuntimeEnvironment,
     RunnerProtocolError,
     Verdict,
     _claim_then_generate,
@@ -57,6 +58,9 @@ from analysis.stage5c_selector_family import evaluation_order  # noqa: E402
 COMMIT = "a" * 40
 PROTOCOL_DIGEST = "b" * 64
 REGISTRY_DIGEST = "c" * 64
+RUNTIME_ENVIRONMENT = RuntimeEnvironment(
+    "3.12.13 test runtime", "2.3.5", "1.17.0"
+)
 
 
 def _raw_header(target="plus", execution_profile=REPLACEMENT_PROFILE):
@@ -68,6 +72,7 @@ def _raw_header(target="plus", execution_profile=REPLACEMENT_PROFILE):
             COMMIT,
             PROTOCOL_DIGEST,
             REGISTRY_DIGEST,
+            RUNTIME_ENVIRONMENT,
         ),
     }
 
@@ -174,11 +179,21 @@ def test_frozen_counts_cover_every_expected_cell():
         "prerequisite_ledger",
     )
     header = _header(
-        REPLACEMENT_PROFILE, "plus", COMMIT, PROTOCOL_DIGEST, REGISTRY_DIGEST
+        REPLACEMENT_PROFILE,
+        "plus",
+        COMMIT,
+        PROTOCOL_DIGEST,
+        REGISTRY_DIGEST,
+        RUNTIME_ENVIRONMENT,
     )
     assert header["between_target_numeric_data"] == "FORBIDDEN"
     assert header["seed_manifest"] == "replacement-plus-1.5b"
     assert header["seed_base"] == 1_500_000_000
+    assert header["runtime_environment"] == {
+        "python": RUNTIME_ENVIRONMENT.python,
+        "numpy": RUNTIME_ENVIRONMENT.numpy,
+        "scipy": RUNTIME_ENVIRONMENT.scipy,
+    }
 
 
 def test_amended_seed_manifests_are_closed_and_nonoverlapping():
@@ -336,6 +351,7 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
                 COMMIT,
                 PROTOCOL_DIGEST,
                 REGISTRY_DIGEST,
+                RUNTIME_ENVIRONMENT,
             ),
         ) as ledger:
             ledger.append(
@@ -355,6 +371,7 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
                 COMMIT,
                 PROTOCOL_DIGEST,
                 REGISTRY_DIGEST,
+                RUNTIME_ENVIRONMENT,
             ),
         )
 
@@ -369,6 +386,7 @@ def test_hash_chain_detects_tampering(tmp_path):
             COMMIT,
             PROTOCOL_DIGEST,
             REGISTRY_DIGEST,
+            RUNTIME_ENVIRONMENT,
         ),
     ):
         pass
@@ -399,6 +417,7 @@ def test_seed_claim_is_durable_before_generator_call(tmp_path):
             COMMIT,
             PROTOCOL_DIGEST,
             REGISTRY_DIGEST,
+            RUNTIME_ENVIRONMENT,
         ),
     ) as ledger:
         with pytest.raises(DeliberateStop):
@@ -567,6 +586,7 @@ def _categorical_arm(
     execution_profile=REPLACEMENT_PROFILE,
     protocol_digest=PROTOCOL_DIGEST,
     registry_digest=REGISTRY_DIGEST,
+    runtime_environment=RUNTIME_ENVIRONMENT,
 ):
     return ArmAdjudication(
         execution_profile,
@@ -574,6 +594,7 @@ def _categorical_arm(
         commit,
         protocol_digest,
         registry_digest,
+        runtime_environment,
         tuple(
             ArmSelectorVerdict(target, name, parameters, verdict, ("synthetic",))
             for name, parameters in evaluation_order()
@@ -602,6 +623,11 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
         "target": "plus",
         "protocol_invariant_digest": PROTOCOL_DIGEST,
         "burn_registry_sha256_at_start": REGISTRY_DIGEST,
+        "runtime_environment": {
+            "python": RUNTIME_ENVIRONMENT.python,
+            "numpy": RUNTIME_ENVIRONMENT.numpy,
+            "scipy": RUNTIME_ENVIRONMENT.scipy,
+        },
         "ledger_sha256": ledger_hash,
         "ledger_protocol_commit": COMMIT,
         "seed_manifest": "development-3.1b",
@@ -631,6 +657,7 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
             prerequisite_ledger=ledger,
             repo_root=repo_root,
             current_protocol_invariant_digest=PROTOCOL_DIGEST,
+            current_runtime_environment=RUNTIME_ENVIRONMENT,
         )
 
     ledger.write_bytes(b"synthetic dress ledger\n")
@@ -644,6 +671,18 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
                 prerequisite_ledger=ledger,
                 repo_root=repo_root,
                 current_protocol_invariant_digest="d" * 64,
+                current_runtime_environment=RUNTIME_ENVIRONMENT,
+            )
+        with pytest.raises(RunnerProtocolError, match="not mechanically clean"):
+            _assert_prerequisite_ledger(
+                execution_profile=REPLACEMENT_PROFILE,
+                target="plus",
+                prerequisite_ledger=ledger,
+                repo_root=repo_root,
+                current_protocol_invariant_digest=PROTOCOL_DIGEST,
+                current_runtime_environment=RuntimeEnvironment(
+                    "3.12.13 other build", "2.3.5", "1.17.0"
+                ),
             )
 
     invalid_dress = _categorical_arm(
@@ -661,6 +700,7 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
             prerequisite_ledger=ledger,
             repo_root=repo_root,
             current_protocol_invariant_digest=PROTOCOL_DIGEST,
+            current_runtime_environment=RUNTIME_ENVIRONMENT,
         )
 
 
@@ -710,6 +750,16 @@ def test_combiner_uses_frozen_precedence_and_records_staged_commits():
         combine_arm_adjudications(
             plus, _categorical_arm("minus", protocol_digest="d" * 64)
         )
+    with pytest.raises(RunnerProtocolError, match="runtime environments"):
+        combine_arm_adjudications(
+            plus,
+            _categorical_arm(
+                "minus",
+                runtime_environment=RuntimeEnvironment(
+                    "3.12.13 other build", "2.3.5", "1.17.0"
+                ),
+            ),
+        )
     forged_rows = list(_categorical_arm("minus").selector_verdicts)
     forged_rows[0] = ArmSelectorVerdict(
         "plus",
@@ -727,6 +777,7 @@ def test_combiner_uses_frozen_precedence_and_records_staged_commits():
                 COMMIT,
                 PROTOCOL_DIGEST,
                 REGISTRY_DIGEST,
+                RUNTIME_ENVIRONMENT,
                 tuple(forged_rows),
             ),
         )
@@ -742,6 +793,7 @@ def test_stored_verdicts_are_recomputed_not_trusted(tmp_path):
             COMMIT,
             PROTOCOL_DIGEST,
             REGISTRY_DIGEST,
+            RUNTIME_ENVIRONMENT,
         ),
     ) as ledger:
         for name, parameters in evaluation_order():
