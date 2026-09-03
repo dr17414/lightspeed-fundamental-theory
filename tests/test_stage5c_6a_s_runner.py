@@ -1,6 +1,7 @@
-"""Structural tests for the frozen contrast-free 6a-S runner."""
+"""Structural tests for the amended contrast-free 6a-S runner."""
 
 from dataclasses import fields
+import hashlib
 from inspect import signature
 import json
 import os
@@ -9,6 +10,7 @@ import stat
 import sys
 from unittest.mock import patch
 
+import numpy as np
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -16,6 +18,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from analysis.stage5c_6a_s_runner import (  # noqa: E402
     EXPECTED_BLOCK_PAIRS_PER_SELECTOR,
     EXPECTED_CASES_PER_ARM,
+    DRESS_REHEARSAL_PROFILE,
+    DRESS_REHEARSAL_SEED_BASE,
+    REPLACEMENT_PROFILE,
+    REPLACEMENT_SEED_BASES,
     AppendOnlyLedger,
     ArmAdjudication,
     ArmSelectorVerdict,
@@ -24,6 +30,9 @@ from analysis.stage5c_6a_s_runner import (  # noqa: E402
     RunnerProtocolError,
     Verdict,
     _claim_then_generate,
+    _assert_prerequisite_ledger,
+    _attestation_requirement,
+    _execution_seed,
     _header,
     _selector_token,
     adjudicate_arm_ledger,
@@ -37,7 +46,6 @@ from analysis.stage5c_measure_prereg import (  # noqa: E402
     BLOCKS_PER_TARGET,
     CARDINALITIES,
     CASES_PER_BLOCK,
-    preregistered_seed,
 )
 from analysis.stage5c_selector_family import evaluation_order  # noqa: E402
 
@@ -45,16 +53,21 @@ from analysis.stage5c_selector_family import evaluation_order  # noqa: E402
 COMMIT = "a" * 40
 
 
-def _raw_header(target="plus"):
-    return {"record_type": "run_header", **_header(target, COMMIT)}
+def _raw_header(target="plus", execution_profile=REPLACEMENT_PROFILE):
+    return {
+        "record_type": "run_header",
+        **_header(execution_profile, target, COMMIT),
+    }
 
 
-def _complete_records(target="plus"):
-    records = [_raw_header(target)]
+def _complete_records(target="plus", execution_profile=REPLACEMENT_PROFILE):
+    records = [_raw_header(target, execution_profile)]
     for n_index, n in enumerate(CARDINALITIES):
         for block in range(BLOCKS_PER_TARGET):
             for case in range(CASES_PER_BLOCK):
-                seed = preregistered_seed(target, n_index, block, case)
+                seed = _execution_seed(
+                    execution_profile, target, n_index, block, case
+                )
                 common = {
                     "target": target,
                     "n": n,
@@ -142,11 +155,46 @@ def test_frozen_counts_cover_every_expected_cell():
     assert EXPECTED_BLOCK_PAIRS_PER_SELECTOR == 3 * 6 == 18
     assert len(evaluation_order()) == 11
     assert tuple(signature(run_target_arm).parameters) == (
+        "execution_profile",
         "target",
         "ledger_path",
         "protocol_commit",
+        "prerequisite_ledger",
     )
-    assert _header("plus", COMMIT)["between_target_numeric_data"] == "FORBIDDEN"
+    header = _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+    assert header["between_target_numeric_data"] == "FORBIDDEN"
+    assert header["seed_manifest"] == "replacement-plus-1.5b"
+    assert header["seed_base"] == 1_500_000_000
+
+
+def test_amended_seed_manifests_are_closed_and_nonoverlapping():
+    assert _execution_seed(DRESS_REHEARSAL_PROFILE, "plus", 0, 0, 0) == (
+        DRESS_REHEARSAL_SEED_BASE
+    )
+    assert _execution_seed(REPLACEMENT_PROFILE, "plus", 0, 0, 0) == (
+        REPLACEMENT_SEED_BASES["plus"]
+    )
+    assert _execution_seed(REPLACEMENT_PROFILE, "minus", 0, 0, 0) == (
+        REPLACEMENT_SEED_BASES["minus"]
+    )
+    assert len(
+        {
+            _execution_seed(profile, target, n_index, block, case)
+            for profile, target in (
+                (DRESS_REHEARSAL_PROFILE, "plus"),
+                (REPLACEMENT_PROFILE, "plus"),
+                (REPLACEMENT_PROFILE, "minus"),
+            )
+            for n_index in range(len(CARDINALITIES))
+            for block in range(BLOCKS_PER_TARGET)
+            for case in range(CASES_PER_BLOCK)
+        }
+    ) == 3 * EXPECTED_CASES_PER_ARM
+    with pytest.raises(RunnerProtocolError):
+        _execution_seed(DRESS_REHEARSAL_PROFILE, "minus", 0, 0, 0)
+    for bad in (True, 1.0, "0"):
+        with pytest.raises(RunnerProtocolError):
+            _execution_seed(REPLACEMENT_PROFILE, "plus", bad, 0, 0)
 
 
 def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
@@ -160,7 +208,9 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
         return real_fsync(fd)
 
     with patch("analysis.stage5c_6a_s_runner.os.fsync", side_effect=observe_fsync):
-        with AppendOnlyLedger(path, _header("plus", COMMIT)) as ledger:
+        with AppendOnlyLedger(
+            path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+        ) as ledger:
             ledger.append(
                 "terminal_error", target="plus", category="backend", message="test"
             )
@@ -170,12 +220,12 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
     assert [row["sequence"] for row in records] == [0, 1]
     assert records[1]["previous_sha256"] == records[0]["record_sha256"]
     with pytest.raises(FileExistsError):
-        AppendOnlyLedger(path, _header("plus", COMMIT))
+        AppendOnlyLedger(path, _header(REPLACEMENT_PROFILE, "plus", COMMIT))
 
 
 def test_hash_chain_detects_tampering(tmp_path):
     path = tmp_path / "arm.ndjson"
-    with AppendOnlyLedger(path, _header("plus", COMMIT)):
+    with AppendOnlyLedger(path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)):
         pass
     record = json.loads(path.read_text(encoding="utf-8"))
     record["target"] = "minus"
@@ -196,7 +246,9 @@ def test_seed_claim_is_durable_before_generator_call(tmp_path):
         assert records[-1]["seed"] == seed == 3_100_000_000
         raise DeliberateStop
 
-    with AppendOnlyLedger(path, _header("plus", COMMIT)) as ledger:
+    with AppendOnlyLedger(
+        path, _header(DRESS_REHEARSAL_PROFILE, "plus", COMMIT)
+    ) as ledger:
         with pytest.raises(DeliberateStop):
             _claim_then_generate(
                 ledger,
@@ -218,6 +270,42 @@ def test_complete_single_arm_adjudicates_all_selectors_pass():
     assert result.target == "plus"
     assert len(result.selector_verdicts) == 11
     assert {row.verdict for row in result.selector_verdicts} == {Verdict.PASS}
+
+
+def test_kish_roundoff_at_real_pair_scale_uses_dimensionless_identity():
+    records = _complete_records()
+    causet = next(row for row in records if row.get("record_type") == "causet_selector")
+    selected = 4_000
+    kish_ess = selected + 1.864464138634503e-11
+    causet.update(
+        selected_pairs=selected,
+        domain_pairs=4_096,
+        coverage=selected / 4_096,
+        normalization=float(selected),
+        kish_ess=kish_ess,
+        ess_fraction=kish_ess / selected,
+    )
+    result = adjudicate_arm_records(records)
+    assert {row.verdict for row in result.selector_verdicts} == {Verdict.PASS}
+
+
+def test_dimensionless_ess_relation_and_pure_transform_are_independently_locked():
+    records = _complete_records()
+    causet = next(row for row in records if row.get("record_type") == "causet_selector")
+    causet["kish_ess"] = 48.0
+    assert Verdict.PROTOCOL_INVALID in {
+        row.verdict for row in adjudicate_arm_records(records).selector_verdicts
+    }
+
+    records = _complete_records()
+    block = next(row for row in records if row.get("record_type") == "block_pair")
+    block.update(
+        signed_energy_u=0.01,
+        d_law=float(np.nextafter(0.1, np.inf)),
+    )
+    assert Verdict.PROTOCOL_INVALID in {
+        row.verdict for row in adjudicate_arm_records(records).selector_verdicts
+    }
 
 
 def test_floor_and_s5_failures_are_mechanical():
@@ -283,6 +371,12 @@ def test_interruption_is_inconclusive_and_mixed_target_is_invalid():
         Verdict.INCONCLUSIVE
     }
 
+    malformed = _complete_records()
+    malformed[0]["execution_profile"] = DRESS_REHEARSAL_PROFILE
+    assert {
+        row.verdict for row in adjudicate_arm_records(malformed).selector_verdicts
+    } == {Verdict.PROTOCOL_INVALID}
+
 
 def test_claim_must_precede_generation_and_unknown_selector_is_invalid():
     records = _complete_records()
@@ -314,8 +408,11 @@ def test_claim_must_precede_generation_and_unknown_selector_is_invalid():
     }
 
 
-def _categorical_arm(target, verdict=Verdict.PASS, commit=COMMIT):
+def _categorical_arm(
+    target, verdict=Verdict.PASS, commit=COMMIT, execution_profile=REPLACEMENT_PROFILE
+):
     return ArmAdjudication(
+        execution_profile,
         target,
         commit,
         tuple(
@@ -323,6 +420,65 @@ def _categorical_arm(target, verdict=Verdict.PASS, commit=COMMIT):
             for name, parameters in evaluation_order()
         ),
     )
+
+
+def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
+    assert _attestation_requirement(DRESS_REHEARSAL_PROFILE, "plus") is None
+    assert _attestation_requirement(REPLACEMENT_PROFILE, "plus")[3] == "DEV-0012"
+    assert _attestation_requirement(REPLACEMENT_PROFILE, "minus")[3] == "DEV-0013"
+
+    repo_root = tmp_path / "repo"
+    docs = repo_root / "docs"
+    docs.mkdir(parents=True)
+    ledger = tmp_path / "dress.ndjson"
+    ledger.write_bytes(b"synthetic dress ledger\n")
+    ledger_hash = hashlib.sha256(ledger.read_bytes()).hexdigest()
+    dress = _categorical_arm(
+        "plus", execution_profile=DRESS_REHEARSAL_PROFILE
+    )
+    attestation = {
+        "schema_version": 1,
+        "protocol_tag": "stage5c-6a-s-runner-v2-amendment-001",
+        "execution_profile": DRESS_REHEARSAL_PROFILE,
+        "target": "plus",
+        "ledger_sha256": ledger_hash,
+        "ledger_protocol_commit": COMMIT,
+        "seed_manifest": "development-3.1b",
+        "seed_base": DRESS_REHEARSAL_SEED_BASE,
+        "verdict_constraint": "NO_PROTOCOL_INVALID_OR_INCONCLUSIVE",
+        "development_log_entry": "DEV-0012",
+    }
+    (docs / "stage5c_6a_s_dress_rehearsal_attestation.json").write_text(
+        json.dumps(attestation), encoding="utf-8"
+    )
+    (docs / "stage5c_development_log.md").write_text(
+        f"DEV-0012 {ledger_hash}\n", encoding="utf-8"
+    )
+    with patch(
+        "analysis.stage5c_6a_s_runner.adjudicate_arm_ledger", return_value=dress
+    ):
+        _assert_prerequisite_ledger(
+            execution_profile=REPLACEMENT_PROFILE,
+            target="plus",
+            prerequisite_ledger=ledger,
+            repo_root=repo_root,
+        )
+
+    invalid_dress = _categorical_arm(
+        "plus",
+        verdict=Verdict.PROTOCOL_INVALID,
+        execution_profile=DRESS_REHEARSAL_PROFILE,
+    )
+    with patch(
+        "analysis.stage5c_6a_s_runner.adjudicate_arm_ledger",
+        return_value=invalid_dress,
+    ), pytest.raises(RunnerProtocolError):
+        _assert_prerequisite_ledger(
+            execution_profile=REPLACEMENT_PROFILE,
+            target="plus",
+            prerequisite_ledger=ledger,
+            repo_root=repo_root,
+        )
 
 
 def test_cross_arm_boundary_contains_categorical_verdicts_only(tmp_path):
@@ -349,7 +505,7 @@ def test_cross_arm_boundary_contains_categorical_verdicts_only(tmp_path):
         assert forbidden not in text
 
 
-def test_combiner_uses_frozen_precedence_and_matching_commit():
+def test_combiner_uses_frozen_precedence_and_records_staged_commits():
     plus = _categorical_arm("plus", Verdict.FAIL)
     minus = _categorical_arm("minus", Verdict.INCONCLUSIVE)
     assert {row.verdict for row in combine_arm_adjudications(plus, minus)} == {
@@ -359,8 +515,10 @@ def test_combiner_uses_frozen_precedence_and_matching_commit():
     assert {row.verdict for row in combine_arm_adjudications(plus, invalid)} == {
         Verdict.PROTOCOL_INVALID
     }
-    with pytest.raises(RunnerProtocolError):
-        combine_arm_adjudications(plus, _categorical_arm("minus", commit="b" * 40))
+    staged = combine_arm_adjudications(
+        plus, _categorical_arm("minus", commit="b" * 40)
+    )
+    assert {row.verdict for row in staged} == {Verdict.FAIL}
     forged_rows = list(_categorical_arm("minus").selector_verdicts)
     forged_rows[0] = ArmSelectorVerdict(
         "plus",
@@ -370,12 +528,19 @@ def test_combiner_uses_frozen_precedence_and_matching_commit():
         forged_rows[0].reasons,
     )
     with pytest.raises(RunnerProtocolError):
-        combine_arm_adjudications(plus, ArmAdjudication("minus", COMMIT, tuple(forged_rows)))
+        combine_arm_adjudications(
+            plus,
+            ArmAdjudication(
+                REPLACEMENT_PROFILE, "minus", COMMIT, tuple(forged_rows)
+            ),
+        )
 
 
 def test_stored_verdicts_are_recomputed_not_trusted(tmp_path):
     path = tmp_path / "partial.ndjson"
-    with AppendOnlyLedger(path, _header("plus", COMMIT)) as ledger:
+    with AppendOnlyLedger(
+        path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+    ) as ledger:
         for name, parameters in evaluation_order():
             ledger.append(
                 "arm_selector_verdict",
