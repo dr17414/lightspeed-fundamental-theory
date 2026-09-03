@@ -311,8 +311,9 @@ runner v2 另要求每臂 header／attestation 保存同一組四檔 protocol-in
 `sys.version`／NumPy／SciPy runtime versions，combine 只接受 code digest 與 runtime 都相同的
 兩臂；每次 claim 前並要求 burn registry 是合法 lifecycle prefix、目前 profile／target 未登記。
 這些是跨 commit scientific-rule consistency 與 anti-rerun custody checks，不修改任何 S1–S6
-threshold。若 3.1B rehearsal 後必須修改四檔，唯一出口是 AMEND-0002＋全新 dress profile／
-seed base；不得重跑 3.1B 或就地修改後直接進 1.5B。
+threshold。若 3.1B rehearsal 後必須修改四檔，或 formal process 的 `sys.version`／NumPy／
+SciPy version strings 已漂移，唯一出口都是 AMEND-0002＋全新 dress profile／seed base；
+不得重跑 3.1B、改寫 DEV-0012 的實際環境，或就地修改／升降級後直接進 1.5B。
 
 本文件刻意不固定或不宣稱：
 
