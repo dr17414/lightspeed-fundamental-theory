@@ -79,6 +79,13 @@ REPLACEMENT_PLUS_ATTESTATION = Path(
     "docs/stage5c_6a_s_replacement_plus_attestation.json"
 )
 DEVELOPMENT_LOG = Path("docs/stage5c_development_log.md")
+BURN_REGISTRY = Path("docs/stage5c_6a_s_burn_registry.json")
+PROTOCOL_INVARIANT_PATHS = (
+    Path("analysis/stage5c_measure_prereg.py"),
+    Path("analysis/stage5c_selector_family.py"),
+    Path("analysis/stage5c_hard_controls.py"),
+    Path("analysis/stage5c_6a_s_runner.py"),
+)
 EXPECTED_CASES_PER_ARM = len(CARDINALITIES) * BLOCKS_PER_TARGET * CASES_PER_BLOCK
 EXPECTED_BLOCK_PAIRS_PER_SELECTOR = len(CARDINALITIES) * len(
     tuple(combinations(range(BLOCKS_PER_TARGET), 2))
@@ -116,6 +123,8 @@ class ArmAdjudication:
     execution_profile: str
     target: str
     protocol_commit: str
+    protocol_invariant_digest: str
+    burn_registry_sha256_at_start: str
     selector_verdicts: tuple[ArmSelectorVerdict, ...]
 
 
@@ -198,36 +207,44 @@ class AppendOnlyLedger:
         self.close()
 
 
-def read_ledger(path: str | Path) -> tuple[dict, ...]:
-    """Read and validate every record, sequence number, and hash-chain link."""
+def _read_ledger_snapshot(payload: bytes) -> tuple[dict, ...]:
+    """Validate one immutable byte snapshot of an NDJSON ledger."""
 
     def reject_constant(value: str) -> None:
         raise LedgerValidationError(f"non-finite JSON constant: {value}")
 
+    try:
+        text = payload.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise LedgerValidationError("ledger is not valid UTF-8") from exc
     records: list[dict] = []
     previous = "0" * 64
-    with Path(path).open("r", encoding="utf-8") as handle:
-        for sequence, line in enumerate(handle):
-            try:
-                record = json.loads(line, parse_constant=reject_constant)
-            except (json.JSONDecodeError, LedgerValidationError) as exc:
-                raise LedgerValidationError("invalid ledger JSON") from exc
-            if not isinstance(record, dict):
-                raise LedgerValidationError("ledger row must be an object")
-            digest = record.get("record_sha256")
-            core = {key: value for key, value in record.items() if key != "record_sha256"}
-            expected = hashlib.sha256(_canonical_json(core).encode("utf-8")).hexdigest()
-            if (
-                record.get("sequence") != sequence
-                or record.get("previous_sha256") != previous
-                or digest != expected
-            ):
-                raise LedgerValidationError("ledger sequence or hash chain is broken")
-            records.append(record)
-            previous = digest
+    for sequence, line in enumerate(text.splitlines()):
+        try:
+            record = json.loads(line, parse_constant=reject_constant)
+        except (json.JSONDecodeError, LedgerValidationError) as exc:
+            raise LedgerValidationError("invalid ledger JSON") from exc
+        if not isinstance(record, dict):
+            raise LedgerValidationError("ledger row must be an object")
+        digest = record.get("record_sha256")
+        core = {key: value for key, value in record.items() if key != "record_sha256"}
+        expected = hashlib.sha256(_canonical_json(core).encode("utf-8")).hexdigest()
+        if (
+            record.get("sequence") != sequence
+            or record.get("previous_sha256") != previous
+            or digest != expected
+        ):
+            raise LedgerValidationError("ledger sequence or hash chain is broken")
+        records.append(record)
+        previous = digest
     if not records or records[0].get("record_type") != "run_header":
         raise LedgerValidationError("ledger must start with run_header")
     return tuple(records)
+
+
+def read_ledger(path: str | Path) -> tuple[dict, ...]:
+    """Read one byte snapshot and validate its rows and hash-chain links."""
+    return _read_ledger_snapshot(Path(path).read_bytes())
 
 
 def _selector_token(name: str, parameters: tuple) -> str:
@@ -429,16 +446,36 @@ def _seed_manifest(execution_profile: str, target: str) -> tuple[str, int]:
     raise RunnerProtocolError("execution profile and target are not registered together")
 
 
-def _header(execution_profile: str, target: str, protocol_commit: str) -> dict:
+def _lower_hex(value: object, length: int) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == length
+        and all(ch in "0123456789abcdef" for ch in value)
+    )
+
+
+def _header(
+    execution_profile: str,
+    target: str,
+    protocol_commit: str,
+    protocol_invariant_digest: str,
+    burn_registry_sha256_at_start: str,
+) -> dict:
     if target not in TARGET_THETA:
         raise RunnerProtocolError("target must be one frozen arm")
-    if len(protocol_commit) != 40 or any(ch not in "0123456789abcdef" for ch in protocol_commit):
+    if not _lower_hex(protocol_commit, 40):
         raise RunnerProtocolError("protocol_commit must be one lowercase 40-hex SHA")
+    if not _lower_hex(protocol_invariant_digest, 64):
+        raise RunnerProtocolError("protocol invariant digest must be lowercase SHA-256")
+    if not _lower_hex(burn_registry_sha256_at_start, 64):
+        raise RunnerProtocolError("burn registry digest must be lowercase SHA-256")
     manifest, seed_base = _seed_manifest(execution_profile, target)
     return {
         "schema_version": LEDGER_SCHEMA_VERSION,
         "protocol_tag": PROTOCOL_TAG,
         "protocol_commit": protocol_commit,
+        "protocol_invariant_digest": protocol_invariant_digest,
+        "burn_registry_sha256_at_start": burn_registry_sha256_at_start,
         "execution_profile": execution_profile,
         "target": target,
         "seed_manifest": manifest,
@@ -450,12 +487,118 @@ def _header(execution_profile: str, target: str, protocol_commit: str) -> dict:
     }
 
 
-def _sha256_path(path: str | Path) -> str:
+def _protocol_invariant_digest(repo_root: Path) -> str:
+    """Hash every byte that defines the two-arm scientific protocol."""
     digest = hashlib.sha256()
-    with Path(path).open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+    for relative_path in PROTOCOL_INVARIANT_PATHS:
+        try:
+            payload = (repo_root / relative_path).read_bytes()
+        except OSError as exc:
+            raise RunnerProtocolError(
+                f"protocol invariant file is unavailable: {relative_path.as_posix()}"
+            ) from exc
+        name = relative_path.as_posix().encode("utf-8")
+        digest.update(len(name).to_bytes(8, "big"))
+        digest.update(name)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
     return digest.hexdigest()
+
+
+def _read_burn_registry(repo_root: Path) -> tuple[tuple[dict, ...], str]:
+    path = repo_root / BURN_REGISTRY
+    try:
+        payload = path.read_bytes()
+        registry = json.loads(payload.decode("utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise RunnerProtocolError("burn registry is unavailable or invalid") from exc
+    if (
+        not isinstance(registry, dict)
+        or set(registry) != {"schema_version", "entries"}
+        or registry.get("schema_version") != 1
+        or not isinstance(registry.get("entries"), list)
+    ):
+        raise RunnerProtocolError("burn registry schema is invalid")
+    entries = tuple(registry["entries"])
+    lifecycle = (
+        (("original-reserved-v1", "plus"), 1_300_000_000, "DEV-0011"),
+        (
+            (DRESS_REHEARSAL_PROFILE, "plus"),
+            DRESS_REHEARSAL_SEED_BASE,
+            "DEV-0012",
+        ),
+        (
+            (REPLACEMENT_PROFILE, "plus"),
+            REPLACEMENT_SEED_BASES["plus"],
+            "DEV-0013",
+        ),
+        (
+            (REPLACEMENT_PROFILE, "minus"),
+            REPLACEMENT_SEED_BASES["minus"],
+            "DEV-0014",
+        ),
+    )
+    expected_keys = {key: (seed_base, entry) for key, seed_base, entry in lifecycle}
+    observed: list[tuple[str, str]] = []
+    development_log_path = repo_root / DEVELOPMENT_LOG
+    try:
+        development_log = development_log_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise RunnerProtocolError("development log is unavailable") from exc
+    required_fields = {
+        "execution_profile",
+        "target",
+        "seed_base",
+        "ledger_sha256",
+        "development_log_entry",
+    }
+    for entry in entries:
+        if not isinstance(entry, dict) or set(entry) != required_fields:
+            raise RunnerProtocolError("burn registry entry schema is invalid")
+        key = (entry["execution_profile"], entry["target"])
+        expected_seed_base, expected_development_entry = expected_keys.get(
+            key, (None, None)
+        )
+        if (
+            key not in expected_keys
+            or key in observed
+            or entry["seed_base"] != expected_seed_base
+            or not _lower_hex(entry["ledger_sha256"], 64)
+            or entry["development_log_entry"] != expected_development_entry
+            or entry["development_log_entry"] not in development_log
+            or entry["ledger_sha256"] not in development_log
+        ):
+            raise RunnerProtocolError("burn registry entry is invalid or unaudited")
+        observed.append(key)
+    lifecycle_keys = tuple(row[0] for row in lifecycle)
+    if tuple(observed) != lifecycle_keys[: len(observed)] or not observed:
+        raise RunnerProtocolError("burn registry is not an append-only lifecycle prefix")
+    return entries, hashlib.sha256(payload).hexdigest()
+
+
+def _assert_profile_unburned(
+    *, execution_profile: str, target: str, repo_root: Path
+) -> str:
+    entries, registry_digest = _read_burn_registry(repo_root)
+    key = (execution_profile, target)
+    observed = tuple((row["execution_profile"], row["target"]) for row in entries)
+    if key in observed:
+        raise RunnerProtocolError("execution profile and target are already burned")
+    required_prefixes = {
+        (DRESS_REHEARSAL_PROFILE, "plus"): (("original-reserved-v1", "plus"),),
+        (REPLACEMENT_PROFILE, "plus"): (
+            ("original-reserved-v1", "plus"),
+            (DRESS_REHEARSAL_PROFILE, "plus"),
+        ),
+        (REPLACEMENT_PROFILE, "minus"): (
+            ("original-reserved-v1", "plus"),
+            (DRESS_REHEARSAL_PROFILE, "plus"),
+            (REPLACEMENT_PROFILE, "plus"),
+        ),
+    }
+    if required_prefixes.get(key) != observed:
+        raise RunnerProtocolError("burn registry does not authorize this lifecycle stage")
+    return registry_digest
 
 
 def _attestation_requirement(
@@ -490,6 +633,7 @@ def _assert_prerequisite_ledger(
     target: str,
     prerequisite_ledger: str | Path | None,
     repo_root: Path,
+    current_protocol_invariant_digest: str,
 ) -> None:
     """Require the committed lifecycle attestation before either reserved arm."""
     requirement = _attestation_requirement(execution_profile, target)
@@ -514,8 +658,12 @@ def _assert_prerequisite_ledger(
         pass
     else:
         raise RunnerProtocolError("prerequisite ledgers must be outside the git checkout")
-    adjudication = adjudicate_arm_ledger(ledger_path)
-    ledger_hash = _sha256_path(ledger_path)
+    try:
+        ledger_snapshot = ledger_path.read_bytes()
+    except OSError as exc:
+        raise RunnerProtocolError("prerequisite ledger is unavailable") from exc
+    adjudication = _adjudicate_arm_snapshot(ledger_snapshot)
+    ledger_hash = hashlib.sha256(ledger_snapshot).hexdigest()
     required_manifest, required_seed_base = _seed_manifest(
         required_profile, required_target
     )
@@ -524,6 +672,10 @@ def _assert_prerequisite_ledger(
         "protocol_tag": PROTOCOL_TAG,
         "execution_profile": required_profile,
         "target": required_target,
+        "protocol_invariant_digest": adjudication.protocol_invariant_digest,
+        "burn_registry_sha256_at_start": (
+            adjudication.burn_registry_sha256_at_start
+        ),
         "ledger_sha256": ledger_hash,
         "ledger_protocol_commit": adjudication.protocol_commit,
         "seed_manifest": required_manifest,
@@ -536,6 +688,8 @@ def _assert_prerequisite_ledger(
     if (
         adjudication.execution_profile != required_profile
         or adjudication.target != required_target
+        or adjudication.protocol_invariant_digest
+        != current_protocol_invariant_digest
         or any(
             row.verdict in {Verdict.PROTOCOL_INVALID, Verdict.INCONCLUSIVE}
             for row in adjudication.selector_verdicts
@@ -560,13 +714,26 @@ def run_target_arm(
     prerequisite_ledger: str | Path | None = None,
 ) -> ArmAdjudication:
     """Generate and adjudicate one frozen profile/target arm exactly once."""
-    header = _header(execution_profile, target, protocol_commit)
     repo_root = _assert_execution_checkout(protocol_commit, ledger_path)
+    protocol_digest = _protocol_invariant_digest(repo_root)
+    burn_registry_digest = _assert_profile_unburned(
+        execution_profile=execution_profile,
+        target=target,
+        repo_root=repo_root,
+    )
     _assert_prerequisite_ledger(
         execution_profile=execution_profile,
         target=target,
         prerequisite_ledger=prerequisite_ledger,
         repo_root=repo_root,
+        current_protocol_invariant_digest=protocol_digest,
+    )
+    header = _header(
+        execution_profile,
+        target,
+        protocol_commit,
+        protocol_digest,
+        burn_registry_digest,
     )
     signatures: dict[tuple[str, int, int], list[np.ndarray]] = {}
     with AppendOnlyLedger(ledger_path, header) as ledger:
@@ -713,13 +880,19 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
     execution_profile = header.get("execution_profile")
     target = header.get("target")
     protocol_commit = header.get("protocol_commit")
+    protocol_invariant_digest = header.get("protocol_invariant_digest")
+    burn_registry_sha256_at_start = header.get("burn_registry_sha256_at_start")
     global_invalid: list[str] = []
     global_inconclusive: list[str] = []
     if target not in TARGET_THETA:
         global_invalid.append("unregistered target")
     try:
         expected_header = _header(
-            str(execution_profile), str(target), str(protocol_commit)
+            str(execution_profile),
+            str(target),
+            str(protocol_commit),
+            str(protocol_invariant_digest),
+            str(burn_registry_sha256_at_start),
         )
     except RunnerProtocolError as exc:
         global_invalid.append(str(exc))
@@ -1033,12 +1206,18 @@ def adjudicate_arm_records(records: Iterable[dict]) -> ArmAdjudication:
             ArmSelectorVerdict(str(target), name, parameters, verdict, reasons)
         )
     return ArmAdjudication(
-        str(execution_profile), str(target), str(protocol_commit), tuple(results)
+        str(execution_profile),
+        str(target),
+        str(protocol_commit),
+        str(protocol_invariant_digest),
+        str(burn_registry_sha256_at_start),
+        tuple(results),
     )
 
 
-def adjudicate_arm_ledger(path: str | Path) -> ArmAdjudication:
-    records = read_ledger(path)
+def _adjudicate_arm_snapshot(payload: bytes) -> ArmAdjudication:
+    """Adjudicate and verify stored verdicts from the exact supplied bytes."""
+    records = _read_ledger_snapshot(payload)
     expected_rows = [row for row in records if row.get("record_type") == "arm_selector_verdict"]
     completion_rows = [row for row in records if row.get("record_type") == "arm_complete"]
     result = adjudicate_arm_records(records)
@@ -1082,8 +1261,19 @@ def adjudicate_arm_ledger(path: str | Path) -> ArmAdjudication:
     return result
 
 
+def adjudicate_arm_ledger(path: str | Path) -> ArmAdjudication:
+    """Adjudicate one immutable byte snapshot of a ledger path."""
+    return _adjudicate_arm_snapshot(Path(path).read_bytes())
+
+
 def _validate_categorical_arm(arm: ArmAdjudication) -> None:
-    _header(arm.execution_profile, arm.target, arm.protocol_commit)
+    _header(
+        arm.execution_profile,
+        arm.target,
+        arm.protocol_commit,
+        arm.protocol_invariant_digest,
+        arm.burn_registry_sha256_at_start,
+    )
     if arm.execution_profile != REPLACEMENT_PROFILE:
         raise RunnerProtocolError("only replacement-reserved arms may be combined")
     expected = {
@@ -1111,9 +1301,13 @@ def combine_arm_adjudications(
     """Combine categorical verdicts only; no numeric cross-arm path exists."""
     _validate_categorical_arm(plus)
     _validate_categorical_arm(minus)
+    if plus.target != "plus" or minus.target != "minus":
+        raise RunnerProtocolError("arm arguments must be ordered plus then minus")
     arms = {plus.target: plus, minus.target: minus}
     if set(arms) != {"plus", "minus"}:
         raise RunnerProtocolError("combination requires one plus and one minus arm")
+    if plus.protocol_invariant_digest != minus.protocol_invariant_digest:
+        raise RunnerProtocolError("arm ledgers use different protocol invariant digests")
     plus_map = {
         _selector_token(row.selector_name, row.parameters): row
         for row in arms["plus"].selector_verdicts
@@ -1159,6 +1353,7 @@ def write_combined_ledger(
             "schema_version": LEDGER_SCHEMA_VERSION,
             "protocol_tag": PROTOCOL_TAG,
             "protocol_commit": minus.protocol_commit,
+            "protocol_invariant_digest": plus.protocol_invariant_digest,
             "arm_protocol_commits": [
                 ["plus", plus.protocol_commit],
                 ["minus", minus.protocol_commit],
@@ -1242,6 +1437,7 @@ def _main() -> None:
             "execution_profile": result.execution_profile,
             "target": result.target,
             "protocol_commit": result.protocol_commit,
+            "protocol_invariant_digest": result.protocol_invariant_digest,
             "verdicts": [
                 {
                     "selector_name": row.selector_name,
@@ -1258,6 +1454,7 @@ def _main() -> None:
         combined = write_combined_ledger(args.output_ledger, plus, minus)
         print(_canonical_json({
             "protocol_commit": minus.protocol_commit,
+            "protocol_invariant_digest": plus.protocol_invariant_digest,
             "arm_protocol_commits": [
                 ["plus", plus.protocol_commit],
                 ["minus", minus.protocol_commit],
@@ -1279,6 +1476,7 @@ if __name__ == "__main__":
 
 
 __all__ = [
+    "BURN_REGISTRY",
     "DRESS_REHEARSAL_PROFILE",
     "DRESS_REHEARSAL_SEED_BASE",
     "EXECUTION_PROFILES",
@@ -1286,6 +1484,7 @@ __all__ = [
     "EXPECTED_CASES_PER_ARM",
     "LEDGER_SCHEMA_VERSION",
     "PROTOCOL_TAG",
+    "PROTOCOL_INVARIANT_PATHS",
     "REPLACEMENT_PROFILE",
     "REPLACEMENT_SEED_BASES",
     "AppendOnlyLedger",

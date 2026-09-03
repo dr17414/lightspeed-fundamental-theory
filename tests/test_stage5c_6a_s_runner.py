@@ -16,8 +16,10 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from analysis.stage5c_6a_s_runner import (  # noqa: E402
+    BURN_REGISTRY,
     EXPECTED_BLOCK_PAIRS_PER_SELECTOR,
     EXPECTED_CASES_PER_ARM,
+    PROTOCOL_INVARIANT_PATHS,
     DRESS_REHEARSAL_PROFILE,
     DRESS_REHEARSAL_SEED_BASE,
     REPLACEMENT_PROFILE,
@@ -30,10 +32,12 @@ from analysis.stage5c_6a_s_runner import (  # noqa: E402
     RunnerProtocolError,
     Verdict,
     _claim_then_generate,
+    _assert_profile_unburned,
     _assert_prerequisite_ledger,
     _attestation_requirement,
     _execution_seed,
     _header,
+    _protocol_invariant_digest,
     _selector_token,
     adjudicate_arm_ledger,
     adjudicate_arm_records,
@@ -51,12 +55,20 @@ from analysis.stage5c_selector_family import evaluation_order  # noqa: E402
 
 
 COMMIT = "a" * 40
+PROTOCOL_DIGEST = "b" * 64
+REGISTRY_DIGEST = "c" * 64
 
 
 def _raw_header(target="plus", execution_profile=REPLACEMENT_PROFILE):
     return {
         "record_type": "run_header",
-        **_header(execution_profile, target, COMMIT),
+        **_header(
+            execution_profile,
+            target,
+            COMMIT,
+            PROTOCOL_DIGEST,
+            REGISTRY_DIGEST,
+        ),
     }
 
 
@@ -161,7 +173,9 @@ def test_frozen_counts_cover_every_expected_cell():
         "protocol_commit",
         "prerequisite_ledger",
     )
-    header = _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+    header = _header(
+        REPLACEMENT_PROFILE, "plus", COMMIT, PROTOCOL_DIGEST, REGISTRY_DIGEST
+    )
     assert header["between_target_numeric_data"] == "FORBIDDEN"
     assert header["seed_manifest"] == "replacement-plus-1.5b"
     assert header["seed_base"] == 1_500_000_000
@@ -197,6 +211,112 @@ def test_amended_seed_manifests_are_closed_and_nonoverlapping():
             _execution_seed(REPLACEMENT_PROFILE, "plus", bad, 0, 0)
 
 
+def test_protocol_invariant_digest_covers_every_frozen_scientific_file(tmp_path):
+    for index, relative_path in enumerate(PROTOCOL_INVARIANT_PATHS):
+        path = tmp_path / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(f"frozen-{index}\n".encode())
+    baseline = _protocol_invariant_digest(tmp_path)
+    assert len(baseline) == 64
+    for relative_path in PROTOCOL_INVARIANT_PATHS:
+        path = tmp_path / relative_path
+        original = path.read_bytes()
+        path.write_bytes(original + b"changed\n")
+        assert _protocol_invariant_digest(tmp_path) != baseline
+        path.write_bytes(original)
+
+
+def test_burn_registry_rejects_a_registered_profile_before_execution(tmp_path):
+    docs = tmp_path / "docs"
+    docs.mkdir()
+    original_hash = "1" * 64
+    registry = {
+        "schema_version": 1,
+        "entries": [
+            {
+                "execution_profile": "original-reserved-v1",
+                "target": "plus",
+                "seed_base": 1_300_000_000,
+                "ledger_sha256": original_hash,
+                "development_log_entry": "DEV-0011",
+            }
+        ],
+    }
+    (docs / "stage5c_development_log.md").write_text(
+        f"DEV-0011 {original_hash}\n", encoding="utf-8"
+    )
+    registry_path = tmp_path / BURN_REGISTRY
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    assert _assert_profile_unburned(
+        execution_profile=DRESS_REHEARSAL_PROFILE,
+        target="plus",
+        repo_root=tmp_path,
+    ) == hashlib.sha256(registry_path.read_bytes()).hexdigest()
+
+    dress_hash = "2" * 64
+    registry["entries"].append(
+        {
+            "execution_profile": DRESS_REHEARSAL_PROFILE,
+            "target": "plus",
+            "seed_base": DRESS_REHEARSAL_SEED_BASE,
+            "ledger_sha256": dress_hash,
+            "development_log_entry": "DEV-0012",
+        }
+    )
+    (docs / "stage5c_development_log.md").write_text(
+        f"DEV-0011 {original_hash}\nDEV-0012 {dress_hash}\n", encoding="utf-8"
+    )
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    assert len(
+        _assert_profile_unburned(
+            execution_profile=REPLACEMENT_PROFILE,
+            target="plus",
+            repo_root=tmp_path,
+        )
+    ) == 64
+    with pytest.raises(RunnerProtocolError, match="already burned"):
+        _assert_profile_unburned(
+            execution_profile=DRESS_REHEARSAL_PROFILE,
+            target="plus",
+            repo_root=tmp_path,
+        )
+
+    registry["entries"] = []
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    with pytest.raises(RunnerProtocolError, match="append-only lifecycle prefix"):
+        _assert_profile_unburned(
+            execution_profile=DRESS_REHEARSAL_PROFILE,
+            target="plus",
+            repo_root=tmp_path,
+        )
+
+
+def test_burn_registry_gate_runs_before_ledger_creation_or_seed_claim(tmp_path):
+    with patch(
+        "analysis.stage5c_6a_s_runner._assert_execution_checkout",
+        return_value=tmp_path,
+    ), patch(
+        "analysis.stage5c_6a_s_runner._protocol_invariant_digest",
+        return_value=PROTOCOL_DIGEST,
+    ), patch(
+        "analysis.stage5c_6a_s_runner._assert_profile_unburned",
+        side_effect=RunnerProtocolError("already burned"),
+    ), patch(
+        "analysis.stage5c_6a_s_runner._assert_prerequisite_ledger"
+    ) as prerequisite, patch(
+        "analysis.stage5c_6a_s_runner.AppendOnlyLedger"
+    ) as ledger:
+        with pytest.raises(RunnerProtocolError, match="already burned"):
+            run_target_arm(
+                execution_profile=DRESS_REHEARSAL_PROFILE,
+                target="plus",
+                ledger_path=tmp_path / "must-not-exist.ndjson",
+                protocol_commit=COMMIT,
+            )
+    prerequisite.assert_not_called()
+    ledger.assert_not_called()
+
+
 def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
     path = tmp_path / "arm.ndjson"
     synced_types = []
@@ -209,7 +329,14 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
 
     with patch("analysis.stage5c_6a_s_runner.os.fsync", side_effect=observe_fsync):
         with AppendOnlyLedger(
-            path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+            path,
+            _header(
+                REPLACEMENT_PROFILE,
+                "plus",
+                COMMIT,
+                PROTOCOL_DIGEST,
+                REGISTRY_DIGEST,
+            ),
         ) as ledger:
             ledger.append(
                 "terminal_error", target="plus", category="backend", message="test"
@@ -220,12 +347,30 @@ def test_ledger_is_exclusive_fsynced_and_hash_chained(tmp_path):
     assert [row["sequence"] for row in records] == [0, 1]
     assert records[1]["previous_sha256"] == records[0]["record_sha256"]
     with pytest.raises(FileExistsError):
-        AppendOnlyLedger(path, _header(REPLACEMENT_PROFILE, "plus", COMMIT))
+        AppendOnlyLedger(
+            path,
+            _header(
+                REPLACEMENT_PROFILE,
+                "plus",
+                COMMIT,
+                PROTOCOL_DIGEST,
+                REGISTRY_DIGEST,
+            ),
+        )
 
 
 def test_hash_chain_detects_tampering(tmp_path):
     path = tmp_path / "arm.ndjson"
-    with AppendOnlyLedger(path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)):
+    with AppendOnlyLedger(
+        path,
+        _header(
+            REPLACEMENT_PROFILE,
+            "plus",
+            COMMIT,
+            PROTOCOL_DIGEST,
+            REGISTRY_DIGEST,
+        ),
+    ):
         pass
     record = json.loads(path.read_text(encoding="utf-8"))
     record["target"] = "minus"
@@ -247,7 +392,14 @@ def test_seed_claim_is_durable_before_generator_call(tmp_path):
         raise DeliberateStop
 
     with AppendOnlyLedger(
-        path, _header(DRESS_REHEARSAL_PROFILE, "plus", COMMIT)
+        path,
+        _header(
+            DRESS_REHEARSAL_PROFILE,
+            "plus",
+            COMMIT,
+            PROTOCOL_DIGEST,
+            REGISTRY_DIGEST,
+        ),
     ) as ledger:
         with pytest.raises(DeliberateStop):
             _claim_then_generate(
@@ -409,12 +561,19 @@ def test_claim_must_precede_generation_and_unknown_selector_is_invalid():
 
 
 def _categorical_arm(
-    target, verdict=Verdict.PASS, commit=COMMIT, execution_profile=REPLACEMENT_PROFILE
+    target,
+    verdict=Verdict.PASS,
+    commit=COMMIT,
+    execution_profile=REPLACEMENT_PROFILE,
+    protocol_digest=PROTOCOL_DIGEST,
+    registry_digest=REGISTRY_DIGEST,
 ):
     return ArmAdjudication(
         execution_profile,
         target,
         commit,
+        protocol_digest,
+        registry_digest,
         tuple(
             ArmSelectorVerdict(target, name, parameters, verdict, ("synthetic",))
             for name, parameters in evaluation_order()
@@ -441,6 +600,8 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
         "protocol_tag": "stage5c-6a-s-runner-v2-amendment-001",
         "execution_profile": DRESS_REHEARSAL_PROFILE,
         "target": "plus",
+        "protocol_invariant_digest": PROTOCOL_DIGEST,
+        "burn_registry_sha256_at_start": REGISTRY_DIGEST,
         "ledger_sha256": ledger_hash,
         "ledger_protocol_commit": COMMIT,
         "seed_manifest": "development-3.1b",
@@ -454,15 +615,36 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
     (docs / "stage5c_development_log.md").write_text(
         f"DEV-0012 {ledger_hash}\n", encoding="utf-8"
     )
+
+    def adjudicate_then_replace(snapshot):
+        assert snapshot == b"synthetic dress ledger\n"
+        ledger.write_bytes(b"changed after immutable snapshot\n")
+        return dress
+
     with patch(
-        "analysis.stage5c_6a_s_runner.adjudicate_arm_ledger", return_value=dress
+        "analysis.stage5c_6a_s_runner._adjudicate_arm_snapshot",
+        side_effect=adjudicate_then_replace,
     ):
         _assert_prerequisite_ledger(
             execution_profile=REPLACEMENT_PROFILE,
             target="plus",
             prerequisite_ledger=ledger,
             repo_root=repo_root,
+            current_protocol_invariant_digest=PROTOCOL_DIGEST,
         )
+
+    ledger.write_bytes(b"synthetic dress ledger\n")
+    with patch(
+        "analysis.stage5c_6a_s_runner._adjudicate_arm_snapshot", return_value=dress
+    ):
+        with pytest.raises(RunnerProtocolError, match="not mechanically clean"):
+            _assert_prerequisite_ledger(
+                execution_profile=REPLACEMENT_PROFILE,
+                target="plus",
+                prerequisite_ledger=ledger,
+                repo_root=repo_root,
+                current_protocol_invariant_digest="d" * 64,
+            )
 
     invalid_dress = _categorical_arm(
         "plus",
@@ -470,7 +652,7 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
         execution_profile=DRESS_REHEARSAL_PROFILE,
     )
     with patch(
-        "analysis.stage5c_6a_s_runner.adjudicate_arm_ledger",
+        "analysis.stage5c_6a_s_runner._adjudicate_arm_snapshot",
         return_value=invalid_dress,
     ), pytest.raises(RunnerProtocolError):
         _assert_prerequisite_ledger(
@@ -478,6 +660,7 @@ def test_reserved_profiles_require_committed_clean_predecessors(tmp_path):
             target="plus",
             prerequisite_ledger=ledger,
             repo_root=repo_root,
+            current_protocol_invariant_digest=PROTOCOL_DIGEST,
         )
 
 
@@ -519,6 +702,14 @@ def test_combiner_uses_frozen_precedence_and_records_staged_commits():
         plus, _categorical_arm("minus", commit="b" * 40)
     )
     assert {row.verdict for row in staged} == {Verdict.FAIL}
+    with pytest.raises(RunnerProtocolError, match="ordered plus then minus"):
+        combine_arm_adjudications(
+            _categorical_arm("minus"), _categorical_arm("plus")
+        )
+    with pytest.raises(RunnerProtocolError):
+        combine_arm_adjudications(
+            plus, _categorical_arm("minus", protocol_digest="d" * 64)
+        )
     forged_rows = list(_categorical_arm("minus").selector_verdicts)
     forged_rows[0] = ArmSelectorVerdict(
         "plus",
@@ -531,7 +722,12 @@ def test_combiner_uses_frozen_precedence_and_records_staged_commits():
         combine_arm_adjudications(
             plus,
             ArmAdjudication(
-                REPLACEMENT_PROFILE, "minus", COMMIT, tuple(forged_rows)
+                REPLACEMENT_PROFILE,
+                "minus",
+                COMMIT,
+                PROTOCOL_DIGEST,
+                REGISTRY_DIGEST,
+                tuple(forged_rows),
             ),
         )
 
@@ -539,7 +735,14 @@ def test_combiner_uses_frozen_precedence_and_records_staged_commits():
 def test_stored_verdicts_are_recomputed_not_trusted(tmp_path):
     path = tmp_path / "partial.ndjson"
     with AppendOnlyLedger(
-        path, _header(REPLACEMENT_PROFILE, "plus", COMMIT)
+        path,
+        _header(
+            REPLACEMENT_PROFILE,
+            "plus",
+            COMMIT,
+            PROTOCOL_DIGEST,
+            REGISTRY_DIGEST,
+        ),
     ) as ledger:
         for name, parameters in evaluation_order():
             ledger.append(

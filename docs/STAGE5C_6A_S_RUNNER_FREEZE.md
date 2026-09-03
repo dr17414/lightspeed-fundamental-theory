@@ -15,26 +15,30 @@ DEV-0011 後，`docs/STAGE5C_6A_S_PROTOCOL_AMENDMENT_001.md` 明文取代 v1 的
 lifecycle、header schema、ESS identity check 與 arm-ordering 部分。runner v2 protocol tag 為
 `stage5c-6a-s-runner-v2-amendment-001`、ledger schema version 為 2；本文件未被取代的
 contrast firewall、write-ahead claim、hash chain、raw ledger fields 與 categorical-only
-combiner 仍有效。
+combiner 仍有效。另新增四個承重 code files 的 `protocol_invariant_digest` 與 committed
+append-only burn registry；精確定義以 amendment §2.4、§3.1 為準。
 
 ---
 
 ## 1. 單臂執行與 contrast firewall
 
 正式 runner 一次只接受一個 target token：`plus` 或 `minus`。`run_target_arm()` 只有
-`target`、`ledger_path`、`protocol_commit` 三個外部參數；generator、selector family、
+`execution_profile`、`target`、`ledger_path`、`protocol_commit` 與 profile-dependent
+`prerequisite_ledger` 外部參數；generator、selector family、
 normalization、Fourier grid、thresholds 與 seed mapping 都由已凍結 module 直接 import，
 caller 不能覆寫。
 
 每個 target 各產生一份獨立 ledger，並各自得到 11 個 categorical arm verdict。唯一可同時
 接收兩臂輸出的 `combine_arm_adjudications()` 只接受 `ArmAdjudication`；其 schema 只含
-target、protocol commit、selector id、categorical verdict 與 reasons，沒有 signature、
+execution profile、target、protocol commit、protocol-invariant／burn-registry digests、selector
+id、categorical verdict 與 reasons，沒有 signature、
 coordinates、seed-level diagnostics 或任何 real-valued target summary。因此 combine 階段
 無法形成 $T_+$ vs $T_-$ numerical contrast。
 
 combined ledger 只保存每個 selector 的 plus／minus categorical verdict 與最終 verdict；
-若兩臂 protocol commit 不同、target 重複或 selector schema 不完整，直接
-`PROTOCOL-INVALID`／拒絕 combine。
+兩臂因中間 attestation commit 可有不同 protocol commits，但四個承重 code files 的
+`protocol_invariant_digest` 必須完全相同。digest 不同、target 重複或 selector schema 不完整，
+直接拒絕 combine。
 
 ---
 
@@ -52,6 +56,12 @@ combined ledger 只保存每個 selector 的 plus／minus categorical verdict �
 ledger 沒記」的歧義。ledger path 必須原先不存在，runner 拒絕 overwrite 或 resume。
 中斷後只能對現存 ledger 執行 adjudicator；不得重跑、換 seed 或補齊另一批 samples。
 
+此外，runner 在 exclusive-create 之前先驗證
+`docs/stage5c_6a_s_burn_registry.json` 是 DEV-0011→DEV-0012→DEV-0013→DEV-0014 的合法
+append-only lifecycle prefix，且目前 profile／target 尚未登記；不符即在任何 claim 前拒絕。
+registry 能阻止已 committed execution 的重跑，但不是跨 checkout distributed lock；首次執行
+到 registry commit 間仍嚴禁再次啟動或挑選 ledger，並須接受獨立 custody review。
+
 每列另含遞增 `sequence`、`previous_sha256` 與本列 `record_sha256`。讀取時逐列重算完整
 hash chain；修改、刪列、插列、重排或 non-finite JSON 都使 ledger invalid。
 
@@ -61,7 +71,7 @@ hash chain；修改、刪列、插列、重排或 non-finite JSON 都使 ledger 
 
 | record type | 必要內容 | 寫入時點 |
 | :--- | :--- | :--- |
-| `run_header` | schema version、protocol tag／commit、execution profile、單一 target、seed manifest／base、expected counts、contrast forbidden marker | exclusive-create 時第一列 |
+| `run_header` | schema version、protocol tag／commit、四檔 protocol-invariant digest、啟動時 burn-registry SHA-256、execution profile、單一 target、seed manifest／base、expected counts、contrast forbidden marker | exclusive-create 時第一列 |
 | `seed_claim` | target、$N$/index、block、case、seed、burned state | generator 前且已 `fsync` |
 | `sample_generated` | 同一 cell 與 seed | generator/schema 成功後 |
 | `causet_selector` | selector／parameters、cell／case id／seed、selected/domain pairs、coverage、normalization、mass、TV、Kish ESS／fraction、S1/S2/S3/S4/S6 flags | 每 causet × 11 點 |
@@ -114,13 +124,17 @@ python -m analysis.stage5c_6a_s_runner run-arm PROFILE TARGET LEDGER \
 ```
 
 `PROFILE` 只能是 `development-dress-rehearsal` 或 `replacement-reserved`；profile／target
-組合、seed base 與 prerequisite 由 Amendment-001 封閉。所有 ledger 必須放在 checkout 外。
+組合、seed base、burn-registry prefix 與 prerequisite 由 Amendment-001 封閉。所有 ledger
+必須放在 checkout 外。prerequisite ledger 的 protocol-invariant digest 必須等於當前 checkout；
 replacement 兩臂完成後才可執行：
 
 ```bash
 python -m analysis.stage5c_6a_s_runner combine \
   PLUS_LEDGER MINUS_LEDGER COMBINED_LEDGER
 ```
+
+prerequisite ledger 的 SHA-256 與 adjudication 必須取自同一 immutable byte snapshot；combiner
+亦嚴格要求 positional arguments 為 plus 後 minus，不得用反向傳參造成 provenance 錯標。
 
 在 Amendment-001／runner v2 合併、CI 與獨立 review 通過並重新核對 `main` 前，禁止執行
 `run-arm`。合併後先只授權 `development-dress-rehearsal plus`；1.5B plus 與 1.4B minus

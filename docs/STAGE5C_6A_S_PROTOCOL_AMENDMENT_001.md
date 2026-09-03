@@ -9,7 +9,8 @@ $T_+$ vs $T_-$ 數值 contrast、不計算 primary endpoint，且不設計、imp
 
 source of record：`analysis/stage5c_6a_s_runner.py`；regression：
 `tests/test_stage5c_6a_s_runner.py`；amendment ledger：
-`docs/stage5c_protocol_amendment_log.md` 的 `AMEND-0001`。
+`docs/stage5c_protocol_amendment_log.md` 的 `AMEND-0001`；burn registry：
+`docs/stage5c_6a_s_burn_registry.json`。
 
 ---
 
@@ -84,6 +85,24 @@ $\ge32$；這個 S6 floor 沒有放寬。
 total mass／total variation 對 1 的既有 $10^{-12}$ 檢查不變。stored S1/S5/S6 boolean 仍由
 raw fields 重算；不一致仍為 `PROTOCOL-INVALID`。
 
+### 2.4 Cross-commit protocol invariant
+
+attestation commit 必須夾在 dress／plus／minus 執行之間，所以兩臂的 `protocol_commit` 可以
+不同；這不再等同於允許 scientific rules 改動。runner v2 對下列四個承重檔案依固定順序，
+以 path UTF-8 bytes 與 file bytes 各加 8-byte big-endian length prefix 後串接並取 SHA-256：
+
+1. `analysis/stage5c_measure_prereg.py`；
+2. `analysis/stage5c_selector_family.py`；
+3. `analysis/stage5c_hard_controls.py`；
+4. `analysis/stage5c_6a_s_runner.py`。
+
+所得 `protocol_invariant_digest` 必須寫入每個 `run_header` 與 prerequisite attestation。
+`_assert_prerequisite_ledger()` 要求 prerequisite ledger digest 與當前 checkout 逐字相同；
+`combine_arm_adjudications()` 要求 plus／minus digests 相同。如此允許中間只增加 DEV log、
+attestation、burn-registry 等 custody metadata 的 commits，但禁止 selector、smearing、Fourier
+grid、hard controls、threshold 或 adjudicator code 在兩臂之間漂移。digest mismatch 在 claim
+前拒絕啟動或拒絕 combine，不形成新的 scientific threshold。
+
 ---
 
 ## 3. 新 seed manifests 與永久除役
@@ -105,6 +124,29 @@ replacement 的 control、comparison、calibration、power estimate，也不能�
 
 3.1B／1.5B／1.4B 同樣採 write-ahead claim：claim 一旦 fsync 即 burned，無論 generator、
 ledger 或 adjudication 後來是否中斷。不得 resume、補樣、換 seed 或重跑。
+
+### 3.1 Committed append-only burn registry
+
+`docs/stage5c_6a_s_burn_registry.json` 固定 `schema_version=1`，每筆只有
+`execution_profile`、`target`、`seed_base`、`ledger_sha256`、`development_log_entry`。初始列為
+DEV-0011 的 `original-reserved-v1`／plus／1.3B 與公開 ledger hash。其後只可按下列 prefix
+順序 append，不得刪除、改寫、重排或跳號：
+
+1. DEV-0011：original 1.3B plus；
+2. DEV-0012：3.1B dress-rehearsal plus；
+3. DEV-0013：1.5B replacement plus；
+4. DEV-0014：1.4B replacement minus。
+
+每次 `run-arm` 在建立 ledger、durable claim 或呼叫 generator **之前**讀取 registry，驗證每列
+manifest metadata、DEV entry 與 ledger hash 均已進 development log，並要求目前 entries
+恰為所請 lifecycle stage 的完整 prefix；若該 `(execution_profile,target)` 已登記即拒絕啟動。
+每個 `run_header` 另保存啟動時 registry bytes 的 `burn_registry_sha256_at_start`，attestation
+必須逐字保存該值。
+
+此 registry 能機械阻止已 committed execution 的重跑，並讓跨 commit lifecycle 可稽核；它
+不能在第一次執行完成與其 registry entry commit 之間，跨另一個全新 checkout 排除蓄意重跑。
+該窗口仍由「一次執行、立即封存、獨立 review」的程序禁令約束，不得把 registry 誇大為
+全域 distributed lock，也不得從多份 ledger 選一份最乾淨者。
 
 ---
 
@@ -128,11 +170,17 @@ python -m analysis.stage5c_6a_s_runner run-arm \
 該 FAIL／PASS 或任何 `d_mean`、`d_law`、pair-count summary 調整 floor、margin、threshold、
 selector family、sample grid 或 power estimate。
 
+3.1B ledger 是 plus-distribution development data；不得與 1.4B 或任何其他 minus ledger
+配對，不得以任何直接讀取／另寫分析程式形成 between-target numerical contrast，也不得作
+replacement arm 的 control、comparison、calibration 或 power-estimate input。
+
 執行後必須：
 
 1. 全部 3.1B claims 記為 burned；
-2. 將 ledger SHA-256、protocol commit、record counts 與 categorical verdict 寫入 DEV-0012；
-3. 在獨立 commit 新增 `docs/stage5c_6a_s_dress_rehearsal_attestation.json`；
+2. 將 ledger SHA-256、protocol commit、protocol-invariant digest、record counts 與 categorical
+   verdict 寫入 DEV-0012；
+3. 同步 append DEV-0012 burn-registry entry，並在獨立 commit 新增
+   `docs/stage5c_6a_s_dress_rehearsal_attestation.json`；
 4. 該 commit 經 CI／review／merge 後，1.5B replacement plus 才取得執行資格。
 
 attestation schema 固定為：
@@ -143,6 +191,8 @@ attestation schema 固定為：
   "protocol_tag": "stage5c-6a-s-runner-v2-amendment-001",
   "execution_profile": "development-dress-rehearsal",
   "target": "plus",
+  "protocol_invariant_digest": "64-lowercase-hex",
+  "burn_registry_sha256_at_start": "64-lowercase-hex",
   "ledger_sha256": "64-lowercase-hex",
   "ledger_protocol_commit": "40-lowercase-hex",
   "seed_manifest": "development-3.1b",
@@ -152,8 +202,9 @@ attestation schema 固定為：
 }
 ```
 
-runner 會重讀 ledger、重算 hash／adjudication，並核對 committed attestation 與 development
-log；只靠操作者口頭確認不會解鎖 1.5B。
+runner 會先把 prerequisite ledger 讀成單一 immutable byte snapshot，再以**同一份 bytes**重算
+hash 與 adjudication，避免兩次 open 間的 replacement／symlink-swap race；並核對 committed
+attestation 與 development log。只靠操作者口頭確認不會解鎖 1.5B。
 
 ---
 
@@ -176,7 +227,8 @@ SHA-256、manifest 與機械 clean condition。任一不符即拒絕啟動，不
 ### 5.2 Minus
 
 1.5B plus 完成後，必須另在 DEV-0013 記錄 ledger hash／categorical verdict，並於獨立
-commit 新增 `docs/stage5c_6a_s_replacement_plus_attestation.json`，schema 與 §4 相同，但
+commit append DEV-0013 burn-registry entry，並新增
+`docs/stage5c_6a_s_replacement_plus_attestation.json`，schema 與 §4 相同，但
 profile=`replacement-reserved`、manifest=`replacement-plus-1.5b`、base=`1500000000`、
 development entry=`DEV-0013`。只有該 plus ledger 全部 selector 無 `PROTOCOL-INVALID`／
 `INCONCLUSIVE`，且 attestation commit 經 CI／review／merge，1.4B minus 才可啟動：
@@ -190,8 +242,11 @@ python -m analysis.stage5c_6a_s_runner run-arm \
 
 若 replacement plus 再次 `PROTOCOL-INVALID` 或 `INCONCLUSIVE`，1.4B 仍不得生成；必須停止
 並另立 amendment。scientific `6a-S FAIL` 不被改寫，且不解除其他 selector 的 categorical
-記錄需求。兩臂因中間 attestation commit 可有不同 `protocol_commit`；combined ledger 必須
-保存 plus／minus 各自 commit，且仍只接收 categorical arm verdict，不能形成數值 contrast。
+記錄需求。兩臂因中間 attestation commit 可有不同 `protocol_commit`；但 prerequisite 與
+當前 checkout、plus 與 minus 之 `protocol_invariant_digest` 必須相同。combined ledger 必須
+保存 plus／minus 各自 commit 與共同 digest，且仍只接收 categorical arm verdict，不能形成
+數值 contrast。combiner 的引數順序固定為 plus、minus，反向傳入直接拒絕，避免 positional
+provenance 錯標。minus 執行後須以 DEV-0014 與其 ledger hash append 最終 burn-registry entry。
 
 ---
 

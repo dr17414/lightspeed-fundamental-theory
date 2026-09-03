@@ -223,7 +223,10 @@ $$\operatorname{seed}=b_\pm+10^6i+10^4j+k.$$
 **Amendment-001 disposition.** 1.3B plus 的 768 seeds 已於 DEV-0011 全部生成並永久
 burned，正式 verdict 不重判；1.4B minus 尚未生成，但已由 Amendment-001 加上 prerequisite
 鎖。replacement plus 改用 fresh 1.5B，reserved 前的完整 development dress rehearsal 使用
-3.1B。精確 manifests 與 sequential authorization 以 amendment §3–§5 為準。
+3.1B。精確 manifests、四個承重 code files 的 cross-commit protocol-invariant digest、
+committed append-only burn registry 與 sequential authorization 以 amendment §2.4–§5 為準。
+3.1B plus-distribution development ledger 不得與任何 minus ledger 配對或形成 numerical
+contrast，也不得回流成 replacement control／calibration／power input。
 
 ---
 
@@ -303,6 +306,11 @@ runner／ledger／adjudicator 原由 `docs/STAGE5C_6A_S_RUNNER_FREEZE.md` 與
 `analysis/stage5c_6a_s_runner.py` v1 固定；DEV-0011 後由 Amendment-001 與 runner v2 在不改
 scientific gates 的前提下修正 implementation defect。1.3B plus 已 burned；3.1B dress、1.5B
 replacement plus 與 1.4B minus 均尚未生成。
+
+runner v2 另要求每臂 header／attestation 保存同一組四檔 protocol-invariant digest，combine
+只接受 digest 相同的兩臂；每次 claim 前並要求 burn registry 是合法 lifecycle prefix、目前
+profile／target 未登記。這些是跨 commit scientific-rule consistency 與 anti-rerun custody
+checks，不修改任何 S1–S6 threshold。
 
 本文件刻意不固定或不宣稱：
 
