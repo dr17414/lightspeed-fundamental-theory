@@ -167,3 +167,12 @@ $K$。
 6. amendment 必須對齊 prereg §5.4 與 runner freeze：把 internal recomputation mismatch
    是否構成第五類 `PROTOCOL-INVALID` 來源明文固定，不得再由 executable layer單獨擴張。
 7. 本 incident 不授權 6a-E、active wrong-support、候選設計或 holdout access。
+
+---
+
+## 6. 後續 amendment（不改本 incident verdict）
+
+`docs/STAGE5C_6A_S_PROTOCOL_AMENDMENT_001.md` 依本 incident §5 建立 runner v2、無因次
+ESS identity check、3.1B dress rehearsal、1.5B replacement plus 與受鎖的 1.4B minus
+lifecycle。該 amendment 不重判本 ledger、不把 §4.1 數字用於新 threshold，也不把本次
+formal `PROTOCOL-INVALID` 改成 PASS／FAIL。

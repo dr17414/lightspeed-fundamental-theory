@@ -1,6 +1,7 @@
 # Stage 5C — smearing／normalization／6a-S numerical preregistration
 
-狀態：**【candidate-independent preregistration 已交付；6a-S 尚未執行】**。
+狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；
+Amendment-001 已凍結、replacement 尚未執行】**。
 
 本文件固定 C8 intrinsic selector family 的 smearing、normalization、同 target measure
 metric、數值門檻、樣本格、seed manifest 與 failure semantics。它不執行 6a-S、不讀
@@ -9,6 +10,10 @@ $T_+$ vs $T_-$ contrast、不設計或接觸候選 $K$，也不完成 6a-E、act
 
 source of record：`analysis/stage5c_measure_prereg.py`；結構測試：
 `tests/test_stage5c_measure_prereg.py`。
+
+2026-09-03 的 `docs/STAGE5C_6A_S_PROTOCOL_AMENDMENT_001.md` 只在明列範圍內
+取代本文件 §4.2、§5.4 與 §6 的執行 lifecycle／internal-recomputation semantics；其餘
+selector、smearing、normalization、sampling grid 與 scientific gates 全部不變。
 
 ---
 
@@ -215,6 +220,14 @@ $$\operatorname{seed}=b_\pm+10^6i+10^4j+k.$$
 生成；首次生成即 burned，不論程式中斷、member failure 或最終判決。它們不得進 6a-E、
 候選 calibration 或 holdout。
 
+**Amendment-001 disposition.** 1.3B plus 的 768 seeds 已於 DEV-0011 全部生成並永久
+burned，正式 verdict 不重判；1.4B minus 尚未生成，但已由 Amendment-001 加上 prerequisite
+鎖。replacement plus 改用 fresh 1.5B，reserved 前的完整 development dress rehearsal 使用
+3.1B。精確 manifests、四個承重 code files 的 cross-commit protocol-invariant digest、
+committed append-only burn registry 與 sequential authorization 以 amendment §2.4–§5 為準。
+3.1B plus-distribution development ledger 不得與任何 minus ledger 配對或形成 numerical
+contrast，也不得回流成 replacement control／calibration／power input。
+
 ---
 
 ## 5. S1–S6 gates 與判決
@@ -280,6 +293,7 @@ normalization 被靜默修改。
 | well-defined run 中任一預登記 floor／margin 失敗 | `6a-S FAIL` |
 | 資源不足、非有限 numerical output、可證的 backend 數值故障 | `INCONCLUSIVE`；不得換門檻或 seeds |
 | 接觸 between-target contrast、candidate output、未登記 metadata，或在本 commit 前生成 reserved streams | `PROTOCOL-INVALID` |
+| ledger stored field／gate flag／verdict 與 frozen schema、raw fields 或 deterministic transform 的 internal recomputation 不一致 | `PROTOCOL-INVALID`；reason 必須依 Amendment-001 §2 分類，不得由 runner 擴張成未登記類別 |
 
 6a-S 是對全部 11 點的 batch prefilter，不消耗 6a-E contrast spending，也不改變原始 family
 順序。被 6a-S 淘汰的位置不向後重分配任何 future 6a-E alpha／e-value budget。
@@ -288,8 +302,17 @@ normalization 被靜默修改。
 
 ## 6. Runner freeze 與尚未完成
 
-runner／ledger／adjudicator 已由 `docs/STAGE5C_6A_S_RUNNER_FREEZE.md` 與
-`analysis/stage5c_6a_s_runner.py` 固定；本 prereg commit 仍未生成任何 reserved sample。
+runner／ledger／adjudicator 原由 `docs/STAGE5C_6A_S_RUNNER_FREEZE.md` 與
+`analysis/stage5c_6a_s_runner.py` v1 固定；DEV-0011 後由 Amendment-001 與 runner v2 在不改
+scientific gates 的前提下修正 implementation defect。1.3B plus 已 burned；3.1B dress、1.5B
+replacement plus 與 1.4B minus 均尚未生成。
+
+runner v2 另要求每臂 header／attestation 保存同一組四檔 protocol-invariant digest 與
+`sys.version`／NumPy／SciPy runtime versions，combine 只接受 code digest 與 runtime 都相同的
+兩臂；每次 claim 前並要求 burn registry 是合法 lifecycle prefix、目前 profile／target 未登記。
+這些是跨 commit scientific-rule consistency 與 anti-rerun custody checks，不修改任何 S1–S6
+threshold。若 3.1B rehearsal 後必須修改四檔，唯一出口是 AMEND-0002＋全新 dress profile／
+seed base；不得重跑 3.1B 或就地修改後直接進 1.5B。
 
 本文件刻意不固定或不宣稱：
 
@@ -302,6 +325,8 @@ runner／ledger／adjudicator 已由 `docs/STAGE5C_6A_S_RUNNER_FREEZE.md` 與
 - candidate endpoint、候選 $K$、C3b candidate-specific instantiation；
 - Freeze-1a 完成。
 
-所以 runner freeze 合併並重新核對 `main` 後，唯一獲准的下一步，是依該 main commit
-分別一次執行兩個 6a-S arms、寫兩份 append-only arm ledgers，再只以 categorical verdicts
-形成 combined ledger；不得直接開始 6a-E 或候選設計。
+所以 Amendment-001／runner v2 合併、CI 與獨立 review 完成並重新核對 `main` 後，唯一
+獲准的下一步是先執行完整 3.1B development dress rehearsal。只有 DEV-0012 與 committed
+hash attestation 通過後才可執行 1.5B replacement plus；再經 DEV-0013 與 plus attestation
+確認無 `PROTOCOL-INVALID`／`INCONCLUSIVE`，才可啟動 1.4B minus。不得跳過中間 commit、
+直接開始 6a-E 或候選設計。
