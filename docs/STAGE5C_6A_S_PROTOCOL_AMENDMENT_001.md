@@ -191,10 +191,14 @@ replacement arm 的 control、comparison、calibration 或 power-estimate input�
    `docs/stage5c_6a_s_dress_rehearsal_attestation.json`；
 4. 該 commit 經 CI／review／merge 後，1.5B replacement plus 才取得執行資格。
 
-若 3.1B rehearsal 完成後發現必須修改四個 protocol-invariant files，既有 digest 與 registry
-ratchet 會同時禁止就地修改後進入 1.5B、也禁止重跑 3.1B。唯一合法出口是先立
-AMEND-0002，登記全新的 dress execution profile 與未使用 seed base（例如 3.2B），經
-review／merge 後重走完整 rehearsal；不得刪改 DEV-0012／registry 或挑選既有多份 ledger。
+3.1B、1.5B 與 1.4B 必須在同一套凍結的執行環境完成；DEV-0012 須逐字保存 rehearsal
+實際使用的 `sys.version`、NumPy 與 SciPy version strings，不得把 CI pin 誤寫成 formal
+ledger 的實際環境。若 3.1B rehearsal 完成後發現必須修改四個 protocol-invariant files，或
+當前 process 的三個 runtime version strings 已與 DEV-0012 不同，既有 digest／environment
+gate 與 registry ratchet 會同時禁止就地修改或升級後進入 1.5B、也禁止重跑 3.1B。兩種情形
+的唯一合法出口都是先立 AMEND-0002，登記全新的 dress execution profile 與未使用 seed base
+（例如 3.2B），經 review／merge 後重走完整 rehearsal；不得刪改 DEV-0012／registry、降級
+既有環境紀錄，或挑選既有多份 ledger。
 
 attestation schema 固定為：
 

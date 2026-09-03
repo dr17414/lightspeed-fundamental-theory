@@ -142,3 +142,8 @@ prerequisite ledger 的 SHA-256 與 adjudication 必須取自同一 immutable by
 `run-arm`。合併後先只授權 `development-dress-rehearsal plus`；1.5B plus 與 1.4B minus
 各自受 committed prerequisite attestation 約束，不能由 CLI 操作者跳過。本文件與 runner
 commit 本身不授權 6a-E、target contrast、candidate design 或任何 holdout access。
+
+3.1B、1.5B 與 1.4B 必須使用同一套實際 Python／NumPy／SciPy version strings；CI pin 只驗證
+程式與測試，不等於 formal `run-arm` 的執行環境。若 rehearsal 後四個 protocol-invariant
+files 或三個 runtime version strings 任一漂移，均不得重跑 3.1B 或直接進 1.5B；唯一出口是
+AMEND-0002、全新 dress execution profile 與未使用 seed base。
