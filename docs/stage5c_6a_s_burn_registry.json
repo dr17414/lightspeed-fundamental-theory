@@ -14,6 +14,13 @@
       "seed_base": 3100000000,
       "ledger_sha256": "cf5f3584f3a8e193f0ef49a812c8acd41c1250c982581acb256ae7cbe03e352c",
       "development_log_entry": "DEV-0012"
+    },
+    {
+      "execution_profile": "replacement-reserved",
+      "target": "plus",
+      "seed_base": 1500000000,
+      "ledger_sha256": "1e515ca81c3e32fb11ff7e3a90d810a1e5264ce5217fc722775f3765165696cc",
+      "development_log_entry": "DEV-0013"
     }
   ]
 }
