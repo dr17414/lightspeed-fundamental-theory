@@ -7,6 +7,13 @@
       "seed_base": 1300000000,
       "ledger_sha256": "32338ee83000c198747c1bd9cd5c9e98a5d054abde25e804be83533fe7de81e1",
       "development_log_entry": "DEV-0011"
+    },
+    {
+      "execution_profile": "development-dress-rehearsal",
+      "target": "plus",
+      "seed_base": 3100000000,
+      "ledger_sha256": "cf5f3584f3a8e193f0ef49a812c8acd41c1250c982581acb256ae7cbe03e352c",
+      "development_log_entry": "DEV-0012"
     }
   ]
 }

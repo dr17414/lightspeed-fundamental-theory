@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "protocol_tag": "stage5c-6a-s-runner-v2-amendment-001",
+  "execution_profile": "development-dress-rehearsal",
+  "target": "plus",
+  "protocol_invariant_digest": "1343eb8eeaa6c7fe22c0d0f12a01f5d080c3e76dc5014aabafb69b5e66629707",
+  "burn_registry_sha256_at_start": "cfea86cf3d1aa827fad9daee8648bc07eb57a49cc48626b493f8a713fe90f2f2",
+  "runtime_environment": {
+    "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "ledger_sha256": "cf5f3584f3a8e193f0ef49a812c8acd41c1250c982581acb256ae7cbe03e352c",
+  "ledger_protocol_commit": "9504abf3989a57a75ebb1359c872a36ba4190549",
+  "seed_manifest": "development-3.1b",
+  "seed_base": 3100000000,
+  "verdict_constraint": "NO_PROTOCOL_INVALID_OR_INCONCLUSIVE",
+  "development_log_entry": "DEV-0012"
+}

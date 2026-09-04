@@ -1,7 +1,7 @@
 # Stage 5C — smearing／normalization／6a-S numerical preregistration
 
-狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；
-Amendment-001 已凍結、replacement 尚未執行】**。
+狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；Amendment-001 已凍結；
+DEV-0012 dress rehearsal mechanically clean 並待獨立複核／合併；replacement 尚未執行】**。
 
 本文件固定 C8 intrinsic selector family 的 smearing、normalization、同 target measure
 metric、數值門檻、樣本格、seed manifest 與 failure semantics。它不執行 6a-S、不讀
