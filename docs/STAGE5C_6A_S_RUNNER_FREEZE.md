@@ -1,7 +1,8 @@
 # Stage 5C — 6a-S runner／ledger／adjudicator freeze
 
-狀態：**【runner v1 已發生 DEV-0011 protocol incident；Amendment-001 runner v2 已凍結；
-DEV-0012 dress rehearsal mechanically clean 並待獨立複核／合併；replacement 尚未開始】**。
+狀態：**【runner v1 已發生 DEV-0011 protocol incident；Amendment-001 runner v2 與
+DEV-0012 已凍結；1.5B replacement plus 已執行並待 DEV-0013 獨立複核／合併；
+1.4B minus 尚未開始】**。
 
 本文件固定 `analysis/stage5c_6a_s_runner.py` 的執行邊界、append-only ledger schema、
 中斷語意與 S1–S6 adjudicator。它不生成 1.3B／1.4B samples、不形成 target contrast、
