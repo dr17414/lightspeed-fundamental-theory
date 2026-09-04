@@ -1,7 +1,7 @@
 # Stage 5C — smearing／normalization／6a-S numerical preregistration
 
-狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；
-Amendment-001 已凍結、replacement 尚未執行】**。
+狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；Amendment-001 已凍結；
+DEV-0012 dress rehearsal mechanically clean 並待獨立複核／合併；replacement 尚未執行】**。
 
 本文件固定 C8 intrinsic selector family 的 smearing、normalization、同 target measure
 metric、數值門檻、樣本格、seed manifest 與 failure semantics。它不執行 6a-S、不讀
@@ -314,6 +314,8 @@ runner v2 另要求每臂 header／attestation 保存同一組四檔 protocol-in
 threshold。若 3.1B rehearsal 後必須修改四檔，或 formal process 的 `sys.version`／NumPy／
 SciPy version strings 已漂移，唯一出口都是 AMEND-0002＋全新 dress profile／seed base；
 不得重跑 3.1B、改寫 DEV-0012 的實際環境，或就地修改／升降級後直接進 1.5B。
+DEV-0012 的 categorical pattern 亦不得用來解釋、校正或重判 1.5B；replacement plus 的
+verdict 必須只依自身 frozen ledger 與 adjudicator 決定。
 
 本文件刻意不固定或不宣稱：
 
