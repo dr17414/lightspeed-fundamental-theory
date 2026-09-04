@@ -225,6 +225,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.40 (2026-09-04) - 1.5B 執行前 interpretation firewall：replacement plus 的 categorical verdict 必須只依自身 frozen ledger 與 adjudicator 獨立成立；無論其 PASS／FAIL pattern 是否與 3.1B DEV-0012 相同，均禁止引用 rehearsal 的 11/11 PASS 作 seed-fluctuation 解釋、語意重判、threshold calibration、重跑理由或「本來應該通過」的脈絡證據。本次只補文件，沒有修改 protocol-invariant files、runtime、registry、scientific gates 或 manifests，也未生成 1.5B／1.4B、形成 contrast、primary endpoint 或候選 $K$。*
+
 *v1.39 (2026-09-04) - 依 main `9504abf3989a57a75ebb1359c872a36ba4190549` 與 runner v2 一次執行 3.1B plus-target full-arm development dress rehearsal。全部 768 seeds 均先 durable claim 再生成並永久 burned；外部 NDJSON 為 6,842,118 bytes、SHA-256 `cf5f3584f3a8e193f0ef49a812c8acd41c1250c982581acb256ae7cbe03e352c`，hash chain／schema 重驗通過。10,196 records 完整；categorical adjudication 為 11/11 `6a-S PASS`、0 `PROTOCOL-INVALID`、0 `INCONCLUSIVE`。header 的 protocol digest／start-registry hash 分別為 `1343eb8e…29707`／`cfea86cf…f2f2`，實際 runtime 為 Python 3.12.13 build string、NumPy 2.3.5、SciPy 1.17.0。此結果只證 runner v2 mechanically clean；未公開或討論 per-causet／block-pair 數值，不得形成 target contrast、selector viability、threshold feedback、primary endpoint 或候選 $K$。DEV-0012／registry／attestation 尚待 CI 與獨立 review／merge；之前不得 claim 1.5B，1.4B 亦未生成。*
 
 *v1.38 (2026-09-04) - 3.1B 執行前 custody clarification：CI dependency pin 只驗證程式與測試，不等於 formal `run-arm` 的實際本機環境；DEV-0012 必須逐字記錄 ledger header 的 `sys.version`／NumPy／SciPy strings。3.1B→1.5B→1.4B 必須維持同一 runtime identity；rehearsal 後若四個承重 code files 或三個 runtime strings 任一漂移，均不得重跑 3.1B、改寫環境紀錄或直接進 1.5B，唯一出口為 AMEND-0002＋全新 dress profile／未使用 seed base。本次只補文件，四個 protocol-invariant files、digest、burn registry、S1/S5/S6 gates 與 manifests 均未改；未生成 seed、未形成 contrast、primary endpoint 或候選 $K$。*

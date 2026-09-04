@@ -182,6 +182,9 @@ selector family、sample grid 或 power estimate。
 3.1B ledger 是 plus-distribution development data；不得與 1.4B 或任何其他 minus ledger
 配對，不得以任何直接讀取／另寫分析程式形成 between-target numerical contrast，也不得作
 replacement arm 的 control、comparison、calibration 或 power-estimate input。
+1.5B 的 categorical verdict 必須獨立成立：無論其 PASS／FAIL pattern 是否與 DEV-0012 相同，
+均不得引用 3.1B 的 11/11 PASS 作 seed-fluctuation 解釋、語意重判、門檻校正、重跑理由或
+任何「本來應該通過」的脈絡證據。
 
 執行後必須：
 
