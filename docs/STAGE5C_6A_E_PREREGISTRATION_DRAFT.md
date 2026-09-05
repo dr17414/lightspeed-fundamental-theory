@@ -65,18 +65,25 @@ oracle motivation／cross-check，**不是**本二維 primary endpoint，也不�
 
 ## 2. 必須凍結的單一路徑
 
-每個 selector、每個 split 都必須走同一條 typed pipeline：
+每個 selector、每個 split 都必須走同一條 typed pipeline；但 pipeline 的 selector 欄位須依
+gate 顯式路由，而不是強迫所有 gate 共用同一個 literal selector：E1／E2／E4 使用目前按
+原始順序評測的 $\Sigma_{C8}$ member；E3 discrimination arms 使用另行事前登記的
+$\Sigma_{C7/E3}$／test-function support mapping。後者是 evaluator-side L4 control，不增加、
+替換或重排 closed $\Sigma_{C8}$ family，也不得回流 construction。
 
 1. 由 fresh 6a-E manifest 生成兩 target 的 control causets；
 2. 依 C8.1 frozen matching lifecycle 形成 joint matched cohort $\mathcal M$；
-3. 只把 `BlindedCase(case_id, order)` 交給 $\Sigma$；
-4. selector 回傳 causal pairs 後，evaluator 才取回 sealed coordinates；
+3. gate router 逐位元記錄本 gate 登記的 selector／support-mapping identity；C8 路徑只把
+   `BlindedCase(case_id, order)` 交給目前的 $\Sigma_{C8}$ member，E3 則依 frozen L4 權限呼叫
+   $\Sigma_{C7/E3}$／test-function support mapping；
+4. 登記的 selector／support mapping 回傳 typed causal pairs 後，evaluator 才取回 sealed coordinates；
 5. 形成 $\widetilde\nu^C_{\Sigma,\varphi}$，再線性套用 $R_{1/16}$；
 6. 以已凍結的 bi-spinor distribution／test-measure pairing形成
    $M^C_{\theta,\Sigma}=\langle S_\theta,\nu^{C,1/16}_{\Sigma,\varphi}\rangle$；
 7. 先執行 §3 nontriviality gate；通過後才可形成 $\mathfrak I_G(M)$；
 8. 由 matched-pair joint law 計算事前固定的二維統計量、regions 與 simultaneous uncertainty；
-9. 同一 selector 依 E1–E5 全部 gate 產生一個 split-level categorical verdict；
+9. 目前 $\Sigma_{C8}$ member 與固定的 gate-specific E3 evaluator tuple 共同依 E1–E5 全部 gate
+   產生一個 split-level categorical verdict；不得以 E3 tuple 改變 member identity或 family 順序；
 10. 依 §6 的 sequential state machine 決定停止、confirmation 或下一 member。
 
 離散與 continuum 可以有兩個獨立 implementation，但必須共用同一份形式規格，並在 planted
@@ -208,8 +215,9 @@ well-posedness acceptance criterion 未達」（certified computation 下為 `FA
   或執行中斷後 ledger 不完整／沒有 terminal verdict。
 
 E4 不另套 detection／equivalence power label；它由已凍結的數學 existence／convergence criterion
-與 numerical proof obligation 承重。global swap arm 依已凍結的 exact／agreement criterion
-裁決，不得由執行者臨時替它選 E5-D 或 E5-E。以上 applicability 對所有 member／split 固定，
+與 numerical proof obligation 承重。global swap arm 是 gauge operation，必須依逐位元完全相等
+裁決；不得套用 E4 的 independent-implementation agreement bound，也不得由執行者臨時替它選
+E5-D 或 E5-E。以上 applicability 對所有 member／split 固定，
 沒有 per-member discretion。
 
 ### 6.2 Split／member transition
@@ -247,8 +255,9 @@ instance 內補樣本、續跑、不改檔重跑或把 `INCONCLUSIVE` 改記為 
 ### 6.4 未涵蓋狀況
 
 若 runtime 出現本表沒有唯一下一步的狀況，記
-`PREREGISTRATION-UNSPECIFIED` 並立即停止。這是 specification-level defect；不得現場補規則、
-不得把它映成最接近的 verdict、不得開新 seeds。後續只能版本化修訂並使用 fresh streams。
+`PROTOCOL-INVALID` 並立即停止，同時以獨立 reason code 記錄 `PREREGISTRATION-UNSPECIFIED`
+specification-level defect。不得現場補規則、不得映成其他 scientific verdict、不得開新 seeds；
+所有已 claim／生成的 seeds 永久 burned。後續只能版本化修訂並使用 fresh streams。
 
 ---
 
@@ -261,7 +270,7 @@ instance 內補樣本、續跑、不改檔重跑或把 `INCONCLUSIVE` 改記為 
 | provisional E1／E2／E3／E4 scientific criterion 看似失敗，但 §3 certification 未 clean | 依 staged adjudication 記 `INCONCLUSIVE`；provisional scientific result 不得承重或覆蓋 certification failure |
 | E2 只有一個 target-null arm 通過 | 該 selector split `FAIL` |
 | E3 只有部分 planted alternatives通過 | 該 selector split `FAIL`；不得只報成功類別 |
-| global sector swap 在 well-defined computation 中超出 frozen agreement bound | 該 selector split `FAIL`；若差異來自 schema／stored-field recomputation mismatch 才是 `PROTOCOL-INVALID` |
+| global sector swap 在 well-defined computation 中不是逐位元完全相等 | 該 selector split `FAIL`；不得套用 E4 agreement tolerance；若差異來自 schema／stored-field recomputation mismatch 才是 `PROTOCOL-INVALID` |
 | proposed active wrong-support 在 pre-execution Gate O 落入 correct $G$-orbit | `DIRECTION-GAUGE` control status；prereg 維持 incomplete、不得生成 E3 seeds，也不得硬設 discrimination claim |
 | Gate O 通過但 Gate E 不分離 | 該 evaluator/control pairing `FAIL`；不得推論所有方向 evaluator no-go |
 | E4 pairing不存在或 regulator／boundary limit不收斂 | 該 selector split `FAIL`；若只因預登記 numerical resource cap 無法裁決才是 `INCONCLUSIVE` |
@@ -271,7 +280,7 @@ instance 內補樣本、續跑、不改檔重跑或把 `INCONCLUSIVE` 改記為 
 | selection／confirmation `INCONCLUSIVE` | 目前 protocol instance 永久停止；只有 §6.3 的 fresh successor protocol 路徑，不得直接續測 |
 | 多個 member 看似會通過 | first confirmation PASS 即停；後續 member 保持未觀察，禁止 argmax |
 | 全部 member無 confirmation PASS | `BOUNDED-SEARCH-EXHAUSTED`，只限 closed family 11 |
-| 出現本表未涵蓋 case | `PREREGISTRATION-UNSPECIFIED` 並停止 |
+| 出現本表未涵蓋 case | `PROTOCOL-INVALID` 並停止；另記 `PREREGISTRATION-UNSPECIFIED` specification-defect reason code |
 
 任何 PASS 都只對 1+1D evaluator／selector contract 有效；不證明 order-only $K$ 存在、不等於
 Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
