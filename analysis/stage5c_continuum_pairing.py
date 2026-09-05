@@ -21,8 +21,10 @@ from scipy import integrate
 
 COORDINATE_ORDER = ("u_x", "v_x", "u_y", "v_y")
 SPIN_FRAME_ORDER = ("U/R", "V/L")
-PRESCRIPTION_ID = "stage5c-6a-e-typed-pairing-v0.1"
+PRESCRIPTION_ID = "stage5c-6a-e-typed-pairing-v0.2"
 BOUNDARY_ID = "diamond-zero-incoming-no-reflection-zero-extension"
+BASIS_UNITARITY_ATOL = 64.0 * np.finfo(np.float64).eps
+BASIS_RCOND_MIN = 1.0 - BASIS_UNITARITY_ATOL
 
 TestDensity = Callable[[np.ndarray], np.ndarray | complex | float]
 
@@ -256,7 +258,14 @@ def pair_advanced_from_adjoint(
 
 
 def transform_global_basis(matrix: np.ndarray, basis: np.ndarray) -> np.ndarray:
-    """Apply the frozen mixed-index global similarity convention."""
+    """Apply the frozen global ``T^2 semidirect S_2`` similarity action.
+
+    This is not a general ``GL(2)`` coordinate-change helper.  The fixed-slot
+    gauge group consists exactly of unitary monomial matrices, whose reciprocal
+    2-norm condition number is one.  Enforcing that declared type before the
+    transform prevents an ill-conditioned matrix from being misrecorded as a
+    valid global basis operation.
+    """
 
     matrix = np.asarray(matrix, dtype=np.complex128)
     basis = np.asarray(basis, dtype=np.complex128)
@@ -264,6 +273,27 @@ def transform_global_basis(matrix: np.ndarray, basis: np.ndarray) -> np.ndarray:
         raise ValueError("matrix and basis must both have shape (2, 2)")
     if not np.all(np.isfinite(matrix)) or not np.all(np.isfinite(basis)):
         raise ValueError("matrix and basis must be finite")
-    if abs(np.linalg.det(basis)) == 0.0:
-        raise ValueError("basis must be invertible")
-    return basis @ matrix @ np.linalg.inv(basis)
+
+    # Exact zeros are part of the monomial basis schema, not a numerical
+    # singularity criterion: each row and column must contain exactly one slot.
+    support = basis != 0.0
+    if not np.array_equal(np.sum(support, axis=0), np.ones(2, dtype=int)):
+        raise ValueError("basis must have one nonzero slot in each column")
+    if not np.array_equal(np.sum(support, axis=1), np.ones(2, dtype=int)):
+        raise ValueError("basis must have one nonzero slot in each row")
+
+    gram = basis.conjugate().T @ basis
+    gram_scale = max(1.0, float(np.linalg.norm(basis, ord=2) ** 2))
+    gram_residual = float(np.linalg.norm(gram - np.eye(2), ord=2))
+    if gram_residual > BASIS_UNITARITY_ATOL * gram_scale:
+        raise ValueError("basis must be unitary within the frozen scale-aware bound")
+
+    condition = float(np.linalg.cond(basis, p=2))
+    reciprocal_condition = 1.0 / condition
+    if not np.isfinite(reciprocal_condition) or reciprocal_condition < BASIS_RCOND_MIN:
+        raise ValueError("basis reciprocal condition number is below the frozen bound")
+
+    transformed = basis @ matrix @ basis.conjugate().T
+    if not np.all(np.isfinite(transformed)):
+        raise ValueError("transformed matrix must be finite")
+    return transformed

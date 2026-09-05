@@ -14,7 +14,6 @@ from analysis.stage5c_continuum_pairing import (
     COORDINATE_ORDER,
     PRESCRIPTION_ID,
     SPIN_FRAME_ORDER,
-    adjoint_pullback_density,
     conformal_volume_density,
     legendre_mode_2,
     pair_advanced_from_adjoint,
@@ -31,6 +30,38 @@ from analysis.stage5c_measure_prereg import gaussian_mollifier_density
 
 def constant_density(points: np.ndarray) -> np.ndarray:
     return np.ones(np.asarray(points).shape[:-1], dtype=float)
+
+
+def _direct_advanced_gauss_legendre_oracle(
+    density, theta: float, *, order: int = 24
+) -> np.ndarray:
+    """Integrate the advanced support directly, without the adjoint pullback."""
+
+    nodes, weights = leggauss(order)
+    nodes = 0.5 * (nodes + 1.0)
+    weights = 0.5 * weights
+    a, s, transverse = np.meshgrid(nodes, nodes, nodes, indexing="ij")
+    wa, ws, wt = np.meshgrid(weights, weights, weights, indexing="ij")
+    cube_weight = wa * ws * wt
+
+    def direct_entry(points: np.ndarray) -> complex:
+        px = conformal_volume_density(points[..., 0], points[..., 1], theta)
+        py = conformal_volume_density(points[..., 2], points[..., 3], theta)
+        biweight = np.asarray(px * py, dtype=float) ** -0.25
+        values = np.asarray(density(points), dtype=np.complex128)
+        return np.sum(cube_weight * a * biweight * values)
+
+    # Advanced R support: u_y >= u_x and v_y = v_x.  Advanced L support:
+    # v_y >= v_x and u_y = u_x.  These parameterizations are constructed
+    # directly and never call the production retarded or pullback paths.
+    right_points = np.stack((a * s, transverse, a, transverse), axis=-1)
+    left_points = np.stack((transverse, a * s, transverse, a), axis=-1)
+    return np.diag(
+        np.asarray(
+            [direct_entry(right_points), direct_entry(left_points)],
+            dtype=np.complex128,
+        )
+    )
 
 
 def test_result_records_the_complete_typed_contract():
@@ -68,15 +99,17 @@ def test_flat_constant_density_has_exact_characteristic_volume(implementation):
 
 
 @pytest.mark.parametrize(
-    ("coordinate", "expected"),
+    ("density", "expected"),
     (
-        (0, np.diag([1.0 / 3.0, 1.0 / 4.0])),
-        (1, np.diag([1.0 / 4.0, 1.0 / 3.0])),
+        (lambda points: np.asarray(points)[..., 0], np.diag([1.0 / 3.0, 1.0 / 4.0])),
+        (lambda points: np.asarray(points)[..., 2], np.diag([1.0 / 6.0, 1.0 / 4.0])),
+        (
+            lambda points: np.asarray(points)[..., 0] * np.asarray(points)[..., 2],
+            np.diag([1.0 / 8.0, 1.0 / 6.0]),
+        ),
     ),
 )
-def test_flat_polynomial_mapping_has_analytic_value(coordinate, expected):
-    def density(points: np.ndarray) -> np.ndarray:
-        return np.asarray(points)[..., coordinate]
+def test_flat_polynomial_mapping_has_analytic_value(density, expected):
 
     fixed = pair_retarded_gauss_legendre(density, 0.0, order=4).matrix
     adaptive = pair_retarded_adaptive(density, 0.0).matrix
@@ -164,17 +197,22 @@ def test_right_inverse_uses_zero_incoming_boundary_and_removes_zero_modes():
     assert reconstructed_left == pytest.approx(v_x * (1.0 + u_x), abs=2.0e-14)
 
 
-def test_advanced_pairing_is_the_frozen_retarded_adjoint():
+@pytest.mark.parametrize("theta", (0.0, -0.4, 0.4, 1.1))
+def test_advanced_pairing_matches_direct_advanced_support_oracle(theta):
     def density(points: np.ndarray) -> np.ndarray:
         points = np.asarray(points)
-        return (1.0 + points[..., 0] + 3.0 * points[..., 3]) * (1.0 + 0.4j)
+        return (
+            1.0
+            + points[..., 0]
+            + 2.0 * points[..., 1]
+            + 3.0 * points[..., 3]
+        ) * (1.0 + 0.4j)
 
-    advanced = pair_advanced_from_adjoint(density, 0.25, order=18).matrix
-    pulled = adjoint_pullback_density(density)
-    expected = np.conjugate(
-        pair_retarded_gauss_legendre(pulled, 0.25, order=18).matrix
-    ).T
-    assert np.allclose(advanced, expected, atol=0.0, rtol=0.0)
+    advanced = pair_advanced_from_adjoint(density, theta, order=24).matrix
+    direct = _direct_advanced_gauss_legendre_oracle(density, theta, order=24)
+    retarded = pair_retarded_gauss_legendre(density, theta, order=24).matrix
+    assert np.allclose(advanced, direct, atol=2.0e-13, rtol=2.0e-13)
+    assert np.linalg.norm(advanced - retarded) > 0.1
 
 
 def test_global_phase_and_sector_swap_follow_similarity_convention():
@@ -187,6 +225,16 @@ def test_global_phase_and_sector_swap_follow_similarity_convention():
     assert np.allclose(
         transform_global_basis(matrix, swap), matrix[::-1, ::-1], atol=0.0
     )
+
+
+def test_global_basis_rejects_non_group_and_ill_conditioned_matrices():
+    matrix = np.asarray([[1.0, 2.0j], [-3.0j, 4.0]], dtype=np.complex128)
+    with pytest.raises(ValueError):
+        transform_global_basis(matrix, np.asarray([[1.0, 1.0], [1.0, 1.0 + 1e-8]]))
+    with pytest.raises(ValueError):
+        transform_global_basis(matrix, np.asarray([[1.0, 1.0], [1.0, -1.0]]) / np.sqrt(2.0))
+    with pytest.raises(ValueError):
+        transform_global_basis(matrix, np.diag([1.0, 2.0]))
 
 
 def test_two_implementations_agree_on_planted_fixed_gaussian_measure():

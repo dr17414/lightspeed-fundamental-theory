@@ -1,6 +1,6 @@
 # Stage 5C 6a-E closure item 1 — typed continuum pairing
 
-狀態：**【提案／v0.1；REVIEW-PENDING】**。本文件只交付
+狀態：**【提案／v0.2；REVIEW-PENDING】**。本文件只交付
 `STAGE5C_6A_E_PREREGISTRATION_DRAFT.md` closure item 1 的 candidate-independent
 型別、公式與兩個實作；在獨立 review、CI 與 merge 前不得標為 `CLOSED`。
 
@@ -219,6 +219,11 @@ $$
 對 $B\in G$，先被動搬動 kernel 再 pairing 給
 $M\mapsto BMB^{-1}$；因此後續才可把同一個已選定的 $\mathfrak I_G$ 作用在 $M$ 上。
 本文與 executable module 刻意不 import／呼叫 $\mathfrak I_G$。
+executable 的 `transform_global_basis` 只接受 $G=T^2\rtimes S_2$ 的 unitary monomial
+matrix，不是一般 $GL(2)$ 工具：monomial slot pattern 是型別條件，unitarity residual 以
+matrix norm 做 scale mapping，另要求 2-norm reciprocal condition number 通過由 unitary
+群結構導出的 frozen bound；輸出亦須 finite。不得用裸的 `det == 0` 把病態 basis 當成
+合法 gauge operation。
 
 ---
 
@@ -232,14 +237,21 @@ source-of-record 是 `analysis/stage5c_continuum_pairing.py`：
    Genz–Malik cubature 求積；不使用第一個實作的 Gauss–Legendre nodes／weights／accumulator，
    未達 caller 要求的 error target 時 fail closed。
 
-兩者共用的只有本文件的 $p_\theta$ 與 public input validation；兩條積分路徑彼此不呼叫。
+兩條積分路徑彼此不呼叫，但它們刻意共用本文件唯一允許的 characteristic geometry、
+unit-cube parameterization、triangle Jacobian $a$、boundary prescription、conformal biweight
+與 density validation。因此 implementation agreement **只認證 quadrature／accumulation**；
+它不獨立認證上述共用幾何、Jacobian、support、boundary 或 biweight。那些共用部分必須由
+與兩路 agreement 分離的解析／planted regressions 錨定，item 3 與 item 7 不得把 agreement
+bound 單獨升格為整個 continuum mapping 的 certification。
+
 `tests/test_stage5c_continuum_pairing.py` 固定下列 mapping regressions：
 
-- flat constant與低階 polynomial density 的解析值；
+- flat constant、$u_x$、$u_y$ 與 $u_xu_y$ density 的封閉解析值，獨立錨定
+  characteristic domain 與 Jacobian；
 - 與既有 `stage5c_hard_controls.py` 的 $q,p_\theta$ 定義逐位元 mapping；
 - $p_\theta^{-1/4}(x)p_\theta^{-1/4}(y)$ curved／flat reweighting identity；
 - retarded／acausal support與 incoming-boundary convention；
-- retarded-adjoint等於 advanced prescription；
+- 直接在 advanced support 上另行參數化的積分 oracle，對照 retarded-adjoint 實作；
 - global phase與 sector-swap covariance；
 - 對 candidate-independent planted Gaussian measure，兩個獨立實作互相吻合。
 
