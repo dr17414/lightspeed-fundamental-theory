@@ -1,8 +1,8 @@
 # Stage 5C — smearing／normalization／6a-S numerical preregistration
 
 狀態：**【原 preregistration 已交付；首次 plus arm `PROTOCOL-INVALID`；Amendment-001 與
-DEV-0012／0013／0014 已合併；replacement categorical combine 為 11/11 `6a-S PASS`；
-DEV-0015 待獨立複核／合併，6a-E preregistration 尚未凍結】**。
+DEV-0012／0013／0014／0015 已合併；replacement categorical combine 為 11/11
+`6a-S PASS` 且 6a-S 已封存；6a-E review draft 為 `PREREGISTRATION-INCOMPLETE`】**。
 
 本文件固定 C8 intrinsic selector family 的 smearing、normalization、同 target measure
 metric、數值門檻、樣本格、seed manifest 與 failure semantics。它不執行 6a-S、不讀
