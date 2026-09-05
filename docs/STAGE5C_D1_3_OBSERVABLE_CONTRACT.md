@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.12 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 的結構形式已交付；C8 smearing／normalization／6a-S numerical prereg 已交付但尚未執行。6a-E、active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
+狀態：**【提案／v0.13 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 為 `REVIEW-PENDING`，items 2–10 仍 `OPEN`；active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -59,6 +59,10 @@ derivation chain 延後至 Freeze-1b／Freeze-2b。因此：
 - **Green-function prescription**：**retarded**。$G_R$ 的 left／right inverse 或明定
   composition/contact law、domain、zero modes 與 diamond 上的零過去資料須寫入 dossier；
   只驗 $\mathcal K G_R=\mathbb 1$ 的單側有限矩陣等式不足。
+- **6a-E typed continuum representative**：
+  `STAGE5C_6A_E_TYPED_PAIRING.md` 現以 `REVIEW-PENDING` 狀態具體固定 propagation
+  representation 的 $S_\theta$、left／right inverse domain、adjoint、global spin-frame
+  identification與 diamond boundary。獨立 review／merge前這仍不是 freeze，也不授權 endpoint。
 - **Bi-spinor 型別**：$G_R(x,y)$ 在 $x$ 帶一個 fiber index、在 $y$ 帶一個 co-fiber index；
   兩者的變換律由 §1.4 的 pairing 決定，**不得**當成兩個獨立純量權重相乘。
 
@@ -282,8 +286,8 @@ protocol amendment。
 `docs/STAGE5C_6A_S_PREREGISTRATION.md` 另固定這 11 點共同使用的 C8 numerical layer：
 $\varphi=1$、$\mathcal N_C=|\Sigma(C)|$、$\epsilon=1/16$ 的 linear Gaussian regulator、
 40 維 complex（80 維 real）nonredundant Fourier signature、同 target block distances、S1/S5/S6 門檻、
-$N=64,96,128$、4 blocks × 64 causets 與專屬 seed manifest。該文件尚未執行，且不固定
-6a-E／C6／C7；不得把 preregistration 寫成 6a-S PASS 或 D.1 第 3 項完成。
+$N=64,96,128$、4 blocks × 64 causets 與專屬 seed manifest。其後 6a-S 已依 frozen runner
+執行並封存為 11/11 PASS，但仍不固定 6a-E／C6／C7；不得把 6a-S PASS 寫成 D.1 第 3 項完成。
 
 ### 3.5 選取規則：first-past-the-post，不得 argmax〔反擬合〕
 
@@ -616,8 +620,9 @@ residual-power 前提必須依 §6 重新建立。
 
 - $\mathcal F_\Sigma$ 的具體 11 點已由 selector-family 文件固定；仍未固定的是其 6a-E
   sequential selection／confirmation outcome 與最終單一採用 member；
-- §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付，仍須把
-  global fiber trivialization、reality／adjoint 與 endpoint 寫成單一 frozen typed contract；
+- §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付；
+  global fiber trivialization、adjoint與 continuum $S_\theta$ 已有 item-1 `REVIEW-PENDING`
+  typed contract，但仍須通過獨立 review／merge，且完整 endpoint freeze 尚未完成；
 - C8 的 $\varphi$、$\mathcal N$、fixed-scale regulator、6a-S metric／門檻已交付；仍未固定
   C6/C7 instances、二維 endpoint 的 6a-E joint-law metric／只供報告使用的 scalar aggregation；
 - C8 的 finite-$N$ 6a-S law 已預登記；仍未固定 $\Pi_{\mathcal M}$ 的 6a-E joint matched law、
