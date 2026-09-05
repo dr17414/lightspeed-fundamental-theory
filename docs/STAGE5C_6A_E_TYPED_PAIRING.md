@@ -1,8 +1,8 @@
 # Stage 5C 6a-E closure item 1 — typed continuum pairing
 
-狀態：**【提案／v0.2；REVIEW-PENDING】**。本文件只交付
+狀態：**【已確認之 candidate-independent 交付物／v0.2；CLOSED】**。本文件只交付
 `STAGE5C_6A_E_PREREGISTRATION_DRAFT.md` closure item 1 的 candidate-independent
-型別、公式與兩個實作；在獨立 review、CI 與 merge 前不得標為 `CLOSED`。
+型別、公式與兩個實作；PR #22 已經兩輪獨立 code review、CI 並合併為 `1acd1771`。
 
 範圍：1+1D evaluator-side continuum oracle。本文不設計候選 $K$，不讀 6a-S arm
 numerical ledger，不生成 6a-E seed，也不形成 $\mathfrak I_G$ 或任何 E1–E5 endpoint。
@@ -257,15 +257,15 @@ bound 單獨升格為整個 continuum mapping 的 certification。
 
 這些 tests 只驗 mapping／型別與 planted numerics。它們不固定 E4 的 quadrature order、
 validated error bound、implementation-agreement acceptance threshold、contact／boundary leakage
-threshold或 resource cap；上述仍分屬 closure items 3 與 7。故本 PR 即使通過，也不授權
+threshold或 resource cap；上述仍分屬 closure items 3 與 7。故本交付物即使 `CLOSED`，也不授權
 形成 arm endpoint。
 
 ---
 
 ## 6. Closure 邊界
 
-item 1 只有在本文件、兩個 implementations、mapping tests、CI、獨立 review 與 merge全數
-完成後才可由 `REVIEW-PENDING` 改成 `CLOSED`。下列項目明確仍未交付：
+item 1 的本文件、兩個 implementations、mapping tests、CI、兩輪獨立 code review 與 merge
+已由 PR #22／`1acd1771` 全數完成，故狀態為 `CLOSED`。下列項目明確仍未交付：
 
 - $\Pi_{\mathcal M}$ joint matched law（item 2）；
 - near-zero／ratio certification（item 3）；

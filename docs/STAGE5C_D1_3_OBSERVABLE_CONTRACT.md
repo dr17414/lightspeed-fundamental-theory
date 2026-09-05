@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.13 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 為 `REVIEW-PENDING`，items 2–10 仍 `OPEN`；active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
+狀態：**【提案／v0.13 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 已於 PR #22 獨立複核並合併，狀態為 `CLOSED`；items 2–10 仍 `OPEN`，item 11 仍 `DRAFT`。active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
