@@ -215,7 +215,8 @@ well-posedness acceptance criterion 未達」（certified computation 下為 `FA
 - `FAIL`：run well-defined、custody clean 且 numerical certification clean，但任一預登記
   scientific effect／equivalence／planted／well-posedness acceptance criterion 未達；
 - `INCONCLUSIVE`：只限 certification stage 已預登記的資源、cohort、non-finite backend、
-  validated numerical error、near-zero 或 implementation-agreement failure；不得拿來遮蔽
+  validated numerical error、near-zero、implementation-agreement failure 或 global-swap
+  exact-relabel／operation-trace certification failure（含 `SWAP-NUMERICS-UNCERTIFIED`）；不得拿來遮蔽
   certification-clean computation 的 statistical boundary miss；
 - `PROTOCOL-INVALID`：任何 leakage、未登記 metadata／branch、schema mismatch、重用／早生
   seed、錯序、runtime／digest mismatch、開啟 6a-S numerical ledger、未凍結欄位被求值，
