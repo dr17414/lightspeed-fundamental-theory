@@ -110,6 +110,9 @@ prereg 必須固定一個**尺度穩健**的 nontriviality contract，而不是�
 5. ratio uncertainty 如何傳播到兩個 endpoint components 與 joint region；
 6. exact zero、certified nonzero、uncertainty interval跨零、non-finite output 四種 case 的判決；
 7. equality-at-boundary 的開／閉區間 convention。
+8. candidate-independent planted feasibility suite：在不讀任何 arm ledger、也不以結果調整常數的
+   前提下，以 intended matrix scale、pair-count／accumulation scale 與 condition-number range
+   端到端證明正常 case 可通過 certification，並證明每個已登記 failure mode 會 fail closed。
 
 ### 3.2 不得預設的 default
 
@@ -172,20 +175,42 @@ threshold、同一 member parameter 與 fresh data 獨立重跑全部承重 gate
 以下 state machine 是本 draft 提議交付給獨立 review 的唯一 lifecycle。最終 prereg 若修改
 任何一列，必須在第一次 6a-E seed 生成前完成 review／merge。
 
-### 6.1 Member-level gate aggregation
+### 6.1 Member-level staged adjudication
 
-每個 split 對一個 selector 只產生一個 verdict，precedence 為：
+每個 split 對一個 selector 只產生一個 verdict，但**不得**把未經 numerical certification 的
+provisional scientific result 與正式 scientific gate 作線性 precedence 聚合。唯一合法順序是：
 
-`PROTOCOL-INVALID > FAIL > INCONCLUSIVE > PASS`，沿用已凍結 6a-S 的保守聚合順序；一個
-well-defined scientific failure 不會被同一 split 的次要 resource shortfall 隱藏。
+1. **Custody／schema stage**：先檢查 leakage、metadata、schema、seed lifecycle、執行順序、
+   runtime、protocol digest 與禁止資料來源。任一違反立即為 `PROTOCOL-INVALID`，後續數值
+   不得承重；
+2. **Certification precondition stage**：只有 custody clean 才檢查 §3 的 near-zero predicate、
+   finite backend、validated numerical error、independent-implementation agreement 與事前資源／
+   cohort floor。任一項未能認證即為 `INCONCLUSIVE`，不得再以同一 split 的 provisional E1–E4
+   boundary miss 覆蓋成 `FAIL`；
+3. **Scientific stage**：只有 certification `CLEAN` 才評估 E1–E4 acceptance criteria與明定的
+   E5 power requirements。任一 scientific criterion 未達即為 `FAIL`；全部通過才為 `PASS`。
 
-- `PASS`：E1–E4 與適用的 E5-D／E5-E 全部通過；
-- `FAIL`：run well-defined 且 numerical certification clean，但任一預登記 scientific
-  effect／equivalence／planted／well-posedness acceptance criterion 未達；
-- `INCONCLUSIVE`：只有預登記的資源、cohort、non-finite backend、validated numerical error
-  或 implementation-agreement failure；不得拿來遮蔽 statistical boundary miss；
+因此可執行 adjudicator 必須實作上述 staged short-circuit，而不是對四個 verdict 直接取
+`PROTOCOL-INVALID > FAIL > INCONCLUSIVE > PASS` 的最大值。`PROTOCOL-INVALID` 仍是全域最高
+precedence；certification clean 之後，scientific `FAIL > PASS`。E4 內必須把「數學／分布
+well-posedness acceptance criterion 未達」（certified computation 下為 `FAIL`）與「數值管線
+無法認證該 criterion」（`INCONCLUSIVE`）分成不同 typed fields 與 reason codes。
+
+- `PASS`：E1–E4 全部通過；E1 與每一個 E3 discrimination claim 的 E5-D 全部通過；E2 的
+  $T_+$ null arm 與 $T_-$ null arm 各自通過 E5-E；
+- `FAIL`：run well-defined、custody clean 且 numerical certification clean，但任一預登記
+  scientific effect／equivalence／planted／well-posedness acceptance criterion 未達；
+- `INCONCLUSIVE`：只限 certification stage 已預登記的資源、cohort、non-finite backend、
+  validated numerical error、near-zero 或 implementation-agreement failure；不得拿來遮蔽
+  certification-clean computation 的 statistical boundary miss；
 - `PROTOCOL-INVALID`：任何 leakage、未登記 metadata／branch、schema mismatch、重用／早生
-  seed、錯序、runtime／digest mismatch、開啟 6a-S numerical ledger或未凍結欄位被求值。
+  seed、錯序、runtime／digest mismatch、開啟 6a-S numerical ledger、未凍結欄位被求值，
+  或執行中斷後 ledger 不完整／沒有 terminal verdict。
+
+E4 不另套 detection／equivalence power label；它由已凍結的數學 existence／convergence criterion
+與 numerical proof obligation 承重。global swap arm 依已凍結的 exact／agreement criterion
+裁決，不得由執行者臨時替它選 E5-D 或 E5-E。以上 applicability 對所有 member／split 固定，
+沒有 per-member discretion。
 
 ### 6.2 Split／member transition
 
@@ -201,7 +226,25 @@ well-defined scientific failure 不會被同一 split 的次要 resource shortfa
 | member $j$ confirmation | `PROTOCOL-INVALID` | 全 protocol 停止；不得重跑同一 streams |
 | member 11 結束仍無 confirmation PASS | — | 記 `BOUNDED-SEARCH-EXHAUSTED`；不是 no-go，也不是 selector gate `FAIL` |
 
-### 6.3 未涵蓋狀況
+表中的「全 protocol 停止」均指**目前這一個已登記 protocol instance 永久終止**；不得在原
+instance 內補樣本、續跑、不改檔重跑或把 `INCONCLUSIVE` 改記為 `FAIL` 以解鎖下一 member。
+
+### 6.3 中斷、INCONCLUSIVE 與後繼 protocol
+
+- 任一 selection／confirmation 在建立 execution ledger 後 crash、被 kill、磁碟寫入失敗、
+  hash chain／terminal record 不完整或無法產生唯一 terminal verdict，均記
+  `PROTOCOL-INVALID`；所有已 claim／生成的 seeds 永久 burned，目前 protocol instance 停止，
+  不得 resume 或以同一 streams retry；
+- `INCONCLUSIVE` 同樣永久終止目前 protocol instance，且不授權任何後續 member；
+- 中斷或 `INCONCLUSIVE` 後若仍要研究，只能先提交具名、版本化的 successor protocol／amendment，
+  經獨立 review、CI 與 merge 後使用全新 disjoint streams。amendment 必須在新 seed 生成前固定
+  中斷原因、resource／backend／certification 修法與新的 lifecycle；
+- 舊 instance 的 endpoint、effect、region、pair-count 或其他 scientific numerical output
+  永久不得用來選 threshold、effect floor、equivalence margin、power model、member 順序、
+  successor claim 或候選設計。只容許 custody／operational root-cause facts承擔說明為何需要
+  successor；不得藉 root-cause 名義重判舊 scientific result。
+
+### 6.4 未涵蓋狀況
 
 若 runtime 出現本表沒有唯一下一步的狀況，記
 `PREREGISTRATION-UNSPECIFIED` 並立即停止。這是 specification-level defect；不得現場補規則、
@@ -215,6 +258,7 @@ well-defined scientific failure 不會被同一 split 的次要 resource shortfa
 | :--- | :--- |
 | E1 effect 為 null／方向相反／未達 joint floor | 該 selector split `FAIL`；不得稱 target 或 family 失敗 |
 | E1 confidence region只碰到或跨過 effect boundary | 依最終固定的開／閉 convention機械判定；不得稱 numerical `INCONCLUSIVE` |
+| provisional E1／E2／E3／E4 scientific criterion 看似失敗，但 §3 certification 未 clean | 依 staged adjudication 記 `INCONCLUSIVE`；provisional scientific result 不得承重或覆蓋 certification failure |
 | E2 只有一個 target-null arm 通過 | 該 selector split `FAIL` |
 | E3 只有部分 planted alternatives通過 | 該 selector split `FAIL`；不得只報成功類別 |
 | global sector swap 在 well-defined computation 中超出 frozen agreement bound | 該 selector split `FAIL`；若差異來自 schema／stored-field recomputation mismatch 才是 `PROTOCOL-INVALID` |
@@ -222,7 +266,9 @@ well-defined scientific failure 不會被同一 split 的次要 resource shortfa
 | Gate O 通過但 Gate E 不分離 | 該 evaluator/control pairing `FAIL`；不得推論所有方向 evaluator no-go |
 | E4 pairing不存在或 regulator／boundary limit不收斂 | 該 selector split `FAIL`；若只因預登記 numerical resource cap 無法裁決才是 `INCONCLUSIVE` |
 | cohort 未達事前 power floor | `INCONCLUSIVE`；不得補樣本或借用其他 member／split |
+| execution 中斷、ledger／hash chain 不完整或沒有 terminal verdict | `PROTOCOL-INVALID`；已 claim／生成 seeds burned；依 §6.3 停止，不得 resume／retry |
 | selection PASS、confirmation FAIL | 依 §6 續測下一 member；該成員不 viable，selection estimate 不承重 |
+| selection／confirmation `INCONCLUSIVE` | 目前 protocol instance 永久停止；只有 §6.3 的 fresh successor protocol 路徑，不得直接續測 |
 | 多個 member 看似會通過 | first confirmation PASS 即停；後續 member 保持未觀察，禁止 argmax |
 | 全部 member無 confirmation PASS | `BOUNDED-SEARCH-EXHAUSTED`，只限 closed family 11 |
 | 出現本表未涵蓋 case | `PREREGISTRATION-UNSPECIFIED` 並停止 |
@@ -241,14 +287,14 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | :---: | :--- | :--- | :---: |
 | 1 | typed $S_\theta$／pairing／adjoint／boundary prescription | 文件＋兩個 independent implementations＋mapping tests | `OPEN` |
 | 2 | $\Pi_{\mathcal M}$ joint matched law | generator／matcher source-of-record＋paired covariance schema | `OPEN` |
-| 3 | near-zero／ratio numerical certification | scale-aware formula＋error propagation＋boundary tests | `OPEN` |
+| 3 | near-zero／ratio numerical certification | scale-aware formula＋error propagation＋boundary tests＋candidate-independent planted feasibility／failure suite | `OPEN` |
 | 4 | E1 joint contrast | estimand／2D region／effect floor／uncertainty | `OPEN` |
 | 5 | E2 null equivalence | two null generators／region／TOST／cohort floor | `OPEN` |
 | 6 | E3 planted family | complete domains＋active wrong-support Gate O/E＋swap arm | `OPEN` |
 | 7 | E4 well-posedness | fixed-scale sequence／contact／boundary／agreement criteria | `OPEN` |
 | 8 | E5-D／E5-E multiplicity與 power | complete claim family＋spending＋power audit | `OPEN` |
 | 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋non-recycling | `OPEN` |
-| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋end-to-end dress test | `OPEN` |
+| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋end-to-end dress test＋committed predecessor-ledger prerequisite chain | `OPEN` |
 | 11 | exhaustive decision table | §6–§7 與 runner state machine逐列一致 | `DRAFT` |
 | 12 | independent review／CI／merge | review record＋green CI＋main commit | `OPEN` |
 
@@ -261,9 +307,17 @@ Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistra
 
 1. 先由獨立 review 檢查本 draft 是否完整捕捉既有 hard constraints，尤其 §6–§7 是否仍有
    未列出的分支；
-2. 分別交付 typed continuum pairing／active wrong-support／E4 numerical certification；
+2. 分別交付 typed continuum pairing／active wrong-support／E4 numerical certification；certification
+   同時須以 candidate-independent planted cases 在 intended scale 完成可通過性與 fail-closed
+   feasibility demonstration，不得用 arm data 選常數；
 3. 在前述 objects 全部固定後，才作不讀 arm data 的 power／multiplicity preregistration；
-4. 再凍結 runner、ledger、adjudicator與一次性 fresh lifecycle；
+4. 再凍結 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
+   或呼叫 generator **之前**，必須驗證上一個已完成 operation 的 committed／registered ledger
+   snapshot、SHA-256、terminal adjudication、protocol digest、runtime 與 transition authorization：
+   genesis 只授權 member 1 selection；selection `PASS` 只授權同 member confirmation；selection
+   `FAIL` 或 confirmation `FAIL` 只授權下一 member selection；confirmation `PASS`、任何
+   `INCONCLUSIVE` 或 `PROTOCOL-INVALID` 均不授權後繼。member $j+1$ 不得與 $j$ 並行，也不得
+   在 predecessor registry／attestation commit 前啟動；
 5. 全部 review／CI／merge 後，才可生成第一個 6a-E seed。
 
 本文件合併本身**不**讓上述任何一項從 PENDING 變為 DELIVERED，也不授權開啟現有 raw
