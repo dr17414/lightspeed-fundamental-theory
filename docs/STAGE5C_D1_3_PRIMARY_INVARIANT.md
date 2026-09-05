@@ -99,6 +99,14 @@ $B\in G$ 滿足
 
 $$\mathfrak I_G(BMB^\dagger)=\mathfrak I_G(M).$$
 
+對 global sector swap 的逐位元 scientific gate，source-of-record 另固定
+`stage5c-primary-endpoint-canonical-v0.1` operation trace：Frobenius norm 的四個 terms 先按
+complex binary64 bit key 排序再作 `fsum`；$(a,d)$ 與 $(b,c)$ 各自 canonical ordering，且
+$|W|=|b||c|$。因此 $M\mapsto\sigma_xM\sigma_x$ 只排列同一組 operands，不改變 reduction、
+subtraction 或 multiplication order。完整 exact-relabel certification 與 failure semantics 見
+`STAGE5C_6A_E_CERTIFICATION.md`；不能證成相同 trace 時不得以 tolerance 補救或記 scientific
+`FAIL`。
+
 $Q,S,|W|,N^2$ 在 $M\mapsto tM$ 下全部為二次齊次，所以兩分量統一除以 $N^2$ 後
 尺度不變。這也修掉原三向量必須混用 $N^2/N^4$ 的不必要型別複雜度；不是把四次量
 $|W|^2$ 錯除以 $N^2$，而是選擇同樣可用、二次的 $|W|$。
@@ -146,10 +154,10 @@ $\mathbb E[\mathfrak I_G(M_C)]\ne\mathfrak I_G(\mathbb E[M_C])$；兩邊不得�
 - 五類分離只對上表已登記的代數 planted families；不主張全軌道分離。
 - 第一分量的正／負號是 $Q$ 與 $|W|$ 相對大小的**記帳標記，不是物理傳播方向**；
   特別不得把正號命名成「chiral direction」或用它預判仍 PENDING 的 wrong-direction E3。
-- **wrong-direction control 仍未完成。** `docs/STAGE5C_E3_WRONG_DIRECTION.md` 已確認全域
+- **wrong-direction active control 為 `REVIEW-PENDING`。** `docs/STAGE5C_E3_WRONG_DIRECTION.md` 已確認全域
   sector swap 是 gauge invariance arm，並撤回「orbit 外即足以由本端點分離」的錯誤 `iff`；
-  active wrong-support control 仍需 typed selector／orientation／continuum mapping。本文件的
-  五類代數分離不能冒充 observable contract E3 已完整交付。
+  具名 typed active-support mapping與完整域 Gate O/E 現由 `STAGE5C_6A_E_CERTIFICATION.md`
+  交付待複核。本文件的五類代數分離仍不能冒充 scientific E3 PASS。
 - planted objects 是 evaluator-side L4 controls；其可分不蘊涵合規 order-only $K$ 存在。
 - 任一 scalar aggregation 只可在 Freeze-1a 事前固定後作報告 effect size；不得替代
   二維 law／逐分量 planted separation，也不得從候選結果選方向或權重。
@@ -168,4 +176,6 @@ $\mathbb E[\mathfrak I_G(M_C)]\ne\mathfrak I_G(\mathbb E[M_C])$；兩邊不得�
 `tests/test_stage5c_primary_invariant.py` 直接呼叫
 `analysis/stage5c_primary_invariant.py`，鎖住群不變性、尺度、sharp bounds、輸入型別、
 五類符號樣式、coordinate-deletion witnesses、holomorphic falsifiers 與原兩支 P1 的反例。
+另由 `tests/test_stage5c_numerical_certification.py` 以 10,000 個 fixed-seed finite matrices
+鎖住 sector-swap bitwise equality，不使用 agreement tolerance。
 命題 PI-1 的 universal lower bound 由解析證明承擔；測試不冒充 completeness proof。
