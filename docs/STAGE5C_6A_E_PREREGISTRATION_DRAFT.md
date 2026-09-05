@@ -321,7 +321,7 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 
 | # | Closure item | 必要交付物 | 狀態 |
 | :---: | :--- | :--- | :---: |
-| 1 | typed $S_\theta$／pairing／adjoint／boundary prescription | `STAGE5C_6A_E_TYPED_PAIRING.md`＋兩個 independent implementations＋mapping tests | `REVIEW-PENDING` |
+| 1 | typed $S_\theta$／pairing／adjoint／boundary prescription | `STAGE5C_6A_E_TYPED_PAIRING.md`＋兩個 independent implementations＋mapping tests | `CLOSED` |
 | 2 | $\Pi_{\mathcal M}$ joint matched law | generator／matcher source-of-record＋paired covariance schema | `OPEN` |
 | 3 | near-zero／ratio numerical certification | scale-aware formula＋error propagation＋boundary tests＋candidate-independent planted feasibility／failure suite | `OPEN` |
 | 4 | E1 joint contrast | estimand／2D region／effect floor／uncertainty | `OPEN` |
@@ -338,8 +338,9 @@ Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistra
 部分列，STATUS 必須逐列保留 `PENDING`，不得以百分比或「接近完成」暗示執行授權。
 item 11 依定義必須與 item 10 的實際 runner state machine 逐列比對；item 10 尚為 `OPEN` 時，
 item 11 必須維持 `DRAFT`，不得只憑文件表面完整而提前改為 `CLOSED`。
-item 1 的 `REVIEW-PENDING` 只表示具名 PR 交付物正在等獨立複核；在該 review、CI 與 merge
-完成前不等於 `CLOSED`，也不解除任何 execution firewall。
+item 1 已由 PR #22 交付，經兩輪獨立 code review、CI 與 merge commit `1acd1771` 完成，
+故可單獨記為 `CLOSED`。這不改變 closure rule：items 2–10 與 12 仍為 `OPEN`、item 11
+仍為 `DRAFT`，因而不解除任何 execution firewall。
 
 ---
 
