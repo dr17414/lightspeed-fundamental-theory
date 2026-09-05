@@ -184,16 +184,17 @@ threshold、同一 member parameter 與 fresh data 獨立重跑全部承重 gate
 
 ### 6.1 Member-level staged adjudication
 
-每個 split 對一個 selector 只產生一個 verdict，但**不得**把未經 numerical certification 的
-provisional scientific result 與正式 scientific gate 作線性 precedence 聚合。唯一合法順序是：
+每個 split 對一個 selector 只產生一個 verdict，而且 scientific quantities 的形成本身受
+numerical certification gate 約束；不得採「全部計算完再 adjudicate」的流程。唯一合法順序是：
 
 1. **Custody／schema stage**：先檢查 leakage、metadata、schema、seed lifecycle、執行順序、
    runtime、protocol digest 與禁止資料來源。任一違反立即為 `PROTOCOL-INVALID`，後續數值
    不得承重；
 2. **Certification precondition stage**：只有 custody clean 才檢查 §3 的 near-zero predicate、
    finite backend、validated numerical error、independent-implementation agreement 與事前資源／
-   cohort floor。任一項未能認證即為 `INCONCLUSIVE`，不得再以同一 split 的 provisional E1–E4
-   boundary miss 覆蓋成 `FAIL`；
+   cohort floor。任一項未能認證即為 `INCONCLUSIVE`；必須在形成 $\mathfrak I_G$ ratio、endpoint
+   law、effect、region 或任何 E1–E4 scientific comparison **之前** short-circuit，scientific
+   gates 保持 `NOT-EVALUATED`，不得在 ledger 寫入或向操作者顯示任何 scientific output；
 3. **Scientific stage**：只有 certification `CLEAN` 才評估 E1–E4 acceptance criteria與明定的
    E5 power requirements。任一 scientific criterion 未達即為 `FAIL`；全部通過才為 `PASS`。
 
@@ -225,11 +226,13 @@ E5-D 或 E5-E。以上 applicability 對所有 member／split 固定，
 | 目前狀態 | 結果 | 唯一下一步 |
 | :--- | :--- | :--- |
 | member $j$ selection | `PASS` | 鎖定同一 member；啟動其 fresh confirmation；不得先看 member $j+1$ |
-| member $j$ selection | `FAIL` | burn selection data；按原始順序進 member $j+1$ |
+| member $j<11$ selection | `FAIL` | burn selection data；按原始順序進 member $j+1$ |
+| member 11 selection | `FAIL` | burn selection data；不授權後繼，記 `BOUNDED-SEARCH-EXHAUSTED` |
 | member $j$ selection | `INCONCLUSIVE` | 全 protocol 停止並記 `INCONCLUSIVE`；不得跳過 unresolved earlier member |
 | member $j$ selection | `PROTOCOL-INVALID` | 全 protocol 停止；修規格須 fresh protocol／fresh streams |
 | member $j$ confirmation | `PASS` | 記 `SELECTOR-VIABLE`，採用 member $j$，停止；永不評測後續 member |
-| member $j$ confirmation | `FAIL` | burn selection＋confirmation；按原始順序進 member $j+1$，不得引用 selection estimate解釋 |
+| member $j<11$ confirmation | `FAIL` | burn selection＋confirmation；按原始順序進 member $j+1$，不得引用 selection estimate解釋 |
+| member 11 confirmation | `FAIL` | burn selection＋confirmation；不授權後繼，記 `BOUNDED-SEARCH-EXHAUSTED` |
 | member $j$ confirmation | `INCONCLUSIVE` | 全 protocol 停止並記 `INCONCLUSIVE`；不得改把 member $j$ 當 FAIL 以便續跑 |
 | member $j$ confirmation | `PROTOCOL-INVALID` | 全 protocol 停止；不得重跑同一 streams |
 | member 11 結束仍無 confirmation PASS | — | 記 `BOUNDED-SEARCH-EXHAUSTED`；不是 no-go，也不是 selector gate `FAIL` |
@@ -247,6 +250,19 @@ instance 內補樣本、續跑、不改檔重跑或把 `INCONCLUSIVE` 改記為 
 - 中斷或 `INCONCLUSIVE` 後若仍要研究，只能先提交具名、版本化的 successor protocol／amendment，
   經獨立 review、CI 與 merge 後使用全新 disjoint streams。amendment 必須在新 seed 生成前固定
   中斷原因、resource／backend／certification 修法與新的 lifecycle；
+- successor 不從 member 1 任意重置，也不直接跳到下一 member；它從 protocol lineage 中**最早
+  未解決的 operation** 重新開始：selection 未完成／`INCONCLUSIVE` 時回到同 member selection，
+  confirmation 未完成／`INCONCLUSIVE` 時回到同 member confirmation。若 amendment 使更早的
+  terminal categorical verdict 失效，最早未解決點回退到最早受影響 operation。所有此前仍有效、
+  已 committed 的 terminal categorical `FAIL`／selection `PASS` 與原始 member 順序一併承接；
+  不得承接其 endpoint、effect、region 或其他 scientific numerical output；
+- family-wise／within-member budget 以整個 protocol lineage 記帳，不因 successor 重置。所有已完成
+  scientific test 的 allocation，以及任何已進入 scientific stage 但未留下完整 terminal record 的
+  allocation，均保守視為永久 spent；在 certification stage short-circuit、scientific gates 全為
+  `NOT-EVALUATED` 的 operation 則不虛構 scientific spend。重作未解決／失效 operation 只能使用
+  genesis 前已凍結的 successor reserve，不得回收既有 spend、未使用 member budget或失敗位置預算；
+  reserve 不足即不得啟動 successor。exact allocation／reserve formula 仍屬 §8 item 8 `OPEN`，
+  在其 CLOSED 前本條只固定語意，不授權任何執行；
 - 舊 instance 的 endpoint、effect、region、pair-count 或其他 scientific numerical output
   永久不得用來選 threshold、effect floor、equivalence margin、power model、member 順序、
   successor claim 或候選設計。只容許 custody／operational root-cause facts承擔說明為何需要
@@ -267,7 +283,7 @@ specification-level defect。不得現場補規則、不得映成其他 scientif
 | :--- | :--- |
 | E1 effect 為 null／方向相反／未達 joint floor | 該 selector split `FAIL`；不得稱 target 或 family 失敗 |
 | E1 confidence region只碰到或跨過 effect boundary | 依最終固定的開／閉 convention機械判定；不得稱 numerical `INCONCLUSIVE` |
-| provisional E1／E2／E3／E4 scientific criterion 看似失敗，但 §3 certification 未 clean | 依 staged adjudication 記 `INCONCLUSIVE`；provisional scientific result 不得承重或覆蓋 certification failure |
+| §3 certification 未 clean | 記 `INCONCLUSIVE`；在計算時 short-circuit，E1／E2／E3／E4 scientific gates 為 `NOT-EVALUATED`，不得形成、保存或顯示 endpoint／effect／region |
 | E2 只有一個 target-null arm 通過 | 該 selector split `FAIL` |
 | E3 只有部分 planted alternatives通過 | 該 selector split `FAIL`；不得只報成功類別 |
 | global sector swap 在 well-defined computation 中不是逐位元完全相等 | 該 selector split `FAIL`；不得套用 E4 agreement tolerance；若差異來自 schema／stored-field recomputation mismatch 才是 `PROTOCOL-INVALID` |
@@ -301,8 +317,8 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | 5 | E2 null equivalence | two null generators／region／TOST／cohort floor | `OPEN` |
 | 6 | E3 planted family | complete domains＋active wrong-support Gate O/E＋swap arm | `OPEN` |
 | 7 | E4 well-posedness | fixed-scale sequence／contact／boundary／agreement criteria | `OPEN` |
-| 8 | E5-D／E5-E multiplicity與 power | complete claim family＋spending＋power audit | `OPEN` |
-| 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋non-recycling | `OPEN` |
+| 8 | E5-D／E5-E multiplicity與 power | complete claim family＋lineage-wide spending／successor reserve＋power audit | `OPEN` |
+| 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋earliest-unresolved successor mapping＋non-recycling | `OPEN` |
 | 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋end-to-end dress test＋committed predecessor-ledger prerequisite chain | `OPEN` |
 | 11 | exhaustive decision table | §6–§7 與 runner state machine逐列一致 | `DRAFT` |
 | 12 | independent review／CI／merge | review record＋green CI＋main commit | `OPEN` |
@@ -323,8 +339,9 @@ Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistra
 4. 再凍結 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
    或呼叫 generator **之前**，必須驗證上一個已完成 operation 的 committed／registered ledger
    snapshot、SHA-256、terminal adjudication、protocol digest、runtime 與 transition authorization：
-   genesis 只授權 member 1 selection；selection `PASS` 只授權同 member confirmation；selection
-   `FAIL` 或 confirmation `FAIL` 只授權下一 member selection；confirmation `PASS`、任何
+   genesis 只授權 member 1 selection；selection `PASS` 只授權同 member confirmation；對 $j<11$，
+   selection `FAIL` 或 confirmation `FAIL` 只授權下一 member selection；member 11 的 selection／
+   confirmation `FAIL` 不授權任何後繼並終局為 `BOUNDED-SEARCH-EXHAUSTED`；confirmation `PASS`、任何
    `INCONCLUSIVE` 或 `PROTOCOL-INVALID` 均不授權後繼。member $j+1$ 不得與 $j$ 並行，也不得
    在 predecessor registry／attestation commit 前啟動；
 5. 全部 review／CI／merge 後，才可生成第一個 6a-E seed。
