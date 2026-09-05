@@ -119,7 +119,10 @@ prereg 必須固定一個**尺度穩健**的 nontriviality contract，而不是�
 7. equality-at-boundary 的開／閉區間 convention。
 8. candidate-independent planted feasibility suite：在不讀任何 arm ledger、也不以結果調整常數的
    前提下，以 intended matrix scale、pair-count／accumulation scale 與 condition-number range
-   端到端證明正常 case 可通過 certification，並證明每個已登記 failure mode 會 fail closed。
+   端到端證明正常 case 可通過 certification，並證明每個已登記 failure mode 會 fail closed；
+   global sector swap 另須在此 suite 證明它是 canonical exact relabeling、兩側使用相同 canonical
+   ordering 與逐操作 arithmetic trace，且不因重新累加／重新收縮而改變 floating-point 運算次序。
+   該證明與 executable trace test 未交付時，不得以逐位元相等作 scientific gate。
 
 ### 3.2 不得預設的 default
 
@@ -192,7 +195,10 @@ numerical certification gate 約束；不得採「全部計算完再 adjudicate�
    不得承重；
 2. **Certification precondition stage**：只有 custody clean 才檢查 §3 的 near-zero predicate、
    finite backend、validated numerical error、independent-implementation agreement 與事前資源／
-   cohort floor。任一項未能認證即為 `INCONCLUSIVE`；必須在形成 $\mathfrak I_G$ ratio、endpoint
+   cohort floor；global swap 另須檢查 canonical exact-relabel construction 與 runtime operation-trace
+   identity。任一項未能認證即為 `INCONCLUSIVE`；若 swap trace 無法證成相同，或差異仍可能歸因
+   於 floating-point evaluation order，reason code 為 `SWAP-NUMERICS-UNCERTIFIED`，不得記 scientific
+   `FAIL`。上述情形都必須在形成 $\mathfrak I_G$ ratio、endpoint
    law、effect、region 或任何 E1–E4 scientific comparison **之前** short-circuit，scientific
    gates 保持 `NOT-EVALUATED`，不得在 ledger 寫入或向操作者顯示任何 scientific output；
 3. **Scientific stage**：只有 certification `CLEAN` 才評估 E1–E4 acceptance criteria與明定的
@@ -217,8 +223,10 @@ well-posedness acceptance criterion 未達」（certified computation 下為 `FA
 
 E4 不另套 detection／equivalence power label；它由已凍結的數學 existence／convergence criterion
 與 numerical proof obligation 承重。global swap arm 是 gauge operation，必須依逐位元完全相等
-裁決；不得套用 E4 的 independent-implementation agreement bound，也不得由執行者臨時替它選
-E5-D 或 E5-E。以上 applicability 對所有 member／split 固定，
+裁決，但此 gate 只有在 §3.1.8 的 exact-relabel／identical-operation-trace obligation 與本次 runtime
+trace certification 均 `CLEAN` 後才可進入；未認證時依上段記 `INCONCLUSIVE`。不得套用 E4 的
+independent-implementation agreement bound，也不得由執行者臨時替它選 E5-D 或 E5-E。以上
+applicability 對所有 member／split 固定，
 沒有 per-member discretion。
 
 ### 6.2 Split／member transition
@@ -286,7 +294,9 @@ specification-level defect。不得現場補規則、不得映成其他 scientif
 | §3 certification 未 clean | 記 `INCONCLUSIVE`；在計算時 short-circuit，E1／E2／E3／E4 scientific gates 為 `NOT-EVALUATED`，不得形成、保存或顯示 endpoint／effect／region |
 | E2 只有一個 target-null arm 通過 | 該 selector split `FAIL` |
 | E3 只有部分 planted alternatives通過 | 該 selector split `FAIL`；不得只報成功類別 |
-| global sector swap 在 well-defined computation 中不是逐位元完全相等 | 該 selector split `FAIL`；不得套用 E4 agreement tolerance；若差異來自 schema／stored-field recomputation mismatch 才是 `PROTOCOL-INVALID` |
+| global sector swap 的 canonical exact-relabel／identical-operation-trace certification 未 clean，或差異仍可能來自 floating-point evaluation order | `INCONCLUSIVE`／`SWAP-NUMERICS-UNCERTIFIED`；swap scientific gate 為 `NOT-EVALUATED`，不得 burn member 為 scientific `FAIL` |
+| 上述 swap certification clean 後仍不是逐位元完全相等 | 該 selector split `FAIL`；此時才可歸因為 exact gauge invariance failure；不得套用 E4 agreement tolerance |
+| swap 差異來自 schema／stored-field recomputation mismatch | `PROTOCOL-INVALID`；不是 scientific `FAIL` |
 | proposed active wrong-support 在 pre-execution Gate O 落入 correct $G$-orbit | `DIRECTION-GAUGE` control status；prereg 維持 incomplete、不得生成 E3 seeds，也不得硬設 discrimination claim |
 | Gate O 通過但 Gate E 不分離 | 該 evaluator/control pairing `FAIL`；不得推論所有方向 evaluator no-go |
 | E4 pairing不存在或 regulator／boundary limit不收斂 | 該 selector split `FAIL`；若只因預登記 numerical resource cap 無法裁決才是 `INCONCLUSIVE` |
@@ -315,16 +325,18 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | 3 | near-zero／ratio numerical certification | scale-aware formula＋error propagation＋boundary tests＋candidate-independent planted feasibility／failure suite | `OPEN` |
 | 4 | E1 joint contrast | estimand／2D region／effect floor／uncertainty | `OPEN` |
 | 5 | E2 null equivalence | two null generators／region／TOST／cohort floor | `OPEN` |
-| 6 | E3 planted family | complete domains＋active wrong-support Gate O/E＋swap arm | `OPEN` |
+| 6 | E3 planted family | 具名 $\Sigma_{C7/E3}$／test-function support-mapping source-of-record＋complete domains＋active wrong-support Gate O/E＋canonical exact-relabel swap construction／identical-operation-trace proof與 planted trace tests | `OPEN` |
 | 7 | E4 well-posedness | fixed-scale sequence／contact／boundary／agreement criteria | `OPEN` |
 | 8 | E5-D／E5-E multiplicity與 power | complete claim family＋lineage-wide spending／successor reserve＋power audit | `OPEN` |
 | 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋earliest-unresolved successor mapping＋non-recycling | `OPEN` |
-| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋end-to-end dress test＋committed predecessor-ledger prerequisite chain | `OPEN` |
+| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋gate router 的 typed selector／support-mapping identity record＋swap runtime operation-trace certification＋end-to-end dress test＋committed predecessor-ledger prerequisite chain | `OPEN` |
 | 11 | exhaustive decision table | §6–§7 與 runner state machine逐列一致 | `DRAFT` |
 | 12 | independent review／CI／merge | review record＋green CI＋main commit | `OPEN` |
 
 Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistration frozen」。** 若只完成
 部分列，STATUS 必須逐列保留 `PENDING`，不得以百分比或「接近完成」暗示執行授權。
+item 11 依定義必須與 item 10 的實際 runner state machine 逐列比對；item 10 尚為 `OPEN` 時，
+item 11 必須維持 `DRAFT`，不得只憑文件表面完整而提前改為 `CLOSED`。
 
 ---
 
