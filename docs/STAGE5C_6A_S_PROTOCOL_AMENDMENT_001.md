@@ -1,7 +1,7 @@
 # Stage 5C — 6a-S Protocol Amendment 001
 
-狀態：**【Amendment-001 frozen；DEV-0012／0013 已合併；1.5B plus 與 1.4B minus
-各自 11/11 categorical PASS；DEV-0014 待獨立複核／合併，combined adjudication 尚未執行】**。
+狀態：**【Amendment-001 frozen；DEV-0012／0013／0014 已合併；replacement categorical
+combine 為 11/11 `6a-S PASS`；DEV-0015 待獨立複核／合併，6a-E 尚未開始】**。
 
 本 amendment 只修正 DEV-0011 所定位的 runner／adjudicator implementation defect，並固定
 replacement 6a-S 的 seed lifecycle。它不改 C8 selector family、pair weight、normalization、
