@@ -350,13 +350,19 @@ items 2、4–5、7–10、12 仍為 `OPEN`、item 11 仍為 `DRAFT`，因而不
 
 ## 9. 下一段工作的合法順序
 
-1. 先由獨立 review 檢查本 draft 是否完整捕捉既有 hard constraints，尤其 §6–§7 是否仍有
-   未列出的分支；
-2. 分別交付 typed continuum pairing／active wrong-support／E4 numerical certification；certification
-   同時須以 candidate-independent planted cases 在 intended scale 完成可通過性與 fail-closed
-   feasibility demonstration，不得用 arm data 選常數；
-3. 在前述 objects 全部固定後，才作不讀 arm data 的 power／multiplicity preregistration；
-4. 再凍結 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
+items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中仍為 `OPEN`／`DRAFT`
+的交付物：
+
+1. 交付 item 2 的 $\Pi_{\mathcal M}$ joint matched law、generator／matcher source-of-record 與
+   paired covariance schema；
+2. 交付 item 7 的 E4 fixed-scale continuum sequence、contact／boundary treatment、validated
+   live error producers 與 agreement criteria；
+3. 在上述 objects 固定後，交付 items 4／5 的 E1／E2 statistical regions，並完成 §4 已要求的
+   E3 simultaneous statistical region；
+4. 交付 item 8 的完整 claim family、lineage-wide multiplicity／successor reserve 與不讀 arm
+   data 的 power audit；
+5. 交付 item 9 的 fresh disjoint manifests、burn lifecycle 與 successor mapping；
+6. 再凍結 item 10 的 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
    或呼叫 generator **之前**，必須驗證上一個已完成 operation 的 committed／registered ledger
    snapshot、SHA-256、terminal adjudication、protocol digest、runtime 與 transition authorization：
    genesis 只授權 member 1 selection；selection `PASS` 只授權同 member confirmation；對 $j<11$，
@@ -364,7 +370,9 @@ items 2、4–5、7–10、12 仍為 `OPEN`、item 11 仍為 `DRAFT`，因而不
    confirmation `FAIL` 不授權任何後繼並終局為 `BOUNDED-SEARCH-EXHAUSTED`；confirmation `PASS`、任何
    `INCONCLUSIVE` 或 `PROTOCOL-INVALID` 均不授權後繼。member $j+1$ 不得與 $j$ 並行，也不得
    在 predecessor registry／attestation commit 前啟動；
-5. 全部 review／CI／merge 後，才可生成第一個 6a-E seed。
+7. 以 item 10 的實際 state machine 逐列封閉 item 11，最後完成 item 12 的整體獨立 review／CI／merge；
+   只有 12 列全為 `CLOSED` 後，才可生成第一個 6a-E seed。
 
-本文件合併本身**不**讓上述任何一項從 PENDING 變為 DELIVERED，也不授權開啟現有 raw
-ledgers。若後續發現本 draft 漏列情形，唯一合法動作是先修 draft；不是在執行時補判準。
+本次 state-only closeout 只記錄 items 3／6 已完成，**不**讓上述 remaining-work 中任何一項
+從 `OPEN`／`DRAFT` 變為 `CLOSED`，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列
+情形，唯一合法動作是先修 draft；不是在執行時補判準。
