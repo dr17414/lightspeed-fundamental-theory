@@ -23,7 +23,8 @@ custody facts；沒有開啟 1.5B／1.4B／3.1B ledgers，沒有計算 between-t
 `CLOSED`；其中 items 3＋6 的共同交付物已由 PR #24 經獨立 review、CI 與 merge
 完成。至少下列三組仍是 blocking：
 
-1. $\Pi_{\mathcal M}$ joint matched law、paired covariance schema 尚未交付；
+1. $\Pi_{\mathcal M}$ joint matched law、paired covariance schema 已交付為 `REVIEW-PENDING`，
+   尚未經獨立 review／CI／merge 而不得視為 `CLOSED`；
 2. E4 的 contact／boundary leakage、fixed-$\epsilon$ continuum sequence、validated numerical
    error 與兩個獨立 implementation agreement 尚未固定；
 3. E1／E2／E3 的二維 statistical regions、power、multiplicity、fresh seed manifests 與
@@ -324,7 +325,7 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | # | Closure item | 必要交付物 | 狀態 |
 | :---: | :--- | :--- | :---: |
 | 1 | typed $S_\theta$／pairing／adjoint／boundary prescription | `STAGE5C_6A_E_TYPED_PAIRING.md`＋兩個 independent implementations＋mapping tests | `CLOSED` |
-| 2 | $\Pi_{\mathcal M}$ joint matched law | generator／matcher source-of-record＋paired covariance schema | `OPEN` |
+| 2 | $\Pi_{\mathcal M}$ joint matched law | `STAGE5C_6A_E_JOINT_MATCHED_LAW.md`＋generator／matcher source-of-record＋paired covariance schema＋null calibration／falsifier suite | `REVIEW-PENDING` |
 | 3 | near-zero／ratio numerical certification | `STAGE5C_6A_E_CERTIFICATION.md`＋scale-aware formula＋error propagation＋boundary tests＋candidate-independent planted feasibility／failure suite | `CLOSED` |
 | 4 | E1 joint contrast | estimand／2D region／effect floor／uncertainty | `OPEN` |
 | 5 | E2 null equivalence | two null generators／region／TOST／cohort floor | `OPEN` |
@@ -344,14 +345,16 @@ item 1 已由 PR #22 交付，經兩輪獨立 code review、CI 與 merge commit 
 故可單獨記為 `CLOSED`。items 3＋6 已由 PR #24 交付；初始 head 經獨立 review 後，另依
 automated review 的兩項 fail-closed 發現修訂，修訂 head `6fab7de7` 再經獨立複核確認無新發現、
 CI #94 通過並以 merge commit `306ab9a3` 合併，故兩列可單獨記為 `CLOSED`。
-items 2、4–5、7–10、12 仍為 `OPEN`、item 11 仍為 `DRAFT`，因而不解除任何 execution firewall。
+item 2 的 source、schema、null calibration 與 misspecified-covariance falsifier 已提議為
+`REVIEW-PENDING`，但在獨立 review／CI／merge 前不是 `CLOSED`。items 4–5、7–10、12 仍為
+`OPEN`、item 11 仍為 `DRAFT`，因而不解除任何 execution firewall。
 
 ---
 
 ## 9. 下一段工作的合法順序
 
-items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中仍為 `OPEN`／`DRAFT`
-的交付物：
+items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中尚未 `CLOSED` 的交付物
+（包含 item 2 的 `REVIEW-PENDING`）：
 
 1. 交付 item 2 的 $\Pi_{\mathcal M}$ joint matched law、generator／matcher source-of-record 與
    paired covariance schema；
@@ -373,6 +376,6 @@ items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中
 7. 以 item 10 的實際 state machine 逐列封閉 item 11，最後完成 item 12 的整體獨立 review／CI／merge；
    只有 12 列全為 `CLOSED` 後，才可生成第一個 6a-E seed。
 
-本次 state-only closeout 只記錄 items 3／6 已完成，**不**讓上述 remaining-work 中任何一項
-從 `OPEN`／`DRAFT` 變為 `CLOSED`，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列
+本次 item-2 交付只把 item 2 從 `OPEN` 提議為 `REVIEW-PENDING`，**不**讓上述 remaining-work
+中任何一項變為 `CLOSED`，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列
 情形，唯一合法動作是先修 draft；不是在執行時補判準。
