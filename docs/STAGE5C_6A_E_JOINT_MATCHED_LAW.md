@@ -222,6 +222,17 @@ Hotelling region **不是** E1／E2 scientific region 提案；它只提供一�
 事前 acceptance interval 外。故這個檢查不是恆真，也明確抓得到 observable contract 禁止的
 獨立-marginal variance。
 
+此 falsifier 的能力邊界必須與正面結果分開記錄。它是**刪除非零 cross-arm blocks** 的
+falsifier，鑑別證據來自 $|\rho|>0$；在 $\rho=0$ 時，cross-arm blocks 本來就是零，
+`independent-marginals` 的 covariance target 因而與正確 target 相同。該格剩下的錯誤是
+reference-law／degrees-of-freedom 錯置：兩個 independent marginal sample covariances 的和，
+不能當成同一批 paired deltas 的 sample covariance。現有 2048 replications 與 99.9% acceptance
+interval **沒有針對這種 df-only 錯置配置檢定力**；所以 $\rho=0$ 的未拒絕不得被引用為
+falsifier 有效、也不得被引用為自由度慣例已由 falsifier 認證。paired schema 的 $B-1$
+慣例由 exact-Gaussian Hotelling oracle 的正確-schema coverage 支持；items 4／5 在凍結實際
+scientific regions 前，仍必須另行登記能保留正確 covariance target、只破壞 reference df 的
+df-only falsifier，並以事前 power 或解析 oracle 證明該檢查不是低檢定力的形式測試。
+
 ---
 
 ## 6. Closure 與尚未授權事項

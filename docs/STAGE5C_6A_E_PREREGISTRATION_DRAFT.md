@@ -346,7 +346,10 @@ item 1 已由 PR #22 交付，經兩輪獨立 code review、CI 與 merge commit 
 automated review 的兩項 fail-closed 發現修訂，修訂 head `6fab7de7` 再經獨立複核確認無新發現、
 CI #94 通過並以 merge commit `306ab9a3` 合併，故兩列可單獨記為 `CLOSED`。
 item 2 的 source、schema、null calibration 與 misspecified-covariance falsifier 已提議為
-`REVIEW-PENDING`，但在獨立 review／CI／merge 前不是 `CLOSED`。items 4–5、7–10、12 仍為
+`REVIEW-PENDING`。該 falsifier 只認證 $|\rho|>0$ 時刪除 nonzero cross-arm blocks 的失效；
+$\rho=0$ 未拒絕不認證 reference degrees of freedom，且 2048 replications 未針對 df-only
+錯置配置檢定力。items 4／5 在 scientific regions 凍結前仍須交付具事前 power 或解析 oracle
+的 df-only falsifier。item 2 在獨立 review／CI／merge 前不是 `CLOSED`。items 4–5、7–10、12 仍為
 `OPEN`、item 11 仍為 `DRAFT`，因而不解除任何 execution firewall。
 
 ---
