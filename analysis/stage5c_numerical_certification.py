@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
+from fractions import Fraction
 from math import fsum, hypot
 
 import numpy as np
@@ -16,7 +17,7 @@ import numpy as np
 from analysis.stage5c_primary_invariant import COMPONENT_BOUNDS, primary_endpoint
 
 
-CERTIFICATION_ID = "stage5c-6a-e-numerical-certification-v0.1"
+CERTIFICATION_ID = "stage5c-6a-e-numerical-certification-v0.2"
 FLOAT_DTYPE = np.float64
 UNIT_ROUNDOFF = np.finfo(FLOAT_DTYPE).eps / 2.0
 RATIO_ERROR_FACTORS = np.asarray([5.0, 2.0], dtype=FLOAT_DTYPE)
@@ -40,6 +41,7 @@ class CertificationReason(str, Enum):
     NORM_INTERVAL_TOUCHES_ZERO = "NORM-INTERVAL-TOUCHES-ZERO"
     IMPLEMENTATION_DISAGREEMENT = "IMPLEMENTATION-DISAGREEMENT"
     PLANTED_GROUND_TRUTH_MISMATCH = "PLANTED-GROUND-TRUTH-MISMATCH"
+    ERROR_BUDGET_UNBOUNDED = "ERROR-BUDGET-UNBOUNDED"
     RATIO_ERROR_UNBOUNDED = "RATIO-ERROR-UNBOUNDED"
 
 
@@ -85,6 +87,52 @@ def _up(value: float) -> float:
 def _down_nonnegative(value: float) -> float:
     value = float(value)
     return value if value == 0.0 else float(np.nextafter(value, 0.0))
+
+
+def _fraction_upper(value: Fraction) -> float:
+    """Return a binary64 upper bound for one nonnegative exact fraction."""
+
+    if value == 0:
+        return 0.0
+    rounded = float(value)
+    if rounded == 0.0:
+        return float(np.nextafter(0.0, np.inf))
+    if Fraction.from_float(rounded) < value:
+        rounded = float(np.nextafter(rounded, np.inf))
+    return rounded
+
+
+def _certified_midpoint(
+    first: np.ndarray, second: np.ndarray
+) -> tuple[np.ndarray, float]:
+    """Round the exact componentwise midpoint and enclose its absolute error.
+
+    Forming ``0.5 * first + 0.5 * second`` is not covered by a relative
+    ``gamma_n`` model when either multiplication enters gradual underflow.
+    Each stored binary64 component is therefore lifted to an exact rational,
+    averaged exactly, and rounded once.  The Frobenius norm of the eight exact
+    rounding residuals is then enclosed upward, including subnormal residuals.
+    """
+
+    midpoint = np.empty((2, 2), dtype=np.complex128)
+    component_errors: list[float] = []
+    for index in np.ndindex(first.shape):
+        rounded_components: list[float] = []
+        for first_component, second_component in (
+            (first[index].real, second[index].real),
+            (first[index].imag, second[index].imag),
+        ):
+            exact = (
+                Fraction.from_float(float(first_component))
+                + Fraction.from_float(float(second_component))
+            ) / 2
+            rounded = float(exact)
+            residual = abs(exact - Fraction.from_float(rounded))
+            rounded_components.append(rounded)
+            component_errors.append(_fraction_upper(residual))
+        midpoint[index] = complex(*rounded_components)
+    center_error = hypot(*component_errors)
+    return midpoint, _up(center_error)
 
 
 @dataclass(frozen=True)
@@ -254,11 +302,22 @@ def certify_pairing(
     eta_first = first.error.total
     eta_second = second.error.total
     agreement_distance = _frobenius_upper(first.matrix - second.matrix)
-    eta_sum = fsum((eta_first, eta_second))
+    try:
+        eta_sum = fsum((eta_first, eta_second))
+    except OverflowError:
+        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
+    if not np.isfinite(eta_sum):
+        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
     # A proof of d <= E compares an upper enclosure of d to a lower enclosure
     # of E.  The separately computed upper enclosure is used for propagation.
     agreement_bound = _down_nonnegative(eta_sum)
     eta_sum_upper = _up(eta_sum)
+    if not np.isfinite(eta_sum_upper):
+        return _inconclusive(
+            CertificationReason.ERROR_BUDGET_UNBOUNDED,
+            agreement_distance=agreement_distance,
+            agreement_bound=agreement_bound,
+        )
     if agreement_distance > agreement_bound:
         return _inconclusive(
             CertificationReason.IMPLEMENTATION_DISAGREEMENT,
@@ -282,10 +341,7 @@ def certify_pairing(
                 agreement_bound=agreement_bound,
             )
 
-    matrix = 0.5 * first.matrix + 0.5 * second.matrix
-    center_rounding = _up(rounding_gamma(2) * 0.5 * (
-        _frobenius_upper(first.matrix) + _frobenius_upper(second.matrix)
-    ))
+    matrix, center_rounding = _certified_midpoint(first.matrix, second.matrix)
     matrix_error_value = 0.5 * eta_sum_upper + center_rounding
     matrix_error = (
         0.0
@@ -332,11 +388,15 @@ def certify_pairing(
             norm_upper=norm_upper,
         )
 
-    endpoint_scale = max(abs(value) for value in matrix.ravel())
-    endpoint = primary_endpoint(matrix / endpoint_scale).as_vector()
-    denominator_perturbation = _up(
-        matrix_error * _up(fsum((2.0 * norm_up, matrix_error)))
-    )
+    if matrix_error == 0.0:
+        denominator_perturbation = 0.0
+    else:
+        try:
+            norm_error_sum = fsum((2.0 * norm_up, matrix_error))
+        except OverflowError:
+            norm_error_sum = np.inf
+        with np.errstate(over="ignore", invalid="ignore"):
+            denominator_perturbation = _up(matrix_error * _up(norm_error_sum))
     denominator_lower = _down_nonnegative(norm_lower * norm_lower)
     if denominator_lower == 0.0:
         return _inconclusive(
@@ -348,13 +408,26 @@ def certify_pairing(
             norm_lower=norm_lower,
             norm_upper=norm_upper,
         )
-    ratio_error = np.asarray(
-        [
-            _up(factor * denominator_perturbation / denominator_lower)
-            for factor in RATIO_ERROR_FACTORS
-        ],
-        dtype=FLOAT_DTYPE,
-    )
+    with np.errstate(over="ignore", invalid="ignore"):
+        ratio_error = np.asarray(
+            [
+                _up(factor * denominator_perturbation / denominator_lower)
+                for factor in RATIO_ERROR_FACTORS
+            ],
+            dtype=FLOAT_DTYPE,
+        )
+    if not np.all(np.isfinite(ratio_error)):
+        return _inconclusive(
+            CertificationReason.RATIO_ERROR_UNBOUNDED,
+            agreement_distance=agreement_distance,
+            agreement_bound=agreement_bound,
+            matrix=matrix,
+            matrix_error=matrix_error,
+            norm_lower=norm_lower,
+            norm_upper=norm_upper,
+        )
+    endpoint_scale = max(abs(value) for value in matrix.ravel())
+    endpoint = primary_endpoint(matrix / endpoint_scale).as_vector()
     endpoint_rounding = rounding_gamma(PRIMARY_ENDPOINT_REAL_OPERATIONS) * np.maximum(
         1.0, np.abs(endpoint)
     )

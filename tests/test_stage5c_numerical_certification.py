@@ -98,6 +98,38 @@ def test_nonfinite_exact_zero_and_near_zero_short_circuit_before_endpoint():
         assert result.endpoint_upper is None
 
 
+def test_subnormal_midpoint_is_exact_and_ratio_short_circuits_without_exception(
+    monkeypatch,
+):
+    smallest_subnormal = np.nextafter(0.0, 1.0)
+    matrix = np.asarray(
+        [[3.0 * smallest_subnormal, 5.0 * smallest_subnormal], [0.0, 0.0]],
+        dtype=np.complex128,
+    )
+    monkeypatch.setattr(
+        "analysis.stage5c_numerical_certification.primary_endpoint",
+        lambda unused: pytest.fail("endpoint must remain NOT-EVALUATED"),
+    )
+    result = certify_pairing(
+        _estimate(matrix, 0.0, "first"),
+        _estimate(matrix, 0.0, "second"),
+    )
+    assert result.reason is CertificationReason.RATIO_ERROR_UNBOUNDED
+    assert np.array_equal(result.matrix, matrix)
+    assert result.matrix_error == 0.0
+    assert result.endpoint is None
+
+
+def test_cross_implementation_error_sum_overflow_is_typed_and_fail_closed():
+    result = certify_pairing(
+        _estimate(np.eye(2), 9.0e307, "first"),
+        _estimate(np.eye(2), 9.0e307, "second"),
+    )
+    assert result.status is CertificationStatus.INCONCLUSIVE
+    assert result.reason is CertificationReason.ERROR_BUDGET_UNBOUNDED
+    assert result.endpoint is None
+
+
 def test_agreement_uses_error_balls_and_equality_is_closed():
     exact = _estimate(np.diag([4.0, 1.0]), 0.0, "exact-first")
     closed_boundary = certify_pairing(

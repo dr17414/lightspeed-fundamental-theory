@@ -1,6 +1,6 @@
 # Stage 5C 6a-E closure items 3＋6 — numerical certification and planted controls
 
-狀態：**【candidate-independent 交付物／v0.1；REVIEW-PENDING】**。本文共同交付
+狀態：**【candidate-independent 交付物／v0.2；REVIEW-PENDING】**。本文共同交付
 `STAGE5C_6A_E_PREREGISTRATION_DRAFT.md` closure items 3 與 6 的 certification algebra、
 shared planted domain、具名 $\Sigma_{C7/E3}$ support mapping、active wrong-support Gate O/E，
 以及 global-swap exact-relabel trace proof。獨立 review、CI 與 merge 前不得標為 `CLOSED`。
@@ -43,7 +43,8 @@ $$
 
 式 (2) 把 rounding 明確映到 accumulation length 與實際尺度；不得以裸 `machine epsilon`
 或全域 `1e-12` 代替。`analysis/stage5c_numerical_certification.py` 對正向上界作 outward
-rounding，matrix center 的兩次 binary64 operation 另計入 center error。
+rounding。跨 implementation 的 $\eta_1+\eta_2$ 若 overflow 或無法取得 finite outward
+上界，必須在形成 center 前記 `INCONCLUSIVE/ERROR-BUDGET-UNBOUNDED`。
 
 本文固定 error schema 與組合公式；closure item 7 仍須為 live continuum sequence 交付
 $\eta_Q,\eta_S,\eta_R,\eta_B$ 的 validated producer、fixed-scale convergence／leakage criteria
@@ -87,7 +88,11 @@ $$
 \bar\eta=\frac{\eta_1+\eta_2}{2}+\eta_{\rm center},
 $$
 
-其中 $\eta_{\rm center}$ 是平均運算本身依式 (2) 型式得到的 outward binary64 bound。定義
+其中 $\eta_{\rm center}$ 不使用只在 normal arithmetic 下有效的相對 $\gamma_n$ 模型：實作把
+八個 stored binary64 real components 各自提升為 exact rational，精確取平均後只 round 一次，
+再對八個 exact rounding residual 的 Euclidean norm 作 outward enclosure。故 normal、subnormal、
+gradual underflow 與相消都由同一個 absolute bound 涵蓋；不得直接以
+`0.5*M1 + 0.5*M2` 配上可能 underflow 為零的相對誤差估計。定義
 
 $$
 L=\operatorname{down}(\|\bar M\|_F-\bar\eta),\qquad
@@ -103,7 +108,8 @@ $$
 
 因此 $L=0$ 明確不通過，記 `INCONCLUSIVE/NORM-INTERVAL-TOUCHES-ZERO`；兩路與 error
 皆逐位元 exact zero 時另記 `INCONCLUSIVE/EXACT-ZERO`。任一路 non-finite 先記
-`INCONCLUSIVE/NONFINITE-BACKEND`。所有這些分支都在形成 ratio 前 short-circuit，endpoint
+`INCONCLUSIVE/NONFINITE-BACKEND`；跨 implementation error sum 無 finite enclosure 則記
+`INCONCLUSIVE/ERROR-BUDGET-UNBOUNDED`。所有這些分支都在形成 ratio 前 short-circuit，endpoint
 相關欄位必須為 `None/NOT-EVALUATED`，不得保存或顯示 provisional value。
 
 ### 2.3 Ratio uncertainty
