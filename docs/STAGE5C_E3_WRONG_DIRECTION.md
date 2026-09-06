@@ -1,10 +1,10 @@
 # Stage 5C E3 — Wrong-Direction 類別邊界
 
-狀態：**【candidate-independent active control／v0.2；REVIEW-PENDING】**。全域 sector swap
+狀態：**【已確認之 candidate-independent active control／v0.2；CLOSED】**。全域 sector swap
 的 gauge/invariance 判決與 active wrong-support 的 typed support mapping、完整參數域及解析
 Gate O/E 現由 `STAGE5C_6A_E_CERTIFICATION.md`／
-`analysis/stage5c_planted_certification.py` 交付；獨立 review、CI 與 merge 前不得標為
-`CLOSED`。本文件不設計候選 $K$，不接觸 holdout 或 arm ledger。
+`analysis/stage5c_planted_certification.py` 交付；PR #24 已經獨立 review、修訂後複核、CI #94
+並合併為 `306ab9a3`。本文件不設計候選 $K$，不接觸 holdout 或 arm ledger。
 
 歷史基準：main `36605dc`（62 檔、integrity 通過、177 passed）。
 
@@ -21,7 +21,7 @@ Gate O/E 現由 `STAGE5C_6A_E_CERTIFICATION.md`／
    support provenance。
 4. 真正的 E3 control 必須同時通過 orbit gate 與完整參數域上的 endpoint-law separation gate；
    具名 `sigma-c7-e3-null-support-map-v0.1` 現已在 candidate-independent continuum domain
-   通過兩者，狀態維持 **REVIEW-PENDING** 至獨立複核與合併。
+   通過兩者；candidate-independent active control 已由 PR #24 複核並合併，狀態為 **CLOSED**。
 5. 本文件保留兩個矩陣作 algebraic stress witnesses；它們不是 wrong-direction controls，亦未被
    加入 planted family。
 
@@ -180,8 +180,8 @@ direct quadrature oracle 與 global-swap trace tests 全部以
 - primary 第一分量的符號仍只是代數記帳，不能用來定義 correct/wrong direction。
 
 仍未完成：finite-causet joint matched law、E4 live numerical bounds、E3 simultaneous
-statistical region／multiplicity／power、fresh manifests 與 runner。故 active control 本身為
-`REVIEW-PENDING`，D.1 第 3 項及 Freeze-1a 仍 **PENDING**；這不是 scientific E3 PASS。
+statistical region／multiplicity／power、fresh manifests 與 runner。active control 本身雖為
+`CLOSED`，D.1 第 3 項及 Freeze-1a 仍 **PENDING**；這不是 scientific E3 PASS。
 
 ---
 

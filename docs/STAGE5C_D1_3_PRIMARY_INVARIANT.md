@@ -154,10 +154,10 @@ $\mathbb E[\mathfrak I_G(M_C)]\ne\mathfrak I_G(\mathbb E[M_C])$；兩邊不得�
 - 五類分離只對上表已登記的代數 planted families；不主張全軌道分離。
 - 第一分量的正／負號是 $Q$ 與 $|W|$ 相對大小的**記帳標記，不是物理傳播方向**；
   特別不得把正號命名成「chiral direction」或用它預判仍 PENDING 的 wrong-direction E3。
-- **wrong-direction active control 為 `REVIEW-PENDING`。** `docs/STAGE5C_E3_WRONG_DIRECTION.md` 已確認全域
+- **wrong-direction active control 為 `CLOSED`。** `docs/STAGE5C_E3_WRONG_DIRECTION.md` 已確認全域
   sector swap 是 gauge invariance arm，並撤回「orbit 外即足以由本端點分離」的錯誤 `iff`；
   具名 typed active-support mapping與完整域 Gate O/E 現由 `STAGE5C_6A_E_CERTIFICATION.md`
-  交付待複核。本文件的五類代數分離仍不能冒充 scientific E3 PASS。
+  經 PR #24 獨立複核、CI 與 merge 完成交付。本文件的五類代數分離仍不能冒充 scientific E3 PASS。
 - planted objects 是 evaluator-side L4 controls；其可分不蘊涵合規 order-only $K$ 存在。
 - 任一 scalar aggregation 只可在 Freeze-1a 事前固定後作報告 effect size；不得替代
   二維 law／逐分量 planted separation，也不得從候選結果選方向或權重。

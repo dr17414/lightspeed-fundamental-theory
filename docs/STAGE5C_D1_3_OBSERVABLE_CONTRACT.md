@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.14 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 為 `CLOSED`；items 3＋6 的共同 numerical-certification／active-support 交付物為 `REVIEW-PENDING`，items 2、4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.15 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、3、6 為 `CLOSED`；items 2、4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -622,7 +622,8 @@ residual-power 前提必須依 §6 重新建立。
   sequential selection／confirmation outcome 與最終單一採用 member；
 - §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付；
   global fiber trivialization、adjoint與 continuum $S_\theta$ 的 item-1 typed contract 已
-  `CLOSED`；items 3＋6 的 certification／active support contract 為 `REVIEW-PENDING`，完整
+  `CLOSED`；items 3＋6 的 certification／active support contract 亦經 PR #24 複核、CI 與 merge
+  成為 `CLOSED`，完整
   endpoint freeze 仍未完成；
 - C8 的 $\varphi$、$\mathcal N$、fixed-scale regulator、6a-S metric／門檻已交付；仍未固定
   C6/C7 instances、二維 endpoint 的 6a-E joint-law metric／只供報告使用的 scalar aggregation；

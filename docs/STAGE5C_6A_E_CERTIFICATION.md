@@ -1,9 +1,10 @@
 # Stage 5C 6a-E closure items 3＋6 — numerical certification and planted controls
 
-狀態：**【candidate-independent 交付物／v0.2；REVIEW-PENDING】**。本文共同交付
+狀態：**【已確認之 candidate-independent 交付物／v0.2；CLOSED】**。本文共同交付
 `STAGE5C_6A_E_PREREGISTRATION_DRAFT.md` closure items 3 與 6 的 certification algebra、
 shared planted domain、具名 $\Sigma_{C7/E3}$ support mapping、active wrong-support Gate O/E，
-以及 global-swap exact-relabel trace proof。獨立 review、CI 與 merge 前不得標為 `CLOSED`。
+以及 global-swap exact-relabel trace proof。PR #24 已經獨立 review、edge-case 修訂後複核、
+CI #94 並合併為 `306ab9a3`。
 
 本文不設計候選 $K$、不讀任何 arm ledger、不生成 6a-E seed，也不形成 arm／scientific
 endpoint。所有數值只來自下列 candidate-independent 解析 construction。items 2、4、5、7–10
@@ -286,8 +287,10 @@ authorization。
 
 ## 6. Closure 邊界
 
-本 PR 將 items 3 與 6 標成 `REVIEW-PENDING`，只表示具名交付物已可供獨立檢查。只有獨立
-review、green CI 與 merge 後，另以 state-only closeout 才可轉為 `CLOSED`。
+items 3 與 6 的具名交付物已由 PR #24 完成：初始 head 經獨立 review 後，另依 automated
+review 修正 gradual-underflow midpoint enclosure 與跨 implementation error-sum overflow，
+修訂 head `6fab7de7` 再經獨立複核確認無新發現、CI #94 通過並合併為 `306ab9a3`，故狀態為
+`CLOSED`。
 
 仍未交付者包括：joint matched law（2）、E1／E2 statistical regions（4–5）、E4 live
 validated error producers與 well-posedness（7）、lineage-wide multiplicity／power（8）、fresh
