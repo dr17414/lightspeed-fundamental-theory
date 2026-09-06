@@ -1,8 +1,10 @@
 # Stage 5C E3 — Wrong-Direction 類別邊界
 
-狀態：**【部分交付／PENDING】**。全域 sector swap 的 gauge/invariance 判決已完成；真正的
-wrong-support intervention 要等 gate-specific selector、test function、pair domain 與
-continuum-frame mapping 定案後才能構造。本文件不設計候選 $K$，不接觸 holdout。
+狀態：**【candidate-independent active control／v0.2；REVIEW-PENDING】**。全域 sector swap
+的 gauge/invariance 判決與 active wrong-support 的 typed support mapping、完整參數域及解析
+Gate O/E 現由 `STAGE5C_6A_E_CERTIFICATION.md`／
+`analysis/stage5c_planted_certification.py` 交付；獨立 review、CI 與 merge 前不得標為
+`CLOSED`。本文件不設計候選 $K$，不接觸 holdout 或 arm ledger。
 
 歷史基準：main `36605dc`（62 檔、integrity 通過、177 passed）。
 
@@ -18,7 +20,8 @@ continuum-frame mapping 定案後才能構造。本文件不設計候選 $K$，�
    **active support intervention**。$M$ 可以保留 intervention 的結果，但僅看 $M$ 無法重建其
    support provenance。
 4. 真正的 E3 control 必須同時通過 orbit gate 與完整參數域上的 endpoint-law separation gate；
-   selector 尚未定案，所以類別維持 **PENDING**。
+   具名 `sigma-c7-e3-null-support-map-v0.1` 現已在 candidate-independent continuum domain
+   通過兩者，狀態維持 **REVIEW-PENDING** 至獨立複核與合併。
 5. 本文件保留兩個矩陣作 algebraic stress witnesses；它們不是 wrong-direction controls，亦未被
    加入 planted family。
 
@@ -153,6 +156,18 @@ $$I_1(T)+I_2(T)=1-\frac{2\operatorname{Re}(m_U\bar m_V)}{N^2},
 正實非零參數只證此一對 family 在該域上分離，不證新 family 與所有其他 planted families
 均分離。
 
+### 4.1 已採納 control 與上述 witnesses 的隔離
+
+已採納物件不是本節任何孤立 matrix proposal。它固定 flat unit diamond、canonical
+$(U/R,V/L)$ output legs、normalization 1 與 test density
+$r_{\lambda,s}=s e^{\lambda(u_x-u_y)}$，只把 correct retarded support 主動反轉；
+$\lambda\in[2,5/2]$，scale 使用 items 3＋6 共用的 binary64-derived domain。
+
+correct／wrong pairings 的封閉形式、完整域 Gate O 證明、endpoint-image Gate E 嚴格分離、
+direct quadrature oracle 與 global-swap trace tests 全部以
+`STAGE5C_6A_E_CERTIFICATION.md` 為 source-of-record。這是 typed pipeline intervention，
+不會把「orbit 外」重新誤寫成任意 matrix 都可 discrimination。
+
 ---
 
 ## 5. 推論上限與未完成項
@@ -164,9 +179,9 @@ $$I_1(T)+I_2(T)=1-\frac{2\operatorname{Re}(m_U\bar m_V)}{N^2},
 - planted objects 可使用 L4 oracle，所以其通過對 order-only 候選 $K$ 的存在性零蘊涵。
 - primary 第一分量的符號仍只是代數記帳，不能用來定義 correct/wrong direction。
 
-仍未完成：gate-specific typed selector/intervention、continuum mapping、smearing／normalization、完整參數域、
-joint-law regions、effect/equivalence thresholds、power 與 fresh confirmation。因此 D.1 第 3 項及
-Freeze-1a 維持 **PENDING**。
+仍未完成：finite-causet joint matched law、E4 live numerical bounds、E3 simultaneous
+statistical region／multiplicity／power、fresh manifests 與 runner。故 active control 本身為
+`REVIEW-PENDING`，D.1 第 3 項及 Freeze-1a 仍 **PENDING**；這不是 scientific E3 PASS。
 
 ---
 
@@ -174,5 +189,6 @@ Freeze-1a 維持 **PENDING**。
 
 `tests/test_stage5c_wrong_direction.py` 直接呼叫 primary endpoint 的 source-of-record，鎖住：
 全域 swap invariance、對角 chiral orbit 的兩點形式、orbit gate 非充分的顯式碰撞、正實參數
-公式，以及 matrix proposals 不得被誤報為已登記 planted family。尚不存在的 typed selector
-intervention 不以假物件寫測試。
+公式，以及 matrix proposals 不得被誤報為已登記 planted family。
+`tests/test_stage5c_numerical_certification.py` 另鎖住現已具名的 typed intervention、解析
+support integrals、完整域 Gate O/E、shared planted scale／condition domain 與 exact swap trace。

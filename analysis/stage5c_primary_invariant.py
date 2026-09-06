@@ -8,6 +8,7 @@ documented in ``docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md``.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from math import fsum
 
 import numpy as np
 
@@ -16,6 +17,7 @@ COMPONENT_BOUNDS = ((-1.0, 2.0), (0.0, 1.0))
 # Declared evaluator convention: this value is not derived from the invariant
 # algebra.  Changing it is a protocol amendment, not a corrective bug fix.
 COUPLING_COEFFICIENT = 2.0
+PRIMARY_ENDPOINT_TRACE_ID = "stage5c-primary-endpoint-canonical-v0.1"
 
 
 @dataclass(frozen=True)
@@ -41,19 +43,38 @@ def _validated_matrix(matrix: np.ndarray) -> np.ndarray:
     return value
 
 
+def _complex_bit_key(value: complex) -> tuple[int, int]:
+    """Return a total key used only to freeze reduction/operand order.
+
+    The primary endpoint is invariant under the sector permutation. Sorting
+    the same finite multiset of entries before its reductions makes that gauge
+    relabel an exact permutation rather than a new floating-point evaluation.
+    """
+
+    real = int(np.asarray(np.float64(value.real)).view(np.uint64))
+    imag = int(np.asarray(np.float64(value.imag)).view(np.uint64))
+    return real, imag
+
+
+def _canonical_pair(first: complex, second: complex) -> tuple[complex, complex]:
+    return tuple(sorted((first, second), key=_complex_bit_key))
+
+
 def ambient_norm_squared(matrix: np.ndarray) -> float:
     """Return the committed G-invariant Frobenius norm squared."""
     value = _validated_matrix(matrix)
-    return float(np.vdot(value, value).real)
+    entries = sorted(value.ravel(), key=_complex_bit_key)
+    return float(fsum(abs(entry) ** 2 for entry in entries))
 
 
 def unnormalised_components(matrix: np.ndarray) -> tuple[float, float]:
     """Return ``Q - 2|W|`` and ``S``; both are homogeneous of degree two."""
     value = _validated_matrix(matrix)
-    a, b, c, d = value[0, 0], value[0, 1], value[1, 0], value[1, 1]
+    a, d = _canonical_pair(value[0, 0], value[1, 1])
+    b, c = _canonical_pair(value[0, 1], value[1, 0])
     q = abs(a - d) ** 2
-    s = abs(b) ** 2 + abs(c) ** 2
-    abs_w = abs(b * c)
+    s = fsum((abs(b) ** 2, abs(c) ** 2))
+    abs_w = abs(b) * abs(c)
     return float(q - COUPLING_COEFFICIENT * abs_w), float(s)
 
 

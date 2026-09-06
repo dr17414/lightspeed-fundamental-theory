@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.13 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 已於 PR #22 獨立複核並合併，狀態為 `CLOSED`；items 2–10 仍 `OPEN`，item 11 仍 `DRAFT`。active wrong-support control、C6/C7 gate-specific smearing 與完整統計 contract 仍待完成。
+狀態：**【提案／v0.14 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure item 1 的 typed continuum pairing 為 `CLOSED`；items 3＋6 的共同 numerical-certification／active-support 交付物為 `REVIEW-PENDING`，items 2、4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -60,9 +60,9 @@ derivation chain 延後至 Freeze-1b／Freeze-2b。因此：
   composition/contact law、domain、zero modes 與 diamond 上的零過去資料須寫入 dossier；
   只驗 $\mathcal K G_R=\mathbb 1$ 的單側有限矩陣等式不足。
 - **6a-E typed continuum representative**：
-  `STAGE5C_6A_E_TYPED_PAIRING.md` 現以 `REVIEW-PENDING` 狀態具體固定 propagation
+  `STAGE5C_6A_E_TYPED_PAIRING.md` 已以 `CLOSED` 狀態具體固定 propagation
   representation 的 $S_\theta$、left／right inverse domain、adjoint、global spin-frame
-  identification與 diamond boundary。獨立 review／merge前這仍不是 freeze，也不授權 endpoint。
+  identification與 diamond boundary。其 closure 不等於整體 freeze，也不授權 arm endpoint。
 - **Bi-spinor 型別**：$G_R(x,y)$ 在 $x$ 帶一個 fiber index、在 $y$ 帶一個 co-fiber index；
   兩者的變換律由 §1.4 的 pairing 決定，**不得**當成兩個獨立純量權重相乘。
 
@@ -621,8 +621,9 @@ residual-power 前提必須依 §6 重新建立。
 - $\mathcal F_\Sigma$ 的具體 11 點已由 selector-family 文件固定；仍未固定的是其 6a-E
   sequential selection／confirmation outcome 與最終單一採用 member；
 - §1.4 fork B、完整 invariant algebra 與 primary 二維 real $\mathfrak I_G$ 雖已交付；
-  global fiber trivialization、adjoint與 continuum $S_\theta$ 已有 item-1 `REVIEW-PENDING`
-  typed contract，但仍須通過獨立 review／merge，且完整 endpoint freeze 尚未完成；
+  global fiber trivialization、adjoint與 continuum $S_\theta$ 的 item-1 typed contract 已
+  `CLOSED`；items 3＋6 的 certification／active support contract 為 `REVIEW-PENDING`，完整
+  endpoint freeze 仍未完成；
 - C8 的 $\varphi$、$\mathcal N$、fixed-scale regulator、6a-S metric／門檻已交付；仍未固定
   C6/C7 instances、二維 endpoint 的 6a-E joint-law metric／只供報告使用的 scalar aggregation；
 - C8 的 finite-$N$ 6a-S law 已預登記；仍未固定 $\Pi_{\mathcal M}$ 的 6a-E joint matched law、
