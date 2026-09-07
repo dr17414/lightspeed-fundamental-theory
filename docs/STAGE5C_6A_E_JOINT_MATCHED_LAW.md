@@ -1,6 +1,6 @@
 # Stage 5C — 6a-E joint matched law and paired covariance
 
-狀態：**【candidate-independent closure item 2／REVIEW-PENDING／不可執行 arm】**。
+狀態：**【已確認之 candidate-independent closure item 2／CLOSED／不可執行 arm】**。
 
 本文件固定 C8 的 generator／matcher source-of-record、matching certification 邊界、joint
 matched-pair law 與 paired covariance schema。對應 executable source 為
@@ -237,9 +237,10 @@ df-only falsifier，並以事前 power 或解析 oracle 證明該檢查不是低
 
 ## 6. Closure 與尚未授權事項
 
-本 PR 合併前 closure item 2 只能是 `REVIEW-PENDING`。只有 source、tests、文件、獨立複核、
-CI 與 merge 全部完成，才可另以 state-only closeout 提議 `CLOSED`。
+本文件、source-of-record 與 tests 已由 PR #26 交付；最終 head `f7dc1706` 經獨立複核
+確認 N1 的 structured remaining-work 落點與一般 anti-drift 規則，CI #101 通過並以
+merge commit `93b1cd19` 合併，故 closure item 2 狀態為 `CLOSED`。
 
-即使 item 2 日後 `CLOSED`，items 4／5／7–10／12 仍 `OPEN`、item 11 仍 `DRAFT`；不得生成
+即使 item 2 已 `CLOSED`，items 4／5／7–10／12 仍 `OPEN`、item 11 仍 `DRAFT`；不得生成
 6a-E seed、開啟 arm numerical ledger、形成 arm endpoint，亦不得把本 calibration-only
 Hotelling oracle升格為 scientific region。

@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.15 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、3、6 為 `CLOSED`；items 2、4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.15 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6 為 `CLOSED`；items 4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -633,8 +633,10 @@ residual-power 前提必須依 §6 重新建立。
 - C8 的 finite-$N$ 6a-S law 已預登記；$\Pi_{\mathcal M}$ 的 6a-E joint matched law、
   generator／matcher source-of-record、paired covariance schema 與 candidate-independent null
   calibration／misspecified-covariance falsifier 已由
-  `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 提議為 `REVIEW-PENDING`，尚未經獨立 review／CI／merge；
-  continuum proof、E4 contact／boundary treatment，以及 C6/C7 measure instances仍未固定；
+  `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 在 PR #26 交付，最終 head `f7dc1706` 經獨立
+  複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；df-only falsifier 仍是 items
+  4／5 scientific-region freeze 的結構化義務；continuum proof、E4 contact／boundary
+  treatment，以及 C6/C7 measure instances仍未固定；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
