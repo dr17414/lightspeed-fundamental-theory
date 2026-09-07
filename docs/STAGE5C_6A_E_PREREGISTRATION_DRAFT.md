@@ -19,15 +19,14 @@ custody facts；沒有開啟 1.5B／1.4B／3.1B ledgers，沒有計算 between-t
 6a-S 已完整封存為 11/11 `6a-S PASS`，所以 11 個 selector parameter points 全部**有資格**
 進入 6a-E。這只解除進場前置，不提供任何 endpoint effect、排序或 viability 資訊。
 
-現行 source-of-truth 尚未給出一份可執行 6a-E preregistration。items 1、3、6 已
+現行 source-of-truth 尚未給出一份可執行 6a-E preregistration。items 1、2、3、6 已
 `CLOSED`；其中 items 3＋6 的共同交付物已由 PR #24 經獨立 review、CI 與 merge
-完成。至少下列三組仍是 blocking：
+完成，item 2 亦由 PR #26 經最終 head 獨立複核、CI 與 merge 完成。至少下列兩組仍是
+blocking：
 
-1. $\Pi_{\mathcal M}$ joint matched law、paired covariance schema 已交付為 `REVIEW-PENDING`，
-   尚未經獨立 review／CI／merge 而不得視為 `CLOSED`；
-2. E4 的 contact／boundary leakage、fixed-$\epsilon$ continuum sequence、validated numerical
+1. E4 的 contact／boundary leakage、fixed-$\epsilon$ continuum sequence、validated numerical
    error 與兩個獨立 implementation agreement 尚未固定；
-3. E1／E2／E3 的二維 statistical regions、power、multiplicity、fresh seed manifests 與
+2. E1／E2／E3 的二維 statistical regions、power、multiplicity、fresh seed manifests 與
    ledger／runner schema 尚未固定。
 
 因此本 draft 的合法結論只有：
@@ -325,7 +324,7 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | # | Closure item | 必要交付物 | 狀態 |
 | :---: | :--- | :--- | :---: |
 | 1 | typed $S_\theta$／pairing／adjoint／boundary prescription | `STAGE5C_6A_E_TYPED_PAIRING.md`＋兩個 independent implementations＋mapping tests | `CLOSED` |
-| 2 | $\Pi_{\mathcal M}$ joint matched law | `STAGE5C_6A_E_JOINT_MATCHED_LAW.md`＋generator／matcher source-of-record＋paired covariance schema＋null calibration／falsifier suite | `REVIEW-PENDING` |
+| 2 | $\Pi_{\mathcal M}$ joint matched law | `STAGE5C_6A_E_JOINT_MATCHED_LAW.md`＋generator／matcher source-of-record＋paired covariance schema＋null calibration／falsifier suite | `CLOSED` |
 | 3 | near-zero／ratio numerical certification | `STAGE5C_6A_E_CERTIFICATION.md`＋scale-aware formula＋error propagation＋boundary tests＋candidate-independent planted feasibility／failure suite | `CLOSED` |
 | 4 | E1 joint contrast | estimand／2D region／effect floor／uncertainty | `OPEN` |
 | 5 | E2 null equivalence | two null generators／region／TOST／cohort floor | `OPEN` |
@@ -345,30 +344,29 @@ item 1 已由 PR #22 交付，經兩輪獨立 code review、CI 與 merge commit 
 故可單獨記為 `CLOSED`。items 3＋6 已由 PR #24 交付；初始 head 經獨立 review 後，另依
 automated review 的兩項 fail-closed 發現修訂，修訂 head `6fab7de7` 再經獨立複核確認無新發現、
 CI #94 通過並以 merge commit `306ab9a3` 合併，故兩列可單獨記為 `CLOSED`。
-item 2 的 source、schema、null calibration 與 misspecified-covariance falsifier 已提議為
-`REVIEW-PENDING`。該 falsifier 只認證 $|\rho|>0$ 時刪除 nonzero cross-arm blocks 的失效；
-$\rho=0$ 未拒絕不認證 reference degrees of freedom，且 2048 replications 未針對 df-only
-錯置配置檢定力。items 4／5 在 scientific regions 凍結前仍須交付具事前 power 或解析 oracle
-的 df-only falsifier。item 2 在獨立 review／CI／merge 前不是 `CLOSED`。items 4–5、7–10、12 仍為
-`OPEN`、item 11 仍為 `DRAFT`，因而不解除任何 execution firewall。
+item 2 已由 PR #26 交付；最終 head `f7dc1706` 經獨立複核確認 N1 的 structured
+remaining-work 落點與一般 anti-drift 規則，CI #101 通過並以 merge commit `93b1cd19`
+合併，故可單獨記為 `CLOSED`。該 item 的 falsifier 只認證 $|\rho|>0$ 時刪除 nonzero
+cross-arm blocks 的失效；$\rho=0$ 未拒絕不認證 reference degrees of freedom，且 2048
+replications 未針對 df-only 錯置配置檢定力。items 4／5 在 scientific regions 凍結前仍須
+交付具事前 power 或解析 oracle 的 df-only falsifier。items 4–5、7–10、12 仍為 `OPEN`、
+item 11 仍為 `DRAFT`，因而不解除任何 execution firewall。
 
 ---
 
 ## 9. 下一段工作的合法順序
 
-items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中尚未 `CLOSED` 的交付物
-（包含 item 2 的 `REVIEW-PENDING`）：
+items 1、2、3、6 已完成；remaining-work sequence 只包含 closure matrix 中尚未 `CLOSED`
+的交付物：
 
-1. 交付 item 2 的 $\Pi_{\mathcal M}$ joint matched law、generator／matcher source-of-record 與
-   paired covariance schema；
-2. 交付 item 7 的 E4 fixed-scale continuum sequence、contact／boundary treatment、validated
+1. 交付 item 7 的 E4 fixed-scale continuum sequence、contact／boundary treatment、validated
    live error producers 與 agreement criteria；
-3. 在上述 objects 固定後，交付 items 4／5 的 E1／E2 statistical regions，並完成 §4 已要求的
+2. 在上述 objects 固定後，交付 items 4／5 的 E1／E2 statistical regions，並完成 §4 已要求的
    E3 simultaneous statistical region；同時登記具事前 power 或解析 oracle 的 df-only falsifier；
-4. 交付 item 8 的完整 claim family、lineage-wide multiplicity／successor reserve 與不讀 arm
+3. 交付 item 8 的完整 claim family、lineage-wide multiplicity／successor reserve 與不讀 arm
    data 的 power audit；
-5. 交付 item 9 的 fresh disjoint manifests、burn lifecycle 與 successor mapping；
-6. 再凍結 item 10 的 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
+4. 交付 item 9 的 fresh disjoint manifests、burn lifecycle 與 successor mapping；
+5. 再凍結 item 10 的 runner、ledger、adjudicator與一次性 fresh lifecycle。runner 在建立 ledger、claim seed
    或呼叫 generator **之前**，必須驗證上一個已完成 operation 的 committed／registered ledger
    snapshot、SHA-256、terminal adjudication、protocol digest、runtime 與 transition authorization：
    genesis 只授權 member 1 selection；selection `PASS` 只授權同 member confirmation；對 $j<11$，
@@ -376,11 +374,11 @@ items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中
    confirmation `FAIL` 不授權任何後繼並終局為 `BOUNDED-SEARCH-EXHAUSTED`；confirmation `PASS`、任何
    `INCONCLUSIVE` 或 `PROTOCOL-INVALID` 均不授權後繼。member $j+1$ 不得與 $j$ 並行，也不得
    在 predecessor registry／attestation commit 前啟動；
-7. 以 item 10 的實際 state machine 逐列封閉 item 11，最後完成 item 12 的整體獨立 review／CI／merge；
+6. 以 item 10 的實際 state machine 逐列封閉 item 11，最後完成 item 12 的整體獨立 review／CI／merge；
    只有 12 列全為 `CLOSED` 後，才可生成第一個 6a-E seed。
 
-本次 item-2 交付只把 item 2 從 `OPEN` 提議為 `REVIEW-PENDING`，**不**讓上述 remaining-work
-中任何一項變為 `CLOSED`，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列
-情形，唯一合法動作是先修 draft；不是在執行時補判準。
+本次 state-only closeout 只把 item 2 從 `REVIEW-PENDING` 轉為 `CLOSED`，不改變其餘
+remaining-work 狀態，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列情形，
+唯一合法動作是先修 draft；不是在執行時補判準。
 獨立 review 新增的強制義務必須進入 closure matrix 或本節的 structured remaining-work；
 只寫在 closeout 時會重寫的狀態散文，不構成可逐項驗收的 freeze obligation。
