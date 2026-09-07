@@ -376,7 +376,10 @@ design 另記，不得與 C8 measure 靜默混用。
 
 兩個 arm-specific marginals 只足以算 mean contrast；C8 的 paired effect／power 還須保留
 $\mathcal M$ 誘導的 joint matched-pair law 與 covariance。不得把 paired variance 以兩個
-獨立 marginal variances 相加取代。
+獨立 marginal variances 相加取代。Hungarian assignment 是 pool-global operation，同一 matched
+cohort 內的 pairs 不得默認為獨立 sampling units；inferential mean covariance 必須依
+`STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 以互相獨立的完整 calibration＋evaluation matching
+lifecycles 作 clusters，不能用總 pair count 冒充自由度。
 
 計算流程（**evaluator-side、獨立、固定**）：由 $p_\theta$ 抽 sprinkling $\to$ 只把
 `order` 交給 $\Sigma$ $\to$ 取回被選中元素的 sealed 座標 $\to$ 累積經驗分布。
@@ -627,8 +630,11 @@ residual-power 前提必須依 §6 重新建立。
   endpoint freeze 仍未完成；
 - C8 的 $\varphi$、$\mathcal N$、fixed-scale regulator、6a-S metric／門檻已交付；仍未固定
   C6/C7 instances、二維 endpoint 的 6a-E joint-law metric／只供報告使用的 scalar aggregation；
-- C8 的 finite-$N$ 6a-S law 已預登記；仍未固定 $\Pi_{\mathcal M}$ 的 6a-E joint matched law、
-  continuum proof、E4 contact／boundary treatment，以及 C6/C7 measure instances；
+- C8 的 finite-$N$ 6a-S law 已預登記；$\Pi_{\mathcal M}$ 的 6a-E joint matched law、
+  generator／matcher source-of-record、paired covariance schema 與 candidate-independent null
+  calibration／misspecified-covariance falsifier 已由
+  `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 提議為 `REVIEW-PENDING`，尚未經獨立 review／CI／merge；
+  continuum proof、E4 contact／boundary treatment，以及 C6/C7 measure instances仍未固定；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
