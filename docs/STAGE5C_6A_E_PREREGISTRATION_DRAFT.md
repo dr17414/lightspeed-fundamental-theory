@@ -364,7 +364,7 @@ items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中
 2. 交付 item 7 的 E4 fixed-scale continuum sequence、contact／boundary treatment、validated
    live error producers 與 agreement criteria；
 3. 在上述 objects 固定後，交付 items 4／5 的 E1／E2 statistical regions，並完成 §4 已要求的
-   E3 simultaneous statistical region；
+   E3 simultaneous statistical region；同時登記具事前 power 或解析 oracle 的 df-only falsifier；
 4. 交付 item 8 的完整 claim family、lineage-wide multiplicity／successor reserve 與不讀 arm
    data 的 power audit；
 5. 交付 item 9 的 fresh disjoint manifests、burn lifecycle 與 successor mapping；
@@ -382,3 +382,5 @@ items 1、3、6 已完成；remaining-work sequence 只包含 closure matrix 中
 本次 item-2 交付只把 item 2 從 `OPEN` 提議為 `REVIEW-PENDING`，**不**讓上述 remaining-work
 中任何一項變為 `CLOSED`，也不授權開啟現有 raw ledgers。若後續發現本 draft 漏列
 情形，唯一合法動作是先修 draft；不是在執行時補判準。
+獨立 review 新增的強制義務必須進入 closure matrix 或本節的 structured remaining-work；
+只寫在 closeout 時會重寫的狀態散文，不構成可逐項驗收的 freeze obligation。
