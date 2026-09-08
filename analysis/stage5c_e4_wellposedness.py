@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from math import hypot, sqrt
+from math import fsum, hypot, sqrt
 
 import numpy as np
 from scipy import integrate, special
@@ -87,18 +87,20 @@ class LeakageDiagnostics:
     causal_leakage: float
     exact_contact_atom_mass: float = 0.0
     strict_geometry_validated: bool = False
+    box_leakage_bound_validated: bool = False
     leakage_id: str = E4_LEAKAGE_ID
 
     @property
     def structurally_admissible(self) -> bool:
         # The strict inequalities are established from the input coordinates
         # before these binary64 diagnostics are evaluated.  For a positive
-        # sub-ULP coordinate or gap, ndtr can round a factor to exactly 1/2,
-        # so the diagnostics must not re-decide topology.  The box theorem uses
-        # the open-boundary limit (1/2 - Phi(-1/epsilon))**4, not (1/2)**4;
-        # strict causal gaps, which have no opposite-box tail, imply > 1/4.
+        # sub-ULP coordinate or gap, ndtr can round a factor to exactly 1/2.
+        # The separate cancellation-safe box check preserves the registered
+        # leakage < 15/16 gate; strict causal gaps imply leakage < 3/4 without
+        # an opposite-box tail.
         return bool(
             self.strict_geometry_validated
+            and self.box_leakage_bound_validated
             and np.isfinite(self.box_retained_mass)
             and 0.0 <= self.box_retained_mass <= 1.0
             and np.isfinite(self.box_leakage)
@@ -309,7 +311,36 @@ def leakage_diagnostics(
         causal_retained_mass=causal_retained,
         causal_leakage=_up(1.0 - causal_retained),
         strict_geometry_validated=True,
+        box_leakage_bound_validated=_box_mass_exceeds_one_sixteenth(
+            atoms, weights
+        ),
     )
+
+
+def _box_mass_exceeds_one_sixteenth(
+    atoms: np.ndarray, weights: np.ndarray
+) -> bool:
+    """Test retained box mass > 1/16 without losing boundary-scale excess.
+
+    For distance ``d`` to the nearest boundary, one coordinate has mass
+    ``1/2 + delta`` where delta is the near-boundary CDF gain minus the
+    opposite-boundary tail.  Keeping delta separate avoids rounding the mass
+    to exactly 1/2 before the four-coordinate product is compared.
+    """
+
+    epsilon = SMEARING_EPSILON
+    nearest = np.minimum(atoms, 1.0 - atoms)
+    scaled = 1.0 / (sqrt(2.0) * epsilon)
+    near_gain = 0.5 * special.erf(nearest * scaled)
+    opposite_tail = 0.5 * special.erfc((1.0 - nearest) * scaled)
+    delta = near_gain - opposite_tail
+    log_mass_ratios = np.log1p(2.0 * delta)
+    atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 16.0
+    mixture_excess = fsum(
+        float(weight) * float(excess)
+        for weight, excess in zip(weights, atom_excess, strict=True)
+    )
+    return bool(np.isfinite(mixture_excess) and mixture_excess > 0.0)
 
 
 def conformal_density_lower_bound(theta: float) -> float:

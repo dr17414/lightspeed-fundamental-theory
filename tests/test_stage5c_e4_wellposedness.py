@@ -92,6 +92,7 @@ def test_box_and_causal_leakage_are_analytic_reported_and_not_renormalised():
     assert report.causal_retained_mass == expected_causal
     assert report.causal_leakage >= 1.0 - expected_causal
     assert report.exact_contact_atom_mass == 0.0
+    assert report.box_leakage_bound_validated
     assert report.structurally_admissible
 
 
@@ -115,11 +116,13 @@ def test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics():
     assert report.box_leakage >= 15.0 / 16.0
     assert report.causal_retained_mass == 0.25
     assert report.causal_leakage >= 0.75
-    assert report.structurally_admissible
+    assert not report.box_leakage_bound_validated
+    assert not report.structurally_admissible
 
     # At sufficient precision, the opposite-boundary tail is larger than the
     # positive subnormal displacement: the exact box mass is below 1/16.  The
-    # valid strict bound uses the open-boundary limit instead.
+    # universal strict-topology bound uses the open-boundary limit instead;
+    # the stronger registered 15/16 leakage gate must therefore fail closed.
     with mp.workdps(400):
         epsilon = mp.mpf(1) / 16
         centre = mp.mpf(float(tiny))
