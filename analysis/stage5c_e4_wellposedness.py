@@ -93,8 +93,10 @@ class LeakageDiagnostics:
     def structurally_admissible(self) -> bool:
         # The strict inequalities are established from the input coordinates
         # before these binary64 diagnostics are evaluated.  For a positive
-        # sub-ULP coordinate or gap, ndtr can round the corresponding factor
-        # to exactly 1/2, so the diagnostic values must not re-decide topology.
+        # sub-ULP coordinate or gap, ndtr can round a factor to exactly 1/2,
+        # so the diagnostics must not re-decide topology.  The box theorem uses
+        # the open-boundary limit (1/2 - Phi(-1/epsilon))**4, not (1/2)**4;
+        # strict causal gaps, which have no opposite-box tail, imply > 1/4.
         return bool(
             self.strict_geometry_validated
             and np.isfinite(self.box_retained_mass)

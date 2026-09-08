@@ -95,7 +95,7 @@ def test_box_and_causal_leakage_are_analytic_reported_and_not_renormalised():
     assert report.structurally_admissible
 
 
-def test_strict_interior_and_causal_gaps_imply_sharp_structural_leakage_bounds():
+def test_resolvable_interior_margins_satisfy_simple_leakage_bounds():
     tiny = np.nextafter(0.0, 1.0)
     almost_one = np.nextafter(1.0, 0.0)
     atoms = np.asarray([[almost_one, almost_one, tiny, tiny]])
@@ -105,6 +105,8 @@ def test_strict_interior_and_causal_gaps_imply_sharp_structural_leakage_bounds()
 
 
 def test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics():
+    import mpmath as mp
+
     tiny = np.nextafter(0.0, 1.0)
     atoms = np.asarray([[2.0 * tiny, 2.0 * tiny, tiny, tiny]])
     report = leakage_diagnostics(atoms, np.asarray([1.0]))
@@ -114,6 +116,27 @@ def test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics():
     assert report.causal_retained_mass == 0.25
     assert report.causal_leakage >= 0.75
     assert report.structurally_admissible
+
+    # At sufficient precision, the opposite-boundary tail is larger than the
+    # positive subnormal displacement: the exact box mass is below 1/16.  The
+    # valid strict bound uses the open-boundary limit instead.
+    with mp.workdps(400):
+        epsilon = mp.mpf(1) / 16
+        centre = mp.mpf(float(tiny))
+        phi = lambda value: (1 + mp.erf(value / mp.sqrt(2))) / 2
+        centres = (2 * centre, 2 * centre, centre, centre)
+        coordinate_masses = tuple(
+            phi((1 - value) / epsilon) - phi(-value / epsilon)
+            for value in centres
+        )
+        boundary_limit = mp.mpf("0.5") - phi(-1 / epsilon)
+        exact_box_leakage = 1 - mp.fprod(coordinate_masses)
+        valid_upper_limit = 1 - boundary_limit**4
+        assert all(
+            boundary_limit < value < mp.mpf("0.5")
+            for value in coordinate_masses
+        )
+        assert mp.mpf(15) / 16 < exact_box_leakage < valid_upper_limit
 
 
 def test_order_zero_pairing_bound_is_derived_from_the_complete_theta_domain():

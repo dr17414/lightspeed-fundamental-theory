@@ -91,16 +91,32 @@ C_i=\Phi\!\left(\frac{u_x-u_y}{\sqrt2\epsilon}\right)
 $$
 
 source-of-record 必須報告 $1-\sum_iw_iB_i$ 與 $1-\sum_iw_iC_i$，但不得以其倒數
-renormalize。strict interior 與 strict causal gaps 分別保證 box leakage $<15/16$、causal
-leakage $<3/4$。Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass
-為零；$H(0)$ 的 choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的
-部分依既有 zero-extension prescription 精確歸零。
+renormalize。令
+
+$$
+b_*=\Phi(1/\epsilon)-\frac12=\frac12-\Phi(-16).
+$$
+
+對任一 strict-interior centre，每個 coordinate retained mass 嚴格大於 open-boundary limit
+$b_*$，所以 box leakage 的正確一致界為
+
+$$
+1-\sum_iw_iB_i < 1-b_*^4.
+$$
+
+這個上界因 opposite-boundary Gaussian tail 而略大於 $15/16$；strict interior **不**普遍推出
+box leakage $<15/16$。strict causal gaps 沒有對側 box tail，仍保證 causal leakage $<3/4$。
+Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass 為零；$H(0)$ 的
+choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的部分依既有
+zero-extension prescription 精確歸零。
 
 上述 strict bounds 是由已驗證的幾何不等式承重，不由 binary64 CDF 輸出重新判定。若正座標
-或正 causal gap 小於一個可分辨的 CDF increment，`ndtr` 可把理論上 $>1/2$ 的因子捨入為
-恰好 $1/2$，使報告值落在 limiting values $1/16$ 或 $1/4$；這些值仍是 diagnostic，不得把
-已通過 strict-interior／strict-ordering validator 的 topology 誤判為不合法。任何 diagnostic
-若 non-finite 或離開 probability range，則仍 fail closed。
+或正 causal gap 小於一個可分辨的 CDF increment，`ndtr` 可把 binary64 retained masses 捨入
+為 $1/16$ 或 $1/4$。尤其 sub-ULP boundary case 的 exact box retained mass 可略低於 $1/16$，
+因為 opposite-boundary tail 大於其極小的正 boundary displacement；這不是 topology failure，
+而是上式 $b_*$ 界與簡化 $1/2$ 界的真實差異。這些值仍是 diagnostic，不得把已通過
+strict-interior／strict-ordering validator 的 topology 誤判為不合法。任何 diagnostic 若
+non-finite 或離開 probability range，則仍 fail closed。
 
 因此 leakage 是必存的 scientific diagnostic，不是被漏算的 numerical error。若 centre、
 probability mass、strict ordering 或 8128-atom cap 不合法，應在 pairing 前拒絕，不能靠
@@ -198,7 +214,8 @@ estimate 當 scientific `FAIL`。
 - 以 near-box-boundary 與 near-contact centres 驗 leakage 非零但 pairing 仍 well-defined，
   且不做 retained-mass renormalization；
 - 以 positive sub-ULP coordinates／gaps 驗 strict geometry 不會被 CDF limiting-value 捨入
-  誤判；
+  誤判，並用 high-precision oracle 驗 exact box leakage 可大於 $15/16$、但嚴格小於正確的
+  $1-b_*^4$ boundary-limit 界；
 - 驗完整 $\theta$ domain 的 $p_{\min}$ 與 order-zero operator bound；
 - boundary centre、contact centre、非 probability weights、超過 8128 atoms 與未登記
   $\theta$ 必須在求值前拒絕；
