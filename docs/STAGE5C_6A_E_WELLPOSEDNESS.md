@@ -114,12 +114,19 @@ $$
 -\frac12\operatorname{erfc}\!\left(\frac{1-d}{\sqrt2\epsilon}\right),
 $$
 
-再以 `log1p(2*Delta)`／`expm1` 計算各 atom 相對於 $1/16$ 的 excess，最後用 compensated
-summation 加權。excess 不嚴格為正即 `STRUCTURAL_LEAKAGE_INVALID`；不得把 rounded
-`box_retained_mass == 1/16` 當作通過。strict causal gaps 沒有對側 box tail，仍保證 causal
-leakage $<3/4$。Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass
-為零；$H(0)$ 的 choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的
-部分依既有 zero-extension prescription 精確歸零。
+再以 `log1p(2*Delta)`／`expm1` 計算各 atom 相對於 $1/16$ 的 excess。因 probability-weight
+validator 容許 $|\sum_iw_i-1|\le10^{-12}$，mixture 相對於固定 $1/16$ 的完整 excess 必須是
+
+$$
+\sum_i w_i(B_i-1/16)+\frac{\sum_iw_i-1}{16},
+$$
+
+最後用 compensated summation 納入 normalization offset；不得只算第一項。完整 excess 不
+嚴格為正即 `STRUCTURAL_LEAKAGE_INVALID`；不得把 rounded `box_retained_mass == 1/16` 當作
+通過。strict causal gaps 沒有對側 box tail，仍保證 causal leakage $<3/4$。Gaussian mixture
+對 Lebesgue measure 絕對連續，故 exact contact atom mass 為零；$H(0)$ 的 choice 不產生額外
+$\delta^2$ contact mass。box 外與 retarded-support 外的部分依既有 zero-extension prescription
+精確歸零。
 
 上述 strict bounds 是由已驗證的幾何不等式承重，不由 binary64 CDF 輸出重新判定。若正座標
 或正 causal gap 小於一個可分辨的 CDF increment，`ndtr` 可把 binary64 retained masses 捨入
@@ -227,6 +234,9 @@ estimate 當 scientific `FAIL`。
 - 以 positive sub-ULP coordinates／gaps 驗 topology validator 仍接受 strict geometry，但
   cancellation-safe box gate 得 `STRUCTURAL_LEAKAGE_INVALID`；另以 high-precision oracle
   驗 exact box leakage 大於 $15/16$、但嚴格小於 $1-b_*^4$ universal boundary-limit 界；
+- 以 validator 容許、略低於一的 probability-weight sum 驗 normalization offset 已進入 box
+  gate：同一 atom 在 unit weight 時通過、underweight mixture retained mass 不大於 $1/16$
+  時必須 fail closed；
 - 驗完整 $\theta$ domain 的 $p_{\min}$ 與 order-zero operator bound；
 - boundary centre、contact centre、非 probability weights、超過 8128 atoms 與未登記
   $\theta$ 必須在求值前拒絕；

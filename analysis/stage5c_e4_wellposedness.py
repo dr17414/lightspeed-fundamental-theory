@@ -336,9 +336,15 @@ def _box_mass_exceeds_one_sixteenth(
     delta = near_gain - opposite_tail
     log_mass_ratios = np.log1p(2.0 * delta)
     atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 16.0
+    normalization_offset = (fsum(float(weight) for weight in weights) - 1.0) / 16.0
     mixture_excess = fsum(
-        float(weight) * float(excess)
-        for weight, excess in zip(weights, atom_excess, strict=True)
+        [
+            normalization_offset,
+            *(
+                float(weight) * float(excess)
+                for weight, excess in zip(weights, atom_excess, strict=True)
+            ),
+        ]
     )
     return bool(np.isfinite(mixture_excess) and mixture_excess > 0.0)
 

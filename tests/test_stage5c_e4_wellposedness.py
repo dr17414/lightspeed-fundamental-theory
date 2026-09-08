@@ -142,6 +142,19 @@ def test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics():
         assert mp.mpf(15) / 16 < exact_box_leakage < valid_upper_limit
 
 
+def test_box_gate_accounts_for_accepted_probability_sum_tolerance():
+    distance = 1.0e-15
+    atoms = np.asarray(
+        [[1.0 - distance, 1.0 - distance, distance, distance]]
+    )
+    unit_weight = leakage_diagnostics(atoms, np.asarray([1.0]))
+    underweight = leakage_diagnostics(atoms, np.asarray([1.0 - 5.0e-13]))
+    assert unit_weight.box_leakage_bound_validated
+    assert underweight.box_retained_mass <= 1.0 / 16.0
+    assert not underweight.box_leakage_bound_validated
+    assert not underweight.structurally_admissible
+
+
 def test_order_zero_pairing_bound_is_derived_from_the_complete_theta_domain():
     assert conformal_density_lower_bound(-CONTROL_THETA) == pytest.approx(0.6)
     assert conformal_density_lower_bound(CONTROL_THETA) == pytest.approx(0.8)
