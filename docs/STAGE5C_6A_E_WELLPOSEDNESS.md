@@ -96,6 +96,12 @@ leakage $<3/4$。Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact 
 為零；$H(0)$ 的 choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的
 部分依既有 zero-extension prescription 精確歸零。
 
+上述 strict bounds 是由已驗證的幾何不等式承重，不由 binary64 CDF 輸出重新判定。若正座標
+或正 causal gap 小於一個可分辨的 CDF increment，`ndtr` 可把理論上 $>1/2$ 的因子捨入為
+恰好 $1/2$，使報告值落在 limiting values $1/16$ 或 $1/4$；這些值仍是 diagnostic，不得把
+已通過 strict-interior／strict-ordering validator 的 topology 誤判為不合法。任何 diagnostic
+若 non-finite 或離開 probability range，則仍 fail closed。
+
 因此 leakage 是必存的 scientific diagnostic，不是被漏算的 numerical error。若 centre、
 probability mass、strict ordering 或 8128-atom cap 不合法，應在 pairing 前拒絕，不能靠
 renormalization 修補。
@@ -174,8 +180,9 @@ SciPy `cubature.error` 只存為 **algorithm diagnostic**。它是 estimated err
 agreement、strict nonzero 與 ratio propagation；任一項不 clean 均為 `INCONCLUSIVE`，不得形成
 scientific endpoint。
 
-adaptive solver 若回傳 non-finite output，固定為 `INCONCLUSIVE/NONFINITE_BACKEND`；若在
-4096 subdivisions 內未回報 `converged`，即使 enclosure 或另一實作看似
+adaptive solver 若回傳 non-finite matrix 或 non-finite algorithm-error diagnostic，固定為
+`INCONCLUSIVE/NONFINITE_BACKEND`；若在 4096 subdivisions 內未回報 `converged`，即使
+enclosure 或另一實作看似
 良好，仍固定為 `INCONCLUSIVE/ADAPTIVE_RESOURCE_CAP`。不得續跑、臨時加 cap 或把 solver
 estimate 當 scientific `FAIL`。
 
@@ -190,12 +197,15 @@ estimate 當 scientific `FAIL`。
   `CLEAN/CERTIFIED`；
 - 以 near-box-boundary 與 near-contact centres 驗 leakage 非零但 pairing 仍 well-defined，
   且不做 retained-mass renormalization；
+- 以 positive sub-ULP coordinates／gaps 驗 strict geometry 不會被 CDF limiting-value 捨入
+  誤判；
 - 驗完整 $\theta$ domain 的 $p_{\min}$ 與 order-zero operator bound；
 - boundary centre、contact centre、非 probability weights、超過 8128 atoms 與未登記
   $\theta$ 必須在求值前拒絕；
 - 注入 adaptive resource exhaustion 必須得到
   `INCONCLUSIVE/ADAPTIVE_RESOURCE_CAP`；
-- 注入 non-finite adaptive backend 必須得到 `INCONCLUSIVE/NONFINITE_BACKEND`；
+- 分別注入 non-finite adaptive matrix，以及 finite matrix 配 non-finite error diagnostic，兩者
+  都必須得到 `INCONCLUSIVE/NONFINITE_BACKEND`；
 - 明確驗證 adaptive algorithm diagnostic 小於 validated enclosure error 時，`ErrorBudget`
   仍只能採後者，防止 estimated-error undercoverage。
 

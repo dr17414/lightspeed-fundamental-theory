@@ -86,18 +86,25 @@ class LeakageDiagnostics:
     causal_retained_mass: float
     causal_leakage: float
     exact_contact_atom_mass: float = 0.0
+    strict_geometry_validated: bool = False
     leakage_id: str = E4_LEAKAGE_ID
 
     @property
     def structurally_admissible(self) -> bool:
-        # Strict interior in four coordinates gives more than half of each
-        # one-dimensional Gaussian inside the box.  Strict causal gaps give
-        # more than half probability in each difference coordinate.
+        # The strict inequalities are established from the input coordinates
+        # before these binary64 diagnostics are evaluated.  For a positive
+        # sub-ULP coordinate or gap, ndtr can round the corresponding factor
+        # to exactly 1/2, so the diagnostic values must not re-decide topology.
         return bool(
-            0.0 < self.box_retained_mass <= 1.0
-            and 0.0 <= self.box_leakage < 15.0 / 16.0
-            and 0.25 < self.causal_retained_mass <= 1.0
-            and 0.0 <= self.causal_leakage < 0.75
+            self.strict_geometry_validated
+            and np.isfinite(self.box_retained_mass)
+            and 0.0 <= self.box_retained_mass <= 1.0
+            and np.isfinite(self.box_leakage)
+            and 0.0 <= self.box_leakage <= 1.0
+            and np.isfinite(self.causal_retained_mass)
+            and 0.0 <= self.causal_retained_mass <= 1.0
+            and np.isfinite(self.causal_leakage)
+            and 0.0 <= self.causal_leakage <= 1.0
             and self.exact_contact_atom_mass == 0.0
         )
 
@@ -299,6 +306,7 @@ def leakage_diagnostics(
         box_leakage=_up(1.0 - box_retained),
         causal_retained_mass=causal_retained,
         causal_leakage=_up(1.0 - causal_retained),
+        strict_geometry_validated=True,
     )
 
 
@@ -678,8 +686,11 @@ def evaluate_e4_wellposedness(
     # error estimate is retained only as a diagnostic and is never promoted to
     # a validated ErrorBudget component.
     fixed_error = enclosure.error_for(fixed.matrix)
-    adaptive_finite = bool(np.all(np.isfinite(gm.matrix)))
-    adaptive_error = enclosure.error_for(gm.matrix) if adaptive_finite else 0.0
+    adaptive_matrix_finite = bool(np.all(np.isfinite(gm.matrix)))
+    adaptive_output_finite = bool(adaptive_matrix_finite and np.isfinite(gm.error))
+    adaptive_error = (
+        enclosure.error_for(gm.matrix) if adaptive_matrix_finite else 0.0
+    )
     gauss = ImplementationEstimate(
         fixed.matrix,
         _budget(fixed_error),
@@ -694,7 +705,7 @@ def evaluate_e4_wellposedness(
     if not leakage.structurally_admissible:
         status = E4Status.INCONCLUSIVE
         reason = E4Reason.STRUCTURAL_LEAKAGE_INVALID
-    elif not adaptive_finite:
+    elif not adaptive_output_finite:
         status = E4Status.INCONCLUSIVE
         reason = E4Reason.NONFINITE_BACKEND
     elif not gm.converged:

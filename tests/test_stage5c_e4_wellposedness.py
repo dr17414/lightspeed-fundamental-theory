@@ -104,6 +104,18 @@ def test_strict_interior_and_causal_gaps_imply_sharp_structural_leakage_bounds()
     assert report.causal_leakage < 0.75
 
 
+def test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics():
+    tiny = np.nextafter(0.0, 1.0)
+    atoms = np.asarray([[2.0 * tiny, 2.0 * tiny, tiny, tiny]])
+    report = leakage_diagnostics(atoms, np.asarray([1.0]))
+    assert report.strict_geometry_validated
+    assert report.box_retained_mass == 1.0 / 16.0
+    assert report.box_leakage >= 15.0 / 16.0
+    assert report.causal_retained_mass == 0.25
+    assert report.causal_leakage >= 0.75
+    assert report.structurally_admissible
+
+
 def test_order_zero_pairing_bound_is_derived_from_the_complete_theta_domain():
     assert conformal_density_lower_bound(-CONTROL_THETA) == pytest.approx(0.6)
     assert conformal_density_lower_bound(CONTROL_THETA) == pytest.approx(0.8)
@@ -194,6 +206,26 @@ def test_nonfinite_adaptive_backend_is_inconclusive(monkeypatch):
     assert report.status is E4Status.INCONCLUSIVE
     assert report.reason is E4Reason.NONFINITE_BACKEND
     assert report.certification.reason is CertificationReason.NONFINITE_BACKEND
+    assert not report.clean
+
+
+def test_nonfinite_adaptive_error_with_finite_matrix_is_inconclusive(monkeypatch):
+    def nonfinite_error(*args, **kwargs):
+        return SimpleNamespace(
+            estimate=np.asarray([0.004, 0.0, 0.002, 0.0]),
+            error=np.full(4, np.inf),
+            subdivisions=1,
+            status="converged",
+        )
+
+    monkeypatch.setattr(e4.integrate, "cubature", nonfinite_error)
+    report = evaluate_e4_wellposedness(
+        INTERIOR_ATOMS, INTERIOR_WEIGHTS, CONTROL_THETA
+    )
+    assert np.all(np.isfinite(report.adaptive.matrix))
+    assert not np.isfinite(report.adaptive_run.error)
+    assert report.status is E4Status.INCONCLUSIVE
+    assert report.reason is E4Reason.NONFINITE_BACKEND
     assert not report.clean
 
 
