@@ -268,6 +268,7 @@ def _validated_theta(theta: float) -> float:
 def _exact_binary64_sum(values: np.ndarray) -> Fraction:
     """Return the exact rational sum of finite binary64 inputs."""
 
+    # Fraction.from_float preserves each input's exact dyadic value.
     return sum(
         (Fraction.from_float(float(value)) for value in values),
         start=Fraction(0),
