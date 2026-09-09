@@ -96,9 +96,9 @@ class LeakageDiagnostics:
         # The strict inequalities are established from the input coordinates
         # before these binary64 diagnostics are evaluated.  For a positive
         # sub-ULP coordinate or gap, ndtr can round a factor to exactly 1/2.
-        # The separate cancellation-safe box check preserves the registered
-        # leakage < 15/16 gate; strict causal gaps imply leakage < 3/4 without
-        # an opposite-box tail.
+        # The separate cancellation-safe box and causal checks preserve the
+        # registered leakage gates while accounting for the permitted weight-
+        # sum tolerance.  The causal calculation has no opposite-box tail.
         return bool(
             self.strict_geometry_validated
             and self.box_leakage_bound_validated
