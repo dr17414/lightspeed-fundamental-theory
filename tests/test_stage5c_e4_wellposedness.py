@@ -93,6 +93,7 @@ def test_box_and_causal_leakage_are_analytic_reported_and_not_renormalised():
     assert report.causal_leakage >= 1.0 - expected_causal
     assert report.exact_contact_atom_mass == 0.0
     assert report.box_leakage_bound_validated
+    assert report.causal_leakage_bound_validated
     assert report.structurally_admissible
 
 
@@ -152,6 +153,20 @@ def test_box_gate_accounts_for_accepted_probability_sum_tolerance():
     assert unit_weight.box_leakage_bound_validated
     assert underweight.box_retained_mass <= 1.0 / 16.0
     assert not underweight.box_leakage_bound_validated
+    assert not underweight.structurally_admissible
+
+
+def test_causal_gate_accounts_for_accepted_probability_sum_tolerance():
+    lower = 0.5
+    upper = np.nextafter(lower, 1.0)
+    atoms = np.asarray([[upper, upper, lower, lower]])
+    unit_weight = leakage_diagnostics(atoms, np.asarray([1.0]))
+    underweight = leakage_diagnostics(atoms, np.asarray([1.0 - 5.0e-13]))
+    assert unit_weight.box_leakage_bound_validated
+    assert unit_weight.causal_leakage_bound_validated
+    assert underweight.box_leakage_bound_validated
+    assert underweight.causal_retained_mass <= 0.25
+    assert not underweight.causal_leakage_bound_validated
     assert not underweight.structurally_admissible
 
 

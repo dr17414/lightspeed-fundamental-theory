@@ -88,6 +88,7 @@ class LeakageDiagnostics:
     exact_contact_atom_mass: float = 0.0
     strict_geometry_validated: bool = False
     box_leakage_bound_validated: bool = False
+    causal_leakage_bound_validated: bool = False
     leakage_id: str = E4_LEAKAGE_ID
 
     @property
@@ -101,6 +102,7 @@ class LeakageDiagnostics:
         return bool(
             self.strict_geometry_validated
             and self.box_leakage_bound_validated
+            and self.causal_leakage_bound_validated
             and np.isfinite(self.box_retained_mass)
             and 0.0 <= self.box_retained_mass <= 1.0
             and np.isfinite(self.box_leakage)
@@ -314,6 +316,9 @@ def leakage_diagnostics(
         box_leakage_bound_validated=_box_mass_exceeds_one_sixteenth(
             atoms, weights
         ),
+        causal_leakage_bound_validated=_causal_mass_exceeds_one_quarter(
+            atoms, weights
+        ),
     )
 
 
@@ -337,6 +342,28 @@ def _box_mass_exceeds_one_sixteenth(
     log_mass_ratios = np.log1p(2.0 * delta)
     atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 16.0
     normalization_offset = (fsum(float(weight) for weight in weights) - 1.0) / 16.0
+    mixture_excess = fsum(
+        [
+            normalization_offset,
+            *(
+                float(weight) * float(excess)
+                for weight, excess in zip(weights, atom_excess, strict=True)
+            ),
+        ]
+    )
+    return bool(np.isfinite(mixture_excess) and mixture_excess > 0.0)
+
+
+def _causal_mass_exceeds_one_quarter(
+    atoms: np.ndarray, weights: np.ndarray
+) -> bool:
+    """Test retained causal mass > 1/4 at gap and weight tolerances."""
+
+    gaps = atoms[:, :2] - atoms[:, 2:]
+    gain = 0.5 * special.erf(gaps / (2.0 * SMEARING_EPSILON))
+    log_mass_ratios = np.log1p(2.0 * gain)
+    atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 4.0
+    normalization_offset = (fsum(float(weight) for weight in weights) - 1.0) / 4.0
     mixture_excess = fsum(
         [
             normalization_offset,

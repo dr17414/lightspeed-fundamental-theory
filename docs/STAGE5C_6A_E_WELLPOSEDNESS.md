@@ -123,10 +123,16 @@ $$
 
 最後用 compensated summation 納入 normalization offset；不得只算第一項。完整 excess 不
 嚴格為正即 `STRUCTURAL_LEAKAGE_INVALID`；不得把 rounded `box_retained_mass == 1/16` 當作
-通過。strict causal gaps 沒有對側 box tail，仍保證 causal leakage $<3/4$。Gaussian mixture
-對 Lebesgue measure 絕對連續，故 exact contact atom mass 為零；$H(0)$ 的 choice 不產生額外
-$\delta^2$ contact mass。box 外與 retarded-support 外的部分依既有 zero-extension prescription
-精確歸零。
+通過。
+
+strict causal gap 對每個 atom 確實保證 retained factor $>1/2$，但在容許
+$\sum_iw_i<1$ 時，單靠逐 atom 結論仍不能保證 mixture retained mass $>1/4$。因此 causal
+gate 同樣以 `erf(gap/(2*epsilon))`、`log1p`／`expm1` 保存相對 $1/4$ 的 excess，並加入
+$(\sum_iw_i-1)/4$ normalization offset 後作 compensated sum；完整 excess 不嚴格為正即
+`STRUCTURAL_LEAKAGE_INVALID`。這裡沒有 box 的 opposite-boundary tail，但仍必須處理已登記的
+weight tolerance。Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass
+為零；$H(0)$ 的 choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的
+部分依既有 zero-extension prescription 精確歸零。
 
 上述 strict bounds 是由已驗證的幾何不等式承重，不由 binary64 CDF 輸出重新判定。若正座標
 或正 causal gap 小於一個可分辨的 CDF increment，`ndtr` 可把 binary64 retained masses 捨入
@@ -237,6 +243,8 @@ estimate 當 scientific `FAIL`。
 - 以 validator 容許、略低於一的 probability-weight sum 驗 normalization offset 已進入 box
   gate：同一 atom 在 unit weight 時通過、underweight mixture retained mass 不大於 $1/16$
   時必須 fail closed；
+- 以一個 ULP 的 strict causal gaps 搭配相同 underweight tolerance 驗 causal normalization
+  offset：box gate 仍通過，但 causal retained mass 不大於 $1/4$ 時必須 fail closed；
 - 驗完整 $\theta$ domain 的 $p_{\min}$ 與 order-zero operator bound；
 - boundary centre、contact centre、非 probability weights、超過 8128 atoms 與未登記
   $\theta$ 必須在求值前拒絕；
