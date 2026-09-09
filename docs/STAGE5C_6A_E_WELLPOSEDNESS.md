@@ -121,16 +121,18 @@ $$
 \sum_i w_i(B_i-1/16)+\frac{\sum_iw_i-1}{16},
 $$
 
-最後用 compensated summation 納入 normalization offset；不得只算第一項。完整 excess 不
-嚴格為正即 `STRUCTURAL_LEAKAGE_INVALID`；不得把 rounded `box_retained_mass == 1/16` 當作
-通過。
+最後把輸入 binary64 weights、computed binary64 atom excess 與 normalization offset 全部轉為
+其精確 dyadic rational 值後加總；不得只算第一項，也不得先把 weight sum 捨入為 binary64。
+完整 excess 不嚴格為正即 `STRUCTURAL_LEAKAGE_INVALID`；不得把 rounded
+`box_retained_mass == 1/16` 當作通過。
 
 strict causal gap 對每個 atom 確實保證 retained factor $>1/2$，但在容許
 $\sum_iw_i<1$ 時，單靠逐 atom 結論仍不能保證 mixture retained mass $>1/4$。因此 causal
 gate 同樣以 `erf(gap/(2*epsilon))`、`log1p`／`expm1` 保存相對 $1/4$ 的 excess，並加入
-$(\sum_iw_i-1)/4$ normalization offset 後作 compensated sum；完整 excess 不嚴格為正即
-`STRUCTURAL_LEAKAGE_INVALID`。這裡沒有 box 的 opposite-boundary tail，但仍必須處理已登記的
-weight tolerance。Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass
+$(\sum_iw_i-1)/4$ normalization offset 後作 exact-dyadic accumulation；完整 excess 不嚴格為正
+即 `STRUCTURAL_LEAKAGE_INVALID`。這裡沒有 box 的 opposite-boundary tail，但仍必須處理已登記
+的 weight tolerance，包含總和落在 1 以下半個 ULP 內而 binary64 summation 回傳 1 的情形。
+Gaussian mixture 對 Lebesgue measure 絕對連續，故 exact contact atom mass
 為零；$H(0)$ 的 choice 不產生額外 $\delta^2$ contact mass。box 外與 retarded-support 外的
 部分依既有 zero-extension prescription 精確歸零。
 
@@ -245,6 +247,8 @@ estimate 當 scientific `FAIL`。
   時必須 fail closed；
 - 以一個 ULP 的 strict causal gaps 搭配相同 underweight tolerance 驗 causal normalization
   offset：box gate 仍通過，但 causal retained mass 不大於 $1/4$ 時必須 fail closed；
+- 以兩個 binary64 weights 的精確總和為 $1-2^{-54}$、但普通 summation 捨入為 1 的案例，驗
+  exact-dyadic accumulation 不會消掉 causal normalization deficit；
 - 驗完整 $\theta$ domain 的 $p_{\min}$ 與 order-zero operator bound；
 - boundary centre、contact centre、非 probability weights、超過 8128 atoms 與未登記
   $\theta$ 必須在求值前拒絕；

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
+from fractions import Fraction
 from math import fsum, hypot, sqrt
 
 import numpy as np
@@ -264,6 +265,15 @@ def _validated_theta(theta: float) -> float:
     return theta
 
 
+def _exact_binary64_sum(values: np.ndarray) -> Fraction:
+    """Return the exact rational sum of finite binary64 inputs."""
+
+    return sum(
+        (Fraction.from_float(float(value)) for value in values),
+        start=Fraction(0),
+    )
+
+
 def _validated_mixture(
     pair_coordinates: np.ndarray, probability_weights: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -279,7 +289,11 @@ def _validated_mixture(
         raise E4ProtocolError("every E4 atom must be a strict ordered causal pair")
     if weights.shape != (len(atoms),) or not np.all(np.isfinite(weights)):
         raise E4ProtocolError("one finite probability weight is required per atom")
-    if np.any(weights < 0.0) or abs(float(weights.sum()) - 1.0) > MASS_TOLERANCE:
+    exact_weight_sum = _exact_binary64_sum(weights)
+    if (
+        np.any(weights < 0.0)
+        or abs(exact_weight_sum - 1) > Fraction.from_float(MASS_TOLERANCE)
+    ):
         raise E4ProtocolError("E4 mixture weights must be non-negative and sum to one")
     frozen_atoms = atoms.copy()
     frozen_weights = weights.copy()
@@ -341,17 +355,7 @@ def _box_mass_exceeds_one_sixteenth(
     delta = near_gain - opposite_tail
     log_mass_ratios = np.log1p(2.0 * delta)
     atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 16.0
-    normalization_offset = (fsum(float(weight) for weight in weights) - 1.0) / 16.0
-    mixture_excess = fsum(
-        [
-            normalization_offset,
-            *(
-                float(weight) * float(excess)
-                for weight, excess in zip(weights, atom_excess, strict=True)
-            ),
-        ]
-    )
-    return bool(np.isfinite(mixture_excess) and mixture_excess > 0.0)
+    return _mixture_excess_is_positive(atom_excess, weights, 16)
 
 
 def _causal_mass_exceeds_one_quarter(
@@ -363,17 +367,24 @@ def _causal_mass_exceeds_one_quarter(
     gain = 0.5 * special.erf(gaps / (2.0 * SMEARING_EPSILON))
     log_mass_ratios = np.log1p(2.0 * gain)
     atom_excess = np.expm1(np.sum(log_mass_ratios, axis=1)) / 4.0
-    normalization_offset = (fsum(float(weight) for weight in weights) - 1.0) / 4.0
-    mixture_excess = fsum(
-        [
-            normalization_offset,
-            *(
-                float(weight) * float(excess)
-                for weight, excess in zip(weights, atom_excess, strict=True)
-            ),
-        ]
+    return _mixture_excess_is_positive(atom_excess, weights, 4)
+
+
+def _mixture_excess_is_positive(
+    atom_excess: np.ndarray, weights: np.ndarray, baseline_denominator: int
+) -> bool:
+    """Compare a binary64 mixture excess without rounding away weight deficit."""
+
+    exact_excess = (_exact_binary64_sum(weights) - 1) / baseline_denominator
+    exact_excess += sum(
+        (
+            Fraction.from_float(float(weight))
+            * Fraction.from_float(float(excess))
+            for weight, excess in zip(weights, atom_excess, strict=True)
+        ),
+        start=Fraction(0),
     )
-    return bool(np.isfinite(mixture_excess) and mixture_excess > 0.0)
+    return exact_excess > 0
 
 
 def conformal_density_lower_bound(theta: float) -> float:

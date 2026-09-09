@@ -1,5 +1,6 @@
 """Candidate-independent regressions for 6a-E closure item 7."""
 
+from fractions import Fraction
 from types import SimpleNamespace
 
 import numpy as np
@@ -168,6 +169,32 @@ def test_causal_gate_accounts_for_accepted_probability_sum_tolerance():
     assert underweight.causal_retained_mass <= 0.25
     assert not underweight.causal_leakage_bound_validated
     assert not underweight.structurally_admissible
+
+
+def test_causal_gate_preserves_a_sub_ulp_weight_normalization_deficit():
+    import mpmath as mp
+
+    lower = np.nextafter(1.0 / 64.0, 0.0)
+    upper = 1.0 / 64.0
+    atoms = np.tile(np.asarray([upper, upper, lower, lower]), (2, 1))
+    weights = np.asarray([0.5, np.nextafter(0.5, 0.0)])
+    exact_weight_sum = sum(
+        (Fraction.from_float(float(weight)) for weight in weights),
+        start=Fraction(0),
+    )
+    report = leakage_diagnostics(atoms, weights)
+    assert float(weights.sum()) == 1.0
+    assert exact_weight_sum == 1 - Fraction(1, 2**54)
+    assert report.box_leakage_bound_validated
+    assert not report.causal_leakage_bound_validated
+    assert not report.structurally_admissible
+
+    with mp.workdps(100):
+        gap_ratio = (upper - lower).as_integer_ratio()
+        gap = mp.mpf(gap_ratio[0]) / gap_ratio[1]
+        weight_sum = mp.mpf(exact_weight_sum.numerator) / exact_weight_sum.denominator
+        factor = (1 + mp.erf(gap / (2 * mp.mpf(SMEARING_EPSILON)))) / 2
+        assert weight_sum * factor**2 < mp.mpf(1) / 4
 
 
 def test_order_zero_pairing_bound_is_derived_from_the_complete_theta_domain():
