@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.15 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6 為 `CLOSED`；items 4–5、7–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.16 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6 為 `CLOSED`；item 7 E4 contract 為 `REVIEW-PENDING`；items 4–5、8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -518,13 +518,13 @@ family、margin 或 normalization。
 | **E1 continuum contrast** | 完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$，含 integration uncertainty | 通過預登記的二維 contrast region／joint effect floor |
 | **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline multivariate equivalence test | 各自落入預登記 equivalence region |
 | **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind 與 active wrong-support objects 經同一 typed pipeline／endpoint；全域 sector swap 另作 invariance arm | discrimination arms 先過 orbit-admissibility，再按預登記二維 joint-law regions／逐分量規則可分；swap arm 逐位元相同 |
-| **E4 distributional well-posedness** | smearing 前後、regulator removal、contact/boundary、兩個獨立 implementation | pairing 存在、收斂且互相吻合 |
+| **E4 distributional well-posedness** | fixed-$\epsilon$ Gaussian-mixture topology、contact／boundary leakage、continuum enclosure、兩個獨立 implementations | pairing 存在、validated error 有界且 implementations 通過 closed-ball agreement |
 | **E5-D detection power／multiplicity** | E1／E3 的 directional detection claims，在預登記樣本量與 multiplicity-adjusted $\alpha$ 下 | 每個承重 detection claim power $\ge0.90$ |
 | **E5-E equivalence power／multiplicity** | E2 各 null arm 的 TOST／等效性 claim；由預登記 margin $\delta_E$、null variance／最壞分布與 multiplicity-adjusted $\alpha$ 反推 cohort floor | 每個承重 equivalence claim power $\ge0.90$ 且實際 cohort 達 floor |
 
 E2 的必要性與 reference probe arm N 相同；E3 則是 acceptance spec C7 明定的 planted-
 alternative 要求。E1–E4 與 E5-D／E5-E 的統計量、effect floor、equivalence margin、sample size、seed 段、
-regulator sequence 與 failure semantics 全部在 selector-prereg commit 固定，不得在看過
+fixed-scale enclosure sequence 與 failure semantics 全部在 selector-prereg commit 固定，不得在看過
 任何成員結果後修改。selection split 通過後仍須依 §3.5 以 fresh confirmation 重驗。
 E4 是 analysis／numerics 的 well-posedness claim，依預登記 error bound、coverage／convergence
 criterion 與 implementation agreement 驗收；不得用「power $\ge0.90$」這個不適用的標籤
@@ -635,8 +635,10 @@ residual-power 前提必須依 §6 重新建立。
   calibration／misspecified-covariance falsifier 已由
   `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 在 PR #26 交付，最終 head `f7dc1706` 經獨立
   複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；df-only falsifier 仍是 items
-  4／5 scientific-region freeze 的結構化義務；continuum proof、E4 contact／boundary
-  treatment，以及 C6/C7 measure instances仍未固定；
+  4／5 scientific-region freeze 的結構化義務；E4 fixed-scale continuum enclosure、
+  contact／boundary leakage、validated error producers 與兩個 independent implementations
+  已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付為 `REVIEW-PENDING`，尚待獨立 review／CI／merge；
+  C6/C7 measure instances仍未固定；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
