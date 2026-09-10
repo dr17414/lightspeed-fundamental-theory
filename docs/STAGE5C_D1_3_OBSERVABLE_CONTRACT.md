@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.16 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6 為 `CLOSED`；item 7 E4 contract 為 `REVIEW-PENDING`；items 4–5、8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.16 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6、7 為 `CLOSED`；items 4–5、8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -637,7 +637,8 @@ residual-power 前提必須依 §6 重新建立。
   複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；df-only falsifier 仍是 items
   4／5 scientific-region freeze 的結構化義務；E4 fixed-scale continuum enclosure、
   contact／boundary leakage、validated error producers 與兩個 independent implementations
-  已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付為 `REVIEW-PENDING`，尚待獨立 review／CI／merge；
+  已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付；最終 head `81b926cc` 經獨立完整樹複核、
+  CI #113、exact-head automated review 與 PR #28 merge `59c78c64` 後狀態為 `CLOSED`；
   C6/C7 measure instances仍未固定；
 - E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；

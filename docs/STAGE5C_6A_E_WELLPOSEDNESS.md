@@ -1,12 +1,13 @@
 # Stage 5C — 6a-E E4 fixed-scale well-posedness contract
 
-狀態：**【closure item 7／REVIEW-PENDING／不可執行】**。
+狀態：**【closure item 7／CLOSED／不可執行】**。
 
 本文件只交付 candidate-independent 的 E4 continuum pairing、leakage 與 validated-error
 契約。source-of-record 是 `analysis/stage5c_e4_wellposedness.py`，契約 identity 為
 `stage5c-6a-e-e4-wellposedness-v0.1`。它不讀 arm ledger、不生成或 claim 6a-E seed、不形成
-arm endpoint，也不設計、import 或執行候選 kernel $K$。在本項經獨立 review、CI 與 merge
-前，closure item 7 不得記為 `CLOSED`；其他 closure items 與 execution firewall 均不變。
+arm endpoint，也不設計、import 或執行候選 kernel $K$。本項最終 head `81b926cc` 已經獨立
+review、CI #113、exact-head automated review 與 PR #28 merge `59c78c64` 完成，故 closure
+item 7 現為 `CLOSED`；其他 closure items 與 execution firewall 均不變。
 
 ---
 
@@ -266,9 +267,9 @@ gate、沒有 arm effect、也不提供 selector 排序資訊。
 
 ## 7. Closure 與仍然禁止的事
 
-本 PR 的合法狀態只有 `REVIEW-PENDING`。item 7 只有在本文件、source-of-record、tests、完整
-CI 與 Claude 對實際 final tree 的獨立 review 均通過並合併後，才可由後續 state-only
-closeout 改為 `CLOSED`。
+item 7 的本文件、source-of-record 與 tests 已由最終 head `81b926cc` 交付；完整 CI #113、
+Claude 對實際 final tree 的獨立 review、exact-head automated review 均通過，並已由 PR #28
+合併為 main `59c78c64`。因此本 state-only closeout 將 item 7 記為 `CLOSED`。
 
 即使 item 7 關閉，items 4／5 的 statistical regions 與 df-only falsifier、item 8 power／
 multiplicity、item 9 manifests、item 10 runner／ledger、item 11 final decision table、item 12
