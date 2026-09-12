@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.16 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6、7 為 `CLOSED`；items 4–5、8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.18 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6、7 為 `CLOSED`；items 4–5 為 `REVIEW-PENDING`，items 8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -515,9 +515,9 @@ family、margin 或 normalization。
 
 | 檢定 | 內容 | 通過條件 |
 | :--- | :--- | :--- |
-| **E1 continuum contrast** | 完整 $\mathcal O^{\rm cont}_+-\mathcal O^{\rm cont}_-$，含 integration uncertainty | 通過預登記的二維 contrast region／joint effect floor |
-| **E2 target-null equivalence** | $T_+$ vs $T_+$ 與 $T_-$ vs $T_-$ 的同 pipeline multivariate equivalence test | 各自落入預登記 equivalence region |
-| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind 與 active wrong-support objects 經同一 typed pipeline／endpoint；全域 sector swap 另作 invariance arm | discrimination arms 先過 orbit-admissibility，再按預登記二維 joint-law regions／逐分量規則可分；swap arm 逐位元相同 |
+| **E1 continuum contrast** | 完整有序 $\mathcal O^{\rm cont}_{T_+}-\mathcal O^{\rm cont}_{T_-}$，item-2 CR1 mean covariance，item-3 matched numerical uncertainty | $B-1$ df 的二維 Bonferroni–Student rectangle 在 sharp-range normalized coordinates 嚴格離開 closed $[-1/20,1/20]^2$ |
+| **E2 target-null equivalence** | $T_+$ 與 $T_-$ 各有一組同 `sprinkle_control` source／同 $\theta$、但 future pool identities 必須互異的 A/B null pair | 兩個二維 rectangles 各自嚴格落入 open $(-1/20,1/20)^2$；任一失敗即 E2 失敗 |
+| **E3 planted alternatives** | 預先固定的 correct chiral、symmetric-diffusion、sector-blind 與 active wrong-support objects 經同一 typed pipeline／endpoint；全域 sector swap 另作 invariance arm | discrimination arms 先過 Gate O，再按 `STAGE5C_6A_E_STATISTICAL_REGIONS.md` 的 ordered arms、方向／等效分量及 $1/10$ 或 $g_*/2$ floors 同時判定；swap arm 逐位元相同 |
 | **E4 distributional well-posedness** | fixed-$\epsilon$ Gaussian-mixture topology、contact／boundary leakage、continuum enclosure、兩個獨立 implementations | pairing 存在、validated error 有界且 implementations 通過 closed-ball agreement |
 | **E5-D detection power／multiplicity** | E1／E3 的 directional detection claims，在預登記樣本量與 multiplicity-adjusted $\alpha$ 下 | 每個承重 detection claim power $\ge0.90$ |
 | **E5-E equivalence power／multiplicity** | E2 各 null arm 的 TOST／等效性 claim；由預登記 margin $\delta_E$、null variance／最壞分布與 multiplicity-adjusted $\alpha$ 反推 cohort floor | 每個承重 equivalence claim power $\ge0.90$ 且實際 cohort 達 floor |
@@ -634,13 +634,16 @@ residual-power 前提必須依 §6 重新建立。
   generator／matcher source-of-record、paired covariance schema 與 candidate-independent null
   calibration／misspecified-covariance falsifier 已由
   `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 在 PR #26 交付，最終 head `f7dc1706` 經獨立
-  複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；df-only falsifier 仍是 items
-  4／5 scientific-region freeze 的結構化義務；E4 fixed-scale continuum enclosure、
+  複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；items 4／5 的 Bonferroni–Student
+  simultaneous rectangles、range-normalized E1／E2 boundaries、E3 component rules、
+  matched numerical-error propagation 與解析 df-only oracle 現由
+  `STAGE5C_6A_E_STATISTICAL_REGIONS.md` 提議交付，狀態為 `REVIEW-PENDING`；E4 fixed-scale continuum enclosure、
   contact／boundary leakage、validated error producers 與兩個 independent implementations
   已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付；最終 head `81b926cc` 經獨立完整樹複核、
   CI #113、exact-head automated review 與 PR #28 merge `59c78c64` 後狀態為 `CLOSED`；
   C6/C7 measure instances仍未固定；
-- E1–E4、E5-D／E5-E 的統計量、分開的 detection／equivalence floors 與 cohort gates、planted-alternative family、power 與 seed ranges；
+- E1–E3 region forms 現待 review／CI／merge；E5-D／E5-E 的完整 multiplicity、分開的
+  detection／equivalence power floors、power-derived cohort gates 與 seed ranges仍未固定；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
   weights、nontriviality／effect-size／noise／continuum calibration；

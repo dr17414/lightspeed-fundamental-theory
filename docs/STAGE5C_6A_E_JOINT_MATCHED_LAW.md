@@ -230,8 +230,10 @@ reference-law／degrees-of-freedom 錯置：兩個 independent marginal sample c
 interval **沒有針對這種 df-only 錯置配置檢定力**；所以 $\rho=0$ 的未拒絕不得被引用為
 falsifier 有效、也不得被引用為自由度慣例已由 falsifier 認證。paired schema 的 $B-1$
 慣例由 exact-Gaussian Hotelling oracle 的正確-schema coverage 支持；items 4／5 在凍結實際
-scientific regions 前，仍必須另行登記能保留正確 covariance target、只破壞 reference df 的
-df-only falsifier，並以事前 power 或解析 oracle 證明該檢查不是低檢定力的形式測試。
+scientific regions 前，必須另行登記能保留正確 covariance target、只破壞 reference df 的
+df-only falsifier，並以事前 power 或解析 oracle 證明該檢查不是低檢定力的形式測試。後續
+`STAGE5C_6A_E_STATISTICAL_REGIONS.md` 已以固定 Gaussian Student-CDF 解析 oracle 提出此
+df-only falsifier；該 items-4／5 delivery 目前仍為 `REVIEW-PENDING`。
 
 ---
 
@@ -241,6 +243,7 @@ df-only falsifier，並以事前 power 或解析 oracle 證明該檢查不是低
 確認 N1 的 structured remaining-work 落點與一般 anti-drift 規則，CI #101 通過並以
 merge commit `93b1cd19` 合併，故 closure item 2 狀態為 `CLOSED`。
 
-即使 item 2 已 `CLOSED`，items 4／5／7–10／12 仍 `OPEN`、item 11 仍 `DRAFT`；不得生成
-6a-E seed、開啟 arm numerical ledger、形成 arm endpoint，亦不得把本 calibration-only
-Hotelling oracle升格為 scientific region。
+即使 item 2 已 `CLOSED`，item 7 後續雖亦已 `CLOSED`，items 4／5 仍只是
+`REVIEW-PENDING`、items 8–10／12 仍 `OPEN`、item 11 仍 `DRAFT`；不得生成 6a-E seed、
+開啟 arm numerical ledger、形成 arm endpoint，亦不得把本 calibration-only Hotelling
+oracle升格為 scientific region。
