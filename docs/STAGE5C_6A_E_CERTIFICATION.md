@@ -141,6 +141,14 @@ $|I_1|\le2$ 給 $2\Delta_N$；第二分量用 $1+1$。最終 interval 對式 (6)
 `INCONCLUSIVE/RATIO-ERROR-UNBOUNDED`。這是 numerical enclosure，不是 E1／E3 statistical
 confidence region；items 4、6、8 的 multiplicity／power 不能以它取代。
 
+日後 items 4／5 的 matched-error propagation 只接受 certification producer 本身發出的
+record。若呼叫端提供 `EndpointCertificationProvenance(arm_name,pool_identity,row_index)`，
+`certify_pairing` 會把它與結果同時封入 module-private producer seal；直接呼叫
+`CertificationResult(...)` 不會取得該 seal。statistical-region pool adapter 只從這些 sealed
+rows 推導 arm／pool／row identity，不接受事後 relabel，因此別的 pool 的 CLEAN result 或手造
+understated error 不能被包裝成當前 matched law 的 numerical enclosure。這個 provenance
+binding 不改式 (6) 的 error calculus，也不使未 clean 的 result 可形成 endpoint。
+
 ---
 
 ## 3. Items 3＋6 共用的 planted domain
@@ -245,12 +253,14 @@ $$
 $$
 
 gap 為由解析式導出的正值（約 $0.0513032$），不是事後選的 threshold。故 deterministic
-continuum support-mapping 的完整-domain Gate E PASS。未來 finite-causet E3 的 simultaneous
-statistical region 必須沿用同一 orientation，且 success rule 固定為 wrong-support region 的
-第一分量上界**嚴格小於** correct-support region 的第一分量下界；相等或交疊均 `FAIL`，
-不得挑 projection 或改方向。item 2 尚須交付這些 simultaneous regions 的 joint matched law，
-items 8–10 尚須交付 error allocation、power、fresh confirmation 與 runner；式 (11) 本身不
-宣告 scientific E3 PASS。
+continuum support-mapping 的完整-domain Gate E PASS。finite-causet E3 statistical gate 必須
+沿用同一 `correct-support - wrong-support` orientation。item 2 後續已凍結 matched-pair joint
+law 與完整 cross-arm covariance，因此 item 4／5 的 region freeze 將本段早期「兩個 marginal
+regions 不相交」寫法具體化為**直接 paired contrast** 的 simultaneous region：其第一分量
+下界須嚴格大於 $g_*/2$，相等或更低均 `FAIL`；第二分量另須嚴格落入登記的 equivalence
+margin。不得拆開 marginals、刪除 cross-arm covariance、挑 projection 或改方向。items 8–10
+仍須交付 error allocation、power、fresh confirmation 與 runner；式 (11) 本身不宣告
+scientific E3 PASS。
 
 direct Gauss–Legendre correct／reversed integrators各自對照式 (10)；correct branch 另對照
 item-1 production retarded pairing。這三角錨定把 common geometry/support error 與單純雙路

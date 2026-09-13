@@ -7,7 +7,7 @@ a candidate kernel, or evaluate an arm endpoint.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
 from math import fsum, hypot
@@ -23,6 +23,7 @@ UNIT_ROUNDOFF = np.finfo(FLOAT_DTYPE).eps / 2.0
 RATIO_ERROR_FACTORS = np.asarray([5.0, 2.0], dtype=FLOAT_DTYPE)
 RATIO_ERROR_FACTORS.setflags(write=False)
 PRIMARY_ENDPOINT_REAL_OPERATIONS = 32
+_CERTIFICATION_PRODUCER_TOKEN = object()
 
 
 class CertificationProtocolError(ValueError):
@@ -43,6 +44,28 @@ class CertificationReason(str, Enum):
     PLANTED_GROUND_TRUTH_MISMATCH = "PLANTED-GROUND-TRUTH-MISMATCH"
     ERROR_BUDGET_UNBOUNDED = "ERROR-BUDGET-UNBOUNDED"
     RATIO_ERROR_UNBOUNDED = "RATIO-ERROR-UNBOUNDED"
+
+
+@dataclass(frozen=True)
+class EndpointCertificationProvenance:
+    """Pool-row identity bound while the item-3 certification is produced."""
+
+    arm_name: str
+    pool_identity: str
+    row_index: int
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.arm_name, str) or not self.arm_name.strip():
+            raise CertificationProtocolError("arm_name must be a non-empty identity")
+        if not isinstance(self.pool_identity, str) or not self.pool_identity.strip():
+            raise CertificationProtocolError("pool_identity must be a non-empty identity")
+        if isinstance(self.row_index, (bool, np.bool_)) or not isinstance(
+            self.row_index, (int, np.integer)
+        ):
+            raise CertificationProtocolError("row_index must be a non-boolean integer")
+        if int(self.row_index) < 0:
+            raise CertificationProtocolError("row_index must be non-negative")
+        object.__setattr__(self, "row_index", int(self.row_index))
 
 
 def _nonnegative_finite(name: str, value: float) -> float:
@@ -233,9 +256,19 @@ class CertificationResult:
     endpoint_error: np.ndarray | None
     endpoint_lower: np.ndarray | None
     endpoint_upper: np.ndarray | None
+    provenance: EndpointCertificationProvenance | None = None
     certification_id: str = CERTIFICATION_ID
+    _producer_token: object | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
+        if self.provenance is not None and not isinstance(
+            self.provenance, EndpointCertificationProvenance
+        ):
+            raise CertificationProtocolError(
+                "provenance must be EndpointCertificationProvenance or None"
+            )
         for name in ("matrix", "endpoint", "endpoint_error", "endpoint_lower", "endpoint_upper"):
             value = getattr(self, name)
             if value is not None:
@@ -247,6 +280,20 @@ class CertificationResult:
     def is_clean(self) -> bool:
         return self.status is CertificationStatus.CLEAN
 
+    @property
+    def producer_authenticated(self) -> bool:
+        """Whether this result was emitted by ``certify_pairing``."""
+
+        return self._producer_token is _CERTIFICATION_PRODUCER_TOKEN
+
+
+def _producer_result(**kwargs: object) -> CertificationResult:
+    """Create one item-3 result and attach the module-private producer seal."""
+
+    result = CertificationResult(**kwargs)
+    object.__setattr__(result, "_producer_token", _CERTIFICATION_PRODUCER_TOKEN)
+    return result
+
 
 def _inconclusive(
     reason: CertificationReason,
@@ -257,8 +304,9 @@ def _inconclusive(
     matrix_error: float | None = None,
     norm_lower: float | None = None,
     norm_upper: float | None = None,
+    provenance: EndpointCertificationProvenance | None = None,
 ) -> CertificationResult:
-    return CertificationResult(
+    return _producer_result(
         status=CertificationStatus.INCONCLUSIVE,
         reason=reason,
         agreement_distance=agreement_distance,
@@ -271,6 +319,7 @@ def _inconclusive(
         endpoint_error=None,
         endpoint_lower=None,
         endpoint_upper=None,
+        provenance=provenance,
     )
 
 
@@ -279,6 +328,7 @@ def certify_pairing(
     second: ImplementationEstimate,
     *,
     planted_ground_truth: np.ndarray | None = None,
+    provenance: EndpointCertificationProvenance | None = None,
 ) -> CertificationResult:
     """Certify two implementations and only then form the primary endpoint.
 
@@ -292,12 +342,20 @@ def certify_pairing(
     from turning agreement into a mapping certificate.
     """
 
+    if provenance is not None and not isinstance(
+        provenance, EndpointCertificationProvenance
+    ):
+        raise CertificationProtocolError(
+            "provenance must be EndpointCertificationProvenance or None"
+        )
     if first.implementation_id == second.implementation_id:
         raise CertificationProtocolError("the two implementation identities must differ")
 
     matrices = (first.matrix, second.matrix)
     if any(not np.all(np.isfinite(matrix)) for matrix in matrices):
-        return _inconclusive(CertificationReason.NONFINITE_BACKEND)
+        return _inconclusive(
+            CertificationReason.NONFINITE_BACKEND, provenance=provenance
+        )
 
     eta_first = first.error.total
     eta_second = second.error.total
@@ -305,9 +363,13 @@ def certify_pairing(
     try:
         eta_sum = fsum((eta_first, eta_second))
     except OverflowError:
-        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
+        return _inconclusive(
+            CertificationReason.ERROR_BUDGET_UNBOUNDED, provenance=provenance
+        )
     if not np.isfinite(eta_sum):
-        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
+        return _inconclusive(
+            CertificationReason.ERROR_BUDGET_UNBOUNDED, provenance=provenance
+        )
     # A proof of d <= E compares an upper enclosure of d to a lower enclosure
     # of E.  The separately computed upper enclosure is used for propagation.
     agreement_bound = _down_nonnegative(eta_sum)
@@ -317,12 +379,14 @@ def certify_pairing(
             CertificationReason.ERROR_BUDGET_UNBOUNDED,
             agreement_distance=agreement_distance,
             agreement_bound=agreement_bound,
+            provenance=provenance,
         )
     if agreement_distance > agreement_bound:
         return _inconclusive(
             CertificationReason.IMPLEMENTATION_DISAGREEMENT,
             agreement_distance=agreement_distance,
             agreement_bound=agreement_bound,
+            provenance=provenance,
         )
 
     if planted_ground_truth is not None:
@@ -339,6 +403,7 @@ def certify_pairing(
                 CertificationReason.PLANTED_GROUND_TRUTH_MISMATCH,
                 agreement_distance=agreement_distance,
                 agreement_bound=agreement_bound,
+                provenance=provenance,
             )
 
     matrix, center_rounding = _certified_midpoint(first.matrix, second.matrix)
@@ -358,6 +423,7 @@ def certify_pairing(
             agreement_bound=agreement_bound,
             matrix=matrix,
             matrix_error=matrix_error,
+            provenance=provenance,
         )
     norm_down = _down_nonnegative(norm)
     norm_up = _up(norm)
@@ -375,6 +441,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=0.0,
             norm_upper=0.0,
+            provenance=provenance,
         )
 
     if norm_lower <= 0.0:
@@ -386,6 +453,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
 
     if matrix_error == 0.0:
@@ -407,6 +475,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
     with np.errstate(over="ignore", invalid="ignore"):
         ratio_error = np.asarray(
@@ -425,6 +494,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
     endpoint_scale = max(abs(value) for value in matrix.ravel())
     endpoint = primary_endpoint(matrix / endpoint_scale).as_vector()
@@ -441,6 +511,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
 
     component_lower = np.asarray([bound[0] for bound in COMPONENT_BOUNDS], dtype=float)
@@ -451,7 +522,7 @@ def certify_pairing(
     upper = np.minimum(
         component_upper, np.nextafter(endpoint + endpoint_error, np.inf)
     )
-    return CertificationResult(
+    return _producer_result(
         status=CertificationStatus.CLEAN,
         reason=CertificationReason.CERTIFIED,
         agreement_distance=agreement_distance,
@@ -464,6 +535,7 @@ def certify_pairing(
         endpoint_error=endpoint_error,
         endpoint_lower=lower,
         endpoint_upper=upper,
+        provenance=provenance,
     )
 
 
@@ -477,6 +549,7 @@ __all__ = [
     "CertificationReason",
     "CertificationResult",
     "CertificationStatus",
+    "EndpointCertificationProvenance",
     "ErrorBudget",
     "ImplementationEstimate",
     "certify_pairing",
