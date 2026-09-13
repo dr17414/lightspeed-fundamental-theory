@@ -31,12 +31,14 @@ from analysis.stage5c_numerical_certification import (
     CERTIFICATION_ID,
     CertificationResult,
     CertificationStatus,
+    EndpointCertificationProvenance,
 )
 from analysis.stage5c_planted_certification import certify_wrong_support_domain
 
 STATISTICAL_REGION_ID = "stage5c-6a-e-simultaneous-t-rectangle-v0.1"
 DF_ONLY_ORACLE_ID = "stage5c-6a-e-df-only-t-reference-oracle-v0.1"
 NUMERICAL_PROPAGATION_ID = "stage5c-6a-e-matched-endpoint-error-propagation-v0.1"
+_NUMERICAL_WIDTH_PRODUCER_TOKEN = object()
 
 # The first primary component has sharp range [-1, 2], while the second has
 # sharp range [0, 1].  Dividing by these widths gives each coordinate one unit
@@ -123,43 +125,34 @@ class E2NullPairSpec:
 
 @dataclass(frozen=True)
 class CertifiedEndpointPool:
-    """Typed item-3 results bound to one future endpoint-pool identity."""
+    """A pool whose identities were bound by the item-3 producer."""
 
-    arm_name: str
-    pool_identity: str
-    row_indices: tuple[int, ...]
     rows: tuple[CertificationResult, ...]
 
     def __post_init__(self) -> None:
-        if not isinstance(self.arm_name, str) or not self.arm_name.strip():
-            raise RegionProtocolError("arm_name must be a non-empty identity")
-        if not isinstance(self.pool_identity, str) or not self.pool_identity.strip():
-            raise RegionProtocolError("pool_identity must be a non-empty identity")
         if not isinstance(self.rows, tuple) or not self.rows:
             raise RegionProtocolError("rows must be a non-empty tuple of certifications")
-        if (
-            not isinstance(self.row_indices, tuple)
-            or any(
-                isinstance(index, (bool, np.bool_))
-                or not isinstance(index, (int, np.integer))
-                for index in self.row_indices
-            )
-            or tuple(int(index) for index in self.row_indices)
-            != tuple(range(len(self.rows)))
-        ):
-            raise RegionProtocolError(
-                "row_indices must bind each certification to its original pool row"
-            )
-        object.__setattr__(
-            self, "row_indices", tuple(int(index) for index in self.row_indices)
-        )
-        for row in self.rows:
+        provenances: list[EndpointCertificationProvenance] = []
+        for expected_index, row in enumerate(self.rows):
             if not isinstance(row, CertificationResult):
                 raise RegionProtocolError("each endpoint row must be a CertificationResult")
+            if not row.producer_authenticated:
+                raise RegionProtocolError(
+                    "each endpoint row must be emitted by the item-3 certifier"
+                )
             if row.status is not CertificationStatus.CLEAN or not row.is_clean:
                 raise RegionProtocolError("every endpoint certification must be CLEAN")
             if row.certification_id != CERTIFICATION_ID:
                 raise RegionProtocolError("endpoint certification identity is not frozen")
+            if not isinstance(row.provenance, EndpointCertificationProvenance):
+                raise RegionProtocolError(
+                    "every endpoint certification requires producer-bound provenance"
+                )
+            if row.provenance.row_index != expected_index:
+                raise RegionProtocolError(
+                    "producer-bound row indices must cover the original pool in order"
+                )
+            provenances.append(row.provenance)
             endpoint = np.asarray(row.endpoint, dtype=float)
             error = np.asarray(row.endpoint_error, dtype=float)
             if (
@@ -172,21 +165,77 @@ class CertifiedEndpointPool:
                 raise RegionProtocolError(
                     "CLEAN endpoint rows require finite endpoint/error two-vectors"
                 )
+        if any(
+            provenance.arm_name != provenances[0].arm_name
+            or provenance.pool_identity != provenances[0].pool_identity
+            for provenance in provenances[1:]
+        ):
+            raise RegionProtocolError(
+                "all endpoint rows must share producer-bound arm and pool identities"
+            )
+
+    @property
+    def arm_name(self) -> str:
+        provenance = self.rows[0].provenance
+        assert provenance is not None
+        return provenance.arm_name
+
+    @property
+    def pool_identity(self) -> str:
+        provenance = self.rows[0].provenance
+        assert provenance is not None
+        return provenance.pool_identity
+
+    @property
+    def row_indices(self) -> tuple[int, ...]:
+        return tuple(range(len(self.rows)))
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class ValidatedNumericalHalfWidth:
-    """Typed output of matched item-3 error propagation for one region input."""
+    """Opaque output of matched item-3 error propagation for one region input."""
 
     values: np.ndarray
     independent_clusters: int
     total_pairs: int
     arm_names: tuple[str, str]
-    certification_id: str = CERTIFICATION_ID
-    propagation_id: str = NUMERICAL_PROPAGATION_ID
-    joint_law_id: str = JOINT_MATCHED_LAW_ID
+    certification_id: str
+    propagation_id: str
+    joint_law_id: str
+    _producer_token: object
 
-    def __post_init__(self) -> None:
+    def __new__(cls, *args: object, **kwargs: object) -> ValidatedNumericalHalfWidth:
+        raise TypeError(
+            "ValidatedNumericalHalfWidth is produced only by matched aggregation"
+        )
+
+    @classmethod
+    def _from_aggregation(
+        cls,
+        *,
+        values: np.ndarray,
+        independent_clusters: int,
+        total_pairs: int,
+        arm_names: tuple[str, str],
+        producer_token: object,
+    ) -> ValidatedNumericalHalfWidth:
+        if producer_token is not _NUMERICAL_WIDTH_PRODUCER_TOKEN:
+            raise RegionProtocolError(
+                "validated numerical half-widths are aggregation-only"
+            )
+        instance = object.__new__(cls)
+        object.__setattr__(instance, "values", values)
+        object.__setattr__(instance, "independent_clusters", independent_clusters)
+        object.__setattr__(instance, "total_pairs", total_pairs)
+        object.__setattr__(instance, "arm_names", arm_names)
+        object.__setattr__(instance, "certification_id", CERTIFICATION_ID)
+        object.__setattr__(instance, "propagation_id", NUMERICAL_PROPAGATION_ID)
+        object.__setattr__(instance, "joint_law_id", JOINT_MATCHED_LAW_ID)
+        object.__setattr__(instance, "_producer_token", producer_token)
+        instance._validate()
+        return instance
+
+    def _validate(self) -> None:
         values = np.asarray(self.values, dtype=float)
         if (
             values.shape != (2,)
@@ -225,6 +274,13 @@ class ValidatedNumericalHalfWidth:
         object.__setattr__(self, "values", frozen)
         object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
         object.__setattr__(self, "total_pairs", int(self.total_pairs))
+
+    @property
+    def producer_authenticated(self) -> bool:
+        return (
+            getattr(self, "_producer_token", None)
+            is _NUMERICAL_WIDTH_PRODUCER_TOKEN
+        )
 
 
 _E2_NULL_SPECS = {
@@ -433,6 +489,10 @@ def _numerical_half_width(
     if not isinstance(value, ValidatedNumericalHalfWidth):
         raise RegionProtocolError(
             "numerical_half_width must be a ValidatedNumericalHalfWidth"
+        )
+    if not value.producer_authenticated:
+        raise RegionProtocolError(
+            "numerical_half_width must be emitted by matched aggregation"
         )
     if (
         value.independent_clusters != inputs.independent_clusters
@@ -700,7 +760,7 @@ def aggregate_matched_numerical_half_width(
         or len(right_endpoint_pools) != inputs.independent_clusters
     ):
         raise RegionProtocolError("one left/right certified endpoint pool is required per cohort")
-    component_totals = [Fraction(0), Fraction(0)]
+    matched_error_pairs: list[tuple[np.ndarray, np.ndarray]] = []
     for law, left_pool, right_pool in zip(
         ensemble.laws, left_endpoint_pools, right_endpoint_pools, strict=True
     ):
@@ -744,25 +804,54 @@ def aggregate_matched_numerical_half_width(
         ):
             raise RegionProtocolError("certified endpoint rows do not match the joint law")
         for left_row, right_row in zip(selected_left, selected_right, strict=True):
-            for component in range(2):
-                component_totals[component] += Fraction.from_float(
-                    float(left_row.endpoint_error[component])
-                ) + Fraction.from_float(float(right_row.endpoint_error[component]))
+            matched_error_pairs.append(
+                (left_row.endpoint_error, right_row.endpoint_error)
+            )
     try:
-        radius = np.asarray(
-            [
-                _fraction_upper(component_totals[component] / inputs.total_pairs)
-                for component in range(2)
-            ],
-            dtype=float,
+        radius = _exact_matched_error_radius(
+            tuple(matched_error_pairs), total_pairs=inputs.total_pairs
         )
     except RegionProtocolError as exc:
         raise RegionProtocolError("aggregated numerical half-width must be finite") from exc
-    return ValidatedNumericalHalfWidth(
+    return ValidatedNumericalHalfWidth._from_aggregation(
         values=radius,
         independent_clusters=inputs.independent_clusters,
         total_pairs=inputs.total_pairs,
         arm_names=inputs.arm_names,
+        producer_token=_NUMERICAL_WIDTH_PRODUCER_TOKEN,
+    )
+
+
+def _exact_matched_error_radius(
+    error_pairs: tuple[tuple[np.ndarray, np.ndarray], ...], *, total_pairs: int
+) -> np.ndarray:
+    """Exact-rational pair addition and averaging after provenance validation."""
+
+    if len(error_pairs) != total_pairs or total_pairs <= 0:
+        raise RegionProtocolError("error-pair count must equal total_pairs")
+    component_totals = [Fraction(0), Fraction(0)]
+    for left_error, right_error in error_pairs:
+        left = np.asarray(left_error, dtype=float)
+        right = np.asarray(right_error, dtype=float)
+        if (
+            left.shape != (2,)
+            or right.shape != (2,)
+            or not np.all(np.isfinite(left))
+            or not np.all(np.isfinite(right))
+            or np.any(left < 0.0)
+            or np.any(right < 0.0)
+        ):
+            raise RegionProtocolError("matched endpoint errors must be finite two-vectors")
+        for component in range(2):
+            component_totals[component] += Fraction.from_float(
+                float(left[component])
+            ) + Fraction.from_float(float(right[component]))
+    return np.asarray(
+        [
+            _fraction_upper(component_totals[component] / total_pairs)
+            for component in range(2)
+        ],
+        dtype=float,
     )
 
 
@@ -873,7 +962,6 @@ def evaluate_e3(result: RegionBuildResult, claim: E3Claim) -> ScientificGateRepo
     if region.arm_names != rule.arm_names:
         raise RegionProtocolError("E3 arm identities do not match the registered claim")
     component_passes: list[bool] = []
-    raw_equivalence_margin = EQUIVALENCE_MARGIN * ENDPOINT_RANGE_WIDTHS
     for index, direction in enumerate(rule.directions):
         if direction > 0:
             component_passes.append(region.lower[index] > rule.floors[index])
@@ -881,8 +969,8 @@ def evaluate_e3(result: RegionBuildResult, claim: E3Claim) -> ScientificGateRepo
             component_passes.append(region.upper[index] < -rule.floors[index])
         else:
             component_passes.append(
-                region.lower[index] > -raw_equivalence_margin[index]
-                and region.upper[index] < raw_equivalence_margin[index]
+                region.normalized_lower[index] > -EQUIVALENCE_MARGIN[index]
+                and region.normalized_upper[index] < EQUIVALENCE_MARGIN[index]
             )
     passes = all(component_passes)
     return ScientificGateReport(

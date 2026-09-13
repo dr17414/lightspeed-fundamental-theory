@@ -90,10 +90,13 @@ reference，不宣稱新的 exact finite-sample theorem；item 2 的 calibration
 
 對 cohort $b$ 的 frozen matched indices $(i_{bk},j_{bk})$，item 3 的兩臂 componentwise
 endpoint-error vectors 分別記為 $e^L_{bi}$、$e^R_{bj}$。API 不接受裸 error arrays；每個
-pool 必須是 `CertifiedEndpointPool`，逐 row 持有 CLEAN `CertificationResult`，並驗證
-`CERTIFICATION_ID`、matching pool identity、ordered arm identity，以及 certified endpoint
-與 item-2 joint law 中實際 matched endpoint 逐位元相同。failed certification、solver
-diagnostic、別的 pool／arm／row或替代的零 error都不能進入聚合。
+pool 必須是 `CertifiedEndpointPool`，逐 row 持有由 `certify_pairing` 產生且帶 module-private
+producer seal 的 CLEAN `CertificationResult`。arm、matching pool 與原始 row index 在
+certification 產生時寫入 `EndpointCertificationProvenance`；pool adapter 不再接受 caller
+另貼的 identity labels，而只從 sealed rows 推導並驗證共同 arm／pool與連續原始 row 順序。
+聚合另驗證 `CERTIFICATION_ID`，以及 certified endpoint 與 item-2 joint law 中實際 matched
+endpoint 逐位元相同。直接建構的 CLEAN record、failed certification、solver diagnostic、
+別的 pool／arm／row或替代的零 error都不能進入聚合。
 
 同一 pair contrast 的 triangle bound為
 $e^L_{b i_{bk}}+e^R_{b j_{bk}}$；使用 item 2 相同的 total-pair weights，固定
@@ -110,11 +113,13 @@ $M$ 都在 exact rational 中完成，最後才作一次 directed-upward binary6
 不進入此式。cubature solver 自報的 estimated error 或任何 diagnostic 不得升格成
 $h^{\rm num}$。
 
-聚合結果不是裸 vector，而是 `ValidatedNumericalHalfWidth`；它綁定 certification／propagation／
-joint-law IDs、ordered arms、$B$ 與 $M$。`build_simultaneous_region` 只接受此型別，且須與
-`StatisticalRegionInput` 的 arms、cluster count、pair count與 joint-law ID 完全一致。故繞過
-typed aggregation直接傳入零 vector，或把另一個 comparison 的 radius 移用到本 region，
-都在 region 形成前成為 protocol error。
+聚合結果不是裸 vector，而是 opaque、aggregation-only 的 `ValidatedNumericalHalfWidth`；其
+公開 constructor 不可用，只有 matched aggregation 能以 module-private producer token 建立。
+它綁定 certification／propagation／joint-law IDs、ordered arms、$B$ 與 $M$。
+`build_simultaneous_region` 只接受這個 producer-authenticated 型別，且須與
+`StatisticalRegionInput` 的 arms、cluster count、pair count與 joint-law ID 完全一致。故直接
+手造吻合 labels 的零 radius、傳入裸 zero vector，或把另一個 comparison 的 radius 移用到本
+region，都在 region 形成前成為 protocol error。
 
 ---
 
@@ -176,7 +181,9 @@ cohort floor，且只能提高、不能降低 32。
 ## 6. E3：完整 simultaneous component rules
 
 E3 discrimination arms 仍須先通過 item 6 的 Gate O；本節只固定 Gate E statistical rule。
-方向為 0 的座標不是忽略，而是必須通過 §5 的 open-box equivalence component。
+方向為 0 的座標不是忽略，而是必須直接用 §2 已 directed-outward 的 normalized
+lower／upper bounds 通過 §5 open-box equivalence component；不得先以 binary64
+round-to-nearest 形成 raw margin $D_{jj}/20$ 再比較。
 
 | Claim | ordered arms／contrast | coordinate 1 | coordinate 2 |
 | :--- | :--- | :--- | :--- |

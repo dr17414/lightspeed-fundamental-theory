@@ -636,7 +636,7 @@ residual-power 前提必須依 §6 重新建立。
   `STAGE5C_6A_E_JOINT_MATCHED_LAW.md` 在 PR #26 交付，最終 head `f7dc1706` 經獨立
   複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；items 4／5 的 Bonferroni–Student
   simultaneous rectangles、directed-outward range-normalized E1／E2 boundaries、E3 component rules、
-  typed CLEAN item-3 provenance、exact-dyadic matched numerical-error propagation 與解析 df-only oracle 現由
+  producer-sealed CLEAN item-3 provenance、aggregation-only numerical width、exact-dyadic matched numerical-error propagation 與解析 df-only oracle 現由
   `STAGE5C_6A_E_STATISTICAL_REGIONS.md` 提議交付，狀態為 `REVIEW-PENDING`；E4 fixed-scale continuum enclosure、
   contact／boundary leakage、validated error producers 與兩個 independent implementations
   已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付；最終 head `81b926cc` 經獨立完整樹複核、

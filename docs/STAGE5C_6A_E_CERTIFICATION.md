@@ -141,6 +141,14 @@ $|I_1|\le2$ 給 $2\Delta_N$；第二分量用 $1+1$。最終 interval 對式 (6)
 `INCONCLUSIVE/RATIO-ERROR-UNBOUNDED`。這是 numerical enclosure，不是 E1／E3 statistical
 confidence region；items 4、6、8 的 multiplicity／power 不能以它取代。
 
+日後 items 4／5 的 matched-error propagation 只接受 certification producer 本身發出的
+record。若呼叫端提供 `EndpointCertificationProvenance(arm_name,pool_identity,row_index)`，
+`certify_pairing` 會把它與結果同時封入 module-private producer seal；直接呼叫
+`CertificationResult(...)` 不會取得該 seal。statistical-region pool adapter 只從這些 sealed
+rows 推導 arm／pool／row identity，不接受事後 relabel，因此別的 pool 的 CLEAN result 或手造
+understated error 不能被包裝成當前 matched law 的 numerical enclosure。這個 provenance
+binding 不改式 (6) 的 error calculus，也不使未 clean 的 result 可形成 endpoint。
+
 ---
 
 ## 3. Items 3＋6 共用的 planted domain
