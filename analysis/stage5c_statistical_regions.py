@@ -14,7 +14,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from math import fsum, isfinite
+from fractions import Fraction
+from math import isfinite
 
 import numpy as np
 from scipy.stats import t
@@ -25,6 +26,11 @@ from analysis.stage5c_joint_matched_law import (
     GENERATOR_SOURCE_ID,
     JOINT_MATCHED_LAW_ID,
     MatchedLawEnsemble,
+)
+from analysis.stage5c_numerical_certification import (
+    CERTIFICATION_ID,
+    CertificationResult,
+    CertificationStatus,
 )
 from analysis.stage5c_planted_certification import certify_wrong_support_domain
 
@@ -113,6 +119,112 @@ class E2NullPairSpec:
     arm_names: tuple[str, str]
     generator_source_id: str = GENERATOR_SOURCE_ID
     requires_distinct_pool_identities: bool = True
+
+
+@dataclass(frozen=True)
+class CertifiedEndpointPool:
+    """Typed item-3 results bound to one future endpoint-pool identity."""
+
+    arm_name: str
+    pool_identity: str
+    row_indices: tuple[int, ...]
+    rows: tuple[CertificationResult, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.arm_name, str) or not self.arm_name.strip():
+            raise RegionProtocolError("arm_name must be a non-empty identity")
+        if not isinstance(self.pool_identity, str) or not self.pool_identity.strip():
+            raise RegionProtocolError("pool_identity must be a non-empty identity")
+        if not isinstance(self.rows, tuple) or not self.rows:
+            raise RegionProtocolError("rows must be a non-empty tuple of certifications")
+        if (
+            not isinstance(self.row_indices, tuple)
+            or any(
+                isinstance(index, (bool, np.bool_))
+                or not isinstance(index, (int, np.integer))
+                for index in self.row_indices
+            )
+            or tuple(int(index) for index in self.row_indices)
+            != tuple(range(len(self.rows)))
+        ):
+            raise RegionProtocolError(
+                "row_indices must bind each certification to its original pool row"
+            )
+        object.__setattr__(
+            self, "row_indices", tuple(int(index) for index in self.row_indices)
+        )
+        for row in self.rows:
+            if not isinstance(row, CertificationResult):
+                raise RegionProtocolError("each endpoint row must be a CertificationResult")
+            if row.status is not CertificationStatus.CLEAN or not row.is_clean:
+                raise RegionProtocolError("every endpoint certification must be CLEAN")
+            if row.certification_id != CERTIFICATION_ID:
+                raise RegionProtocolError("endpoint certification identity is not frozen")
+            endpoint = np.asarray(row.endpoint, dtype=float)
+            error = np.asarray(row.endpoint_error, dtype=float)
+            if (
+                endpoint.shape != (2,)
+                or error.shape != (2,)
+                or not np.all(np.isfinite(endpoint))
+                or not np.all(np.isfinite(error))
+                or np.any(error < 0.0)
+            ):
+                raise RegionProtocolError(
+                    "CLEAN endpoint rows require finite endpoint/error two-vectors"
+                )
+
+
+@dataclass(frozen=True)
+class ValidatedNumericalHalfWidth:
+    """Typed output of matched item-3 error propagation for one region input."""
+
+    values: np.ndarray
+    independent_clusters: int
+    total_pairs: int
+    arm_names: tuple[str, str]
+    certification_id: str = CERTIFICATION_ID
+    propagation_id: str = NUMERICAL_PROPAGATION_ID
+    joint_law_id: str = JOINT_MATCHED_LAW_ID
+
+    def __post_init__(self) -> None:
+        values = np.asarray(self.values, dtype=float)
+        if (
+            values.shape != (2,)
+            or not np.all(np.isfinite(values))
+            or np.any(values < 0.0)
+        ):
+            raise RegionProtocolError(
+                "validated numerical half-width must be one finite non-negative two-vector"
+            )
+        if (
+            isinstance(self.independent_clusters, (bool, np.bool_))
+            or not isinstance(self.independent_clusters, (int, np.integer))
+            or self.independent_clusters < 2
+        ):
+            raise RegionProtocolError("numerical-width cluster count is invalid")
+        if (
+            isinstance(self.total_pairs, (bool, np.bool_))
+            or not isinstance(self.total_pairs, (int, np.integer))
+            or self.total_pairs <= 0
+        ):
+            raise RegionProtocolError("numerical-width pair count is invalid")
+        if (
+            not isinstance(self.arm_names, tuple)
+            or len(self.arm_names) != 2
+            or any(not isinstance(name, str) or not name for name in self.arm_names)
+        ):
+            raise RegionProtocolError("numerical-width arm identities are invalid")
+        if self.certification_id != CERTIFICATION_ID:
+            raise RegionProtocolError("numerical-width certification identity is not frozen")
+        if self.propagation_id != NUMERICAL_PROPAGATION_ID:
+            raise RegionProtocolError("numerical-width propagation identity is not frozen")
+        if self.joint_law_id != JOINT_MATCHED_LAW_ID:
+            raise RegionProtocolError("numerical-width joint-law identity is not frozen")
+        frozen = values.copy()
+        frozen.setflags(write=False)
+        object.__setattr__(self, "values", frozen)
+        object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
+        object.__setattr__(self, "total_pairs", int(self.total_pairs))
 
 
 _E2_NULL_SPECS = {
@@ -315,18 +427,77 @@ def _local_alpha(value: float) -> float:
     return alpha
 
 
-def _numerical_half_width(value: np.ndarray) -> np.ndarray:
-    radius = np.asarray(value, dtype=float)
-    if radius.shape != (2,) or not np.all(np.isfinite(radius)) or np.any(radius < 0.0):
-        raise RegionProtocolError("numerical_half_width must be one finite non-negative two-vector")
-    return radius
+def _numerical_half_width(
+    inputs: StatisticalRegionInput, value: ValidatedNumericalHalfWidth
+) -> np.ndarray:
+    if not isinstance(value, ValidatedNumericalHalfWidth):
+        raise RegionProtocolError(
+            "numerical_half_width must be a ValidatedNumericalHalfWidth"
+        )
+    if (
+        value.independent_clusters != inputs.independent_clusters
+        or value.total_pairs != inputs.total_pairs
+        or value.arm_names != inputs.arm_names
+        or value.joint_law_id != inputs.joint_law_id
+    ):
+        raise RegionProtocolError("numerical half-width does not match region input")
+    return value.values
+
+
+def _fraction_bound(value: Fraction, direction: float) -> float:
+    """Round an exact dyadic/rational value in one directed binary64 sense."""
+
+    try:
+        rounded = float(value)
+    except OverflowError as exc:
+        raise RegionProtocolError("exact interval operation exceeds binary64") from exc
+    if not isfinite(rounded):
+        raise RegionProtocolError("exact interval operation exceeds binary64")
+    rounded_fraction = Fraction.from_float(rounded)
+    if (direction < 0.0 and rounded_fraction > value) or (
+        direction > 0.0 and rounded_fraction < value
+    ):
+        with np.errstate(over="ignore", invalid="ignore"):
+            rounded = float(np.nextafter(rounded, direction))
+        if not isfinite(rounded):
+            raise RegionProtocolError("exact interval operation exceeds binary64")
+    return rounded
+
+
+def _fraction_lower(value: Fraction) -> float:
+    return _fraction_bound(value, -np.inf)
+
+
+def _fraction_upper(value: Fraction) -> float:
+    return _fraction_bound(value, np.inf)
+
+
+def _sqrt_upper(value: float) -> float:
+    """Return a directed-up binary64 square-root enclosure."""
+
+    nearest = float(np.sqrt(value))
+    if not isfinite(nearest):
+        raise RegionProtocolError("square-root enclosure exceeds binary64")
+    if Fraction.from_float(nearest) ** 2 < Fraction.from_float(float(value)):
+        nearest = float(np.nextafter(nearest, np.inf))
+    return nearest
+
+
+def _binary64_array_equal(first: np.ndarray, second: np.ndarray) -> bool:
+    """Compare endpoint payloads bit-for-bit, including signed zero."""
+
+    first_array = np.ascontiguousarray(first, dtype=np.float64)
+    second_array = np.ascontiguousarray(second, dtype=np.float64)
+    return first_array.shape == second_array.shape and bool(
+        np.array_equal(first_array.view(np.uint64), second_array.view(np.uint64))
+    )
 
 
 def build_simultaneous_region(
     inputs: StatisticalRegionInput,
     *,
     local_alpha: float,
-    numerical_half_width: np.ndarray,
+    numerical_half_width: ValidatedNumericalHalfWidth,
 ) -> RegionBuildResult:
     """Build the frozen two-coordinate region, or fail before it is formed.
 
@@ -339,7 +510,7 @@ def build_simultaneous_region(
     if not isinstance(inputs, StatisticalRegionInput):
         raise RegionProtocolError("inputs must be StatisticalRegionInput")
     alpha = _local_alpha(local_alpha)
-    numerical = _numerical_half_width(numerical_half_width)
+    numerical = _numerical_half_width(inputs, numerical_half_width)
     if inputs.independent_clusters < MIN_INDEPENDENT_COHORTS:
         return RegionBuildResult(
             RegionStatus.INCONCLUSIVE,
@@ -409,14 +580,70 @@ def build_simultaneous_region(
             RegionReason.NONFINITE_INPUT,
             None,
         )
-    with np.errstate(over="ignore", invalid="ignore"):
-        standard_error = np.sqrt(marginal_variances)
-        statistical = critical * standard_error
-        total = statistical + numerical
-        lower = estimate - total
-        upper = estimate + total
-        normalized_lower = lower / ENDPOINT_RANGE_WIDTHS
-        normalized_upper = upper / ENDPOINT_RANGE_WIDTHS
+    try:
+        standard_error = np.asarray(
+            [_sqrt_upper(float(value)) for value in marginal_variances]
+        )
+        statistical = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(critical)
+                    * Fraction.from_float(float(standard_error[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        total = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(statistical[index]))
+                    + Fraction.from_float(float(numerical[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        lower = np.asarray(
+            [
+                _fraction_lower(
+                    Fraction.from_float(float(estimate[index]))
+                    - Fraction.from_float(float(total[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        upper = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(estimate[index]))
+                    + Fraction.from_float(float(total[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        normalized_lower = np.asarray(
+            [
+                _fraction_lower(
+                    Fraction.from_float(float(lower[index]))
+                    / Fraction.from_float(float(ENDPOINT_RANGE_WIDTHS[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        normalized_upper = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(upper[index]))
+                    / Fraction.from_float(float(ENDPOINT_RANGE_WIDTHS[index]))
+                )
+                for index in range(2)
+            ]
+        )
+    except RegionProtocolError:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.NONFINITE_INPUT,
+            None,
+        )
     if not all(
         np.all(np.isfinite(value))
         for value in (
@@ -453,45 +680,44 @@ def build_simultaneous_region(
 
 def aggregate_matched_numerical_half_width(
     ensemble: MatchedLawEnsemble,
-    left_endpoint_errors: tuple[np.ndarray, ...],
-    right_endpoint_errors: tuple[np.ndarray, ...],
-) -> np.ndarray:
+    left_endpoint_pools: tuple[CertifiedEndpointPool, ...],
+    right_endpoint_pools: tuple[CertifiedEndpointPool, ...],
+) -> ValidatedNumericalHalfWidth:
     """Propagate item-3 endpoint enclosures through the matched mean contrast.
 
-    Each supplied array is the componentwise ``endpoint_error`` pool from the
-    already-clean item-3 certification path for one independent cohort.  The
-    frozen matcher indices are applied here; unmatched rows contribute
-    nothing.  Triangle inequality and the same total-pair weights as item 2
-    give a deterministic half-width for the ensemble contrast.
+    Each supplied pool contains typed CLEAN item-3 results and binds its arm,
+    matching-pool identity, endpoint row, and registered certification ID.
+    The frozen matcher indices are applied here; unmatched rows contribute
+    nothing.  Exact rational triangle sums and the same total-pair weights as
+    item 2 give a directed-upward half-width for the ensemble contrast.
     """
 
     inputs = StatisticalRegionInput.from_ensemble(ensemble)
     if (
-        not isinstance(left_endpoint_errors, tuple)
-        or not isinstance(right_endpoint_errors, tuple)
-        or len(left_endpoint_errors) != inputs.independent_clusters
-        or len(right_endpoint_errors) != inputs.independent_clusters
+        not isinstance(left_endpoint_pools, tuple)
+        or not isinstance(right_endpoint_pools, tuple)
+        or len(left_endpoint_pools) != inputs.independent_clusters
+        or len(right_endpoint_pools) != inputs.independent_clusters
     ):
-        raise RegionProtocolError("one left/right endpoint-error pool is required per cohort")
-    component_terms: tuple[list[float], list[float]] = ([], [])
-    for law, left_value, right_value in zip(
-        ensemble.laws, left_endpoint_errors, right_endpoint_errors, strict=True
+        raise RegionProtocolError("one left/right certified endpoint pool is required per cohort")
+    component_totals = [Fraction(0), Fraction(0)]
+    for law, left_pool, right_pool in zip(
+        ensemble.laws, left_endpoint_pools, right_endpoint_pools, strict=True
     ):
-        left = np.asarray(left_value, dtype=float)
-        right = np.asarray(right_value, dtype=float)
         if (
-            left.ndim != 2
-            or right.ndim != 2
-            or left.shape[1:] != (2,)
-            or right.shape[1:] != (2,)
-            or not np.all(np.isfinite(left))
-            or not np.all(np.isfinite(right))
-            or np.any(left < 0.0)
-            or np.any(right < 0.0)
+            not isinstance(left_pool, CertifiedEndpointPool)
+            or not isinstance(right_pool, CertifiedEndpointPool)
         ):
             raise RegionProtocolError(
-                "endpoint-error pools must be finite non-negative arrays with shape (n,2)"
+                "endpoint pools must use the typed CertifiedEndpointPool adapter"
             )
+        if left_pool.arm_name != law.arm_names[0] or right_pool.arm_name != law.arm_names[1]:
+            raise RegionProtocolError("certified endpoint-pool arm identity mismatch")
+        if (
+            left_pool.pool_identity != law.matching.pool_identity
+            or right_pool.pool_identity != law.matching.pool_identity
+        ):
+            raise RegionProtocolError("certified endpoint-pool provenance mismatch")
         if law.matching.result is None:
             raise RegionProtocolError("matched law is missing its certified indices")
         left_indices = np.asarray(law.matching.result.left_indices)
@@ -505,31 +731,39 @@ def aggregate_matched_numerical_half_width(
             or len(right_indices) != law.matched_pairs
             or np.any(left_indices < 0)
             or np.any(right_indices < 0)
-            or np.any(left_indices >= len(left))
-            or np.any(right_indices >= len(right))
+            or np.any(left_indices >= len(left_pool.rows))
+            or np.any(right_indices >= len(right_pool.rows))
         ):
             raise RegionProtocolError("matched indices are malformed or outside error pools")
-        with np.errstate(over="ignore", invalid="ignore"):
-            paired_error = left[left_indices] + right[right_indices]
-        if not np.all(np.isfinite(paired_error)):
-            raise RegionProtocolError("matched endpoint-error sum must be finite")
-        for component in range(2):
-            component_terms[component].extend(float(value) for value in paired_error[:, component])
-    radius = np.asarray(
-        [
-            fsum(
-                value / inputs.total_pairs
-                for value in component_terms[component]
-            )
-            for component in range(2)
-        ],
-        dtype=float,
+        selected_left = tuple(left_pool.rows[int(index)] for index in left_indices)
+        selected_right = tuple(right_pool.rows[int(index)] for index in right_indices)
+        certified_left = np.vstack([row.endpoint for row in selected_left])
+        certified_right = np.vstack([row.endpoint for row in selected_right])
+        if not _binary64_array_equal(certified_left, law.left) or not _binary64_array_equal(
+            certified_right, law.right
+        ):
+            raise RegionProtocolError("certified endpoint rows do not match the joint law")
+        for left_row, right_row in zip(selected_left, selected_right, strict=True):
+            for component in range(2):
+                component_totals[component] += Fraction.from_float(
+                    float(left_row.endpoint_error[component])
+                ) + Fraction.from_float(float(right_row.endpoint_error[component]))
+    try:
+        radius = np.asarray(
+            [
+                _fraction_upper(component_totals[component] / inputs.total_pairs)
+                for component in range(2)
+            ],
+            dtype=float,
+        )
+    except RegionProtocolError as exc:
+        raise RegionProtocolError("aggregated numerical half-width must be finite") from exc
+    return ValidatedNumericalHalfWidth(
+        values=radius,
+        independent_clusters=inputs.independent_clusters,
+        total_pairs=inputs.total_pairs,
+        arm_names=inputs.arm_names,
     )
-    if not np.all(np.isfinite(radius)):
-        raise RegionProtocolError("aggregated numerical half-width must be finite")
-    radius = np.where(radius == 0.0, 0.0, np.nextafter(radius, np.inf))
-    radius.setflags(write=False)
-    return radius
 
 
 def _not_evaluated(claim_id: str, result: RegionBuildResult) -> ScientificGateReport:
@@ -718,6 +952,8 @@ __all__ = [
     "MIN_INDEPENDENT_COHORTS",
     "NUMERICAL_PROPAGATION_ID",
     "STATISTICAL_REGION_ID",
+    "CertifiedEndpointPool",
+    "ValidatedNumericalHalfWidth",
     "E2NullPairSpec",
     "E2Target",
     "E3Claim",

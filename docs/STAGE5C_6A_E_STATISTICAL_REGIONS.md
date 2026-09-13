@@ -69,6 +69,15 @@ R_g=\prod_{j=1}^{2}
       \widehat\Delta_j+h_j^{\rm stat}+h_j^{\rm num}\right].
 $$
 
+實作不以 round-to-nearest 的連鎖結果直接承重。$\sqrt{\widehat V_{jj}}$ 先以平方後的
+exact-dyadic comparison向上包住；$q_g\sqrt{\widehat V_{jj}}$ 與
+$h_j^{\rm stat}+h_j^{\rm num}$ 再以輸入 binary64 的 exact dyadic rationals求值並向上捨入；
+lower endpoint 的減法向 $-\infty$ 捨入，upper endpoint 的加法向 $+\infty$ 捨入。
+$D^{-1}R_g$ 的 lower／upper normalization亦分別向 $-\infty$／$+\infty$ 捨入。因此例如
+binary64 raw boundary $(3\times0.05)$ 除以 3 時，不會因 round-to-nearest 變成
+`0.05000000000000001` 而誤過 strict gate。任何 exact intermediate 超出 finite binary64
+representable range 都在 region 形成前成為 `INCONCLUSIVE/NONFINITE-INPUT`。
+
 這是兩座標 Bonferroni Student-$t$ reference region。在 equal-count independent Gaussian
 cohort-mean oracle 下，每個座標的 $t_{B-1}$ coverage 是解析的，Bonferroni 給 simultaneous
 coverage 下界。對實際 CR1、unequal attrition 的使用，它是預先固定的 cluster-$t$ operational
@@ -80,8 +89,14 @@ reference，不宣稱新的 exact finite-sample theorem；item 2 的 calibration
 ## 3. Item-3 numerical uncertainty 的唯一傳播
 
 對 cohort $b$ 的 frozen matched indices $(i_{bk},j_{bk})$，item 3 的兩臂 componentwise
-endpoint-error vectors 分別記為 $e^L_{bi}$、$e^R_{bj}$。同一 pair contrast 的 triangle bound
-為 $e^L_{b i_{bk}}+e^R_{b j_{bk}}$；使用 item 2 相同的 total-pair weights，固定
+endpoint-error vectors 分別記為 $e^L_{bi}$、$e^R_{bj}$。API 不接受裸 error arrays；每個
+pool 必須是 `CertifiedEndpointPool`，逐 row 持有 CLEAN `CertificationResult`，並驗證
+`CERTIFICATION_ID`、matching pool identity、ordered arm identity，以及 certified endpoint
+與 item-2 joint law 中實際 matched endpoint 逐位元相同。failed certification、solver
+diagnostic、別的 pool／arm／row或替代的零 error都不能進入聚合。
+
+同一 pair contrast 的 triangle bound為
+$e^L_{b i_{bk}}+e^R_{b j_{bk}}$；使用 item 2 相同的 total-pair weights，固定
 
 $$
 h^{\rm num}
@@ -89,9 +104,17 @@ h^{\rm num}
 \left(e^L_{b i_{bk}}+e^R_{b j_{bk}}\right).
 $$
 
-實作以 `math.fsum` 聚合後朝 $+\infty$ outward-round 一個 binary64 step。unmatched rows
-不進入此式。這裡只接受 item 3 的 validated `endpoint_error`；cubature solver 自報的
-estimated error 或任何 diagnostic 不得升格成 $h^{\rm num}$。
+每個輸入 binary64 error 先轉成其 exact dyadic rational；pair addition、全體求和與除以
+$M$ 都在 exact rational 中完成，最後才作一次 directed-upward binary64 rounding。這避免
+「各步 round-to-nearest、最後只 `nextafter` 一次」仍不足以包住真值的漏洞。unmatched rows
+不進入此式。cubature solver 自報的 estimated error 或任何 diagnostic 不得升格成
+$h^{\rm num}$。
+
+聚合結果不是裸 vector，而是 `ValidatedNumericalHalfWidth`；它綁定 certification／propagation／
+joint-law IDs、ordered arms、$B$ 與 $M$。`build_simultaneous_region` 只接受此型別，且須與
+`StatisticalRegionInput` 的 arms、cluster count、pair count與 joint-law ID 完全一致。故繞過
+typed aggregation直接傳入零 vector，或把另一個 comparison 的 radius 移用到本 region，
+都在 region 形成前成為 protocol error。
 
 ---
 
