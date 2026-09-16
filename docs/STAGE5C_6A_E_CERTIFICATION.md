@@ -142,12 +142,19 @@ $|I_1|\le2$ 給 $2\Delta_N$；第二分量用 $1+1$。最終 interval 對式 (6)
 confidence region；items 4、6、8 的 multiplicity／power 不能以它取代。
 
 日後 items 4／5 的 matched-error propagation 只接受 certification producer 本身發出的
-record。若呼叫端提供 `EndpointCertificationProvenance(arm_name,pool_identity,row_index)`，
-`certify_pairing` 會把它與結果同時封入 module-private producer seal；直接呼叫
-`CertificationResult(...)` 不會取得該 seal。statistical-region pool adapter 只從這些 sealed
-rows 推導 arm／pool／row identity，不接受事後 relabel，因此別的 pool 的 CLEAN result 或手造
-understated error 不能被包裝成當前 matched law 的 numerical enclosure。這個 provenance
-binding 不改式 (6) 的 error calculus，也不使未 clean 的 result 可形成 endpoint。
+record。`certify_pairing` 不接受與任意兩個 implementation estimates 並列的 provenance
+keyword；完整 implementation pool 必須先經 `bind_endpoint_certification_rows` 一次綁定，
+由該 producer 依序枚舉 row index，並把兩個實作 payload 與
+`EndpointCertificationProvenance(arm_name,pool_identity,row_index)` 封入不可公開建構的
+`EndpointCertificationSourceRow`。`certify_pairing(source_row)` 只從此 sealed source row
+取得兩個實作與身分；provenance 另含 canonical SHA-256，逐位元綁定兩個 implementation
+matrices、完整 error budgets、implementation IDs 與 arm／pool／row identity，再把相同
+provenance 封入 result producer seal。直接呼叫
+`EndpointCertificationSourceRow(...)`、把另一組 estimates 與自報 labels 一起送入 certifier，
+或直接呼叫 `CertificationResult(...)` 都不會取得所需 seal。statistical-region pool adapter
+只從這些 sealed results 推導 arm／pool／row identity，不接受事後 relabel。這個 provenance
+binding 不改式 (6) 的 error calculus，也不使未 clean 的 result 可形成 endpoint；item 9
+仍須把 pool-binding 呼叫的 identity 與正式 custody manifest 鎖定。
 
 ---
 

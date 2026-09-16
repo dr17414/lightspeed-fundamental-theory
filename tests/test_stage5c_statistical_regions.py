@@ -13,8 +13,10 @@ from analysis.stage5c_numerical_certification import (
     CertificationResult,
     CertificationStatus,
     EndpointCertificationProvenance,
+    EndpointCertificationSourceRow,
     ErrorBudget,
     ImplementationEstimate,
+    bind_endpoint_certification_rows,
     certify_pairing,
 )
 from analysis.stage5c_statistical_regions import (
@@ -59,6 +61,117 @@ def test_e2_null_specs_use_the_same_frozen_target_with_distinct_future_arms():
     assert minus.requires_distinct_pool_identities
 
 
+def _implementation(error, identity):
+    return ImplementationEstimate(
+        np.diag([4.0, 1.0]),
+        ErrorBudget(error, 0.0, 0.0, 0.0, 0.0, 1),
+        identity,
+    )
+
+
+def _certification(arm_name, pool_identity, row_index, *, error=0.0, clean=True):
+    matrix = np.diag([4.0, 1.0]) if clean else np.zeros((2, 2))
+    errors = (0.0,) * row_index + (float(error),)
+    first_rows = tuple(
+        ImplementationEstimate(
+            matrix,
+            ErrorBudget(value, 0.0, 0.0, 0.0, 0.0, 1),
+            f"{arm_name}-first-{index}",
+        )
+        for index, value in enumerate(errors)
+    )
+    second_rows = tuple(
+        ImplementationEstimate(
+            matrix,
+            ErrorBudget(value, 0.0, 0.0, 0.0, 0.0, 1),
+            f"{arm_name}-second-{index}",
+        )
+        for index, value in enumerate(errors)
+    )
+    source_rows = bind_endpoint_certification_rows(
+        first_rows,
+        second_rows,
+        arm_name=arm_name,
+        pool_identity=pool_identity,
+    )
+    return certify_pairing(source_rows[row_index])
+
+
+def _certified_pool(arm_name, pool_identity, *, errors=(0.0,), clean=True):
+    if np.isscalar(errors):
+        errors = (float(errors),)
+    matrix = np.diag([4.0, 1.0]) if clean else np.zeros((2, 2))
+    first_rows = tuple(
+        ImplementationEstimate(
+            matrix,
+            ErrorBudget(error, 0.0, 0.0, 0.0, 0.0, 1),
+            f"{arm_name}-first-{row_index}",
+        )
+        for row_index, error in enumerate(errors)
+    )
+    second_rows = tuple(
+        ImplementationEstimate(
+            matrix,
+            ErrorBudget(error, 0.0, 0.0, 0.0, 0.0, 1),
+            f"{arm_name}-second-{row_index}",
+        )
+        for row_index, error in enumerate(errors)
+    )
+    source_rows = bind_endpoint_certification_rows(
+        first_rows,
+        second_rows,
+        arm_name=arm_name,
+        pool_identity=pool_identity,
+    )
+    return CertifiedEndpointPool(
+        rows=tuple(certify_pairing(source_row) for source_row in source_rows)
+    )
+
+
+def _synthetic_ensemble(
+    estimate,
+    covariance,
+    arm_names,
+    cluster_pair_counts,
+    *,
+    error=0.0,
+    pool_tag="radius",
+):
+    laws = []
+    left_pools = []
+    right_pools = []
+    for cohort_index, count in enumerate(cluster_pair_counts):
+        pool_identity = f"{pool_tag}-pool-{'--'.join(arm_names)}-{cohort_index}"
+        left_pool = _certified_pool(arm_names[0], pool_identity, errors=error)
+        right_pool = _certified_pool(arm_names[1], pool_identity, errors=error)
+        indices = np.zeros(count, dtype=np.int64)
+        matching = SimpleNamespace(
+            calibration_identity=f"{pool_tag}-calibration-{cohort_index}",
+            pool_identity=pool_identity,
+            result=SimpleNamespace(left_indices=indices, right_indices=indices),
+        )
+        laws.append(
+            SimpleNamespace(
+                matched_pairs=count,
+                arm_names=arm_names,
+                law_id=JOINT_MATCHED_LAW_ID,
+                matching=matching,
+                left=np.repeat(left_pool.rows[0].endpoint[None, :], count, axis=0),
+                right=np.repeat(right_pool.rows[0].endpoint[None, :], count, axis=0),
+            )
+        )
+        left_pools.append(left_pool)
+        right_pools.append(right_pool)
+    ensemble = MatchedLawEnsemble(
+        laws=tuple(laws),
+        delta_mean=np.asarray(estimate, dtype=float),
+        delta_mean_covariance=np.asarray(covariance, dtype=float),
+        total_pairs=sum(cluster_pair_counts),
+        independent_clusters=len(cluster_pair_counts),
+    )
+    return ensemble, tuple(left_pools), tuple(right_pools)
+
+
 def _inputs(
     estimate,
     *,
@@ -69,95 +182,31 @@ def _inputs(
 ):
     if covariance is None:
         covariance = np.diag([1.0e-8, 1.0e-8])
-    return StatisticalRegionInput(
-        estimate=np.asarray(estimate, dtype=float),
-        mean_covariance=np.asarray(covariance, dtype=float),
-        independent_clusters=clusters,
-        total_pairs=clusters * pairs_per_cluster,
-        cluster_pair_counts=(pairs_per_cluster,) * clusters,
-        arm_names=arm_names,
+    ensemble, _, _ = _synthetic_ensemble(
+        estimate,
+        covariance,
+        arm_names,
+        (pairs_per_cluster,) * clusters,
     )
-
-
-def _implementation(error, identity):
-    return ImplementationEstimate(
-        np.diag([4.0, 1.0]),
-        ErrorBudget(error, 0.0, 0.0, 0.0, 0.0, 1),
-        identity,
-    )
-
-
-def _certification(arm_name, pool_identity, row_index, *, error=0.0, clean=True):
-    provenance = EndpointCertificationProvenance(
-        arm_name=arm_name,
-        pool_identity=pool_identity,
-        row_index=row_index,
-    )
-    if clean:
-        return certify_pairing(
-            _implementation(error, f"{arm_name}-first-{row_index}"),
-            _implementation(error, f"{arm_name}-second-{row_index}"),
-            provenance=provenance,
-        )
-    return certify_pairing(
-        ImplementationEstimate(
-            np.zeros((2, 2)),
-            ErrorBudget(0.0, 0.0, 0.0, 0.0, 0.0, 1),
-            f"{arm_name}-first-{row_index}",
-        ),
-        ImplementationEstimate(
-            np.zeros((2, 2)),
-            ErrorBudget(0.0, 0.0, 0.0, 0.0, 0.0, 1),
-            f"{arm_name}-second-{row_index}",
-        ),
-        provenance=provenance,
-    )
-
-
-def _certified_pool(arm_name, pool_identity, *, errors=(0.0,), clean=True):
-    if np.isscalar(errors):
-        errors = (float(errors),)
-    return CertifiedEndpointPool(
-        rows=tuple(
-            _certification(
-                arm_name, pool_identity, row_index, error=error, clean=clean
-            )
-            for row_index, error in enumerate(errors)
-        )
-    )
+    return StatisticalRegionInput.from_ensemble(ensemble)
 
 
 def _validated_radius(inputs, *, error=0.0):
-    pool_identity = f"radius-pool-{'--'.join(inputs.arm_names)}"
-    left_pool = _certified_pool(inputs.arm_names[0], pool_identity, errors=error)
-    right_pool = _certified_pool(inputs.arm_names[1], pool_identity, errors=error)
-    count = inputs.cluster_pair_counts[0]
-    indices = np.zeros(count, dtype=np.int64)
-    matching = SimpleNamespace(
-        pool_identity=pool_identity,
-        result=SimpleNamespace(left_indices=indices, right_indices=indices),
+    ensemble, left_pools, right_pools = _synthetic_ensemble(
+        inputs.estimate,
+        inputs.mean_covariance,
+        inputs.arm_names,
+        inputs.cluster_pair_counts,
+        error=error,
     )
-    left = np.repeat(left_pool.rows[0].endpoint[None, :], count, axis=0)
-    right = np.repeat(right_pool.rows[0].endpoint[None, :], count, axis=0)
-    law = SimpleNamespace(
-        matched_pairs=count,
-        arm_names=inputs.arm_names,
-        law_id=JOINT_MATCHED_LAW_ID,
-        matching=matching,
-        left=left,
-        right=right,
-    )
-    ensemble = MatchedLawEnsemble(
-        laws=(law,) * inputs.independent_clusters,
-        delta_mean=inputs.estimate,
-        delta_mean_covariance=inputs.mean_covariance,
-        total_pairs=inputs.total_pairs,
-        independent_clusters=inputs.independent_clusters,
+    assert (
+        StatisticalRegionInput.from_ensemble(ensemble).source_ensemble_fingerprint
+        == inputs.source_ensemble_fingerprint
     )
     return aggregate_matched_numerical_half_width(
         ensemble,
-        (left_pool,) * inputs.independent_clusters,
-        (right_pool,) * inputs.independent_clusters,
+        left_pools,
+        right_pools,
     )
 
 
@@ -176,8 +225,18 @@ def test_region_input_adapter_preserves_frozen_matched_law_provenance():
             matched_pairs=192,
             arm_names=E1_ARM_NAMES,
             law_id=JOINT_MATCHED_LAW_ID,
+            matching=SimpleNamespace(
+                pool_identity=f"adapter-pool-{cohort_index}",
+                calibration_identity=f"adapter-calibration-{cohort_index}",
+                result=SimpleNamespace(
+                    left_indices=np.arange(192),
+                    right_indices=np.arange(192),
+                ),
+            ),
+            left=np.zeros((192, 2)),
+            right=np.zeros((192, 2)),
         )
-        for _ in range(MIN_INDEPENDENT_COHORTS)
+        for cohort_index in range(MIN_INDEPENDENT_COHORTS)
     )
     ensemble = MatchedLawEnsemble(
         laws=laws,
@@ -192,6 +251,7 @@ def test_region_input_adapter_preserves_frozen_matched_law_provenance():
     assert inputs.total_pairs == MIN_INDEPENDENT_COHORTS * 192
     assert not inputs.estimate.flags.writeable
     assert not inputs.mean_covariance.flags.writeable
+    assert len(inputs.source_ensemble_fingerprint) == 64
 
 
 def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():
@@ -220,12 +280,14 @@ def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():
 def test_item3_endpoint_errors_follow_match_indices_and_total_pair_weights():
     pool_ids = ("cohort-a", "cohort-b")
     matching_a = SimpleNamespace(
+        calibration_identity="calibration-a",
         pool_identity=pool_ids[0],
         result=SimpleNamespace(
             left_indices=np.asarray([0, 2]), right_indices=np.asarray([1, 2])
         )
     )
     matching_b = SimpleNamespace(
+        calibration_identity="calibration-b",
         pool_identity=pool_ids[1],
         result=SimpleNamespace(
             left_indices=np.asarray([1, 2]), right_indices=np.asarray([0, 2])
@@ -298,6 +360,7 @@ def test_item3_error_average_does_not_overflow_before_division():
 
 def test_item3_error_propagation_rejects_malformed_matched_indices():
     matching = SimpleNamespace(
+        calibration_identity="malformed-calibration",
         pool_identity="malformed",
         result=SimpleNamespace(
             left_indices=np.asarray([-1, 1]), right_indices=np.asarray([0, 1])
@@ -362,13 +425,55 @@ def test_item3_error_pool_requires_clean_frozen_certification_provenance():
 def test_item3_certifier_emits_the_pool_identity_consumed_by_the_adapter():
     result = _certification(E1_ARM_NAMES[0], "producer-pool", 0)
     assert result.producer_authenticated
-    assert result.provenance == EndpointCertificationProvenance(
-        E1_ARM_NAMES[0], "producer-pool", 0
-    )
+    assert result.provenance.arm_name == E1_ARM_NAMES[0]
+    assert result.provenance.pool_identity == "producer-pool"
+    assert result.provenance.row_index == 0
+    assert len(result.provenance.source_row_fingerprint) == 64
     pool = CertifiedEndpointPool(rows=(result,))
     assert pool.arm_name == E1_ARM_NAMES[0]
     assert pool.pool_identity == "producer-pool"
     assert pool.row_indices == (0,)
+
+
+def test_item3_provenance_is_bound_to_the_actual_source_row_payload():
+    first = (_implementation(1.0e-8, "actual-first"),)
+    second = (_implementation(1.0e-8, "actual-second"),)
+    source_rows = bind_endpoint_certification_rows(
+        first,
+        second,
+        arm_name=E1_ARM_NAMES[0],
+        pool_identity="actual-source-pool",
+    )
+    with pytest.raises(TypeError, match="only by pool binding"):
+        EndpointCertificationSourceRow(
+            first=first[0],
+            second=second[0],
+            provenance=EndpointCertificationProvenance(
+                E1_ARM_NAMES[0], "forged-pool", 0
+            ),
+        )
+    with pytest.raises(TypeError, match="unexpected keyword argument"):
+        certify_pairing(
+            first[0],
+            second[0],
+            provenance=EndpointCertificationProvenance(
+                E1_ARM_NAMES[0], "forged-pool", 0
+            ),
+        )
+    result = certify_pairing(source_rows[0])
+    assert result.producer_authenticated
+    assert result.provenance == source_rows[0].provenance
+    assert len(result.provenance.source_row_fingerprint) == 64
+    changed_rows = bind_endpoint_certification_rows(
+        (_implementation(1.0e-4, "actual-first"),),
+        second,
+        arm_name=E1_ARM_NAMES[0],
+        pool_identity="actual-source-pool",
+    )
+    assert (
+        changed_rows[0].provenance.source_row_fingerprint
+        != source_rows[0].provenance.source_row_fingerprint
+    )
 
 
 def test_validated_numerical_width_has_no_public_construction_path():
@@ -381,9 +486,48 @@ def test_validated_numerical_width_has_no_public_construction_path():
         )
 
 
+def test_validated_width_is_bound_to_the_exact_source_ensemble():
+    counts = (192,) * MIN_INDEPENDENT_COHORTS
+    first_ensemble, first_left, first_right = _synthetic_ensemble(
+        [0.0, 0.0],
+        np.diag([1.0e-8, 1.0e-8]),
+        E1_ARM_NAMES,
+        counts,
+        error=0.0,
+        pool_tag="first",
+    )
+    second_ensemble, _, _ = _synthetic_ensemble(
+        [0.0, 0.0],
+        np.diag([1.0e-8, 1.0e-8]),
+        E1_ARM_NAMES,
+        counts,
+        error=1.0e-5,
+        pool_tag="second",
+    )
+    first_width = aggregate_matched_numerical_half_width(
+        first_ensemble, first_left, first_right
+    )
+    second_inputs = StatisticalRegionInput.from_ensemble(second_ensemble)
+    assert first_width.arm_names == second_inputs.arm_names
+    assert first_width.independent_clusters == second_inputs.independent_clusters
+    assert first_width.total_pairs == second_inputs.total_pairs
+    assert first_width.joint_law_id == second_inputs.joint_law_id
+    assert (
+        first_width.source_ensemble_fingerprint
+        != second_inputs.source_ensemble_fingerprint
+    )
+    with pytest.raises(RegionProtocolError, match="does not match"):
+        build_simultaneous_region(
+            second_inputs,
+            local_alpha=0.01,
+            numerical_half_width=first_width,
+        )
+
+
 def test_item3_error_pool_must_match_joint_law_pool_arm_and_endpoint_rows():
     indices = np.asarray([0])
     matching = SimpleNamespace(
+        calibration_identity="registered-calibration",
         pool_identity="registered-pool",
         result=SimpleNamespace(left_indices=indices, right_indices=indices),
     )
@@ -519,6 +663,7 @@ def test_malformed_alpha_numerical_radius_and_identity_fail_closed():
             total_pairs=32,
             cluster_pair_counts=(1,) * 31,
             arm_names=E1_ARM_NAMES,
+            source_ensemble_fingerprint="0" * 64,
         )
     with pytest.raises(RegionProtocolError, match="total_pairs"):
         StatisticalRegionInput(
@@ -528,6 +673,7 @@ def test_malformed_alpha_numerical_radius_and_identity_fail_closed():
             total_pairs=32.0,
             cluster_pair_counts=(1,) * 32,
             arm_names=E1_ARM_NAMES,
+            source_ensemble_fingerprint="0" * 64,
         )
 
 

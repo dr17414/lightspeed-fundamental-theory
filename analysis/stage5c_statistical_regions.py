@@ -15,6 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from fractions import Fraction
+from hashlib import sha256
 from math import isfinite
 
 import numpy as np
@@ -38,6 +39,7 @@ from analysis.stage5c_planted_certification import certify_wrong_support_domain
 STATISTICAL_REGION_ID = "stage5c-6a-e-simultaneous-t-rectangle-v0.1"
 DF_ONLY_ORACLE_ID = "stage5c-6a-e-df-only-t-reference-oracle-v0.1"
 NUMERICAL_PROPAGATION_ID = "stage5c-6a-e-matched-endpoint-error-propagation-v0.1"
+ENSEMBLE_FINGERPRINT_ID = "stage5c-6a-e-matched-ensemble-sha256-v0.1"
 _NUMERICAL_WIDTH_PRODUCER_TOKEN = object()
 
 # The first primary component has sharp range [-1, 2], while the second has
@@ -112,6 +114,96 @@ class E3Claim(str, Enum):
     SECTOR_BLIND_NULL = "sector-blind-null-A-minus-null-B"
 
 
+def _fingerprint_part(digest: object, label: str, payload: bytes) -> None:
+    """Add one length-framed field to a matched-ensemble fingerprint."""
+
+    label_bytes = label.encode("utf-8")
+    digest.update(len(label_bytes).to_bytes(4, "big"))
+    digest.update(label_bytes)
+    digest.update(len(payload).to_bytes(8, "big"))
+    digest.update(payload)
+
+
+def _fingerprint_text(digest: object, label: str, value: object) -> None:
+    if not isinstance(value, str) or not value:
+        raise RegionProtocolError(f"{label} must be a non-empty identity")
+    _fingerprint_part(digest, label, value.encode("utf-8"))
+
+
+def _fingerprint_integer(digest: object, label: str, value: object) -> None:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(
+        value, (int, np.integer)
+    ):
+        raise RegionProtocolError(f"{label} must be an integer")
+    _fingerprint_part(digest, label, str(int(value)).encode("ascii"))
+
+
+def _fingerprint_array(
+    digest: object, label: str, value: object, *, dtype: str
+) -> None:
+    array = np.ascontiguousarray(np.asarray(value, dtype=dtype))
+    shape = ",".join(str(dimension) for dimension in array.shape).encode("ascii")
+    _fingerprint_part(digest, f"{label}.shape", shape)
+    _fingerprint_part(digest, f"{label}.bytes", array.tobytes(order="C"))
+
+
+def _ensemble_fingerprint(ensemble: MatchedLawEnsemble) -> str:
+    """Hash the exact matched rows and ensemble statistics consumed downstream."""
+
+    if not isinstance(ensemble, MatchedLawEnsemble):
+        raise RegionProtocolError("ensemble fingerprint requires MatchedLawEnsemble")
+    digest = sha256()
+    _fingerprint_text(digest, "fingerprint_id", ENSEMBLE_FINGERPRINT_ID)
+    _fingerprint_text(digest, "law_id", ensemble.law_id)
+    _fingerprint_integer(
+        digest, "independent_clusters", ensemble.independent_clusters
+    )
+    _fingerprint_integer(digest, "total_pairs", ensemble.total_pairs)
+    _fingerprint_array(digest, "delta_mean", ensemble.delta_mean, dtype="<f8")
+    _fingerprint_array(
+        digest,
+        "delta_mean_covariance",
+        ensemble.delta_mean_covariance,
+        dtype="<f8",
+    )
+    if len(ensemble.laws) != ensemble.independent_clusters:
+        raise RegionProtocolError("ensemble cluster count does not match its laws")
+    for cohort_index, law in enumerate(ensemble.laws):
+        prefix = f"law[{cohort_index}]"
+        _fingerprint_text(digest, f"{prefix}.law_id", law.law_id)
+        if not isinstance(law.arm_names, tuple) or len(law.arm_names) != 2:
+            raise RegionProtocolError("ensemble law arm identities are malformed")
+        _fingerprint_text(digest, f"{prefix}.left_arm", law.arm_names[0])
+        _fingerprint_text(digest, f"{prefix}.right_arm", law.arm_names[1])
+        _fingerprint_integer(digest, f"{prefix}.matched_pairs", law.matched_pairs)
+        matching = law.matching
+        _fingerprint_text(
+            digest, f"{prefix}.pool_identity", matching.pool_identity
+        )
+        _fingerprint_text(
+            digest,
+            f"{prefix}.calibration_identity",
+            matching.calibration_identity,
+        )
+        if matching.result is None:
+            raise RegionProtocolError("ensemble law is missing certified match indices")
+        _fingerprint_array(
+            digest,
+            f"{prefix}.left_indices",
+            matching.result.left_indices,
+            dtype="<i8",
+        )
+        _fingerprint_array(
+            digest,
+            f"{prefix}.right_indices",
+            matching.result.right_indices,
+            dtype="<i8",
+        )
+        _fingerprint_array(digest, f"{prefix}.left", law.left, dtype="<f8")
+        _fingerprint_array(digest, f"{prefix}.right", law.right, dtype="<f8")
+    return digest.hexdigest()
+
+
 @dataclass(frozen=True)
 class E2NullPairSpec:
     """Two independent future pools from one frozen target generator."""
@@ -147,6 +239,10 @@ class CertifiedEndpointPool:
             if not isinstance(row.provenance, EndpointCertificationProvenance):
                 raise RegionProtocolError(
                     "every endpoint certification requires producer-bound provenance"
+                )
+            if row.provenance.source_row_fingerprint is None:
+                raise RegionProtocolError(
+                    "every endpoint certification requires a source-row fingerprint"
                 )
             if row.provenance.row_index != expected_index:
                 raise RegionProtocolError(
@@ -202,6 +298,7 @@ class ValidatedNumericalHalfWidth:
     certification_id: str
     propagation_id: str
     joint_law_id: str
+    source_ensemble_fingerprint: str
     _producer_token: object
 
     def __new__(cls, *args: object, **kwargs: object) -> ValidatedNumericalHalfWidth:
@@ -217,6 +314,7 @@ class ValidatedNumericalHalfWidth:
         independent_clusters: int,
         total_pairs: int,
         arm_names: tuple[str, str],
+        source_ensemble_fingerprint: str,
         producer_token: object,
     ) -> ValidatedNumericalHalfWidth:
         if producer_token is not _NUMERICAL_WIDTH_PRODUCER_TOKEN:
@@ -231,6 +329,11 @@ class ValidatedNumericalHalfWidth:
         object.__setattr__(instance, "certification_id", CERTIFICATION_ID)
         object.__setattr__(instance, "propagation_id", NUMERICAL_PROPAGATION_ID)
         object.__setattr__(instance, "joint_law_id", JOINT_MATCHED_LAW_ID)
+        object.__setattr__(
+            instance,
+            "source_ensemble_fingerprint",
+            source_ensemble_fingerprint,
+        )
         object.__setattr__(instance, "_producer_token", producer_token)
         instance._validate()
         return instance
@@ -269,6 +372,15 @@ class ValidatedNumericalHalfWidth:
             raise RegionProtocolError("numerical-width propagation identity is not frozen")
         if self.joint_law_id != JOINT_MATCHED_LAW_ID:
             raise RegionProtocolError("numerical-width joint-law identity is not frozen")
+        if (
+            not isinstance(self.source_ensemble_fingerprint, str)
+            or len(self.source_ensemble_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_ensemble_fingerprint
+            )
+        ):
+            raise RegionProtocolError("numerical-width ensemble fingerprint is invalid")
         frozen = values.copy()
         frozen.setflags(write=False)
         object.__setattr__(self, "values", frozen)
@@ -320,6 +432,7 @@ class StatisticalRegionInput:
     total_pairs: int
     cluster_pair_counts: tuple[int, ...]
     arm_names: tuple[str, str]
+    source_ensemble_fingerprint: str
     joint_law_id: str = JOINT_MATCHED_LAW_ID
 
     def __post_init__(self) -> None:
@@ -360,6 +473,15 @@ class StatisticalRegionInput:
             raise RegionProtocolError("arm_names must be two non-empty ordered identities")
         if self.joint_law_id != JOINT_MATCHED_LAW_ID:
             raise RegionProtocolError("input does not use the frozen matched-law identity")
+        if (
+            not isinstance(self.source_ensemble_fingerprint, str)
+            or len(self.source_ensemble_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_ensemble_fingerprint
+            )
+        ):
+            raise RegionProtocolError("source ensemble fingerprint is invalid")
         frozen_estimate = estimate.copy()
         frozen_covariance = covariance.copy()
         frozen_estimate.setflags(write=False)
@@ -397,6 +519,7 @@ class StatisticalRegionInput:
             total_pairs=ensemble.total_pairs,
             cluster_pair_counts=counts,
             arm_names=arm_names,
+            source_ensemble_fingerprint=_ensemble_fingerprint(ensemble),
         )
 
 
@@ -499,6 +622,8 @@ def _numerical_half_width(
         or value.total_pairs != inputs.total_pairs
         or value.arm_names != inputs.arm_names
         or value.joint_law_id != inputs.joint_law_id
+        or value.source_ensemble_fingerprint
+        != inputs.source_ensemble_fingerprint
     ):
         raise RegionProtocolError("numerical half-width does not match region input")
     return value.values
@@ -818,6 +943,7 @@ def aggregate_matched_numerical_half_width(
         independent_clusters=inputs.independent_clusters,
         total_pairs=inputs.total_pairs,
         arm_names=inputs.arm_names,
+        source_ensemble_fingerprint=inputs.source_ensemble_fingerprint,
         producer_token=_NUMERICAL_WIDTH_PRODUCER_TOKEN,
     )
 

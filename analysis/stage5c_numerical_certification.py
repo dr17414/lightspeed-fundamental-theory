@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
+from hashlib import sha256
 from math import fsum, hypot
 
 import numpy as np
@@ -24,6 +25,7 @@ RATIO_ERROR_FACTORS = np.asarray([5.0, 2.0], dtype=FLOAT_DTYPE)
 RATIO_ERROR_FACTORS.setflags(write=False)
 PRIMARY_ENDPOINT_REAL_OPERATIONS = 32
 _CERTIFICATION_PRODUCER_TOKEN = object()
+_CERTIFICATION_SOURCE_TOKEN = object()
 
 
 class CertificationProtocolError(ValueError):
@@ -53,6 +55,7 @@ class EndpointCertificationProvenance:
     arm_name: str
     pool_identity: str
     row_index: int
+    source_row_fingerprint: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.arm_name, str) or not self.arm_name.strip():
@@ -66,6 +69,61 @@ class EndpointCertificationProvenance:
         if int(self.row_index) < 0:
             raise CertificationProtocolError("row_index must be non-negative")
         object.__setattr__(self, "row_index", int(self.row_index))
+        if self.source_row_fingerprint is not None and (
+            not isinstance(self.source_row_fingerprint, str)
+            or len(self.source_row_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_row_fingerprint
+            )
+        ):
+            raise CertificationProtocolError("source_row_fingerprint is invalid")
+
+
+@dataclass(frozen=True, init=False)
+class EndpointCertificationSourceRow:
+    """Opaque item-3 input row with custody identity bound to its payload.
+
+    The public certifier never accepts arm/pool/row labels alongside arbitrary
+    implementation estimates.  A complete source pool is bound once by
+    :func:`bind_endpoint_certification_rows`; each resulting row then carries
+    both implementations and its enumerated custody identity under a private
+    producer token.
+    """
+
+    first: ImplementationEstimate
+    second: ImplementationEstimate
+    provenance: EndpointCertificationProvenance
+    _producer_token: object
+
+    def __new__(cls, *args: object, **kwargs: object) -> EndpointCertificationSourceRow:
+        raise TypeError(
+            "EndpointCertificationSourceRow is produced only by pool binding"
+        )
+
+    @classmethod
+    def _from_pool(
+        cls,
+        *,
+        first: ImplementationEstimate,
+        second: ImplementationEstimate,
+        provenance: EndpointCertificationProvenance,
+        producer_token: object,
+    ) -> EndpointCertificationSourceRow:
+        if producer_token is not _CERTIFICATION_SOURCE_TOKEN:
+            raise CertificationProtocolError(
+                "endpoint certification source rows are pool-binding-only"
+            )
+        instance = object.__new__(cls)
+        object.__setattr__(instance, "first", first)
+        object.__setattr__(instance, "second", second)
+        object.__setattr__(instance, "provenance", provenance)
+        object.__setattr__(instance, "_producer_token", producer_token)
+        return instance
+
+    @property
+    def producer_authenticated(self) -> bool:
+        return self._producer_token is _CERTIFICATION_SOURCE_TOKEN
 
 
 def _nonnegative_finite(name: str, value: float) -> float:
@@ -242,6 +300,118 @@ class ImplementationEstimate:
         object.__setattr__(self, "matrix", matrix)
 
 
+def _source_digest_part(digest: object, label: str, payload: bytes) -> None:
+    label_bytes = label.encode("utf-8")
+    digest.update(len(label_bytes).to_bytes(4, "big"))
+    digest.update(label_bytes)
+    digest.update(len(payload).to_bytes(8, "big"))
+    digest.update(payload)
+
+
+def _source_row_fingerprint(
+    first: ImplementationEstimate,
+    second: ImplementationEstimate,
+    *,
+    arm_name: str,
+    pool_identity: str,
+    row_index: int,
+) -> str:
+    """Hash the exact implementation payload bound to one custody row."""
+
+    digest = sha256()
+    for label, value in (
+        ("schema", "stage5c-6a-e-certification-source-row-sha256-v0.1"),
+        ("arm_name", arm_name),
+        ("pool_identity", pool_identity),
+        ("row_index", str(row_index)),
+    ):
+        _source_digest_part(digest, label, value.encode("utf-8"))
+    for prefix, estimate in (("first", first), ("second", second)):
+        _source_digest_part(
+            digest,
+            f"{prefix}.implementation_id",
+            estimate.implementation_id.encode("utf-8"),
+        )
+        matrix = np.ascontiguousarray(estimate.matrix, dtype="<c16")
+        _source_digest_part(digest, f"{prefix}.matrix", matrix.tobytes(order="C"))
+        for field_name in (
+            "quadrature",
+            "sampling_representation",
+            "regulator",
+            "boundary_contact",
+            "accumulation_term_norm_sum",
+        ):
+            value = float(getattr(estimate.error, field_name)).hex()
+            _source_digest_part(
+                digest, f"{prefix}.error.{field_name}", value.encode("ascii")
+            )
+        _source_digest_part(
+            digest,
+            f"{prefix}.error.real_additions",
+            str(estimate.error.real_additions).encode("ascii"),
+        )
+    return digest.hexdigest()
+
+
+def bind_endpoint_certification_rows(
+    first_rows: tuple[ImplementationEstimate, ...],
+    second_rows: tuple[ImplementationEstimate, ...],
+    *,
+    arm_name: str,
+    pool_identity: str,
+) -> tuple[EndpointCertificationSourceRow, ...]:
+    """Bind a complete implementation pool to ordered custody identities.
+
+    This is the sole construction path for provenance-bearing item-3 inputs.
+    Row indices are derived by enumeration and cannot be supplied separately
+    to :func:`certify_pairing`.
+    """
+
+    if (
+        not isinstance(first_rows, tuple)
+        or not isinstance(second_rows, tuple)
+        or not first_rows
+        or len(first_rows) != len(second_rows)
+    ):
+        raise CertificationProtocolError(
+            "first_rows and second_rows must be non-empty equal-length tuples"
+        )
+    if not isinstance(arm_name, str) or not arm_name.strip():
+        raise CertificationProtocolError("arm_name must be a non-empty identity")
+    if not isinstance(pool_identity, str) or not pool_identity.strip():
+        raise CertificationProtocolError("pool_identity must be a non-empty identity")
+    if any(not isinstance(row, ImplementationEstimate) for row in first_rows):
+        raise CertificationProtocolError(
+            "every first implementation row must be ImplementationEstimate"
+        )
+    if any(not isinstance(row, ImplementationEstimate) for row in second_rows):
+        raise CertificationProtocolError(
+            "every second implementation row must be ImplementationEstimate"
+        )
+    return tuple(
+        EndpointCertificationSourceRow._from_pool(
+            first=first,
+            second=second,
+            provenance=EndpointCertificationProvenance(
+                arm_name=arm_name,
+                pool_identity=pool_identity,
+                row_index=row_index,
+                source_row_fingerprint=_source_row_fingerprint(
+                    first,
+                    second,
+                    arm_name=arm_name,
+                    pool_identity=pool_identity,
+                    row_index=row_index,
+                ),
+            ),
+            producer_token=_CERTIFICATION_SOURCE_TOKEN,
+        )
+        for row_index, (first, second) in enumerate(
+            zip(first_rows, second_rows, strict=True)
+        )
+    )
+
+
 @dataclass(frozen=True)
 class CertificationResult:
     status: CertificationStatus
@@ -324,11 +494,10 @@ def _inconclusive(
 
 
 def certify_pairing(
-    first: ImplementationEstimate,
-    second: ImplementationEstimate,
+    first: ImplementationEstimate | EndpointCertificationSourceRow,
+    second: ImplementationEstimate | None = None,
     *,
     planted_ground_truth: np.ndarray | None = None,
-    provenance: EndpointCertificationProvenance | None = None,
 ) -> CertificationResult:
     """Certify two implementations and only then form the primary endpoint.
 
@@ -337,17 +506,40 @@ def certify_pairing(
     condition ``||(M1+M2)/2||_F - (eta1+eta2)/2 > 0``.  Equality therefore
     passes agreement but fails the nontriviality gate.
 
+    A provenance-bearing certification accepts one sealed
+    ``EndpointCertificationSourceRow`` and derives both implementations plus
+    arm/pool/row identity from that object.  The legacy two-estimate form
+    remains available for item-3 callers that do not need matched-pool
+    propagation, but it emits no provenance.
+
     ``planted_ground_truth`` is permitted only for candidate-independent
     feasibility controls.  It prevents two identically biased implementations
     from turning agreement into a mapping certificate.
     """
 
-    if provenance is not None and not isinstance(
-        provenance, EndpointCertificationProvenance
-    ):
-        raise CertificationProtocolError(
-            "provenance must be EndpointCertificationProvenance or None"
-        )
+    if isinstance(first, EndpointCertificationSourceRow):
+        if not first.producer_authenticated:
+            raise CertificationProtocolError(
+                "source row must be emitted by complete-pool binding"
+            )
+        if second is not None:
+            raise CertificationProtocolError(
+                "a source row already contains both implementations"
+            )
+        source_row = first
+        first = source_row.first
+        second = source_row.second
+        provenance: EndpointCertificationProvenance | None = source_row.provenance
+    else:
+        if not isinstance(first, ImplementationEstimate) or not isinstance(
+            second, ImplementationEstimate
+        ):
+            raise CertificationProtocolError(
+                "certify_pairing requires two estimates or one bound source row"
+            )
+        provenance = None
+    assert isinstance(first, ImplementationEstimate)
+    assert isinstance(second, ImplementationEstimate)
     if first.implementation_id == second.implementation_id:
         raise CertificationProtocolError("the two implementation identities must differ")
 
@@ -550,8 +742,10 @@ __all__ = [
     "CertificationResult",
     "CertificationStatus",
     "EndpointCertificationProvenance",
+    "EndpointCertificationSourceRow",
     "ErrorBudget",
     "ImplementationEstimate",
+    "bind_endpoint_certification_rows",
     "certify_pairing",
     "rounding_gamma",
 ]
