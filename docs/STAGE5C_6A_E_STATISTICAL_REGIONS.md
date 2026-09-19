@@ -1,6 +1,6 @@
 # Stage 5C — 6a-E E1／E2／E3 simultaneous statistical regions
 
-狀態：**【candidate-independent closure items 4／5 delivery／REVIEW-PENDING／不可執行 arm】**。
+狀態：**【已確認之 candidate-independent closure items 4／5／CLOSED／不可執行 arm】**。
 
 本文件固定二維 primary endpoint 的 E1 contrast region、E2 equivalence region、E3
 逐分量規則、validated numerical-error 傳播，以及一個具解析 oracle 的 df-only falsifier。
@@ -264,9 +264,12 @@ $0.99145302805641$，coverage gap 約 $0.00354697194>0$，因此機械判為 det
 
 ## 8. Closure 與未完成義務
 
-本交付使 closure items 4／5 與 E3 statistical-region 子項成為 `REVIEW-PENDING`，不是
-`CLOSED`。必須等 exact-head 獨立複核、CI、automated review、merge，再另作 state-only
-closeout。Item 8 的完整 claim family、lineage-wide multiplicity／successor reserve、local
+本交付的最終 head `2d7f20e` 已由 Claude 對 main→head 完整樹獨立複核並給予 GO，
+CI #126（345 passed／5 個既有 warnings）通過、exact-head automated review 未發現 major
+issues，PR #30 以 expected-head squash-merge 為 main `f9c3a505`。因此本 state-only closeout
+將 closure items 4／5 與 E3 statistical-region 子項記為 `CLOSED`；這只關閉已交付的
+candidate-independent region forms，不是任何 E1／E2／E3 scientific arm verdict。
+Item 8 的完整 claim family、lineage-wide multiplicity／successor reserve、local
 $\alpha$ allocation、detection／equivalence power與 power-derived cohort floors仍為 `OPEN`。
 Items 9、10、12 仍 `OPEN`，item 11 仍 `DRAFT`。
 

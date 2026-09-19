@@ -1,6 +1,6 @@
 # Stage 5C D.1 第 3 項 — Unified Observable／Selector／Smearing／Norm Contract
 
-狀態：**【提案／v0.18 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1、2、3、6、7 為 `CLOSED`；items 4–5 為 `REVIEW-PENDING`，items 8–10 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
+狀態：**【提案／v0.18 草案；尚未 freeze】** — fork B、ambient norm、完整 invariant algebra、C3b blind-variety distance form、primary 二維 invariant endpoint、wrong-direction 的 gauge 邊界，以及 C8 selector family 均已有交付物；6a-S 11/11 PASS 已封存。6a-E closure items 1–7 為 `CLOSED`；items 8–10、12 仍 `OPEN`，item 11 仍 `DRAFT`。這不解除任何 execution firewall。
 
 路線：**B（distributional selector）**。依 review 意見，A 為**暫不採用**，不是被排除。
 
@@ -637,12 +637,13 @@ residual-power 前提必須依 §6 重新建立。
   複核、CI #101 與 merge `93b1cd19` 後狀態為 `CLOSED`；items 4／5 的 Bonferroni–Student
   simultaneous rectangles、directed-outward range-normalized E1／E2 boundaries、E3 component rules、
   source-row-bound producer-sealed CLEAN item-3 provenance、exact-ensemble-fingerprinted aggregation-only numerical width、exact-dyadic matched numerical-error propagation 與解析 df-only oracle 現由
-  `STAGE5C_6A_E_STATISTICAL_REGIONS.md` 提議交付，狀態為 `REVIEW-PENDING`；E4 fixed-scale continuum enclosure、
+  `STAGE5C_6A_E_STATISTICAL_REGIONS.md` 交付，最終 head `2d7f20e` 經獨立 GO、CI #126、
+  exact-head automated review 與 PR #30 merge `f9c3a505` 後記為 `CLOSED`；E4 fixed-scale continuum enclosure、
   contact／boundary leakage、validated error producers 與兩個 independent implementations
   已由 `STAGE5C_6A_E_WELLPOSEDNESS.md` 交付；最終 head `81b926cc` 經獨立完整樹複核、
   CI #113、exact-head automated review 與 PR #28 merge `59c78c64` 後狀態為 `CLOSED`；
   C6/C7 measure instances仍未固定；
-- E1–E3 region forms 現待 review／CI／merge；E5-D／E5-E 的完整 multiplicity、分開的
+- E1–E3 region forms 已交付；E5-D／E5-E 的完整 multiplicity、分開的
   detection／equivalence power floors、power-derived cohort gates 與 seed ranges仍未固定；
 - selector-prereg／ledger schema、family-wise spending 與 fresh-confirmation lifecycle；
 - C3b program／capability boundary，以及 blind-variety contract 尚未固定的 pair domain、
