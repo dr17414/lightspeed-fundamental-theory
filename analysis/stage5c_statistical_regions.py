@@ -1,0 +1,1379 @@
+"""Candidate-independent statistical regions for Stage 5C 6a-E.
+
+This module fixes the E1/E2 simultaneous-region form and the finite-causet
+E3 component rules.  It consumes only the already-frozen matched-cohort law;
+it never loads an arm ledger, claims a formal 6a-E seed, forms an arm
+endpoint, or imports a candidate kernel.
+
+Multiplicity-adjusted local alpha values are supplied by future closure item
+8.  The region shape, degrees of freedom, endpoint scaling, scientific
+boundaries, and strict boundary semantics are fixed here.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from enum import Enum
+from fractions import Fraction
+from hashlib import sha256
+from math import isfinite
+
+import numpy as np
+from mpmath.ctx_iv import MPIntervalContext
+from scipy.stats import t
+
+from analysis.stage5c_hard_controls import CONTROL_THETA
+from analysis.stage5c_joint_matched_law import (
+    CALIBRATION_MATCHED_COUNT_DOMAIN,
+    GENERATOR_SOURCE_ID,
+    JOINT_MATCHED_LAW_ID,
+    MatchedLawEnsemble,
+)
+from analysis.stage5c_numerical_certification import (
+    CERTIFICATION_ID,
+    CertificationResult,
+    CertificationStatus,
+    EndpointCertificationProvenance,
+)
+from analysis.stage5c_planted_certification import certify_wrong_support_domain
+
+STATISTICAL_REGION_ID = "stage5c-6a-e-simultaneous-t-rectangle-v0.1"
+DF_ONLY_ORACLE_ID = "stage5c-6a-e-df-only-t-reference-oracle-v0.1"
+NUMERICAL_PROPAGATION_ID = "stage5c-6a-e-matched-endpoint-error-propagation-v0.1"
+ENSEMBLE_FINGERPRINT_ID = "stage5c-6a-e-matched-ensemble-sha256-v0.1"
+_NUMERICAL_WIDTH_PRODUCER_TOKEN = object()
+_REGION_INPUT_PRODUCER_TOKEN = object()
+_REGION_RESULT_PRODUCER_TOKEN = object()
+
+
+def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
+    """Store an independent array in immutable bytes-backed memory."""
+
+    array = np.ascontiguousarray(value, dtype=dtype)
+    return np.frombuffer(array.tobytes(order="C"), dtype=dtype).reshape(array.shape)
+
+
+# The first primary component has sharp range [-1, 2], while the second has
+# sharp range [0, 1].  Dividing by these widths gives each coordinate one unit
+# of full-domain scale without using an observed covariance or direction.
+ENDPOINT_RANGE_WIDTHS = _immutable_array(np.asarray([3.0, 1.0]), np.dtype("<f8"))
+
+# A 1/20 full-range dead zone is a declared candidate-independent evaluator
+# convention.  E1 must clear the closed box and E2 must lie strictly inside
+# its open interior.  Equality always fails.
+JOINT_EFFECT_FLOOR = 1.0 / 20.0
+EQUIVALENCE_MARGIN = _immutable_array(
+    np.asarray([JOINT_EFFECT_FLOOR, JOINT_EFFECT_FLOOR]), np.dtype("<f8")
+)
+
+# Item 2 calibrated the matched-cohort reference law at B=32.  Smaller B is
+# not allowed to form a scientific region.  Item 8 may impose a larger power-
+# derived floor but may not lower this structural floor.
+MIN_INDEPENDENT_COHORTS = 32
+# The earlier C8 control already capped each local claim at alpha=0.01.
+# Closure item 8 may allocate a smaller value, but may not loosen this cap.
+MAX_LOCAL_ALPHA = 0.01
+
+E1_ARM_NAMES = ("T-plus", "T-minus")
+E2_PLUS_ARM_NAMES = ("T-plus-null-A", "T-plus-null-B")
+E2_MINUS_ARM_NAMES = ("T-minus-null-A", "T-minus-null-B")
+
+# Domain-wide analytic E3 effects from the closed planted source-of-record.
+# Chiral and symmetric-diffusion magnitudes are at least 1/5.  Their frozen
+# floors reserve half that gap.  The active wrong-support floor similarly
+# reserves half its exact complete-domain separation gap.
+E3_CHIRAL_EFFECT_FLOOR = 1.0 / 10.0
+E3_DIFFUSION_EFFECT_FLOOR = 1.0 / 10.0
+E3_WRONG_SUPPORT_EFFECT_FLOOR = (
+    certify_wrong_support_domain().separation_gap / 2.0
+)
+
+
+class RegionProtocolError(ValueError):
+    """The caller or supplied object violates the item-4/5 region schema."""
+
+
+class RegionStatus(str, Enum):
+    CLEAN = "CLEAN"
+    INCONCLUSIVE = "INCONCLUSIVE"
+
+
+class RegionReason(str, Enum):
+    CERTIFIED = "CERTIFIED"
+    COHORT_TOO_SMALL = "COHORT-TOO-SMALL"
+    PAIR_COUNT_OUTSIDE_CALIBRATION = "PAIR-COUNT-OUTSIDE-CALIBRATION"
+    NONFINITE_INPUT = "NONFINITE-INPUT"
+    COVARIANCE_INVALID = "COVARIANCE-INVALID"
+    DEGENERATE_MARGINAL_VARIANCE = "DEGENERATE-MARGINAL-VARIANCE"
+
+
+class ScientificVerdict(str, Enum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    NOT_EVALUATED = "NOT-EVALUATED"
+
+
+class E2Target(str, Enum):
+    PLUS = "T-plus"
+    MINUS = "T-minus"
+
+
+class E3Claim(str, Enum):
+    CHIRAL_VS_BLIND = "correct-chiral-minus-sector-blind"
+    DIFFUSION_VS_BLIND = "symmetric-diffusion-minus-sector-blind"
+    CORRECT_VS_WRONG_SUPPORT = "correct-support-minus-wrong-support"
+    SECTOR_BLIND_NULL = "sector-blind-null-A-minus-null-B"
+
+
+def _fingerprint_part(digest: object, label: str, payload: bytes) -> None:
+    """Add one length-framed field to a matched-ensemble fingerprint."""
+
+    label_bytes = label.encode("utf-8")
+    digest.update(len(label_bytes).to_bytes(4, "big"))
+    digest.update(label_bytes)
+    digest.update(len(payload).to_bytes(8, "big"))
+    digest.update(payload)
+
+
+def _fingerprint_text(digest: object, label: str, value: object) -> None:
+    if not isinstance(value, str) or not value:
+        raise RegionProtocolError(f"{label} must be a non-empty identity")
+    _fingerprint_part(digest, label, value.encode("utf-8"))
+
+
+def _fingerprint_integer(digest: object, label: str, value: object) -> None:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(
+        value, (int, np.integer)
+    ):
+        raise RegionProtocolError(f"{label} must be an integer")
+    _fingerprint_part(digest, label, str(int(value)).encode("ascii"))
+
+
+def _fingerprint_array(
+    digest: object, label: str, value: object, *, dtype: str
+) -> None:
+    array = np.ascontiguousarray(np.asarray(value, dtype=dtype))
+    shape = ",".join(str(dimension) for dimension in array.shape).encode("ascii")
+    _fingerprint_part(digest, f"{label}.shape", shape)
+    _fingerprint_part(digest, f"{label}.bytes", array.tobytes(order="C"))
+
+
+def _ensemble_fingerprint(ensemble: MatchedLawEnsemble) -> str:
+    """Hash the exact matched rows and ensemble statistics consumed downstream."""
+
+    if not isinstance(ensemble, MatchedLawEnsemble):
+        raise RegionProtocolError("ensemble fingerprint requires MatchedLawEnsemble")
+    digest = sha256()
+    _fingerprint_text(digest, "fingerprint_id", ENSEMBLE_FINGERPRINT_ID)
+    _fingerprint_text(digest, "law_id", ensemble.law_id)
+    _fingerprint_integer(
+        digest, "independent_clusters", ensemble.independent_clusters
+    )
+    _fingerprint_integer(digest, "total_pairs", ensemble.total_pairs)
+    _fingerprint_array(digest, "delta_mean", ensemble.delta_mean, dtype="<f8")
+    _fingerprint_array(
+        digest,
+        "delta_mean_covariance",
+        ensemble.delta_mean_covariance,
+        dtype="<f8",
+    )
+    if len(ensemble.laws) != ensemble.independent_clusters:
+        raise RegionProtocolError("ensemble cluster count does not match its laws")
+    for cohort_index, law in enumerate(ensemble.laws):
+        prefix = f"law[{cohort_index}]"
+        _fingerprint_text(digest, f"{prefix}.law_id", law.law_id)
+        if not isinstance(law.arm_names, tuple) or len(law.arm_names) != 2:
+            raise RegionProtocolError("ensemble law arm identities are malformed")
+        _fingerprint_text(digest, f"{prefix}.left_arm", law.arm_names[0])
+        _fingerprint_text(digest, f"{prefix}.right_arm", law.arm_names[1])
+        _fingerprint_integer(digest, f"{prefix}.matched_pairs", law.matched_pairs)
+        matching = law.matching
+        _fingerprint_text(
+            digest, f"{prefix}.pool_identity", matching.pool_identity
+        )
+        _fingerprint_text(
+            digest,
+            f"{prefix}.calibration_identity",
+            matching.calibration_identity,
+        )
+        if matching.result is None:
+            raise RegionProtocolError("ensemble law is missing certified match indices")
+        _fingerprint_array(
+            digest,
+            f"{prefix}.left_indices",
+            matching.result.left_indices,
+            dtype="<i8",
+        )
+        _fingerprint_array(
+            digest,
+            f"{prefix}.right_indices",
+            matching.result.right_indices,
+            dtype="<i8",
+        )
+        _fingerprint_array(digest, f"{prefix}.left", law.left, dtype="<f8")
+        _fingerprint_array(digest, f"{prefix}.right", law.right, dtype="<f8")
+    return digest.hexdigest()
+
+
+@dataclass(frozen=True)
+class E2NullPairSpec:
+    """Two independent future pools from one frozen target generator."""
+
+    target: E2Target
+    theta: float
+    arm_names: tuple[str, str]
+    generator_source_id: str = GENERATOR_SOURCE_ID
+    requires_distinct_pool_identities: bool = True
+
+
+@dataclass(frozen=True)
+class CertifiedEndpointPool:
+    """A pool whose identities were bound by the item-3 producer."""
+
+    rows: tuple[CertificationResult, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.rows, tuple) or not self.rows:
+            raise RegionProtocolError("rows must be a non-empty tuple of certifications")
+        provenances: list[EndpointCertificationProvenance] = []
+        for expected_index, row in enumerate(self.rows):
+            if not isinstance(row, CertificationResult):
+                raise RegionProtocolError("each endpoint row must be a CertificationResult")
+            if not row.producer_authenticated:
+                raise RegionProtocolError(
+                    "each endpoint row must be emitted by the item-3 certifier"
+                )
+            if row.status is not CertificationStatus.CLEAN or not row.is_clean:
+                raise RegionProtocolError("every endpoint certification must be CLEAN")
+            if row.certification_id != CERTIFICATION_ID:
+                raise RegionProtocolError("endpoint certification identity is not frozen")
+            if not isinstance(row.provenance, EndpointCertificationProvenance):
+                raise RegionProtocolError(
+                    "every endpoint certification requires producer-bound provenance"
+                )
+            if row.provenance.source_row_fingerprint is None:
+                raise RegionProtocolError(
+                    "every endpoint certification requires a source-row fingerprint"
+                )
+            if row.provenance.row_index != expected_index:
+                raise RegionProtocolError(
+                    "producer-bound row indices must cover the original pool in order"
+                )
+            provenances.append(row.provenance)
+            endpoint = np.asarray(row.endpoint, dtype=float)
+            error = np.asarray(row.endpoint_error, dtype=float)
+            if (
+                endpoint.shape != (2,)
+                or error.shape != (2,)
+                or not np.all(np.isfinite(endpoint))
+                or not np.all(np.isfinite(error))
+                or np.any(error < 0.0)
+            ):
+                raise RegionProtocolError(
+                    "CLEAN endpoint rows require finite endpoint/error two-vectors"
+                )
+        if any(
+            provenance.arm_name != provenances[0].arm_name
+            or provenance.pool_identity != provenances[0].pool_identity
+            for provenance in provenances[1:]
+        ):
+            raise RegionProtocolError(
+                "all endpoint rows must share producer-bound arm and pool identities"
+            )
+
+    @property
+    def arm_name(self) -> str:
+        provenance = self.rows[0].provenance
+        assert provenance is not None
+        return provenance.arm_name
+
+    @property
+    def pool_identity(self) -> str:
+        provenance = self.rows[0].provenance
+        assert provenance is not None
+        return provenance.pool_identity
+
+    @property
+    def row_indices(self) -> tuple[int, ...]:
+        return tuple(range(len(self.rows)))
+
+
+@dataclass(frozen=True, init=False)
+class ValidatedNumericalHalfWidth:
+    """Opaque output of matched item-3 error propagation for one region input."""
+
+    values: np.ndarray
+    independent_clusters: int
+    total_pairs: int
+    arm_names: tuple[str, str]
+    certification_id: str
+    propagation_id: str
+    joint_law_id: str
+    source_ensemble_fingerprint: str
+    _producer_token: object
+    _producer_fingerprint: str
+
+    def __new__(cls, *args: object, **kwargs: object) -> ValidatedNumericalHalfWidth:
+        raise TypeError(
+            "ValidatedNumericalHalfWidth is produced only by matched aggregation"
+        )
+
+    @classmethod
+    def _from_aggregation(
+        cls,
+        *,
+        values: np.ndarray,
+        independent_clusters: int,
+        total_pairs: int,
+        arm_names: tuple[str, str],
+        source_ensemble_fingerprint: str,
+        producer_token: object,
+    ) -> ValidatedNumericalHalfWidth:
+        if producer_token is not _NUMERICAL_WIDTH_PRODUCER_TOKEN:
+            raise RegionProtocolError(
+                "validated numerical half-widths are aggregation-only"
+            )
+        instance = object.__new__(cls)
+        object.__setattr__(instance, "values", values)
+        object.__setattr__(instance, "independent_clusters", independent_clusters)
+        object.__setattr__(instance, "total_pairs", total_pairs)
+        object.__setattr__(instance, "arm_names", arm_names)
+        object.__setattr__(instance, "certification_id", CERTIFICATION_ID)
+        object.__setattr__(instance, "propagation_id", NUMERICAL_PROPAGATION_ID)
+        object.__setattr__(instance, "joint_law_id", JOINT_MATCHED_LAW_ID)
+        object.__setattr__(
+            instance,
+            "source_ensemble_fingerprint",
+            source_ensemble_fingerprint,
+        )
+        object.__setattr__(instance, "_producer_token", producer_token)
+        instance._validate()
+        object.__setattr__(instance, "_producer_fingerprint", _numerical_width_fingerprint(instance))
+        return instance
+
+    def _validate(self) -> None:
+        values = np.asarray(self.values, dtype=float)
+        if (
+            values.shape != (2,)
+            or not np.all(np.isfinite(values))
+            or np.any(values < 0.0)
+        ):
+            raise RegionProtocolError(
+                "validated numerical half-width must be one finite non-negative two-vector"
+            )
+        if (
+            isinstance(self.independent_clusters, (bool, np.bool_))
+            or not isinstance(self.independent_clusters, (int, np.integer))
+            or self.independent_clusters < 2
+        ):
+            raise RegionProtocolError("numerical-width cluster count is invalid")
+        if (
+            isinstance(self.total_pairs, (bool, np.bool_))
+            or not isinstance(self.total_pairs, (int, np.integer))
+            or self.total_pairs <= 0
+        ):
+            raise RegionProtocolError("numerical-width pair count is invalid")
+        if (
+            not isinstance(self.arm_names, tuple)
+            or len(self.arm_names) != 2
+            or any(not isinstance(name, str) or not name for name in self.arm_names)
+        ):
+            raise RegionProtocolError("numerical-width arm identities are invalid")
+        if self.certification_id != CERTIFICATION_ID:
+            raise RegionProtocolError("numerical-width certification identity is not frozen")
+        if self.propagation_id != NUMERICAL_PROPAGATION_ID:
+            raise RegionProtocolError("numerical-width propagation identity is not frozen")
+        if self.joint_law_id != JOINT_MATCHED_LAW_ID:
+            raise RegionProtocolError("numerical-width joint-law identity is not frozen")
+        if (
+            not isinstance(self.source_ensemble_fingerprint, str)
+            or len(self.source_ensemble_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_ensemble_fingerprint
+            )
+        ):
+            raise RegionProtocolError("numerical-width ensemble fingerprint is invalid")
+        object.__setattr__(self, "values", _immutable_array(values, np.dtype("<f8")))
+        object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
+        object.__setattr__(self, "total_pairs", int(self.total_pairs))
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if getattr(self, "_producer_token", None) is not _NUMERICAL_WIDTH_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _numerical_width_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _numerical_width_fingerprint(width: ValidatedNumericalHalfWidth) -> str:
+    digest = sha256()
+    _fingerprint_text(digest, "schema", "stage5c-produced-numerical-width-v0.1")
+    _fingerprint_array(digest, "values", width.values, dtype="<f8")
+    _fingerprint_integer(digest, "independent_clusters", width.independent_clusters)
+    _fingerprint_integer(digest, "total_pairs", width.total_pairs)
+    for index, arm in enumerate(width.arm_names):
+        _fingerprint_text(digest, f"arm.{index}", arm)
+    for name in ("certification_id", "propagation_id", "joint_law_id", "source_ensemble_fingerprint"):
+        _fingerprint_text(digest, name, getattr(width, name))
+    return digest.hexdigest()
+
+
+_E2_NULL_SPECS = {
+    E2Target.PLUS: E2NullPairSpec(
+        E2Target.PLUS,
+        CONTROL_THETA,
+        E2_PLUS_ARM_NAMES,
+    ),
+    E2Target.MINUS: E2NullPairSpec(
+        E2Target.MINUS,
+        -CONTROL_THETA,
+        E2_MINUS_ARM_NAMES,
+    ),
+}
+
+
+def e2_null_pair_spec(target: E2Target) -> E2NullPairSpec:
+    """Return the no-RNG E2 generator contract for one target.
+
+    Item 9 must later bind each A/B arm to a distinct fresh pool identity and
+    seed stream.  This function deliberately does not accept or generate a
+    seed and cannot invoke the generator.
+    """
+
+    if not isinstance(target, E2Target):
+        raise RegionProtocolError("target must be a registered E2Target")
+    return _E2_NULL_SPECS[target]
+
+
+@dataclass(frozen=True, init=False)
+class StatisticalRegionInput:
+    """Typed adapter output from the frozen matched-law ensemble."""
+
+    estimate: np.ndarray
+    mean_covariance: np.ndarray
+    independent_clusters: int
+    total_pairs: int
+    cluster_pair_counts: tuple[int, ...]
+    arm_names: tuple[str, str]
+    source_ensemble_fingerprint: str
+    joint_law_id: str = JOINT_MATCHED_LAW_ID
+    _producer_token: object
+    _producer_fingerprint: str
+
+    def __new__(cls, *args: object, **kwargs: object) -> StatisticalRegionInput:
+        raise TypeError("StatisticalRegionInput is produced only from a matched ensemble")
+
+    @classmethod
+    def _from_ensemble(
+        cls,
+        *,
+        estimate: np.ndarray,
+        mean_covariance: np.ndarray,
+        independent_clusters: int,
+        total_pairs: int,
+        cluster_pair_counts: tuple[int, ...],
+        arm_names: tuple[str, str],
+        source_ensemble_fingerprint: str,
+        producer_token: object,
+    ) -> StatisticalRegionInput:
+        if producer_token is not _REGION_INPUT_PRODUCER_TOKEN:
+            raise RegionProtocolError("region inputs require matched-ensemble production")
+        instance = object.__new__(cls)
+        for name, value in (
+            ("estimate", estimate),
+            ("mean_covariance", mean_covariance),
+            ("independent_clusters", independent_clusters),
+            ("total_pairs", total_pairs),
+            ("cluster_pair_counts", cluster_pair_counts),
+            ("arm_names", arm_names),
+            ("source_ensemble_fingerprint", source_ensemble_fingerprint),
+            ("joint_law_id", JOINT_MATCHED_LAW_ID),
+            ("_producer_token", producer_token),
+        ):
+            object.__setattr__(instance, name, value)
+        instance.__post_init__()
+        object.__setattr__(instance, "_producer_fingerprint", _region_input_fingerprint(instance))
+        return instance
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if getattr(self, "_producer_token", None) is not _REGION_INPUT_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _region_input_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+    def __post_init__(self) -> None:
+        estimate = np.asarray(self.estimate, dtype=float)
+        covariance = np.asarray(self.mean_covariance, dtype=float)
+        if estimate.shape != (2,):
+            raise RegionProtocolError("estimate must have shape (2,)")
+        if covariance.shape != (2, 2):
+            raise RegionProtocolError("mean_covariance must have shape (2,2)")
+        if (
+            isinstance(self.independent_clusters, (bool, np.bool_))
+            or not isinstance(self.independent_clusters, (int, np.integer))
+            or self.independent_clusters < 2
+        ):
+            raise RegionProtocolError("independent_clusters must be an integer >= 2")
+        if (
+            isinstance(self.total_pairs, (bool, np.bool_))
+            or not isinstance(self.total_pairs, (int, np.integer))
+            or self.total_pairs <= 0
+        ):
+            raise RegionProtocolError("total_pairs must be a positive integer")
+        if len(self.cluster_pair_counts) != int(self.independent_clusters):
+            raise RegionProtocolError("one pair count is required per independent cohort")
+        if any(
+            isinstance(value, (bool, np.bool_))
+            or not isinstance(value, (int, np.integer))
+            or value <= 0
+            for value in self.cluster_pair_counts
+        ):
+            raise RegionProtocolError("cluster pair counts must be positive integers")
+        if sum(int(value) for value in self.cluster_pair_counts) != self.total_pairs:
+            raise RegionProtocolError("cluster pair counts must sum to total_pairs")
+        if (
+            not isinstance(self.arm_names, tuple)
+            or len(self.arm_names) != 2
+            or any(not isinstance(name, str) or not name for name in self.arm_names)
+        ):
+            raise RegionProtocolError("arm_names must be two non-empty ordered identities")
+        if self.joint_law_id != JOINT_MATCHED_LAW_ID:
+            raise RegionProtocolError("input does not use the frozen matched-law identity")
+        if (
+            not isinstance(self.source_ensemble_fingerprint, str)
+            or len(self.source_ensemble_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_ensemble_fingerprint
+            )
+        ):
+            raise RegionProtocolError("source ensemble fingerprint is invalid")
+        object.__setattr__(self, "estimate", _immutable_array(estimate, np.dtype("<f8")))
+        object.__setattr__(self, "mean_covariance", _immutable_array(covariance, np.dtype("<f8")))
+        object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
+        object.__setattr__(self, "total_pairs", int(self.total_pairs))
+        object.__setattr__(
+            self,
+            "cluster_pair_counts",
+            tuple(int(value) for value in self.cluster_pair_counts),
+        )
+
+    @classmethod
+    def from_ensemble(cls, ensemble: MatchedLawEnsemble) -> StatisticalRegionInput:
+        if not isinstance(ensemble, MatchedLawEnsemble):
+            raise RegionProtocolError("region input must come from MatchedLawEnsemble")
+        if not ensemble.producer_authenticated:
+            raise RegionProtocolError("matched ensemble must be produced by item-2 aggregation")
+        if ensemble.law_id != JOINT_MATCHED_LAW_ID:
+            raise RegionProtocolError("ensemble does not use the frozen matched-law identity")
+        if len(ensemble.laws) != ensemble.independent_clusters:
+            raise RegionProtocolError("ensemble cluster count does not match its laws")
+        if not ensemble.laws:
+            raise RegionProtocolError("ensemble must contain matched laws")
+        arm_names = ensemble.laws[0].arm_names
+        if any(law.arm_names != arm_names for law in ensemble.laws):
+            raise RegionProtocolError("ensemble laws do not share ordered arm identities")
+        if any(law.law_id != JOINT_MATCHED_LAW_ID for law in ensemble.laws):
+            raise RegionProtocolError("ensemble contains a non-frozen matched law")
+        counts = tuple(law.matched_pairs for law in ensemble.laws)
+        return cls._from_ensemble(
+            estimate=ensemble.delta_mean,
+            mean_covariance=ensemble.delta_mean_covariance,
+            independent_clusters=ensemble.independent_clusters,
+            total_pairs=ensemble.total_pairs,
+            cluster_pair_counts=counts,
+            arm_names=arm_names,
+            source_ensemble_fingerprint=_ensemble_fingerprint(ensemble),
+            producer_token=_REGION_INPUT_PRODUCER_TOKEN,
+        )
+
+
+def _region_input_fingerprint(inputs: StatisticalRegionInput) -> str:
+    digest = sha256()
+    _fingerprint_text(digest, "schema", "stage5c-produced-region-input-v0.1")
+    _fingerprint_array(digest, "estimate", inputs.estimate, dtype="<f8")
+    _fingerprint_array(digest, "mean_covariance", inputs.mean_covariance, dtype="<f8")
+    _fingerprint_integer(digest, "independent_clusters", inputs.independent_clusters)
+    _fingerprint_integer(digest, "total_pairs", inputs.total_pairs)
+    for index, count in enumerate(inputs.cluster_pair_counts):
+        _fingerprint_integer(digest, f"cluster.{index}.pairs", count)
+    for index, arm in enumerate(inputs.arm_names):
+        _fingerprint_text(digest, f"arm.{index}", arm)
+    _fingerprint_text(digest, "source_ensemble_fingerprint", inputs.source_ensemble_fingerprint)
+    _fingerprint_text(digest, "joint_law_id", inputs.joint_law_id)
+    return digest.hexdigest()
+
+
+@dataclass(frozen=True)
+class SimultaneousRectangle:
+    """Bonferroni two-coordinate Student-t rectangle plus numerical error."""
+
+    estimate: np.ndarray
+    lower: np.ndarray
+    upper: np.ndarray
+    normalized_lower: np.ndarray
+    normalized_upper: np.ndarray
+    standard_error: np.ndarray
+    statistical_half_width: np.ndarray
+    numerical_half_width: np.ndarray
+    local_alpha: float
+    critical_value: float
+    reference_df: int
+    arm_names: tuple[str, str]
+    region_id: str = STATISTICAL_REGION_ID
+
+    def __post_init__(self) -> None:
+        for name in (
+            "estimate",
+            "lower",
+            "upper",
+            "normalized_lower",
+            "normalized_upper",
+            "standard_error",
+            "statistical_half_width",
+            "numerical_half_width",
+        ):
+            value = np.asarray(getattr(self, name), dtype=float)
+            if value.shape != (2,) or not np.all(np.isfinite(value)):
+                raise RegionProtocolError(f"{name} must be one finite two-vector")
+            object.__setattr__(self, name, _immutable_array(value, np.dtype("<f8")))
+        if np.any(self.lower > self.upper):
+            raise RegionProtocolError("region bounds must be ordered")
+
+
+@dataclass(frozen=True)
+class RegionBuildResult:
+    status: RegionStatus
+    reason: RegionReason
+    region: SimultaneousRectangle | None
+    _producer_token: object | None = field(default=None, init=False, repr=False, compare=False)
+    _producer_fingerprint: str | None = field(default=None, init=False, repr=False, compare=False)
+
+    @property
+    def clean(self) -> bool:
+        return self.status is RegionStatus.CLEAN and self.region is not None
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if not self.clean or self._producer_token is not _REGION_RESULT_PRODUCER_TOKEN:
+            return False
+        return self._producer_fingerprint == _region_payload_fingerprint(self.region)
+
+
+def _region_payload_fingerprint(region: SimultaneousRectangle) -> str:
+    digest = sha256()
+    for name in (
+        "estimate", "lower", "upper", "normalized_lower", "normalized_upper",
+        "standard_error", "statistical_half_width", "numerical_half_width",
+    ):
+        digest.update(name.encode("ascii"))
+        digest.update(np.ascontiguousarray(getattr(region, name), dtype="<f8").tobytes())
+    for name in ("local_alpha", "critical_value", "reference_df", "arm_names", "region_id"):
+        digest.update(name.encode("ascii"))
+        digest.update(repr(getattr(region, name)).encode("utf-8"))
+    return digest.hexdigest()
+
+
+def _seal_clean_region_result(
+    result: RegionBuildResult, *, producer_token: object
+) -> RegionBuildResult:
+    if producer_token is not _REGION_RESULT_PRODUCER_TOKEN:
+        raise RegionProtocolError("CLEAN region requires builder production")
+    if not result.clean:
+        raise RegionProtocolError("only CLEAN built regions may be sealed")
+    object.__setattr__(result, "_producer_fingerprint", _region_payload_fingerprint(result.region))
+    object.__setattr__(result, "_producer_token", producer_token)
+    return result
+
+
+@dataclass(frozen=True)
+class ScientificGateReport:
+    claim_id: str
+    verdict: ScientificVerdict
+    reason: str
+    region: SimultaneousRectangle | None
+
+
+@dataclass(frozen=True)
+class DfOnlyOracleReport:
+    independent_clusters: int
+    matched_pairs_per_cluster: int
+    local_alpha: float
+    dimension: int
+    correct_df: int
+    falsifier_df: int
+    per_coordinate_nominal_coverage: float
+    correct_coverage: float
+    falsifier_coverage: float
+    coverage_gap: float
+    falsifier_detected: bool
+    oracle_id: str = DF_ONLY_ORACLE_ID
+
+
+def _local_alpha(value: float) -> float:
+    alpha = float(value)
+    if not isfinite(alpha) or not 0.0 < alpha <= MAX_LOCAL_ALPHA:
+        raise RegionProtocolError(
+            f"local_alpha must lie in (0, {MAX_LOCAL_ALPHA}]"
+        )
+    return alpha
+
+
+def _numerical_half_width(
+    inputs: StatisticalRegionInput, value: ValidatedNumericalHalfWidth
+) -> np.ndarray:
+    if not isinstance(value, ValidatedNumericalHalfWidth):
+        raise RegionProtocolError(
+            "numerical_half_width must be a ValidatedNumericalHalfWidth"
+        )
+    if not value.producer_authenticated:
+        raise RegionProtocolError(
+            "numerical_half_width must be emitted by matched aggregation"
+        )
+    if (
+        value.independent_clusters != inputs.independent_clusters
+        or value.total_pairs != inputs.total_pairs
+        or value.arm_names != inputs.arm_names
+        or value.joint_law_id != inputs.joint_law_id
+        or value.source_ensemble_fingerprint
+        != inputs.source_ensemble_fingerprint
+    ):
+        raise RegionProtocolError("numerical half-width does not match region input")
+    return value.values
+
+
+def _fraction_bound(value: Fraction, direction: float) -> float:
+    """Round an exact dyadic/rational value in one directed binary64 sense."""
+
+    try:
+        rounded = float(value)
+    except OverflowError as exc:
+        raise RegionProtocolError("exact interval operation exceeds binary64") from exc
+    if not isfinite(rounded):
+        raise RegionProtocolError("exact interval operation exceeds binary64")
+    rounded_fraction = Fraction.from_float(rounded)
+    if (direction < 0.0 and rounded_fraction > value) or (
+        direction > 0.0 and rounded_fraction < value
+    ):
+        with np.errstate(over="ignore", invalid="ignore"):
+            rounded = float(np.nextafter(rounded, direction))
+        if not isfinite(rounded):
+            raise RegionProtocolError("exact interval operation exceeds binary64")
+    return rounded
+
+
+def _fraction_lower(value: Fraction) -> float:
+    return _fraction_bound(value, -np.inf)
+
+
+def _fraction_upper(value: Fraction) -> float:
+    return _fraction_bound(value, np.inf)
+
+
+def _sqrt_upper(value: float) -> float:
+    """Return a directed-up binary64 square-root enclosure."""
+
+    nearest = float(np.sqrt(value))
+    if not isfinite(nearest):
+        raise RegionProtocolError("square-root enclosure exceeds binary64")
+    if Fraction.from_float(nearest) ** 2 < Fraction.from_float(float(value)):
+        nearest = float(np.nextafter(nearest, np.inf))
+    return nearest
+
+
+def _binary64_array_equal(first: np.ndarray, second: np.ndarray) -> bool:
+    """Compare endpoint payloads bit-for-bit, including signed zero."""
+
+    first_array = np.ascontiguousarray(first, dtype=np.float64)
+    second_array = np.ascontiguousarray(second, dtype=np.float64)
+    return first_array.shape == second_array.shape and bool(
+        np.array_equal(first_array.view(np.uint64), second_array.view(np.uint64))
+    )
+
+
+def _student_tail_enclosure(critical: float, df: int, iv: MPIntervalContext) -> object:
+    """Interval Student survival probability for integral cluster degrees of freedom.
+
+    With u=tan(theta), the Student tail is I_(df-1)(theta)/(2 I_(df-1)(0)),
+    where I_m(theta)=integral_theta^(pi/2) cos(phi)^m dphi.  The finite
+    integration-by-parts recurrence uses only interval sqrt, atan2 and pi.
+    """
+
+    q = iv.mpf(critical)
+    root_df = iv.sqrt(df)
+    root_sum = iv.sqrt(iv.mpf(df) + q * q)
+    sine = q / root_sum
+    cosine = root_df / root_sum
+    tail_even, tail_odd = iv.atan2(root_df, q), 1 - sine
+    whole_even, whole_odd = iv.pi / 2, iv.mpf(1)
+    cosine_power = cosine
+    for order in range(2, df):
+        coefficient = iv.mpf(order - 1) / order
+        next_tail = coefficient * tail_even - sine * cosine_power / order
+        next_whole = coefficient * whole_even
+        tail_even, tail_odd = tail_odd, next_tail
+        whole_even, whole_odd = whole_odd, next_whole
+        cosine_power *= cosine
+    return tail_odd / (2 * whole_odd)
+
+
+def _student_critical_upper(alpha: float, df: int, dimension: int = 2) -> float:
+    """Enclose the registered Student quantile upward, or fail closed.
+
+    SciPy supplies only a starting guess; the acceptance condition compares
+    an interval upper tail with an interval lower bound of the exact dyadic
+    alpha/(2p).  The return value is therefore a certified upper quantile.
+    """
+
+    target = Fraction.from_float(alpha) / (2 * dimension)
+    guess = float(t.isf(float(target), df))
+    if not isfinite(guess) or guess <= 0.0:
+        raise RegionProtocolError("Student critical value is not finite")
+    iv = MPIntervalContext()
+    iv.dps = 90
+    threshold = iv.mpf(target.numerator) / iv.mpf(target.denominator)
+    critical = guess
+    for iteration in range(96):
+        tail = _student_tail_enclosure(critical, df, iv)
+        if tail.b <= threshold.a:
+            return critical
+        if iteration < 32:
+            critical = float(np.nextafter(critical, np.inf))
+        else:
+            critical = float(np.nextafter(critical * (1.0 + 1.0e-12), np.inf))
+        if not isfinite(critical):
+            break
+    raise RegionProtocolError("Student critical value could not be enclosed")
+
+
+def build_simultaneous_region(
+    inputs: StatisticalRegionInput,
+    *,
+    local_alpha: float,
+    numerical_half_width: ValidatedNumericalHalfWidth,
+) -> RegionBuildResult:
+    """Build the frozen two-coordinate region, or fail before it is formed.
+
+    The CR1 object already estimates covariance of the two-dimensional mean.
+    We use only its marginal variances, so singular or ill-conditioned cross-
+    covariance never triggers a ridge, pseudo-inverse, or chosen projection.
+    Exact zero marginal variance remains fail-closed.
+    """
+
+    if not isinstance(inputs, StatisticalRegionInput):
+        raise RegionProtocolError("inputs must be StatisticalRegionInput")
+    if not inputs.producer_authenticated:
+        raise RegionProtocolError("region input must be emitted from a matched ensemble")
+    alpha = _local_alpha(local_alpha)
+    numerical = _numerical_half_width(inputs, numerical_half_width)
+    if inputs.independent_clusters < MIN_INDEPENDENT_COHORTS:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.COHORT_TOO_SMALL,
+            None,
+        )
+    if any(
+        not CALIBRATION_MATCHED_COUNT_DOMAIN[0]
+        <= count
+        <= CALIBRATION_MATCHED_COUNT_DOMAIN[1]
+        for count in inputs.cluster_pair_counts
+    ):
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.PAIR_COUNT_OUTSIDE_CALIBRATION,
+            None,
+        )
+    estimate = inputs.estimate
+    covariance = inputs.mean_covariance
+    if not np.all(np.isfinite(estimate)) or not np.all(np.isfinite(covariance)):
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.NONFINITE_INPUT,
+            None,
+        )
+    # Max-entry scaling and half-before-add symmetrization avoid introducing
+    # overflow merely while validating otherwise finite binary64 inputs.
+    covariance_scale = max(float(np.max(np.abs(covariance))), np.finfo(float).tiny)
+    symmetry_tolerance = 64.0 * np.finfo(float).eps * covariance_scale
+    with np.errstate(over="ignore", invalid="ignore"):
+        asymmetry = float(np.max(np.abs(covariance - covariance.T)))
+    if not isfinite(asymmetry) or asymmetry > symmetry_tolerance:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.COVARIANCE_INVALID,
+            None,
+        )
+    symmetric = 0.5 * covariance + 0.5 * covariance.T
+    eigen_tolerance = 64.0 * np.finfo(float).eps * covariance_scale
+    try:
+        eigenvalues = np.linalg.eigvalsh(symmetric)
+    except np.linalg.LinAlgError:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.COVARIANCE_INVALID,
+            None,
+        )
+    if not np.all(np.isfinite(eigenvalues)) or float(eigenvalues.min()) < -eigen_tolerance:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.COVARIANCE_INVALID,
+            None,
+        )
+    marginal_variances = np.diag(symmetric)
+    if np.any(marginal_variances <= 0.0):
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.DEGENERATE_MARGINAL_VARIANCE,
+            None,
+        )
+    reference_df = inputs.independent_clusters - 1
+    dimension = 2
+    try:
+        critical = _student_critical_upper(alpha, reference_df, dimension)
+    except RegionProtocolError:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.NONFINITE_INPUT,
+            None,
+        )
+    try:
+        standard_error = np.asarray(
+            [_sqrt_upper(float(value)) for value in marginal_variances]
+        )
+        statistical = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(critical)
+                    * Fraction.from_float(float(standard_error[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        total = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(statistical[index]))
+                    + Fraction.from_float(float(numerical[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        lower = np.asarray(
+            [
+                _fraction_lower(
+                    Fraction.from_float(float(estimate[index]))
+                    - Fraction.from_float(float(total[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        upper = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(estimate[index]))
+                    + Fraction.from_float(float(total[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        normalized_lower = np.asarray(
+            [
+                _fraction_lower(
+                    Fraction.from_float(float(lower[index]))
+                    / Fraction.from_float(float(ENDPOINT_RANGE_WIDTHS[index]))
+                )
+                for index in range(2)
+            ]
+        )
+        normalized_upper = np.asarray(
+            [
+                _fraction_upper(
+                    Fraction.from_float(float(upper[index]))
+                    / Fraction.from_float(float(ENDPOINT_RANGE_WIDTHS[index]))
+                )
+                for index in range(2)
+            ]
+        )
+    except RegionProtocolError:
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.NONFINITE_INPUT,
+            None,
+        )
+    if not all(
+        np.all(np.isfinite(value))
+        for value in (
+            standard_error,
+            statistical,
+            total,
+            lower,
+            upper,
+            normalized_lower,
+            normalized_upper,
+        )
+    ):
+        return RegionBuildResult(
+            RegionStatus.INCONCLUSIVE,
+            RegionReason.NONFINITE_INPUT,
+            None,
+        )
+    region = SimultaneousRectangle(
+        estimate=estimate,
+        lower=lower,
+        upper=upper,
+        normalized_lower=normalized_lower,
+        normalized_upper=normalized_upper,
+        standard_error=standard_error,
+        statistical_half_width=statistical,
+        numerical_half_width=numerical,
+        local_alpha=alpha,
+        critical_value=critical,
+        reference_df=reference_df,
+        arm_names=inputs.arm_names,
+    )
+    return _seal_clean_region_result(
+        RegionBuildResult(RegionStatus.CLEAN, RegionReason.CERTIFIED, region),
+        producer_token=_REGION_RESULT_PRODUCER_TOKEN,
+    )
+
+
+def aggregate_matched_numerical_half_width(
+    ensemble: MatchedLawEnsemble,
+    left_endpoint_pools: tuple[CertifiedEndpointPool, ...],
+    right_endpoint_pools: tuple[CertifiedEndpointPool, ...],
+) -> ValidatedNumericalHalfWidth:
+    """Propagate item-3 endpoint enclosures through the matched mean contrast.
+
+    Each supplied pool contains typed CLEAN item-3 results and binds its arm,
+    matching-pool identity, endpoint row, and registered certification ID.
+    The frozen matcher indices are applied here; unmatched rows contribute
+    nothing.  Exact rational triangle sums and the same total-pair weights as
+    item 2 give a directed-upward half-width for the ensemble contrast.
+    """
+
+    inputs = StatisticalRegionInput.from_ensemble(ensemble)
+    if (
+        not isinstance(left_endpoint_pools, tuple)
+        or not isinstance(right_endpoint_pools, tuple)
+        or len(left_endpoint_pools) != inputs.independent_clusters
+        or len(right_endpoint_pools) != inputs.independent_clusters
+    ):
+        raise RegionProtocolError("one left/right certified endpoint pool is required per cohort")
+    matched_error_pairs: list[tuple[np.ndarray, np.ndarray]] = []
+    for law, left_pool, right_pool in zip(
+        ensemble.laws, left_endpoint_pools, right_endpoint_pools, strict=True
+    ):
+        if (
+            not isinstance(left_pool, CertifiedEndpointPool)
+            or not isinstance(right_pool, CertifiedEndpointPool)
+        ):
+            raise RegionProtocolError(
+                "endpoint pools must use the typed CertifiedEndpointPool adapter"
+            )
+        # The pool may have been mutated since its constructor verified rows.
+        # Recheck all row seals and provenance before selecting endpoint errors.
+        CertifiedEndpointPool.__post_init__(left_pool)
+        CertifiedEndpointPool.__post_init__(right_pool)
+        if left_pool.arm_name != law.arm_names[0] or right_pool.arm_name != law.arm_names[1]:
+            raise RegionProtocolError("certified endpoint-pool arm identity mismatch")
+        if (
+            left_pool.pool_identity != law.matching.pool_identity
+            or right_pool.pool_identity != law.matching.pool_identity
+        ):
+            raise RegionProtocolError("certified endpoint-pool provenance mismatch")
+        if law.matching.result is None:
+            raise RegionProtocolError("matched law is missing its certified indices")
+        left_indices = np.asarray(law.matching.result.left_indices)
+        right_indices = np.asarray(law.matching.result.right_indices)
+        if (
+            left_indices.ndim != 1
+            or right_indices.ndim != 1
+            or left_indices.dtype.kind not in "iu"
+            or right_indices.dtype.kind not in "iu"
+            or len(left_indices) != law.matched_pairs
+            or len(right_indices) != law.matched_pairs
+            or np.any(left_indices < 0)
+            or np.any(right_indices < 0)
+            or np.any(left_indices >= len(left_pool.rows))
+            or np.any(right_indices >= len(right_pool.rows))
+        ):
+            raise RegionProtocolError("matched indices are malformed or outside error pools")
+        selected_left = tuple(left_pool.rows[int(index)] for index in left_indices)
+        selected_right = tuple(right_pool.rows[int(index)] for index in right_indices)
+        certified_left = np.vstack([row.endpoint for row in selected_left])
+        certified_right = np.vstack([row.endpoint for row in selected_right])
+        if not _binary64_array_equal(certified_left, law.left) or not _binary64_array_equal(
+            certified_right, law.right
+        ):
+            raise RegionProtocolError("certified endpoint rows do not match the joint law")
+        for left_row, right_row in zip(selected_left, selected_right, strict=True):
+            matched_error_pairs.append(
+                (left_row.endpoint_error, right_row.endpoint_error)
+            )
+    try:
+        radius = _exact_matched_error_radius(
+            tuple(matched_error_pairs), total_pairs=inputs.total_pairs
+        )
+    except RegionProtocolError as exc:
+        raise RegionProtocolError("aggregated numerical half-width must be finite") from exc
+    return ValidatedNumericalHalfWidth._from_aggregation(
+        values=radius,
+        independent_clusters=inputs.independent_clusters,
+        total_pairs=inputs.total_pairs,
+        arm_names=inputs.arm_names,
+        source_ensemble_fingerprint=inputs.source_ensemble_fingerprint,
+        producer_token=_NUMERICAL_WIDTH_PRODUCER_TOKEN,
+    )
+
+
+def _exact_matched_error_radius(
+    error_pairs: tuple[tuple[np.ndarray, np.ndarray], ...], *, total_pairs: int
+) -> np.ndarray:
+    """Exact-rational pair addition and averaging after provenance validation."""
+
+    if len(error_pairs) != total_pairs or total_pairs <= 0:
+        raise RegionProtocolError("error-pair count must equal total_pairs")
+    component_totals = [Fraction(0), Fraction(0)]
+    for left_error, right_error in error_pairs:
+        left = np.asarray(left_error, dtype=float)
+        right = np.asarray(right_error, dtype=float)
+        if (
+            left.shape != (2,)
+            or right.shape != (2,)
+            or not np.all(np.isfinite(left))
+            or not np.all(np.isfinite(right))
+            or np.any(left < 0.0)
+            or np.any(right < 0.0)
+        ):
+            raise RegionProtocolError("matched endpoint errors must be finite two-vectors")
+        for component in range(2):
+            component_totals[component] += Fraction.from_float(
+                float(left[component])
+            ) + Fraction.from_float(float(right[component]))
+    return np.asarray(
+        [
+            _fraction_upper(component_totals[component] / total_pairs)
+            for component in range(2)
+        ],
+        dtype=float,
+    )
+
+
+def _not_evaluated(claim_id: str, result: RegionBuildResult) -> ScientificGateReport:
+    return ScientificGateReport(
+        claim_id,
+        ScientificVerdict.NOT_EVALUATED,
+        result.reason.value,
+        None,
+    )
+
+
+def evaluate_e1(result: RegionBuildResult) -> ScientificGateReport:
+    """Require the entire simultaneous region to clear the closed effect box."""
+
+    claim_id = "E1:T-plus-minus-T-minus"
+    if not result.clean:
+        return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
+    region = result.region
+    assert region is not None
+    if region.arm_names != E1_ARM_NAMES:
+        raise RegionProtocolError("E1 ordered arm identities do not match the frozen contrast")
+    passes = bool(
+        np.any(region.normalized_lower > JOINT_EFFECT_FLOOR)
+        or np.any(region.normalized_upper < -JOINT_EFFECT_FLOOR)
+    )
+    return ScientificGateReport(
+        claim_id,
+        ScientificVerdict.PASS if passes else ScientificVerdict.FAIL,
+        "REGION-STRICTLY-OUTSIDE-EFFECT-BOX"
+        if passes
+        else "JOINT-EFFECT-FLOOR-NOT-CLEARED",
+        region,
+    )
+
+
+def evaluate_e2(result: RegionBuildResult, target: E2Target) -> ScientificGateReport:
+    """Require the full simultaneous region inside the open null-equivalence box."""
+
+    if not isinstance(target, E2Target):
+        raise RegionProtocolError("target must be a registered E2Target")
+    claim_id = f"E2:{target.value}-null-equivalence"
+    if not result.clean:
+        return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
+    region = result.region
+    assert region is not None
+    expected_names = (
+        E2_PLUS_ARM_NAMES if target is E2Target.PLUS else E2_MINUS_ARM_NAMES
+    )
+    if region.arm_names != expected_names:
+        raise RegionProtocolError("E2 arm identities do not match the registered null target")
+    passes = bool(
+        np.all(region.normalized_lower > -EQUIVALENCE_MARGIN)
+        and np.all(region.normalized_upper < EQUIVALENCE_MARGIN)
+    )
+    return ScientificGateReport(
+        claim_id,
+        ScientificVerdict.PASS if passes else ScientificVerdict.FAIL,
+        "REGION-STRICTLY-INSIDE-EQUIVALENCE-BOX"
+        if passes
+        else "EQUIVALENCE-MARGIN-NOT-CLEARED",
+        region,
+    )
+
+
+@dataclass(frozen=True)
+class _E3Rule:
+    arm_names: tuple[str, str]
+    directions: tuple[int, int]
+    floors: tuple[float, float]
+
+
+_E3_RULES = {
+    E3Claim.CHIRAL_VS_BLIND: _E3Rule(
+        ("correct-chiral", "sector-blind"),
+        (1, 0),
+        (E3_CHIRAL_EFFECT_FLOOR, 0.0),
+    ),
+    E3Claim.DIFFUSION_VS_BLIND: _E3Rule(
+        ("symmetric-diffusion", "sector-blind"),
+        (-1, 1),
+        (E3_DIFFUSION_EFFECT_FLOOR, E3_DIFFUSION_EFFECT_FLOOR),
+    ),
+    E3Claim.CORRECT_VS_WRONG_SUPPORT: _E3Rule(
+        ("correct-support", "wrong-support"),
+        (1, 0),
+        (E3_WRONG_SUPPORT_EFFECT_FLOOR, 0.0),
+    ),
+    E3Claim.SECTOR_BLIND_NULL: _E3Rule(
+        ("sector-blind-null-A", "sector-blind-null-B"),
+        (0, 0),
+        (0.0, 0.0),
+    ),
+}
+
+
+def evaluate_e3(result: RegionBuildResult, claim: E3Claim) -> ScientificGateReport:
+    """Apply the registered complete-domain E3 component rule."""
+
+    if not isinstance(claim, E3Claim):
+        raise RegionProtocolError("claim must be a registered E3Claim")
+    claim_id = f"E3:{claim.value}"
+    if not result.clean:
+        return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
+    region = result.region
+    assert region is not None
+    rule = _E3_RULES[claim]
+    if region.arm_names != rule.arm_names:
+        raise RegionProtocolError("E3 arm identities do not match the registered claim")
+    component_passes: list[bool] = []
+    for index, direction in enumerate(rule.directions):
+        if direction > 0:
+            component_passes.append(region.lower[index] > rule.floors[index])
+        elif direction < 0:
+            component_passes.append(region.upper[index] < -rule.floors[index])
+        else:
+            component_passes.append(
+                region.normalized_lower[index] > -EQUIVALENCE_MARGIN[index]
+                and region.normalized_upper[index] < EQUIVALENCE_MARGIN[index]
+            )
+    passes = all(component_passes)
+    return ScientificGateReport(
+        claim_id,
+        ScientificVerdict.PASS if passes else ScientificVerdict.FAIL,
+        "ALL-REGISTERED-COMPONENT-RULES-CLEARED"
+        if passes
+        else "E3-COMPONENT-RULE-NOT-CLEARED",
+        region,
+    )
+
+
+def df_only_reference_oracle() -> DfOnlyOracleReport:
+    """Analytically expose a df-only reference-law error.
+
+    The standard error/covariance target is held fixed.  The falsifier changes
+    only the Student reference degrees of freedom from B-1 to B*m-1.  Under a
+    Gaussian cohort-mean oracle, the true pivot is exactly t_(B-1), so both
+    coverages below are distribution-CDF evaluations rather than Monte Carlo
+    estimates.
+    """
+
+    independent_clusters = 32
+    matched_pairs_per_cluster = 192
+    local_alpha = MAX_LOCAL_ALPHA
+    dimension = 2
+    tail = local_alpha / (2.0 * dimension)
+    correct_df = independent_clusters - 1
+    falsifier_df = independent_clusters * matched_pairs_per_cluster - 1
+    correct_critical = float(t.ppf(1.0 - tail, correct_df))
+    falsifier_critical = float(t.ppf(1.0 - tail, falsifier_df))
+    correct_coverage = float(2.0 * t.cdf(correct_critical, correct_df) - 1.0)
+    falsifier_coverage = float(2.0 * t.cdf(falsifier_critical, correct_df) - 1.0)
+    nominal = 1.0 - local_alpha / dimension
+    gap = correct_coverage - falsifier_coverage
+    return DfOnlyOracleReport(
+        independent_clusters=independent_clusters,
+        matched_pairs_per_cluster=matched_pairs_per_cluster,
+        local_alpha=local_alpha,
+        dimension=dimension,
+        correct_df=correct_df,
+        falsifier_df=falsifier_df,
+        per_coordinate_nominal_coverage=nominal,
+        correct_coverage=correct_coverage,
+        falsifier_coverage=falsifier_coverage,
+        coverage_gap=gap,
+        falsifier_detected=bool(
+            abs(correct_coverage - nominal) <= 32.0 * np.finfo(float).eps
+            and falsifier_coverage < nominal
+            and gap > 0.0
+        ),
+    )
+
+
+__all__ = [
+    "DF_ONLY_ORACLE_ID",
+    "E1_ARM_NAMES",
+    "E2_MINUS_ARM_NAMES",
+    "E2_PLUS_ARM_NAMES",
+    "E3_CHIRAL_EFFECT_FLOOR",
+    "E3_DIFFUSION_EFFECT_FLOOR",
+    "E3_WRONG_SUPPORT_EFFECT_FLOOR",
+    "ENDPOINT_RANGE_WIDTHS",
+    "EQUIVALENCE_MARGIN",
+    "JOINT_EFFECT_FLOOR",
+    "MAX_LOCAL_ALPHA",
+    "MIN_INDEPENDENT_COHORTS",
+    "NUMERICAL_PROPAGATION_ID",
+    "STATISTICAL_REGION_ID",
+    "CertifiedEndpointPool",
+    "ValidatedNumericalHalfWidth",
+    "E2NullPairSpec",
+    "E2Target",
+    "E3Claim",
+    "RegionBuildResult",
+    "RegionProtocolError",
+    "RegionReason",
+    "RegionStatus",
+    "ScientificGateReport",
+    "ScientificVerdict",
+    "SimultaneousRectangle",
+    "StatisticalRegionInput",
+    "aggregate_matched_numerical_half_width",
+    "build_simultaneous_region",
+    "df_only_reference_oracle",
+    "e2_null_pair_spec",
+    "evaluate_e1",
+    "evaluate_e2",
+    "evaluate_e3",
+]

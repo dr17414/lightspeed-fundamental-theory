@@ -7,9 +7,10 @@ a candidate kernel, or evaluate an arm endpoint.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
+from hashlib import sha256
 from math import fsum, hypot
 
 import numpy as np
@@ -23,10 +24,22 @@ UNIT_ROUNDOFF = np.finfo(FLOAT_DTYPE).eps / 2.0
 RATIO_ERROR_FACTORS = np.asarray([5.0, 2.0], dtype=FLOAT_DTYPE)
 RATIO_ERROR_FACTORS.setflags(write=False)
 PRIMARY_ENDPOINT_REAL_OPERATIONS = 32
+_CERTIFICATION_PRODUCER_TOKEN = object()
+_CERTIFICATION_SOURCE_TOKEN = object()
 
 
 class CertificationProtocolError(ValueError):
     """The caller violated the frozen certification schema."""
+
+
+def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
+    """Copy into bytes-backed storage whose write flag cannot be re-enabled."""
+
+    array = np.ascontiguousarray(value, dtype=dtype)
+    return np.frombuffer(array.tobytes(order="C"), dtype=dtype).reshape(array.shape)
+
+
+RATIO_ERROR_FACTORS = _immutable_array(RATIO_ERROR_FACTORS, np.dtype("<f8"))
 
 
 class CertificationStatus(str, Enum):
@@ -43,6 +56,84 @@ class CertificationReason(str, Enum):
     PLANTED_GROUND_TRUTH_MISMATCH = "PLANTED-GROUND-TRUTH-MISMATCH"
     ERROR_BUDGET_UNBOUNDED = "ERROR-BUDGET-UNBOUNDED"
     RATIO_ERROR_UNBOUNDED = "RATIO-ERROR-UNBOUNDED"
+
+
+@dataclass(frozen=True)
+class EndpointCertificationProvenance:
+    """Pool-row identity bound while the item-3 certification is produced."""
+
+    arm_name: str
+    pool_identity: str
+    row_index: int
+    source_row_fingerprint: str | None = None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.arm_name, str) or not self.arm_name.strip():
+            raise CertificationProtocolError("arm_name must be a non-empty identity")
+        if not isinstance(self.pool_identity, str) or not self.pool_identity.strip():
+            raise CertificationProtocolError("pool_identity must be a non-empty identity")
+        if isinstance(self.row_index, (bool, np.bool_)) or not isinstance(
+            self.row_index, (int, np.integer)
+        ):
+            raise CertificationProtocolError("row_index must be a non-boolean integer")
+        if int(self.row_index) < 0:
+            raise CertificationProtocolError("row_index must be non-negative")
+        object.__setattr__(self, "row_index", int(self.row_index))
+        if self.source_row_fingerprint is not None and (
+            not isinstance(self.source_row_fingerprint, str)
+            or len(self.source_row_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.source_row_fingerprint
+            )
+        ):
+            raise CertificationProtocolError("source_row_fingerprint is invalid")
+
+
+@dataclass(frozen=True, init=False)
+class EndpointCertificationSourceRow:
+    """Opaque item-3 input row with custody identity bound to its payload.
+
+    The public certifier never accepts arm/pool/row labels alongside arbitrary
+    implementation estimates.  A complete source pool is bound once by
+    :func:`bind_endpoint_certification_rows`; each resulting row then carries
+    both implementations and its enumerated custody identity under a private
+    producer token.
+    """
+
+    first: ImplementationEstimate
+    second: ImplementationEstimate
+    provenance: EndpointCertificationProvenance
+    _producer_token: object
+
+    def __new__(cls, *args: object, **kwargs: object) -> EndpointCertificationSourceRow:
+        raise TypeError(
+            "EndpointCertificationSourceRow is produced only by pool binding"
+        )
+
+    @classmethod
+    def _from_pool(
+        cls,
+        *,
+        first: ImplementationEstimate,
+        second: ImplementationEstimate,
+        provenance: EndpointCertificationProvenance,
+        producer_token: object,
+    ) -> EndpointCertificationSourceRow:
+        if producer_token is not _CERTIFICATION_SOURCE_TOKEN:
+            raise CertificationProtocolError(
+                "endpoint certification source rows are pool-binding-only"
+            )
+        instance = object.__new__(cls)
+        object.__setattr__(instance, "first", first)
+        object.__setattr__(instance, "second", second)
+        object.__setattr__(instance, "provenance", provenance)
+        object.__setattr__(instance, "_producer_token", producer_token)
+        return instance
+
+    @property
+    def producer_authenticated(self) -> bool:
+        return self._producer_token is _CERTIFICATION_SOURCE_TOKEN
 
 
 def _nonnegative_finite(name: str, value: float) -> float:
@@ -214,9 +305,119 @@ class ImplementationEstimate:
             raise CertificationProtocolError("implementation matrix must have shape (2, 2)")
         if not isinstance(self.implementation_id, str) or not self.implementation_id:
             raise CertificationProtocolError("implementation_id must be non-empty")
-        matrix = matrix.copy()
-        matrix.setflags(write=False)
-        object.__setattr__(self, "matrix", matrix)
+        object.__setattr__(self, "matrix", _immutable_array(matrix, np.dtype("<c16")))
+
+
+def _source_digest_part(digest: object, label: str, payload: bytes) -> None:
+    label_bytes = label.encode("utf-8")
+    digest.update(len(label_bytes).to_bytes(4, "big"))
+    digest.update(label_bytes)
+    digest.update(len(payload).to_bytes(8, "big"))
+    digest.update(payload)
+
+
+def _source_row_fingerprint(
+    first: ImplementationEstimate,
+    second: ImplementationEstimate,
+    *,
+    arm_name: str,
+    pool_identity: str,
+    row_index: int,
+) -> str:
+    """Hash the exact implementation payload bound to one custody row."""
+
+    digest = sha256()
+    for label, value in (
+        ("schema", "stage5c-6a-e-certification-source-row-sha256-v0.1"),
+        ("arm_name", arm_name),
+        ("pool_identity", pool_identity),
+        ("row_index", str(row_index)),
+    ):
+        _source_digest_part(digest, label, value.encode("utf-8"))
+    for prefix, estimate in (("first", first), ("second", second)):
+        _source_digest_part(
+            digest,
+            f"{prefix}.implementation_id",
+            estimate.implementation_id.encode("utf-8"),
+        )
+        matrix = np.ascontiguousarray(estimate.matrix, dtype="<c16")
+        _source_digest_part(digest, f"{prefix}.matrix", matrix.tobytes(order="C"))
+        for field_name in (
+            "quadrature",
+            "sampling_representation",
+            "regulator",
+            "boundary_contact",
+            "accumulation_term_norm_sum",
+        ):
+            value = float(getattr(estimate.error, field_name)).hex()
+            _source_digest_part(
+                digest, f"{prefix}.error.{field_name}", value.encode("ascii")
+            )
+        _source_digest_part(
+            digest,
+            f"{prefix}.error.real_additions",
+            str(estimate.error.real_additions).encode("ascii"),
+        )
+    return digest.hexdigest()
+
+
+def bind_endpoint_certification_rows(
+    first_rows: tuple[ImplementationEstimate, ...],
+    second_rows: tuple[ImplementationEstimate, ...],
+    *,
+    arm_name: str,
+    pool_identity: str,
+) -> tuple[EndpointCertificationSourceRow, ...]:
+    """Bind a complete implementation pool to ordered custody identities.
+
+    This is the sole construction path for provenance-bearing item-3 inputs.
+    Row indices are derived by enumeration and cannot be supplied separately
+    to :func:`certify_pairing`.
+    """
+
+    if (
+        not isinstance(first_rows, tuple)
+        or not isinstance(second_rows, tuple)
+        or not first_rows
+        or len(first_rows) != len(second_rows)
+    ):
+        raise CertificationProtocolError(
+            "first_rows and second_rows must be non-empty equal-length tuples"
+        )
+    if not isinstance(arm_name, str) or not arm_name.strip():
+        raise CertificationProtocolError("arm_name must be a non-empty identity")
+    if not isinstance(pool_identity, str) or not pool_identity.strip():
+        raise CertificationProtocolError("pool_identity must be a non-empty identity")
+    if any(not isinstance(row, ImplementationEstimate) for row in first_rows):
+        raise CertificationProtocolError(
+            "every first implementation row must be ImplementationEstimate"
+        )
+    if any(not isinstance(row, ImplementationEstimate) for row in second_rows):
+        raise CertificationProtocolError(
+            "every second implementation row must be ImplementationEstimate"
+        )
+    return tuple(
+        EndpointCertificationSourceRow._from_pool(
+            first=first,
+            second=second,
+            provenance=EndpointCertificationProvenance(
+                arm_name=arm_name,
+                pool_identity=pool_identity,
+                row_index=row_index,
+                source_row_fingerprint=_source_row_fingerprint(
+                    first,
+                    second,
+                    arm_name=arm_name,
+                    pool_identity=pool_identity,
+                    row_index=row_index,
+                ),
+            ),
+            producer_token=_CERTIFICATION_SOURCE_TOKEN,
+        )
+        for row_index, (first, second) in enumerate(
+            zip(first_rows, second_rows, strict=True)
+        )
+    )
 
 
 @dataclass(frozen=True)
@@ -233,19 +434,92 @@ class CertificationResult:
     endpoint_error: np.ndarray | None
     endpoint_lower: np.ndarray | None
     endpoint_upper: np.ndarray | None
+    provenance: EndpointCertificationProvenance | None = None
     certification_id: str = CERTIFICATION_ID
+    _producer_token: object | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
+    _producer_fingerprint: str | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
+        if self.provenance is not None and not isinstance(
+            self.provenance, EndpointCertificationProvenance
+        ):
+            raise CertificationProtocolError(
+                "provenance must be EndpointCertificationProvenance or None"
+            )
         for name in ("matrix", "endpoint", "endpoint_error", "endpoint_lower", "endpoint_upper"):
             value = getattr(self, name)
             if value is not None:
-                frozen = np.asarray(value).copy()
-                frozen.setflags(write=False)
+                array = np.asarray(value)
+                frozen = _immutable_array(array, array.dtype)
                 object.__setattr__(self, name, frozen)
 
     @property
     def is_clean(self) -> bool:
         return self.status is CertificationStatus.CLEAN
+
+    @property
+    def producer_authenticated(self) -> bool:
+        """Whether this result was emitted by ``certify_pairing``."""
+
+        if self._producer_token is not _CERTIFICATION_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _certification_result_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _certification_result_fingerprint(result: CertificationResult) -> str:
+    """Bind every public result field, including certified endpoint errors."""
+
+    digest = sha256()
+
+    def add(label: str, payload: bytes) -> None:
+        name = label.encode("utf-8")
+        digest.update(len(name).to_bytes(4, "big"))
+        digest.update(name)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+
+    add("schema", b"stage5c-produced-certification-result-v0.1")
+    add("status", result.status.value.encode("utf-8"))
+    add("reason", result.reason.value.encode("utf-8"))
+    add("certification_id", result.certification_id.encode("utf-8"))
+    for name in ("agreement_distance", "agreement_bound", "matrix_error", "norm_lower", "norm_upper"):
+        value = getattr(result, name)
+        add(name, b"none" if value is None else float(value).hex().encode("ascii"))
+    for name in ("matrix", "endpoint", "endpoint_error", "endpoint_lower", "endpoint_upper"):
+        value = getattr(result, name)
+        if value is None:
+            add(name, b"none")
+            continue
+        array = np.ascontiguousarray(value)
+        add(f"{name}.dtype", array.dtype.str.encode("ascii"))
+        add(f"{name}.shape", repr(array.shape).encode("ascii"))
+        add(f"{name}.bytes", array.tobytes(order="C"))
+    provenance = result.provenance
+    if provenance is None:
+        add("provenance", b"none")
+    else:
+        add("arm_name", provenance.arm_name.encode("utf-8"))
+        add("pool_identity", provenance.pool_identity.encode("utf-8"))
+        add("row_index", str(provenance.row_index).encode("ascii"))
+        source = provenance.source_row_fingerprint
+        add("source_row_fingerprint", b"none" if source is None else source.encode("ascii"))
+    return digest.hexdigest()
+
+
+def _producer_result(**kwargs: object) -> CertificationResult:
+    """Create one item-3 result and attach the module-private producer seal."""
+
+    result = CertificationResult(**kwargs)
+    object.__setattr__(result, "_producer_fingerprint", _certification_result_fingerprint(result))
+    object.__setattr__(result, "_producer_token", _CERTIFICATION_PRODUCER_TOKEN)
+    return result
 
 
 def _inconclusive(
@@ -257,8 +531,9 @@ def _inconclusive(
     matrix_error: float | None = None,
     norm_lower: float | None = None,
     norm_upper: float | None = None,
+    provenance: EndpointCertificationProvenance | None = None,
 ) -> CertificationResult:
-    return CertificationResult(
+    return _producer_result(
         status=CertificationStatus.INCONCLUSIVE,
         reason=reason,
         agreement_distance=agreement_distance,
@@ -271,12 +546,13 @@ def _inconclusive(
         endpoint_error=None,
         endpoint_lower=None,
         endpoint_upper=None,
+        provenance=provenance,
     )
 
 
 def certify_pairing(
-    first: ImplementationEstimate,
-    second: ImplementationEstimate,
+    first: ImplementationEstimate | EndpointCertificationSourceRow,
+    second: ImplementationEstimate | None = None,
     *,
     planted_ground_truth: np.ndarray | None = None,
 ) -> CertificationResult:
@@ -287,17 +563,59 @@ def certify_pairing(
     condition ``||(M1+M2)/2||_F - (eta1+eta2)/2 > 0``.  Equality therefore
     passes agreement but fails the nontriviality gate.
 
+    A provenance-bearing certification accepts one sealed
+    ``EndpointCertificationSourceRow`` and derives both implementations plus
+    arm/pool/row identity from that object.  The legacy two-estimate form
+    remains available for item-3 callers that do not need matched-pool
+    propagation, but it emits no provenance.
+
     ``planted_ground_truth`` is permitted only for candidate-independent
     feasibility controls.  It prevents two identically biased implementations
     from turning agreement into a mapping certificate.
     """
 
+    if isinstance(first, EndpointCertificationSourceRow):
+        if not first.producer_authenticated:
+            raise CertificationProtocolError(
+                "source row must be emitted by complete-pool binding"
+            )
+        if second is not None:
+            raise CertificationProtocolError(
+                "a source row already contains both implementations"
+            )
+        source_row = first
+        provenance = source_row.provenance
+        if (
+            not isinstance(provenance, EndpointCertificationProvenance)
+            or _source_row_fingerprint(
+                source_row.first,
+                source_row.second,
+                arm_name=provenance.arm_name,
+                pool_identity=provenance.pool_identity,
+                row_index=provenance.row_index,
+            ) != provenance.source_row_fingerprint
+        ):
+            raise CertificationProtocolError("bound source row payload changed")
+        first = source_row.first
+        second = source_row.second
+    else:
+        if not isinstance(first, ImplementationEstimate) or not isinstance(
+            second, ImplementationEstimate
+        ):
+            raise CertificationProtocolError(
+                "certify_pairing requires two estimates or one bound source row"
+            )
+        provenance = None
+    assert isinstance(first, ImplementationEstimate)
+    assert isinstance(second, ImplementationEstimate)
     if first.implementation_id == second.implementation_id:
         raise CertificationProtocolError("the two implementation identities must differ")
 
     matrices = (first.matrix, second.matrix)
     if any(not np.all(np.isfinite(matrix)) for matrix in matrices):
-        return _inconclusive(CertificationReason.NONFINITE_BACKEND)
+        return _inconclusive(
+            CertificationReason.NONFINITE_BACKEND, provenance=provenance
+        )
 
     eta_first = first.error.total
     eta_second = second.error.total
@@ -305,9 +623,13 @@ def certify_pairing(
     try:
         eta_sum = fsum((eta_first, eta_second))
     except OverflowError:
-        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
+        return _inconclusive(
+            CertificationReason.ERROR_BUDGET_UNBOUNDED, provenance=provenance
+        )
     if not np.isfinite(eta_sum):
-        return _inconclusive(CertificationReason.ERROR_BUDGET_UNBOUNDED)
+        return _inconclusive(
+            CertificationReason.ERROR_BUDGET_UNBOUNDED, provenance=provenance
+        )
     # A proof of d <= E compares an upper enclosure of d to a lower enclosure
     # of E.  The separately computed upper enclosure is used for propagation.
     agreement_bound = _down_nonnegative(eta_sum)
@@ -317,12 +639,14 @@ def certify_pairing(
             CertificationReason.ERROR_BUDGET_UNBOUNDED,
             agreement_distance=agreement_distance,
             agreement_bound=agreement_bound,
+            provenance=provenance,
         )
     if agreement_distance > agreement_bound:
         return _inconclusive(
             CertificationReason.IMPLEMENTATION_DISAGREEMENT,
             agreement_distance=agreement_distance,
             agreement_bound=agreement_bound,
+            provenance=provenance,
         )
 
     if planted_ground_truth is not None:
@@ -339,6 +663,7 @@ def certify_pairing(
                 CertificationReason.PLANTED_GROUND_TRUTH_MISMATCH,
                 agreement_distance=agreement_distance,
                 agreement_bound=agreement_bound,
+                provenance=provenance,
             )
 
     matrix, center_rounding = _certified_midpoint(first.matrix, second.matrix)
@@ -358,6 +683,7 @@ def certify_pairing(
             agreement_bound=agreement_bound,
             matrix=matrix,
             matrix_error=matrix_error,
+            provenance=provenance,
         )
     norm_down = _down_nonnegative(norm)
     norm_up = _up(norm)
@@ -375,6 +701,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=0.0,
             norm_upper=0.0,
+            provenance=provenance,
         )
 
     if norm_lower <= 0.0:
@@ -386,6 +713,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
 
     if matrix_error == 0.0:
@@ -407,6 +735,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
     with np.errstate(over="ignore", invalid="ignore"):
         ratio_error = np.asarray(
@@ -425,6 +754,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
     endpoint_scale = max(abs(value) for value in matrix.ravel())
     endpoint = primary_endpoint(matrix / endpoint_scale).as_vector()
@@ -441,6 +771,7 @@ def certify_pairing(
             matrix_error=matrix_error,
             norm_lower=norm_lower,
             norm_upper=norm_upper,
+            provenance=provenance,
         )
 
     component_lower = np.asarray([bound[0] for bound in COMPONENT_BOUNDS], dtype=float)
@@ -451,7 +782,7 @@ def certify_pairing(
     upper = np.minimum(
         component_upper, np.nextafter(endpoint + endpoint_error, np.inf)
     )
-    return CertificationResult(
+    return _producer_result(
         status=CertificationStatus.CLEAN,
         reason=CertificationReason.CERTIFIED,
         agreement_distance=agreement_distance,
@@ -464,6 +795,7 @@ def certify_pairing(
         endpoint_error=endpoint_error,
         endpoint_lower=lower,
         endpoint_upper=upper,
+        provenance=provenance,
     )
 
 
@@ -477,8 +809,11 @@ __all__ = [
     "CertificationReason",
     "CertificationResult",
     "CertificationStatus",
+    "EndpointCertificationProvenance",
+    "EndpointCertificationSourceRow",
     "ErrorBudget",
     "ImplementationEstimate",
+    "bind_endpoint_certification_rows",
     "certify_pairing",
     "rounding_gamma",
 ]
