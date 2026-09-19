@@ -271,7 +271,8 @@ item 7 的本文件、source-of-record 與 tests 已由最終 head `81b926cc` �
 Claude 對實際 final tree 的獨立 review、exact-head automated review 均通過，並已由 PR #28
 合併為 main `59c78c64`。因此本 state-only closeout 將 item 7 記為 `CLOSED`。
 
-即使 item 7 關閉，items 4／5 的 statistical regions 與 df-only falsifier、item 8 power／
-multiplicity、item 9 manifests、item 10 runner／ledger、item 11 final decision table、item 12
-整體 review 仍未完成。故不得生成 6a-E seed、不得開 arm ledger、不得形成 arm endpoint，
+items 4／5 的 statistical regions 與 df-only falsifier 已經 PR #30 merge `f9c3a505` 交付並
+在 state-only closeout 記為 `CLOSED`；但 item 8 power／multiplicity、item 9 manifests、
+item 10 runner／ledger、item 11 final decision table、item 12 整體 review 仍未完成。
+故不得生成 6a-E seed、不得開 arm ledger、不得形成 arm endpoint，
 也不得觸及候選 $K$。
