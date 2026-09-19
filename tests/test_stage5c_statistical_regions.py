@@ -575,6 +575,32 @@ def test_producer_bound_region_and_width_cannot_be_rewritten():
         )
 
 
+def test_clean_region_bounds_cannot_be_rewritten_before_scientific_gates():
+    e1_result = _region([0.0, 0.0])
+    region = e1_result.region
+    assert region is not None
+    for name in (
+        "estimate", "lower", "upper", "normalized_lower", "normalized_upper",
+        "standard_error", "statistical_half_width", "numerical_half_width",
+    ):
+        with pytest.raises(ValueError):
+            getattr(region, name).setflags(write=True)
+    assert evaluate_e1(e1_result).verdict is ScientificVerdict.FAIL
+
+    e2_result = _region([0.2, 0.0], arm_names=E2_PLUS_ARM_NAMES)
+    with pytest.raises(ValueError):
+        e2_result.region.normalized_upper.setflags(write=True)
+    assert evaluate_e2(e2_result, E2Target.PLUS).verdict is ScientificVerdict.FAIL
+
+    e3_result = _region([0.0, 0.0], arm_names=("correct-support", "wrong-support"))
+    with pytest.raises(ValueError):
+        e3_result.region.lower.setflags(write=True)
+    assert (
+        evaluate_e3(e3_result, E3Claim.CORRECT_VS_WRONG_SUPPORT).verdict
+        is ScientificVerdict.FAIL
+    )
+
+
 def test_item3_error_pool_must_match_joint_law_pool_arm_and_endpoint_rows():
     indices = np.asarray([0])
     matching = SimpleNamespace(

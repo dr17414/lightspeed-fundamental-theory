@@ -598,9 +598,7 @@ class SimultaneousRectangle:
             value = np.asarray(getattr(self, name), dtype=float)
             if value.shape != (2,) or not np.all(np.isfinite(value)):
                 raise RegionProtocolError(f"{name} must be one finite two-vector")
-            frozen = value.copy()
-            frozen.setflags(write=False)
-            object.__setattr__(self, name, frozen)
+            object.__setattr__(self, name, _immutable_array(value, np.dtype("<f8")))
         if np.any(self.lower > self.upper):
             raise RegionProtocolError("region bounds must be ordered")
 

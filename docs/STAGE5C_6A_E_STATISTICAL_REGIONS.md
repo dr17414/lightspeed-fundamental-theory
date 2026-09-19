@@ -131,6 +131,9 @@ estimate／covariance 同樣採不可重新設為可寫的獨立 buffer。兩者
 與 joint-law ID 完全一致。故直接手造吻合 labels 的零 radius、傳入裸 zero vector，或在兩個
 表面上具有相同 arms／$B$／$M$／law ID、但 pool、matching indices 或 endpoints 不同的
 comparison 間移用 radius，都在 region 形成前成為 protocol error。
+已建立的 CLEAN `SimultaneousRectangle` 之 estimate、raw／normalized bounds、standard error
+與 statistical／numerical half-width 亦複製入 bytes-backed buffer；scientific E1／E2／E3
+gate 在讀取前不能藉重新啟用 NumPy write flag 改寫判決邊界。
 
 ---
 
