@@ -69,6 +69,10 @@ R_g=\prod_{j=1}^{2}
       \widehat\Delta_j+h_j^{\rm stat}+h_j^{\rm num}\right].
 $$
 
+Student critical value 的 SciPy 分位數只作起點；程式以 interval arithmetic 的
+$I_m(\theta)=\int_\theta^{\pi/2}\cos^m\phi\,d\phi$ 有限遞推，將當前 binary64 critical
+的 tail 上界與輸入 binary64 $\alpha/(2p)$ 的 exact-dyadic 下界比較。只有 tail 上界不大於
+target 下界才接受為向上的分位數 enclosure；無法驗證時回傳 `INCONCLUSIVE/NONFINITE-INPUT`。
 實作不以 round-to-nearest 的連鎖結果直接承重。$\sqrt{\widehat V_{jj}}$ 先以平方後的
 exact-dyadic comparison向上包住；$q_g\sqrt{\widehat V_{jj}}$ 與
 $h_j^{\rm stat}+h_j^{\rm num}$ 再以輸入 binary64 的 exact dyadic rationals求值並向上捨入；

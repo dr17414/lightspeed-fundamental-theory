@@ -6,6 +6,8 @@ from types import SimpleNamespace
 
 import numpy as np
 import pytest
+import mpmath as mp
+from scipy.stats import t
 
 from analysis.stage5c_joint_matched_law import (
     JOINT_MATCHED_LAW_ID,
@@ -53,6 +55,7 @@ from analysis.stage5c_statistical_regions import (
     StatisticalRegionInput,
     ValidatedNumericalHalfWidth,
     _exact_matched_error_radius,
+    _student_critical_upper,
     _REGION_RESULT_PRODUCER_TOKEN,
     _seal_clean_region_result,
     aggregate_matched_numerical_half_width,
@@ -412,6 +415,24 @@ def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():
         with_numerical.region.normalized_lower,
         with_numerical.region.lower / ENDPOINT_RANGE_WIDTHS,
     )
+
+
+@pytest.mark.parametrize("alpha,df", [(0.007, 31), (0.01, 31), (0.007, 32), (0.01, 63)])
+def test_student_critical_is_an_upper_enclosure_of_exact_binary64_alpha(alpha, df):
+    critical = _student_critical_upper(alpha, df)
+    with mp.workdps(90):
+        q = mp.mpf(critical)
+        x = mp.mpf(df) / (df + q * q)
+        exact_tail = mp.betainc(mp.mpf(df) / 2, mp.mpf("0.5"), 0, x, regularized=True) / 2
+        exact_target = mp.mpf(alpha) / 4
+        assert exact_tail < exact_target
+        if alpha == 0.007 and df == 31:
+            old_q = mp.mpf(float(t.ppf(1.0 - alpha / 4.0, df)))
+            old_x = mp.mpf(df) / (df + old_q * old_q)
+            old_tail = mp.betainc(mp.mpf(df) / 2, mp.mpf("0.5"), 0, old_x, regularized=True) / 2
+            assert old_tail > exact_target
+    assert critical >= t.isf(alpha / 4, df)
+    assert critical < t.isf(alpha / 4, df) * (1 + 1.0e-10)
 
 
 def test_item3_endpoint_errors_follow_match_indices_and_total_pair_weights():

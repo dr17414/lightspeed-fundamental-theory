@@ -19,6 +19,7 @@ from hashlib import sha256
 from math import isfinite
 
 import numpy as np
+from mpmath.ctx_iv import MPIntervalContext
 from scipy.stats import t
 
 from analysis.stage5c_hard_controls import CONTROL_THETA
@@ -796,6 +797,61 @@ def _binary64_array_equal(first: np.ndarray, second: np.ndarray) -> bool:
     )
 
 
+def _student_tail_enclosure(critical: float, df: int, iv: MPIntervalContext) -> object:
+    """Interval Student survival probability for integral cluster degrees of freedom.
+
+    With u=tan(theta), the Student tail is I_(df-1)(theta)/(2 I_(df-1)(0)),
+    where I_m(theta)=integral_theta^(pi/2) cos(phi)^m dphi.  The finite
+    integration-by-parts recurrence uses only interval sqrt, atan2 and pi.
+    """
+
+    q = iv.mpf(critical)
+    root_df = iv.sqrt(df)
+    root_sum = iv.sqrt(iv.mpf(df) + q * q)
+    sine = q / root_sum
+    cosine = root_df / root_sum
+    tail_even, tail_odd = iv.atan2(root_df, q), 1 - sine
+    whole_even, whole_odd = iv.pi / 2, iv.mpf(1)
+    cosine_power = cosine
+    for order in range(2, df):
+        coefficient = iv.mpf(order - 1) / order
+        next_tail = coefficient * tail_even - sine * cosine_power / order
+        next_whole = coefficient * whole_even
+        tail_even, tail_odd = tail_odd, next_tail
+        whole_even, whole_odd = whole_odd, next_whole
+        cosine_power *= cosine
+    return tail_odd / (2 * whole_odd)
+
+
+def _student_critical_upper(alpha: float, df: int, dimension: int = 2) -> float:
+    """Enclose the registered Student quantile upward, or fail closed.
+
+    SciPy supplies only a starting guess; the acceptance condition compares
+    an interval upper tail with an interval lower bound of the exact dyadic
+    alpha/(2p).  The return value is therefore a certified upper quantile.
+    """
+
+    target = Fraction.from_float(alpha) / (2 * dimension)
+    guess = float(t.isf(float(target), df))
+    if not isfinite(guess) or guess <= 0.0:
+        raise RegionProtocolError("Student critical value is not finite")
+    iv = MPIntervalContext()
+    iv.dps = 90
+    threshold = iv.mpf(target.numerator) / iv.mpf(target.denominator)
+    critical = guess
+    for iteration in range(96):
+        tail = _student_tail_enclosure(critical, df, iv)
+        if tail.b <= threshold.a:
+            return critical
+        if iteration < 32:
+            critical = float(np.nextafter(critical, np.inf))
+        else:
+            critical = float(np.nextafter(critical * (1.0 + 1.0e-12), np.inf))
+        if not isfinite(critical):
+            break
+    raise RegionProtocolError("Student critical value could not be enclosed")
+
+
 def build_simultaneous_region(
     inputs: StatisticalRegionInput,
     *,
@@ -878,8 +934,9 @@ def build_simultaneous_region(
         )
     reference_df = inputs.independent_clusters - 1
     dimension = 2
-    critical = float(t.ppf(1.0 - alpha / (2.0 * dimension), reference_df))
-    if not isfinite(critical):
+    try:
+        critical = _student_critical_upper(alpha, reference_df, dimension)
+    except RegionProtocolError:
         return RegionBuildResult(
             RegionStatus.INCONCLUSIVE,
             RegionReason.NONFINITE_INPUT,
