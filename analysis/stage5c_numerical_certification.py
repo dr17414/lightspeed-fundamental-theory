@@ -439,6 +439,9 @@ class CertificationResult:
     _producer_token: object | None = field(
         default=None, init=False, repr=False, compare=False
     )
+    _producer_fingerprint: str | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
         if self.provenance is not None and not isinstance(
@@ -462,13 +465,59 @@ class CertificationResult:
     def producer_authenticated(self) -> bool:
         """Whether this result was emitted by ``certify_pairing``."""
 
-        return self._producer_token is _CERTIFICATION_PRODUCER_TOKEN
+        if self._producer_token is not _CERTIFICATION_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _certification_result_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _certification_result_fingerprint(result: CertificationResult) -> str:
+    """Bind every public result field, including certified endpoint errors."""
+
+    digest = sha256()
+
+    def add(label: str, payload: bytes) -> None:
+        name = label.encode("utf-8")
+        digest.update(len(name).to_bytes(4, "big"))
+        digest.update(name)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+
+    add("schema", b"stage5c-produced-certification-result-v0.1")
+    add("status", result.status.value.encode("utf-8"))
+    add("reason", result.reason.value.encode("utf-8"))
+    add("certification_id", result.certification_id.encode("utf-8"))
+    for name in ("agreement_distance", "agreement_bound", "matrix_error", "norm_lower", "norm_upper"):
+        value = getattr(result, name)
+        add(name, b"none" if value is None else float(value).hex().encode("ascii"))
+    for name in ("matrix", "endpoint", "endpoint_error", "endpoint_lower", "endpoint_upper"):
+        value = getattr(result, name)
+        if value is None:
+            add(name, b"none")
+            continue
+        array = np.ascontiguousarray(value)
+        add(f"{name}.dtype", array.dtype.str.encode("ascii"))
+        add(f"{name}.shape", repr(array.shape).encode("ascii"))
+        add(f"{name}.bytes", array.tobytes(order="C"))
+    provenance = result.provenance
+    if provenance is None:
+        add("provenance", b"none")
+    else:
+        add("arm_name", provenance.arm_name.encode("utf-8"))
+        add("pool_identity", provenance.pool_identity.encode("utf-8"))
+        add("row_index", str(provenance.row_index).encode("ascii"))
+        source = provenance.source_row_fingerprint
+        add("source_row_fingerprint", b"none" if source is None else source.encode("ascii"))
+    return digest.hexdigest()
 
 
 def _producer_result(**kwargs: object) -> CertificationResult:
     """Create one item-3 result and attach the module-private producer seal."""
 
     result = CertificationResult(**kwargs)
+    object.__setattr__(result, "_producer_fingerprint", _certification_result_fingerprint(result))
     object.__setattr__(result, "_producer_token", _CERTIFICATION_PRODUCER_TOKEN)
     return result
 

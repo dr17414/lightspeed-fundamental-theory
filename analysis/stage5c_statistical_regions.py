@@ -310,6 +310,7 @@ class ValidatedNumericalHalfWidth:
     joint_law_id: str
     source_ensemble_fingerprint: str
     _producer_token: object
+    _producer_fingerprint: str
 
     def __new__(cls, *args: object, **kwargs: object) -> ValidatedNumericalHalfWidth:
         raise TypeError(
@@ -346,6 +347,7 @@ class ValidatedNumericalHalfWidth:
         )
         object.__setattr__(instance, "_producer_token", producer_token)
         instance._validate()
+        object.__setattr__(instance, "_producer_fingerprint", _numerical_width_fingerprint(instance))
         return instance
 
     def _validate(self) -> None:
@@ -397,10 +399,25 @@ class ValidatedNumericalHalfWidth:
 
     @property
     def producer_authenticated(self) -> bool:
-        return (
-            getattr(self, "_producer_token", None)
-            is _NUMERICAL_WIDTH_PRODUCER_TOKEN
-        )
+        if getattr(self, "_producer_token", None) is not _NUMERICAL_WIDTH_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _numerical_width_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _numerical_width_fingerprint(width: ValidatedNumericalHalfWidth) -> str:
+    digest = sha256()
+    _fingerprint_text(digest, "schema", "stage5c-produced-numerical-width-v0.1")
+    _fingerprint_array(digest, "values", width.values, dtype="<f8")
+    _fingerprint_integer(digest, "independent_clusters", width.independent_clusters)
+    _fingerprint_integer(digest, "total_pairs", width.total_pairs)
+    for index, arm in enumerate(width.arm_names):
+        _fingerprint_text(digest, f"arm.{index}", arm)
+    for name in ("certification_id", "propagation_id", "joint_law_id", "source_ensemble_fingerprint"):
+        _fingerprint_text(digest, name, getattr(width, name))
+    return digest.hexdigest()
 
 
 _E2_NULL_SPECS = {
@@ -443,6 +460,7 @@ class StatisticalRegionInput:
     source_ensemble_fingerprint: str
     joint_law_id: str = JOINT_MATCHED_LAW_ID
     _producer_token: object
+    _producer_fingerprint: str
 
     def __new__(cls, *args: object, **kwargs: object) -> StatisticalRegionInput:
         raise TypeError("StatisticalRegionInput is produced only from a matched ensemble")
@@ -476,11 +494,17 @@ class StatisticalRegionInput:
         ):
             object.__setattr__(instance, name, value)
         instance.__post_init__()
+        object.__setattr__(instance, "_producer_fingerprint", _region_input_fingerprint(instance))
         return instance
 
     @property
     def producer_authenticated(self) -> bool:
-        return getattr(self, "_producer_token", None) is _REGION_INPUT_PRODUCER_TOKEN
+        if getattr(self, "_producer_token", None) is not _REGION_INPUT_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _region_input_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
 
     def __post_init__(self) -> None:
         estimate = np.asarray(self.estimate, dtype=float)
@@ -567,6 +591,22 @@ class StatisticalRegionInput:
             source_ensemble_fingerprint=_ensemble_fingerprint(ensemble),
             producer_token=_REGION_INPUT_PRODUCER_TOKEN,
         )
+
+
+def _region_input_fingerprint(inputs: StatisticalRegionInput) -> str:
+    digest = sha256()
+    _fingerprint_text(digest, "schema", "stage5c-produced-region-input-v0.1")
+    _fingerprint_array(digest, "estimate", inputs.estimate, dtype="<f8")
+    _fingerprint_array(digest, "mean_covariance", inputs.mean_covariance, dtype="<f8")
+    _fingerprint_integer(digest, "independent_clusters", inputs.independent_clusters)
+    _fingerprint_integer(digest, "total_pairs", inputs.total_pairs)
+    for index, count in enumerate(inputs.cluster_pair_counts):
+        _fingerprint_integer(digest, f"cluster.{index}.pairs", count)
+    for index, arm in enumerate(inputs.arm_names):
+        _fingerprint_text(digest, f"arm.{index}", arm)
+    _fingerprint_text(digest, "source_ensemble_fingerprint", inputs.source_ensemble_fingerprint)
+    _fingerprint_text(digest, "joint_law_id", inputs.joint_law_id)
+    return digest.hexdigest()
 
 
 @dataclass(frozen=True)

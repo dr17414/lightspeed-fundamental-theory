@@ -10,10 +10,16 @@ import pytest
 from analysis.stage5c_joint_matched_law import (
     JOINT_MATCHED_LAW_ID,
     MatchedLawEnsemble,
+    JointLawProtocolError,
+    MatchingCertification,
+    MatchingReason,
+    MatchingStatus,
     _ENSEMBLE_PRODUCER_TOKEN,
     _seal_aggregated_ensemble,
     aggregate_joint_matched_laws,
+    form_joint_matched_law,
 )
+from analysis.stage5c_hard_controls import MatchResult
 from analysis.stage5c_numerical_certification import (
     CertificationProtocolError,
     CertificationReason,
@@ -284,20 +290,22 @@ def test_region_input_adapter_preserves_frozen_matched_law_provenance():
 
 def test_region_adapter_requires_item2_producer_and_fresh_aggregate_payload():
     laws = tuple(
-        SimpleNamespace(
-            matched_pairs=192,
-            arm_names=E1_ARM_NAMES,
-            law_id=JOINT_MATCHED_LAW_ID,
-            matching=SimpleNamespace(
+        form_joint_matched_law(
+            MatchingCertification(
+                status=MatchingStatus.CLEAN,
+                reasons=(MatchingReason.CERTIFIED,),
+                result=MatchResult(
+                    left_indices=np.arange(192), right_indices=np.arange(192),
+                    distances=np.zeros(192), coverage=1.0,
+                    max_standardized_mean_difference=0.0, max_ks_distance=0.0,
+                ),
+                scale=np.ones(11),
                 pool_identity=f"produced-pool-{index}",
                 calibration_identity=f"produced-calibration-{index}",
-                result=SimpleNamespace(
-                    left_indices=np.arange(192), right_indices=np.arange(192)
-                ),
             ),
-            left=np.full((192, 2), (0.1 + index * 0.01, 0.0)),
-            right=np.zeros((192, 2)),
-            delta=np.full((192, 2), (0.1 + index * 0.01, 0.0)),
+            np.full((192, 2), (0.1 + index * 0.01, 0.0)),
+            np.zeros((192, 2)),
+            arm_names=E1_ARM_NAMES,
         )
         for index in range(2)
     )
@@ -320,9 +328,57 @@ def test_region_adapter_requires_item2_producer_and_fresh_aggregate_payload():
     with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
         StatisticalRegionInput.from_ensemble(produced)
     produced = aggregate_joint_matched_laws(laws)
-    produced.laws[0].left[0, 0] = 9.0
+    object.__setattr__(produced.laws[0], "left", np.full((192, 2), 9.0))
     with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
         StatisticalRegionInput.from_ensemble(produced)
+
+
+def test_joint_law_aggregation_rejects_forged_delta_after_production():
+    matching = MatchingCertification(
+        MatchingStatus.CLEAN, (MatchingReason.CERTIFIED,),
+        MatchResult(np.arange(192), np.arange(192), np.zeros(192), 1.0, 0.0, 0.0),
+        np.ones(11), "calibration-a", "pool-a",
+    )
+    law = form_joint_matched_law(
+        matching, np.full((192, 2), 0.2), np.zeros((192, 2)),
+        arm_names=E1_ARM_NAMES,
+    )
+    matching_b = replace(matching, calibration_identity="calibration-b", pool_identity="pool-b")
+    law_b = form_joint_matched_law(
+        matching_b, np.full((192, 2), 0.2), np.zeros((192, 2)),
+        arm_names=E1_ARM_NAMES,
+    )
+    assert aggregate_joint_matched_laws((law, law_b)).producer_authenticated
+    object.__setattr__(law, "delta", np.zeros((192, 2)))
+    with pytest.raises(JointLawProtocolError, match="joint-law builder"):
+        aggregate_joint_matched_laws((law, law_b))
+    with pytest.raises(JointLawProtocolError, match="joint-law builder"):
+        aggregate_joint_matched_laws((SimpleNamespace(**law_b.__dict__), law_b))
+
+
+def test_produced_region_inputs_and_widths_reject_postproduction_replacement():
+    inputs = _inputs([0.2, 0.0])
+    width = _validated_radius(inputs, error=1.0e-7)
+    assert inputs.producer_authenticated and width.producer_authenticated
+    object.__setattr__(width, "values", np.zeros(2))
+    assert not width.producer_authenticated
+    with pytest.raises(RegionProtocolError, match="aggregation"):
+        build_simultaneous_region(inputs, local_alpha=0.01, numerical_half_width=width)
+    inputs = _inputs([0.2, 0.0])
+    width = _validated_radius(inputs, error=1.0e-7)
+    object.__setattr__(inputs, "estimate", np.array([100.0, 0.0]))
+    assert not inputs.producer_authenticated
+    with pytest.raises(RegionProtocolError, match="matched ensemble"):
+        build_simultaneous_region(inputs, local_alpha=0.01, numerical_half_width=width)
+
+
+def test_certified_pool_rejects_postproduction_shrunk_endpoint_error():
+    result = _certification(E1_ARM_NAMES[0], "producer-pool", 0, error=1.0e-7)
+    assert result.producer_authenticated
+    object.__setattr__(result, "endpoint_error", np.zeros(2))
+    assert not result.producer_authenticated
+    with pytest.raises(RegionProtocolError, match="emitted by the item-3 certifier"):
+        CertifiedEndpointPool(rows=(result,))
 
 
 def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():

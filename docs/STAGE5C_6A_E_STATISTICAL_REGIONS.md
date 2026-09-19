@@ -121,6 +121,8 @@ $h^{\rm num}$。
 聚合結果不是裸 vector，而是 opaque、aggregation-only 的 `ValidatedNumericalHalfWidth`；其
 公開 constructor 不可用，只有 matched aggregation 能以 module-private producer token 建立。
 其 `values` 採獨立 bytes-backed buffer，不能透過 `setflags(write=True)` 改小 radius。
+producer seal 另綁定完整 radius、cohort／pair counts、ordered arms、來源 fingerprint 與各 schema
+identity；消費時重算並比對，封存後用 `object.__setattr__` 更換欄位也會被拒絕。
 它綁定 certification／propagation／joint-law IDs、ordered arms、$B$、$M$，以及 exact source
 ensemble SHA-256。該 fingerprint 以 length-framed canonical bytes 納入每 cohort 的 matching
 pool／calibration identity、left／right matched indices、逐位元 matched endpoints，並納入
@@ -131,7 +133,12 @@ estimate／covariance 同樣採不可重新設為可寫的獨立 buffer。兩者
 與 joint-law ID 完全一致。故直接手造吻合 labels 的零 radius、傳入裸 zero vector，或在兩個
 表面上具有相同 arms／$B$／$M$／law ID、但 pool、matching indices 或 endpoints 不同的
 comparison 間移用 radius，都在 region 形成前成為 protocol error。
+region input 的 producer seal 亦綁定其 estimate、covariance、所有 cluster pair counts 與來源
+身分；builder 消費前重算，拒絕封存後替換 estimate／covariance。
 上游 `MatchedLawEnsemble` 也必須帶 `aggregate_joint_matched_laws` 產生的 producer seal；
+每個來源 `JointMatchedLaw` 必須先由 `form_joint_matched_law` 產生，並逐次核對成對 rows、delta、
+weights、mean、完整 covariance blocks 與 matching payload 的 producer fingerprint；手造或
+封存後改寫的 law 不能由聚合器升格為有效 ensemble。
 封存後重算其 aggregate estimate／covariance／count，以及各 cohort endpoint／delta／matching identity／index 的 canonical
 fingerprint，直接建構的 ensemble 或封存後被改寫的 payload 均不得產生 region input／width。
 已建立的 CLEAN `SimultaneousRectangle` 之 estimate、raw／normalized bounds、standard error

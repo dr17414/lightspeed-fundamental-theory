@@ -151,6 +151,8 @@ keyword；完整 implementation pool 必須先經 `bind_endpoint_certification_r
 matrices、完整 error budgets、implementation IDs 與 arm／pool／row identity，再把相同
 provenance 封入 result producer seal。implementation matrices 與輸出 endpoint／error arrays
 複製進 bytes-backed 唯讀儲存，持有者不能藉 `setflags(write=True)` 在封存後改寫；
+result seal 另綁定完整 status、reason、數值 bounds、矩陣、endpoint／error arrays 及來源
+provenance，`CertifiedEndpointPool` 消費時重算；封存後替換 `endpoint_error` 會被拒絕。
 `certify_pairing(source_row)` 消費時另重算完整 source-row fingerprint，若與綁定值不同
 即在形成 CLEAN endpoint 前拒絕。直接呼叫
 `EndpointCertificationSourceRow(...)`、把另一組 estimates 與自報 labels 一起送入 certifier，

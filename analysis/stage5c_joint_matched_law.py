@@ -29,6 +29,7 @@ from analysis.stage5c_hard_controls import (
 
 
 JOINT_MATCHED_LAW_ID = "stage5c-6a-e-joint-matched-law-v0.1"
+_JOINT_LAW_PRODUCER_TOKEN = object()
 _ENSEMBLE_PRODUCER_TOKEN = object()
 GENERATOR_SOURCE_ID = "stage5c-hard-controls-sprinkle-control-p-theta-v0.1"
 MATCHER_SOURCE_ID = "stage5c-hard-controls-c8.1-matcher-v0.1"
@@ -122,10 +123,78 @@ class JointMatchedLaw:
     covariance: PairedCovariance
     matching: MatchingCertification
     law_id: str = JOINT_MATCHED_LAW_ID
+    _producer_token: object | None = field(default=None, init=False, repr=False, compare=False)
+    _producer_fingerprint: str | None = field(default=None, init=False, repr=False, compare=False)
 
     @property
     def matched_pairs(self) -> int:
         return len(self.weights)
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if self._producer_token is not _JOINT_LAW_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _joint_law_payload_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _joint_law_payload_fingerprint(law: JointMatchedLaw) -> str:
+    """Bind the complete produced law, including its pairing and covariance."""
+
+    digest = sha256()
+
+    def add(label: str, payload: bytes) -> None:
+        label_bytes = label.encode("utf-8")
+        digest.update(len(label_bytes).to_bytes(4, "big"))
+        digest.update(label_bytes)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+
+    def array(label: str, value: np.ndarray, dtype: str) -> None:
+        item = np.ascontiguousarray(value, dtype=dtype)
+        add(f"{label}.shape", repr(item.shape).encode("ascii"))
+        add(f"{label}.bytes", item.tobytes(order="C"))
+
+    add("schema", b"stage5c-produced-joint-law-v0.1")
+    add("law_id", law.law_id.encode("utf-8"))
+    add("arms", repr(law.arm_names).encode("utf-8"))
+    for name in ("left", "right", "delta", "weights", "joint_mean", "left_mean", "right_mean", "delta_mean"):
+        array(name, getattr(law, name), "<f8")
+    for name in ("joint_covariance", "left_covariance", "right_covariance", "cross_covariance", "delta_covariance"):
+        array(name, getattr(law.covariance, name), "<f8")
+    add("covariance_id", law.covariance.covariance_id.encode("utf-8"))
+    matching = law.matching
+    add("matching_status", matching.status.value.encode("ascii"))
+    add("matching_reasons", repr(matching.reasons).encode("utf-8"))
+    add("matcher_source_id", matching.matcher_source_id.encode("utf-8"))
+    add("calibration_identity", matching.calibration_identity.encode("utf-8"))
+    add("pool_identity", matching.pool_identity.encode("utf-8"))
+    if matching.result is None:
+        add("matching_result", b"none")
+    else:
+        for name in ("left_indices", "right_indices"):
+            array(name, getattr(matching.result, name), "<i8")
+        for name in ("distances",):
+            array(name, getattr(matching.result, name), "<f8")
+        for name in ("coverage", "max_standardized_mean_difference", "max_ks_distance"):
+            add(name, repr(getattr(matching.result, name)).encode("ascii"))
+    for name in ("scale", "unmatched_left_indices", "unmatched_right_indices"):
+        value = getattr(matching, name)
+        if value is None:
+            add(name, b"none")
+        else:
+            array(name, value, "<f8" if name == "scale" else "<i8")
+    return digest.hexdigest()
+
+
+def _seal_joint_law(law: JointMatchedLaw, *, producer_token: object) -> JointMatchedLaw:
+    if producer_token is not _JOINT_LAW_PRODUCER_TOKEN:
+        raise JointLawProtocolError("joint law requires item-2 producer")
+    object.__setattr__(law, "_producer_fingerprint", _joint_law_payload_fingerprint(law))
+    object.__setattr__(law, "_producer_token", producer_token)
+    return law
 
 
 @dataclass(frozen=True)
@@ -429,7 +498,7 @@ def form_joint_matched_law(
         _readonly(delta_covariance),
     )
     weights = np.full(count, 1.0 / count)
-    return JointMatchedLaw(
+    return _seal_joint_law(JointMatchedLaw(
         arm_names=arm_names,
         left=_readonly(paired_left),
         right=_readonly(paired_right),
@@ -441,7 +510,7 @@ def form_joint_matched_law(
         delta_mean=_readonly(delta.mean(axis=0)),
         covariance=covariance,
         matching=matching,
-    )
+    ), producer_token=_JOINT_LAW_PRODUCER_TOKEN)
 
 
 def aggregate_joint_matched_laws(
@@ -456,6 +525,8 @@ def aggregate_joint_matched_laws(
 
     if not isinstance(laws, tuple) or len(laws) < 2:
         raise JointLawProtocolError("at least two independent matched cohorts are required")
+    if any(not isinstance(law, JointMatchedLaw) or not law.producer_authenticated for law in laws):
+        raise JointLawProtocolError("every cohort must be produced by the joint-law builder")
     if any(law.law_id != JOINT_MATCHED_LAW_ID for law in laws):
         raise JointLawProtocolError("all cohorts must use the frozen joint-law identity")
     arm_names = laws[0].arm_names

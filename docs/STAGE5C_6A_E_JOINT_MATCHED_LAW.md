@@ -239,6 +239,12 @@ df-only falsifier；該 items-4／5 delivery 目前仍為 `REVIEW-PENDING`。
 
 ## 6. Closure 與尚未授權事項
 
+與 items 4／5 adapter 的交界另要求：`aggregate_joint_matched_laws` 僅接受
+`form_joint_matched_law` 發出的 producer-authenticated laws，並重驗每個 law 的
+matched rows、delta、weights、means、covariance blocks 與 matching payload 指紋。
+此收緊不改 item 2 原有的 joint-law 公式或已合併的 closure 狀態；正式 arm 的
+matching／pool identity custody 仍由 item 9 處理。
+
 本文件、source-of-record 與 tests 已由 PR #26 交付；最終 head `f7dc1706` 經獨立複核
 確認 N1 的 structured remaining-work 落點與一般 anti-drift 規則，CI #101 通過並以
 merge commit `93b1cd19` 合併，故 closure item 2 狀態為 `CLOSED`。
