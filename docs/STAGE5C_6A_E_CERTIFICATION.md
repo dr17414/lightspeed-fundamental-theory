@@ -149,7 +149,10 @@ keyword；完整 implementation pool 必須先經 `bind_endpoint_certification_r
 `EndpointCertificationSourceRow`。`certify_pairing(source_row)` 只從此 sealed source row
 取得兩個實作與身分；provenance 另含 canonical SHA-256，逐位元綁定兩個 implementation
 matrices、完整 error budgets、implementation IDs 與 arm／pool／row identity，再把相同
-provenance 封入 result producer seal。直接呼叫
+provenance 封入 result producer seal。implementation matrices 與輸出 endpoint／error arrays
+複製進 bytes-backed 唯讀儲存，持有者不能藉 `setflags(write=True)` 在封存後改寫；
+`certify_pairing(source_row)` 消費時另重算完整 source-row fingerprint，若與綁定值不同
+即在形成 CLEAN endpoint 前拒絕。直接呼叫
 `EndpointCertificationSourceRow(...)`、把另一組 estimates 與自報 labels 一起送入 certifier，
 或直接呼叫 `CertificationResult(...)` 都不會取得所需 seal。statistical-region pool adapter
 只從這些 sealed results 推導 arm／pool／row identity，不接受事後 relabel。這個 provenance

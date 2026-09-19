@@ -9,6 +9,7 @@ import pytest
 
 from analysis.stage5c_joint_matched_law import JOINT_MATCHED_LAW_ID, MatchedLawEnsemble
 from analysis.stage5c_numerical_certification import (
+    CertificationProtocolError,
     CertificationReason,
     CertificationResult,
     CertificationStatus,
@@ -476,6 +477,26 @@ def test_item3_provenance_is_bound_to_the_actual_source_row_payload():
     )
 
 
+def test_bound_source_row_cannot_change_after_binding():
+    rows = bind_endpoint_certification_rows(
+        (_implementation(1.0e-8, "immutable-first"),),
+        (_implementation(1.0e-8, "immutable-second"),),
+        arm_name=E1_ARM_NAMES[0],
+        pool_identity="immutable-source-pool",
+    )
+    row = rows[0]
+    for estimate in (row.first, row.second):
+        with pytest.raises(ValueError):
+            estimate.matrix.setflags(write=True)
+    assert certify_pairing(row).status is CertificationStatus.CLEAN
+
+    # The checksum is checked at consumption even if a Python caller bypasses
+    # the dataclass guard to replace a field rather than changing its array.
+    object.__setattr__(row.first, "matrix", np.diag([8.0, 1.0]))
+    with pytest.raises(CertificationProtocolError, match="payload changed"):
+        certify_pairing(row)
+
+
 def test_validated_numerical_width_has_no_public_construction_path():
     with pytest.raises(TypeError, match="only by matched aggregation"):
         ValidatedNumericalHalfWidth(
@@ -521,6 +542,36 @@ def test_validated_width_is_bound_to_the_exact_source_ensemble():
             second_inputs,
             local_alpha=0.01,
             numerical_half_width=first_width,
+        )
+
+
+def test_producer_bound_region_and_width_cannot_be_rewritten():
+    ensemble, left_pools, right_pools = _synthetic_ensemble(
+        [0.2, 0.0],
+        np.diag([1.0e-8, 1.0e-8]),
+        E1_ARM_NAMES,
+        (192,) * MIN_INDEPENDENT_COHORTS,
+        error=1.0e-5,
+    )
+    inputs = StatisticalRegionInput.from_ensemble(ensemble)
+    width = aggregate_matched_numerical_half_width(ensemble, left_pools, right_pools)
+    assert np.all(width.values > 0.0)
+    for array in (width.values, inputs.estimate, inputs.mean_covariance):
+        with pytest.raises(ValueError):
+            array.setflags(write=True)
+    assert build_simultaneous_region(
+        inputs, local_alpha=0.01, numerical_half_width=width
+    ).status is RegionStatus.CLEAN
+
+    with pytest.raises(TypeError, match="only from a matched ensemble"):
+        StatisticalRegionInput(
+            estimate=np.array([0.2, 0.0]),
+            mean_covariance=np.diag([1.0e-8, 1.0e-8]),
+            independent_clusters=MIN_INDEPENDENT_COHORTS,
+            total_pairs=192 * MIN_INDEPENDENT_COHORTS,
+            cluster_pair_counts=(192,) * MIN_INDEPENDENT_COHORTS,
+            arm_names=E1_ARM_NAMES,
+            source_ensemble_fingerprint=width.source_ensemble_fingerprint,
         )
 
 
@@ -655,7 +706,7 @@ def test_malformed_alpha_numerical_radius_and_identity_fail_closed():
             local_alpha=0.01,
             numerical_half_width=_validated_radius(wrong_inputs),
         )
-    with pytest.raises(RegionProtocolError):
+    with pytest.raises(TypeError, match="only from a matched ensemble"):
         StatisticalRegionInput(
             estimate=np.zeros(2),
             mean_covariance=np.eye(2),
@@ -665,7 +716,7 @@ def test_malformed_alpha_numerical_radius_and_identity_fail_closed():
             arm_names=E1_ARM_NAMES,
             source_ensemble_fingerprint="0" * 64,
         )
-    with pytest.raises(RegionProtocolError, match="total_pairs"):
+    with pytest.raises(TypeError, match="only from a matched ensemble"):
         StatisticalRegionInput(
             estimate=np.zeros(2),
             mean_covariance=np.eye(2),

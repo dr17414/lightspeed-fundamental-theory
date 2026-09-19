@@ -41,6 +41,15 @@ DF_ONLY_ORACLE_ID = "stage5c-6a-e-df-only-t-reference-oracle-v0.1"
 NUMERICAL_PROPAGATION_ID = "stage5c-6a-e-matched-endpoint-error-propagation-v0.1"
 ENSEMBLE_FINGERPRINT_ID = "stage5c-6a-e-matched-ensemble-sha256-v0.1"
 _NUMERICAL_WIDTH_PRODUCER_TOKEN = object()
+_REGION_INPUT_PRODUCER_TOKEN = object()
+
+
+def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
+    """Store an independent array in immutable bytes-backed memory."""
+
+    array = np.ascontiguousarray(value, dtype=dtype)
+    return np.frombuffer(array.tobytes(order="C"), dtype=dtype).reshape(array.shape)
+
 
 # The first primary component has sharp range [-1, 2], while the second has
 # sharp range [0, 1].  Dividing by these widths gives each coordinate one unit
@@ -381,9 +390,7 @@ class ValidatedNumericalHalfWidth:
             )
         ):
             raise RegionProtocolError("numerical-width ensemble fingerprint is invalid")
-        frozen = values.copy()
-        frozen.setflags(write=False)
-        object.__setattr__(self, "values", frozen)
+        object.__setattr__(self, "values", _immutable_array(values, np.dtype("<f8")))
         object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
         object.__setattr__(self, "total_pairs", int(self.total_pairs))
 
@@ -422,7 +429,7 @@ def e2_null_pair_spec(target: E2Target) -> E2NullPairSpec:
     return _E2_NULL_SPECS[target]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, init=False)
 class StatisticalRegionInput:
     """Typed adapter output from the frozen matched-law ensemble."""
 
@@ -434,6 +441,45 @@ class StatisticalRegionInput:
     arm_names: tuple[str, str]
     source_ensemble_fingerprint: str
     joint_law_id: str = JOINT_MATCHED_LAW_ID
+    _producer_token: object
+
+    def __new__(cls, *args: object, **kwargs: object) -> StatisticalRegionInput:
+        raise TypeError("StatisticalRegionInput is produced only from a matched ensemble")
+
+    @classmethod
+    def _from_ensemble(
+        cls,
+        *,
+        estimate: np.ndarray,
+        mean_covariance: np.ndarray,
+        independent_clusters: int,
+        total_pairs: int,
+        cluster_pair_counts: tuple[int, ...],
+        arm_names: tuple[str, str],
+        source_ensemble_fingerprint: str,
+        producer_token: object,
+    ) -> StatisticalRegionInput:
+        if producer_token is not _REGION_INPUT_PRODUCER_TOKEN:
+            raise RegionProtocolError("region inputs require matched-ensemble production")
+        instance = object.__new__(cls)
+        for name, value in (
+            ("estimate", estimate),
+            ("mean_covariance", mean_covariance),
+            ("independent_clusters", independent_clusters),
+            ("total_pairs", total_pairs),
+            ("cluster_pair_counts", cluster_pair_counts),
+            ("arm_names", arm_names),
+            ("source_ensemble_fingerprint", source_ensemble_fingerprint),
+            ("joint_law_id", JOINT_MATCHED_LAW_ID),
+            ("_producer_token", producer_token),
+        ):
+            object.__setattr__(instance, name, value)
+        instance.__post_init__()
+        return instance
+
+    @property
+    def producer_authenticated(self) -> bool:
+        return getattr(self, "_producer_token", None) is _REGION_INPUT_PRODUCER_TOKEN
 
     def __post_init__(self) -> None:
         estimate = np.asarray(self.estimate, dtype=float)
@@ -482,12 +528,8 @@ class StatisticalRegionInput:
             )
         ):
             raise RegionProtocolError("source ensemble fingerprint is invalid")
-        frozen_estimate = estimate.copy()
-        frozen_covariance = covariance.copy()
-        frozen_estimate.setflags(write=False)
-        frozen_covariance.setflags(write=False)
-        object.__setattr__(self, "estimate", frozen_estimate)
-        object.__setattr__(self, "mean_covariance", frozen_covariance)
+        object.__setattr__(self, "estimate", _immutable_array(estimate, np.dtype("<f8")))
+        object.__setattr__(self, "mean_covariance", _immutable_array(covariance, np.dtype("<f8")))
         object.__setattr__(self, "independent_clusters", int(self.independent_clusters))
         object.__setattr__(self, "total_pairs", int(self.total_pairs))
         object.__setattr__(
@@ -512,7 +554,7 @@ class StatisticalRegionInput:
         if any(law.law_id != JOINT_MATCHED_LAW_ID for law in ensemble.laws):
             raise RegionProtocolError("ensemble contains a non-frozen matched law")
         counts = tuple(law.matched_pairs for law in ensemble.laws)
-        return cls(
+        return cls._from_ensemble(
             estimate=ensemble.delta_mean,
             mean_covariance=ensemble.delta_mean_covariance,
             independent_clusters=ensemble.independent_clusters,
@@ -520,6 +562,7 @@ class StatisticalRegionInput:
             cluster_pair_counts=counts,
             arm_names=arm_names,
             source_ensemble_fingerprint=_ensemble_fingerprint(ensemble),
+            producer_token=_REGION_INPUT_PRODUCER_TOKEN,
         )
 
 
@@ -694,6 +737,8 @@ def build_simultaneous_region(
 
     if not isinstance(inputs, StatisticalRegionInput):
         raise RegionProtocolError("inputs must be StatisticalRegionInput")
+    if not inputs.producer_authenticated:
+        raise RegionProtocolError("region input must be emitted from a matched ensemble")
     alpha = _local_alpha(local_alpha)
     numerical = _numerical_half_width(inputs, numerical_half_width)
     if inputs.independent_clusters < MIN_INDEPENDENT_COHORTS:

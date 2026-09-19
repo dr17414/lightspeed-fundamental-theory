@@ -96,7 +96,8 @@ certifier 的 caller keywords：完整 implementation pool 先由
 `bind_endpoint_certification_rows` 綁成 sealed `EndpointCertificationSourceRow` 序列，row
 index 由 producer 枚舉，且每個 source row 同時持有兩個實作 payload 與 provenance；
 provenance 的 canonical SHA-256 逐位元承諾兩個 matrices、完整 error budgets、implementation
-IDs 與 arm／pool／row identity；`certify_pairing` 只能從該 row 取得身分。pool adapter 不再接受 caller 另貼的 identity labels，
+IDs 與 arm／pool／row identity；`certify_pairing` 消費 row 時必須重算並核對該 fingerprint，
+matrix 本身存於不能重新啟用寫入的 bytes-backed buffer。pool adapter 不再接受 caller 另貼的 identity labels，
 而只從 sealed results 推導並驗證共同 arm／pool與連續原始 row 順序。
 聚合另驗證 `CERTIFICATION_ID`，以及 certified endpoint 與 item-2 joint law 中實際 matched
 endpoint 逐位元相同。直接建構的 CLEAN record、failed certification、solver diagnostic、
@@ -119,12 +120,14 @@ $h^{\rm num}$。
 
 聚合結果不是裸 vector，而是 opaque、aggregation-only 的 `ValidatedNumericalHalfWidth`；其
 公開 constructor 不可用，只有 matched aggregation 能以 module-private producer token 建立。
+其 `values` 採獨立 bytes-backed buffer，不能透過 `setflags(write=True)` 改小 radius。
 它綁定 certification／propagation／joint-law IDs、ordered arms、$B$、$M$，以及 exact source
 ensemble SHA-256。該 fingerprint 以 length-framed canonical bytes 納入每 cohort 的 matching
 pool／calibration identity、left／right matched indices、逐位元 matched endpoints，並納入
 ensemble estimate、mean covariance、cluster count與 total-pair count。
-`build_simultaneous_region` 只接受這個 producer-authenticated 型別，且須與
-`StatisticalRegionInput.from_ensemble` 獨立取得的 fingerprint、arms、cluster count、pair count
+`build_simultaneous_region` 只接受這個 producer-authenticated 型別與
+`StatisticalRegionInput.from_ensemble` 以 producer seal 建立的 region input；其
+estimate／covariance 同樣採不可重新設為可寫的獨立 buffer。兩者的 fingerprint、arms、cluster count、pair count
 與 joint-law ID 完全一致。故直接手造吻合 labels 的零 radius、傳入裸 zero vector，或在兩個
 表面上具有相同 arms／$B$／$M$／law ID、但 pool、matching indices 或 endpoints 不同的
 comparison 間移用 radius，都在 region 形成前成為 protocol error。

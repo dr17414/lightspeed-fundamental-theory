@@ -32,6 +32,13 @@ class CertificationProtocolError(ValueError):
     """The caller violated the frozen certification schema."""
 
 
+def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
+    """Copy into bytes-backed storage whose write flag cannot be re-enabled."""
+
+    array = np.ascontiguousarray(value, dtype=dtype)
+    return np.frombuffer(array.tobytes(order="C"), dtype=dtype).reshape(array.shape)
+
+
 class CertificationStatus(str, Enum):
     CLEAN = "CLEAN"
     INCONCLUSIVE = "INCONCLUSIVE"
@@ -295,9 +302,7 @@ class ImplementationEstimate:
             raise CertificationProtocolError("implementation matrix must have shape (2, 2)")
         if not isinstance(self.implementation_id, str) or not self.implementation_id:
             raise CertificationProtocolError("implementation_id must be non-empty")
-        matrix = matrix.copy()
-        matrix.setflags(write=False)
-        object.__setattr__(self, "matrix", matrix)
+        object.__setattr__(self, "matrix", _immutable_array(matrix, np.dtype("<c16")))
 
 
 def _source_digest_part(digest: object, label: str, payload: bytes) -> None:
@@ -442,8 +447,8 @@ class CertificationResult:
         for name in ("matrix", "endpoint", "endpoint_error", "endpoint_lower", "endpoint_upper"):
             value = getattr(self, name)
             if value is not None:
-                frozen = np.asarray(value).copy()
-                frozen.setflags(write=False)
+                array = np.asarray(value)
+                frozen = _immutable_array(array, array.dtype)
                 object.__setattr__(self, name, frozen)
 
     @property
@@ -527,9 +532,20 @@ def certify_pairing(
                 "a source row already contains both implementations"
             )
         source_row = first
+        provenance = source_row.provenance
+        if (
+            not isinstance(provenance, EndpointCertificationProvenance)
+            or _source_row_fingerprint(
+                source_row.first,
+                source_row.second,
+                arm_name=provenance.arm_name,
+                pool_identity=provenance.pool_identity,
+                row_index=provenance.row_index,
+            ) != provenance.source_row_fingerprint
+        ):
+            raise CertificationProtocolError("bound source row payload changed")
         first = source_row.first
         second = source_row.second
-        provenance: EndpointCertificationProvenance | None = source_row.provenance
     else:
         if not isinstance(first, ImplementationEstimate) or not isinstance(
             second, ImplementationEstimate
