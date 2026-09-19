@@ -17,15 +17,17 @@ rectangle；一個 region 不等於兩次可自由挑選的單座標測試。
 | E1 `T-plus - T-minus` | normalized dead zone 外，兩方向皆可 | normalized dead zone 外，兩方向皆可 | 預登記至少一個固定方向／座標的 alternative；不可由 selection data 選 |
 | E2 `T-plus-null-A - T-plus-null-B` | normalized 等效 | normalized 等效 | E5-E，兩座標共同 |
 | E2 `T-minus-null-A - T-minus-null-B` | normalized 等效 | normalized 等效 | E5-E，兩座標共同 |
-| E3 `correct-chiral - sector-blind` | raw $>1/10$ | raw 等效於 0 | detection 與同一 region 的等效分量 |
+| E3 `correct-chiral - sector-blind` | raw $>1/10$ | normalized 等效於 0 | detection 與同一 region 的等效分量 |
 | E3 `symmetric-diffusion - sector-blind` | raw $<-1/10$ | raw $>1/10$ | 兩個 directional 分量 |
-| E3 `correct-support - wrong-support` | raw $>g_*/2$ | raw 等效於 0 | detection 與同一 region 的等效分量 |
-| E3 `sector-blind-null-A - sector-blind-null-B` | raw 等效於 0 | raw 等效於 0 | 兩個等效分量；不是額外 detection |
+| E3 `correct-support - wrong-support` | raw $>g_*/2$ | normalized 等效於 0 | detection 與同一 region 的等效分量 |
+| E3 `sector-blind-null-A - sector-blind-null-B` | normalized 等效於 0 | normalized 等效於 0 | 兩個等效分量；不是額外 detection |
 
 E1 的實際 scientific rule 仍是**完整 rectangle 與 closed dead zone 不相交**；此表
 要求預先給出 power model 的一個受保證座標，不修改 E1 的 existential acceptance rule。
-E3 的 $1/10$ 與 $g_*/2$ 是 **raw** 第一座標門檻，不可錯當 $D^{-1}$ normalized
-門檻：$D=\mathrm{diag}(3,1)$。全域 sector swap 是逐位元 invariance，E4 是
+E3 directional $1/10$ 與 $g_*/2$ 是 **raw** 門檻；等效分量一律使用
+$D^{-1}$ normalized open box $(-1/20,1/20)^2$，其中 $D=\mathrm{diag}(3,1)$。
+所以 sector-blind null 座標 1 的 raw 等效範圍為 $(-3/20,3/20)$，
+不是 $(-1/20,1/20)$。全域 sector swap 是逐位元 invariance，E4 是
 well-posedness；兩者均沒有擅加 statistical alpha 或 detection-power label。
 
 ## 2. 提議的 lineage-wide error allocation
@@ -55,6 +57,10 @@ spend，但原 cell 仍不得挪用。中斷、`INCONCLUSIVE` 或修訂使舊 ca
 後繼無上限時幾何級數仍不超支，但任何一次 run 的樣本量與資源上限須在其
 第一次 seed 前另行固定；沒有足夠 power／binary64 allocation 時不授權啟動。
 item 9 尚須把 generation、member、split、claim、spent／burned 實際接到 committed ledger。
+此模組目前可 import 只供 candidate-independent 預算審計與測試，**不構成 runner
+接線授權**；prereg §8 closure matrix 的 items 9／10 把 item 8 `CLOSED` 前禁止
+manifest／seed builder、runner／adjudicator import 或呼叫本模組列為交付物，
+並要求未授權接線的拒絕回歸。
 
 這是對已固定 rectangle **名目** coverage 的 union bound；item 2 在
 unequal-attrition CR1 下只主張 cluster-$t$ operational reference，未提供一般
@@ -62,6 +68,15 @@ finite-sample exact coverage theorem。因此不能把上式單獨宣稱為真�
 family-wise 錯誤率的證明。
 
 ## 3. Power audit 的正面公式與不能略過的前提
+
+本節的 $Y$、$\widehat z$、$\mu$、$u$、$d$、$\eta$、SE 與所有公式
+**一律使用 normalized 單位**。raw 座標 $k$ 的門檻、effect gap、數值半寬
+進入公式前，必須各除以 $D_{kk}$。因此 chiral／diffusion 座標 1 的
+raw $\pm1/10$ 對應 normalized $\pm1/30$，wrong-support 座標 1 的
+raw $g_*/2$ 對應 normalized $g_*/6$；diffusion 座標 2 因
+$D_{22}=1$ 仍是 $1/10$。若直接在 raw 座標 1 計算，contrast 值域
+是 $[-3,3]$、SE 界為 $3\sqrt{8/(B-1)}$、tail 界為
+$2\exp(-Bu_{\rm raw}^2/36)$；不可把 normalized 界套在未除以 3 的 gap 上。
 
 每個 normalized cohort contrast $Y_{b,k}$ 只由 sharp endpoint support 可推出
 $-1\le Y_{b,k}\le1$，**不能**從 pair count 192–384 推出 pair-level independence。

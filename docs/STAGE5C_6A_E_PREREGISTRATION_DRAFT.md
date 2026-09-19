@@ -332,8 +332,8 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | 6 | E3 planted family | `STAGE5C_6A_E_CERTIFICATION.md`＋具名 $\Sigma_{C7/E3}$／test-function support-mapping source-of-record＋complete domains＋active wrong-support Gate O/E＋canonical exact-relabel swap construction／identical-operation-trace proof與 planted trace tests | `CLOSED` |
 | 7 | E4 well-posedness | `STAGE5C_6A_E_WELLPOSEDNESS.md`＋fixed-scale enclosure sequence／contact／boundary／validated live error producers／independent agreement criteria | `CLOSED` |
 | 8 | E5-D／E5-E multiplicity與 power | complete claim family＋lineage-wide spending／successor reserve＋power audit | `OPEN` |
-| 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋earliest-unresolved successor mapping＋non-recycling | `OPEN` |
-| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋gate router 的 typed selector／support-mapping identity record＋swap runtime operation-trace certification＋end-to-end dress test＋committed predecessor-ledger prerequisite chain | `OPEN` |
+| 9 | selection／confirmation manifests | fresh disjoint bases＋burn lifecycle＋earliest-unresolved successor mapping＋non-recycling；item 8 `CLOSED` 前，manifest／seed builder 不得 import／呼叫 `analysis.stage5c_e5_budget`，並須有拒絕未授權 allocation 的回歸 | `OPEN` |
+| 10 | runner／ledger／adjudicator freeze | fail-closed executable implementation＋gate router 的 typed selector／support-mapping identity record＋swap runtime operation-trace certification＋end-to-end dress test＋committed predecessor-ledger prerequisite chain；item 8 `CLOSED` 前，runner／adjudicator 不得 import／呼叫 `analysis.stage5c_e5_budget`，並須有拒絕未授權 allocation 的回歸 | `OPEN` |
 | 11 | exhaustive decision table | §6–§7 與 runner state machine逐列一致 | `DRAFT` |
 | 12 | independent review／CI／merge | review record＋green CI＋main commit | `OPEN` |
 
