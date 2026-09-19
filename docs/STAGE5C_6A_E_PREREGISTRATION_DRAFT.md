@@ -337,6 +337,11 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 | 11 | exhaustive decision table | §6–§7 與 runner state machine逐列一致 | `DRAFT` |
 | 12 | independent review／CI／merge | review record＋green CI＋main commit | `OPEN` |
 
+Item 8 的部分交付提案見 `STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md`：七個具名 regions
+與 lineage-wide 名目預算／successor reserve 已有可審查的精確公式；E1 positive-gap
+model、所有 CLEAN numerical caps 與 finite-cohort E3／null power 所需假設仍未證成，
+因此不能填寫 $\ge0.90$ 的 cohort floors，本列仍為 `OPEN`。
+
 Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistration frozen」。** 若只完成
 部分列，STATUS 必須逐列保留 `PENDING`，不得以百分比或「接近完成」暗示執行授權。
 item 11 依定義必須與 item 10 的實際 runner state machine 逐列比對；item 10 尚為 `OPEN` 時，
