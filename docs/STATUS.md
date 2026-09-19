@@ -86,6 +86,12 @@
 | **Stage 5C §1.4 fork-B invariant algebra** | **【已確認／完整生成與 relation ideal 已交付；後續 primary 已選】** | torus 半群 Hilbert basis 為 $u=|b|^2,v=|c|^2,W=bc,\bar W$，其 toric kernel 唯一關係 $uv=W\bar W$。取 swap 後，完整 complexified-real ring 由 $A,P,W,S,Q,R$ 及共軛生成；$Q$ 對 ring generation 必要、對點值 separation 不必要。final presentation 有六條 second-Veronese minors；上游 $uv=W\bar W$ 已在消去 $u,v$ 時吸收。625 點結構化格點的正確 unordered-pair 計數為全純 2950／跨完整 orbit 1000，實族 1950／跨完整 orbit 0；此只作 regression，不代替全域解析證明。E3 承重 primary 必須含實不變量；後續二維 endpoint 已符合此限制，但不倒推本文件曾選定它。 | `docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md`, `docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`, `tests/test_stage5c_invariant_algebra.py` |
 | **Stage 5C C3b blind-variety distance form** | **【已確認之 evaluator form／尚未 freeze】** | C3b 拆為兩個互不替代的必要軸：(i) program／source／capability preflight；(ii) value-level rank-one Segre blind variety $\mathcal B_1=\{A\otimes f\}$ 的 weighted Frobenius distance。把 $K$ 寫成 $4\times D$ 後，Eckart–Young 給 $d_{\mathcal B_1}^2=\sum_{i\ge2}\sigma_i^2$ 與 $\rho=d/\|K\|_w$；sharp 上界為 $\sqrt{1-1/\min(4,D)}$，不是固定 $\sqrt3/2$。row-major fiber action 是 $B\otimes\bar B$；pair columns 與 weights 必須共置換。精確 $K=0$ 因位於 $\mathcal B_1$ 直接 C3b FAIL；近零才可依事前 scale-aware nontriviality gate 記 INCONCLUSIVE。此 form 只排除 rank-one value degeneracy；rank $>1$ 不證明程式使用 sector，故 source audit 與 C4 仍獨立承重。具體 domain／weights、capability schema、effect-size／noise／continuum calibration 尚未固定，Freeze-1a 維持 PENDING。未設計候選 $K$。 | `docs/STAGE5C_C3B_BLIND_DISTANCE.md`, `analysis/stage5c_blind_distance.py`, `tests/test_stage5c_blind_distance.py` |
 
+Item 8 的部分審計提案已具名列出七個 regions 與不可回收的 lineage／successor
+名目預算；`docs/STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md` 另給出不讀 arm data 的
+power 充分條件與兩個反例。E1 缺 positive-gap effect model，E2 CLEAN numerical
+half-width 缺小於等效 margin 的統一上界，且 E3 finite-cohort effect／null model
+尚待證成；item 8 仍 `OPEN`，不得把此提案解讀成 power $\ge0.90$ 或執行授權。
+
 ---
 
 ## 3. 模型演進歷史對照表
@@ -225,6 +231,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.78（審查提案，2026-09-19）- 在 PR #31 closeout 合併後，item 8 提議七個 region 的 exact-rational lineage spending／幾何 successor reserve 與不讀 arm data 的 power feasibility audit；E1 effect gap、E2 numerical cap、E3 finite-cohort model 尚缺，故 item 8 仍 OPEN，6a-E execution firewall 仍生效。*
 *v1.77 (2026-09-19) - PR #30 最終 head `2d7f20e` 經 Claude 獨立抓取並與 main 完整樹比對，確認封存後改寫、聚合前 row seal 重驗、Student 臨界值 interval 上界三組修正且給予 GO；CI #126 通過（345 passed／5 個既有 warnings），exact-head automated review 未發現 major issues，19 條 inline threads 已全部 resolved，expected-head squash-merge 為 main `f9c3a505`。本 state-only closeout 將 closure items 4／5 從 `REVIEW-PENDING` 記為 `CLOSED`，連同 E3 statistical-region 子項；不改實作、統計公式、數值常數、manifest、registry 或 ledger。items 8–10、12 維持 `OPEN`、item 11 維持 `DRAFT`，6a-E 仍 `PREREGISTRATION-INCOMPLETE`，D.1 第 3 項／Freeze-1a 仍 PENDING；未生成 seed、未開 arm ledger、未形成 arm endpoint、未觸及候選 $K$。*
 *v1.76 (2026-09-19) - PR #30 head `bcdaba09` 自動審查提出一個 post-adapter row 改寫 P1，已在 `c49a0883` 的 matched-error 聚合入口重驗全 pool rows；CI #125 成功（341 passed／5 warnings）。該 exact-head 自動審查另發現 Student 臨界值 `t.ppf(1-alpha/(2p))` 的 binary64 tail probability 可能向下捨入、分位數亦無向上保證，可在嚴格判決邊界造成過窄 region。現在以 interval Student tail 遞推對輸入 binary64 alpha 的 exact-dyadic target 驗證 critical 向上 enclosure，無法驗證就 fail closed；增加 near-boundary alpha／不同 df 的高精度回歸。items 4／5 仍 `REVIEW-PENDING`，等待新 head 的獨立複核／CI／automated review；正式 custody item 9 與 multiplicity item 8 仍 `OPEN`，6a-E `PREREGISTRATION-INCOMPLETE`；未生成 seed、未開 arm ledger、未形成 arm endpoint、未觸及候選 $K$。*
 *v1.75 (2026-09-19) - PR #30 head `0b5f6437` 的 CI #123 成功（338 passed／5 warnings），但 exact-head automated review 再提出四個 P1：聚合器會接受手造或被改寫的 joint law；numerical width、region input、certification result 的 token 不綁定完整 payload，可在產生後被 `object.__setattr__` 更換 radius、估計量、endpoint error。現將各 producer 的完整承重資料封入指紋並在每次消費前核對；聚合器拒絕非 `form_joint_matched_law` 所產生的 law。另於 pool 建立後、matched-error 聚合消費前重驗每個 row，封住 postproduction 誤差縮小路徑。增加 forged-law 與封存後改寫回歸，保留 items 4／5 `REVIEW-PENDING`；仍待新 exact-head 獨立 review、CI 和 automated review。items 8–10、12 `OPEN`、item 11 `DRAFT`，6a-E `PREREGISTRATION-INCOMPLETE`；未生成 seed、未開 arm ledger、未形成 arm endpoint、未觸及候選 $K$。*
