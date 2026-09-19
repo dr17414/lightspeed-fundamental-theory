@@ -118,6 +118,9 @@ $M$ 都在 exact rational 中完成，最後才作一次 directed-upward binary6
 不進入此式。cubature solver 自報的 estimated error 或任何 diagnostic 不得升格成
 $h^{\rm num}$。
 
+`aggregate_matched_numerical_half_width` 在實際選取 matched rows 前再次驗證每個 pool 的全部
+rows 與 producer seal，避免 pool 建立後才被替換的 endpoint error 縮小 radius。
+
 聚合結果不是裸 vector，而是 opaque、aggregation-only 的 `ValidatedNumericalHalfWidth`；其
 公開 constructor 不可用，只有 matched aggregation 能以 module-private producer token 建立。
 其 `values` 採獨立 bytes-backed buffer，不能透過 `setflags(write=True)` 改小 radius。

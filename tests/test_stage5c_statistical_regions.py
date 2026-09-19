@@ -380,6 +380,16 @@ def test_certified_pool_rejects_postproduction_shrunk_endpoint_error():
     with pytest.raises(RegionProtocolError, match="emitted by the item-3 certifier"):
         CertifiedEndpointPool(rows=(result,))
 
+    ensemble, left_pools, right_pools = _synthetic_ensemble(
+        [0.2, 0.0], np.diag([1.0e-8, 1.0e-8]), E1_ARM_NAMES,
+        (192,) * MIN_INDEPENDENT_COHORTS, error=1.0e-7,
+    )
+    row = left_pools[0].rows[0]
+    assert row.producer_authenticated
+    object.__setattr__(row, "endpoint_error", np.zeros(2))
+    with pytest.raises(RegionProtocolError, match="emitted by the item-3 certifier"):
+        aggregate_matched_numerical_half_width(ensemble, left_pools, right_pools)
+
 
 def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():
     no_numerical = _region([0.2, 0.0])

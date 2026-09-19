@@ -1019,6 +1019,10 @@ def aggregate_matched_numerical_half_width(
             raise RegionProtocolError(
                 "endpoint pools must use the typed CertifiedEndpointPool adapter"
             )
+        # The pool may have been mutated since its constructor verified rows.
+        # Recheck all row seals and provenance before selecting endpoint errors.
+        CertifiedEndpointPool.__post_init__(left_pool)
+        CertifiedEndpointPool.__post_init__(right_pool)
         if left_pool.arm_name != law.arm_names[0] or right_pool.arm_name != law.arm_names[1]:
             raise RegionProtocolError("certified endpoint-pool arm identity mismatch")
         if (
