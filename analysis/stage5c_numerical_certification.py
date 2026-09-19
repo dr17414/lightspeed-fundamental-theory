@@ -39,6 +39,9 @@ def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
     return np.frombuffer(array.tobytes(order="C"), dtype=dtype).reshape(array.shape)
 
 
+RATIO_ERROR_FACTORS = _immutable_array(RATIO_ERROR_FACTORS, np.dtype("<f8"))
+
+
 class CertificationStatus(str, Enum):
     CLEAN = "CLEAN"
     INCONCLUSIVE = "INCONCLUSIVE"

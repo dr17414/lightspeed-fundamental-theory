@@ -12,7 +12,7 @@ boundaries, and strict boundary semantics are fixed here.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
 from hashlib import sha256
@@ -42,6 +42,7 @@ NUMERICAL_PROPAGATION_ID = "stage5c-6a-e-matched-endpoint-error-propagation-v0.1
 ENSEMBLE_FINGERPRINT_ID = "stage5c-6a-e-matched-ensemble-sha256-v0.1"
 _NUMERICAL_WIDTH_PRODUCER_TOKEN = object()
 _REGION_INPUT_PRODUCER_TOKEN = object()
+_REGION_RESULT_PRODUCER_TOKEN = object()
 
 
 def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
@@ -54,15 +55,15 @@ def _immutable_array(value: np.ndarray, dtype: np.dtype) -> np.ndarray:
 # The first primary component has sharp range [-1, 2], while the second has
 # sharp range [0, 1].  Dividing by these widths gives each coordinate one unit
 # of full-domain scale without using an observed covariance or direction.
-ENDPOINT_RANGE_WIDTHS = np.asarray([3.0, 1.0])
-ENDPOINT_RANGE_WIDTHS.setflags(write=False)
+ENDPOINT_RANGE_WIDTHS = _immutable_array(np.asarray([3.0, 1.0]), np.dtype("<f8"))
 
 # A 1/20 full-range dead zone is a declared candidate-independent evaluator
 # convention.  E1 must clear the closed box and E2 must lie strictly inside
 # its open interior.  Equality always fails.
 JOINT_EFFECT_FLOOR = 1.0 / 20.0
-EQUIVALENCE_MARGIN = np.asarray([JOINT_EFFECT_FLOOR, JOINT_EFFECT_FLOOR])
-EQUIVALENCE_MARGIN.setflags(write=False)
+EQUIVALENCE_MARGIN = _immutable_array(
+    np.asarray([JOINT_EFFECT_FLOOR, JOINT_EFFECT_FLOOR]), np.dtype("<f8")
+)
 
 # Item 2 calibrated the matched-cohort reference law at B=32.  Smaller B is
 # not allowed to form a scientific region.  Item 8 may impose a larger power-
@@ -542,6 +543,8 @@ class StatisticalRegionInput:
     def from_ensemble(cls, ensemble: MatchedLawEnsemble) -> StatisticalRegionInput:
         if not isinstance(ensemble, MatchedLawEnsemble):
             raise RegionProtocolError("region input must come from MatchedLawEnsemble")
+        if not ensemble.producer_authenticated:
+            raise RegionProtocolError("matched ensemble must be produced by item-2 aggregation")
         if ensemble.law_id != JOINT_MATCHED_LAW_ID:
             raise RegionProtocolError("ensemble does not use the frozen matched-law identity")
         if len(ensemble.laws) != ensemble.independent_clusters:
@@ -608,10 +611,44 @@ class RegionBuildResult:
     status: RegionStatus
     reason: RegionReason
     region: SimultaneousRectangle | None
+    _producer_token: object | None = field(default=None, init=False, repr=False, compare=False)
+    _producer_fingerprint: str | None = field(default=None, init=False, repr=False, compare=False)
 
     @property
     def clean(self) -> bool:
         return self.status is RegionStatus.CLEAN and self.region is not None
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if not self.clean or self._producer_token is not _REGION_RESULT_PRODUCER_TOKEN:
+            return False
+        return self._producer_fingerprint == _region_payload_fingerprint(self.region)
+
+
+def _region_payload_fingerprint(region: SimultaneousRectangle) -> str:
+    digest = sha256()
+    for name in (
+        "estimate", "lower", "upper", "normalized_lower", "normalized_upper",
+        "standard_error", "statistical_half_width", "numerical_half_width",
+    ):
+        digest.update(name.encode("ascii"))
+        digest.update(np.ascontiguousarray(getattr(region, name), dtype="<f8").tobytes())
+    for name in ("local_alpha", "critical_value", "reference_df", "arm_names", "region_id"):
+        digest.update(name.encode("ascii"))
+        digest.update(repr(getattr(region, name)).encode("utf-8"))
+    return digest.hexdigest()
+
+
+def _seal_clean_region_result(
+    result: RegionBuildResult, *, producer_token: object
+) -> RegionBuildResult:
+    if producer_token is not _REGION_RESULT_PRODUCER_TOKEN:
+        raise RegionProtocolError("CLEAN region requires builder production")
+    if not result.clean:
+        raise RegionProtocolError("only CLEAN built regions may be sealed")
+    object.__setattr__(result, "_producer_fingerprint", _region_payload_fingerprint(result.region))
+    object.__setattr__(result, "_producer_token", producer_token)
+    return result
 
 
 @dataclass(frozen=True)
@@ -903,7 +940,10 @@ def build_simultaneous_region(
         reference_df=reference_df,
         arm_names=inputs.arm_names,
     )
-    return RegionBuildResult(RegionStatus.CLEAN, RegionReason.CERTIFIED, region)
+    return _seal_clean_region_result(
+        RegionBuildResult(RegionStatus.CLEAN, RegionReason.CERTIFIED, region),
+        producer_token=_REGION_RESULT_PRODUCER_TOKEN,
+    )
 
 
 def aggregate_matched_numerical_half_width(
@@ -1039,6 +1079,8 @@ def evaluate_e1(result: RegionBuildResult) -> ScientificGateReport:
     claim_id = "E1:T-plus-minus-T-minus"
     if not result.clean:
         return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
     region = result.region
     assert region is not None
     if region.arm_names != E1_ARM_NAMES:
@@ -1065,6 +1107,8 @@ def evaluate_e2(result: RegionBuildResult, target: E2Target) -> ScientificGateRe
     claim_id = f"E2:{target.value}-null-equivalence"
     if not result.clean:
         return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
     region = result.region
     assert region is not None
     expected_names = (
@@ -1125,6 +1169,8 @@ def evaluate_e3(result: RegionBuildResult, claim: E3Claim) -> ScientificGateRepo
     claim_id = f"E3:{claim.value}"
     if not result.clean:
         return _not_evaluated(claim_id, result)
+    if not result.producer_authenticated:
+        raise RegionProtocolError("CLEAN region must be emitted by the builder")
     region = result.region
     assert region is not None
     rule = _E3_RULES[claim]

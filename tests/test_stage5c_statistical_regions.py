@@ -7,7 +7,13 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from analysis.stage5c_joint_matched_law import JOINT_MATCHED_LAW_ID, MatchedLawEnsemble
+from analysis.stage5c_joint_matched_law import (
+    JOINT_MATCHED_LAW_ID,
+    MatchedLawEnsemble,
+    _ENSEMBLE_PRODUCER_TOKEN,
+    _seal_aggregated_ensemble,
+    aggregate_joint_matched_laws,
+)
 from analysis.stage5c_numerical_certification import (
     CertificationProtocolError,
     CertificationReason,
@@ -17,6 +23,7 @@ from analysis.stage5c_numerical_certification import (
     EndpointCertificationSourceRow,
     ErrorBudget,
     ImplementationEstimate,
+    RATIO_ERROR_FACTORS,
     bind_endpoint_certification_rows,
     certify_pairing,
 )
@@ -30,6 +37,7 @@ from analysis.stage5c_statistical_regions import (
     EQUIVALENCE_MARGIN,
     JOINT_EFFECT_FLOOR,
     MIN_INDEPENDENT_COHORTS,
+    RegionBuildResult,
     E2Target,
     E3Claim,
     RegionProtocolError,
@@ -39,6 +47,8 @@ from analysis.stage5c_statistical_regions import (
     StatisticalRegionInput,
     ValidatedNumericalHalfWidth,
     _exact_matched_error_radius,
+    _REGION_RESULT_PRODUCER_TOKEN,
+    _seal_clean_region_result,
     aggregate_matched_numerical_half_width,
     build_simultaneous_region,
     df_only_reference_oracle,
@@ -67,6 +77,23 @@ def _implementation(error, identity):
         np.diag([4.0, 1.0]),
         ErrorBudget(error, 0.0, 0.0, 0.0, 0.0, 1),
         identity,
+    )
+
+
+def _fixture_ensemble(**kwargs):
+    # Test-only synthetic aggregate: boundary tests vary estimate/covariance
+    # independently of their deliberately repeated endpoint rows.
+    return _seal_aggregated_ensemble(
+        MatchedLawEnsemble(**kwargs), producer_token=_ENSEMBLE_PRODUCER_TOKEN
+    )
+
+
+def _boundary_case(result, **replacement):
+    # Test-only exact-equality probe for gates. Production results are sealed
+    # only inside build_simultaneous_region.
+    return _seal_clean_region_result(
+        replace(result, region=replace(result.region, **replacement)),
+        producer_token=_REGION_RESULT_PRODUCER_TOKEN,
     )
 
 
@@ -163,7 +190,7 @@ def _synthetic_ensemble(
         )
         left_pools.append(left_pool)
         right_pools.append(right_pool)
-    ensemble = MatchedLawEnsemble(
+    ensemble = _fixture_ensemble(
         laws=tuple(laws),
         delta_mean=np.asarray(estimate, dtype=float),
         delta_mean_covariance=np.asarray(covariance, dtype=float),
@@ -239,7 +266,7 @@ def test_region_input_adapter_preserves_frozen_matched_law_provenance():
         )
         for cohort_index in range(MIN_INDEPENDENT_COHORTS)
     )
-    ensemble = MatchedLawEnsemble(
+    ensemble = _fixture_ensemble(
         laws=laws,
         delta_mean=np.asarray([0.2, 0.01]),
         delta_mean_covariance=np.diag([1.0e-4, 2.0e-4]),
@@ -253,6 +280,49 @@ def test_region_input_adapter_preserves_frozen_matched_law_provenance():
     assert not inputs.estimate.flags.writeable
     assert not inputs.mean_covariance.flags.writeable
     assert len(inputs.source_ensemble_fingerprint) == 64
+
+
+def test_region_adapter_requires_item2_producer_and_fresh_aggregate_payload():
+    laws = tuple(
+        SimpleNamespace(
+            matched_pairs=192,
+            arm_names=E1_ARM_NAMES,
+            law_id=JOINT_MATCHED_LAW_ID,
+            matching=SimpleNamespace(
+                pool_identity=f"produced-pool-{index}",
+                calibration_identity=f"produced-calibration-{index}",
+                result=SimpleNamespace(
+                    left_indices=np.arange(192), right_indices=np.arange(192)
+                ),
+            ),
+            left=np.full((192, 2), (0.1 + index * 0.01, 0.0)),
+            right=np.zeros((192, 2)),
+            delta=np.full((192, 2), (0.1 + index * 0.01, 0.0)),
+        )
+        for index in range(2)
+    )
+    forged = MatchedLawEnsemble(
+        laws=laws,
+        delta_mean=np.array([100.0, 0.0]),
+        delta_mean_covariance=np.eye(2),
+        total_pairs=384,
+        independent_clusters=2,
+    )
+    with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
+        StatisticalRegionInput.from_ensemble(forged)
+    with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
+        aggregate_matched_numerical_half_width(forged, (), ())
+
+    produced = aggregate_joint_matched_laws(laws)
+    assert produced.producer_authenticated
+    assert np.allclose(StatisticalRegionInput.from_ensemble(produced).estimate, [0.105, 0.0])
+    object.__setattr__(produced, "delta_mean", np.array([100.0, 0.0]))
+    with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
+        StatisticalRegionInput.from_ensemble(produced)
+    produced = aggregate_joint_matched_laws(laws)
+    produced.laws[0].left[0, 0] = 9.0
+    with pytest.raises(RegionProtocolError, match="item-2 aggregation"):
+        StatisticalRegionInput.from_ensemble(produced)
 
 
 def test_region_uses_cluster_df_bonferroni_and_adds_numerical_error():
@@ -320,7 +390,7 @@ def test_item3_endpoint_errors_follow_match_indices_and_total_pair_weights():
             matchings, left_pools, right_pools, strict=True
         )
     )
-    ensemble = MatchedLawEnsemble(
+    ensemble = _fixture_ensemble(
         laws=laws,
         delta_mean=np.zeros(2),
         delta_mean_covariance=np.eye(2),
@@ -378,7 +448,7 @@ def test_item3_error_propagation_rejects_malformed_matched_indices():
         )
         for _ in range(2)
     )
-    ensemble = MatchedLawEnsemble(
+    ensemble = _fixture_ensemble(
         laws=laws,
         delta_mean=np.zeros(2),
         delta_mean_covariance=np.eye(2),
@@ -599,6 +669,42 @@ def test_clean_region_bounds_cannot_be_rewritten_before_scientific_gates():
         evaluate_e3(e3_result, E3Claim.CORRECT_VS_WRONG_SUPPORT).verdict
         is ScientificVerdict.FAIL
     )
+    for constant in (ENDPOINT_RANGE_WIDTHS, EQUIVALENCE_MARGIN, RATIO_ERROR_FACTORS):
+        with pytest.raises(ValueError):
+            constant.setflags(write=True)
+
+
+def test_scientific_gates_reject_handmade_or_modified_clean_region():
+    e1 = _region([0.0, 0.0])
+    forged_e1 = RegionBuildResult(
+        RegionStatus.CLEAN,
+        RegionReason.CERTIFIED,
+        replace(e1.region, normalized_lower=np.array([1.0, 0.0])),
+    )
+    with pytest.raises(RegionProtocolError, match="emitted by the builder"):
+        evaluate_e1(forged_e1)
+    object.__setattr__(e1, "region", forged_e1.region)
+    with pytest.raises(RegionProtocolError, match="emitted by the builder"):
+        evaluate_e1(e1)
+
+    e2 = _region([0.2, 0.0], arm_names=E2_PLUS_ARM_NAMES)
+    forged_e2 = RegionBuildResult(
+        RegionStatus.CLEAN,
+        RegionReason.CERTIFIED,
+        replace(e2.region, normalized_lower=np.array([-0.01, -0.01]),
+                normalized_upper=np.array([0.01, 0.01])),
+    )
+    with pytest.raises(RegionProtocolError, match="emitted by the builder"):
+        evaluate_e2(forged_e2, E2Target.PLUS)
+
+    e3 = _region([0.0, 0.0], arm_names=("correct-support", "wrong-support"))
+    forged_e3 = RegionBuildResult(
+        RegionStatus.CLEAN,
+        RegionReason.CERTIFIED,
+        replace(e3.region, lower=np.array([1.0, 0.0]), upper=np.array([2.0, 0.1])),
+    )
+    with pytest.raises(RegionProtocolError, match="emitted by the builder"):
+        evaluate_e3(forged_e3, E3Claim.CORRECT_VS_WRONG_SUPPORT)
 
 
 def test_item3_error_pool_must_match_joint_law_pool_arm_and_endpoint_rows():
@@ -619,7 +725,7 @@ def test_item3_error_pool_must_match_joint_law_pool_arm_and_endpoint_rows():
         left=endpoints,
         right=endpoints,
     )
-    ensemble = MatchedLawEnsemble(
+    ensemble = _fixture_ensemble(
         laws=(law, law),
         delta_mean=np.zeros(2),
         delta_mean_covariance=np.eye(2),
@@ -632,7 +738,7 @@ def test_item3_error_pool_must_match_joint_law_pool_arm_and_endpoint_rows():
             ensemble, (wrong_pool, wrong_pool), (right, right)
         )
     wrong_endpoint_law = SimpleNamespace(**{**law.__dict__, "left": endpoints + 0.01})
-    wrong_endpoint_ensemble = MatchedLawEnsemble(
+    wrong_endpoint_ensemble = _fixture_ensemble(
         laws=(wrong_endpoint_law, wrong_endpoint_law),
         delta_mean=np.zeros(2),
         delta_mean_covariance=np.eye(2),
@@ -777,13 +883,10 @@ def test_e1_requires_the_entire_region_to_clear_the_closed_effect_box():
     )
     assert evaluate_e1(_region(passing_mean)).verdict is ScientificVerdict.PASS
     equality = _region(equality_mean)
-    equality = replace(
+    equality = _boundary_case(
         equality,
-        region=replace(
-            equality.region,
-            normalized_lower=np.asarray(
-                [JOINT_EFFECT_FLOOR, equality.region.normalized_lower[1]]
-            ),
+        normalized_lower=np.asarray(
+            [JOINT_EFFECT_FLOOR, equality.region.normalized_lower[1]]
         ),
     )
     assert equality.region.normalized_lower[0] == JOINT_EFFECT_FLOOR
@@ -827,13 +930,10 @@ def test_e2_requires_both_null_regions_strictly_inside_open_margin(target, arm_n
         [EQUIVALENCE_MARGIN[0] * ENDPOINT_RANGE_WIDTHS[0] - half_width[0], 0.0]
     )
     equality = _region(equality_mean, arm_names=arm_names)
-    equality = replace(
+    equality = _boundary_case(
         equality,
-        region=replace(
-            equality.region,
-            normalized_upper=np.asarray(
-                [EQUIVALENCE_MARGIN[0], equality.region.normalized_upper[1]]
-            ),
+        normalized_upper=np.asarray(
+            [EQUIVALENCE_MARGIN[0], equality.region.normalized_upper[1]]
         ),
     )
     assert equality.region.normalized_upper[0] == EQUIVALENCE_MARGIN[0]
@@ -881,13 +981,10 @@ def test_e3_does_not_allow_arm_relabel_or_component_boundary_equality():
         equality_mean,
         arm_names=("correct-support", "wrong-support"),
     )
-    equality = replace(
+    equality = _boundary_case(
         equality,
-        region=replace(
-            equality.region,
-            lower=np.asarray(
-                [E3_WRONG_SUPPORT_EFFECT_FLOOR, equality.region.lower[1]]
-            ),
+        lower=np.asarray(
+            [E3_WRONG_SUPPORT_EFFECT_FLOOR, equality.region.lower[1]]
         ),
     )
     assert equality.region.lower[0] == E3_WRONG_SUPPORT_EFFECT_FLOOR

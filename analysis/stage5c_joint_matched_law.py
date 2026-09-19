@@ -7,7 +7,7 @@ forms a candidate kernel, or chooses an E1/E2 scientific region.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from hashlib import sha256
 
@@ -29,6 +29,7 @@ from analysis.stage5c_hard_controls import (
 
 
 JOINT_MATCHED_LAW_ID = "stage5c-6a-e-joint-matched-law-v0.1"
+_ENSEMBLE_PRODUCER_TOKEN = object()
 GENERATOR_SOURCE_ID = "stage5c-hard-controls-sprinkle-control-p-theta-v0.1"
 MATCHER_SOURCE_ID = "stage5c-hard-controls-c8.1-matcher-v0.1"
 PAIRED_COVARIANCE_ID = "stage5c-paired-delta-covariance-ddof1-v0.1"
@@ -137,6 +138,67 @@ class MatchedLawEnsemble:
     total_pairs: int
     independent_clusters: int
     law_id: str = JOINT_MATCHED_LAW_ID
+    _producer_token: object | None = field(default=None, init=False, repr=False, compare=False)
+    _producer_fingerprint: str | None = field(default=None, init=False, repr=False, compare=False)
+
+    @property
+    def producer_authenticated(self) -> bool:
+        if self._producer_token is not _ENSEMBLE_PRODUCER_TOKEN:
+            return False
+        try:
+            return self._producer_fingerprint == _ensemble_payload_fingerprint(self)
+        except (AttributeError, TypeError, ValueError):
+            return False
+
+
+def _ensemble_payload_fingerprint(ensemble: MatchedLawEnsemble) -> str:
+    """Bind the item-2 aggregate and every source law at production time."""
+
+    digest = sha256()
+
+    def add(label: str, payload: bytes) -> None:
+        name = label.encode("utf-8")
+        digest.update(len(name).to_bytes(4, "big"))
+        digest.update(name)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+
+    def array(label: str, value: np.ndarray, dtype: str) -> None:
+        item = np.ascontiguousarray(value, dtype=dtype)
+        add(f"{label}.shape", repr(item.shape).encode("ascii"))
+        add(f"{label}.bytes", item.tobytes(order="C"))
+
+    add("schema", b"stage5c-item2-produced-ensemble-v0.1")
+    add("law_id", ensemble.law_id.encode("utf-8"))
+    add("total_pairs", str(ensemble.total_pairs).encode("ascii"))
+    add("independent_clusters", str(ensemble.independent_clusters).encode("ascii"))
+    array("delta_mean", ensemble.delta_mean, "<f8")
+    array("delta_mean_covariance", ensemble.delta_mean_covariance, "<f8")
+    for index, law in enumerate(ensemble.laws):
+        prefix = f"law.{index}"
+        add(f"{prefix}.id", law.law_id.encode("utf-8"))
+        add(f"{prefix}.arms", repr(law.arm_names).encode("utf-8"))
+        add(f"{prefix}.pairs", str(law.matched_pairs).encode("ascii"))
+        add(f"{prefix}.pool", law.matching.pool_identity.encode("utf-8"))
+        add(f"{prefix}.calibration", law.matching.calibration_identity.encode("utf-8"))
+        array(f"{prefix}.left", law.left, "<f8")
+        array(f"{prefix}.right", law.right, "<f8")
+        if hasattr(law, "delta"):
+            array(f"{prefix}.delta", law.delta, "<f8")
+        if law.matching.result is not None:
+            array(f"{prefix}.left_indices", law.matching.result.left_indices, "<i8")
+            array(f"{prefix}.right_indices", law.matching.result.right_indices, "<i8")
+    return digest.hexdigest()
+
+
+def _seal_aggregated_ensemble(
+    ensemble: MatchedLawEnsemble, *, producer_token: object
+) -> MatchedLawEnsemble:
+    if producer_token is not _ENSEMBLE_PRODUCER_TOKEN:
+        raise JointLawProtocolError("matched ensemble requires item-2 producer")
+    object.__setattr__(ensemble, "_producer_fingerprint", _ensemble_payload_fingerprint(ensemble))
+    object.__setattr__(ensemble, "_producer_token", producer_token)
+    return ensemble
 
 
 @dataclass(frozen=True)
@@ -421,13 +483,13 @@ def aggregate_joint_matched_laws(
         / (cluster_count - 1)
         * (cluster_scores.T @ cluster_scores)
     )
-    return MatchedLawEnsemble(
+    return _seal_aggregated_ensemble(MatchedLawEnsemble(
         laws=laws,
         delta_mean=_readonly(delta_mean),
         delta_mean_covariance=_readonly(mean_covariance),
         total_pairs=total_pairs,
         independent_clusters=cluster_count,
-    )
+    ), producer_token=_ENSEMBLE_PRODUCER_TOKEN)
 
 
 def planted_joint_covariance(arm_correlation: float) -> np.ndarray:

@@ -158,6 +158,7 @@ provenance 封入 result producer seal。implementation matrices 與輸出 endpo
 只從這些 sealed results 推導 arm／pool／row identity，不接受事後 relabel。這個 provenance
 binding 不改式 (6) 的 error calculus，也不使未 clean 的 result 可形成 endpoint；item 9
 仍須把 pool-binding 呼叫的 identity 與正式 custody manifest 鎖定。
+式 (6) 使用的 `RATIO_ERROR_FACTORS` 常數亦封存為不可重新啟用寫入的 buffer。
 
 ---
 
