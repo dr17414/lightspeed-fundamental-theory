@@ -129,7 +129,9 @@ E3 continuum planted algebra 的 $1/5$ 與 $g_*$ 是解析 control gap，
 $(u_x,v_x,u_y,v_y)=(0.55,0.55,0.45,0.45)$、權重 1、$\theta=+0.4$。
 此 atom 嚴格在 unit box／causal pair domain 內；item 7 的 fixed-scale E4
 雙 implementation、cell enclosure、leakage 與 item 3 producer-sealed certification
-全走正式計算路徑。box／causal retained mass 分別約為 $1$／$0.7587$；
+全走正式計算路徑。兩路 live estimates 另綁為只有 audit identity 的單筆
+`EndpointCertificationSourceRow` 並重新認證，誤差逐位元相同，無正式 arm pool。
+box／causal retained mass 分別約為 $1$／$0.7587$；
 E4 與 certification 都是 `CLEAN`，$L\approx2.74169>0$，但該單列的
 endpoint-error normalized 上界約為 $(0.08454,0.10145)$，**兩座標皆超過
 E2 的 $1/20$ margin**。這是 candidate-independent planted input，沒有正式
@@ -140,10 +142,13 @@ arm identity、seed、matching 或 arm endpoint；單列反例只推翻「所有
 producer-bound、normalized 計算、拒絕理由、evaluation 時序與資源上限；本反例
 證明它必排除至少一部分原本 `CLEAN` 的 item-7 合規輸入。
 設 $C$ 為完整 split 的 certification／cap／cohort preconditions 全通過事件，
-則 $\Pr(\mathrm{E2\ PASS})\le\Pr(C)$；因此單有「在 $C$ 上半寬小於
+則 $\Pr(\mathrm{E2\ PASS})=\Pr(C)\Pr(\mathrm{E2\ PASS}\mid C)
+\le\Pr(C)$；因此單有「在 $C$ 上半寬小於
 margin」**不能**推出完整 split 的 power $\ge0.90$。還須獨立證明
 $\Pr(C)$ 的下界，以及受 matching／cap conditioning 後的 null 均值與
-cohort distribution；否則 §3 的 Hoeffding floor 只屬條件性算式。
+cohort distribution，且兩項機率下界的乘積須 $\ge0.90$；各自
+$\ge0.90$ 僅保證乘積 $\ge0.81$。否則 §3 的 Hoeffding floor
+只屬條件性算式。
 本交付不選擇 $\eta_k$、不把已形成 region 的邊界 `FAIL` 改寫成
 `INCONCLUSIVE`，也不從單一 planted witness 推估 $\Pr(C)$。
 

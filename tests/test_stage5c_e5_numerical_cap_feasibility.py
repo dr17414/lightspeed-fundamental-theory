@@ -3,7 +3,11 @@
 import numpy as np
 
 from analysis.stage5c_e4_wellposedness import E4Status, evaluate_e4_wellposedness
-from analysis.stage5c_numerical_certification import CertificationStatus
+from analysis.stage5c_numerical_certification import (
+    CertificationStatus,
+    bind_endpoint_certification_rows,
+    certify_pairing,
+)
 from analysis.stage5c_statistical_regions import (
     ENDPOINT_RANGE_WIDTHS,
     EQUIVALENCE_MARGIN,
@@ -24,7 +28,18 @@ def test_live_e4_clean_does_not_imply_e2_compatible_numerical_width():
     assert report.certification.producer_authenticated
     assert report.certification.endpoint_error is not None
 
-    # These are certified bounds, not observed arm effects.  Even one CLEAN
-    # source row cannot be assumed to satisfy a uniform per-row margin cap.
-    normalized_error = report.certification.endpoint_error / ENDPOINT_RANGE_WIDTHS
+    # Bind the two live estimates to one audit-only source row; the same large
+    # bound survives the exact row-provenance production route used by item 4.
+    source_row, = bind_endpoint_certification_rows(
+        (report.gauss,), (report.adaptive,),
+        arm_name="item8-falsifier-only", pool_identity="item8-no-formal-pool",
+    )
+    certified = certify_pairing(source_row)
+    assert certified.status is CertificationStatus.CLEAN
+    assert certified.producer_authenticated
+    assert certified.provenance is source_row.provenance
+    assert np.array_equal(certified.endpoint_error, report.certification.endpoint_error)
+
+    # These are certified error bounds, not observed scientific arm effects.
+    normalized_error = certified.endpoint_error / ENDPOINT_RANGE_WIDTHS
     assert np.all(normalized_error > EQUIVALENCE_MARGIN)
