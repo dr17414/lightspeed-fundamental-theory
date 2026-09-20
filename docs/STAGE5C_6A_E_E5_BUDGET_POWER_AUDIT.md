@@ -295,7 +295,16 @@ $\varphi=1$、$\mathcal N=|\Sigma|$，每個 causet **各自**正規化，
 正規化後才和 $1/20$ margin 比較。選取失敗、E4 非 `CLEAN`、
 item 3 非 `CLEAN` 或 E4 atom cap 不符時，為了機率計算記
 $e_{j,N,\theta}(U)=+\infty$。這是**未執行的數學推前映射**，
-不是一個 6a-E arm row 或 endpoint。它的 raw 單 causet tail 定義為
+不是一個 6a-E arm row 或 endpoint。
+
+item 7 的 `E4_MAX_ATOMS=8128=\binom{128}{2}`。因為每個 selector
+只選不重複的 strict causal ordered pairs，$|\Sigma_j(O(U))|\le\binom N2$；
+**$N\le128$ 是對所有 causet／member 保證不觸及 atom cap 的充分條件**。
+$N>128$ 並非一律拒絕：仍有 pair 數不超過 8128 的個別輸入；
+若要採用此範圍，必須把超額拒絕算進下述 tail 並另外審查資源。
+這個算術上界不自行凍結 6a-E 的 $N$，也不保證 selector 或 E4 `CLEAN`。
+
+raw 單 causet tail 定義為
 
 $$
 p_{j,N,\theta}(a)=
@@ -344,6 +353,73 @@ $h^{\rm num}/D$ 向上取界，並留足嚴格 $1/20$ boundary 的 rounding slac
 完整 $B$-cohort 成功率須在匹配、認證與 cap 的聯合律下
 另行界定；即便先取得這個數值門檻事件的下界，cap conditioning 後的
 null 均值、cohort 變異與 §3 的 power 仍需獨立證明。
+
+此界的主要鬆弛在「**全部 $2L$ 個 rows 均不超標**」這個充分條件，
+而不是稀有超標事件的 union bound 本身；matched errors 的平均值
+即使包含少數較大值，也可能落在 cap 內。若另行證明所有**已認證的**
+rows 有逐座標有限共同上界 $a_{\max}\ge a$，且 $k$ 定義為含至少一個
+超過 $a$ row 的 matched pairs 數，則在 matching `CLEAN`、全部 matched
+rows 認證成功的事件上可用
+$h^{\rm num}\le2a+(2k/M)(a_{\max}-a)$。對選取失敗或 E4／item 3
+非 `CLEAN` 而記為 $+\infty$ 的 rows，這個有限界**不能**套用；
+須另行控制失敗事件，亦不能改寫成一個可通過的 finite-error row。
+這只是候選改善方向，現無 $a_{\max}$、$k$ 的 law 或相應 cap。
+
+原界要有正的下界，至少需 $p_{j,N,\theta}(a)<\Pr(G)/(2L)$。
+例如僅以歷史 C8.4 的 $L=768$ 代入，且 $\Pr(G)\le1$，
+必要條件為 $p<1/1536\approx6.51\times10^{-4}$；這不是該
+benchmark 的實測 $p$。調大 $L$ 可能在某些設計改善 matching，
+同時也增大 $2Lp$ 罰項；$\Pr(G)$ 對 $L$ 的單調性並未證明，
+不得由單點 benchmark 斷言最適 $L$。用普通 iid Monte Carlo
+就算 $R=2048$ 且零次超標，單一 tail 的 99.9% 單側 exact
+binomial 上界仍是 $1-0.001^{1/2048}\approx0.00337$，
+無法使 $L=768$ 的此界非空；多個 member／threshold 的同時推論
+還會更難。因此在承諾大規模計算前，必須先審查所需精度與資源。
+
+#### 3.2.1 估計前的預登記閘門（尚未完成，不授權執行）
+
+若要以 hard-control Monte Carlo 而非可證的積分界填入上述未知量，
+須**在任何診斷輸入生成或 frozen E4 評估之前**另立已 review／merge 的
+audit-only 協定，逐項凍結：$j,N,\theta$ 全部 strata、每臂 raw
+evaluation／獨立 calibration pool 的 $L$、每 stratum 的 iid raw
+replications $R_p$ 與 full-split replications $R_G$、E4／matcher
+source digests、runtime 與資源停止條件、diagnostic seed 的來源／
+專用 namespace／與既 burned 及未來正式 seed ranges 的互斥證據。
+正式 6a-E 的 $N,L,B$、每個 claim/split 對應的 cohort 操作數 $H$
+與此 audit design 的關係亦須事前固定；
+diagnostic seeds 不得借名成為正式 arm streams，失敗或資源不足
+不得挑選有利 strata 重跑。
+
+同一協定還須**在看任何 $e(U)$、matching outcome 或 pilot diagnostics
+之前**固定一個有限、有序的 binary64 raw candidate grid $\mathcal A$
+（每座標經 item-4 outward normalization 後須與 $1/20$ 留有嚴格
+slack）、同時信賴額度 $\delta$、full-split numerical-success 目標
+$c$ 與 conditional-power 目標 $d$（要求 $c\,d\ge0.90$）。
+計數時每個失敗 producer 依本節 $+\infty$ 約定算超標，不丟掉失敗列；
+對每個 $a\in\mathcal A$ 與 stratum，以事前指定的 one-sided exact
+binomial／Clopper–Pearson 同時上界 $U_p(a)$，對 matching `CLEAN`
+以獨立完整 pool replications 的同時下界 $L_G$；各格與各
+strata 的 $\delta$ 分配須預先固定。對事前列出的每個 cohort 操作
+$h=1,\ldots,H$，令保守下界
+$q_h(a)=\max\{0,L_{G,h}-2L_hU_{p,h}(a)\}$。不需要 cohort 獨立性，
+union bound 即給整個 split 的 numerical-success 機率下界
+$1-\sum_{h=1}^H[1-q_h(a)]$（為負時截為零）。
+選擇規則是依**預先固定**的 grid 順序，取第一個在全部預定
+claim／split 均滿足 $\sum_h[1-q_h(a)]\le1-c$、normalized
+cap 的嚴格 slack 與預登記資源限制的 $a$；若不存在，紀錄
+`NO-FEASIBLE-CAP`，不得據結果延長 $R$、移動 grid／$L$／$N$、
+改變 $c,d,\delta$ 或轉而使用 seeded diagnostic 作正面 power 證據。
+即使有候選 $a$，仍須另證 cap-conditioned null law 與 $d$；
+映射規則本身不授權設定正式 $\eta$ 或 $B$。
+
+**本 PR 只預先規定協定必須具備的欄位與映射形式，沒有固定上述
+grid、$R_p,R_G,\delta,c,d$、seed bases 或資源上限，因此不是
+已完成的估計預登記，也沒有產生任何 Monte Carlo 結果。**
+可先用預先固定的真實 $r_{j,U}$ 診斷輸入做 candidate-independent
+可行性篩檢，但若事先沒有將其來源、輸出及隔離規則凍結，
+結果只能作不承重的探索；不能從診斷誤差反選 $a$，或以單個
+mixture 推斷 $p$。超出此協定的路徑只能版本化修訂、使用全新
+互斥的診斷 streams，並接受獨立複核。
 
 故第三條路徑的可審查下一步，是對**每個** $j,N,\theta$ 及預先固定的
 raw pool design，給出不讀 6a-S／6a-E arm data 的
