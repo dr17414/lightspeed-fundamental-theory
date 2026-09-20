@@ -2,6 +2,7 @@
 
 from contextlib import nullcontext
 from fractions import Fraction
+import json
 from types import SimpleNamespace
 
 import numpy as np
@@ -81,3 +82,40 @@ def test_absent_committed_authorization_rejects_before_generator(monkeypatch, tm
     with pytest.raises(screen.ScreenNotAuthorized, match="authorization is absent"):
         screen.run_screen(root, burn, report)
     assert not burn.exists() and not report.exists()
+
+
+@pytest.mark.parametrize("used", ("attestation", "burn_log", "report", "alternate"))
+def test_one_shot_custody_rejects_repeat_or_switched_paths_before_generator(
+    monkeypatch, tmp_path, used
+):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("generator must never be touched")
+
+    monkeypatch.setattr(screen, "sprinkle_control", forbidden)
+    # This stub reaches only the custody checks, ahead of frozen blob/runtime
+    # verification; it cannot authorize or simulate a real screen.
+    monkeypatch.setattr(
+        screen, "_git", lambda _root, *args: (
+            "main" if args[0] == "branch" else
+            screen.AUTHORIZATION if args[0] == "ls-files" else ""
+        ),
+    )
+    root = tmp_path / "repo"
+    (root / "docs").mkdir(parents=True)
+    burn, report = tmp_path / "fixed-burn.ndjson", tmp_path / "fixed-report.json"
+    auth = {
+        "state": "AUTHORIZED",
+        "output_paths": {"burn_log": str(burn), "report": str(report)},
+    }
+    (root / screen.AUTHORIZATION).write_text(json.dumps(auth))
+    if used == "attestation":
+        (root / screen.ATTESTATION).write_text("{}")
+    elif used == "burn_log":
+        burn.touch()
+    elif used == "report":
+        report.touch()
+    else:
+        burn = tmp_path / "switched-burn.ndjson"
+    with pytest.raises(screen.ScreenNotAuthorized, match="already|differs"):
+        screen.run_screen(root, burn, report)
+    assert not (tmp_path / "switched-burn.ndjson").exists()

@@ -46,6 +46,14 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
 runtime；來源、weight construction、座標排列及失敗 precedence
 須有不調用 generator 的 dry-run／sentinel regression。任何差異
 必須先修訂協定，不能現場修補或悄悄改用 planted mixture。
+授權紀錄須事前列明**兩個不可替換的 repo 外絕對路徑**
+`output_paths.burn_log`／`output_paths.report`；執行器拒絕任何
+CLI 指定的其他路徑，以及路徑已存在或 repo 內已有
+`docs/stage5c_e5_screen_attestation.json` 的情況。
+建立 burn log 時採獨占建立並同步檔案及父目錄；同一組
+診斷 seeds 從第一筆嘗試起即不可透過換路徑重跑。
+操作方須保全外部檔案；手動刪除／竄改該檔不屬於程式可證的
+one-shot 範圍，故事後 attestation 與 custody audit 仍是義務。
 依賴基線先鎖定於已合併的 PR #35 tree `fb10f67b1afe0e1b44b60abab280dfb79a2e760c`；
 篩檢 runner 之後須在獨立 PR 固定自己的 blob，且在執行前比對
 上述 frozen source tree 所含 generator／selector／measure／E4／
@@ -103,7 +111,18 @@ import `analysis.stage5c_e5_budget` 形成未授權 allocation。
 使完整性缺失時，只能輸出
 `SCREEN-INCOMPLETE`，保留已生成的診斷 seed 為 burned，
 **不得**以刪去失敗列、原 seed 重跑或延長抽樣補成 clean。
-此三個字串均不是 E1／E2／E3 verdict、不是 $\Pr(C)$ 估計。
+若執行器自身的 count／category 完整性檢查失敗，另記
+`SCREEN-INTEGRITY-FAILURE`，與資源／中斷的 `SCREEN-INCOMPLETE`
+區分；兩者都不公布部分 counts，亦不可重跑。
+一旦 burn log 建立，即使在第一筆 generator 呼叫前中斷，
+整段 24 個診斷 seeds 都保持 reserved，不准刪掉檔案重試。
+每次實際嘗試後、任何後續 item-8 工作前，必須獨立 PR
+將 `docs/stage5c_e5_screen_attestation.json` 合入 main，
+只記終局 status 與外部 report 的 SHA-256 digest，不提交
+逐列數值或外部 burn log；若中斷使 report 從未寫成，
+status 記 `SCREEN-INCOMPLETE`、report digest 記 `null` 並保全
+固定的 burn log。核對 custody 後方可使用摘要。
+此四個字串均不是 E1／E2／E3 verdict、不是 $\Pr(C)$ 估計。
 
 ## 3. 篩檢到 $R$ 的唯一合法關係
 
@@ -113,6 +132,10 @@ import `analysis.stage5c_e5_budget` 形成未授權 allocation。
 candidate grid 或宣稱 frozen E4 普遍無望。`SCREEN-NO-OBSTRUCTION`
 只准進入**另一份**獨立 review／merge 的完整估計協定設計，
 不授權直接執行，也不能以篩檢數值選 $a$。
+若 `SCREEN-NO-OBSTRUCTION` 主要來自 `CLEAN-NEAR`，
+那只是低於零統計餘裕的必要門檻，**不能**據此認定
+數值 cap 可行或完整估計協定值得投入；仍須另審平均誤差、
+統計半寬與資源成本。
 
 零超標的四筆仍給單一 stratum 99.9% one-sided exact binomial
 上界 $1-0.001^{1/4}\approx0.822$，所以篩檢**無法**告訴我們

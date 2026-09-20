@@ -43,6 +43,7 @@ MAX_CPU_SECONDS = 16 * 3600
 MAX_E4_WALL_SECONDS = 900
 MAX_RSS_BYTES = 32 * 1024**3
 AUTHORIZATION = "docs/stage5c_e5_screen_authorization.json"  # deliberately absent
+ATTESTATION = "docs/stage5c_e5_screen_attestation.json"  # committed after any attempt
 PROTOCOL = "docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md"
 RUNNER = "analysis/stage5c_e5_screen.py"
 FROZEN_BLOBS = {
@@ -69,11 +70,33 @@ class ScreenNotAuthorized(RuntimeError):
     """Any missing approval, provenance, runtime, or custody check blocks RNG."""
 
 
+class ScreenIntegrityFailure(RuntimeError):
+    """Runner count invariants failed after the one-shot burn-log claim."""
+
+
 def _git(root: Path, *args: str) -> str:
     result = subprocess.run(
         ("git", *args), cwd=root, check=True, capture_output=True, text=True
     )
     return result.stdout.strip()
+
+
+def _check_single_use(root: Path, auth: dict, burn_path: Path, report_path: Path) -> None:
+    # Both paths are part of the committed authorization. A second invocation
+    # cannot choose fresh filenames while the first attempt awaits attestation.
+    if os.path.lexists(root / ATTESTATION):
+        raise ScreenNotAuthorized("screen already executed; seeds are burned")
+    output_paths = auth.get("output_paths")
+    if not isinstance(output_paths, dict) or set(output_paths) != {"burn_log", "report"}:
+        raise ScreenNotAuthorized("authorization must pin both output paths")
+    for label, actual in (("burn_log", burn_path), ("report", report_path)):
+        declared = output_paths[label]
+        if (not isinstance(declared, str) or not Path(declared).is_absolute()
+                or Path(declared).resolve() != Path(declared)
+                or actual != Path(declared)):
+            raise ScreenNotAuthorized("audit output path differs from authorization")
+        if os.path.lexists(actual):
+            raise ScreenNotAuthorized("audit output already claimed; seeds are burned")
 
 
 def _preflight(root: Path, burn_path: Path, report_path: Path) -> dict:
@@ -90,6 +113,7 @@ def _preflight(root: Path, burn_path: Path, report_path: Path) -> dict:
         auth = json.loads(auth_path.read_text(encoding="utf-8"))
         if auth.get("state") != "AUTHORIZED":
             raise ScreenNotAuthorized("screen authorization is not active")
+        _check_single_use(root, auth, burn_path, report_path)
         expected = auth.get("blob_shas", {})
         if set(expected) != {RUNNER, PROTOCOL, *FROZEN_BLOBS}:
             raise ScreenNotAuthorized("authorization must pin runner, protocol, and frozen sources")
@@ -246,6 +270,8 @@ def run_screen(root: Path, burn_path: Path, report_path: Path) -> dict:
                         for j, (name, params) in enumerate(evaluation_order(), 1):
                             key = f"j={j},N={n},theta={theta:+.1f}"
                             category = _one_member(sample, name, params)
+                            if category not in CATEGORIES:
+                                raise ScreenIntegrityFailure("unknown screen count category")
                             counts[key][category] += 1
                             calls += 1
                             if (time.process_time() - cpu_started > MAX_CPU_SECONDS
@@ -253,12 +279,14 @@ def run_screen(root: Path, burn_path: Path, report_path: Path) -> dict:
                                     * 1024 > MAX_RSS_BYTES):
                                 raise TimeoutError("audit resource cap")
             if calls != 264 or any(sum(row.values()) != 4 for row in counts.values()):
-                raise RuntimeError("screen count integrity failure")
+                raise ScreenIntegrityFailure("screen count integrity failure")
             status = ("SCREEN-OBSTRUCTION" if any(
                 row["SELECTOR-OR-ATOM-INVALID"] or row["E4-OR-ITEM3-NONCLEAN"]
                 or row["CLEAN-OVER"] for row in counts.values()
             ) else "SCREEN-NO-OBSTRUCTION")
             result = {"status": status, "counts": counts}
+        except ScreenIntegrityFailure:
+            result = {"status": "SCREEN-INTEGRITY-FAILURE"}
         except BaseException:
             # No partial row counts or raw numerical payload are published.
             result = {"status": "SCREEN-INCOMPLETE"}
@@ -282,7 +310,7 @@ def main() -> None:
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
     result = run_screen(args.repo, args.burn_log, args.report)
-    if result["status"] == "SCREEN-INCOMPLETE":
+    if result["status"] in {"SCREEN-INCOMPLETE", "SCREEN-INTEGRITY-FAILURE"}:
         raise SystemExit(1)
 
 
