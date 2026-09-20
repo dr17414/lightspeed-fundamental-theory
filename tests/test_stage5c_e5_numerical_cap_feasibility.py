@@ -2,7 +2,11 @@
 
 import numpy as np
 
-from analysis.stage5c_e4_wellposedness import E4Status, evaluate_e4_wellposedness
+from analysis.stage5c_e4_wellposedness import (
+    E4Status,
+    E4_CUBATURE_ATOL,
+    evaluate_e4_wellposedness,
+)
 from analysis.stage5c_numerical_certification import (
     CertificationStatus,
     bind_endpoint_certification_rows,
@@ -77,6 +81,9 @@ def test_near_zero_ratio_witness_and_aggregation_counterexamples():
     # depart from the fixed output by a large fraction of the tiny norm.
     assert single.leakage.causal_leakage < 1e-9
     assert np.max(single.enclosure.widths) < 4e-12
+    assert single.adaptive_run.converged
+    assert single.adaptive_run.subdivisions == 0
+    assert E4_CUBATURE_ATOL > np.max(single.enclosure.upper)
     assert single_cert.agreement_distance > 3e-10
     assert single_cert.norm_upper / single_cert.norm_lower > 2.0
     assert np.all(single_cert.endpoint_error / ENDPOINT_RANGE_WIDTHS > 3.0)

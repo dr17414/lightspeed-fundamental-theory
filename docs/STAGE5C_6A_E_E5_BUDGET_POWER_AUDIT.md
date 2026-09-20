@@ -158,6 +158,11 @@ $0.09215$：直接阻塞數值 cap 的是 cell／causal-boundary enclosure 的�
 每座標寬僅約 $3.01\times10^{-12}$；兩實作雖只差
 $3.42\times10^{-10}$，adaptive estimate 卻顯著偏離約
 $[4.459,4.489]\times10^{-10}$ 的 validated analytic cell enclosure；
+frozen adaptive cubature 的絕對容差 $2^{-30}\approx9.31\times10^{-10}$
+甚至大於該 pairing 量級，該輸入的 solver 以零次 subdivision 回報
+`converged`。其 solver error estimate 只是 diagnostic，沒有被當成
+validated ErrorBudget；正式誤差由 analytic cell enclosure 的 farthest corner
+產生。
 item 3 允許此 agreement 並以 midpoint／error-ball 傳到近零分母，
 使 certified norm upper/lower 比達 $2.197$。因此這裡的「相對寬度」指
 **最終 norm enclosure**，不是 E4 analytic cell enclosure 自己很寬。
