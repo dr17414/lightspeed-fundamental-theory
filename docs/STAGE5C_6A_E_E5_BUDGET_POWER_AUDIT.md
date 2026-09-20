@@ -123,9 +123,34 @@ E3 continuum planted algebra 的 $1/5$ 與 $g_*$ 是解析 control gap，
    equivalence 對任何 $B$ 都不可能 PASS。現有 CLEAN 契約沒有小於 margin
    的統一上限。
 
+### 3.1 已封存 live E4 的 numerical-cap 反例
+
+`tests/test_stage5c_e5_numerical_cap_feasibility.py` 使用唯一解析 Gaussian atom
+$(u_x,v_x,u_y,v_y)=(0.55,0.55,0.45,0.45)$、權重 1、$\theta=+0.4$。
+此 atom 嚴格在 unit box／causal pair domain 內；item 7 的 fixed-scale E4
+雙 implementation、cell enclosure、leakage 與 item 3 producer-sealed certification
+全走正式計算路徑。box／causal retained mass 分別約為 $1$／$0.7587$；
+E4 與 certification 都是 `CLEAN`，$L\approx2.74169>0$，但該單列的
+endpoint-error normalized 上界約為 $(0.08454,0.10145)$，**兩座標皆超過
+E2 的 $1/20$ margin**。這是 candidate-independent planted input，沒有正式
+arm identity、seed、matching 或 arm endpoint；單列反例只推翻「所有 CLEAN row
+必自動小於 margin」，**不冒充一個已執行的 E2 arm verdict**。
+
+若另登記 numerical cap $\eta_k<1/20$，必須在任何正式 seed 前定義它的
+producer-bound、normalized 計算、拒絕理由、evaluation 時序與資源上限；本反例
+證明它必排除至少一部分原本 `CLEAN` 的 item-7 合規輸入。
+設 $C$ 為完整 split 的 certification／cap／cohort preconditions 全通過事件，
+則 $\Pr(\mathrm{E2\ PASS})\le\Pr(C)$；因此單有「在 $C$ 上半寬小於
+margin」**不能**推出完整 split 的 power $\ge0.90$。還須獨立證明
+$\Pr(C)$ 的下界，以及受 matching／cap conditioning 後的 null 均值與
+cohort distribution；否則 §3 的 Hoeffding floor 只屬條件性算式。
+本交付不選擇 $\eta_k$、不把已形成 region 的邊界 `FAIL` 改寫成
+`INCONCLUSIVE`，也不從單一 planted witness 推估 $\Pr(C)$。
+
 閉合 item 8 須先取得不接觸 6a-S／6a-E arm data 的 E1 positive-gap model，
 每一 E3 finite-cohort directional／equivalence effect model，以及所有 E2/E3 null
-claims 的事前 worst-case distribution／variance 與 numerical cap，逐 claim 計算
+claims 的事前 worst-case distribution／variance、numerical cap 及其
+certification-success probability／conditioned-null model，逐 claim 計算
 selection、confirmation 和已預留 successor 的 $B$ floors，連同可負擔的資源上限
 提交獨立 review。**item 8 保持 `OPEN`；items 9、10、12 保持 `OPEN`，item 11
 保持 `DRAFT`，6a-E 保持 `PREREGISTRATION-INCOMPLETE`。**

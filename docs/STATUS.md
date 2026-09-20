@@ -91,6 +91,12 @@ Item 8 的部分審計提案已具名列出七個 regions 與不可回收的 lin
 power 充分條件與兩個反例。E1 缺 positive-gap effect model，E2 CLEAN numerical
 half-width 缺小於等效 margin 的統一上界，且 E3 finite-cohort effect／null model
 尚待證成；item 8 仍 `OPEN`，不得把此提案解讀成 power $\ge0.90$ 或執行授權。
+item 8 的下一項 candidate-independent numerical-cap falsifier 使用 item 7 live E4
+與 item 3 certification：完整 `CLEAN` 的單列 normalized endpoint errors 可達
+$(0.08454,0.10145)$，兩座標皆超過 E2 margin $1/20$。未來若新增 cap，
+必須另證完整 split 的 certification 成功機率及通過後 matched-null law；
+條件式 CLEAN 的 cohort floor 不等於無條件 $\ge0.90$ power。這只是一個
+審查提案，尚未形成任何 6a-E arm endpoint、seed 或 ledger。
 
 ---
 
@@ -231,6 +237,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.79（審查提案，2026-09-20）- Item 8 的首個 numerical-cap 可行性 falsifier 以已封存 live E4 strict-interior Gaussian mixture 證明 `CLEAN` 仍可有大於 E2 $1/20$ margin 的單列 normalized endpoint-error；E5 audit 與 closure matrix item 8 增列 cap 可行性、certification 成功機率與 conditioned matched-null law 的交付義務。沒有配置新的 cap、cohort floor、正式 seed 或 arm data；item 8 與 prereg firewall 狀態不變。*
 *v1.78（審查提案，2026-09-19）- 在 PR #31 closeout 合併後，item 8 提議七個 region 的 exact-rational lineage spending／幾何 successor reserve 與不讀 arm data 的 power feasibility audit；E1 effect gap、E2 numerical cap、E3 finite-cohort model 尚缺，故 item 8 仍 OPEN，6a-E execution firewall 仍生效。*
 *v1.77 (2026-09-19) - PR #30 最終 head `2d7f20e` 經 Claude 獨立抓取並與 main 完整樹比對，確認封存後改寫、聚合前 row seal 重驗、Student 臨界值 interval 上界三組修正且給予 GO；CI #126 通過（345 passed／5 個既有 warnings），exact-head automated review 未發現 major issues，19 條 inline threads 已全部 resolved，expected-head squash-merge 為 main `f9c3a505`。本 state-only closeout 將 closure items 4／5 從 `REVIEW-PENDING` 記為 `CLOSED`，連同 E3 statistical-region 子項；不改實作、統計公式、數值常數、manifest、registry 或 ledger。items 8–10、12 維持 `OPEN`、item 11 維持 `DRAFT`，6a-E 仍 `PREREGISTRATION-INCOMPLETE`，D.1 第 3 項／Freeze-1a 仍 PENDING；未生成 seed、未開 arm ledger、未形成 arm endpoint、未觸及候選 $K$。*
 *v1.76 (2026-09-19) - PR #30 head `bcdaba09` 自動審查提出一個 post-adapter row 改寫 P1，已在 `c49a0883` 的 matched-error 聚合入口重驗全 pool rows；CI #125 成功（341 passed／5 warnings）。該 exact-head 自動審查另發現 Student 臨界值 `t.ppf(1-alpha/(2p))` 的 binary64 tail probability 可能向下捨入、分位數亦無向上保證，可在嚴格判決邊界造成過窄 region。現在以 interval Student tail 遞推對輸入 binary64 alpha 的 exact-dyadic target 驗證 critical 向上 enclosure，無法驗證就 fail closed；增加 near-boundary alpha／不同 df 的高精度回歸。items 4／5 仍 `REVIEW-PENDING`，等待新 head 的獨立複核／CI／automated review；正式 custody item 9 與 multiplicity item 8 仍 `OPEN`，6a-E `PREREGISTRATION-INCOMPLETE`；未生成 seed、未開 arm ledger、未形成 arm endpoint、未觸及候選 $K$。*
