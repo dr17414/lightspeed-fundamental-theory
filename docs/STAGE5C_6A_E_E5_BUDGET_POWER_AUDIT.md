@@ -123,9 +123,63 @@ E3 continuum planted algebra 的 $1/5$ 與 $g_*$ 是解析 control gap，
    equivalence 對任何 $B$ 都不可能 PASS。現有 CLEAN 契約沒有小於 margin
    的統一上限。
 
+### 3.1 已封存 live E4 的兩種 numerical-cap 阻塞
+
+`tests/test_stage5c_e5_numerical_cap_feasibility.py` 使用唯一解析 Gaussian atom
+$(u_x,v_x,u_y,v_y)=(0.55,0.55,0.45,0.45)$、權重 1、$\theta=+0.4$。
+此 atom 嚴格在 unit box／causal pair domain 內；item 7 的 fixed-scale E4
+雙 implementation、cell enclosure、leakage 與 item 3 producer-sealed certification
+全走正式計算路徑。兩路 live estimates 另綁為只有 audit identity 的單筆
+`EndpointCertificationSourceRow` 並重新認證，誤差逐位元相同，無正式 arm pool。
+box／causal retained mass 分別約為 $1$／$0.7587$；
+E4 與 certification 都是 `CLEAN`，$L\approx2.74169>0$，但該單列的
+endpoint-error normalized 上界約為 $(0.08454,0.10145)$，**兩座標皆超過
+E2 的 $1/20$ margin**。這是 candidate-independent planted input，沒有正式
+arm identity、seed、matching 或 arm endpoint；單列反例只推翻「所有 CLEAN row
+必自動小於 margin」，**不冒充一個已執行的 E2 arm verdict**。
+
+另一個 candidate-independent 單 atom $(0.80,0.80,0.20,0.20)$、權重 1、
+$\theta=+0.4$，沿用相同的 E4 producer、audit-only source-row binding 與
+`certify_pairing` 路徑，E4／certification 仍為 `CLEAN`。重算的 causal leakage
+約 $1.14\times10^{-11}$（極小，但非嚴格零），兩實作 agreement distance
+約 $3.42\times10^{-10}$；然而 norm enclosure 為
+$[2.89\times10^{-10},6.35\times10^{-10}]$，上／下界比約 $2.197$，
+certified endpoint-error normalized 上界約 $(3.785,4.543)$，遠超 $1/20$。
+作為區分絕對大小與相對寬度的對照，同一路徑的
+$(0.90,0.90,0.10,0.10)$ norm 更小（約 $10^{-17}$），上／下界比卻約
+$1.038$，normalized error 約 $(0.064,0.077)$。這些數字是 planted
+diagnostics，**不是** E2 arm 的分布、$\Pr(C)$ 樣本或正式 endpoint。
+
+第一個 atom 顯示 causal-domain leakage 所帶來的保守 bound：兩實作
+agreement distance 約 $5.01\times10^{-5}$，卻有約 $0.2413$ 的 causal
+leakage。第二個 atom 顯示另一條阻塞：leakage 極小且兩實作高度吻合時，
+near-zero norm enclosure 的**相對寬度**仍可使 scale-aware ratio 的
+normalized error 很大。僅收緊第一種 leakage propagation、或僅檢查
+agreement／norm 的絕對大小，不能由此證明第二種情形也符合 cap；需另證
+relative enclosure 在目標輸入律下足夠窄，或事前排除其高相對寬度 regime。
+
+若另登記 numerical cap $\eta_k<1/20$，必須在任何正式 seed 前定義它的
+producer-bound、normalized 計算、拒絕理由、evaluation 時序與資源上限；
+兩個反例證明它必排除至少一部分原本 `CLEAN` 的 item-7 合規輸入。
+設 $C$ 為完整 split 的 certification／cap／cohort preconditions 全通過事件。
+cap feasibility 須分別回答：(a) leakage／propagation 收緊後，完整 split 的
+certification-success event $C$ 有何可證下界；(b) 不讀 6a-S／6a-E arm
+data，如何在 E2 null matched-cohort law 下排除或控制 near-zero norm
+enclosure 的高相對寬度 regime，並將其失敗機率計入同一個 $\Pr(C)$。
+於是 $\Pr(\mathrm{E2\ PASS})=\Pr(C)\Pr(\mathrm{E2\ PASS}\mid C)
+\le\Pr(C)$；因此單有「在 $C$ 上半寬小於
+margin」**不能**推出完整 split 的 power $\ge0.90$。還須獨立證明
+$\Pr(C)$ 的下界，以及受 matching／cap conditioning 後的 null 均值與
+cohort distribution，且兩項機率下界的乘積須 $\ge0.90$；各自
+$\ge0.90$ 僅保證乘積 $\ge0.81$。否則 §3 的 Hoeffding floor
+只屬條件性算式。
+本交付不選擇 $\eta_k$、不把已形成 region 的邊界 `FAIL` 改寫成
+`INCONCLUSIVE`，也不從單一 planted witness 推估 $\Pr(C)$。
+
 閉合 item 8 須先取得不接觸 6a-S／6a-E arm data 的 E1 positive-gap model，
 每一 E3 finite-cohort directional／equivalence effect model，以及所有 E2/E3 null
-claims 的事前 worst-case distribution／variance 與 numerical cap，逐 claim 計算
+claims 的事前 worst-case distribution／variance、numerical cap 及其
+certification-success probability／conditioned-null model，逐 claim 計算
 selection、confirmation 和已預留 successor 的 $B$ floors，連同可負擔的資源上限
 提交獨立 review。**item 8 保持 `OPEN`；items 9、10、12 保持 `OPEN`，item 11
 保持 `DRAFT`，6a-E 保持 `PREREGISTRATION-INCOMPLETE`。**
