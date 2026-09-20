@@ -162,7 +162,11 @@ frozen adaptive cubature 的絕對容差 $2^{-30}\approx9.31\times10^{-10}$
 甚至大於該 pairing 量級，該輸入的 solver 以零次 subdivision 回報
 `converged`。其 solver error estimate 只是 diagnostic，沒有被當成
 validated ErrorBudget；正式誤差由 analytic cell enclosure 的 farthest corner
-產生。
+產生。item 7 `STAGE5C_6A_E_WELLPOSEDNESS.md` §6 已有 regression：
+即使 adaptive 自評 error 小於 validated enclosure error，`ErrorBudget`
+仍取後者以防 estimated-error undercoverage。因此此處 adaptive 精度不足
+會擴大 validated error、壓低 detection power，**不構成悄悄縮窄 region
+的 validity 證據**；solver `converged` 也不授權使用其自評 error 代替證明。
 item 3 允許此 agreement 並以 midpoint／error-ball 傳到近零分母，
 使 certified norm upper/lower 比達 $2.197$。因此這裡的「相對寬度」指
 **最終 norm enclosure**，不是 E4 analytic cell enclosure 自己很寬。
@@ -208,6 +212,44 @@ $1/20$ 以下；**這既非全體輸入的 uniform bound，也不足以保證雙
 numerical errors 相加、統計半寬與完整 split power 通過。**
 近零例的額外 cell 細化效果有限，因 adaptive implementation 自身與
 窄 cell enclosure 的分歧佔主要誤差；其精度和可用資源需另行研究。
+在此固定單 atom 的開發期探查，64→128→256 cells 時首例兩路 validated
+quadrature errors 大致隨 cells 倍增減半；這是**單例趨勢，不是全輸入
+$1/n$ 誤差定理**。cell traversal 的 pair／pair／transverse 網格數為
+$O(n^3)$；額外 128、256 cells 在本地分別約需 $0.1$、$1$ 秒，獨立
+複核的同例 512 cells 約 $9.3$ 秒、1024 cells 在其容器觸及記憶體上限。
+時間／記憶體是開發環境觀察，不能直接當作正式 resource cap 或所有 mixture
+的成本律，尤須先在 E4 最多 8128 atoms 的 domain 上審核。
+
+數值半寬與 cohort floor 共享同一個 $1/20$ 等效 margin。在**純示例**中，
+若同一 planted row 填滿左右兩臂且兩側各有相同的 normalized error 上界
+$\eta$，則 item 4 的 matched-error triangle propagation 給出的雙臂半寬
+為 $2\eta$。此例不是 item 2 實際 matched arm；用 genesis local
+$\alpha=1/6160$ 的 §3 保守功效算式，須有
+
+$$
+u(B)=1/20-2\eta-q(B)\sqrt{8/(B-1)}>0,
+\qquad 4e^{-Bu(B)^2/4}\le0.10,
+$$
+
+其中 $q(B)$ 必須由 frozen 向上認證的 Student 臨界值給出。上表首例
+在 64／128 cells 的 $2\eta$（取較大的第二座標）約為 $0.20290$／
+$0.09624$，故**這個固定示例**即使 $B\to\infty$ 亦不滿足 open-box
+PASS 必要的 $2\eta<1/20$；不能據此斷言所有 frozen 64-cell E2 arms
+都不能 PASS。256 cells 的 $2\eta\approx0.04694$，餘裕約 $0.00306$；
+只用這個最壞情況 Hoeffding 充分條件、甚至假設 $q(B)=0$，也須
+$B>1.57\times10^6$ 才可能滿足該算式，實際 $q(B)>0$ 只會提高
+算式所需 $B$。**這是特定 planted 示範的保守證明成本，不是實際
+matched-null power 的最小樣本數、正式 cohort floor 或可行性估計。**
+
+上述兩條改善路徑都會改動 item 7 已 `CLOSED` 的凍結面：§4 的
+$(16,32,64)$ enclosure levels／producer identity，或 §5 的 adaptive
+`atol`／resource cap。**item 8 不能自行把試探常數接入正式 producer。**
+若以修改 E4 producer 承擔 cap feasibility，先須有明文 item-7 amendment，
+獨立 review、CI，及對 item 3 certification、items 4／5 source-row／region
+傳播和後續功效義務的影響複核；item 7 已有的 `CLOSED` 不能充當新版本授權。
+另一個仍待證的途徑是在**不更動 frozen E4** 下，證明現有 producer
+對事前 matched-null law 的 cap 成功機率和條件分布足夠；單 atom 反例
+沒有排除這條途徑。兩條途徑均不解除 6a-E execution firewall。
 先做 candidate-independent producer-bound 的收緊與資源可行性研究，
 再論證完整 matched-null 輸入律、$\Pr(C)$ 與 cap；不得從這些 planted
 例子直接選 $\eta$ 或 $B$。

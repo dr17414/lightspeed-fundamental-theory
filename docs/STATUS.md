@@ -103,6 +103,11 @@ near-zero atom 混合時仍很大，atom 數本身不是保證。causal leakage 
 進入 ErrorBudget；首例直接阻塞為 frozen causal-boundary／cell enclosure 寬度，
 加密 cell 的開發期試探可以縮小它，但不等於已核准的 producer 或全輸入 cap。
 item 8 繼續 `OPEN`，沒有設定 $\eta$／$B$ 或解除執行防線。
+若要把 cell levels、adaptive 容差或資源上限的改動用於正式 item 8
+功效證明，須先對已 `CLOSED` 的 item 7 提交明文 amendment，連同
+item 3／items 4–5 的影響一併獨立審查；否則須在既有 E4 下證明完整
+split 的 cap 成功機率。§3.1 的固定示例顯示雙臂數值誤差和 cohort
+統計半寬共用同一等效 margin；開發期細化的單例改進不能代替正式 floor。
 
 ---
 
@@ -243,6 +248,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.81（審查提案，2026-09-20）- PR #34 的獨立複核確認兩種數值誤差歸因；後續文件補上 item-7 frozen producer amendment 對 item-8 cap 改善的必要審查順序、§6 對 adaptive 自評誤差 undercoverage 的防護，以及 cell/refined-error/兩臂 numerical width／cohort power 之固定 planted 示例與環境成本觀察。另一途徑是保持 item 7 不變，事前證明現有 producer 的 cap 成功機率與 conditioned matched-null law；兩途徑均未在本提案完成，item 8 仍 OPEN，6a-E firewall 不變。*
 *v1.80（審查提案，2026-09-20）- Item 8 補上 near-zero ratio 第二單 atom 與多 atom 混合對照的回歸：混入顯著 pairing norm 的 atom 可稀釋此個案，混入另一 near-zero atom 則不可，不能由 atom 數直接推 cap。釐清 causal leakage diagnostic 未直接列入 E4 ErrorBudget，首例的 cell／causal-boundary enclosure 寬度是直接數值阻塞；開發期額外 cell level 試探顯示可縮小該個案誤差，但不構成已 review 的正式 producer、uniform cap 或 power。item 8 仍 OPEN、6a-E prereg 仍未完成，未生成 seed、ledger、arm endpoint 或候選 $K$。*
 *v1.79（審查提案，2026-09-20）- Item 8 的首個 numerical-cap 可行性 falsifier 以已封存 live E4 strict-interior Gaussian mixture 證明 `CLEAN` 仍可有大於 E2 $1/20$ margin 的單列 normalized endpoint-error；E5 audit 與 closure matrix item 8 增列 cap 可行性、certification 成功機率與 conditioned matched-null law 的交付義務。沒有配置新的 cap、cohort floor、正式 seed 或 arm data；item 8 與 prereg firewall 狀態不變。*
 *v1.78（審查提案，2026-09-19）- 在 PR #31 closeout 合併後，item 8 提議七個 region 的 exact-rational lineage spending／幾何 successor reserve 與不讀 arm data 的 power feasibility audit；E1 effect gap、E2 numerical cap、E3 finite-cohort model 尚缺，故 item 8 仍 OPEN，6a-E execution firewall 仍生效。*
