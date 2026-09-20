@@ -44,6 +44,19 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
 runtime；來源、weight construction、座標排列及失敗 precedence
 須有不調用 generator 的 dry-run／sentinel regression。任何差異
 必須先修訂協定，不能現場修補或悄悄改用 planted mixture。
+依賴基線先鎖定於已合併的 PR #35 tree `fb10f67b1afe0e1b44b60abab280dfb79a2e760c`；
+篩檢 runner 之後須在獨立 PR 固定自己的 blob，且在執行前比對
+上述 frozen source tree 所含 generator／selector／measure／E4／
+continuum pairing／certification 六個程式檔的 blobs。建議先沿用
+CI 的 Python `3.12.13`、NumPy `2.3.5`、SciPy `1.17.0`，
+執行前逐字記錄 `sys.version` 及套件版本；與已審 profile 不同即停止。
+
+資源停止規則提議為**單 process、無自動 retry**：完整篩檢
+上限 16 core-hours、單次 E4 牆鐘時間 900 秒、process RSS
+32 GiB；執行環境須能實際量測並強制停止，否則不得開始。
+超限只記 `SCREEN-INCOMPLETE`，不能降低 $N$、刪除耗時
+member 或重用已 claim 的 seed 補齊；這些上限與 profile
+都待 runner review，仍不是執行授權。
 
 ## 2. 預先指定的輸出與隔離
 
