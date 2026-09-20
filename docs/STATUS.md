@@ -108,6 +108,19 @@ item 8 繼續 `OPEN`，沒有設定 $\eta$／$B$ 或解除執行防線。
 item 3／items 4–5 的影響一併獨立審查；否則須在既有 E4 下證明完整
 split 的 cap 成功機率。§3.1 的固定示例顯示雙臂數值誤差和 cohort
 統計半寬共用同一等效 margin；開發期細化的單例改進不能代替正式 floor。
+第三條不改 E4 的路徑現已寫出逐 selector／target／$N$ 的無 seed
+raw-to-matched 誤差律與 selection-agnostic union bound。item 2 的現有
+covariance calibration 沒有評估 E4 的 numerical errors；raw 單 causet
+分布也不能直接代替 matching-conditioned 完整 split 分布。這個
+推前式與上界目前**沒有數值分位數或機率下界**，不能從 planted witness
+或歷史 benchmark 填入 cap、cohort floor 或 $\Pr(C)$。
+第三路徑的 independent review 指出：界的主要鬆弛是要求所有 raw
+rows 都不超標；若用 hard-control Monte Carlo 填數，須**先**固定
+診斷專用 seeds／replications、完整 split 設計、同時信賴界與
+$p\to a$ 選取規則，並證明資源可負擔。本輪只寫估計協定的
+必備欄位及 fail-closed 映射，未完成估計預登記、未選 cap、
+未生成任何 seed。$N\le128$ 足以保證不超 8128-atom cap，
+$N>128$ 並非所有 causet 必遭拒；正式 $N,L,B$ 仍待凍結。
 
 ---
 
@@ -248,6 +261,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.83（審查提案，2026-09-20）- 依 PR #35 初輪獨立 GO 更正 frozen E4 error-tail 橋接的適用範圍：$N\le128$ 是 8128-atom cap 的全輸入充分條件，非 $N>128$ 的一律失敗判決；釐清 union bound 的主要損失來自全 raw-pool 零超標要求、$L$ 與匹配／tail 的設計張力，並記錄有限 $a_{\max}$ 路線必須分開處理 producer 失敗。於 item-8 交付義務加上任何 $p$／$\Pr(G)$ 估計前的獨立 review／merge 先決條件，明示需事前固定診斷設計、seed 互斥、replications、同時信賴界與 $p\to a$ fail-closed 規則。這只是未授權執行的協定骨架；沒有填 $N,L,B$、grid、replications 或 seeds，沒有計算 $p$、cap 或 power，item 8 繼續 OPEN。*
+*v1.82（審查提案，2026-09-20）- Item 8 第三條路徑把已凍結的 C8 $p_\theta$ generator、order-only selector、Gaussian-mixture E4 producer 與 full-pool C8.1 matching 接成未執行的數學推前映射；給出對兩臂 raw numerical-error tail 和 matching 成功率的保守 union bound。辨明 $N$、raw pool 大小和 cap 尚未作 6a-E freeze，並明示既有 item-2 covariance calibration 不測 frozen E4 誤差。沒有生成 seed 或任何 arm row／endpoint，沒有得到 $p_{j,N,\theta}$ 分位數、$\Pr(C)$ 下界或 power／cohort floor；item 8 仍 OPEN。*
 *v1.81（審查提案，2026-09-20）- PR #34 的獨立複核確認兩種數值誤差歸因；後續文件補上 item-7 frozen producer amendment 對 item-8 cap 改善的必要審查順序、§6 對 adaptive 自評誤差 undercoverage 的防護，以及 cell/refined-error/兩臂 numerical width／cohort power 之固定 planted 示例與環境成本觀察。另一途徑是保持 item 7 不變，事前證明現有 producer 的 cap 成功機率與 conditioned matched-null law；兩途徑均未在本提案完成，item 8 仍 OPEN，6a-E firewall 不變。*
 *v1.80（審查提案，2026-09-20）- Item 8 補上 near-zero ratio 第二單 atom 與多 atom 混合對照的回歸：混入顯著 pairing norm 的 atom 可稀釋此個案，混入另一 near-zero atom 則不可，不能由 atom 數直接推 cap。釐清 causal leakage diagnostic 未直接列入 E4 ErrorBudget，首例的 cell／causal-boundary enclosure 寬度是直接數值阻塞；開發期額外 cell level 試探顯示可縮小該個案誤差，但不構成已 review 的正式 producer、uniform cap 或 power。item 8 仍 OPEN、6a-E prereg 仍未完成，未生成 seed、ledger、arm endpoint 或候選 $K$。*
 *v1.79（審查提案，2026-09-20）- Item 8 的首個 numerical-cap 可行性 falsifier 以已封存 live E4 strict-interior Gaussian mixture 證明 `CLEAN` 仍可有大於 E2 $1/20$ margin 的單列 normalized endpoint-error；E5 audit 與 closure matrix item 8 增列 cap 可行性、certification 成功機率與 conditioned matched-null law 的交付義務。沒有配置新的 cap、cohort floor、正式 seed 或 arm data；item 8 與 prereg firewall 狀態不變。*

@@ -273,6 +273,160 @@ $\ge0.90$ 僅保證乘積 $\ge0.81$。否則 §3 的 Hoeffding floor
 本交付不選擇 $\eta_k$、不把已形成 region 的邊界 `FAIL` 改寫成
 `INCONCLUSIVE`，也不從單一 planted witness 推估 $\Pr(C)$。
 
+### 3.2 Frozen E4 的 raw-to-matched 數值誤差律：不生成 seed 的橋接
+
+對每個已凍結的 C8 selector 位置 $j\in\{1,\ldots,11\}$、target
+$\theta\in\{-0.4,+0.4\}$ 及待固定的 causet cardinality $N$，令
+$U=(X_1,\ldots,X_N)$ 為 iid $p_\theta(u,v)$ 座標，$O(U)$ 為它們的
+causal order。先以 **order-only** $\Sigma_j(O(U))$ 選 typed ordered pairs，
+再由 evaluator 取回座標，形成
+
+$$
+r_{j,U}(z)=\frac{1}{|\Sigma_j(O(U))|}
+\sum_{(i,k)\in\Sigma_j(O(U))}
+\gamma_{1/16}\bigl(z-(X_i,X_k)\bigr).
+$$
+
+此處 $\gamma_{1/16}$ 是 item 7 固定的四維 mass-one Gaussian；它使用
+$\varphi=1$、$\mathcal N=|\Sigma|$，每個 causet **各自**正規化，
+不得以所有 causet 的 pair 總數重新正規化。令 $e_{j,N,\theta}(U)$
+為 frozen E4／item-3 producer 對此 mixture 給出的兩座標 **raw**
+`endpoint_error`；最後須按 item 4 的 outward `ENDPOINT_RANGE_WIDTHS`
+正規化後才和 $1/20$ margin 比較。選取失敗、E4 非 `CLEAN`、
+item 3 非 `CLEAN` 或 E4 atom cap 不符時，為了機率計算記
+$e_{j,N,\theta}(U)=+\infty$。這是**未執行的數學推前映射**，
+不是一個 6a-E arm row 或 endpoint。
+
+item 7 的 `E4_MAX_ATOMS=8128=\binom{128}{2}`。因為每個 selector
+只選不重複的 strict causal ordered pairs，$|\Sigma_j(O(U))|\le\binom N2$；
+**$N\le128$ 是對所有 causet／member 保證不觸及 atom cap 的充分條件**。
+$N>128$ 並非一律拒絕：仍有 pair 數不超過 8128 的個別輸入；
+若要採用此範圍，必須把超額拒絕算進下述 tail 並另外審查資源。
+這個算術上界不自行凍結 6a-E 的 $N$，也不保證 selector 或 E4 `CLEAN`。
+
+raw 單 causet tail 定義為
+
+$$
+p_{j,N,\theta}(a)=
+\int_{([0,1]^2)^N}
+\mathbf1\{e_{j,N,\theta}(U)\not\le a\}
+\prod_{i=1}^{N}p_\theta(X_i)\,d^{2N}U,
+$$
+
+其中向量 $\le$ 逐分量解讀。這是無 seed 的完整定義，**目前沒有算出
+任何分位數或可用的上界**；不能用 §3.1 的 planted atom 表代入
+$p_{j,N,\theta}$。item 2 的 2048-replication covariance calibration 使用
+抽象 bounded endpoint oracle，不評估上述 frozen E4，故不能從其 coverage
+或 covariance 表讀出 $p_{j,N,\theta}$。
+
+正式 E2 null claim 的對象還包括兩臂 evaluation pools、獨立 calibration
+pools、feature 尺度、Hungarian matching、unmatched 與 matching `CLEAN`
+條件。令每臂 raw evaluation pool 有 $L$ 個 iid causets、$G$ 為完整
+matching `CLEAN` 事件，$M$ 為其 matched pair 數；對 matched rows，item 4
+給的完整 split **raw** 數值半寬為
+
+$$
+h^{\rm num}=\frac1M\sum_{(i,k)\in\mathcal M}
+\bigl(e^L_i+e^R_k\bigr).
+$$
+
+只知道 raw $p_{j,N,\theta}(a)$ **不能**把 matched rows 當 iid raw
+樣本：matching 依所有 pool 的 features 選 indices。仍有不依賴
+選取獨立性的嚴格但可能很鬆的充分界：當兩臂同 target、每臂上界
+皆為有限非負 binary64 raw 向量 $a$，所有 $2L$ 個 raw rows 均通過時，
+$G$ 下 item-4 exact-rational pair addition／outward rounding 仍給
+$h^{\rm num}\le2a$（此量級 $2a$ 可精確表示）；因此
+
+$$
+\Pr\{G,\ h^{\rm num}\le2a\}
+\ \ge\ \Pr(G)-2L\,p_{j,N,\theta}(a).
+$$
+
+這是對 raw bad-row events 的 union bound，**不是**已取得的
+$\Pr(C)$ 下界：右側的 $\Pr(G)$ 和 $p_{j,N,\theta}(a)$ 目前均未證明，
+還沒有固定 6a-E 所需的 $N$、每臂 $L$、candidate cap $a$、
+各 split/cohort 的配置與資源限制。C8.1 的 $N=96$、pool $768$
+是既有 matchability feasibility benchmark，不得默認為全部 6a-E
+正式 streams；6a-S 的 $N\in\{64,96,128\}$ 也不自動固定
+6a-E 的 $N$。若要得到 normalized cap，還須按 item 4 對
+$h^{\rm num}/D$ 向上取界，並留足嚴格 $1/20$ boundary 的 rounding slack。
+完整 $B$-cohort 成功率須在匹配、認證與 cap 的聯合律下
+另行界定；即便先取得這個數值門檻事件的下界，cap conditioning 後的
+null 均值、cohort 變異與 §3 的 power 仍需獨立證明。
+
+此界的主要鬆弛在「**全部 $2L$ 個 rows 均不超標**」這個充分條件，
+而不是稀有超標事件的 union bound 本身；matched errors 的平均值
+即使包含少數較大值，也可能落在 cap 內。若另行證明所有**已認證的**
+rows 有逐座標有限共同上界 $a_{\max}\ge a$，且 $k$ 定義為含至少一個
+超過 $a$ row 的 matched pairs 數，則在 matching `CLEAN`、全部 matched
+rows 認證成功的事件上可用
+$h^{\rm num}\le2a+(2k/M)(a_{\max}-a)$。對選取失敗或 E4／item 3
+非 `CLEAN` 而記為 $+\infty$ 的 rows，這個有限界**不能**套用；
+須另行控制失敗事件，亦不能改寫成一個可通過的 finite-error row。
+這只是候選改善方向，現無 $a_{\max}$、$k$ 的 law 或相應 cap。
+
+原界要有正的下界，至少需 $p_{j,N,\theta}(a)<\Pr(G)/(2L)$。
+例如僅以歷史 C8.4 的 $L=768$ 代入，且 $\Pr(G)\le1$，
+必要條件為 $p<1/1536\approx6.51\times10^{-4}$；這不是該
+benchmark 的實測 $p$。調大 $L$ 可能在某些設計改善 matching，
+同時也增大 $2Lp$ 罰項；$\Pr(G)$ 對 $L$ 的單調性並未證明，
+不得由單點 benchmark 斷言最適 $L$。用普通 iid Monte Carlo
+就算 $R=2048$ 且零次超標，單一 tail 的 99.9% 單側 exact
+binomial 上界仍是 $1-0.001^{1/2048}\approx0.00337$，
+無法使 $L=768$ 的此界非空；多個 member／threshold 的同時推論
+還會更難。因此在承諾大規模計算前，必須先審查所需精度與資源。
+
+#### 3.2.1 估計前的預登記閘門（尚未完成，不授權執行）
+
+若要以 hard-control Monte Carlo 而非可證的積分界填入上述未知量，
+須**在任何診斷輸入生成或 frozen E4 評估之前**另立已 review／merge 的
+audit-only 協定，逐項凍結：$j,N,\theta$ 全部 strata、每臂 raw
+evaluation／獨立 calibration pool 的 $L$、每 stratum 的 iid raw
+replications $R_p$ 與 full-split replications $R_G$、E4／matcher
+source digests、runtime 與資源停止條件、diagnostic seed 的來源／
+專用 namespace／與既 burned 及未來正式 seed ranges 的互斥證據。
+正式 6a-E 的 $N,L,B$、每個 claim/split 對應的 cohort 操作數 $H$
+與此 audit design 的關係亦須事前固定；
+diagnostic seeds 不得借名成為正式 arm streams，失敗或資源不足
+不得挑選有利 strata 重跑。
+
+同一協定還須**在看任何 $e(U)$、matching outcome 或 pilot diagnostics
+之前**固定一個有限、有序的 binary64 raw candidate grid $\mathcal A$
+（每座標經 item-4 outward normalization 後須與 $1/20$ 留有嚴格
+slack）、同時信賴額度 $\delta$、full-split numerical-success 目標
+$c$ 與 conditional-power 目標 $d$（要求 $c\,d\ge0.90$）。
+計數時每個失敗 producer 依本節 $+\infty$ 約定算超標，不丟掉失敗列；
+對每個 $a\in\mathcal A$ 與 stratum，以事前指定的 one-sided exact
+binomial／Clopper–Pearson 同時上界 $U_p(a)$，對 matching `CLEAN`
+以獨立完整 pool replications 的同時下界 $L_G$；各格與各
+strata 的 $\delta$ 分配須預先固定。對事前列出的每個 cohort 操作
+$h=1,\ldots,H$，令保守下界
+$q_h(a)=\max\{0,L_{G,h}-2L_hU_{p,h}(a)\}$。不需要 cohort 獨立性，
+union bound 即給整個 split 的 numerical-success 機率下界
+$1-\sum_{h=1}^H[1-q_h(a)]$（為負時截為零）。
+選擇規則是依**預先固定**的 grid 順序，取第一個在全部預定
+claim／split 均滿足 $\sum_h[1-q_h(a)]\le1-c$、normalized
+cap 的嚴格 slack 與預登記資源限制的 $a$；若不存在，紀錄
+`NO-FEASIBLE-CAP`，不得據結果延長 $R$、移動 grid／$L$／$N$、
+改變 $c,d,\delta$ 或轉而使用 seeded diagnostic 作正面 power 證據。
+即使有候選 $a$，仍須另證 cap-conditioned null law 與 $d$；
+映射規則本身不授權設定正式 $\eta$ 或 $B$。
+
+**本 PR 只預先規定協定必須具備的欄位與映射形式，沒有固定上述
+grid、$R_p,R_G,\delta,c,d$、seed bases 或資源上限，因此不是
+已完成的估計預登記，也沒有產生任何 Monte Carlo 結果。**
+可先用預先固定的真實 $r_{j,U}$ 診斷輸入做 candidate-independent
+可行性篩檢，但若事先沒有將其來源、輸出及隔離規則凍結，
+結果只能作不承重的探索；不能從診斷誤差反選 $a$，或以單個
+mixture 推斷 $p$。超出此協定的路徑只能版本化修訂、使用全新
+互斥的診斷 streams，並接受獨立複核。
+
+故第三條路徑的可審查下一步，是對**每個** $j,N,\theta$ 及預先固定的
+raw pool design，給出不讀 6a-S／6a-E arm data 的
+$p_{j,N,\theta}(a)$ 與 matching-conditioned $h^{\rm num}$ 可信界，
+再判斷 frozen producer 是否已足夠；若不足才評估 item-7 amendment。
+本節不呼叫 generator、不配置／生成 seed、不設 cap 或 cohort floor。
+
 閉合 item 8 須先取得不接觸 6a-S／6a-E arm data 的 E1 positive-gap model，
 每一 E3 finite-cohort directional／equivalence effect model，以及所有 E2/E3 null
 claims 的事前 worst-case distribution／variance、numerical cap 及其
