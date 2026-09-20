@@ -3,8 +3,9 @@
 狀態：**【審查草案／未凍結／不得執行】**。這只規劃 item 8 的
 candidate-independent、audit-only 篩檢；它不是 6a-E selection 或
 confirmation arm，也不完成 §3.2.1 的 $p$／$\Pr(G)$ 估計預登記。
-程式、診斷 seed、輸入或 E4 評估均須等本協定及唯一執行器經
-獨立複核、CI、合併及 preflight 後才可啟動。
+診斷 seed、輸入或 E4 評估均須等本協定及唯一執行器經
+獨立複核、CI、合併，另有正式授權紀錄及 preflight 後才可啟動。
+即使 runner 已合併，缺少事後獨立審查的授權檔仍須拒絕啟動。
 
 ## 1. 固定問題與輸入
 
@@ -40,14 +41,15 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
   $[6{,}000{,}000{,}000,6{,}000{,}000{,}023]$。
   此處只寫公式，**沒有 claim、計算或生成任一 seed**。
 
-執行器及其依賴須在獨立 PR pin source blob 與 Python／NumPy／SciPy
+執行器在獨立 PR 待審，執行前須以另一份獨立審查、合併的授權
+紀錄 pin 自身、協定、七份 source blob、6a-S burn registry 與 Python／NumPy／SciPy
 runtime；來源、weight construction、座標排列及失敗 precedence
 須有不調用 generator 的 dry-run／sentinel regression。任何差異
 必須先修訂協定，不能現場修補或悄悄改用 planted mixture。
 依賴基線先鎖定於已合併的 PR #35 tree `fb10f67b1afe0e1b44b60abab280dfb79a2e760c`；
 篩檢 runner 之後須在獨立 PR 固定自己的 blob，且在執行前比對
 上述 frozen source tree 所含 generator／selector／measure／E4／
-continuum pairing／certification 六個程式檔的 blobs。建議先沿用
+continuum pairing／certification／primary invariant 七個程式檔的 blobs。建議先沿用
 CI 的 Python `3.12.13`、NumPy `2.3.5`、SciPy `1.17.0`，
 執行前逐字記錄 `sys.version` 及套件版本；與已審 profile 不同即停止。
 
@@ -60,26 +62,33 @@ member 或重用已 claim 的 seed 補齊；這些上限與 profile
 
 ## 2. 預先指定的輸出與隔離
 
-每個 $(j,N,\theta)$ 的四次嘗試僅落入以下一個互斥欄位，
-總數必須等於 4：`SELECTOR-OR-ATOM-INVALID`（selector
+每個 $(j,N,\theta)$ 的四次嘗試僅落入以下**六個互斥欄位之一**，
+六欄總數必須等於 4：`SELECTOR-OR-ATOM-INVALID`（selector
 缺 pair、shape／cap 不合法）、`E4-OR-ITEM3-NONCLEAN`
 （包括 E4 已回傳的 adaptive resource-cap／非有限 status）、
-`CLEAN-BELOW`、`CLEAN-OVER`。
+`CLEAN-LOW`、`CLEAN-MID`、`CLEAN-NEAR`、`CLEAN-OVER`。
 只在 E4 與 item-3 certification 都 `CLEAN` 且兩個 raw
-`endpoint_error` 有限時評最後兩欄：
+`endpoint_error` 有限時，以 exact rational 定義
+$v=\max(e_1/3,e_2)$，依下列固定分帶評後四欄：
 
 $$
-\texttt{CLEAN-BELOW}\quad\Longleftrightarrow\quad
-e_1/3<1/40\ \land\ e_2<1/40.
+\begin{aligned}
+\texttt{CLEAN-LOW}&:\quad 0\le v<1/160,\\
+\texttt{CLEAN-MID}&:\quad 1/160\le v<1/80,\\
+\texttt{CLEAN-NEAR}&:\quad 1/80\le v<1/40,\\
+\texttt{CLEAN-OVER}&:\quad v\ge1/40.
+\end{aligned}
 $$
 
-以 exact binary64 rational 與 $1/40$ 比較，等號屬 `CLEAN-OVER`；
+將 raw binary64 誤差轉成 exact fraction 比較，不先在 binary64
+計算 $e_1/3$；各分帶等號只屬右側分帶，$1/40$ 等號屬 `CLEAN-OVER`。
 這只是兩臂同界時 $2a_k/D_{kk}<1/20$ 的**必要**餘裕篩檢，
-不是 $a$、$\eta$ 或完整 region 的 PASS。單次 `CLEAN-OVER`
-就足以顯示「此批全部低於門檻」不成立，但不能證明 underlying
-$p$ 大於任何預登記量。
+各帶只供事前比較量級，**不是**可從中挑選的 $a$／$\eta$
+或完整 region 的 PASS。單次 `CLEAN-OVER` 就足以顯示
+「此批全部低於門檻」不成立，但不能證明 underlying $p$
+大於任何預登記量。
 
-對外只提交每 stratum 四個 counts、完整／中斷標籤、來源 commit／
+對外只提交每 stratum 六個 counts、完整／中斷標籤、來源 commit／
 runtime identity、呼叫次數及總 CPU／wall／峰值記憶體資源記錄；
 不提交各因果集座標、order、selector pair 陣列、逐列 e、
 matching features、E4 endpoint、arm 名稱或 seed 與任何正式 arm
@@ -89,7 +98,7 @@ import `analysis.stage5c_e5_budget` 形成未授權 allocation。
 
 若所有 66 strata 都有四筆而無任何 invalid／NONCLEAN／OVER，
 唯一輸出 `SCREEN-NO-OBSTRUCTION`；只要任一有上述計數，
-輸出 `SCREEN-OBSTRUCTION` 並列出該 stratum 的四個 counts。
+輸出 `SCREEN-OBSTRUCTION` 並列出該 stratum 的六個 counts。
 任一呼叫在 E4 回傳 status 前中斷、或外部 CPU／記憶體上限
 使完整性缺失時，只能輸出
 `SCREEN-INCOMPLETE`，保留已生成的診斷 seed 為 burned，
@@ -114,6 +123,6 @@ $p$ 是否為 $10^{-4}$ 或 $10^{-6}$。故未來 $R_p$ 不能從這
 證明的 bound，不能依首輪結果追加 replications 或另取種子。
 換言之，篩檢結果只決定是否開啟該規劃，**不決定 $R$ 的數值**。
 
-本草案未有 runner、burn attestation／preflight、resource cap 或
-CI 綠燈；**不得執行**。item 8 及 6a-E preregistration
+本草案僅提議 resource cap；runner 與 burn attestation／preflight
+尚待獨立複核，授權檔刻意不存在；**不得執行**。item 8 及 6a-E preregistration
 狀態維持 `OPEN`／`PREREGISTRATION-INCOMPLETE`。
