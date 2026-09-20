@@ -150,22 +150,72 @@ $(0.90,0.90,0.10,0.10)$ norm 更小（約 $10^{-17}$），上／下界比卻約
 $1.038$，normalized error 約 $(0.064,0.077)$。這些數字是 planted
 diagnostics，**不是** E2 arm 的分布、$\Pr(C)$ 樣本或正式 endpoint。
 
-第一個 atom 顯示 causal-domain leakage 所帶來的保守 bound：兩實作
-agreement distance 約 $5.01\times10^{-5}$，卻有約 $0.2413$ 的 causal
-leakage。第二個 atom 顯示另一條阻塞：leakage 極小且兩實作高度吻合時，
-near-zero norm enclosure 的**相對寬度**仍可使 scale-aware ratio 的
-normalized error 很大。僅收緊第一種 leakage propagation、或僅檢查
-agreement／norm 的絕對大小，不能由此證明第二種情形也符合 cap；需另證
-relative enclosure 在目標輸入律下足夠窄，或事前排除其高相對寬度 regime。
+第一個 atom 的兩實作 agreement distance 約 $5.01\times10^{-5}$，causal
+leakage 約 $0.2413$，但 frozen cell enclosure 每個 sector 的寬度約
+$0.09215$：直接阻塞數值 cap 的是 cell／causal-boundary enclosure 的寬度，
+**leakage diagnostic 本身沒有直接加到 ErrorBudget**；兩者在此例相關，
+不可把 leakage mass 當成誤差的不可降低下界。第二個 atom 的 cell enclosure
+每座標寬僅約 $3.01\times10^{-12}$；兩實作雖只差
+$3.42\times10^{-10}$，adaptive estimate 卻顯著偏離約
+$[4.459,4.489]\times10^{-10}$ 的 validated analytic cell enclosure；
+item 3 允許此 agreement 並以 midpoint／error-ball 傳到近零分母，
+使 certified norm upper/lower 比達 $2.197$。因此這裡的「相對寬度」指
+**最終 norm enclosure**，不是 E4 analytic cell enclosure 自己很寬。
+僅改善第一種 cell／boundary enclosure，不能由此證明第二種也符合 cap；
+第二種須審查 adaptive cubature 精度與相對 norm 認證在目標輸入律下的行為。
+
+#### 聚合尺度與收緊界的 candidate-independent 探查
+
+同一 E4 producer 與 audit-only sealed-row 認證的固定輸入（每列等權、
+$\theta=+0.4$）顯示：增加**有顯著 pairing norm** 的 atom 可以稀釋第二種
+單點病態；單純增加 atom 數並不保證這件事。下表只是構造例，沒有
+6a-E arm、matching、seed 或 $\Pr(C)$ 估計：
+
+| 固定 Gaussian mixture centres | atom 數 | causal leakage | certified norm 下界 | normalized error 上界 |
+| :--- | ---: | ---: | ---: | :--- |
+| $(.8,.8,.2,.2)$ | 1 | $1.14\times10^{-11}$ | $2.89\times10^{-10}$ | $(3.785,4.543)$ |
+| 上列＋$(.6,.6,.4,.4)$ | 2 | $0.0118$ | $0.233$ | $(0.0177,0.0213)$ |
+| 上列＋$(.801,.801,.199,.199)$ | 2 | $1.05\times10^{-11}$ | $2.60\times10^{-10}$ | $(4.107,4.929)$ |
+| $(.55,.55,.45,.45)$ | 1 | $0.2413$ | $2.742$ | $(0.08454,0.10145)$ |
+| 同一 $(.55,.55,.45,.45)$ 重複四次 | 4 | $0.2413$ | $2.742$ | $(0.08454,0.10145)$ |
+
+最後兩列的 mixture density 完全相同，故 repeated atom 不會自動產生
+$1/\sqrt m$ 的數值誤差衰減；causal leakage 是混合質量分率，亦無此
+通用衰減。但其他配置可以改變 bound，表中的二點改善不是
+「(b) 對所有多 atom arm 自動消失」的證明；item 2 的 matched selection
+也不能由 $m\ge192$ 直接推出 pairing norm 的非退化下界。
+`tests/test_stage5c_e5_numerical_cap_feasibility.py` 現把前述單 atom、
+稀釋與不稀釋的兩點混合，以及 repeated near-diagonal atom 釘為回歸。
+
+為界定下一步的工程可行性，僅在**開發期敏感度探查**沿用
+`_level_pairing_enclosure` 的正值 cell 計算，對原本 frozen 的 16／32／64
+levels 另試 128 與 256 cells，使用相同兩路已算好的 implementation
+estimates 重算 error-ball。這些額外 level **不屬** item 7 的正式
+producer／經 review 的資源上限，重算數值不構成新的 `CLEAN` 認證或 cap：
+
+| 單 atom | frozen 64 cells 的 normalized error | 試探 128 cells | 試探 256 cells |
+| :--- | :--- | :--- | :--- |
+| $(.55,.55,.45,.45)$ | $(0.08454,0.10145)$ | $(0.04010,0.04812)$ | $(0.01956,0.02347)$ |
+| $(.8,.8,.2,.2)$ | $(3.785,4.543)$ | $(3.730,4.476)$ | $(3.704,4.444)$ |
+
+此探查表明 near-diagonal 例可藉 cell-bound refinement 降到每座標
+$1/20$ 以下；**這既非全體輸入的 uniform bound，也不足以保證雙臂
+numerical errors 相加、統計半寬與完整 split power 通過。**
+近零例的額外 cell 細化效果有限，因 adaptive implementation 自身與
+窄 cell enclosure 的分歧佔主要誤差；其精度和可用資源需另行研究。
+先做 candidate-independent producer-bound 的收緊與資源可行性研究，
+再論證完整 matched-null 輸入律、$\Pr(C)$ 與 cap；不得從這些 planted
+例子直接選 $\eta$ 或 $B$。
 
 若另登記 numerical cap $\eta_k<1/20$，必須在任何正式 seed 前定義它的
 producer-bound、normalized 計算、拒絕理由、evaluation 時序與資源上限；
 兩個反例證明它必排除至少一部分原本 `CLEAN` 的 item-7 合規輸入。
 設 $C$ 為完整 split 的 certification／cap／cohort preconditions 全通過事件。
-cap feasibility 須分別回答：(a) leakage／propagation 收緊後，完整 split 的
+cap feasibility 須分別回答：(a) cell／causal-boundary enclosure 收緊後，完整 split 的
 certification-success event $C$ 有何可證下界；(b) 不讀 6a-S／6a-E arm
-data，如何在 E2 null matched-cohort law 下排除或控制 near-zero norm
-enclosure 的高相對寬度 regime，並將其失敗機率計入同一個 $\Pr(C)$。
+data，如何在 E2 null matched-cohort law 下控制 near-zero norm
+enclosure 的高相對寬度及 adaptive 誤差，並將其失敗機率計入同一個 $\Pr(C)$；
+不能以 atom 數下界取代這兩項證明。
 於是 $\Pr(\mathrm{E2\ PASS})=\Pr(C)\Pr(\mathrm{E2\ PASS}\mid C)
 \le\Pr(C)$；因此單有「在 $C$ 上半寬小於
 margin」**不能**推出完整 split 的 power $\ge0.90$。還須獨立證明
