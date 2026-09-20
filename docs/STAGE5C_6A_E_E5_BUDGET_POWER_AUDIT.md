@@ -273,6 +273,84 @@ $\ge0.90$ 僅保證乘積 $\ge0.81$。否則 §3 的 Hoeffding floor
 本交付不選擇 $\eta_k$、不把已形成 region 的邊界 `FAIL` 改寫成
 `INCONCLUSIVE`，也不從單一 planted witness 推估 $\Pr(C)$。
 
+### 3.2 Frozen E4 的 raw-to-matched 數值誤差律：不生成 seed 的橋接
+
+對每個已凍結的 C8 selector 位置 $j\in\{1,\ldots,11\}$、target
+$\theta\in\{-0.4,+0.4\}$ 及待固定的 causet cardinality $N$，令
+$U=(X_1,\ldots,X_N)$ 為 iid $p_\theta(u,v)$ 座標，$O(U)$ 為它們的
+causal order。先以 **order-only** $\Sigma_j(O(U))$ 選 typed ordered pairs，
+再由 evaluator 取回座標，形成
+
+$$
+r_{j,U}(z)=\frac{1}{|\Sigma_j(O(U))|}
+\sum_{(i,k)\in\Sigma_j(O(U))}
+\gamma_{1/16}\bigl(z-(X_i,X_k)\bigr).
+$$
+
+此處 $\gamma_{1/16}$ 是 item 7 固定的四維 mass-one Gaussian；它使用
+$\varphi=1$、$\mathcal N=|\Sigma|$，每個 causet **各自**正規化，
+不得以所有 causet 的 pair 總數重新正規化。令 $e_{j,N,\theta}(U)$
+為 frozen E4／item-3 producer 對此 mixture 給出的兩座標 **raw**
+`endpoint_error`；最後須按 item 4 的 outward `ENDPOINT_RANGE_WIDTHS`
+正規化後才和 $1/20$ margin 比較。選取失敗、E4 非 `CLEAN`、
+item 3 非 `CLEAN` 或 E4 atom cap 不符時，為了機率計算記
+$e_{j,N,\theta}(U)=+\infty$。這是**未執行的數學推前映射**，
+不是一個 6a-E arm row 或 endpoint。它的 raw 單 causet tail 定義為
+
+$$
+p_{j,N,\theta}(a)=
+\int_{([0,1]^2)^N}
+\mathbf1\{e_{j,N,\theta}(U)\not\le a\}
+\prod_{i=1}^{N}p_\theta(X_i)\,d^{2N}U,
+$$
+
+其中向量 $\le$ 逐分量解讀。這是無 seed 的完整定義，**目前沒有算出
+任何分位數或可用的上界**；不能用 §3.1 的 planted atom 表代入
+$p_{j,N,\theta}$。item 2 的 2048-replication covariance calibration 使用
+抽象 bounded endpoint oracle，不評估上述 frozen E4，故不能從其 coverage
+或 covariance 表讀出 $p_{j,N,\theta}$。
+
+正式 E2 null claim 的對象還包括兩臂 evaluation pools、獨立 calibration
+pools、feature 尺度、Hungarian matching、unmatched 與 matching `CLEAN`
+條件。令每臂 raw evaluation pool 有 $L$ 個 iid causets、$G$ 為完整
+matching `CLEAN` 事件，$M$ 為其 matched pair 數；對 matched rows，item 4
+給的完整 split **raw** 數值半寬為
+
+$$
+h^{\rm num}=\frac1M\sum_{(i,k)\in\mathcal M}
+\bigl(e^L_i+e^R_k\bigr).
+$$
+
+只知道 raw $p_{j,N,\theta}(a)$ **不能**把 matched rows 當 iid raw
+樣本：matching 依所有 pool 的 features 選 indices。仍有不依賴
+選取獨立性的嚴格但可能很鬆的充分界：當兩臂同 target、每臂上界
+皆為有限非負 binary64 raw 向量 $a$，所有 $2L$ 個 raw rows 均通過時，
+$G$ 下 item-4 exact-rational pair addition／outward rounding 仍給
+$h^{\rm num}\le2a$（此量級 $2a$ 可精確表示）；因此
+
+$$
+\Pr\{G,\ h^{\rm num}\le2a\}
+\ \ge\ \Pr(G)-2L\,p_{j,N,\theta}(a).
+$$
+
+這是對 raw bad-row events 的 union bound，**不是**已取得的
+$\Pr(C)$ 下界：右側的 $\Pr(G)$ 和 $p_{j,N,\theta}(a)$ 目前均未證明，
+還沒有固定 6a-E 所需的 $N$、每臂 $L$、candidate cap $a$、
+各 split/cohort 的配置與資源限制。C8.1 的 $N=96$、pool $768$
+是既有 matchability feasibility benchmark，不得默認為全部 6a-E
+正式 streams；6a-S 的 $N\in\{64,96,128\}$ 也不自動固定
+6a-E 的 $N$。若要得到 normalized cap，還須按 item 4 對
+$h^{\rm num}/D$ 向上取界，並留足嚴格 $1/20$ boundary 的 rounding slack。
+完整 $B$-cohort 成功率須在匹配、認證與 cap 的聯合律下
+另行界定；即便先取得這個數值門檻事件的下界，cap conditioning 後的
+null 均值、cohort 變異與 §3 的 power 仍需獨立證明。
+
+故第三條路徑的可審查下一步，是對**每個** $j,N,\theta$ 及預先固定的
+raw pool design，給出不讀 6a-S／6a-E arm data 的
+$p_{j,N,\theta}(a)$ 與 matching-conditioned $h^{\rm num}$ 可信界，
+再判斷 frozen producer 是否已足夠；若不足才評估 item-7 amendment。
+本節不呼叫 generator、不配置／生成 seed、不設 cap 或 cohort floor。
+
 閉合 item 8 須先取得不接觸 6a-S／6a-E arm data 的 E1 positive-gap model，
 每一 E3 finite-cohort directional／equivalence effect model，以及所有 E2/E3 null
 claims 的事前 worst-case distribution／variance、numerical cap 及其
