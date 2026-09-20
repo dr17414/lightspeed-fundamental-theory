@@ -121,6 +121,16 @@ $p\to a$ 選取規則，並證明資源可負擔。本輪只寫估計協定的
 必備欄位及 fail-closed 映射，未完成估計預登記、未選 cap、
 未生成任何 seed。$N\le128$ 足以保證不超 8128-atom cap，
 $N>128$ 並非所有 causet 必遭拒；正式 $N,L,B$ 仍待凍結。
+PR #35 已依獨立 GO 合併；其後的 draft screening 協定只準備
+在已固定的 hard-control 輸入律下做 24 個診斷 causets／264 次
+selector-E4 嘗試，**尚未啟動**。資源重算發現 $R\sim2\times10^4$
+只關係到單 cohort 的正下界；若 $L=768$、至少 $B=32$，
+沿現有全 raw-pool 零超標界達完整 split $c\ge0.90$，即使
+$\Pr(G)=1$ 仍需 $p\lesssim2.03\times10^{-6}$，普通 Monte
+Carlo 的零超標證明在示例 66 strata／8 grid 下約需
+$4.27\times10^8$ 次 E4 評估。小型篩檢只能顯示已觀察到的
+阻塞，不能以零超標反推此 rare-tail 條件；先審 bound 與資源，
+再決定是否有理由投入正式估計。
 
 ---
 
@@ -261,6 +271,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.84（審查提案，2026-09-20）- PR #35 exact head `69b559eb` 經獨立 GO、CI #142（358 passed／5 warnings）後 squash-merge `366ea423`；merge tree 與受審 head 一致。item-8 後續新起 hard-control frozen-E4 screening 草案，事前限定 3 個 $N$ × 2 targets × 4 causets、11 個 selector、診斷專用且不得復用的 seed 區間與只含分層計數的非承重輸出；尚未有 runner、seed 或篩檢資料。分析指出先前的 $R\sim2\times10^4$／stratum 只讓單 cohort union 界可能非空，對至少 32 cohorts、$c\ge0.90$ 的完整 split，最有利假設下仍需 $p\lesssim2.03\times10^{-6}$，66 strata × 8 grid 的零超標 exact-binomial 證據約需 $4.27\times10^8$ 次 E4 評估；小型篩檢不能代替此 tail 證明。item 8、9、10、12 仍 OPEN，item 11 DRAFT，6a-E PREREGISTRATION-INCOMPLETE；未生成 seed、ledger、arm endpoint 或候選 $K$。*
 *v1.83（審查提案，2026-09-20）- 依 PR #35 初輪獨立 GO 更正 frozen E4 error-tail 橋接的適用範圍：$N\le128$ 是 8128-atom cap 的全輸入充分條件，非 $N>128$ 的一律失敗判決；釐清 union bound 的主要損失來自全 raw-pool 零超標要求、$L$ 與匹配／tail 的設計張力，並記錄有限 $a_{\max}$ 路線必須分開處理 producer 失敗。於 item-8 交付義務加上任何 $p$／$\Pr(G)$ 估計前的獨立 review／merge 先決條件，明示需事前固定診斷設計、seed 互斥、replications、同時信賴界與 $p\to a$ fail-closed 規則。這只是未授權執行的協定骨架；沒有填 $N,L,B$、grid、replications 或 seeds，沒有計算 $p$、cap 或 power，item 8 繼續 OPEN。*
 *v1.82（審查提案，2026-09-20）- Item 8 第三條路徑把已凍結的 C8 $p_\theta$ generator、order-only selector、Gaussian-mixture E4 producer 與 full-pool C8.1 matching 接成未執行的數學推前映射；給出對兩臂 raw numerical-error tail 和 matching 成功率的保守 union bound。辨明 $N$、raw pool 大小和 cap 尚未作 6a-E freeze，並明示既有 item-2 covariance calibration 不測 frozen E4 誤差。沒有生成 seed 或任何 arm row／endpoint，沒有得到 $p_{j,N,\theta}$ 分位數、$\Pr(C)$ 下界或 power／cohort floor；item 8 仍 OPEN。*
 *v1.81（審查提案，2026-09-20）- PR #34 的獨立複核確認兩種數值誤差歸因；後續文件補上 item-7 frozen producer amendment 對 item-8 cap 改善的必要審查順序、§6 對 adaptive 自評誤差 undercoverage 的防護，以及 cell/refined-error/兩臂 numerical width／cohort power 之固定 planted 示例與環境成本觀察。另一途徑是保持 item 7 不變，事前證明現有 producer 的 cap 成功機率與 conditioned matched-null law；兩途徑均未在本提案完成，item 8 仍 OPEN，6a-E firewall 不變。*

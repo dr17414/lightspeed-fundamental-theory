@@ -376,6 +376,39 @@ binomial 上界仍是 $1-0.001^{1/2048}\approx0.00337$，
 無法使 $L=768$ 的此界非空；多個 member／threshold 的同時推論
 還會更難。因此在承諾大規模計算前，必須先審查所需精度與資源。
 
+**非空與足夠完整 split power 是不同的資源目標。** 假設歷史
+$L=768$、至少 $H=B=32$ 個 cohort、最佳情況 $\Pr(G)=1$、
+各 cohort 同一上界 $p$；若完整 split numerical-success 下界
+$c\ge0.90$，原 union bound 即要求
+
+$$
+p\le\frac{1-c}{2LH}
+\le\frac{0.10}{1536\cdot32}
+\approx2.03\times10^{-6}.
+$$
+
+只為**單 cohort 下界非空**而估的 $R\sim2\times10^4$／stratum
+並不滿足這個任務。即使 $G$ 真為 1、所有觀察零超標，若為
+11 members × 2 targets × 3 個 $N$ × 8 個 grid points 共
+528 個事前 CI cell 等分 $\delta=0.001$，exact-binomial 上界要
+降到上式以下，至少約 $6{,}476{,}680$ 次**每 stratum**；
+66 個 strata 共至少約 $427{,}460{,}880$ 次 frozen E4 評估。
+同一 stratum 的一批 causets 可供 8 個 grid 門檻共同評分；
+grid 只分攤 $\delta$，**不**將 E4 呼叫數再乘以 8。
+這只是示例組態與零超標的**樂觀下限**：實際 $\Pr(G)<1$、
+$c>0.90$（因 conditional power $d<1$）、$G$ 的信賴額度、
+額外 splits 或任一超標都會加重負擔。依獨立 reviewer 在單一
+容器的 1024／4096-atom timing $31.8$／$101.9$ 秒／次，
+若粗略外推會達約 $3.8\times10^6$–$1.21\times10^7$
+core-hours；這些 timing 未經正式 resource review、不能當成
+8128-atom domain 的成本律。結論只針對目前的**全 raw-pool
+零超標 union bound + 普通 iid exact-binomial估計**；不能由此
+宣稱 frozen E4 或其他平均誤差界在統計上無望。
+
+另見 `STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md`：
+少量真正的 $r_{j,U}$ 可以事前篩掉明顯阻塞，但零次超標
+不會估出 $p\sim10^{-6}$，也不能以 pilot 數值反選 cap。
+
 #### 3.2.1 估計前的預登記閘門（尚未完成，不授權執行）
 
 若要以 hard-control Monte Carlo 而非可證的積分界填入上述未知量，
