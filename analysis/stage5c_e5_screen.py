@@ -110,6 +110,8 @@ def _preflight(root: Path, burn_path: Path, report_path: Path) -> dict:
             raise ScreenNotAuthorized("screen requires a clean checkout")
         if _git(root, "ls-files", "--error-unmatch", AUTHORIZATION) != AUTHORIZATION:
             raise ScreenNotAuthorized("authorization must be committed")
+        if _git(root, "rev-list", "--count", "HEAD", "--", AUTHORIZATION) != "1":
+            raise ScreenNotAuthorized("authorization has been amended; one-shot custody broken")
         auth = json.loads(auth_path.read_text(encoding="utf-8"))
         if auth.get("state") != "AUTHORIZED":
             raise ScreenNotAuthorized("screen authorization is not active")

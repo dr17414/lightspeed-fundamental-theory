@@ -121,11 +121,11 @@ $p\to a$ 選取規則，並證明資源可負擔。本輪只寫估計協定的
 必備欄位及 fail-closed 映射，未完成估計預登記、未選 cap、
 未生成任何 seed。$N\le128$ 足以保證不超 8128-atom cap，
 $N>128$ 並非所有 causet 必遭拒；正式 $N,L,B$ 仍待凍結。
-PR #35 與 draft PR #36 均已依獨立 GO 合併；screening 協定只準備
+PR #35、#36、#37 均已依獨立 GO 合併；screening 協定只準備
 在已固定的 hard-control 輸入律下做 24 個診斷 causets／264 次
-selector-E4 嘗試。後續 runner 提案將 CLEAN 列按事前固定的
+selector-E4 嘗試。已合併 runner 將 CLEAN 列按事前固定的
 $[0,1/160)$、$[1/160,1/80)$、$[1/80,1/40)$、$[1/40,\infty)$
-分帶計數；runner 尚待獨立審查，未有 committed 授權檔，
+分帶計數；授權檔的提交次數檢查另在審查，未有 committed 授權檔，
 **尚未啟動**。資源重算發現 $R\sim2\times10^4$
 只關係到單 cohort 的正下界；若 $L=768$、至少 $B=32$，
 沿現有全 raw-pool 零超標界達完整 split $c\ge0.90$，即使
@@ -274,6 +274,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.87（審查提案，2026-09-21）- PR #37 exact head `1d6c2f69` 經獨立 GO、CI #148（368 passed／5 warnings）後 squash-merge `67d89b69`；四個變動檔案與受審 head 的 blobs 相同。下一個獨立提案為 runner preflight 增加授權檔 git 歷史提交數必須精確為 1 的檢查，避免第一次執行後事後修改授權路徑繞過 one-shot；測試只建暫存 git repo，不呼叫 generator。授權／attestation 仍不存在，沒有生成診斷 seed、沒有 E4 篩檢或 arm endpoint，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
 *v1.86（審查提案，2026-09-20）- Draft PR #37 原 head `0c493a47` 經獨立條件式 GO 查出 one-shot 缺口：缺乏已執行痕跡時，可換 repo 外路徑再次使用相同 seeds。修訂提案強制授權檔固定兩個外部絕對路徑、拒絕已存在的 burn log／report 與 main 上的 attestation；一次嘗試後，先獨立審查並合併只載 status／report digest 的 attestation，才可繼續 item-8 工作。另將 count／category 邏輯錯誤單列 `SCREEN-INTEGRITY-FAILURE`，與資源中斷同樣燒掉已 claim 區間；記錄 `CLEAN-NEAR` 佔多數時的 `NO-OBSTRUCTION` 對 cap 仍很弱。此次 head 須重新完成獨立複核與 CI；沒有授權檔、沒有執行或生成診斷 seed，item 8 仍 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
 *v1.85（審查提案，2026-09-20）- Draft PR #36 head `8a52c758` 經獨立 GO 與 CI #145 後合併 `6a4c1b22`，完整樹與受審 head 相同。後續獨立 runner 提案採用事前 fixed $v=\max(e_1/3,e_2)$ 的四個 CLEAN 分帶，保持 invalid／nonclean 計數與六欄逐 stratum 總和為 4；來源比對、外部 burn log、runtime／資源 preflight 設計皆等待獨立複核，缺失另行 review／merge 的授權檔必須拒絕執行。目前仍未生成任何診斷 seed 或 E4 輸入，沒有 cap、cohort floor、arm ledger／endpoint 或候選 $K$；item 8 繼續 OPEN，6a-E PREREGISTRATION-INCOMPLETE。*
 *v1.84（審查提案，2026-09-20）- PR #35 exact head `69b559eb` 經獨立 GO、CI #142（358 passed／5 warnings）後 squash-merge `366ea423`；merge tree 與受審 head 一致。item-8 後續新起 hard-control frozen-E4 screening 草案，事前限定 3 個 $N$ × 2 targets × 4 causets、11 個 selector、診斷專用且不得復用的 seed 區間與只含分層計數的非承重輸出；尚未有 runner、seed 或篩檢資料。分析指出先前的 $R\sim2\times10^4$／stratum 只讓單 cohort union 界可能非空，對至少 32 cohorts、$c\ge0.90$ 的完整 split，最有利假設下仍需 $p\lesssim2.03\times10^{-6}$，66 strata × 8 grid 的零超標 exact-binomial 證據約需 $4.27\times10^8$ 次 E4 評估；小型篩檢不能代替此 tail 證明。item 8、9、10、12 仍 OPEN，item 11 DRAFT，6a-E PREREGISTRATION-INCOMPLETE；未生成 seed、ledger、arm endpoint 或候選 $K$。*

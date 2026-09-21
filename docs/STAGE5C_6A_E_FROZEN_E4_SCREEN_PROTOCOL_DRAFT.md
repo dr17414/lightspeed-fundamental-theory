@@ -41,7 +41,8 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
   $[6{,}000{,}000{,}000,6{,}000{,}000{,}023]$。
   此處只寫公式，**沒有 claim、計算或生成任一 seed**。
 
-執行器在獨立 PR 待審，執行前須以另一份獨立審查、合併的授權
+執行器已於 PR #37 合併；此次授權歷史檢查仍待獨立審查。
+執行前須以另一份獨立審查、合併的授權
 紀錄 pin 自身、協定、七份 source blob、6a-S burn registry 與 Python／NumPy／SciPy
 runtime；來源、weight construction、座標排列及失敗 precedence
 須有不調用 generator 的 dry-run／sentinel regression。任何差異
@@ -50,12 +51,17 @@ runtime；來源、weight construction、座標排列及失敗 precedence
 `output_paths.burn_log`／`output_paths.report`；執行器拒絕任何
 CLI 指定的其他路徑，以及路徑已存在或 repo 內已有
 `docs/stage5c_e5_screen_attestation.json` 的情況。
+授權檔 `docs/stage5c_e5_screen_authorization.json` 本身也只能
+在 `main` 歷史中首次提交一次；preflight 要求對此路徑的
+`git rev-list --count HEAD -- <path>` 精確等於 1。任何修改、
+刪除後重建、或事後把輸出路徑改為新檔名，都使原 seed 區間
+永久拒絕執行；若需改設計須另行審查新的診斷協定與 namespace。
 建立 burn log 時採獨占建立並同步檔案及父目錄；同一組
 診斷 seeds 從第一筆嘗試起即不可透過換路徑重跑。
 操作方須保全外部檔案；手動刪除／竄改該檔不屬於程式可證的
 one-shot 範圍，故事後 attestation 與 custody audit 仍是義務。
 依賴基線先鎖定於已合併的 PR #35 tree `fb10f67b1afe0e1b44b60abab280dfb79a2e760c`；
-篩檢 runner 之後須在獨立 PR 固定自己的 blob，且在執行前比對
+已合併的篩檢 runner 須在未來授權 PR 固定自己的 blob，且在執行前比對
 上述 frozen source tree 所含 generator／selector／measure／E4／
 continuum pairing／certification／primary invariant 七個程式檔的 blobs。建議先沿用
 CI 的 Python `3.12.13`、NumPy `2.3.5`、SciPy `1.17.0`，
@@ -146,6 +152,7 @@ $p$ 是否為 $10^{-4}$ 或 $10^{-6}$。故未來 $R_p$ 不能從這
 證明的 bound，不能依首輪結果追加 replications 或另取種子。
 換言之，篩檢結果只決定是否開啟該規劃，**不決定 $R$ 的數值**。
 
-本草案僅提議 resource cap；runner 與 burn attestation／preflight
-尚待獨立複核，授權檔刻意不存在；**不得執行**。item 8 及 6a-E preregistration
+本草案僅提議 resource cap；此次 custody 修訂與正式環境的
+preflight 尚待獨立複核，授權檔刻意不存在，事後 burn attestation
+亦未形成；**不得執行**。item 8 及 6a-E preregistration
 狀態維持 `OPEN`／`PREREGISTRATION-INCOMPLETE`。
