@@ -5,6 +5,8 @@
 `docs/stage5c_e5_screen_authorization.json` 在完整 PR tree 中必須不存在。
 候選檔可在審查期間修改，也可用 squash、merge commit 或 rebase 方式
 安全合併；任何合併方式都不能解除 runner 的 fail-closed preflight。
+候選路徑本身可有多次審查提交；one-shot 歷史計數只承重真實路徑，
+故 candidate PR 的所有可達提交都不得新增、修改或刪除真實路徑。
 
 九類內容定稿且下列阻塞全部解除後，須另開一個 trigger PR，從已合併
 候選檔**逐位元複製**建立真實授權路徑。該 trigger branch 只能有一個
