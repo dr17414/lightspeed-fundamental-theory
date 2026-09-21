@@ -15,11 +15,21 @@ squash、merge commit 或 rebase，真實路徑在 `main` 的歷史計數均為 
 trigger 合併後不得修改 JSON 補救，否則 preflight 永久拒絕同一診斷
 seed namespace。
 
+建立真實授權檔的同一個 trigger commit，必須同時把 review 階段的
+`test_review_tree_cannot_authorize_execution` 不存在性斷言，替換為
+真實檔與已合併候選檔**逐位元相同**的斷言；不得先讓必然失敗的 CI
+進入 trigger branch，再以第二個補救 commit 修改測試。
+
 原協定檔目前仍明寫「審查草案／未凍結／不得執行」；這是第三個
 明確 trigger 阻塞。候選審查 PR 可在阻塞未解時安全合併；trigger PR
 不得建立，直到 audit-only 協定經獨立凍結審查、協定狀態改正、候選
 JSON 的協定 blob 更新且新的 exact head 通過 CI 與獨立複核。不得把
 候選檔內的 `AUTHORIZED` 當成覆蓋協定文字或真實路徑缺席的授權。
+凍結協定時保留既有檔名
+`docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md`，只修改檔內
+狀態與承重文字。若改名，runner 的 `PROTOCOL` 常數與 executable blob
+也必須改動，屆時不再是純文件凍結，須另行重審 runner；不得在協定
+凍結 PR 順手完成。
 
 ## 九類審查項目
 
