@@ -3,6 +3,7 @@
 from contextlib import nullcontext
 from fractions import Fraction
 import json
+import subprocess
 from types import SimpleNamespace
 
 import numpy as np
@@ -97,6 +98,7 @@ def test_one_shot_custody_rejects_repeat_or_switched_paths_before_generator(
     monkeypatch.setattr(
         screen, "_git", lambda _root, *args: (
             "main" if args[0] == "branch" else
+            "1" if args[0] == "rev-list" else
             screen.AUTHORIZATION if args[0] == "ls-files" else ""
         ),
     )
@@ -119,3 +121,29 @@ def test_one_shot_custody_rejects_repeat_or_switched_paths_before_generator(
     with pytest.raises(screen.ScreenNotAuthorized, match="already|differs"):
         screen.run_screen(root, burn, report)
     assert not (tmp_path / "switched-burn.ndjson").exists()
+
+
+def test_amended_committed_authorization_rejects_before_generator(monkeypatch, tmp_path):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("generator must never be touched")
+
+    monkeypatch.setattr(screen, "sprinkle_control", forbidden)
+    root = tmp_path / "repo"
+    root.mkdir()
+    subprocess.run(("git", "init", "-q", "-b", "main", str(root)), check=True)
+    auth = root / screen.AUTHORIZATION
+    auth.parent.mkdir()
+    auth.write_text("{}\n")
+    subprocess.run(("git", "add", screen.AUTHORIZATION), cwd=root, check=True)
+    commit = ("git", "-c", "user.name=CI", "-c", "user.email=ci@example.invalid",
+              "commit", "-qm")
+    subprocess.run((*commit, "first authorization"), cwd=root, check=True)
+    assert screen._git(root, "rev-list", "--count", "HEAD", "--", screen.AUTHORIZATION) == "1"
+    auth.write_text('{"state":"AUTHORIZED"}\n')
+    subprocess.run(("git", "add", screen.AUTHORIZATION), cwd=root, check=True)
+    subprocess.run((*commit, "amended authorization"), cwd=root, check=True)
+    assert screen._git(root, "rev-list", "--count", "HEAD", "--", screen.AUTHORIZATION) == "2"
+    burn, report = tmp_path / "burn.ndjson", tmp_path / "report.json"
+    with pytest.raises(screen.ScreenNotAuthorized, match="authorization has been amended"):
+        screen.run_screen(root, burn, report)
+    assert not burn.exists() and not report.exists()
