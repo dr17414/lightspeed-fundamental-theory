@@ -42,6 +42,7 @@ SEED_LAST = SEED_BASE + 23
 MAX_CPU_SECONDS = 16 * 3600
 MAX_E4_WALL_SECONDS = 900
 MAX_RSS_BYTES = 32 * 1024**3
+REQUIRED_PLATFORM = "linux"  # ru_maxrss is KiB on Linux; the runner multiplies by 1024
 AUTHORIZATION = "docs/stage5c_e5_screen_authorization.json"  # deliberately absent
 ATTESTATION = "docs/stage5c_e5_screen_attestation.json"  # committed after any attempt
 PROTOCOL = "docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md"
@@ -103,6 +104,11 @@ def _preflight(root: Path, burn_path: Path, report_path: Path) -> dict:
     auth_path = root / AUTHORIZATION
     if not auth_path.is_file():
         raise ScreenNotAuthorized("reviewed screen authorization is absent")
+    # The post-burn RSS check converts Linux ru_maxrss KiB to bytes.  macOS
+    # already reports bytes, so allowing it would misclassify ~32 MiB as the
+    # 32 GiB cap only after the one-shot seed claim.
+    if sys.platform != REQUIRED_PLATFORM:
+        raise ScreenNotAuthorized("screen requires Linux ru_maxrss semantics")
     try:
         if _git(root, "branch", "--show-current") != "main":
             raise ScreenNotAuthorized("screen requires committed main")

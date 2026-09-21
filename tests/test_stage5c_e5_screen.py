@@ -85,6 +85,21 @@ def test_absent_committed_authorization_rejects_before_generator(monkeypatch, tm
     assert not burn.exists() and not report.exists()
 
 
+def test_non_linux_runtime_rejects_before_burn_and_generator(monkeypatch, tmp_path):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("generator must never be touched")
+
+    monkeypatch.setattr(screen, "sprinkle_control", forbidden)
+    monkeypatch.setattr(screen.sys, "platform", "darwin")
+    root = tmp_path / "repo"
+    (root / "docs").mkdir(parents=True)
+    (root / screen.AUTHORIZATION).write_text("{}\n")
+    burn, report = tmp_path / "burn.ndjson", tmp_path / "report.json"
+    with pytest.raises(screen.ScreenNotAuthorized, match="Linux ru_maxrss"):
+        screen.run_screen(root, burn, report)
+    assert not burn.exists() and not report.exists()
+
+
 @pytest.mark.parametrize("used", ("attestation", "burn_log", "report", "alternate"))
 def test_one_shot_custody_rejects_repeat_or_switched_paths_before_generator(
     monkeypatch, tmp_path, used
