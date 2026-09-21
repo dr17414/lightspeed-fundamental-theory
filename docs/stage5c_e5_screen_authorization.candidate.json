@@ -2,7 +2,7 @@
   "state": "AUTHORIZED",
   "blob_shas": {
     "analysis/stage5c_e5_screen.py": "30a0ef986a7434843f22342321a62132440fb6d8",
-    "docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md": "eb7de208fc89fa4a31fd9f16422898f22f6bf7fb",
+    "docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md": "59c23e2ce45a45bb02f12bdc88e9d78b5bd85a95",
     "analysis/stage5c_hard_controls.py": "32f593c0b710b4c591fb7746c7014d72784da554",
     "analysis/stage5c_selector_family.py": "9b9bb5497e0dc432eb63939b47bede0070bd8120",
     "analysis/stage5c_measure_prereg.py": "0b05b1fc913da77b4f1824fbf7901c52734efc19",

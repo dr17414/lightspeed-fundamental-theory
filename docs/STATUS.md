@@ -121,11 +121,12 @@ $p\to a$ 選取規則，並證明資源可負擔。本輪只寫估計協定的
 必備欄位及 fail-closed 映射，未完成估計預登記、未選 cap、
 未生成任何 seed。$N\le128$ 足以保證不超 8128-atom cap，
 $N>128$ 並非所有 causet 必遭拒；正式 $N,L,B$ 仍待凍結。
-PR #35、#36、#37 均已依獨立 GO 合併；screening 協定只準備
+PR #35–#40 均已依獨立 GO 合併；screening 協定只準備
 在已固定的 hard-control 輸入律下做 24 個診斷 causets／264 次
 selector-E4 嘗試。已合併 runner 將 CLEAN 列按事前固定的
 $[0,1/160)$、$[1/160,1/80)$、$[1/80,1/40)$、$[1/40,\infty)$
-分帶計數；授權檔的提交次數檢查另在審查，未有 committed 授權檔，
+分帶計數；授權歷史檢查及候選／trigger 分離已完成 review／merge。
+目前 audit-only 協定凍結為 `REVIEW-PENDING`，真實授權檔仍不存在，
 **尚未啟動**。資源重算發現 $R\sim2\times10^4$
 只關係到單 cohort 的正下界；若 $L=768$、至少 $B=32$，
 沿現有全 raw-pool 零超標界達完整 split $c\ge0.90$，即使
@@ -274,6 +275,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.90（審查提案，2026-09-21）- PR #40 exact head `2c64bf62` 經獨立 GO 後 squash-merge `d0c485b8`，merge tree 與受審 head 逐位元相同；同一 trigger commit 內替換不存在性回歸及保留 `_DRAFT` 協定檔名的義務已寫定。下一個純文件提案把 audit-only 篩檢協定改為 `FREEZE-REVIEW-PENDING`，不改任何設計常數或 executable，並把候選 JSON 的協定 pin 更新為新 blob；只有本 exact head 經 CI、獨立 GO 及合併後才可稱 `FROZEN-PROTOCOL`。目標主機 exact build／資源與 repo 外 custody 仍未驗收，真實授權檔／trigger／attestation 均不存在；不得執行、生成或 claim seed。item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無 arm ledger／endpoint 或候選 $K$。*
 *v1.89（審查提案，2026-09-21）- PR #39 exact head `25733f17` 經獨立 GO、CI #154／#155（372 passed／5 warnings）後 squash-merge `cab6c344`；merge tree 與受審 head 逐位元相同，真實授權路徑仍不存在且在 `main` 歷史觸碰數為 0，候選 JSON blob 維持 `bf3757e0`。後續 trigger 必須在新增真實檔的同一 commit，把 review 階段的不存在性回歸替換為真實檔／候選檔逐位元相同回歸；協定凍結須保留含 `_DRAFT` 的既有檔名，只改內文，避免連帶修改 runner `PROTOCOL` 常數與 executable blob。這只是未來 trigger 的純文件義務，不建立授權、不改候選 JSON／runner／協定，不執行篩檢或生成 seed；item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無 arm ledger／endpoint 或候選 $K$。*
 *v1.88（候選審查，2026-09-21）- PR #38 exact head `e4347944` 經獨立 GO、CI #150（369 passed／5 warnings）後 squash-merge `09c61cd4`；四個變動檔案的 blobs 與受審 head 相同。item-8 篩檢的九類候選授權內容中，runner、協定、七個來源檔與 burn registry 的十個 Git blob 均對回已合併的 HEAD；CI 僅做純檔案／常數檢查，不觸發 generator。獨立 review 指出若真實授權路徑在審查分支被多次修改，runner 的歷史計數會依 GitHub merge mode 而不可逆失效；因此本 PR 改為只交付 `stage5c_e5_screen_authorization.candidate.json`，並以回歸要求 runner 實讀的授權路徑不存在。候選可安全合併；九類內容定稿且三個阻塞解除後，才另以單一 commit trigger PR 建立與候選逐位元相同的真實授權檔。目標主機 Python 3.12.13 完整 build、repo 外持久目錄與 16 core-hours／32 GiB 資源仍無驗收證據，原篩檢協定仍為 `DRAFT／不得執行`；沒有生成診斷 seed 或 E4 輸入，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無 arm ledger／endpoint 或候選 $K$。*
 *v1.87（審查提案，2026-09-21）- PR #37 exact head `1d6c2f69` 經獨立 GO、CI #148（368 passed／5 warnings）後 squash-merge `67d89b69`；四個變動檔案與受審 head 的 blobs 相同。下一個獨立提案為 runner preflight 增加授權檔 git 歷史提交數必須精確為 1 的檢查，避免第一次執行後事後修改授權路徑繞過 one-shot；測試只建暫存 git repo，不呼叫 generator。授權／attestation 仍不存在，沒有生成診斷 seed、沒有 E4 篩檢或 arm endpoint，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
