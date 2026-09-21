@@ -1,11 +1,14 @@
-# Stage 5C item 8 — frozen E4 hard-control 可行性篩檢草案
+# Stage 5C item 8 — frozen E4 hard-control 可行性篩檢協定
 
-狀態：**【審查草案／未凍結／不得執行】**。這只規劃 item 8 的
+狀態：**【FREEZE-REVIEW-PENDING／不得執行】**。本文件在此次
+純文件 PR 提出 audit-only 協定凍結；只有 exact head 經獨立複核、
+CI 及合併後，才可引用為 `FROZEN-PROTOCOL`。這只規劃 item 8 的
 candidate-independent、audit-only 篩檢；它不是 6a-E selection 或
 confirmation arm，也不完成 §3.2.1 的 $p$／$\Pr(G)$ 估計預登記。
-診斷 seed、輸入或 E4 評估均須等本協定及唯一執行器經
-獨立複核、CI、合併，另有正式授權紀錄及 preflight 後才可啟動。
-即使 runner 已合併，缺少事後獨立審查的授權檔仍須拒絕啟動。
+即使本協定完成凍結，診斷 seed、輸入或 E4 評估仍須等目標主機
+runtime／資源與 repo 外 custody 驗收完成，候選授權重新 pin 此協定
+blob 並經獨立複核，另以 trigger PR 建立真實授權紀錄且 preflight
+全部通過後才可啟動。runner 已合併，但真實授權檔缺席時必須拒絕啟動。
 
 ## 1. 固定問題與輸入
 
@@ -31,7 +34,7 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
   $\varphi=1,\mathcal N=m$，交給**既有**
   `evaluate_e4_wellposedness(atoms, weights, theta)`；不得修改 E4
   cell levels、adaptive 容差或認證常數。
-- 提議的專屬 audit seed 整數為
+- 凍結的專屬 audit seed 整數為
   $s(i,t,r)=6{,}000{,}000{,}000+8i+4t+r$，其中
   $i=0,1,2$ 對應上述 $N$ 順序，$t=0,1$ 對應上述 $\theta$
   順序，$r=0,1,2,3$。此 24 整數不屬於既有 6a-S
@@ -41,7 +44,8 @@ order-only C8 selector，是否已顯示超過 E2 數值餘裕的常見個案？
   $[6{,}000{,}000{,}000,6{,}000{,}000{,}023]$。
   此處只寫公式，**沒有 claim、計算或生成任一 seed**。
 
-執行器已於 PR #37 合併；此次授權歷史檢查仍待獨立審查。
+執行器及授權歷史 preflight 已完成獨立審查並合併；本次不修改
+runner，也不建立真實授權檔。
 執行前須以另一份獨立審查、合併的授權
 紀錄 pin 自身、協定、七份 source blob、6a-S burn registry 與 Python／NumPy／SciPy
 runtime；來源、weight construction、座標排列及失敗 precedence
@@ -67,12 +71,13 @@ continuum pairing／certification／primary invariant 七個程式檔的 blobs�
 CI 的 Python `3.12.13`、NumPy `2.3.5`、SciPy `1.17.0`，
 執行前逐字記錄 `sys.version` 及套件版本；與已審 profile 不同即停止。
 
-資源停止規則提議為**單 process、無自動 retry**：完整篩檢
+資源停止規則凍結為**單 process、無自動 retry**：完整篩檢
 上限 16 core-hours、單次 E4 牆鐘時間 900 秒、process RSS
 32 GiB；執行環境須能實際量測並強制停止，否則不得開始。
 超限只記 `SCREEN-INCOMPLETE`，不能降低 $N$、刪除耗時
-member 或重用已 claim 的 seed 補齊；這些上限與 profile
-都待 runner review，仍不是執行授權。
+member 或重用已 claim 的 seed 補齊。這些上限已屬本協定的
+固定設計，但目標主機能否實際執行仍待驗收，且固定設計本身
+不是執行授權。
 
 ## 2. 預先指定的輸出與隔離
 
@@ -152,7 +157,9 @@ $p$ 是否為 $10^{-4}$ 或 $10^{-6}$。故未來 $R_p$ 不能從這
 證明的 bound，不能依首輪結果追加 replications 或另取種子。
 換言之，篩檢結果只決定是否開啟該規劃，**不決定 $R$ 的數值**。
 
-本草案僅提議 resource cap；此次 custody 修訂與正式環境的
-preflight 尚待獨立複核，授權檔刻意不存在，事後 burn attestation
-亦未形成；**不得執行**。item 8 及 6a-E preregistration
-狀態維持 `OPEN`／`PREREGISTRATION-INCOMPLETE`。
+本協定的輸入、seed namespace、分類、停止規則與 resource cap
+只在此次 exact head 經獨立 GO、CI 及合併後凍結；凍結不等於
+執行授權。目標主機 runtime／資源及 repo 外 custody 尚未驗收，
+真實授權檔刻意不存在，事後 burn attestation 亦未形成；**不得執行**。
+item 8 及 6a-E preregistration 狀態維持
+`OPEN`／`PREREGISTRATION-INCOMPLETE`。

@@ -1,7 +1,10 @@
 # Stage 5C item 8 — audit-only E4 screen 授權審查清單
 
-狀態：**候選內容 DRAFT／不構成執行授權／不得執行**。本 PR 只交付
-`docs/stage5c_e5_screen_authorization.candidate.json`；runner 實際讀取的
+狀態：**協定凍結 REVIEW-PENDING／不構成執行授權／不得執行**。
+候選授權已由 PR #39 安全合併；本 PR 只凍結 audit-only 協定內容，
+並同步更新
+`docs/stage5c_e5_screen_authorization.candidate.json` 的協定 blob pin。
+runner 實際讀取的
 `docs/stage5c_e5_screen_authorization.json` 在完整 PR tree 中必須不存在。
 候選檔可在審查期間修改，也可用 squash、merge commit 或 rebase 方式
 安全合併；任何合併方式都不能解除 runner 的 fail-closed preflight。
@@ -20,10 +23,10 @@ seed namespace。
 真實檔與已合併候選檔**逐位元相同**的斷言；不得先讓必然失敗的 CI
 進入 trigger branch，再以第二個補救 commit 修改測試。
 
-原協定檔目前仍明寫「審查草案／未凍結／不得執行」；這是第三個
-明確 trigger 阻塞。候選審查 PR 可在阻塞未解時安全合併；trigger PR
-不得建立，直到 audit-only 協定經獨立凍結審查、協定狀態改正、候選
-JSON 的協定 blob 更新且新的 exact head 通過 CI 與獨立複核。不得把
+本 PR 將協定改為 `FREEZE-REVIEW-PENDING／不得執行`；只有新的
+exact head 通過 CI、獨立複核並合併後，audit-only 協定才成為
+`FROZEN-PROTOCOL`，第三個 trigger 阻塞才算解除。trigger PR
+不得提前建立。不得把
 候選檔內的 `AUTHORIZED` 當成覆蓋協定文字或真實路徑缺席的授權。
 凍結協定時保留既有檔名
 `docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md`，只修改檔內
@@ -36,7 +39,7 @@ JSON 的協定 blob 更新且新的 exact head 通過 CI 與獨立複核。不�
 | 類別 | 待核對的確切內容 | 草案證據／阻塞 |
 | --- | --- | --- |
 | 1 runner | `analysis/stage5c_e5_screen.py` blob | `30a0ef986a7434843f22342321a62132440fb6d8`；對 repo **實際合併目標 HEAD** 重讀。 |
-| 2 協定 | `docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md` blob | 目前為 `eb7de208fc89fa4a31fd9f16422898f22f6bf7fb`；檔內仍 `DRAFT／不得執行`，須完成 audit-only 凍結後更新此 blob pin。 |
+| 2 協定 | `docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md` blob | 本 PR 的凍結候選為 `59c23e2ce45a45bb02f12bdc88e9d78b5bd85a95`；候選 JSON 已同步 pin 此 blob。只有 exact-head 獨立 GO、CI 與合併後才成為 `FROZEN-PROTOCOL`；檔名保留 `_DRAFT`，且凍結仍不授權執行。 |
 | 3 七個來源 | 逐檔 `HEAD:<path>`，且須等於 runner `FROZEN_BLOBS` | 下表七個 SHA；不可只核對 JSON 內部彼此一致。 |
 | 4 6a-S burn registry | `docs/stage5c_6a_s_burn_registry.json` blob、全部已 burn／reserved source-of-record 與完整 24-seed 區間互斥 | blob `74a0299fd251e598beb34293c2f9b0880c2b3368`；若新的保留區間出現，須重新審。 |
 | 5 runtime | Python **完整** `sys.version` 字串；NumPy `2.3.5`、SciPy `1.17.0`；OS 的 `RLIMIT_AS`、`SIGALRM`、`ru_maxrss` 單位 | 借用已封存 6a-S 的 Python `3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]` 作候選，**尚未證實擬用主機存在這個 build**；當前工作環境為 3.12.14，不能執行。 |
@@ -58,8 +61,8 @@ JSON 的協定 blob 更新且新的 exact head 通過 CI 與獨立複核。不�
 | `analysis/stage5c_numerical_certification.py` | `deae60470abfddf2d636a4b3fd9160bbfebccc91` |
 | `analysis/stage5c_primary_invariant.py` | `6756fd1dae86065fc209b99a4b8cedb57efdaaac` |
 
-候選審查 PR 的 runner、七個來源及 6a-S registry **不得**修改。
-協定狀態凍結屬例外：完成獨立審查後，先在候選檔更新協定 blob pin。
+本協定凍結 PR 的 runner、七個來源、6a-S registry、seed／resource／
+output-path 欄位及測試 **不得**修改；唯一候選 JSON 變更是協定 blob pin。
 若 `main` 在 trigger 前改變任何被 pin 的 blob，須另行更新候選檔、合併
 並重新取得 exact-head 複核；trigger PR 不得自行修訂任何欄位。
 不可讓 preflight 到執行時才發現無法啟動。雖然測試可檢查
