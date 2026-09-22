@@ -20,7 +20,7 @@
     "rss_bytes": 34359738368
   },
   "output_paths": {
-    "burn_log": "/srv/lightspeed-fundamental-theory/audit/stage5c-e5-screen-v1/burn.ndjson",
-    "report": "/srv/lightspeed-fundamental-theory/audit/stage5c-e5-screen-v1/report.json"
+    "burn_log": "/home/kyl/physics/audit/stage5c-e5-screen-v1/burn.ndjson",
+    "report": "/home/kyl/physics/audit/stage5c-e5-screen-v1/report.json"
   }
 }
