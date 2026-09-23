@@ -1,11 +1,13 @@
 # Stage 5C item 8 — audit-only E4 screen 授權審查清單
 
-狀態：**runner 平台防護 REVIEW-PENDING／不構成執行授權／不得執行**。
+狀態：**目標主機 custody pin 更新 REVIEW-PENDING／不構成執行授權／不得執行**。
 audit-only 協定已由 PR #41 merge `a5cf4dd6` 成為
-`FROZEN-PROTOCOL`。本 PR 只在 preflight 明確拒絕非 Linux 平台，
-避免 macOS 的 `ru_maxrss` bytes 被再次乘以 1024、直到 seed burn 後才
-誤判超過 RSS cap；並同步更新
-`docs/stage5c_e5_screen_authorization.candidate.json` 的 runner blob pin。
+`FROZEN-PROTOCOL`；runner 的 Linux-only preflight 已由 PR #42 merge
+`5a1994f0` 合併。本 PR 只依 `de3d35c` 目標主機 A／B／C 驗收結果，
+把 `docs/stage5c_e5_screen_authorization.candidate.json` 的兩個
+`output_paths` 從未採用的 `/srv/...` 提議改釘為已驗收的
+`/home/kyl/physics/audit/stage5c-e5-screen-v1/` 路徑。
+`sys_version`、十個 blob pin、seed range 與 resource limits 均不得改動。
 runner 實際讀取的
 `docs/stage5c_e5_screen_authorization.json` 在完整 PR tree 中必須不存在。
 候選檔可在審查期間修改，也可用 squash、merge commit 或 rebase 方式
@@ -44,10 +46,10 @@ PR #41 的 exact head 已通過 CI、獨立複核並合併；audit-only 協定
 | 2 協定 | `docs/STAGE5C_6A_E_FROZEN_E4_SCREEN_PROTOCOL_DRAFT.md` blob | 已凍結為 `59c23e2ce45a45bb02f12bdc88e9d78b5bd85a95`；候選 JSON 維持 pin 此 blob。檔名保留 `_DRAFT`，且凍結仍不授權執行。 |
 | 3 七個來源 | 逐檔 `HEAD:<path>`，且須等於 runner `FROZEN_BLOBS` | 下表七個 SHA；不可只核對 JSON 內部彼此一致。 |
 | 4 6a-S burn registry | `docs/stage5c_6a_s_burn_registry.json` blob、全部已 burn／reserved source-of-record 與完整 24-seed 區間互斥 | blob `74a0299fd251e598beb34293c2f9b0880c2b3368`；若新的保留區間出現，須重新審。 |
-| 5 runtime | Python **完整** `sys.version` 字串；NumPy `2.3.5`、SciPy `1.17.0`；OS 的 `RLIMIT_AS`、`SIGALRM`、`ru_maxrss` 單位 | 借用已封存 6a-S 的 Python `3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]` 作候選，**尚未證實擬用主機存在這個 build**；當前工作環境為 3.12.14，不能執行。 |
+| 5 runtime | Python **完整** `sys.version` 字串；NumPy `2.3.5`、SciPy `1.17.0`；OS 的 `RLIMIT_AS`、`SIGALRM`、`ru_maxrss` 單位 | 已在目標主機逐字驗證 Python `3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]`，平台為 Linux x86_64，NumPy／SciPy 為 `2.3.5`／`1.17.0`；checkout 為乾淨的 `main` `de3d35c`，真實授權路徑歷史計數為 0。 |
 | 6 seed | `[6000000000,6000000023]`；公式 `6000000000 + 8i + 4t + r`，$i\in\{0,1,2\}$、$t\in\{0,1\}$、$r\in\{0,1,2,3\}$ | 須窮舉恰有 24 個相異整數，並稽核後續 6a-E manifest 將整段排除。 |
-| 7 resource | `cpu_seconds=57600`、`e4_wall_seconds=900`、`rss_bytes=34359738368` | 須在目標主機完成資源可執行性審查；必要的 16 core-hours、單 E4 15 分、32 GiB memory 不因 CI 綠燈而自動成立。 |
-| 8 外部 custody | 兩個**絕對、已 resolve、互異、未存在**的路徑，父目錄在 repo 外、可持久保全、可 `fsync` | 草案 `/srv/lightspeed-fundamental-theory/audit/stage5c-e5-screen-v1/` **只是提議**；目前沒有該目標主機／持久磁碟的驗收證據。須確定容量、權限、留存及不可刪除／竄改的操作責任。 |
+| 7 resource | `cpu_seconds=57600`、`e4_wall_seconds=900`、`rss_bytes=34359738368` | 目標主機的 8128-atom frozen-E4 probe 為 `CLEAN`，wall `133.8 s`、CPU `173.9 s`、CPU/wall `1.30`、VmPeak `876248 kB`、VmHWM `426500 kB`，且 32 GiB `RLIMIT_AS` 下未出現 `MemoryError`。主機總記憶體僅約 **7 GB**；32 GiB 是 address-space 上限而非可用實體記憶體保證，**正式執行前必須再次確認當時可用記憶體足夠**，不得只憑本次 probe 或 CI 綠燈啟動。 |
+| 8 外部 custody | 兩個**絕對、已 resolve、互異、未存在**的路徑，父目錄在 repo 外、可持久保全、可 `fsync` | 已驗收 `/home/kyl/physics/audit/stage5c-e5-screen-v1/{burn.ndjson,report.json}`：位於 checkout 外的 ext4 `rw` 檔案系統，父目錄存在且可寫，兩個輸出均未被 claim；正式執行仍須保全檔案並履行 attestation／custody audit。 |
 | 9 one-shot／狀態 | 候選審查合併後真實授權路徑歷史計數仍為 0；trigger PR 才以單一 commit 建立逐位元相同的真實檔。attestation 不存在、輸出未 claim；`state=AUTHORIZED`，item 8 仍 OPEN、6a-E 仍未預登記完成 | candidate PR 回歸要求真實路徑不存在；trigger PR 回歸要求兩檔 bytes 相同，且合併後 `git rev-list --count HEAD -- docs/stage5c_e5_screen_authorization.json` 應為 1。**trigger 合併本身仍不構成執行命令**。所有後續失敗與 `SCREEN-INCOMPLETE` 都不得重跑同一 seed。 |
 
 第三類逐檔核對（均為 PR #38 合併 `09c61cd4` 的實際 blob，
@@ -63,9 +65,9 @@ PR #41 的 exact head 已通過 CI、獨立複核並合併；audit-only 協定
 | `analysis/stage5c_numerical_certification.py` | `deae60470abfddf2d636a4b3fd9160bbfebccc91` |
 | `analysis/stage5c_primary_invariant.py` | `6756fd1dae86065fc209b99a4b8cedb57efdaaac` |
 
-本 runner hardening PR 的協定、七個來源、6a-S registry、seed／resource／
-output-path 欄位 **不得**修改；唯一候選 JSON 變更是 runner blob pin。
-測試只可新增非 Linux 在 generator／burn 前拒絕且零輸出的回歸。
+本 target-host acceptance follow-up PR 的 runner、協定、七個來源、
+6a-S registry、`sys_version`、seed／resource 欄位 **不得**修改；唯一
+候選 JSON 變更是上述兩個 `output_paths`。測試與 executable 均不得修改。
 若 `main` 在 trigger 前改變任何被 pin 的 blob，須另行更新候選檔、合併
 並重新取得 exact-head 複核；trigger PR 不得自行修訂任何欄位。
 不可讓 preflight 到執行時才發現無法啟動。雖然測試可檢查
