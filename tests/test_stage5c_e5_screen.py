@@ -1,4 +1,4 @@
-"""Pure structural checks: no test calls sprinkle_control or claims a seed."""
+"""Runner checks: no test calls run_screen, sprinkle_control, or claims a seed."""
 
 from contextlib import nullcontext
 from fractions import Fraction
@@ -46,7 +46,7 @@ def test_exact_coord_one_division_and_nonclean_short_circuit():
 def test_selector_boundary_evaluator_coordinates_and_uniform_weights(monkeypatch):
     sample = SimpleNamespace(
         order=np.array([[False, True], [False, False]]),
-        coordinates=np.array(((0.8, 0.7), (0.2, 0.1))),
+        coordinates=np.array(((0.2, 0.1), (0.8, 0.7))),
         theta=0.4,
     )
 
@@ -70,6 +70,15 @@ def test_selector_boundary_evaluator_coordinates_and_uniform_weights(monkeypatch
     monkeypatch.setattr(screen, "evaluate_e4_wellposedness", evaluate)
     monkeypatch.setattr(screen, "_e4_deadline", nullcontext)
     assert screen._one_member(sample, "all_relations", ()) == "CLEAN-LOW"
+
+
+def test_real_selector_output_reaches_real_e4_with_registered_orientation():
+    sample = SimpleNamespace(
+        order=np.array([[False, True], [False, False]]),
+        coordinates=np.array(((0.2, 0.2), (0.8, 0.8))),
+        theta=0.4,
+    )
+    assert screen._one_member(sample, "all_relations", ()) == "CLEAN-OVER"
 
 
 def test_absent_committed_authorization_rejects_before_generator(monkeypatch, tmp_path):

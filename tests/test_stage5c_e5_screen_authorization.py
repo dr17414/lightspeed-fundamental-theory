@@ -1,4 +1,4 @@
-"""Check proposal bytes only; never run the screen or claim diagnostic seeds."""
+"""Check authorization custody only; never run the screen or claim seeds."""
 
 from hashlib import sha1
 import json
@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CANDIDATE_AUTHORIZATION = Path(
     "docs/stage5c_e5_screen_authorization.candidate.json"
 )
+ATTESTATION = Path("docs/stage5c_e5_screen_attestation.json")
 
 
 def _candidate():
@@ -23,17 +24,26 @@ def test_trigger_authorization_matches_reviewed_candidate_byte_for_byte():
     ).read_bytes()
 
 
-def test_authorization_pins_every_current_blob_and_frozen_source():
+def test_attested_authorization_blob_and_still_frozen_sources():
     auth = _candidate()
+    attestation = json.loads((ROOT / ATTESTATION).read_text(encoding="utf-8"))
+    live_content = (ROOT / screen.AUTHORIZATION).read_bytes()
+    live_sha = sha1(
+        b"blob " + str(len(live_content)).encode("ascii") + b"\0" + live_content
+    ).hexdigest()
+    assert live_sha == attestation["authorization_checks"]["authorization_blob_sha1"]
     assert set(auth) == {
         "state", "blob_shas", "sys_version", "seed_range", "resource_limits", "output_paths"
     }
     assert auth["state"] == "AUTHORIZED"
     pinned = auth["blob_shas"]
     assert set(pinned) == {screen.RUNNER, screen.PROTOCOL, *screen.FROZEN_BLOBS}
-    for path, expected_sha in pinned.items():
+    for path in (screen.PROTOCOL, *screen.FROZEN_BLOBS):
+        expected_sha = pinned[path]
         content = (ROOT / path).read_bytes()
-        actual_sha = sha1(b"blob " + str(len(content)).encode("ascii") + b"\0" + content).hexdigest()
+        actual_sha = sha1(
+            b"blob " + str(len(content)).encode("ascii") + b"\0" + content
+        ).hexdigest()
         assert actual_sha == expected_sha, path
         if path in screen.FROZEN_BLOBS:
             assert expected_sha == screen.FROZEN_BLOBS[path], path
