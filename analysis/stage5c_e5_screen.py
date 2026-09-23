@@ -197,8 +197,9 @@ def _one_member(sample: object, name: str, parameters: tuple) -> str:
     try:
         case = BlindedCase(case_id="AUDIT-ONLY", order=sample.order)
         pairs = apply_selector(name, parameters, case)
+        # Selectors return (earlier, later); E4 atoms are (later, earlier).
         atoms = np.concatenate(
-            (sample.coordinates[pairs[:, 0]], sample.coordinates[pairs[:, 1]]),
+            (sample.coordinates[pairs[:, 1]], sample.coordinates[pairs[:, 0]]),
             axis=1,
         )
         weights, normalization = uniform_pair_weights(len(pairs))
