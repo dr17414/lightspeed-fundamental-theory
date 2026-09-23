@@ -17,9 +17,10 @@ def _candidate():
     return json.loads((ROOT / CANDIDATE_AUTHORIZATION).read_text(encoding="utf-8"))
 
 
-def test_review_tree_cannot_authorize_execution():
-    assert CANDIDATE_AUTHORIZATION != Path(screen.AUTHORIZATION)
-    assert not (ROOT / screen.AUTHORIZATION).exists()
+def test_trigger_authorization_matches_reviewed_candidate_byte_for_byte():
+    assert (ROOT / screen.AUTHORIZATION).read_bytes() == (
+        ROOT / CANDIDATE_AUTHORIZATION
+    ).read_bytes()
 
 
 def test_authorization_pins_every_current_blob_and_frozen_source():
