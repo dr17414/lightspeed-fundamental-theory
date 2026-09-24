@@ -217,3 +217,39 @@ def test_gate_a_geometric_margin_dominates_registered_uniform_weight_deficit():
     single_row_budget = 0.10 / (2.0 * 768.0 * 32.0)
     assert np.isclose(complement_upper, 3.3024e-8, rtol=0.0, atol=1.0e-22)
     assert complement_upper < single_row_budget
+
+
+def test_gate_a_failure_budget_ledger_closes_exactly_without_bucket_recycling():
+    """The proof-development buckets and reserve exactly exhaust the envelope."""
+
+    n = 128
+    margin = Fraction(1, 10**12)
+    cohorts = 32
+    rows_per_arm = 768
+    clean_failure_budget = Fraction(1, 10)
+
+    row_budget = clean_failure_budget / (2 * rows_per_arm * cohorts)
+    geometric_budget = 4 * n * margin + 2 * n * (n - 1) * margin
+    remainder = row_budget - geometric_budget
+    proof_bucket = remainder / 4
+
+    assert row_budget == Fraction(1, 491520)
+    assert geometric_budget == Fraction(129, 3906250000)
+    assert remainder == Fraction(48035549, 24000000000000)
+    assert proof_bucket == Fraction(48035549, 96000000000000)
+
+    # Three non-recyclable proof buckets plus one unallocated reserve.  The
+    # exact identity prevents a rounded table from silently over-spending.
+    selector = proof_bucket
+    adaptive_backend = proof_bucket
+    certification = proof_bucket
+    unallocated_reserve = proof_bucket
+    assert (
+        geometric_budget
+        + selector
+        + adaptive_backend
+        + certification
+        + unallocated_reserve
+        == row_budget
+    )
+    assert 2 * rows_per_arm * cohorts * row_budget == clean_failure_budget
