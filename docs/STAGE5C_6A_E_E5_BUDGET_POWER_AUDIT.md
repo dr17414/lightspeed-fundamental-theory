@@ -489,6 +489,61 @@ $$
 上界，Gate B 的任何 averaged-error 結果都不能形成完整 split 的正面
 證據。不得把 non-`CLEAN` 列丟棄、改成有限誤差或交給 matcher 避開。
 
+目前完整 iid $p_\theta$ support 上，第一條「確定性 `CLEAN`」捷徑已可由
+純分析排除，但這**不是** failure probability 已超過上述額度的證明。
+須先把 Gate A 的 failure surface 分為至少三層：
+
+1. selector 的 domain／selection failure；
+2. selector 成功後的 E4 input／structural／backend status；
+3. item-3 certification status。
+
+第一層已足以否定 pointwise 或 almost-sure `CLEAN`。對任一
+$N\ge2$，令 $A_N$ 為 $N$ 個 iid 點形成 antichain 的事件。uniform law 下
+$A_N$ 的 Lebesgue measure 為 $1/N!$；而在登記的
+$\theta\in\{-0.4,+0.4\}$ 上，
+$p_\theta(u,v)\ge p_{\min}(\theta)>0$，其中
+$p_{\min}(-0.4)=0.6$、$p_{\min}(+0.4)=0.8$。因此
+
+$$
+\Pr_\theta(A_N)\ge \frac{p_{\min}(\theta)^N}{N!}>0.
+$$
+
+在 $A_N$ 上 $\mathcal D=\varnothing$，`apply_selector` 固定回報
+`SelectorDomainError`，所以 $e_{j,N,\theta}=+\infty$。這個下界通常極小；
+它只證明 $p_{\rm fail}=0$ 不可能，**不得**據此宣稱
+$p_{\rm fail}>2.03\times10^{-6}$ 或 Gate A 已否決。
+
+即使條件化在 selector 成功，strict interior／strict ordering 也不普遍
+推出 frozen E4 `CLEAN`。令
+
+$$
+R(z)=\Phi((1-z)/\epsilon)-\Phi(-z/\epsilon),\qquad \epsilon=1/16.
+$$
+
+因 $R(0)=\Phi(16)-1/2<1/2$ 且 $R$ 連續，存在 $\delta>0$，使
+$0<z<\delta$ 時 $R(z)<1/2$。在 $(0,\delta)^2$ 內取一個 strict
+total-order chamber；它是 positive-measure open set，`links` 會選到
+$N-1$ 個合法 causal pairs，但每個四維 atom 的 box retained mass 都小於
+$1/16$。現行 uniform weights 對 $m=N-1\in\{63,95,127\}$ 的 exact-dyadic
+總和皆不大於 1，故 mixture 仍嚴格小於 $1/16$，E4 固定為
+`STRUCTURAL_LEAKAGE_INVALID`。這不是 atom schema 錯誤，而是 frozen
+scientific leakage gate 在完整 support 上確實有 positive-measure failure
+set；既有 `test_sub_ulp_strict_geometry_is_not_rejected_by_rounded_cdf_diagnostics`
+鎖定同一 boundary-limit 機制。
+
+反過來，對 selector 已成功的 row，$N\le128$、座標不落 exact boundary
+的情況下，現行 adapter 已能機械排除多數 input-schema failure：selector
+只回傳 strict causal pairs，runner 以 `(later, earlier)` 形成 atom，
+$m\le\binom N2\le8128$，且 $m$ 個 binary64 `1/m` 的 exact sum 與 1 的
+差遠小於 $10^{-12}$ tolerance。這些事實不能覆蓋 selector empty、
+leakage、adaptive resource／finite-output 或 item-3 non-`CLEAN` 分支。
+
+因此 Gate A 的合法下一步只剩：(i) 對上述分層 failure events 交付解析或
+validated probability 上界；或 (ii) 明文修訂 generator support、selector、
+item 7 producer 或 items 3--5 adapter。不得把「input schema 幾乎處處合法」
+改寫成「producer 確定性 `CLEAN`」，也不得把 positive-measure no-go
+改寫成 failure tail 已達不可行量級。
+
 #### Gate B：CLEAN 條件下的誤差大小與放大因子
 
 在 Gate A 成立時，令
@@ -547,6 +602,18 @@ matching-conditioned 證明，不能由 raw mean 或少量 diagnostics 預設。
 反之，top-$M$ factor 接近 2 也不能未證先用。**factor 本身是獨立研究
 對象**：先界定它能從 8 收到多少，可能比直接加密 E4 cells 更便宜。
 
+在目前只知道 errors 非負、matched indices 是 raw pool 子集且
+$M_h\ge m_{\min}$ 的資訊下，factor 8 的全池界已是 sharp，不能再靠純
+組合學收緊。確實，固定任一 $M$，令每臂只有 matcher 選中的 $M$ 列有
+共同 error $c>0$，其餘 $L-M$ 列為 0；則 raw mean 為 $Mc/L$、matched
+mean 為 $c$，top-$M$ amplification 精確等於 $L/M$。兩臂同時取此構造時，
+相對共同 raw mean 的 coefficient 精確為 $2L/M$，在 $M/L=1/4$ 時即為 8。
+這個 sharpness witness 不宣稱 frozen E4 必然實現該 error arrangement；
+它證明的是**現有抽象假設本身**無法推出更小 universal factor。任何
+factor $<8$ 的承重改進，都必須新增 error／feature／matched-index joint law、
+deterministic structural restriction 或 matcher-conditioned 證明；factor 2
+仍只是 $r^A_{h,k}=1$ 的理想 benchmark，不是已取得的上界。
+
 一項未預登記、不可承重的 reviewer 診斷在 $N=64$、單一 target、
 五個 selectors、兩個自行選取 seeds 的十筆輸入上回報 screen scalar
 $\bar v\approx0.060$，其中 $v=\max(e_1/D_{11},e_2/D_{22})$。它不是任何
@@ -590,7 +657,7 @@ $Z_{\tau,k}=\min(x_k,\tau_k)$：因 $E[x_k]\ge E[Z_{\tau,k}]$，bounded one-side
 confidence bound 高於 $(1/20)/\kappa$ 足以否決「以該 factor 與 raw mean
 作正面 cap 證明」所需的 population-mean 條件，且不需假設 $x_k$ 有 uniform
 finite upper bound；它不否決實際 matcher 可能選到較小 errors。反方向不成立：lower bound 未超標
-或 clipped mean 很小，不能證明 $E[x]$ 小；正面 feasibility 仍須 tail／moment
+或 clipped mean 很小，不能證明 $E[x_k]$ 小；正面 feasibility 仍須 tail／moment
 控制、matching-conditioned law 或確定性上界。
 
 因此第三條路徑的順序改為：先處理 Gate A；再以純分析界定 factor，
