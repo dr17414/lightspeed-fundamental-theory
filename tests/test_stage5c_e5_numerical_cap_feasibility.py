@@ -6,12 +6,16 @@ from analysis.stage5c_e4_wellposedness import (
     E4Status,
     E4_CUBATURE_ATOL,
     evaluate_e4_wellposedness,
+    leakage_diagnostics,
 )
+from analysis.stage5c_hard_controls import BlindedCase, order_from_uv
+from analysis.stage5c_measure_prereg import normalised_weights, uniform_pair_weights
 from analysis.stage5c_numerical_certification import (
     CertificationStatus,
     bind_endpoint_certification_rows,
     certify_pairing,
 )
+from analysis.stage5c_selector_family import apply_selector
 from analysis.stage5c_statistical_regions import (
     ENDPOINT_RANGE_WIDTHS,
     EQUIVALENCE_MARGIN,
@@ -108,3 +112,31 @@ def test_boundary_cell_bound_has_no_automatic_atom_count_decay():
     assert np.all(single_cert.endpoint_error / ENDPOINT_RANGE_WIDTHS > EQUIVALENCE_MARGIN)
     assert np.all(repeated_cert.endpoint_error / ENDPOINT_RANGE_WIDTHS > EQUIVALENCE_MARGIN)
     assert np.allclose(single_cert.endpoint_error, repeated_cert.endpoint_error, rtol=1e-10)
+
+
+def test_gate_a_deterministic_clean_shortcut_has_selector_e4_counterexample():
+    """A real selector handoff can be valid while the E4 leakage gate fails."""
+
+    for n in (64, 96, 128):
+        # No RNG or arm data: this is a deterministic point in the full
+        # continuous p_theta support.  Both coordinates increase, so the
+        # causet is a chain and the real links selector returns N-1 pairs.
+        tiny = np.nextafter(0.0, 1.0)
+        coordinate = tiny * np.arange(1, n + 1, dtype=float)
+        points = np.column_stack((coordinate, coordinate))
+        case = BlindedCase(f"gate-a-support-witness-{n}", order_from_uv(points))
+        pairs = apply_selector("links", (), case)
+        assert pairs.shape == (n - 1, 2)
+
+        # Use the production adapter orientation and production uniform measure.
+        atoms = np.concatenate(
+            (points[pairs[:, 1]], points[pairs[:, 0]]), axis=1
+        )
+        weights, normalization = uniform_pair_weights(len(pairs))
+        probability = normalised_weights(weights, normalization)
+        leakage = leakage_diagnostics(atoms, probability)
+
+        assert leakage.strict_geometry_validated
+        assert not leakage.box_leakage_bound_validated
+        assert not leakage.causal_leakage_bound_validated
+        assert not leakage.structurally_admissible
