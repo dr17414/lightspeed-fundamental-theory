@@ -454,11 +454,142 @@ grid、$R_p,R_G,\delta,c,d$、seed bases 或資源上限，因此不是
 mixture 推斷 $p$。超出此協定的路徑只能版本化修訂、使用全新
 互斥的診斷 streams，並接受獨立複核。
 
-故第三條路徑的可審查下一步，是對**每個** $j,N,\theta$ 及預先固定的
-raw pool design，給出不讀 6a-S／6a-E arm data 的
-$p_{j,N,\theta}(a)$ 與 matching-conditioned $h^{\rm num}$ 可信界，
-再判斷 frozen producer 是否已足夠；若不足才評估 item-7 amendment。
-本節不呼叫 generator、不配置／生成 seed、不設 cap 或 cohort floor。
+### 3.3 Averaged-error 路徑的兩個承重 gate 與 factor audit
+
+全 raw-pool 零超標界把「平均 numerical half-width」換成「最大列不得
+超標」，因而產生 $LH$ 尺度的 rare-tail 負擔。改用 averaged error
+只能改善**有限 CLEAN 誤差的大小聚合**；它不能改變現有 adapter 對
+原始 pool 完整性的要求。以下兩個 gate 必須分帳，而且 Gate A 先於
+Gate B 承重。
+
+#### Gate A：原始 pool 必須逐列、連續、全部 `CLEAN`
+
+`CertifiedEndpointPool.__post_init__` 要求 producer-bound row indices
+從零連續覆蓋原始 pool，且每列都同時滿足 `status is CLEAN` 與
+`is_clean`。因此任一 raw row 非 `CLEAN` 即拒絕整個 pool；matching
+是否選中該列無關。若單列 failure 機率為 $p_{\rm fail}$，在 $H$ 個
+cohorts、兩臂、每臂 $L$ 列下，僅靠 marginal tail 與 union bound 有
+
+$$
+\Pr\{\hbox{all source rows CLEAN}\}
+\ge 1-2LH\,p_{\rm fail}.
+$$
+
+故僅為此 gate 留下 $c_{\rm clean}\ge0.90$，在 $L=768,H=32$ 的
+樂觀示例也已要求
+
+$$
+p_{\rm fail}\le\frac{0.10}{2\cdot768\cdot32}
+\approx2.03\times10^{-6}.
+$$
+
+完整 power 還要分配 matching、finite-width 與 conditional power，實際
+額度只會更嚴。除非另證 frozen producer 在所採 admissible support 上
+**確定性 `CLEAN`**，或以可負擔且事前固定的協定取得足夠 failure-tail
+上界，Gate B 的任何 averaged-error 結果都不能形成完整 split 的正面
+證據。不得把 non-`CLEAN` 列丟棄、改成有限誤差或交給 matcher 避開。
+
+#### Gate B：CLEAN 條件下的誤差大小與放大因子
+
+在 Gate A 成立時，令
+
+$$
+x^A_{hi,k}=e^A_{hi,k}/D_{kk},\qquad A\in\{L,R\},
+$$
+
+為 cohort $h$、arm $A$、row $i$、座標 $k$ 的 normalized endpoint
+error，$M_h$ 為該 cohort matched pairs，
+$M_{\rm tot}=\sum_hM_h$。非負性與 matched rows 為 raw pool 子集給出
+不需要任何 selection independence 的確定界
+
+$$
+h^{\rm num}_k
+\le
+\frac{\sum_{h=1}^H\sum_{i=1}^L
+ (x^L_{hi,k}+x^R_{hi,k})}{M_{\rm tot}}
+\le
+\frac{L}{m_{\min}}
+ (\bar x^L_k+\bar x^R_k),
+$$
+
+其中 $M_h\ge m_{\min}$，$\bar x^A_k$ 是該 arm 全部 $HL$ 列的
+sample mean。若兩臂同 law 且共同 mean 為 $\mu_k$，歷史
+$L/m_{\min}=768/192=4$ 對應 expectation-scale coefficient
+$\kappa_{\rm pool}=8$；在零 statistical-width 極限
+$h_k^{\rm num}<1/20$，故此界至少需要
+
+$$
+\mu_k<\frac{1/20}{8}=\frac1{160}=0.00625.
+$$
+
+較緊但仍 selection-agnostic 的確定界，是把每臂 selected sum 以該
+pool 最大的 $M_h$ 個 errors 之和（top-$M_h$ sum）取代。令 top mean
+相對 full-pool mean 的 amplification 為 $r^A_{h,k}$；只要分母非零，
+
+$$
+1\le r^A_{h,k}\le L/M_h.
+$$
+
+兩臂合計 factor 的理想下限是 $\kappa_{\rm top}=2$，而
+$M_h/L\ge1/4$ 時粗略上限回到 $8$。所以任何**只使用 raw error law、
+不利用 matcher--error 關係**的 worst-subset 上界要在理想 factor 下
+留下零 statistical-width 餘裕，至少須有
+
+$$
+\mu_k<\frac{1/20}{2}=\frac1{40}=0.025.
+$$
+
+這是該類 worst-subset **上界**的必要條件，不是實際 matched error
+對所有 matching 機制的必要條件。若 matcher 系統性選到 low-error rows，
+實際 matched mean 可以低於 raw mean，等效 factor 甚至可低於 2；但此時
+必須交付 feature／error／matched-index 的 joint law 或另一個可審查的
+matching-conditioned 證明，不能由 raw mean 或少量 diagnostics 預設。
+反之，top-$M$ factor 接近 2 也不能未證先用。**factor 本身是獨立研究
+對象**：先界定它能從 8 收到多少，可能比直接加密 E4 cells 更便宜。
+
+一項未預登記、不可承重的 reviewer 診斷在 $N=64$、單一 target、
+五個 selectors、兩個自行選取 seeds 的十筆輸入上回報 screen scalar
+$\bar v\approx0.060$，其中 $v=\max(e_1/D_{11},e_2/D_{22})$。它不是任何
+$\mu_{j,N,\theta,k}$ 的估計，不能
+關閉路徑、選 cells 或反推 cap；只可說明量級稽核值得先做。若僅作
+工程尺度假設，且 error 暫按 $1/\text{cells}$、成本按
+$\text{cells}^{3.3}$ 外推，$0.060\to0.025$ 約為 154 cells／現行
+成本 18 倍，$0.060\to0.00625$ 約為 615 cells／成本
+$1.7\times10^3$ 倍。這些不是 item-7 amendment 的核准常數或資源律；
+factor 若能接近 2，約 154 cells 的方向不可因最保守界而提前排除。
+
+#### Mean／factor 估計的事前協定義務
+
+$\mu_{j,N,\theta,k}$ 是指定 generator law 下的分布期望，不是
+「admissible inputs」集合本身的確定性平均。任意 planted mixtures、
+任意 seeds 或跨 strata 混合都不能估它。若估計結果要正式否決一個
+factor-bound，必須在呼叫 generator 前由獨立 review／merge 固定：
+
+1. 每個承重的 $j,N,\theta,k$ strata 與其 generator／selector／E4／item-3
+   source blobs；不得把未來 arm data 或 item-2 abstract endpoint oracle 代入；
+2. replications、diagnostic seed provenance、跨 strata／座標的 simultaneous
+   confidence allocation、resource stop 與缺失／non-`CLEAN` handling；
+3. factor 對應的判定門檻、固定最大樣本數與停止規則；同一 seeds 的精確
+   replay 可供重現，任何新增樣本、延長或改 strata 都須 amendment；
+4. `NO-BOUND-OBSTRUCTION` 只代表該協定未否決指定 factor-bound，不能作
+   frozen E4 可行、cap 已取得或 matching-conditioned law 成立的正面證據。
+
+這是設計參數 audit，不 claim 新的 one-shot scientific namespace；但
+「不是 scientific verdict」不等於可事後增抽或挑選 seeds。若只需保守
+**否決**，可事前固定有限 $\tau$ 並估計
+$Z_\tau=\min(x,\tau)$：因 $E[x]\ge E[Z_\tau]$，bounded one-sided lower
+confidence bound 高於 $(1/20)/\kappa$ 足以否決「以該 factor 與 raw mean
+作正面 cap 證明」所需的 population-mean 條件，且不需假設 $x$ 有 uniform
+finite upper bound；它不否決實際 matcher 可能選到較小 errors。反方向不成立：lower bound 未超標
+或 clipped mean 很小，不能證明 $E[x]$ 小；正面 feasibility 仍須 tail／moment
+控制、matching-conditioned law 或確定性上界。
+
+因此第三條路徑的順序改為：先處理 Gate A；再以純分析界定 factor，
+只在必要時執行已固定的 mean／factor audit；若指定 worst-subset bound
+被否決，應比較 matching-conditioned 證明與 item-7 amendment，而非把
+「某個 bound 失效」擴張為所有 averaged-error 或 matching 路線失效。
+只有兩者皆不可行時才轉入 claim redesign。本節不呼叫 generator、
+不配置／生成 seed、不設 cap 或 cohort floor，也不授權第二輪 screen。
 
 閉合 item 8 須先取得不接觸 6a-S／6a-E arm data 的 E1 positive-gap model，
 每一 E3 finite-cohort directional／equivalence effect model，以及所有 E2/E3 null

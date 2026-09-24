@@ -121,21 +121,32 @@ $p\to a$ 選取規則，並證明資源可負擔。本輪只寫估計協定的
 必備欄位及 fail-closed 映射，未完成估計預登記、未選 cap、
 未生成任何 seed。$N\le128$ 足以保證不超 8128-atom cap，
 $N>128$ 並非所有 causet 必遭拒；正式 $N,L,B$ 仍待凍結。
-PR #35–#40 均已依獨立 GO 合併；screening 協定只準備
-在已固定的 hard-control 輸入律下做 24 個診斷 causets／264 次
-selector-E4 嘗試。已合併 runner 將 CLEAN 列按事前固定的
-$[0,1/160)$、$[1/160,1/80)$、$[1/80,1/40)$、$[1/40,\infty)$
-分帶計數；授權歷史檢查及候選／trigger 分離已完成 review／merge。
-audit-only 協定已由 PR #41 merge 成為 `FROZEN-PROTOCOL`；後續
-runner 平台防護仍為 `REVIEW-PENDING`，真實授權檔仍不存在，
-**尚未啟動**。資源重算發現 $R\sim2\times10^4$
-只關係到單 cohort 的正下界；若 $L=768$、至少 $B=32$，
-沿現有全 raw-pool 零超標界達完整 split $c\ge0.90$，即使
-$\Pr(G)=1$ 仍需 $p\lesssim2.03\times10^{-6}$，普通 Monte
-Carlo 的零超標證明在示例 66 strata／8 grid 下約需
-$4.27\times10^8$ 次 E4 評估。小型篩檢只能顯示已觀察到的
-阻塞，不能以零超標反推此 rare-tail 條件；先審 bound 與資源，
-再決定是否有理由投入正式估計。
+PR #35–#45 已依獨立 GO 逐步凍結 screen protocol、runner、候選授權與
+single-commit trigger；第一個專用 seed namespace
+$[6{,}000{,}000{,}000,6{,}000{,}000{,}023]$ 隨後實際執行並永久
+burned。264 次 selector-E4 嘗試全落在 `SELECTOR-OR-ATOM-INVALID`，
+六個 CLEAN 分帶皆為零，wall 0.841 秒；attestation 已記錄此機械結果
+**在科學上無效**、`e4_completed_evaluations=0`、不適用 protocol
+obstruction stop signal。原因是 selector 回傳 `(earlier,later)`，舊 runner
+卻未轉成 E4 要求的 `(later,earlier)`；PR #47 以真實 selector→真實 E4、
+無 mock／無 RNG／無 seed 的回歸修正接縫，並保持 protocol、authorization、
+attestation 與 burned namespace 不變。不得以原 seeds 重跑；任何新 screen
+須使用新協定、namespace、授權與逐資料轉手的真實端到端 regressions。
+
+現有全 raw-pool 零超標界若取 $L=768,H=32,c\ge0.90$，即使
+$\Pr(G)=1$ 仍要求單列 tail $p\lesssim2.03\times10^{-6}$，普通 Monte
+Carlo 的示例資源約為 $4.27\times10^8$ 次 E4 評估。下一個純分析提案
+因此不啟動第二輪 screen，而把數值可行性拆成兩個承重 gate：現行
+`CertifiedEndpointPool` 對原始 pool 逐列連續且全部 `CLEAN` 的要求，
+以及 CLEAN 條件下的 error-size／factor 問題。前者若沒有確定性 CLEAN
+證明，rare-tail 負擔原樣保留；後者把 $L/m_{\min}=4$ 的全池 factor 8、
+理想 top-$M$ benchmark factor 2 與未知 matching-conditioned factor 分帳。
+零 statistical-width 下，共同 per-arm normalized mean 對 factor 8／2
+分別至少須低於 $1/160=0.00625$／$1/40=0.025$。這些是指定 bounds 的
+必要條件，不是所有 matching 機制的 no-go；任何承重 mean／factor audit
+仍須事前固定 generator strata、replications、diagnostic seed provenance、
+同時信賴額度與停止規則。本提案不生成 seed、不設 cap 或 cohort floor，
+item 8 維持 `OPEN`。
 
 ---
 
@@ -276,6 +287,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.92（審查提案，2026-09-24）- 第一個 E5 audit screen namespace 已執行、burn 並由 PR #46 attestation 封存；264 次呼叫全為 atom 方向錯置造成的 `SELECTOR-OR-ATOM-INVALID`，frozen E4 實際完成零次，故機械 `SCREEN-OBSTRUCTION` 不構成 protocol stop signal 或 numerical-cap 證據。PR #47 以真實 selector→真實 E4 regression 修正 `(earlier,later)`／`(later,earlier)` 接縫並 squash-merge `05818223`，不修改任何歷史 custody。後續暫緩第二輪 screen，改提兩層 feasibility audit：Gate A 必須先證完整 raw pool 逐列 `CLEAN`，否則 $p_{\rm fail}\lesssim2.03\times10^{-6}$ 的負擔不變；Gate B 再研究 factor 8 的全池界、理想 factor 2 的 top-$M$ benchmark 與 matching-conditioned factor。對任何承重 mean／factor estimate，須先固定真實 generator strata、replications、diagnostic seed provenance、simultaneous confidence 與停止規則；本提案不生成 seed、不開新 namespace、不設 cap／cohort floor，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
+
 *v1.91（審查提案，2026-09-21）- PR #41 exact head `6cec3b36` 經獨立 GO、CI #160（372 passed／5 warnings）後 squash-merge `a5cf4dd6`；merge tree 與受審 head 逐位元相同，協定 blob `59c23e2c` 因合併事件成為 `FROZEN-PROTOCOL`，檔內 `FREEZE-REVIEW-PENDING` 狀態字樣維持不動。後續審查指出 runner 的 post-burn RSS 檢查把 `ru_maxrss` 乘以 1024，只在 Linux 的 KiB 語意下正確；macOS 以 bytes 回報，可能在 seed 已 burn 後誤觸 32 GiB cap。因此下一個最小 hardening 提案在 preflight 明確要求 `sys.platform == "linux"`，並新增非 Linux 在 generator／burn 前 fail closed、零輸出的回歸；候選 JSON 只更新 runner blob，協定、七個 frozen sources、registry、seed、resource 與 output paths 不變。尚未建立 trigger、執行 runner 或 claim seed；item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
 *v1.90（審查提案，2026-09-21）- PR #40 exact head `2c64bf62` 經獨立 GO 後 squash-merge `d0c485b8`，merge tree 與受審 head 逐位元相同；同一 trigger commit 內替換不存在性回歸及保留 `_DRAFT` 協定檔名的義務已寫定。下一個純文件提案把 audit-only 篩檢協定改為 `FREEZE-REVIEW-PENDING`，不改任何設計常數或 executable，並把候選 JSON 的協定 pin 更新為新 blob；只有本 exact head 經 CI、獨立 GO 及合併後才可稱 `FROZEN-PROTOCOL`。目標主機 exact build／資源與 repo 外 custody 仍未驗收，真實授權檔／trigger／attestation 均不存在；不得執行、生成或 claim seed。item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無 arm ledger／endpoint 或候選 $K$。*
 *v1.89（審查提案，2026-09-21）- PR #39 exact head `25733f17` 經獨立 GO、CI #154／#155（372 passed／5 warnings）後 squash-merge `cab6c344`；merge tree 與受審 head 逐位元相同，真實授權路徑仍不存在且在 `main` 歷史觸碰數為 0，候選 JSON blob 維持 `bf3757e0`。後續 trigger 必須在新增真實檔的同一 commit，把 review 階段的不存在性回歸替換為真實檔／候選檔逐位元相同回歸；協定凍結須保留含 `_DRAFT` 的既有檔名，只改內文，避免連帶修改 runner `PROTOCOL` 常數與 executable blob。這只是未來 trigger 的純文件義務，不建立授權、不改候選 JSON／runner／協定，不執行篩檢或生成 seed；item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無 arm ledger／endpoint 或候選 $K$。*
