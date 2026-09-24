@@ -538,11 +538,68 @@ $m\le\binom N2\le8128$，且 $m$ 個 binary64 `1/m` 的 exact sum 與 1 的
 差遠小於 $10^{-12}$ tolerance。這些事實不能覆蓋 selector empty、
 leakage、adaptive resource／finite-output 或 item-3 non-`CLEAN` 分支。
 
-因此 Gate A 的合法下一步只剩：(i) 對上述分層 failure events 交付解析或
-validated probability 上界；或 (ii) 明文修訂 generator support、selector、
-item 7 producer 或 items 3--5 adapter。不得把「input schema 幾乎處處合法」
-改寫成「producer 確定性 `CLEAN`」，也不得把 positive-measure no-go
-改寫成 failure tail 已達不可行量級。
+上述兩個 positive-measure witness 的存在，不表示其 failure mass 接近
+$2.03\times10^{-6}$。一個可解析承重的 partial rule set 是：對
+$\rho=\gamma=10^{-12}$，令 $R_{\rm geo}(N)$ 為所有 $N$ 點的兩個座標皆位於
+$[\rho,1-\rho]$，且任兩點在每一個座標的距離皆至少 $\gamma$。因
+$p_\theta$ 的兩個一維 marginals 精確為 uniform，跨不同 causets 不在此
+單列計算中出現，普通 union bound 已給
+
+$$
+\Pr_\theta\{R_{\rm geo}(N)^c\}
+\le 4N\rho+2N(N-1)\gamma.
+$$
+
+在最壞的登記值 $N=128$，右側為 $3.3024\times10^{-8}$，約為上述
+樂觀單列額度的 $1/61.6$。這個上界不使用 seed、Monte Carlo 或 selector
+輸出；它同時涵蓋 boundary strips 與兩座標的所有 pairwise near-ties。
+
+在 $R_{\rm geo}(N)$ 上，只要 selector 成功，任何 production atom 都距 box
+boundary 至少 $\rho$，且兩個 causal gaps 至少 $\gamma$。代入 frozen
+cancellation-safe arithmetic，單 atom 相對 gate baseline 的保守 excess
+分別至少為
+
+$$
+b_{\rm box}=3.1915382432\times10^{-12},\qquad
+b_{\rm causal}=4.5135166684\times10^{-12}.
+$$
+
+對完整 $1\le m\le8128$ uniform-weight 範圍，最壞 exact-dyadic negative
+weight-sum displacement 出現在 $m=3987$，其大小為
+$1987/2^{64}\approx1.07715\times10^{-16}$。把這個 displacement 依 frozen
+$1/16$／$1/4$ baseline 計入後，兩個 mixture excess 的下界仍分別為
+$3.1915315110\times10^{-12}$ 與 $4.5134897395\times10^{-12}$，故 input
+schema、atom cap、box leakage 與 causal leakage 在
+`selector success` $\cap R_{\rm geo}(N)$ 上均確定通過。無 RNG regression
+同時窮舉 atom-count weight deficit，並以最壞 $m=3987$ 呼叫 production
+`leakage_diagnostics` 鎖定此結論。
+
+對 `all_relations` 與 `links`，selection failure 恰由 antichain 涵蓋：有限
+non-antichain poset 至少有一條 relation 與一條 cover。另因
+$p_\theta\le p_{\max}(\theta)$，其中 $p_{\max}(-0.4)=1.2$、
+$p_{\max}(+0.4)=1.4$，亦有
+
+$$
+\Pr_\theta(A_N)\le \frac{p_{\max}(\theta)^N}{N!};
+$$
+
+其在最壞 $N=64,\theta=+0.4$ 小於 $1.78\times10^{-80}$。因此這兩個
+selector 的 domain／selection 加 E4 input／structural failure 已有遠低於
+目前單列額度的解析上界。這仍**不是完整 Gate A closure**：
+`interval_exact(1..4)` 與五個 `endpoint_depth_mass_band` 可在非空 domain
+上回報 `SelectorSelectionError`，$R_{\rm geo}$ 不保證其 selection 非空；
+而 adaptive finite-output／resource status 及 item-3 strict-nonzero／ratio
+certification 也未由幾何 margin 推出。既有 6a-S categorical PASS 只描述
+其已執行 manifests，不能代替這些 rare-tail 的解析上界。
+
+因此 Gate A 的剩餘工作已縮為：(i) 對九個仍可能 empty-selection 的
+selector strata 交付解析或 validated probability 上界；(ii) 在
+`selector success` $\cap R_{\rm geo}$ 上，證明 adaptive finite-output／resource
+與 item-3 certification 確定通過，或另界其 failure tail；否則只能
+(iii) 明文修訂 generator support、selector、item 7 producer 或 items 3--5
+adapter。不得把已關閉的 geometric structural layer 改寫成完整 producer
+`CLEAN`，也不得把 development／reserved 6a-S 的有限次 categorical PASS
+當成 $10^{-6}$ 級 tail 證明。
 
 #### Gate B：CLEAN 條件下的誤差大小與放大因子
 

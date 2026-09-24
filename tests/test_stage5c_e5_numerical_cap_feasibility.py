@@ -1,10 +1,15 @@
 """Candidate-independent falsifier for a CLEAN-implies-small-error shortcut."""
 
+from fractions import Fraction
+from math import sqrt
+
 import numpy as np
+from scipy import special
 
 from analysis.stage5c_e4_wellposedness import (
     E4Status,
     E4_CUBATURE_ATOL,
+    SMEARING_EPSILON,
     evaluate_e4_wellposedness,
     leakage_diagnostics,
 )
@@ -140,3 +145,75 @@ def test_gate_a_deterministic_clean_shortcut_has_selector_e4_counterexample():
         assert not leakage.box_leakage_bound_validated
         assert not leakage.causal_leakage_bound_validated
         assert not leakage.structurally_admissible
+
+
+def test_gate_a_geometric_margin_dominates_registered_uniform_weight_deficit():
+    """The proposed geometric core clears both leakage gates without RNG."""
+
+    margin = 1.0e-12
+    atom_count_limit = 8128
+
+    # Exhaust the complete registered atom-count range.  The maximum negative
+    # exact-dyadic normalization displacement occurs at m=3987 and is tiny
+    # relative to the frozen gate excess at the proposed geometric margin.
+    worst_deficit = Fraction(0)
+    worst_count = 0
+    for count in range(1, atom_count_limit + 1):
+        weight = Fraction.from_float(float(1.0 / count))
+        deficit = 1 - count * weight
+        if deficit > worst_deficit:
+            worst_deficit = deficit
+            worst_count = count
+    assert worst_count == 3987
+    assert worst_deficit == Fraction(1987, 2**64)
+
+    scaled = 1.0 / (sqrt(2.0) * SMEARING_EPSILON)
+    boundary_gain = 0.5 * special.erf(margin * scaled)
+    opposite_tail = 0.5 * special.erfc((1.0 - margin) * scaled)
+    box_atom_excess = float(
+        np.expm1(4.0 * np.log1p(2.0 * (boundary_gain - opposite_tail)))
+        / 16.0
+    )
+    causal_gain = 0.5 * special.erf(margin / (2.0 * SMEARING_EPSILON))
+    causal_atom_excess = float(
+        np.expm1(2.0 * np.log1p(2.0 * causal_gain)) / 4.0
+    )
+    exact_weight_sum = 1 - worst_deficit
+    box_mixture_excess = (
+        -worst_deficit / 16
+        + exact_weight_sum * Fraction.from_float(box_atom_excess)
+    )
+    causal_mixture_excess = (
+        -worst_deficit / 4
+        + exact_weight_sum * Fraction.from_float(causal_atom_excess)
+    )
+    assert np.isclose(box_atom_excess, 3.1915382432e-12, rtol=1.0e-11)
+    assert np.isclose(causal_atom_excess, 4.5135166684e-12, rtol=1.0e-11)
+    assert np.isclose(float(box_mixture_excess), 3.1915315110e-12, rtol=1.0e-11)
+    assert np.isclose(
+        float(causal_mixture_excess), 4.5134897395e-12, rtol=1.0e-11
+    )
+
+    # This is the worst atom count for the exact weight deficit.  Every atom
+    # is at least margin from the box boundary and has both causal gaps equal
+    # to margin.  The production leakage calculation must still pass both
+    # strict gates after accounting for that deficit.
+    atoms = np.tile(
+        np.asarray([[2.0 * margin, 2.0 * margin, margin, margin]]),
+        (worst_count, 1),
+    )
+    weights, normalization = uniform_pair_weights(worst_count)
+    probability = normalised_weights(weights, normalization)
+    leakage = leakage_diagnostics(atoms, probability)
+    assert leakage.box_leakage_bound_validated
+    assert leakage.causal_leakage_bound_validated
+    assert leakage.structurally_admissible
+
+    # Under p_theta the one-coordinate marginals are exactly uniform.  A
+    # union bound over boundary strips and all unordered coordinate pairs
+    # therefore controls the complement of the geometric rule set.
+    n = 128
+    complement_upper = 4.0 * n * margin + 2.0 * n * (n - 1) * margin
+    single_row_budget = 0.10 / (2.0 * 768.0 * 32.0)
+    assert np.isclose(complement_upper, 3.3024e-8, rtol=0.0, atol=1.0e-22)
+    assert complement_upper < single_row_budget
