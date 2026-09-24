@@ -601,6 +601,74 @@ adapter。不得把已關閉的 geometric structural layer 改寫成完整 produ
 `CLEAN`，也不得把 development／reserved 6a-S 的有限次 categorical PASS
 當成 $10^{-6}$ 級 tail 證明。
 
+##### Gate A 失敗額度帳本（proof-development freeze）
+
+在開始逐項證明前，先把上述三個剩餘 failure groups 的額度分開，避免
+先完成的項目事後吃掉最後一項的空間。此帳本只使用本節的樂觀
+$c_{\rm clean}=0.90,L=768,H=32$ envelope；它是 item-8 proof-development
+上限，**不是**已核准的 cohort floor、完整 power allocation 或執行授權。
+若最終完整 power 要求更大的 $c_{\rm clean}$，或 $L,H$ 改變，整張表必須
+在任何新估計或執行之前重算並重新複核。
+
+令
+
+$$
+\beta_{\rm row}
+=\frac{0.10}{2\cdot768\cdot32}
+=\frac1{491520},\qquad
+\beta_{\rm geo}
+=4(128)10^{-12}+2(128)(127)10^{-12}
+=\frac{129}{3906250000}.
+$$
+
+扣除已證的最壞幾何上界後，把剩餘量精確四等分：
+
+$$
+\beta_*
+=\frac{\beta_{\rm row}-\beta_{\rm geo}}4
+=\frac{48035549}{96000000000000}
+\approx5.003703020833\times10^{-7}.
+$$
+
+| failure group／用途 | 單列上限 | 乘回 $2LH=49152$ 的 full-split 上限 |
+|---|---:|---:|
+| $R_{\rm geo}^{c}$（已證最壞界） | $3.3024\times10^{-8}$ | $0.001623195648$ |
+| selector domain／empty selection | $\beta_*$ | $0.024594201088$ |
+| adaptive finite-output／resource | $\beta_*$ | $0.024594201088$ |
+| item-3 strict-nonzero／ratio certification | $\beta_*$ | $0.024594201088$ |
+| 未分配 reserve | $\beta_*$ | $0.024594201088$ |
+| **合計** | $1/491520$ | $0.10$ |
+
+事件分解採保守的巢狀順序：先記 $R_{\rm geo}^{c}$；其餘只需分別控制
+$R_{\rm geo}$ 上的 selector failure、再控制 selector success 上的 backend
+failure、再控制前兩層成功後的 item-3 failure。union bound 不要求這些事件
+獨立；若日後以 joint proof 利用重疊，仍不得把同一段 slack 重複記帳。
+
+selector 額度是對每個已登記 $(j,N,\theta)$ stratum 都要成立的**一致單列
+上限**，不是把 $\beta_*$ 再除以九。固定 source row 只走一個 selector；若
+未來以抽樣同時替九個 strata 建立信賴敘述，confidence multiplicity 必須在
+估計協定另行分配，不能混入物理 failure probability。`all_relations`／
+`links` 的 antichain 上界已落在 selector 桶內且遠低於它；九個尚未關閉的
+strata 仍各自要交付不超過 $\beta_*$ 的解析或 validated bound。
+
+四個規則固定此帳本的使用方式：
+
+1. 三個 proof buckets 不得互借；某一證明超標時不能自動挪用另一項的
+   未使用額度。
+2. reserve 不代表任何 failure event 已獲證明；動用、重新分配或新增 event
+   都須事前 amendment、獨立複核及 exact-arithmetic regression 更新。
+3. 較小 $N$、較緊的實際解析界或 event overlap 所省額度一律先回 reserve，
+   不因觀察到的 pilot／diagnostic 結果事後放寬其他桶。
+4. 若 failure taxonomy 顯示還有未列事件，它必須由 reserve 明文建桶；reserve
+   不足即 Gate A 仍未關閉。
+
+把 $\rho=\gamma$ 從 $10^{-12}$ 改為 $10^{-14}$ 時，同一公式會把最壞
+geometric bound 降至 $3.3024\times10^{-10}$，釋出
+$3.269376\times10^{-8}$（僅約整體單列額度的 $1.61\%$）。這只是可版本化
+的 amendment option：現行 $10^{-12}$ rule 不變；任何縮小 margin 都必須
+重新交付 frozen gate excess、binary64 weight deficit 與 production
+regression 的確定性證明，不能只引用 development scan 的轉折位置。
+
 #### Gate B：CLEAN 條件下的誤差大小與放大因子
 
 在 Gate A 成立時，令

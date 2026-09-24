@@ -342,6 +342,15 @@ Item 8 的部分交付提案見 `STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md`：七個
 model、所有 CLEAN numerical caps 與 finite-cohort E3／null power 所需假設仍未證成，
 因此不能填寫 $\ge0.90$ 的 cohort floors，本列仍為 `OPEN`。
 
+本列的 Gate-A 必要交付另受 proof-development ledger 約束：在樂觀
+$c_{\rm clean}=0.90,L=768,H=32$ 的單列 envelope $1/491520$ 中，扣除已證
+$R_{\rm geo}^{c}\le3.3024\times10^{-8}$ 後，selector、adaptive backend 與
+item-3 certification 各自最多使用
+$48035549/96000000000000\approx5.004\times10^{-7}$，並保留同額未分配
+reserve。三個 proof buckets 不得互借；reserve 不代表任何事件已證明，任何
+移轉、新增 event 或 margin amendment 均須事前獨立複核並更新 exact-arithmetic
+regression。這只是證明工作額度，不是完整 power allocation 或執行授權。
+
 Closure rule：**12 列全部 `CLOSED` 才能把文件狀態改為「preregistration frozen」。** 若只完成
 部分列，STATUS 必須逐列保留 `PENDING`，不得以百分比或「接近完成」暗示執行授權。
 item 11 依定義必須與 item 10 的實際 runner state machine 逐列比對；item 10 尚為 `OPEN` 時，
