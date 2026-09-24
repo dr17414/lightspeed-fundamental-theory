@@ -557,6 +557,13 @@ $\text{cells}^{3.3}$ 外推，$0.060\to0.025$ 約為 154 cells／現行
 成本 18 倍，$0.060\to0.00625$ 約為 615 cells／成本
 $1.7\times10^3$ 倍。這些不是 item-7 amendment 的核准常數或資源律；
 factor 若能接近 2，約 154 cells 的方向不可因最保守界而提前排除。
+更具體地，對 $x_k=e_k/D_{kk}$ 有
+$E[\max(x_1,x_2)]\ge\max(E[x_1],E[x_2])$；screen scalar $v$ 的
+mean 不小於任一 per-coordinate mean，且一般會嚴格偏高。
+因此 $v$ 只供既有 screen 分帶，**不得**代入下述 mean／factor audit、
+不得與 per-coordinate 的 $1/160$ 或 $1/40$ 門檻比較，也不得用其
+truncated mean 否決任一座標。即使一批探索資料的兩個座標各自也超標，
+仍須以各自預先登記的 $x_k$ 統計量承重，不能由 $v$ 倒推。
 
 #### Mean／factor 估計的事前協定義務
 
@@ -566,7 +573,9 @@ $\mu_{j,N,\theta,k}$ 是指定 generator law 下的分布期望，不是
 factor-bound，必須在呼叫 generator 前由獨立 review／merge 固定：
 
 1. 每個承重的 $j,N,\theta,k$ strata 與其 generator／selector／E4／item-3
-   source blobs；不得把未來 arm data 或 item-2 abstract endpoint oracle 代入；
+   source blobs；audit 統計量必須逐座標使用 $x_k=e_k/D_{kk}$，screen
+   scalar $v=\max(x_1,x_2)$ 只供分帶、不得代入 mean／factor audit；不得把
+   未來 arm data 或 item-2 abstract endpoint oracle 代入；
 2. replications、diagnostic seed provenance、跨 strata／座標的 simultaneous
    confidence allocation、resource stop 與缺失／non-`CLEAN` handling；
 3. factor 對應的判定門檻、固定最大樣本數與停止規則；同一 seeds 的精確
@@ -576,10 +585,10 @@ factor-bound，必須在呼叫 generator 前由獨立 review／merge 固定：
 
 這是設計參數 audit，不 claim 新的 one-shot scientific namespace；但
 「不是 scientific verdict」不等於可事後增抽或挑選 seeds。若只需保守
-**否決**，可事前固定有限 $\tau$ 並估計
-$Z_\tau=\min(x,\tau)$：因 $E[x]\ge E[Z_\tau]$，bounded one-sided lower
+**否決**，可對各座標事前固定有限 $\tau_k$ 並估計
+$Z_{\tau,k}=\min(x_k,\tau_k)$：因 $E[x_k]\ge E[Z_{\tau,k}]$，bounded one-sided lower
 confidence bound 高於 $(1/20)/\kappa$ 足以否決「以該 factor 與 raw mean
-作正面 cap 證明」所需的 population-mean 條件，且不需假設 $x$ 有 uniform
+作正面 cap 證明」所需的 population-mean 條件，且不需假設 $x_k$ 有 uniform
 finite upper bound；它不否決實際 matcher 可能選到較小 errors。反方向不成立：lower bound 未超標
 或 clipped mean 很小，不能證明 $E[x]$ 小；正面 feasibility 仍須 tail／moment
 控制、matching-conditioned law 或確定性上界。
