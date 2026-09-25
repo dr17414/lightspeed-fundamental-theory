@@ -669,6 +669,82 @@ $3.269376\times10^{-8}$（僅約整體單列額度的 $1.61\%$）。這只是可
 重新交付 frozen gate excess、binary64 weight deficit 與 production
 regression 的確定性證明，不能只引用 development scan 的轉折位置。
 
+##### Selector empty tail 的有限組合化約（尚未關閉額度桶）
+
+對連續 iid points，以遞增 $u$ 座標重新標號，令
+$\pi=(\pi_1,\ldots,\pi_N)$ 為其 $v$-rank permutation。除 measure-zero ties
+外，完整 order chamber 由 $\pi$ 決定；$i\prec j$ 恰在
+$i<j$ 且 $\pi_i<\pi_j$ 時成立，而 open interval cardinality 為
+
+$$
+I_\pi(i,j)
+=\#\{k:i<k<j,\ \pi_i<\pi_k<\pi_j\}.
+$$
+
+因此 `interval_exact(m)` empty 等價於：$\pi$ 中不存在任何
+$i<j$ 同時滿足 $\pi_i<\pi_j$ 與 $I_\pi(i,j)=m$。令
+$A_{N,m}$ 為具有此性質的 permutations 數。uniform square 下每個相對
+permutation chamber 的機率恰為 $1/N!$；而 registered target 的 iid density
+逐點滿足 $\prod_{r=1}^Np_\theta(z_r)\le p_{\max}(\theta)^N$，所以有合法但
+可能很鬆的充分界
+
+$$
+\Pr_\theta\{\texttt{interval\_exact(m) empty}\}
+\le p_{\max}(\theta)^N\frac{A_{N,m}}{N!}.
+$$
+
+要用這條界獨立關閉 selector bucket，須證 uniform avoidance fraction
+$A_{N,m}/N!$ 不超過下表的 $\beta_*/p_{\max}^N$；表中數字只是**事前
+證明目標**，不是已取得的 failure bound：
+
+| target | $N=64$ | $N=96$ | $N=128$ |
+|---|---:|---:|---:|
+| $\theta=-0.4$，$p_{\max}=1.2$ | $4.2824\times10^{-12}$ | $1.2528\times10^{-14}$ | $3.6652\times10^{-17}$ |
+| $\theta=+0.4$，$p_{\max}=1.4$ | $2.2238\times10^{-16}$ | $4.6881\times10^{-21}$ | $9.8833\times10^{-26}$ |
+
+無 RNG regression 對 $N=6$ 的全部 $6!=720$ 個 chambers 直接呼叫 frozen
+selector；`interval_exact(1,2,3,4)` 的 empty chamber 數分別為
+$194,439,614,696$（均含唯一 antichain chamber）。這只證明 empty event
+早已是多 chamber 聯集，否決「把 antichain 的單 chamber
+$p_{\max}^N/N!$ 原樣延伸」；小 $N$ 計數**不得**外推成 $N=64,96,128$
+的衰減率或機率界。
+
+五個 `endpoint_depth_mass_band` 也不能只因 bands 分割 $[0,1]$ 就宣稱
+逐 band 非空。令 distinct depth-score blocks 的 pair masses 為
+$c_1,\ldots,c_r$、$M=\sum_\ell c_\ell$，其 frozen midpoint 為
+
+$$
+q_\ell=\frac{\sum_{s<\ell}c_s+c_\ell/2}{M}.
+$$
+
+若任何寬度 $1/5$ 的 registered band 沒有 midpoint，則必有 boundary
+block 或一對相鄰 blocks（把兩端外側 mass 記為零）滿足
+
+$$
+\max_{0\le\ell\le r}(c_\ell+c_{\ell+1})\ge\frac{2M}{5},
+\qquad c_0=c_{r+1}=0.
+$$
+
+理由是跨過整個 band 的兩個相鄰 midpoints 之差恰為
+$(c_\ell+c_{\ell+1})/(2M)$；若所有 midpoints 都在同一側，第一或最後
+block 給出同一 boundary certificate。這是 empty 的**必要條件**，不是
+充分條件或 probability bound。完整 height-two bipartite order 把全部 pair
+放在同一個 midpoint $1/2$，故五個 bands 只有中間一格非空；另以所有
+$N=6$ permutation orders 窮舉鎖定上述 $2M/5$ certificate。
+
+至此 selector bucket 被化約為兩個有限而明確、但尚未完成的義務：
+
+1. 對 $A_{N,m}$ 交付可驗證的 enumeration／recurrence／解析上界，使上述
+   四個 interval strata 在每個 registered $(N,\theta)$ 都不超過 $\beta_*$；
+2. 對每一 depth band 的 $2M/5$ score-block concentration event 交付同樣的
+   chamber-count 或直接 probability 上界。
+
+另一合法路徑是先獨立 review／merge selector-only rare-tail estimation
+protocol，或明文 amendment selector／support。既有 6a-S finite PASS、小
+$N$ exhaustive counts、expectation 大小及 development examples 都不能取代
+$5.0037\times10^{-7}$ 的 upper bound。本節沒有呼叫 generator、沒有生成
+seed，也沒有關閉 selector bucket 或完整 Gate A。
+
 #### Gate B：CLEAN 條件下的誤差大小與放大因子
 
 在 Gate A 成立時，令
