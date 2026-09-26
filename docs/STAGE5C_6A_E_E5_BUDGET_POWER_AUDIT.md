@@ -702,6 +702,61 @@ $A_{N,m}/N!$ 不超過下表的 $\beta_*/p_{\max}^N$；表中數字只是**事�
 | $\theta=-0.4$，$p_{\max}=1.2$ | $4.2824\times10^{-12}$ | $1.2528\times10^{-14}$ | $3.6652\times10^{-17}$ |
 | $\theta=+0.4$，$p_{\max}=1.4$ | $2.2238\times10^{-16}$ | $4.6881\times10^{-21}$ | $9.8833\times10^{-26}$ |
 
+這個 pointwise envelope 丟失了 registered density 的積分消去。可用一個仍然
+完全解析、但不逐 chamber 積分的 likelihood-moment 界取代它作為後續
+proof-development target。令 $P_0$ 為 $N$ 個 uniform-square points 的 law，
+
+$$
+L_\theta
+=\prod_{i=1}^N\{1+\theta q(U_i)q(V_i)\},
+\qquad q(z)=6z^2-6z+1.
+$$
+
+對任何只由 order chamber 決定的事件 $E$，以及事前選定的整數 $r\ge2$，
+Hölder inequality 與 iid factorization 給出
+
+$$
+\Pr_\theta(E)
+=E_0[L_\theta\mathbf 1_E]
+\le M_r(\theta)^{N/r}\Pr_0(E)^{(r-1)/r},
+$$
+
+其中每個 moment 都是 exact rational：
+
+$$
+M_r(\theta)
+=E_0[(1+\theta q(U)q(V))^r]
+=\sum_{k=0}^r {r\choose k}\theta^k\mu_k^2,
+\qquad
+\mu_k=\int_0^1q(z)^k\,dz.
+$$
+
+因此若 uniform event fraction $\delta=\Pr_0(E)$ 滿足
+
+$$
+M_r(\theta)^N\delta^{r-1}\le\beta_*^r,
+$$
+
+就已足以證明 $\Pr_\theta(E)\le\beta_*$。下表只依事前已知的
+$(\beta_*,N,\theta)$ 與 likelihood moments，為六格各凍結一個 integer $r$
+及保守 proof target；沒有使用任何 registered-$N$ chamber count。每個
+terminating decimal 都向下取整，且由 exact-rational regression 直接驗證
+上述冪次不等式，不以浮點開根號承重：
+
+| target | $N=64$ | $N=96$ | $N=128$ |
+|---|---:|---:|---:|
+| $\theta=-0.4$ | $1.56\times10^{-8}$ ($r=10$) | $6.55\times10^{-9}$ ($r=8$) | $3.09\times10^{-9}$ ($r=7$) |
+| $\theta=+0.4$ | $1.15\times10^{-8}$ ($r=9$) | $4.83\times10^{-9}$ ($r=7$) | $2.30\times10^{-9}$ ($r=7$) |
+
+這把 registered $N=128,\theta=+0.4$ 的 uniform-chamber 目標由
+$9.8833\times10^{-26}$ 放寬到 $2.30\times10^{-9}$；其餘五格也都嚴格
+放寬。這不是對所有 $r$ 的最適性宣稱，也不是已取得的 selector failure
+bound；它只以 density likelihood moments 取代 $p_{\max}^N$ 的 pointwise
+損失。四個 rectangle-avoidance events 與五個 score-block events 仍須各自
+交付不超過相應 uniform target 的 enumeration／recurrence／解析上界，selector
+bucket 仍為 `OPEN`。未來若改動任一 $r$ 或 decimal target，必須先更新本段
+exact-rational regression，不得由已看過的 chamber counts 事後挑選。
+
 無 RNG regression 對 $N=6$ 的全部 $6!=720$ 個 chambers 直接呼叫 frozen
 selector；`interval_exact(1,2,3,4)` 的 empty chamber 數分別為
 $194,439,614,696$（均含唯一 antichain chamber）。這只證明 empty event
@@ -735,9 +790,11 @@ $N=6$ permutation orders 窮舉鎖定上述 $2M/5$ certificate。
 至此 selector bucket 被化約為兩個有限而明確、但尚未完成的義務：
 
 1. 對 $A_{N,m}$ 交付可驗證的 enumeration／recurrence／解析上界，使上述
-   四個 interval strata 在每個 registered $(N,\theta)$ 都不超過 $\beta_*$；
+   四個 interval strata 在每個 registered $(N,\theta)$ 都符合凍結的
+   likelihood-moment uniform target，從而不超過 $\beta_*$；
 2. 對每一 depth band 的 $2M/5$ score-block concentration event 交付同樣的
-   chamber-count 或直接 probability 上界。
+   uniform-event bound，或直接交付不超過 $\beta_*$ 的 target-law probability
+   上界。
 
 另一合法路徑是先獨立 review／merge selector-only rare-tail estimation
 protocol，或明文 amendment selector／support。既有 6a-S finite PASS、小
