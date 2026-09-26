@@ -574,6 +574,48 @@ schema、atom cap、box leakage 與 causal leakage 在
 同時窮舉 atom-count weight deficit，並以最壞 $m=3987$ 呼叫 production
 `leakage_diagnostics` 鎖定此結論。
 
+##### $R_{\rm geo}$ 內的 frozen-`atol`→item-3 接縫 witness
+
+$R_{\rm geo}$ 關閉 structural layer，並不推出 item-3 certification
+確定通過。對每個登記大小 $N\in\{64,96,128\}$，取兩點
+$z_0=(0.05,0.05)$、$z_1=(0.70,0.70)$，其餘 $N-2$ 點放在
+$(t,1-t)$、$t\in[0.951,0.999]$ 的互異位置。所有 boundary margins 與
+同座標 pairwise gaps 都嚴格大於 $10^{-12}$，而唯一 causal relation 是
+$z_0\prec z_1$。因此真實 frozen `all_relations` 與 `links` 都成功選出
+同一 pair，production adapter 形成 atom
+$(0.70,0.70,0.05,0.05)$；這不是 selector-domain、atom-schema 或 leakage
+失敗。
+
+在 frozen $\mathtt{E4\_CUBATURE\_ATOL}=2^{-30}\approx9.3132\times10^{-10}$
+下，這個 atom 的 validated analytic enclosure 為
+$[6.48547,6.57381]\times10^{-12}$（兩座標相同），寬度僅
+$8.83395\times10^{-14}$；fixed-rule estimate 為
+$6.53037\times10^{-12}$，其 validated error 為
+$6.35006\times10^{-14}$。但整個 pairing scale 小於 frozen absolute
+tolerance，adaptive backend 在零次 subdivision 即回報 converged，estimate
+僅 $1.28574\times10^{-14}$，validated error 為
+$9.27859\times10^{-12}$。兩實作仍通過 agreement gate，卻使 item-3
+$\mathtt{norm\_lower}=-4.42823\times10^{-14}$，固定回報
+`INCONCLUSIVE/NORM-INTERVAL-TOUCHES-ZERO`；E4 因而是
+`NUMERICAL-CERTIFICATION-INCONCLUSIVE`。
+
+一個**只供歸因的 development sensitivity** 把同一呼叫的 `atol` 暫降至
+$2^{-50}$：fixed matrix 與 analytic enclosure 逐位元不變，adaptive backend
+作 37 次 subdivisions，estimate 變為 $6.52589\times10^{-12}$、validated
+error 降至 $6.77697\times10^{-14}$，item-3 轉為 `CLEAN` 且
+$\mathtt{norm\_lower}=9.16654\times10^{-12}$。這只隔離 frozen absolute
+tolerance 的尺度錯配；**不是** item-7 amendment、replacement constant、
+failure-tail 上界或 cap 可行性證據。先前 $(0.8,0.8,0.2,0.2)$ 的 near-zero
+witness 在 frozen producer 下仍為 `CLEAN`，只承載 Gate B 的大誤差問題；
+本 witness 才直接到達 Gate A 的 item-3 non-`CLEAN` 分支。
+
+因此，同一 frozen absolute tolerance 現已在 candidate-independent witnesses
+上分別影響 Gate A 與 Gate B；但一個 pointwise witness 仍不證其 failure
+mass 超過 $\beta_*$. item-3 certification bucket 保持 `OPEN`。合法後續只有：
+(i) 在 frozen E4 下交付真實 law 的 failure-tail 上界；或 (ii) 明文重開
+item 7，並複核 item 3 與 items 4--5 的下游影響。不得把此 sensitivity
+直接接入正式 producer。
+
 對 `all_relations` 與 `links`，selection failure 恰由 antichain 涵蓋：有限
 non-antichain poset 至少有一條 relation 與一條 cover。另因
 $p_\theta\le p_{\max}(\theta)$，其中 $p_{\max}(-0.4)=1.2$、

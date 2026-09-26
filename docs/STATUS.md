@@ -148,6 +148,18 @@ Carlo 的示例資源約為 $4.27\times10^8$ 次 E4 評估。下一個純分析�
 同時信賴額度與停止規則。本提案不生成 seed、不設 cap 或 cohort floor，
 item 8 維持 `OPEN`。
 
+後續無 RNG 的接縫探查確認，Gate A 的 item-3 桶確實會直接碰到 frozen
+$\mathtt{atol}=2^{-30}$。在每個登記 $N\in\{64,96,128\}$ 上，一個位於
+$R_{\rm geo}$ 內且只有單一 causal relation 的確定性 causet，使真實
+`all_relations`／`links`、production adapter、frozen E4 與 item-3 串接後
+固定回報 `NORM-INTERVAL-TOUCHES-ZERO`；structural leakage 仍通過。
+development-only 把同一呼叫的 `atol` 降至 $2^{-50}$ 時，fixed matrix 與
+analytic enclosure 不變、adaptive subdivisions 由 0 變 37，certification
+轉為 `CLEAN`。這隔離了 absolute-tolerance scale mismatch，但單點不提供
+failure-tail 上界，也不構成 item-7 amendment 或 replacement constant。
+item-3 bucket、Gate A 與 item 8 均維持 `OPEN`；若不在 frozen E4 下另證
+tail，任何正式修正常數都須重開 item 7 並複核 item 3／items 4--5。
+
 ---
 
 ## 3. 模型演進歷史對照表
@@ -287,6 +299,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v1.98（審查提案，2026-09-26）- PR #54 exact head `e91a90d3` 經獨立 GO 後 squash-merge `dbd7dcc3`，merge tree 與受審 head 逐位元相同。後續無 RNG／seed 的 deterministic 接縫探查在登記 $N=64,96,128$ 上構造位於 $R_{\rm geo}$、僅有單一 causal relation 的 causet；真實 `all_relations`／`links`→production adapter→frozen E4→item-3 均重現 `NORM-INTERVAL-TOUCHES-ZERO`。analytic enclosure 寬僅 $8.83\times10^{-14}$，但 frozen $\mathtt{atol}=2^{-30}$ 大於 pairing scale，使 adaptive backend 零 subdivision；只供歸因的 $2^{-50}$ sensitivity 保持 fixed matrix／enclosure 不變並把 certification 轉為 CLEAN。這證明同一 frozen absolute tolerance 可直接影響 Gate A 與既知 Gate B witness，但單點不量化 failure tail，也不是 item-7 amendment、replacement constant、cap 或 power 證據；item-3 bucket、Gate A、item 8 及 6a-E 均維持 OPEN，producer／protocol／custody 未動。*
 *v1.97（審查提案，2026-09-25）- PR #53 exact head `26dc0bb2` 經獨立 GO 後 squash-merge `0f7ff060`，merge tree 與受審 head 逐位元相同。後續純分析以 Hölder likelihood moments 改善 selector bucket 的 target-law 轉移：對任何 order-chamber event，以 exact rational $M_r(\theta)=E_0[(1+\theta q(U)q(V))^r]$ 證明 $\Pr_\theta(E)\le M_r(\theta)^{N/r}\Pr_0(E)^{(r-1)/r}$，並事前固定 integer powers 與向下取整的 uniform-event targets。六個 $(N,\theta)$ 目標由粗糙 pointwise $p_{\max}^N$ 下的 $9.88\times10^{-26}$–$4.28\times10^{-12}$ 放寬到 $2.30\times10^{-9}$–$1.56\times10^{-8}$；exact-arithmetic regression 直接驗證每格的冪次不等式，不以浮點開根承重。這只移除 pointwise density envelope 的巨大損失，不是 avoidance／concentration tail 證明：四個 interval 與五個 depth-band events、selector bucket、Gate A、item 8 及 6a-E 均維持 OPEN。沒有呼叫 generator、RNG、seed、arm data 或候選 $K$，亦未修改 frozen selector／producer／custody。*
 *v1.96（審查提案，2026-09-25）- PR #52 exact head `5ba35fc8` 經獨立 GO 後 squash-merge `cc92ecdf`，merge tree 與受審 head 一致。後續純分析把 selector empty bucket 化約為 finite permutation problems：按 $u$ 排序後，`interval_exact(m)` empty 等價於 rank permutation 中不存在 rectangle occupancy $m$ 的 comparable pair，並有 $\Pr_\theta(E)\le p_{\max}(\theta)^N A_{N,m}/N!$；depth-band empty 則必有 boundary／相鄰 score blocks 合計至少佔 pair mass 的 $2/5$。無 RNG 的 $N=6$ 全 chamber regression 驗證 rectangle 對應、四個 empty counts $194/439/614/696$ 與 $2/5$ certificate，另以 height-two order 鎖定「bands 分割 $[0,1]$ 不保證逐 band 非空」。這些只縮小證明義務：小 $N$ counts 不外推 registered tail，九個 strata 仍各缺 $\le\beta_*$ 的解析或 validated bound；selector bucket、item 8 與 6a-E 均維持 OPEN。沒有呼叫 generator、生成 seed、開新 namespace或修改 frozen selector／producer／custody。*
 *v1.95（審查提案，2026-09-24）- PR #51 exact head `e6c6cbcd` 經獨立 GO 後 squash-merge `6d1a074d`，merge tree 與受審 head 一致。為避免 Gate-A 前兩項證明事後耗盡第三項額度，後續純分析提案先凍結 proof-development ledger：在樂觀 $c_{\rm clean}=0.90,L=768,H=32$ 的單列 envelope $1/491520$ 內，保留已證 $R_{\rm geo}^{c}\le3.3024\times10^{-8}$，其餘精確四等分為 selector、adaptive backend、item-3 certification 三個不可互借桶與一個未分配 reserve，每份 $48035549/96000000000000\approx5.004\times10^{-7}$。九個 selector strata 各自須滿足同一單列上限；抽樣 simultaneous-confidence multiplicity 另記，不把物理 failure probability 錯除以九。較小 $N$ 或更緊解析界所得 slack 先回 reserve；任何轉移、縮小 $\rho,\gamma$ 或新增 failure event 均須事前 amendment／複核。此帳本不是 cohort floor、完整 power allocation 或執行授權；沒有呼叫 generator、生成 seed、開新 namespace或修改 frozen producer／custody，item 8 維持 OPEN、6a-E PREREGISTRATION-INCOMPLETE。*
