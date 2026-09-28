@@ -192,18 +192,25 @@ def _category(error: np.ndarray | None, *, clean: bool) -> str:
     return "CLEAN-OVER"
 
 
+def build_production_atoms(
+    sample: object, pairs: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
+    """Apply the screen's frozen selector-to-E4 adapter exactly once."""
+    # Selectors return (earlier, later); E4 atoms are (later, earlier).
+    atoms = np.concatenate(
+        (sample.coordinates[pairs[:, 1]], sample.coordinates[pairs[:, 0]]),
+        axis=1,
+    )
+    weights, normalization = uniform_pair_weights(len(pairs))
+    return atoms, normalised_weights(weights, normalization)
+
+
 def _one_member(sample: object, name: str, parameters: tuple) -> str:
     # The selector sees the order and a constant case id, never target/coordinates.
     try:
         case = BlindedCase(case_id="AUDIT-ONLY", order=sample.order)
         pairs = apply_selector(name, parameters, case)
-        # Selectors return (earlier, later); E4 atoms are (later, earlier).
-        atoms = np.concatenate(
-            (sample.coordinates[pairs[:, 1]], sample.coordinates[pairs[:, 0]]),
-            axis=1,
-        )
-        weights, normalization = uniform_pair_weights(len(pairs))
-        probability_weights = normalised_weights(weights, normalization)
+        atoms, probability_weights = build_production_atoms(sample, pairs)
         with _e4_deadline():
             report = evaluate_e4_wellposedness(atoms, probability_weights, sample.theta)
     except (SelectorDomainError, SelectorSelectionError, SelectorProtocolError,
