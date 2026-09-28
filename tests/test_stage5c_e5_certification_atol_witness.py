@@ -6,9 +6,12 @@ kernel.  The lower-tolerance comparison is development-only sensitivity: it
 does not amend the frozen producer or certify a replacement constant.
 """
 
+from types import SimpleNamespace
+
 import numpy as np
 
 import analysis.stage5c_e4_wellposedness as e4
+from analysis import stage5c_e5_screen as screen
 from analysis.stage5c_e4_wellposedness import (
     E4Reason,
     E4Status,
@@ -16,7 +19,6 @@ from analysis.stage5c_e4_wellposedness import (
     evaluate_e4_wellposedness,
 )
 from analysis.stage5c_hard_controls import BlindedCase, order_from_uv
-from analysis.stage5c_measure_prereg import normalised_weights, uniform_pair_weights
 from analysis.stage5c_numerical_certification import (
     CertificationReason,
     CertificationStatus,
@@ -48,9 +50,8 @@ def _single_relation_case(n: int) -> tuple[np.ndarray, BlindedCase]:
 def _production_report(points: np.ndarray, case: BlindedCase, selector: str):
     pairs = apply_selector(selector, (), case)
     assert pairs.tolist() == [[0, 1]]
-    atoms = np.concatenate((points[pairs[:, 1]], points[pairs[:, 0]]), axis=1)
-    weights, normalization = uniform_pair_weights(len(pairs))
-    probability = normalised_weights(weights, normalization)
+    sample = SimpleNamespace(order=case.order, coordinates=points, theta=0.4)
+    atoms, probability = screen.build_production_atoms(sample, pairs)
     return atoms, evaluate_e4_wellposedness(atoms, probability, theta=0.4)
 
 
@@ -87,10 +88,11 @@ def test_development_only_lower_atol_isolates_the_scale_mismatch(monkeypatch):
 
     # This is a counterfactual sensitivity run, not a producer amendment.
     monkeypatch.setattr(e4, "E4_CUBATURE_ATOL", 2.0**-50)
-    weights, normalization = uniform_pair_weights(1)
-    refined = evaluate_e4_wellposedness(
-        atoms, normalised_weights(weights, normalization), theta=0.4
-    )
+    pairs = apply_selector("all_relations", (), case)
+    sample = SimpleNamespace(order=case.order, coordinates=points, theta=0.4)
+    refined_atoms, probability = screen.build_production_atoms(sample, pairs)
+    assert np.array_equal(atoms, refined_atoms)
+    refined = evaluate_e4_wellposedness(refined_atoms, probability, theta=0.4)
 
     assert np.array_equal(frozen.gauss.matrix, refined.gauss.matrix)
     assert np.array_equal(frozen.enclosure.lower, refined.enclosure.lower)
