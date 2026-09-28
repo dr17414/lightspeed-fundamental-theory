@@ -151,7 +151,8 @@ item 8 維持 `OPEN`。
 後續無 RNG 的接縫探查確認，Gate A 的 item-3 桶確實會直接碰到 frozen
 $\mathtt{atol}=2^{-30}$。在每個登記 $N\in\{64,96,128\}$ 上，一個位於
 $R_{\rm geo}$ 內且只有單一 causal relation 的確定性 causet，使真實
-`all_relations`／`links`、production adapter、frozen E4 與 item-3 串接後
+`all_relations`／`links`、runner 與 regression 共用的
+`build_production_atoms` adapter、frozen E4 與 item-3 串接後
 固定回報 `NORM-INTERVAL-TOUCHES-ZERO`；structural leakage 仍通過。
 development-only 把同一呼叫的 `atol` 降至 $2^{-50}$ 時，fixed matrix 與
 analytic enclosure 不變、adaptive subdivisions 由 0 變 37，certification

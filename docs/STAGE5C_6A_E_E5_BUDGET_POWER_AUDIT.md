@@ -582,7 +582,8 @@ $z_0=(0.05,0.05)$、$z_1=(0.70,0.70)$，其餘 $N-2$ 點放在
 $(t,1-t)$、$t\in[0.951,0.999]$ 的互異位置。所有 boundary margins 與
 同座標 pairwise gaps 都嚴格大於 $10^{-12}$，而唯一 causal relation 是
 $z_0\prec z_1$。因此真實 frozen `all_relations` 與 `links` 都成功選出
-同一 pair，production adapter 形成 atom
+同一 pair；runner 與本 regression 共用唯一的 `build_production_atoms`
+production adapter，形成 atom
 $(0.70,0.70,0.05,0.05)$；這不是 selector-domain、atom-schema 或 leakage
 失敗。
 
