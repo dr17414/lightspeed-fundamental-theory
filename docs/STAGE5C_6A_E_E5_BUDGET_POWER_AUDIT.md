@@ -630,6 +630,16 @@ propagation 仍須完整重審。deterministic suite 與兩個 8128-atom probes 
 真實 4096-subdivision cap hit，但這不構成完整 support 的 resource bound；
 adaptive backend bucket 及 item-3 bucket 仍分帳 `OPEN`。
 
+後續 item-7 combined amendment proposal 已把 $(64,128,256)$ enclosure 與
+scale-aware effective `atol` 放在同一個 non-executable v0.2 candidate，因後者直接
+依賴前者的 upper endpoints，不能分兩次 amendment。三個 deterministic single-atom
+witness 在 candidate 下的 normalized error 約為 $(0.00580,0.00696)$、
+$(0.00279,0.00335)$、$(0.01956,0.02347)$，只證已知 pointwise bottlenecks 可同時
+移除；不得外推成 matched-law mean 或 cap。8128-atom enclosure-only development
+probe 在新 levels 約需 141 s／471 MiB，因此任何 implementation 仍須在既有
+900 s per-call、57600 s total CPU 與 target-host memory constraints 下完成獨立
+resource qualification。Gate A 三桶、Gate B factor／mean 與 item 8 均維持 `OPEN`。
+
 對 `all_relations` 與 `links`，selection failure 恰由 antichain 涵蓋：有限
 non-antichain poset 至少有一條 relation 與一條 cover。另因
 $p_\theta\le p_{\max}(\theta)$，其中 $p_{\max}(-0.4)=1.2$、

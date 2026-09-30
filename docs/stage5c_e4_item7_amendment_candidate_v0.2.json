@@ -1,0 +1,44 @@
+{
+  "state": "AMENDMENT-REVIEW-PENDING",
+  "executable": false,
+  "base_contract_id": "stage5c-6a-e-e4-wellposedness-v0.1",
+  "candidate_identities": {
+    "contract": "stage5c-6a-e-e4-wellposedness-v0.2",
+    "gauss_implementation": "gauss-legendre-32-with-cell-enclosure-v0.2",
+    "adaptive_implementation": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2",
+    "enclosure": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+  },
+  "unchanged_identities": {
+    "topology": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+    "leakage": "ambient-gaussian-box-and-causal-leakage-v0.1"
+  },
+  "candidate_constants": {
+    "cubature_rtol_numerator": 1,
+    "cubature_rtol_denominator": 16384,
+    "cubature_atol_cap_numerator": 1,
+    "cubature_atol_cap_denominator": 1073741824,
+    "enclosure_levels": [64, 128, 256],
+    "max_subdivisions": 4096,
+    "max_atoms": 8128,
+    "density_chunk_size": 128
+  },
+  "effective_atol_policy": {
+    "scale": "max(enclosure.upper[0], enclosure.upper[1])",
+    "formula": "min(2^-30, round_toward_zero(2^-14 * scale))",
+    "zero_nonfinite_or_underflow": "INCONCLUSIVE_BEFORE_ADAPTIVE",
+    "calculation_order": [
+      "validate_input",
+      "compute_leakage_and_fixed_rule",
+      "compute_validated_enclosure",
+      "derive_effective_atol",
+      "run_adaptive_cubature",
+      "certify_pairing"
+    ]
+  },
+  "retained_execution_caps": {
+    "per_e4_wall_seconds": 900,
+    "total_cpu_seconds": 57600,
+    "address_space_bytes": 34359738368
+  },
+  "authorization": "NONE"
+}
