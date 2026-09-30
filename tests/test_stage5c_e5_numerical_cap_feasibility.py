@@ -2,10 +2,12 @@
 
 from fractions import Fraction
 from math import sqrt
+from types import SimpleNamespace
 
 import numpy as np
 from scipy import special
 
+from analysis import stage5c_e5_screen as screen
 from analysis.stage5c_e4_wellposedness import (
     E4Status,
     E4_CUBATURE_ATOL,
@@ -133,12 +135,11 @@ def test_gate_a_deterministic_clean_shortcut_has_selector_e4_counterexample():
         pairs = apply_selector("links", (), case)
         assert pairs.shape == (n - 1, 2)
 
-        # Use the production adapter orientation and production uniform measure.
-        atoms = np.concatenate(
-            (points[pairs[:, 1]], points[pairs[:, 0]]), axis=1
-        )
-        weights, normalization = uniform_pair_weights(len(pairs))
-        probability = normalised_weights(weights, normalization)
+        # Exercise the shared production adapter instead of reproducing its
+        # orientation, weight construction, or normalization in the test.
+        sample = SimpleNamespace(coordinates=points)
+        atoms, probability = screen.build_production_atoms(sample, pairs)
+        assert np.all(atoms[:, :2] > atoms[:, 2:])
         leakage = leakage_diagnostics(atoms, probability)
 
         assert leakage.strict_geometry_validated
