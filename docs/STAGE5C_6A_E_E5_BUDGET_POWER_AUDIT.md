@@ -617,6 +617,19 @@ mass 超過 $\beta_*$. item-3 certification bucket 保持 `OPEN`。合法後續�
 item 7，並複核 item 3 與 items 4--5 的下游影響。不得把此 sensitivity
 直接接入正式 producer。
 
+後續 amendment feasibility assessment 見
+`STAGE5C_6A_E_ITEM7_AMENDMENT_FEASIBILITY.md`。其 development-only 比較顯示：
+直接把 enclosure width 或 fixed-rule error 當作 `atol` 仍太鬆；固定
+$2^{-50}$ 與一個以 validated enclosure upper scale 乘 frozen `rtol` 的
+尺度感知 candidate，都能使上述 Gate-A witness 轉為 `CLEAN`，並把既有
+Gate-B near-zero witness 的 normalized endpoint error 由約
+$(3.785,4.543)$ 降至約 $(0.0114,0.0137)$。然而 wide-cell witness 完全不變，
+而且原本已 `CLEAN` 的 error／screen band 會改動，故正式 amendment 不能只複核
+`INCONCLUSIVE` $\to$ `CLEAN` rows；item 3 與 items 4--5 的 numerical
+propagation 仍須完整重審。deterministic suite 與兩個 8128-atom probes 未見
+真實 4096-subdivision cap hit，但這不構成完整 support 的 resource bound；
+adaptive backend bucket 及 item-3 bucket 仍分帳 `OPEN`。
+
 對 `all_relations` 與 `links`，selection failure 恰由 antichain 涵蓋：有限
 non-antichain poset 至少有一條 relation 與一條 cover。另因
 $p_\theta\le p_{\max}(\theta)$，其中 $p_{\max}(-0.4)=1.2$、

@@ -342,6 +342,12 @@ Item 8 的部分交付提案見 `STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md`：七個
 model、所有 CLEAN numerical caps 與 finite-cohort E3／null power 所需假設仍未證成，
 因此不能填寫 $\ge0.90$ 的 cohort floors，本列仍為 `OPEN`。
 
+另見 `STAGE5C_6A_E_ITEM7_AMENDMENT_FEASIBILITY.md`。development-only 比較已確認
+較低 fixed `atol` 與尺度感知 candidate 均改善已知 Gate-A item-3／Gate-B
+near-zero witnesses，但也改變既有 `CLEAN` error／screen band，且沒有關閉
+adaptive-resource 或 wide-cell 分支。因此 assessment 不授權改動 item-7 producer、
+關閉任何 proof bucket 或縮小 item 3／items 4--5 的下游重審範圍。
+
 本列的 Gate-A 必要交付另受 proof-development ledger 約束：在樂觀
 $c_{\rm clean}=0.90,L=768,H=32$ 的單列 envelope $1/491520$ 中，扣除已證
 $R_{\rm geo}^{c}\le3.3024\times10^{-8}$ 後，selector、adaptive backend 與
