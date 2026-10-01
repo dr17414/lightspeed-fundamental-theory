@@ -54,13 +54,36 @@ $$
 其中 $U_k$ 是 enclosure upper endpoints，
 `down_binary64` 表示對 exact dyadic product 向零取不大於該值的 binary64。
 若 $s$ 非有限、$s\le0$，或乘積向零取整後為零，producer 必須在 adaptive call 前
-fail closed 為 `INCONCLUSIVE`；不得把零 scale 改寫成固定 fallback tolerance，也不得
-把 underflow 當作精確零誤差。
+fail closed 為 `INCONCLUSIVE / ADAPTIVE_TOLERANCE_UNDEFINED`；不得把零 scale 改寫成
+固定 fallback tolerance，也不得把 underflow 當作精確零誤差。這個具名 reason 是
+v0.2 contract 的一部分，implementation 不得從既有 enum 任選一個近似理由代替。
+
+`down_binary64` 必須先以 exact dyadic arithmetic 形成 $2^{-14}s$，再轉為 binary64；若
+轉換結果高於 exact value，須以一次 `nextafter(..., 0)` 向零修正。不得只呼叫會採
+round-to-nearest 的 `ldexp` 就宣稱已向零取整。除 subnormal underflow 外，乘以
+$2^{-14}$ 本身在 binary64 可精確表示；此條款主要封住 underflow 與未來實作漂移。
 
 正式計算順序固定為：input validation → leakage／fixed rule → validated enclosure →
 effective `atol` → adaptive cubature → item-3 certification。`_cubature_pairing` 必須顯式
 接收本列 `atol`，不得由測試或 caller 改寫 module global。`PairingEnclosure.levels` 必須
 記錄實際使用的 $(64,128,256)$，不能依賴 dataclass definition-time 的舊 default。
+
+v0.2 status/reason 優先序亦固定如下；input contract violations 仍在報告建立前拋出
+`E4ProtocolError`，不屬下表：
+
+1. leakage 不合法時為 `INCONCLUSIVE / STRUCTURAL_LEAKAGE_INVALID`；這個結構性理由
+   優先於 tolerance derivation，且不得啟動 adaptive；
+2. leakage 合法但 $s$／$a_{\rm eff}$ 未定義時為
+   `INCONCLUSIVE / ADAPTIVE_TOLERANCE_UNDEFINED`，不得啟動 adaptive；
+3. adaptive 已啟動後，依序判定 `NONFINITE_BACKEND`、`ADAPTIVE_RESOURCE_CAP`、
+   `NUMERICAL_CERTIFICATION_INCONCLUSIVE`，最後才可為 `CLEAN / CERTIFIED`。
+
+為避免把「未執行」偽裝成數值結果，v0.2 `E4Report` 必須新增
+`effective_atol: float | None`，並把 `adaptive`、`adaptive_run`、`certification` 明訂為
+optional。上述第 1、2 分支仍須保留已計算的 `leakage`、`gauss` 與 `enclosure`，但
+`effective_atol`、`adaptive`、`adaptive_run`、`certification` 全為 `None`。不得填入零矩陣、
+NaN 或 synthetic `CertificationResult`。所有 consumer（含 `clean` property、item 3、screen
+與 ledger serialization）都必須先依 status/reason 分支，再存取 optional fields。
 
 ## 3. Version identities 與 seal 影響
 
@@ -99,6 +122,16 @@ cohort floor 或任何 scientific PASS。特別是 $0.02347$ 靠近 $0.025$，�
 統計餘裕；而 factor-8 全池 benchmark 要求 $1/160=0.00625$，Gate-A witness 的第二
 座標與 wide-cell witness 仍未滿足。combined amendment 不會自動恢復該路線。
 
+enclosure 最高級 256 是在已看過 wide-cell witness 後選出的最小已探查級數，使該
+witness 的第二座標降到 $1/40$ 以下；因此該 witness 是 in-sample design input，不是
+v0.2 的獨立確認，也不得在 closeout 中被改寫成 out-of-sample validation。
+
+implementation regression 另須加入非對稱 atom $(.70,.30,.05,.20)$。development 探查中
+$U_1/U_2\approx2.7\times10^{11}$：本候選的 $s=\max(U_1,U_2)$ policy 為 `CLEAN`、83 次
+細分且 normalized endpoint error 約 $0.0092$；反事實改用 `min(U_1,U_2)` 則耗盡 4096
+細分並成為 `ADAPTIVE_RESOURCE_CAP`。這條 regression 必須同時鎖住 max policy 與 min
+counterfactual，防止未來以「更保守」為名改成 min；三個對稱 witnesses 無法偵測此退化。
+
 ## 5. Resource evidence 與不可放寬的 caps
 
 enclosure refinement 的寬度約每次加倍 cells 減半，但 traversal 成本約每次加倍 cells
@@ -125,6 +158,11 @@ implementation PR 必須交付 candidate-independent resource qualification，�
 4. 每一 E4 call 不超 900 s，且任何 nonfinite／4096 exhaustion 均 fail closed；
 5. target-host preflight 與新 runner authorization pin 當時 current blobs。
 
+CPU 一律以每個測量區間前後
+`resource.getrusage(resource.RUSAGE_SELF).ru_utime + ru_stime` 的差值計算，並須同時報告
+per-call 與完整 264-call schedule；不得以 wall time 代替 CPU time。若 BLAS 或其他 backend
+使用多執行緒，CPU 可以大於 wall，仍以 CPU 值對 57600 s cap 判定。
+
 若無法在既有 caps 內證成，candidate 必須回到 amendment review；不得根據已看過的
 screen 或 arm 結果縮小 levels、放寬 caps、刪除 strata 或延長資源。
 
@@ -137,7 +175,8 @@ screen 或 arm 結果縮小 levels、放寬 caps、刪除 strata 或延長資源
 正式 closeout 至少需要：
 
 - item 7：producer implementation、zero／underflow branch、actual-level metadata、
-  resource regressions、full test suite、independent exact-head review；
+  具名 reason／skipped-adaptive nullable schema、非對稱 max-vs-min regression、resource
+  regressions、full test suite、independent exact-head review；
 - item 3：既有 CLEAN 與 INCONCLUSIVE cases 的完整 numerical payload diff、agreement、
   norm／ratio、source-row seal 及 mutation／real-seam tests；
 - items 4--5：由新 rows 重建 numerical half-width／ensemble seal，重跑 E1／E2／E3

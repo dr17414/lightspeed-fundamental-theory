@@ -58,13 +58,57 @@ def test_proposal_is_non_executable_and_does_not_mutate_frozen_v01():
         "max_atoms": 8128,
         "density_chunk_size": 128,
     }
-    assert payload["effective_atol_policy"]["zero_nonfinite_or_underflow"] == (
-        "INCONCLUSIVE_BEFORE_ADAPTIVE"
-    )
+    assert payload["effective_atol_policy"]["zero_nonfinite_or_underflow"] == {
+        "status": "INCONCLUSIVE",
+        "reason": "ADAPTIVE_TOLERANCE_UNDEFINED",
+        "adaptive_called": False,
+    }
+    assert payload["effective_atol_policy"]["calculation_order"] == [
+        "validate_input",
+        "compute_leakage_and_fixed_rule",
+        "compute_validated_enclosure",
+        "resolve_structural_leakage_status",
+        "derive_effective_atol",
+        "resolve_undefined_tolerance_status",
+        "run_adaptive_cubature",
+        "certify_pairing",
+    ]
+    assert payload["status_reason_precedence"] == [
+        "STRUCTURAL_LEAKAGE_INVALID",
+        "ADAPTIVE_TOLERANCE_UNDEFINED",
+        "NONFINITE_BACKEND",
+        "ADAPTIVE_RESOURCE_CAP",
+        "NUMERICAL_CERTIFICATION_INCONCLUSIVE",
+        "CERTIFIED",
+    ]
+    assert payload["skipped_adaptive_report_schema"] == {
+        "status": "INCONCLUSIVE",
+        "applies_to_reasons": [
+            "STRUCTURAL_LEAKAGE_INVALID",
+            "ADAPTIVE_TOLERANCE_UNDEFINED",
+        ],
+        "present_fields": ["leakage", "gauss", "enclosure", "status", "reason"],
+        "null_fields": [
+            "effective_atol",
+            "adaptive",
+            "adaptive_run",
+            "certification",
+        ],
+        "synthetic_numeric_placeholders_forbidden": True,
+        "consumers_must_branch_before_optional_access": True,
+    }
     assert payload["retained_execution_caps"] == {
         "per_e4_wall_seconds": 900,
         "total_cpu_seconds": 57600,
         "address_space_bytes": 34359738368,
+    }
+    assert payload["resource_qualification"] == {
+        "cpu_measurement": (
+            "delta_between_single_getrusage_RUSAGE_SELF_snapshots_of_"
+            "ru_utime_plus_ru_stime"
+        ),
+        "required_scopes": ["per_e4_call", "complete_264_call_schedule"],
+        "wall_time_is_not_cpu_time": True,
     }
 
     assert e4.E4_CONTRACT_ID == "stage5c-6a-e-e4-wellposedness-v0.1"
@@ -96,3 +140,39 @@ def test_combined_candidate_clears_only_the_three_registered_witnesses(monkeypat
     assert np.allclose(normalized[0], [0.0057989343, 0.0069587212], rtol=2e-8)
     assert np.allclose(normalized[1], [0.0027908232, 0.0033489878], rtol=2e-8)
     assert np.allclose(normalized[2], [0.0195584221, 0.0234701065], rtol=2e-8)
+
+
+def test_proposal_locks_rounding_and_asymmetric_max_policy_obligation(monkeypatch):
+    payload = json.loads(CANDIDATE.read_text(encoding="utf-8"))
+    policy = payload["effective_atol_policy"]
+    assert policy["rounding_implementation"] == (
+        "exact_dyadic_then_binary64_and_nextafter_toward_zero_if_rounded_high"
+    )
+
+    exact = Fraction.from_float(6.5738e-12) / 2**14
+    rounded = _round_toward_zero(exact)
+    assert Fraction.from_float(rounded) <= exact
+    assert Fraction.from_float(float(np.nextafter(rounded, np.inf))) > exact
+    assert _round_toward_zero(Fraction(1, 2**1075)) == 0.0
+
+    obligation = payload["required_regressions"]["asymmetric_scale_max_vs_min"]
+    assert obligation["atom"] == [0.7, 0.3, 0.05, 0.2]
+    assert obligation["max_policy"] == {
+        "status": "CLEAN",
+        "subdivisions": 83,
+        "normalized_endpoint_error_less_than": "1/40",
+    }
+    assert obligation["min_policy_counterfactual"] == {
+        "status": "INCONCLUSIVE",
+        "reason": "ADAPTIVE_RESOURCE_CAP",
+        "subdivisions": 4096,
+    }
+
+    report = _candidate_report(obligation["atom"], monkeypatch)
+    upper = report.enclosure.upper
+    assert max(upper) / min(upper) > 100_000_000_000
+    assert report.status is E4Status.CLEAN
+    assert report.adaptive_run.subdivisions == 83
+    assert np.all(
+        report.certification.endpoint_error / ENDPOINT_RANGE_WIDTHS < 1.0 / 40.0
+    )

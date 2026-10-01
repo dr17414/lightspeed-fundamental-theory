@@ -25,20 +25,69 @@
   "effective_atol_policy": {
     "scale": "max(enclosure.upper[0], enclosure.upper[1])",
     "formula": "min(2^-30, round_toward_zero(2^-14 * scale))",
-    "zero_nonfinite_or_underflow": "INCONCLUSIVE_BEFORE_ADAPTIVE",
+    "rounding_implementation": "exact_dyadic_then_binary64_and_nextafter_toward_zero_if_rounded_high",
+    "zero_nonfinite_or_underflow": {
+      "status": "INCONCLUSIVE",
+      "reason": "ADAPTIVE_TOLERANCE_UNDEFINED",
+      "adaptive_called": false
+    },
     "calculation_order": [
       "validate_input",
       "compute_leakage_and_fixed_rule",
       "compute_validated_enclosure",
+      "resolve_structural_leakage_status",
       "derive_effective_atol",
+      "resolve_undefined_tolerance_status",
       "run_adaptive_cubature",
       "certify_pairing"
     ]
+  },
+  "status_reason_precedence": [
+    "STRUCTURAL_LEAKAGE_INVALID",
+    "ADAPTIVE_TOLERANCE_UNDEFINED",
+    "NONFINITE_BACKEND",
+    "ADAPTIVE_RESOURCE_CAP",
+    "NUMERICAL_CERTIFICATION_INCONCLUSIVE",
+    "CERTIFIED"
+  ],
+  "skipped_adaptive_report_schema": {
+    "status": "INCONCLUSIVE",
+    "applies_to_reasons": [
+      "STRUCTURAL_LEAKAGE_INVALID",
+      "ADAPTIVE_TOLERANCE_UNDEFINED"
+    ],
+    "present_fields": ["leakage", "gauss", "enclosure", "status", "reason"],
+    "null_fields": ["effective_atol", "adaptive", "adaptive_run", "certification"],
+    "synthetic_numeric_placeholders_forbidden": true,
+    "consumers_must_branch_before_optional_access": true
+  },
+  "required_regressions": {
+    "asymmetric_scale_max_vs_min": {
+      "atom": [0.7, 0.3, 0.05, 0.2],
+      "theta": 0.4,
+      "observed_upper_ratio_greater_than": "100000000000",
+      "max_policy": {
+        "status": "CLEAN",
+        "subdivisions": 83,
+        "normalized_endpoint_error_less_than": "1/40"
+      },
+      "min_policy_counterfactual": {
+        "status": "INCONCLUSIVE",
+        "reason": "ADAPTIVE_RESOURCE_CAP",
+        "subdivisions": 4096
+      }
+    },
+    "wide_cell_evidence_role": "IN_SAMPLE_DESIGN_INPUT_NOT_INDEPENDENT_VALIDATION"
   },
   "retained_execution_caps": {
     "per_e4_wall_seconds": 900,
     "total_cpu_seconds": 57600,
     "address_space_bytes": 34359738368
+  },
+  "resource_qualification": {
+    "cpu_measurement": "delta_between_single_getrusage_RUSAGE_SELF_snapshots_of_ru_utime_plus_ru_stime",
+    "required_scopes": ["per_e4_call", "complete_264_call_schedule"],
+    "wall_time_is_not_cpu_time": true
   },
   "authorization": "NONE"
 }
