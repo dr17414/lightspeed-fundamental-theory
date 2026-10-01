@@ -154,5 +154,8 @@ $a_{\rm eff}$ 在相同 probes 上以較少 Gate-B subdivisions 得到同階改�
 - Gate A item-3 failure probability 與 Gate B matched-null law。
 
 下一個合法交付若選 amendment，必須先以獨立 PR 明文重開 item 7、固定 candidate
-criterion／版本 identities／resource obligations，再改 production code。不得把本文件
-的 development formula、timings 或 witnesses 直接接入正式 6a-E runner。
+criterion／版本 identities／resource obligations，再改 production code。該後續提案現記於
+`STAGE5C_6A_E_ITEM7_AMENDMENT_PROPOSAL.md` 與 non-executable
+`stage5c_e4_item7_amendment_candidate_v0.2.json`；其審查、CI 與 merge 未完成前，
+不得稱 amendment 已核准。不得把本文件的 development formula、timings 或 witnesses
+直接接入正式 6a-E runner。
