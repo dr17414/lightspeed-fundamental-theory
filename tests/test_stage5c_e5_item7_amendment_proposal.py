@@ -58,7 +58,14 @@ def test_proposal_is_non_executable_and_does_not_mutate_frozen_v01():
         "max_atoms": 8128,
         "density_chunk_size": 128,
     }
-    assert payload["effective_atol_policy"]["zero_nonfinite_or_underflow"] == {
+    assert "zero_nonfinite_or_underflow" not in payload["effective_atol_policy"]
+    assert payload["effective_atol_policy"]["enclosure_invariant_violations"] == {
+        "preserved_invariant": "finite_endpoints_and_0_le_lower_le_upper",
+        "exception": "E4ProtocolError",
+        "report_created": False,
+        "screen_category": "SELECTOR-OR-ATOM-INVALID",
+    }
+    assert payload["effective_atol_policy"]["zero_scale_or_underflow"] == {
         "status": "INCONCLUSIVE",
         "reason": "ADAPTIVE_TOLERANCE_UNDEFINED",
         "adaptive_called": False,
@@ -103,12 +110,21 @@ def test_proposal_is_non_executable_and_does_not_mutate_frozen_v01():
         "address_space_bytes": 34359738368,
     }
     assert payload["resource_qualification"] == {
-        "cpu_measurement": (
-            "delta_between_single_getrusage_RUSAGE_SELF_snapshots_of_"
-            "ru_utime_plus_ru_stime"
-        ),
+        "cpu_measurement": "delta_time_process_time",
+        "runtime_cap_cpu_measurement": "delta_time_process_time",
+        "schedule_interval_matches_runtime_cap_including_non_e4_overhead": True,
+        "getrusage_role": "SUPPLEMENTAL_DIAGNOSTIC_ONLY",
         "required_scopes": ["per_e4_call", "complete_264_call_schedule"],
         "wall_time_is_not_cpu_time": True,
+    }
+    assert payload["required_regressions"]["screen_skipped_adaptive_real_seam"] == {
+        "consumer": "analysis.stage5c_e5_screen._one_member",
+        "path": "real_selector_to_adapter_to_v02_e4_to_member_category",
+        "report_reason": "STRUCTURAL_LEAKAGE_INVALID",
+        "expected_category": "E4-OR-ITEM3-NONCLEAN",
+        "branch_before_certification_access": True,
+        "mock_report_forbidden": True,
+        "rng_seed_or_run_screen_forbidden": True,
     }
 
     assert e4.E4_CONTRACT_ID == "stage5c-6a-e-e4-wellposedness-v0.1"
@@ -154,6 +170,16 @@ def test_proposal_locks_rounding_and_asymmetric_max_policy_obligation(monkeypatc
     assert Fraction.from_float(rounded) <= exact
     assert Fraction.from_float(float(np.nextafter(rounded, np.inf))) > exact
     assert _round_toward_zero(Fraction(1, 2**1075)) == 0.0
+    # Both values round upward under nearest-even, requiring nextafter correction.
+    for exact, expected in (
+        (Fraction(3, 2**1076), 0.0),
+        (Fraction(3, 2**1075), float.fromhex("0x0.0000000000001p-1022")),
+    ):
+        assert Fraction.from_float(float(exact)) > exact
+        rounded = _round_toward_zero(exact)
+        assert rounded == expected
+        assert Fraction.from_float(rounded) <= exact
+        assert Fraction.from_float(float(np.nextafter(rounded, np.inf))) > exact
 
     obligation = payload["required_regressions"]["asymmetric_scale_max_vs_min"]
     assert obligation["atom"] == [0.7, 0.3, 0.05, 0.2]

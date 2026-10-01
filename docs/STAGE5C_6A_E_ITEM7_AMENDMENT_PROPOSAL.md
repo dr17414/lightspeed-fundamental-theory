@@ -53,7 +53,11 @@ $$
 
 其中 $U_k$ 是 enclosure upper endpoints，
 `down_binary64` 表示對 exact dyadic product 向零取不大於該值的 binary64。
-若 $s$ 非有限、$s\le0$，或乘積向零取整後為零，producer 必須在 adaptive call 前
+保留 `PairingEnclosure` 的有限且 $0\le L\le U$ 不變式，因此 tolerance derivation
+只接收有限且非負的 $s$。非有限或不符合次序的 enclosure 沿用 v0.1，在建構時拋出
+`E4ProtocolError`，不建立 `E4Report`，亦不映射為新的 tolerance reason；現行 screen
+仍將此例外歸為 `SELECTOR-OR-ATOM-INVALID`，不因該分類名稱推論 atom 本身有錯。
+若 $s=0$，或正尺度乘積向零取整後為零，producer 必須在 adaptive call 前
 fail closed 為 `INCONCLUSIVE / ADAPTIVE_TOLERANCE_UNDEFINED`；不得把零 scale 改寫成
 固定 fallback tolerance，也不得把 underflow 當作精確零誤差。這個具名 reason 是
 v0.2 contract 的一部分，implementation 不得從既有 enum 任選一個近似理由代替。
@@ -68,12 +72,12 @@ effective `atol` → adaptive cubature → item-3 certification。`_cubature_pai
 接收本列 `atol`，不得由測試或 caller 改寫 module global。`PairingEnclosure.levels` 必須
 記錄實際使用的 $(64,128,256)$，不能依賴 dataclass definition-time 的舊 default。
 
-v0.2 status/reason 優先序亦固定如下；input contract violations 仍在報告建立前拋出
-`E4ProtocolError`，不屬下表：
+v0.2 status/reason 優先序亦固定如下；input contract violations 與 enclosure invariant
+violations 仍在報告建立前拋出 `E4ProtocolError`，不屬下表：
 
 1. leakage 不合法時為 `INCONCLUSIVE / STRUCTURAL_LEAKAGE_INVALID`；這個結構性理由
    優先於 tolerance derivation，且不得啟動 adaptive；
-2. leakage 合法但 $s$／$a_{\rm eff}$ 未定義時為
+2. leakage 合法但 $s=0$ 或正尺度乘積向零取整為零時為
    `INCONCLUSIVE / ADAPTIVE_TOLERANCE_UNDEFINED`，不得啟動 adaptive；
 3. adaptive 已啟動後，依序判定 `NONFINITE_BACKEND`、`ADAPTIVE_RESOURCE_CAP`、
    `NUMERICAL_CERTIFICATION_INCONCLUSIVE`，最後才可為 `CLEAN / CERTIFIED`。
@@ -158,10 +162,12 @@ implementation PR 必須交付 candidate-independent resource qualification，�
 4. 每一 E4 call 不超 900 s，且任何 nonfinite／4096 exhaustion 均 fail closed；
 5. target-host preflight 與新 runner authorization pin 當時 current blobs。
 
-CPU 一律以每個測量區間前後
-`resource.getrusage(resource.RUSAGE_SELF).ru_utime + ru_stime` 的差值計算，並須同時報告
-per-call 與完整 264-call schedule；不得以 wall time 代替 CPU time。若 BLAS 或其他 backend
-使用多執行緒，CPU 可以大於 wall，仍以 CPU 值對 57600 s cap 判定。
+qualification 與 runtime CPU cap 必須使用同一量測定義：以每個測量區間前後
+`time.process_time()` 的差值計算，並須同時報告 per-call 與完整 264-call schedule。
+完整 schedule 的起算位置與 runtime cap 一致，包含 burn／generation／selector／adapter
+及 E4 等流程成本，不能只加總 E4 呼叫時間。`RUSAGE_SELF` 的 `ru_utime + ru_stime`
+差值可另列為診斷，但不替代承重的 `process_time()` 值；不得以 wall time 代替 CPU time。
+若 BLAS 或其他 backend 使用多執行緒，CPU 可以大於 wall，仍以 CPU 值對 57600 s cap 判定。
 
 若無法在既有 caps 內證成，candidate 必須回到 amendment review；不得根據已看過的
 screen 或 arm 結果縮小 levels、放寬 caps、刪除 strata 或延長資源。
@@ -183,7 +189,14 @@ screen 或 arm 結果縮小 levels、放寬 caps、刪除 strata 或延長資源
   strict boundaries；
 - screen／custody：歷史 authorization、candidate、attestation 與 burned namespace
   逐位元不動；若開新 namespace，須用新 protocol／runner／authorization 並重新 pin
-  所有 executable blobs。
+  所有 executable blobs。v0.2 implementation 必須具名修正
+  `analysis/stage5c_e5_screen.py::_one_member` 中先存取
+  `report.certification.endpoint_error` 再傳入 `clean=report.clean` 的呼叫：先判定
+  non-CLEAN，再存取 optional certification。須以 deterministic、無 RNG／seed、真實
+  selector→adapter→v0.2 E4→`_one_member` 的 real-seam regression，確認 leakage-invalid
+  的 skipped-adaptive report 歸入 `E4-OR-ITEM3-NONCLEAN`，不得以 mock report 取代。
+  不得因 `AttributeError` 把單一 member 的 non-CLEAN 升級成已 burn namespace 的
+  `SCREEN-INCOMPLETE`；此回歸只呼叫真實 member 函式，不執行 `run_screen` 或 burn seed。
 
 即使上述兩個 bottlenecks 都由 v0.2 移除，Gate B 仍可能因真實 matched-law mean、
 matching-conditioned factor、statistical width 或其他 admissible mixtures 而失敗；Gate A

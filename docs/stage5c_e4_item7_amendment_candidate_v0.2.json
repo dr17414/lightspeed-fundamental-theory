@@ -26,7 +26,13 @@
     "scale": "max(enclosure.upper[0], enclosure.upper[1])",
     "formula": "min(2^-30, round_toward_zero(2^-14 * scale))",
     "rounding_implementation": "exact_dyadic_then_binary64_and_nextafter_toward_zero_if_rounded_high",
-    "zero_nonfinite_or_underflow": {
+    "enclosure_invariant_violations": {
+      "preserved_invariant": "finite_endpoints_and_0_le_lower_le_upper",
+      "exception": "E4ProtocolError",
+      "report_created": false,
+      "screen_category": "SELECTOR-OR-ATOM-INVALID"
+    },
+    "zero_scale_or_underflow": {
       "status": "INCONCLUSIVE",
       "reason": "ADAPTIVE_TOLERANCE_UNDEFINED",
       "adaptive_called": false
@@ -62,6 +68,15 @@
     "consumers_must_branch_before_optional_access": true
   },
   "required_regressions": {
+    "screen_skipped_adaptive_real_seam": {
+      "consumer": "analysis.stage5c_e5_screen._one_member",
+      "path": "real_selector_to_adapter_to_v02_e4_to_member_category",
+      "report_reason": "STRUCTURAL_LEAKAGE_INVALID",
+      "expected_category": "E4-OR-ITEM3-NONCLEAN",
+      "branch_before_certification_access": true,
+      "mock_report_forbidden": true,
+      "rng_seed_or_run_screen_forbidden": true
+    },
     "asymmetric_scale_max_vs_min": {
       "atom": [0.7, 0.3, 0.05, 0.2],
       "theta": 0.4,
@@ -85,7 +100,10 @@
     "address_space_bytes": 34359738368
   },
   "resource_qualification": {
-    "cpu_measurement": "delta_between_single_getrusage_RUSAGE_SELF_snapshots_of_ru_utime_plus_ru_stime",
+    "cpu_measurement": "delta_time_process_time",
+    "runtime_cap_cpu_measurement": "delta_time_process_time",
+    "schedule_interval_matches_runtime_cap_including_non_e4_overhead": true,
+    "getrusage_role": "SUPPLEMENTAL_DIAGNOSTIC_ONLY",
     "required_scopes": ["per_e4_call", "complete_264_call_schedule"],
     "wall_time_is_not_cpu_time": true
   },
