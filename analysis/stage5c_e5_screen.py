@@ -205,19 +205,31 @@ def build_production_atoms(
     return atoms, normalised_weights(weights, normalization)
 
 
-def _one_member(sample: object, name: str, parameters: tuple) -> str:
+def _one_member(
+    sample: object, name: str, parameters: tuple, *, e4_contract: str = "v0.1"
+) -> str:
+    # Component-level v0.2 validation only. run_screen still selects v0.1 and
+    # cannot reuse the burned authorization for a replacement producer.
+    if e4_contract == "v0.2":
+        from analysis.stage5c_e4_wellposedness_v02 import evaluate_e4_wellposedness as evaluate
+    elif e4_contract == "v0.1":
+        evaluate = evaluate_e4_wellposedness
+    else:
+        raise E4ProtocolError("unknown E4 contract")
     # The selector sees the order and a constant case id, never target/coordinates.
     try:
         case = BlindedCase(case_id="AUDIT-ONLY", order=sample.order)
         pairs = apply_selector(name, parameters, case)
         atoms, probability_weights = build_production_atoms(sample, pairs)
         with _e4_deadline():
-            report = evaluate_e4_wellposedness(atoms, probability_weights, sample.theta)
+            report = evaluate(atoms, probability_weights, sample.theta)
     except (SelectorDomainError, SelectorSelectionError, SelectorProtocolError,
             E4ProtocolError, IndexError, ValueError):
         # Only known schema/atom violations are counted as invalid.
         return "SELECTOR-OR-ATOM-INVALID"
-    return _category(report.certification.endpoint_error, clean=report.clean)
+    if not report.clean or report.certification is None:
+        return "E4-OR-ITEM3-NONCLEAN"
+    return _category(report.certification.endpoint_error, clean=True)
 
 
 @contextmanager
