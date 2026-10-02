@@ -1,0 +1,3656 @@
+{
+  "state": "DEVELOPMENT-EVIDENCE-NOT-RESOURCE-QUALIFICATION",
+  "authorization": "NONE",
+  "seed_or_generator_calls": 0,
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "source_blobs": {
+    "analysis/gmom_2d.py": "f319ad8104e9c7b6cf721bac88e2c28c87c11da6",
+    "analysis/gmom_2d_bbmm.py": "634811ddb1ae470d26cb95ea837d8a917d53783d",
+    "analysis/spectral_dim_2d.py": "5fcb1cb9a9b6e7993d115eafc3b3891988f84c94",
+    "analysis/spectral_dim_D.py": "d482382456fb02d71b4ee7d8b0b994d6f155583b",
+    "analysis/stage5a_kappa.py": "252a8928cbed4f64217ab9739bd9a95e0cd298bf",
+    "analysis/stage5b_link_channel.py": "0ac07971da923411d0d9cac2fb14e67c1fee0c9e",
+    "analysis/stage5c_6a_s_runner.py": "83ef9adb7a333408563c6054d0f7d56aafea2cfa",
+    "analysis/stage5c_blind_distance.py": "b1550b4d756cbbae9db68983f03ecf7c0fccb19f",
+    "analysis/stage5c_continuum_pairing.py": "8b32a3cf7a8ef23e5abae1e397f179c18ef3711e",
+    "analysis/stage5c_e4_wellposedness.py": "a96d368f75b03b1fc0317cb20dd34dfd9de2f581",
+    "analysis/stage5c_e4_wellposedness_v02.py": "8989a9f9b030ce2da5da5f99d68f15e12bff6360",
+    "analysis/stage5c_e5_budget.py": "22984f67779bf7d636f9653aa407332078a3376f",
+    "analysis/stage5c_e5_screen.py": "670c8e852d56b0c7d06333759df40a03fb026f4a",
+    "analysis/stage5c_hard_controls.py": "32f593c0b710b4c591fb7746c7014d72784da554",
+    "analysis/stage5c_joint_matched_law.py": "6c743aa5566d2f11e8aba61dd7d4490e37e277a5",
+    "analysis/stage5c_measure_prereg.py": "0b05b1fc913da77b4f1824fbf7901c52734efc19",
+    "analysis/stage5c_numerical_certification.py": "deae60470abfddf2d636a4b3fd9160bbfebccc91",
+    "analysis/stage5c_planted_certification.py": "2177416c772158793a1e1002854020442ca4f732",
+    "analysis/stage5c_primary_invariant.py": "6756fd1dae86065fc209b99a4b8cedb57efdaaac",
+    "analysis/stage5c_reference_probe.py": "cda90e4a65dfa4aa84cfa4ba1bee43a209aef2f3",
+    "analysis/stage5c_selector_family.py": "9b9bb5497e0dc432eb63939b47bede0070bd8120",
+    "analysis/stage5c_statistical_regions.py": "b0531af6bb585f0066cb04b55e573b7fbbcc6dcb",
+    "analysis/track_b_4d.py": "dc61488a2bd08a44dd5d0ea853c0d4d482a0d513",
+    "analysis/track_b_4d_analytic.py": "13498304a9d66588c6dee4718e7993008d222e1a",
+    "analysis/track_b_4d_irsafe.py": "84ef57aca18640777b0314cc56c4e466de0258a7",
+    "analysis/track_b_4d_spectral.py": "aeecc7f6d206287d078495b77b7f43c9634446de",
+    "analysis/track_b_spectral_dim.py": "fae2d9dbe643033105544106ae356e8a4f0a4628",
+    "benchmarks/stage5c_e4_v02_validation.py": "70225ccb264c932898f90b31ef0013c65e6a37fa"
+  },
+  "limitations": [
+    "Deterministic development fixtures, not arm data or probability/power evidence.",
+    "One 8128-atom call only; no complete 264-call schedule or target-host qualification.",
+    "Recorded Python 3.12.14; CI pins Python 3.12.13."
+  ],
+  "payload_diff_rows": [
+    {
+      "fixture": "gate_a",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "INCONCLUSIVE",
+        "leakage": {
+          "box_retained_mass": "0x1.3e0a1da2b945fp-1",
+          "box_leakage": "0x1.83ebc4ba8d743p-2",
+          "causal_retained_mass": "0x1.ffffffffff93ap-1",
+          "causal_leakage": "0x1.b180000000001p-43",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cb88c19942ea4p-38",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cb88c19942ea6p-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.1dfb3f82771abp-44",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cf3c8049dd31ep-47",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cf3c8049dd31ep-47",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.46761ca5d0b59p-37",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.c85fe0eb33c37p-38",
+            "0x1.c85fe0eb33c37p-38"
+          ],
+          "upper": [
+            "0x1.ce9742bc4df90p-38",
+            "0x1.ce9742bc4df90p-38"
+          ],
+          "level_lower": [
+            [
+              "0x1.bfd227b1976abp-38",
+              "0x1.bfd227b1976abp-38"
+            ],
+            [
+              "0x1.c53508d2d93edp-38",
+              "0x1.c53508d2d93edp-38"
+            ],
+            [
+              "0x1.c85fe0eb33c37p-38",
+              "0x1.c85fe0eb33c37p-38"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.d7069159effbcp-38",
+              "0x1.d7069159effbcp-38"
+            ],
+            [
+              "0x1.d1404909ed69ep-38",
+              "0x1.d1404909ed69ep-38"
+            ],
+            [
+              "0x1.ce9742bc4df90p-38",
+              "0x1.ce9742bc4df90p-38"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cf3c8049dd31ep-47",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cf3c8049dd31ep-47",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.299147e12805cp-46",
+          "rule": "genz-malik",
+          "subdivisions": 0,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "INCONCLUSIVE",
+          "reason": "NORM-INTERVAL-TOUCHES-ZERO",
+          "agreement_distance": "0x1.444ccc36a1e44p-37",
+          "agreement_bound": "0x1.48b21324d5a3cp-37",
+          "matrix": [
+            [
+              {
+                "real": "0x1.cc705fd967d8ep-39",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cc705fd967d90p-39",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.48b21324d5a3fp-38",
+          "norm_lower": "-0x1.8edc193c85201p-45",
+          "norm_upper": "0x1.4723370b991efp-37",
+          "endpoint": null,
+          "endpoint_error": null,
+          "endpoint_lower": null,
+          "endpoint_upper": null,
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "NUMERICAL_CERTIFICATION_INCONCLUSIVE",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.3e0a1da2b945fp-1",
+          "box_leakage": "0x1.83ebc4ba8d743p-2",
+          "causal_retained_mass": "0x1.ffffffffff93ap-1",
+          "causal_leakage": "0x1.b180000000001p-43",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cb88c19942ea4p-38",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cb88c19942ea6p-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.1c917ac95eae5p-46",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.cabf893cd4c0fp-38",
+            "0x1.cabf893cd4c0fp-38"
+          ],
+          "upper": [
+            "0x1.cc50517189bcbp-38",
+            "0x1.cc50517189bcbp-38"
+          ],
+          "level_lower": [
+            [
+              "0x1.c85fe0eb33c37p-38",
+              "0x1.c85fe0eb33c37p-38"
+            ],
+            [
+              "0x1.c9f5508653e38p-38",
+              "0x1.c9f5508653e38p-38"
+            ],
+            [
+              "0x1.cabf893cd4c0fp-38",
+              "0x1.cabf893cd4c0fp-38"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.ce9742bc4df90p-38",
+              "0x1.ce9742bc4df90p-38"
+            ],
+            [
+              "0x1.cd15a4631daabp-38",
+              "0x1.cd15a4631daabp-38"
+            ],
+            [
+              "0x1.cc50517189bcbp-38",
+              "0x1.cc50517189bcbp-38"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.cc50517189bcbp-52",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cb82014f5405ap-38",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cb82014f5405fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.23c54ae0edefdp-46",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.cb82014f5405ap-38",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cb82014f5405fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.405b95785c903p-50",
+          "rule": "genz-malik",
+          "subdivisions": 49,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.31856c3d18c75p-51",
+          "agreement_bound": "0x1.202b62d5264f1p-45",
+          "matrix": [
+            [
+              {
+                "real": "0x1.cb8561744b77fp-38",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.cb8561744b782p-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.202b62d526574p-46",
+          "norm_lower": "0x1.445e1ad83c317p-37",
+          "norm_upper": "0x1.457e463b11581p-37",
+          "endpoint": [
+            "0x1.2000000000003p-104",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.1d077ae29c6afp-6",
+            "0x1.c80bf7d0fade4p-8"
+          ],
+          "endpoint_lower": [
+            "-0x1.1d077ae29c6b0p-6",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.1d077ae29c6b0p-6",
+            "0x1.c80bf7d0fade5p-8"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "near_zero",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.fe981cebf370ep-1",
+          "box_leakage": "0x1.67e3140c8f201p-9",
+          "causal_retained_mass": "0x1.ffffffffe7094p-1",
+          "causal_leakage": "0x1.8f6c000000001p-37",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.ebf4da78a1c1dp-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.ebf4da78a1c1cp-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.2dbeeeaf00abep-39",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.c4b10d146e325p-33",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.c4b10d146e33fp-33",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.79f5f05cdead6p-32",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.ea4a1ecfd3d52p-32",
+            "0x1.ea4a1ecfd3d52p-32"
+          ],
+          "upper": [
+            "0x1.ed9ab864d20d3p-32",
+            "0x1.ed9ab864d20d3p-32"
+          ],
+          "level_lower": [
+            [
+              "0x1.e4310e6fa1443p-32",
+              "0x1.e4310e6fa1443p-32"
+            ],
+            [
+              "0x1.e86d77a46f0b7p-32",
+              "0x1.e86d77a46f0b7p-32"
+            ],
+            [
+              "0x1.ea4a1ecfd3d52p-32",
+              "0x1.ea4a1ecfd3d52p-32"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.f373d9350bcd3p-32",
+              "0x1.f373d9350bcd3p-32"
+            ],
+            [
+              "0x1.ef65d9df57dfdp-32",
+              "0x1.ef65d9df57dfdp-32"
+            ],
+            [
+              "0x1.ed9ab864d20d3p-32",
+              "0x1.ed9ab864d20d3p-32"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.c4b10d146e325p-33",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.c4b10d146e33fp-33",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.7becc5cf024e2p-31",
+          "rule": "genz-malik",
+          "subdivisions": 0,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.77a1543c6464ep-32",
+          "agreement_bound": "0x1.7c516e3a3caebp-32",
+          "matrix": [
+            [
+              {
+                "real": "0x1.6726b0816c6d8p-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.6726b0816c6dep-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.7c516e3a3caefp-33",
+          "norm_lower": "0x1.3dc1e214b2a03p-32",
+          "norm_upper": "0x1.5d09a82777a7cp-31",
+          "endpoint": [
+            "0x1.4400000000006p-101",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.6b678300a14b0p+3",
+            "0x1.22b9359a1aa29p+2"
+          ],
+          "endpoint_lower": [
+            "-0x1.0000000000000p+0",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.0000000000000p+1",
+            "0x1.0000000000000p+0"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.fe981cebf370ep-1",
+          "box_leakage": "0x1.67e3140c8f201p-9",
+          "causal_retained_mass": "0x1.ffffffffe7094p-1",
+          "causal_leakage": "0x1.8f6c000000001p-37",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.ebf4da78a1c1dp-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.ebf4da78a1c1cp-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.285a8a26274e1p-41",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.eb8c139951226p-32",
+            "0x1.eb8c139951226p-32"
+          ],
+          "upper": [
+            "0x1.ec5d5a35881ddp-32",
+            "0x1.ec5d5a35881ddp-32"
+          ],
+          "level_lower": [
+            [
+              "0x1.ea4a1ecfd3d52p-32",
+              "0x1.ea4a1ecfd3d52p-32"
+            ],
+            [
+              "0x1.eb2268aef2446p-32",
+              "0x1.eb2268aef2446p-32"
+            ],
+            [
+              "0x1.eb8c139951226p-32",
+              "0x1.eb8c139951226p-32"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.ed9ab864d20d3p-32",
+              "0x1.ed9ab864d20d3p-32"
+            ],
+            [
+              "0x1.ecc5f2cb84c47p-32",
+              "0x1.ecc5f2cb84c47p-32"
+            ],
+            [
+              "0x1.ec5d5a35881ddp-32",
+              "0x1.ec5d5a35881ddp-32"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.ec5d5a35881ddp-46",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.ebf3aee42550bp-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.ebf3aee425508p-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.2ae0ae6ccca50p-41",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.ebf3aee42550bp-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.ebf3aee425508p-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.582f621f498dap-44",
+          "rule": "genz-malik",
+          "subdivisions": 68,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.a7ab8dd17ba16p-48",
+          "agreement_bound": "0x1.299d9c4979f99p-40",
+          "matrix": [
+            [
+              {
+                "real": "0x1.ebf444ae63894p-32",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.ebf444ae63892p-32",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.299d9c4979f9cp-41",
+          "norm_lower": "0x1.5b92d0560bc22p-31",
+          "norm_upper": "0x1.5c279f24307f6p-31",
+          "endpoint": [
+            "0x1.0000000000002p-105",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.12595d7ff26d9p-7",
+            "0x1.b6f5626651e27p-9"
+          ],
+          "endpoint_lower": [
+            "-0x1.12595d7ff26dap-7",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.12595d7ff26dap-7",
+            "0x1.b6f5626651e28p-9"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "wide_cell",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.fffffffffd5a0p-1",
+          "box_leakage": "0x1.5300000000001p-40",
+          "causal_retained_mass": "0x1.84781eb7c9060p-1",
+          "causal_leakage": "0x1.ee1f8520dbe81p-3",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc721be6b4553p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc721be6b4553p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.12d6f71715ccbp-4",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc6fca12e94b7p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc6fca12e94bap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.12a27a4fd5996p-4",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.f04ca71423cedp+0",
+            "0x1.f04ca71423cedp+0"
+          ],
+          "upper": [
+            "0x1.03f1df6eccb2fp+1",
+            "0x1.03f1df6eccb2fp+1"
+          ],
+          "level_lower": [
+            [
+              "0x1.c462e4001f252p+0",
+              "0x1.c462e4001f252p+0"
+            ],
+            [
+              "0x1.e2ebc497ab7cap+0",
+              "0x1.e2ebc497ab7cap+0"
+            ],
+            [
+              "0x1.f04ca71423cedp+0",
+              "0x1.f04ca71423cedp+0"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.1779c24bcdd84p+1",
+              "0x1.1779c24bcdd84p+1"
+            ],
+            [
+              "0x1.09d107fcf9744p+1",
+              "0x1.09d107fcf9744p+1"
+            ],
+            [
+              "0x1.03f1df6eccb2fp+1",
+              "0x1.03f1df6eccb2fp+1"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc6fca12e94b7p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc6fca12e94bap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.65c4c85d6c34ep-13",
+          "rule": "genz-malik",
+          "subdivisions": 158,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.a3e63a019a753p-15",
+          "agreement_bound": "0x1.12bcb8b375b31p-3",
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc70f2fcced05p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc70f2fcced06p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.12bcb8b375b3cp-4",
+          "norm_lower": "0x1.5eefcad15fe8cp+1",
+          "norm_upper": "0x1.701b965c97444p+1",
+          "endpoint": [
+            "0x1.0000000000001p-107",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.03b6098136bffp-2",
+            "0x1.9f89a8cebe097p-4"
+          ],
+          "endpoint_lower": [
+            "-0x1.03b6098136c00p-2",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.03b6098136c00p-2",
+            "0x1.9f89a8cebe098p-4"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.fffffffffd5a0p-1",
+          "box_leakage": "0x1.5300000000001p-40",
+          "causal_retained_mass": "0x1.84781eb7c9060p-1",
+          "causal_leakage": "0x1.ee1f8520dbe81p-3",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc721be6b4553p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc721be6b4553p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.0a8b12e9f77bcp-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.f98035f7a4f36p+0",
+            "0x1.f98035f7a4f36p+0"
+          ],
+          "upper": [
+            "0x1.ff58c66898ef7p+0",
+            "0x1.ff58c66898ef7p+0"
+          ],
+          "level_lower": [
+            [
+              "0x1.f04ca71423cedp+0",
+              "0x1.f04ca71423cedp+0"
+            ],
+            [
+              "0x1.f68064e9d2be4p+0",
+              "0x1.f68064e9d2be4p+0"
+            ],
+            [
+              "0x1.f98035f7a4f36p+0",
+              "0x1.f98035f7a4f36p+0"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.03f1df6eccb2fp+1",
+              "0x1.03f1df6eccb2fp+1"
+            ],
+            [
+              "0x1.011b5613efaa4p+1",
+              "0x1.011b5613efaa4p+1"
+            ],
+            [
+              "0x1.ff58c66898ef7p+0",
+              "0x1.ff58c66898ef7p+0"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc6fca12e94b7p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc6fca12e94bap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.09b91fccf6ae8p-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc6fca12e94b7p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc6fca12e94bap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.65c4c85d6c34ep-13",
+          "rule": "genz-malik",
+          "subdivisions": 158,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.a3e63a019a753p-15",
+          "agreement_bound": "0x1.0a22195b77152p-5",
+          "matrix": [
+            [
+              {
+                "real": "0x1.fc70f2fcced05p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fc70f2fcced06p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.0a22195b77175p-6",
+          "norm_lower": "0x1.65716c6444a83p+1",
+          "norm_upper": "0x1.6999f4c9b284dp+1",
+          "endpoint": [
+            "0x1.0000000000001p-107",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.e0aaf3c2caacep-5",
+            "0x1.8088c3023be3fp-6"
+          ],
+          "endpoint_lower": [
+            "-0x1.e0aaf3c2caacfp-5",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.e0aaf3c2caacfp-5",
+            "0x1.8088c3023be40p-6"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "asymmetric",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.93408aa0eee53p-1",
+          "box_leakage": "0x1.b2fdd57c446b5p-3",
+          "causal_retained_mass": "0x1.bdfa542dbfacep-1",
+          "causal_leakage": "0x1.0816af49014c9p-3",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e260ab73b193bp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.f02a9de064a8cp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.1ddce6ea0d781p-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e26038faf2e3dp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fb9ee2702c63fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.1df98519b9701p-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.dde9845922748p+0",
+            "0x1.e30db800b7eadp-38"
+          ],
+          "upper": [
+            "0x1.e6d81f0f59c99p+0",
+            "0x1.fc1c1f9e8d933p-38"
+          ],
+          "level_lower": [
+            [
+              "0x1.cd53bddd3162dp+0",
+              "0x1.b4c107ae53d4dp-38"
+            ],
+            [
+              "0x1.d8ed10dcbdd85p+0",
+              "0x1.d4df1ef033312p-38"
+            ],
+            [
+              "0x1.dde9845922748p+0",
+              "0x1.e30db800b7eadp-38"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.f4ef3180ac2b4p+0",
+              "0x1.0c7d990733100p-37"
+            ],
+            [
+              "0x1.eb7e65312d5c8p+0",
+              "0x1.0370af075e7afp-37"
+            ],
+            [
+              "0x1.e6d81f0f59c99p+0",
+              "0x1.fc1c1f9e8d933p-38"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e26038faf2e3dp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fb9ee2702c63fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.de08403086e45p-14",
+          "rule": "genz-malik",
+          "subdivisions": 83,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.c9e2fabf80003p-18",
+          "agreement_bound": "0x1.1deb3601e3741p-5",
+          "matrix": [
+            [
+              {
+                "real": "0x1.e2607237523bcp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.f5e4c02848866p-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.1deb3601e3744p-6",
+          "norm_lower": "0x1.dde8c55f4aaddp+0",
+          "norm_upper": "0x1.e6d81f0f59c9bp+0",
+          "endpoint": [
+            "0x1.ffffffffef5a4p-1",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.844300cb37c8ap-4",
+            "0x1.369c00a2931a2p-5"
+          ],
+          "endpoint_lower": [
+            "0x1.cf779fe688612p-1",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.1844300cab29cp+0",
+            "0x1.369c00a2931a3p-5"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.93408aa0eee53p-1",
+          "box_leakage": "0x1.b2fdd57c446b5p-3",
+          "causal_retained_mass": "0x1.bdfa542dbfacep-1",
+          "causal_leakage": "0x1.0816af49014c9p-3",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e260ab73b193bp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.f02a9de064a8cp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.1977c6cb1ae01p-8",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.e14796d758294p+0",
+            "0x1.ecff3a9fdc375p-38"
+          ],
+          "upper": [
+            "0x1.e37a233a7cae9p+0",
+            "0x1.f3433889e7f18p-38"
+          ],
+          "level_lower": [
+            [
+              "0x1.dde9845922748p+0",
+              "0x1.e30db800b7eadp-38"
+            ],
+            [
+              "0x1.e02d8bbf6f129p+0",
+              "0x1.e9c14a4cea30ep-38"
+            ],
+            [
+              "0x1.e14796d758294p+0",
+              "0x1.ecff3a9fdc375p-38"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.e6d81f0f59c99p+0",
+              "0x1.fc1c1f9e8d933p-38"
+            ],
+            [
+              "0x1.e4951c1955fe2p+0",
+              "0x1.f648ef1815ebap-38"
+            ],
+            [
+              "0x1.e37a233a7cae9p+0",
+              "0x1.f3433889e7f18p-38"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e26038faf2e3dp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fb9ee2702c63fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.19ea3f89cac01p-8",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.e26038faf2e3dp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.fb9ee2702c63fp-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.de08403086e45p-14",
+          "rule": "genz-malik",
+          "subdivisions": 83,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.c9e2fabf80003p-18",
+          "agreement_bound": "0x1.19b1032a72d01p-7",
+          "matrix": [
+            [
+              {
+                "real": "0x1.e2607237523bcp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.f5e4c02848866p-38",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.19b1032a72d04p-8",
+          "norm_lower": "0x1.e146c13427c8dp+0",
+          "norm_upper": "0x1.e37a233a7caebp+0",
+          "endpoint": [
+            "0x1.ffffffffef5a4p-1",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.77e08eb0bb46ep-6",
+            "0x1.2cb3a55a2fb8bp-7"
+          ],
+          "endpoint_lower": [
+            "0x1.f440fb8a69800p-1",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.05df823aba9a5p+0",
+            "0x1.2cb3a55a2fb8cp-7"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "leakage_invalid",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "INCONCLUSIVE",
+        "leakage": {
+          "box_retained_mass": "0x1.0000000000000p-4",
+          "box_leakage": "0x1.e000000000001p-1",
+          "causal_retained_mass": "0x1.0000000000000p-2",
+          "causal_leakage": "0x1.8000000000001p-1",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": false,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.049b00c135a13p-2",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.049b00c135a13p-2",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.fb7d383c22851p-5",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.049aec0261094p-2",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.049aec0261094p-2",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.fb7e22f15286ap-5",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.b6c9ad48cff7ap-3",
+            "0x1.b6c9ad48cff7ap-3"
+          ],
+          "upper": [
+            "0x1.31762bdbff016p-2",
+            "0x1.31762bdbff016p-2"
+          ],
+          "level_lower": [
+            [
+              "0x1.ce8c1e6ce9a30p-4",
+              "0x1.ce8c1e6ce9a30p-4"
+            ],
+            [
+              "0x1.6c81258479014p-3",
+              "0x1.6c81258479014p-3"
+            ],
+            [
+              "0x1.b6c9ad48cff7ap-3",
+              "0x1.b6c9ad48cff7ap-3"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.c7c765d7bb987p-2",
+              "0x1.c7c765d7bb987p-2"
+            ],
+            [
+              "0x1.622b7bad9a85fp-2",
+              "0x1.622b7bad9a85fp-2"
+            ],
+            [
+              "0x1.31762bdbff016p-2",
+              "0x1.31762bdbff016p-2"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.049aec0261094p-2",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.049aec0261094p-2",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.6a9ee6970bfc3p-16",
+          "rule": "genz-malik",
+          "subdivisions": 96,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.d56a600323fecp-22",
+          "agreement_bound": "0x1.fb7dad96ba85dp-4",
+          "matrix": [
+            [
+              {
+                "real": "0x1.049af661cb554p-2",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.049af661cb554p-2",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.fb7dad96ba866p-5",
+          "norm_lower": "0x1.311d7eb3277a0p-2",
+          "norm_upper": "0x1.affcea18d61bep-2",
+          "endpoint": [
+            "0x0.0p+0",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.5d1e6e4f79e7ap+1",
+            "0x1.174b8b72c7ed2p+0"
+          ],
+          "endpoint_lower": [
+            "-0x1.0000000000000p+0",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.0000000000000p+1",
+            "0x1.0000000000000p+0"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "STRUCTURAL_LEAKAGE_INVALID",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "INCONCLUSIVE",
+        "leakage": {
+          "box_retained_mass": "0x1.0000000000000p-4",
+          "box_leakage": "0x1.e000000000001p-1",
+          "causal_retained_mass": "0x1.0000000000000p-2",
+          "causal_leakage": "0x1.8000000000001p-1",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": false,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.049b00c135a13p-2",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.049b00c135a13p-2",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.ec487f41ae2b1p-7",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.f3e7c57e2d3eep-3",
+            "0x1.f3e7c57e2d3eep-3"
+          ],
+          "upper": [
+            "0x1.0f7bc6f777286p-2",
+            "0x1.0f7bc6f777286p-2"
+          ],
+          "level_lower": [
+            [
+              "0x1.b6c9ad48cff7ap-3",
+              "0x1.b6c9ad48cff7ap-3"
+            ],
+            [
+              "0x1.df0ece3328bbep-3",
+              "0x1.df0ece3328bbep-3"
+            ],
+            [
+              "0x1.f3e7c57e2d3eep-3",
+              "0x1.f3e7c57e2d3eep-3"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.31762bdbff016p-2",
+              "0x1.31762bdbff016p-2"
+            ],
+            [
+              "0x1.1a959f6a9dbf7p-2",
+              "0x1.1a959f6a9dbf7p-2"
+            ],
+            [
+              "0x1.0f7bc6f777286p-2",
+              "0x1.0f7bc6f777286p-2"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": null,
+        "adaptive": null,
+        "adaptive_run": null,
+        "certification": null,
+        "reason": "STRUCTURAL_LEAKAGE_INVALID",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "interior",
+      "theta": -0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8c37c8112dp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.3163bab66b342p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.6cfbb84fdcf1cp-16",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8a8004d91bp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.31639798529a9p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.6cdbcfdc42a39p-16",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.15a48a38624dep-8",
+            "0x1.2f63e24b7abecp-9"
+          ],
+          "upper": [
+            "0x1.1794ab08c6695p-8",
+            "0x1.332e0f6db65cbp-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.0fb13c9925852p-8",
+              "0x1.2860b1f15514bp-9"
+            ],
+            [
+              "0x1.143aa25b4e55bp-8",
+              "0x1.2d3b06ac34240p-9"
+            ],
+            [
+              "0x1.15a48a38624dep-8",
+              "0x1.2f63e24b7abecp-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.1bab6ecfec93fp-8",
+              "0x1.36ffa4861b6ffp-9"
+            ],
+            [
+              "0x1.18aae7fd6ce06p-8",
+              "0x1.34d4de430fa12p-9"
+            ],
+            [
+              "0x1.1794ab08c6695p-8",
+              "0x1.332e0f6db65cbp-9"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8a8004d91bp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.31639798529a9p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.a4427ea037dbcp-23",
+          "rule": "genz-malik",
+          "subdivisions": 478,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.04ebba9157888p-27",
+          "agreement_bound": "0x1.6cebc4160fcabp-15",
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8b5be67524p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.3163a9275ee76p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.6cebc4160fceep-16",
+          "norm_lower": "0x1.3c53a93b0297ap-8",
+          "norm_upper": "0x1.3f2d80c32eb78p-8",
+          "endpoint": [
+            "0x1.41d891afcf363p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.73a75cdf30582p-5",
+            "0x1.2952b0b28d39bp-6"
+          ],
+          "endpoint_lower": [
+            "0x1.c9dd74f006404p-4",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.9ec268e79b4c5p-3",
+            "0x1.2952b0b28d39cp-6"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8c37c8112dp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.3163bab66b342p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.57d2ef82c5d6ap-18",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.166c5c9671135p-8",
+            "0x1.30e96aebb02cap-9"
+          ],
+          "upper": [
+            "0x1.16e3a143876dbp-8",
+            "0x1.31daea530d5c4p-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.15a48a38624dep-8",
+              "0x1.2f63e24b7abecp-9"
+            ],
+            [
+              "0x1.162d8c88c553fp-8",
+              "0x1.306be124635a9p-9"
+            ],
+            [
+              "0x1.166c5c9671135p-8",
+              "0x1.30e96aebb02cap-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.1794ab08c6695p-8",
+              "0x1.332e0f6db65cbp-9"
+            ],
+            [
+              "0x1.171dee12a4d2dp-8",
+              "0x1.324efe3c1c6ddp-9"
+            ],
+            [
+              "0x1.16e3a143876dbp-8",
+              "0x1.31daea530d5c4p-9"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8a8004d91bp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.31639798529a9p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.5753b6a0fe110p-18",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8a8004d91bp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.31639798529a9p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.a4427ea037dbcp-23",
+          "rule": "genz-malik",
+          "subdivisions": 478,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.04ebba9157888p-27",
+          "agreement_bound": "0x1.57935311e1f3dp-17",
+          "matrix": [
+            [
+              {
+                "real": "0x1.16a8b5be67524p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.3163a9275ee76p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.57935311e2040p-18",
+          "norm_lower": "0x1.3d6ab02a542efp-8",
+          "norm_upper": "0x1.3e1679d3dd203p-8",
+          "endpoint": [
+            "0x1.41d891afcf363p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.5aebbaca28cf7p-7",
+            "0x1.1589623b5472cp-8"
+          ],
+          "endpoint_lower": [
+            "0x1.2c29d6032ca93p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.57874d5c71c33p-3",
+            "0x1.1589623b5472dp-8"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "interior",
+      "theta": 0.0,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.156172f1d4bb6p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9afeea40e7dp-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.95e559da429aap-22",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616749926ccp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9adc3ce4a37p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.90c7e0db3fa00p-22",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.155cec915d3ccp-8",
+            "0x1.2d921bab1a0f5p-9"
+          ],
+          "upper": [
+            "0x1.15645f5ca10a9p-8",
+            "0x1.2da0f1cd37d79p-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.153b0fbc9b48bp-8",
+              "0x1.2d53c741e6bc6p-9"
+            ],
+            [
+              "0x1.1555fd9429e3bp-8",
+              "0x1.2d84d4eaa8bd7p-9"
+            ],
+            [
+              "0x1.155cec915d3ccp-8",
+              "0x1.2d921bab1a0f5p-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.15687ff0794cdp-8",
+              "0x1.2da99ec489594p-9"
+            ],
+            [
+              "0x1.15664fcc5f0fcp-8",
+              "0x1.2da4f68b794f4p-9"
+            ],
+            [
+              "0x1.15645f5ca10a9p-8",
+              "0x1.2da0f1cd37d79p-9"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616749926ccp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9adc3ce4a37p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.9d887afb65f3ep-23",
+          "rule": "genz-malik",
+          "subdivisions": 479,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.4e49d796b4d64p-28",
+          "agreement_bound": "0x1.93569d5ac11d5p-21",
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616d1db3941p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9aed9392c5ap-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.93569d5ac11d8p-22",
+          "norm_lower": "0x1.3bb2f1bdd9eb1p-8",
+          "norm_upper": "0x1.3bbf8c72c4c15p-8",
+          "endpoint": [
+            "0x1.492dd26fa73cfp-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.98e191ea54992p-11",
+            "0x1.471adb21e6e0fp-12"
+          ],
+          "endpoint_lower": [
+            "0x1.4794f0ddbce84p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.4ac6b4019191ap-3",
+            "0x1.471adb21e6e10p-12"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.156172f1d4bb6p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9afeea40e7dp-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.5bedcdc6a7227p-24",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.15607a8443450p-8",
+            "0x1.2d9917ba1936cp-9"
+          ],
+          "upper": [
+            "0x1.1562497263571p-8",
+            "0x1.2d9cb553b3b86p-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.155cec915d3ccp-8",
+              "0x1.2d921bab1a0f5p-9"
+            ],
+            [
+              "0x1.155f6b2be1775p-8",
+              "0x1.2d96fe862b857p-9"
+            ],
+            [
+              "0x1.15607a8443450p-8",
+              "0x1.2d9917ba1936cp-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.15645f5ca10a9p-8",
+              "0x1.2da0f1cd37d79p-9"
+            ],
+            [
+              "0x1.15630e77ae5a7p-8",
+              "0x1.2d9e43358ff52p-9"
+            ],
+            [
+              "0x1.1562497263571p-8",
+              "0x1.2d9cb553b3b86p-9"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616749926ccp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9adc3ce4a37p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.4eaf3a97be30bp-24",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616749926ccp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9adc3ce4a37p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.9d887afb65f3ep-23",
+          "rule": "genz-malik",
+          "subdivisions": 479,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.4e49d796b4d64p-28",
+          "agreement_bound": "0x1.554e842f32a99p-23",
+          "matrix": [
+            [
+              {
+                "real": "0x1.15616d1db3941p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2d9aed9392c5ap-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.554e842f32a9cp-24",
+          "norm_lower": "0x1.3bb7e9c9cb26ep-8",
+          "norm_upper": "0x1.3bba9466d3858p-8",
+          "endpoint": [
+            "0x1.492dd26fa73cfp-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.59f1a13b9aba5p-13",
+            "0x1.14c14dc96efb8p-14"
+          ],
+          "endpoint_lower": [
+            "0x1.48d7560758563p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.49844ed7f623bp-3",
+            "0x1.14c14dc96efb9p-14"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "interior",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1548a7041bf3dp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d3ec048a31p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.6ceba6b4be55bp-16",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15489b85a9835p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d1c29bf411p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.6cffc63a2ae17p-16",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.1444760a541bbp-8",
+            "0x1.287654acf660bp-9"
+          ],
+          "upper": [
+            "0x1.165765447f8c2p-8",
+            "0x1.2c069793dd049p-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.0fc20ca4fa1fep-8",
+              "0x1.2502805dc9f83p-9"
+            ],
+            [
+              "0x1.1309825ae80dep-8",
+              "0x1.26fca818a2ce3p-9"
+            ],
+            [
+              "0x1.1444760a541bbp-8",
+              "0x1.287654acf660bp-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.1c3fbfbd871dcp-8",
+              "0x1.34568d9c86feep-9"
+            ],
+            [
+              "0x1.17be1690cc6f7p-8",
+              "0x1.2e3ed251fb679p-9"
+            ],
+            [
+              "0x1.165765447f8c2p-8",
+              "0x1.2c069793dd049p-9"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15489b85a9835p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d1c29bf411p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.970ddba986d5ep-23",
+          "rule": "genz-malik",
+          "subdivisions": 480,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.4c3e42648e413p-28",
+          "agreement_bound": "0x1.6cf5b677749b9p-15",
+          "matrix": [
+            [
+              {
+                "real": "0x1.1548a144e2bb9p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d2d7503f21p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.6cf5b677749bcp-16",
+          "norm_lower": "0x1.3961f48a0ec2dp-8",
+          "norm_upper": "0x1.3c3bdff6fdac5p-8",
+          "endpoint": [
+            "0x1.53c7138f45d41p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.7735915677df8p-5",
+            "0x1.2c2adaab933fbp-6"
+          ],
+          "endpoint_lower": [
+            "0x1.ebf35e734fb85p-4",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.b19477e4e3cc0p-3",
+            "0x1.2c2adaab933fcp-6"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.f9841f8734527p-1",
+          "box_leakage": "0x1.9ef81e32eb641p-7",
+          "causal_retained_mass": "0x1.ffeb5ee6667b9p-1",
+          "causal_leakage": "0x1.4a11999847001p-13",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1548a7041bf3dp-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d3ec048a31p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.59189eb897a89p-18",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.1508e97f84872p-8",
+            "0x1.29ae1f2f11e67p-9"
+          ],
+          "upper": [
+            "0x1.1588f5d019d5ep-8",
+            "0x1.2a9045487edc2p-9"
+          ],
+          "level_lower": [
+            [
+              "0x1.1444760a541bbp-8",
+              "0x1.287654acf660bp-9"
+            ],
+            [
+              "0x1.14c8e967aefcfp-8",
+              "0x1.2942bee4342c3p-9"
+            ],
+            [
+              "0x1.1508e97f84872p-8",
+              "0x1.29ae1f2f11e67p-9"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.165765447f8c2p-8",
+              "0x1.2c069793dd049p-9"
+            ],
+            [
+              "0x1.15cad155723f1p-8",
+              "0x1.2b0781b534099p-9"
+            ],
+            [
+              "0x1.1588f5d019d5ep-8",
+              "0x1.2a9045487edc2p-9"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15489b85a9835p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d1c29bf411p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.596901d01beadp-18",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.15489b85a9835p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d1c29bf411p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.970ddba986d5ep-23",
+          "rule": "genz-malik",
+          "subdivisions": 480,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.4c3e42648e413p-28",
+          "agreement_bound": "0x1.5940d04459c9bp-17",
+          "matrix": [
+            [
+              {
+                "real": "0x1.1548a144e2bb9p-8",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.2a1d2d7503f21p-9",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.5940d04459c9ep-18",
+          "norm_lower": "0x1.3a789a0c75210p-8",
+          "norm_upper": "0x1.3b253a74974e2p-8",
+          "endpoint": [
+            "0x1.53c7138f45d41p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.5fe3668ee188dp-7",
+            "0x1.1982b8724ea0bp-8"
+          ],
+          "endpoint_lower": [
+            "0x1.3dc8dd2657bb7p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.69c549f833ecbp-3",
+            "0x1.1982b8724ea0cp-8"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    },
+    {
+      "fixture": "boundary_contact",
+      "theta": 0.4,
+      "v0.1": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.10d515ea371acp-1",
+          "box_leakage": "0x1.de55d42b91ca9p-2",
+          "causal_retained_mass": "0x1.401d97d7329bdp-1",
+          "causal_leakage": "0x1.7fc4d0519ac87p-2",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a919929bb6cbp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0c9944fe14p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.e631f24c1187ap-4",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.1"
+        },
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a917ecdd180ep+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0a6e09433fp+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.e634a15309589p-4",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-with-cell-enclosure-v0.1"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.050e8c3fe1be9p+0",
+            "0x1.06582e96bfc55p+0"
+          ],
+          "upper": [
+            "0x1.30ceb7820ccbdp+0",
+            "0x1.2f7606c432d63p+0"
+          ],
+          "level_lower": [
+            [
+              "0x1.946a500c8f859p-1",
+              "0x1.9994ac53f8505p-1"
+            ],
+            [
+              "0x1.e09bc982661f5p-1",
+              "0x1.e4c391e8a74d2p-1"
+            ],
+            [
+              "0x1.050e8c3fe1be9p+0",
+              "0x1.06582e96bfc55p+0"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.714d5d118cecdp+0",
+              "0x1.6ea611fff9782p+0"
+            ],
+            [
+              "0x1.474cbfb21a6ffp+0",
+              "0x1.446f84fcdee16p+0"
+            ],
+            [
+              "0x1.30ceb7820ccbdp+0",
+              "0x1.2f7606c432d63p+0"
+            ]
+          ],
+          "levels": [
+            16,
+            32,
+            64
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.1"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a917ecdd180ep+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0a6e09433fp+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.7e6630dd4b760p-14",
+          "rule": "genz-malik",
+          "subdivisions": 207,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.5c9f8a54ff480p-19",
+          "agreement_bound": "0x1.e63349cf8d701p-3",
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a918bfbc676cp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0b83a720aap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.e63349cf8d70fp-4",
+          "norm_lower": "0x1.715ae55a91e10p+0",
+          "norm_upper": "0x1.ae214e94838f6p+0",
+          "endpoint": [
+            "0x1.c852db9e04462p-23",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.d93711aa13d34p-1",
+            "0x1.7a9274880fdeap-2"
+          ],
+          "endpoint_lower": [
+            "-0x1.d9370a88c864dp-1",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.d93718cb5f41dp-1",
+            "0x1.7a9274880fdebp-2"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.1"
+      },
+      "v0.2": {
+        "status": "CLEAN",
+        "leakage": {
+          "box_retained_mass": "0x1.10d515ea371acp-1",
+          "box_leakage": "0x1.de55d42b91ca9p-2",
+          "causal_retained_mass": "0x1.401d97d7329bdp-1",
+          "causal_leakage": "0x1.7fc4d0519ac87p-2",
+          "exact_contact_atom_mass": "0x0.0p+0",
+          "strict_geometry_validated": true,
+          "box_leakage_bound_validated": true,
+          "causal_leakage_bound_validated": true,
+          "leakage_id": "ambient-gaussian-box-and-causal-leakage-v0.1"
+        },
+        "gauss": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a919929bb6cbp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0c9944fe14p+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.e2503d2063452p-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "gauss-legendre-32-with-cell-enclosure-v0.2"
+        },
+        "enclosure": {
+          "lower": [
+            "0x1.151d9618bd998p+0",
+            "0x1.159e41efa825fp+0"
+          ],
+          "upper": [
+            "0x1.20112cbc63496p+0",
+            "0x1.1fe82964c9666p+0"
+          ],
+          "level_lower": [
+            [
+              "0x1.050e8c3fe1be9p+0",
+              "0x1.06582e96bfc55p+0"
+            ],
+            [
+              "0x1.0fb5e56e88679p+0",
+              "0x1.108101afcab14p+0"
+            ],
+            [
+              "0x1.151d9618bd998p+0",
+              "0x1.159e41efa825fp+0"
+            ]
+          ],
+          "level_upper": [
+            [
+              "0x1.30ceb7820ccbdp+0",
+              "0x1.2f7606c432d63p+0"
+            ],
+            [
+              "0x1.259b935a1a4f5p+0",
+              "0x1.2513c5fb7150dp+0"
+            ],
+            [
+              "0x1.20112cbc63496p+0",
+              "0x1.1fe82964c9666p+0"
+            ]
+          ],
+          "levels": [
+            64,
+            128,
+            256
+          ],
+          "enclosure_id": "positive-gaussian-characteristic-cell-enclosure-v0.2"
+        },
+        "effective_atol": "0x1.0000000000000p-30",
+        "adaptive": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a917ecdd180ep+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0a6e09433fp+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": {
+            "quadrature": "0x1.e25afaca6f8d1p-6",
+            "sampling_representation": "0x0.0p+0",
+            "regulator": "0x0.0p+0",
+            "boundary_contact": "0x0.0p+0",
+            "accumulation_term_norm_sum": "0x0.0p+0",
+            "real_additions": 1
+          },
+          "implementation_id": "adaptive-genz-malik-scale-aware-with-cell-enclosure-v0.2"
+        },
+        "adaptive_run": {
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a917ecdd180ep+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0a6e09433fp+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "error": "0x1.7e6630dd4b760p-14",
+          "rule": "genz-malik",
+          "subdivisions": 207,
+          "solver_status": "converged"
+        },
+        "certification": {
+          "status": "CLEAN",
+          "reason": "CERTIFIED",
+          "agreement_distance": "0x1.5c9f8a54ff480p-19",
+          "agreement_bound": "0x1.e2559bf569691p-5",
+          "matrix": [
+            [
+              {
+                "real": "0x1.1a918bfbc676cp+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              }
+            ],
+            [
+              {
+                "real": "0x0.0p+0",
+                "imag": "0x0.0p+0"
+              },
+              {
+                "real": "0x1.1ac0b83a720aap+0",
+                "imag": "0x0.0p+0"
+              }
+            ]
+          ],
+          "matrix_error": "0x1.e2559bf5696c1p-6",
+          "norm_lower": "0x1.8834c387b5126p+0",
+          "norm_upper": "0x1.97477067605e0p+0",
+          "endpoint": [
+            "0x1.c852db9e04462p-23",
+            "0x0.0p+0"
+          ],
+          "endpoint_error": [
+            "0x1.94e0e4b2628c6p-3",
+            "0x1.43e71d5b82138p-4"
+          ],
+          "endpoint_lower": [
+            "-0x1.94e0c82d34d29p-3",
+            "0x0.0p+0"
+          ],
+          "endpoint_upper": [
+            "0x1.94e1013790465p-3",
+            "0x1.43e71d5b82139p-4"
+          ],
+          "provenance": null,
+          "certification_id": "stage5c-6a-e-numerical-certification-v0.2"
+        },
+        "reason": "CERTIFIED",
+        "topology_id": "finite-probability-gaussian-mixtures-fixed-epsilon-v0.1",
+        "contract_id": "stage5c-6a-e-e4-wellposedness-v0.2"
+      }
+    }
+  ],
+  "resource_probe": {
+    "fixture": "repeated_gate_a_atom",
+    "atoms": 8128,
+    "cpu_seconds": 330.301451943,
+    "wall_seconds": 226.50629386999935,
+    "process_peak_rss_bytes": 482721792,
+    "getrusage_cpu_diagnostic_seconds": 330.29971900000004,
+    "cpu_clock": "time.process_time",
+    "status": "CLEAN",
+    "reason": "CERTIFIED",
+    "subdivisions": 49,
+    "within_observed_caps": true
+  }
+}

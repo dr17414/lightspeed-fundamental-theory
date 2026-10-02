@@ -186,6 +186,19 @@ enclosure-only probe 由 frozen levels 的 2.6 s／121036 KiB 增至 141.0 s／4
 為 `REVALIDATION-PENDING`。未生成 seed、未開新 namespace、未授權 runner，item 8
 與 6a-E 仍 `OPEN`／`PREREGISTRATION-INCOMPLETE`。
 
+PR #58 的 exact head `3036cda618827ebd07416fc63b72d070d9824754` 經獨立 GO 後
+squash-merge 為 `c4e79adcec031038b2fed66915956992b5a3904e`，merge tree 等於受審
+`31e72d2792a46d4bd6a0c16b744baf23d16f188f`。另開的 v0.2 implementation 使用
+獨立 module，保留 frozen v0.1；real selector→adapter→E4→member 接縫在三個 $N$
+及兩個 selectors 上把 skipped-adaptive report 歸為 `E4-OR-ITEM3-NONCLEAN`。
+新 rows 重新生成 item-3 source seals 與 items 4--5 matched width／ensemble seals；
+這些是 deterministic component fixtures，不能充作 scientific arm samples。九列完整
+公開 payload diff 與單次 8128-atom probe 已記錄：CPU 330.30 s、wall 226.51 s、
+peak RSS 482721792 bytes。完整 264-call qualification 與指定主機 preflight 尚未完成，
+因此 implementation 仍待複核，closure matrix 與所有 execution gates 維持前述狀態。
+詳見 `docs/STAGE5C_6A_E_ITEM7_V02_IMPLEMENTATION.md`；candidate JSON 仍為
+`executable=false`／`authorization=NONE`。
+
 ---
 
 ## 3. 模型演進歷史對照表
@@ -325,7 +338,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
-*v2.00（combined amendment proposal，2026-09-30）- PR #57 exact head `58fa99df` 經獨立 GO 後 squash-merge `d02a800c`，merge tree 與受審 assessment head 逐位元相同。在該 item-7 feasibility assessment 後，現明文重開 item 7 的 amendment track，新增 non-executable v0.2 candidate：enclosure levels 固定為 $(64,128,256)$，effective `atol` 由新 enclosure upper scale 乘既有 $2^{-14}$、exact dyadic 向零 rounding 並由 $2^{-30}$ cap 截斷；zero／nonfinite／underflow 在 adaptive 前 fail closed。contract、enclosure 與兩個 implementation identities 全部升版，topology／leakage identities 保持 v0.1。三個 deterministic single-atom witnesses 均低於理想 top-$M$ 的 $1/40$ benchmark，但不是 uniform cap、matched-law、tail 或 power 證據；8128-atom enclosure-only probe 顯示新 levels 約 141 s／470748 KiB，故 900 s per-call、57600 s total CPU、32 GiB address-space 與約 7 GB target-host memory 均列為 implementation 前置硬門。v0.1 producer、frozen protocol 與 custody 不動；item 7 為 `AMENDMENT-REVIEW-PENDING`，items 3--5 保留歷史 v0.1 closure但 v0.2 revalidation pending，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無新 seed／namespace／authorization。*
+*v2.01（v0.2 implementation draft，2026-10-02）- 首先更正 v2.00 的 nonfinite 敘述：zero／underflow fail closed，非有限或不符次序的 enclosure 沿用 `E4ProtocolError`。PR #58 exact head `3036cda6` 已 squash-merge `c4e79adc`，merge tree 與受審 tree 相同。新增 versioned v0.2 producer、nullable-safe member consumer、無 seed 的 real-seam／seal regressions 與 development payload／單次 resource evidence。完整 schedule／target-host qualification 尚未完成；item 7 AMENDMENT-REVIEW-PENDING，items 3--5 CLOSED-v0.1／REVALIDATION-PENDING，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，沒有新 namespace 或執行授權。*
+*v2.00（combined amendment proposal，2026-09-30）- PR #57 exact head `58fa99df` 經獨立 GO 後 squash-merge `d02a800c`，merge tree 與受審 assessment head 逐位元相同。在該 item-7 feasibility assessment 後，現明文重開 item 7 的 amendment track，新增 non-executable v0.2 candidate：enclosure levels 固定為 $(64,128,256)$，effective `atol` 由新 enclosure upper scale 乘既有 $2^{-14}$、exact dyadic 向零 rounding 並由 $2^{-30}$ cap 截斷；zero／underflow 在 adaptive 前 fail closed；非有限或不符次序的 enclosure 沿用 `E4ProtocolError`、不建立 report。contract、enclosure 與兩個 implementation identities 全部升版，topology／leakage identities 保持 v0.1。三個 deterministic single-atom witnesses 均低於理想 top-$M$ 的 $1/40$ benchmark，但不是 uniform cap、matched-law、tail 或 power 證據；8128-atom enclosure-only probe 顯示新 levels 約 141 s／470748 KiB，故 900 s per-call、57600 s total CPU、32 GiB address-space 與約 7 GB target-host memory 均列為 implementation 前置硬門。v0.1 producer、frozen protocol 與 custody 不動；item 7 為 `AMENDMENT-REVIEW-PENDING`，items 3--5 保留歷史 v0.1 closure但 v0.2 revalidation pending，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無新 seed／namespace／authorization。*
 *v1.99（amendment feasibility assessment，2026-09-30）- PR #56 受審 head `66de8a24` 已 squash-merge `15b228de`，merge tree 與受審 head 逐位元相同。後續不改 frozen producer，以 deterministic、無 RNG／seed probes 比較 fixed $2^{-50}$ 與尺度感知 effective tolerance；兩者均改善已知 Gate-A item-3／Gate-B near-zero witnesses，但也改變既有 `CLEAN` numerical error／screen band，且不改善 wide-cell enclosure。完整 suite 的差異只落在預期凍結契約／witness／screen assertions；真實 suite inputs 與兩個 8128-atom probes 未見 4096 cap hit，但不足以關閉 adaptive-resource tail。故本交付只評估正式重開 item 7 的可行性與 items 3–5 重審範圍，不是 amendment、replacement constant、cap、power 或執行授權；所有 Gate-A buckets、item 8 與 6a-E 均維持 OPEN／PREREGISTRATION-INCOMPLETE。*
 *v1.98（審查提案，2026-09-26）- PR #54 exact head `e91a90d3` 經獨立 GO 後 squash-merge `dbd7dcc3`，merge tree 與受審 head 逐位元相同。後續無 RNG／seed 的 deterministic 接縫探查在登記 $N=64,96,128$ 上構造位於 $R_{\rm geo}$、僅有單一 causal relation 的 causet；真實 `all_relations`／`links`→production adapter→frozen E4→item-3 均重現 `NORM-INTERVAL-TOUCHES-ZERO`。analytic enclosure 寬僅 $8.83\times10^{-14}$，但 frozen $\mathtt{atol}=2^{-30}$ 大於 pairing scale，使 adaptive backend 零 subdivision；只供歸因的 $2^{-50}$ sensitivity 保持 fixed matrix／enclosure 不變並把 certification 轉為 CLEAN。這證明同一 frozen absolute tolerance 可直接影響 Gate A 與既知 Gate B witness，但單點不量化 failure tail，也不是 item-7 amendment、replacement constant、cap 或 power 證據；item-3 bucket、Gate A、item 8 及 6a-E 均維持 OPEN，producer／protocol／custody 未動。*
 *v1.97（審查提案，2026-09-25）- PR #53 exact head `26dc0bb2` 經獨立 GO 後 squash-merge `0f7ff060`，merge tree 與受審 head 逐位元相同。後續純分析以 Hölder likelihood moments 改善 selector bucket 的 target-law 轉移：對任何 order-chamber event，以 exact rational $M_r(\theta)=E_0[(1+\theta q(U)q(V))^r]$ 證明 $\Pr_\theta(E)\le M_r(\theta)^{N/r}\Pr_0(E)^{(r-1)/r}$，並事前固定 integer powers 與向下取整的 uniform-event targets。六個 $(N,\theta)$ 目標由粗糙 pointwise $p_{\max}^N$ 下的 $9.88\times10^{-26}$–$4.28\times10^{-12}$ 放寬到 $2.30\times10^{-9}$–$1.56\times10^{-8}$；exact-arithmetic regression 直接驗證每格的冪次不等式，不以浮點開根承重。這只移除 pointwise density envelope 的巨大損失，不是 avoidance／concentration tail 證明：四個 interval 與五個 depth-band events、selector bucket、Gate A、item 8 及 6a-E 均維持 OPEN。沒有呼叫 generator、RNG、seed、arm data 或候選 $K$，亦未修改 frozen selector／producer／custody。*
