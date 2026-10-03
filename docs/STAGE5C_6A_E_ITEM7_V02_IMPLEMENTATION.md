@@ -88,6 +88,7 @@ endpoint／error／bounds、reason 與 status；不序列化 process-private sea
 獨立程序執行 8,128 個 repeated gate_a atoms，使用真實 v0.2 density／cubature，
 不折疊 atom 列。保留 900 s per-call wall、57600 s process CPU、32 GiB RLIMIT_AS。
 測量以 `time.process_time()` 為 CPU 定義；`getrusage` 只作補充診斷。
+此 8128-atom probe 使用只有 49 subdivisions 的低細分 fixture，不代表每 atom 的成本上界。
 
 | 單次開發觀察 | 結果 |
 |---|---:|
@@ -135,15 +136,22 @@ selected count ≤N(N−1)/2。此論證逐 member 覆蓋 `all_relations`、`lin
 ```sh
 python -m benchmarks.stage5c_e4_v02_validation payload-diff
 python -m benchmarks.stage5c_e4_v02_validation resource --atoms 8128
-python -m pytest -q tests/test_stage5c_e4_v02.py tests/test_stage5c_statistical_regions.py
+python -m pytest -q tests/test_stage5c_e4_v02.py tests/test_stage5c_statistical_regions.py tests/test_stage5c_e5_screen.py tests/test_stage5c_e5_screen_authorization.py tests/test_stage5c_e5_item7_amendment_proposal.py
 python verify_integrity.py
 python -m pytest -q tests/
 ```
 
-本地驗證：targeted suite **88 passed**；全庫 **418 passed, 5 warnings**；
+PR #59 歷史本地驗證：targeted suite **88 passed**（上列五個檔案；只跑前兩檔為 68 tests）；全庫 **418 passed, 5 warnings**；
 integrity 與 `git diff --check` 通過。五個 warnings 與原基線相同。
 
 item 7 保持 `AMENDMENT-REVIEW-PENDING`；items 3–5 保持歷史 `CLOSED-v0.1`／
 v0.2 `REVALIDATION-PENDING`；item 8 `OPEN`，6a-E `PREREGISTRATION-INCOMPLETE`。
 proposal JSON 仍 `executable=false`／`authorization=NONE`。沒有新增 arm ledger、
 generator／seed namespace 或 candidate K。
+
+PR #59 exact head `536925694a0f32f25caaf1567063543c140a73eb` 經獨立 GO 後，
+squash-merge `d2c665ad78bbd2d3dd12360e934307d67ed979f7`，merge tree
+`971a521fbc18128295878925babf46d38c279868` 與受審 tree 一致。此合併只納入
+implementation draft，不構成 item-7 closeout。後續 qualification 前的資源特性分析
+另見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_CHARACTERIZATION.md`。未來 consumer 必須
+以 `enclosure_id`／`contract_id` 判版本；v0.2 enclosure 繼承 v0.1，不能用 `isinstance` 判版本。
