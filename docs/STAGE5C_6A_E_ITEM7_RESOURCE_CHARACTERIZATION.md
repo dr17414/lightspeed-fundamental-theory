@@ -25,6 +25,7 @@ targeted 88 的 reproduction 指令也改為實際五個 test files。
 - NumPy 2.3.5、SciPy 1.17.0、threadpoolctl 3.6.0；每次 probe 記錄 Python／CPU model／
   cgroup quotas／affinity／threadpool library versions 與實際 thread count，且 threadpool
   不為 1 時拒跑；此主機不是指定約 7 GB target host；
+  evidence 記錄的 cgroup quota 為 8 CPU、memory limit 為 8 GiB，實際 affinity 為 1 CPU；
 - 每個 phase 用新程序，RSS 是該程序的 Linux `ru_maxrss*1024`；CPU 用
   `time.process_time()`。保留 900 s wall、57600 s process CPU、32 GiB RLIMIT_AS；
 - 純固定 fixtures，沒有 RNG、generator、seed、matching 或 scientific arm ledger；
@@ -86,9 +87,14 @@ sum_v d(v)^2≥(2E)^2/N。因此 E≤N²/4，links 的 exact upper 為 floor(N²
 
 ### 3.3 完整 family 的 joint count 上界
 
-同一 case 的五個 depth bands 分割 D；links 與四個 interval_exact 依 cardinality
-0..4 互斥。因此十一 calls 的 selected-count 總和為
-`2*|D| + sum_{m=0}^4 |D_m| ≤ 3*|D|`，不能把不同 fixtures 的逐 member maxima
+令 D 為全部 relations、B_b 為五個 depth bands、I_m 為 open-interval cardinality
+恰為 m 的 relations。B_b 分割 D，所以 `sum_b |B_b|=|D|`；links=I_0 與
+四個 interval_exact=I_1..I_4 互斥，但它們一般不涵蓋 cardinality≥5 的 relations。
+十一 calls 的實際總和是 `A=2*|D|+sum_{m=0}^4 |I_m|`，其上界寫作
+`A ≤ |D| + |D| + sum_b |B_b| = 3*|D|`。第二個 |D| 是五個互斥
+low-cardinality selectors 的上界，最後一項才是 depth-band 的恆等式。
+36 個 inventory cases 實際 A 的總和為 248315，每一 case 均符合上述 identity／bound。
+不能把不同 fixtures 的逐 member maxima
 當作能同時實現的 joint profile。登記 schedule 每個 N 有 2 targets ×4 repetitions，
 故 264 calls 的 count 總和保守上界為
 `8*3*(2016+4560+8128)=352896`。這是 count 上界，沒有把未證成的 per-atom 成本
@@ -116,6 +122,9 @@ sum_v d(v)^2≥(2E)^2/N。因此 E≤N²/4，links 的 exact upper 為 floor(N²
 | adaptive_stress | 1008 | 256 | 12.671 | 12.675 | 61.38 |
 
 完整觀察與 source／environment pins 在 `docs/stage5c_e4_v02_resource_characterization.json`。
+該 JSON blob 為 `54b69083db971661b38196a5de65a1ec9b3c0e41`，本輪文字整理不改其內容。
+全部十個 probes 均已被看過；後續 resource amendment 的 model candidates 是看過它們
+之後才提出。因此這些都是 development／training 資料，不能改稱 held-out validation。
 
 Illustrative CPU phase-subtotal 外推（enclosure +16×256-subdivision stress）：
 
