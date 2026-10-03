@@ -195,9 +195,21 @@ squash-merge 為 `c4e79adcec031038b2fed66915956992b5a3904e`，merge tree 等於�
 這些是 deterministic component fixtures，不能充作 scientific arm samples。九列完整
 公開 payload diff 與單次 8128-atom probe 已記錄：CPU 330.30 s、wall 226.51 s、
 peak RSS 482721792 bytes。完整 264-call qualification 與指定主機 preflight 尚未完成，
-因此 implementation 仍待複核，closure matrix 與所有 execution gates 維持前述狀態。
+implementation 已由 PR #59 exact-head 獨立複核並合併為 draft；resource qualification
+與 closeout 未完成，closure matrix 與所有 execution gates 維持前述狀態。
 詳見 `docs/STAGE5C_6A_E_ITEM7_V02_IMPLEMENTATION.md`；candidate JSON 仍為
 `executable=false`／`authorization=NONE`。
+
+PR #59 受審 head `53692569` 已 squash-merge `d2c665ad`，merge tree
+`971a521fbc18128295878925babf46d38c279868` 與受審 tree 一致。本輪補正 historical
+targeted 88 的五檔指令，並明訂低細分 8128-atom probe 不是每 atom 成本上界。
+qualification 之前先作單執行緒／單 CPU affinity 的 deterministic resource characterization；
+固定 geometry witnesses 顯示 N=128 的 all_relations 可達 8128，links／中央 depth band
+可達 4096，四個 interval_exact 可達 3844–4032，不能由 selector 規則排除大 atom 數。
+強制 zero-tolerance 的 adaptive stress 只測固定 subdivisions 的成本，不是 production
+4096 exhaustion 的可達性或 failure-probability 證據。任何 timeout policy、cap 或 atom
+限制變更均須先回到 amendment review；未修改 producer／runner 或建立新 namespace。
+詳見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_CHARACTERIZATION.md`。
 
 ---
 
@@ -338,6 +350,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.02（resource characterization，2026-10-03）- PR #59 exact head `53692569` 經獨立 GO 後 squash-merge `d2c665ad`，tree 與受審 implementation tree 相同；此合併只是 implementation draft。補正 88-test 指令與低細分 probe 限定，新增釘選 OMP／OpenBLAS 等六個 thread env 為 1、single-CPU affinity 的固定成本曲線與無 RNG selector count witnesses。這不是 full schedule／target-host qualification、正式分布或 failure tail；任何資源政策修正須 amendment review，items 7／3–5／8 與 6a-E gates 維持 pending／open，沒有新 seed／namespace／authorization。*
 *v2.01（v0.2 implementation draft，2026-10-02）- 首先更正 v2.00 的 nonfinite 敘述：zero／underflow fail closed，非有限或不符次序的 enclosure 沿用 `E4ProtocolError`。PR #58 exact head `3036cda6` 已 squash-merge `c4e79adc`，merge tree 與受審 tree 相同。新增 versioned v0.2 producer、nullable-safe member consumer、無 seed 的 real-seam／seal regressions 與 development payload／單次 resource evidence。完整 schedule／target-host qualification 尚未完成；item 7 AMENDMENT-REVIEW-PENDING，items 3--5 CLOSED-v0.1／REVALIDATION-PENDING，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，沒有新 namespace 或執行授權。*
 *v2.00（combined amendment proposal，2026-09-30）- PR #57 exact head `58fa99df` 經獨立 GO 後 squash-merge `d02a800c`，merge tree 與受審 assessment head 逐位元相同。在該 item-7 feasibility assessment 後，現明文重開 item 7 的 amendment track，新增 non-executable v0.2 candidate：enclosure levels 固定為 $(64,128,256)$，effective `atol` 由新 enclosure upper scale 乘既有 $2^{-14}$、exact dyadic 向零 rounding 並由 $2^{-30}$ cap 截斷；zero／underflow 在 adaptive 前 fail closed；非有限或不符次序的 enclosure 沿用 `E4ProtocolError`、不建立 report。contract、enclosure 與兩個 implementation identities 全部升版，topology／leakage identities 保持 v0.1。三個 deterministic single-atom witnesses 均低於理想 top-$M$ 的 $1/40$ benchmark，但不是 uniform cap、matched-law、tail 或 power 證據；8128-atom enclosure-only probe 顯示新 levels 約 141 s／470748 KiB，故 900 s per-call、57600 s total CPU、32 GiB address-space 與約 7 GB target-host memory 均列為 implementation 前置硬門。v0.1 producer、frozen protocol 與 custody 不動；item 7 為 `AMENDMENT-REVIEW-PENDING`，items 3--5 保留歷史 v0.1 closure但 v0.2 revalidation pending，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，無新 seed／namespace／authorization。*
 *v1.99（amendment feasibility assessment，2026-09-30）- PR #56 受審 head `66de8a24` 已 squash-merge `15b228de`，merge tree 與受審 head 逐位元相同。後續不改 frozen producer，以 deterministic、無 RNG／seed probes 比較 fixed $2^{-50}$ 與尺度感知 effective tolerance；兩者均改善已知 Gate-A item-3／Gate-B near-zero witnesses，但也改變既有 `CLEAN` numerical error／screen band，且不改善 wide-cell enclosure。完整 suite 的差異只落在預期凍結契約／witness／screen assertions；真實 suite inputs 與兩個 8128-atom probes 未見 4096 cap hit，但不足以關閉 adaptive-resource tail。故本交付只評估正式重開 item 7 的可行性與 items 3–5 重審範圍，不是 amendment、replacement constant、cap、power 或執行授權；所有 Gate-A buckets、item 8 與 6a-E 均維持 OPEN／PREREGISTRATION-INCOMPLETE。*
