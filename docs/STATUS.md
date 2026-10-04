@@ -211,17 +211,24 @@ qualification 之前先作單執行緒／單 CPU affinity 的 deterministic reso
 限制變更均須先回到 amendment review；未修改 producer／runner 或建立新 namespace。
 詳見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_CHARACTERIZATION.md`。
 
-Resource amendment decision-rule review 現疊在 PR #60 head
-`660122d98be37e3784c93236dfb96d61f0ade38b` 上；其文字修訂保留原 evidence JSON blob
-`54b69083db971661b38196a5de65a1ec9b3c0e41`，PR #60／#61 均仍為 draft、未取得新
-exact-head GO。合併順序固定為 #60 review／merge／tree 核對後才 retarget #61 至 main，
-保留 v2.02→v2.03 記錄。草案補齊全部十個已看過的 training probes、明確 anchored／
-fitted-offset 模型方法、production subdivision 可達性義務、直接 cap diagnostic probe
-計畫，以及現行 caps／組合方案的判準與 schedule CPU／worker memory 要求。
-1.25 safety multiplier 與 1.10 CPU inflation limit 仍是待審政策提案；完整 measurement
-manifest freeze 前不跑新量測。未選定方案、未改 production caps／producer／runner，
-item 7 仍開啟，qualification／items 3–5 revalidation 後另開 state-only closeout。
-詳見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_AMENDMENT_REVIEW.md`。
+Resource amendment framework 已依 exact-head 獨立複核合併：PR #60 merge
+`95d0ceaf0e57127046258b9ee7596e05faab2a21` 的 tree 是
+`3b515d5da12539589e3c084403167500211e7b79`；PR #61 squash merge
+`81f3d70079d32fe989050d4295b0ec2c9084a2e6` 的 tree 是
+`2a137a2aac32bb6429447e9c13db9329b1b91765`，均與受審 tree 相同。Closeout引用
+merge commits，保留v2.02→v2.03歷史與原evidence JSON blob `54b69083…`。
+
+新的 measurement manifest 為review draft、authorization=NONE：提供39組按完整inventory
+count／geometry-strata規則選出的exact-byte fixtures、七列未censored stress／三列
+COMPLETED enclosure的44個solver方法reference，以及139項固定diagnostic計畫。
+Solver、loss/scaling、regression／held-out門檻、direct-first順序、整體60000 s wall／
+57600 s aggregate CPU、censor/abort與memory/host pins均明列；external receipt尚未建立。
+本輪只有既有training資料的方法驗證與tests，沒有新timing probes或scientific樣本。
+Production caps／analysis／custody／burn registry不動；item7 AMENDMENT-REVIEW-PENDING，
+items3–5 REVALIDATION-PENDING、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。
+完整manifest／harness須exact-head review後才另處理resource execution authorization；
+resource qualification／下游revalidation之後再另開state-only closeout。
+詳見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_MEASUREMENT_MANIFEST.md`。
 
 ---
 
@@ -362,6 +369,7 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.04（measurement manifest review draft，2026-10-05）- 記錄 #60/#61 merge commits與受審tree一致，補兩處非阻擋措辭；新增version-pinned NNLS方法regression（只重用既有training資料）、完整exact-byte fixture選擇artifact、固定139-job計畫與review-gated diagnostic harness。Direct-first；censored續跑、fatal/global-budget停止；60000 s wall／57600 s aggregate CPU，10% held-out residual門檻與1e-8/1e-10 method regression tolerances均為待本manifest複核的固定判準。未執行新timing probes，無production code／caps／gates／namespace變動，authorization=NONE。*
 *v2.03（resource amendment decision-rule review draft，2026-10-04）- 依 freeze 前複核補齊全部十個 probes 為 training、錨定與 fitted-offset 方法、production subdivision 可達性與直接 (8128,4096) diagnostic probe 計畫；新增維持現行 caps 與組合選項的固定判定順序，分列 schedule CPU 與 worker aggregate memory。PR #61 疊在修訂後的 draft #60 上，合併順序為 #60→#61，保留 v2.02 記錄；引用 evidence blob 不變。1.25／1.10 仍待審，沒有新量測或 production code／caps／gates／namespace／authorization 變動；item 7 closeout 另案辦理。*
 *v2.02（resource characterization，2026-10-03）- PR #59 exact head `53692569` 經獨立 GO 後 squash-merge `d2c665ad`，tree 與受審 implementation tree 相同；此合併只是 implementation draft。補正 88-test 指令與低細分 probe 限定，新增釘選 OMP／OpenBLAS 等六個 thread env 為 1、single-CPU affinity 的固定成本曲線與無 RNG selector count witnesses。這不是 full schedule／target-host qualification、正式分布或 failure tail；任何資源政策修正須 amendment review，items 7／3–5／8 與 6a-E gates 維持 pending／open，沒有新 seed／namespace／authorization。*
 *v2.01（v0.2 implementation draft，2026-10-02）- 首先更正 v2.00 的 nonfinite 敘述：zero／underflow fail closed，非有限或不符次序的 enclosure 沿用 `E4ProtocolError`。PR #58 exact head `3036cda6` 已 squash-merge `c4e79adc`，merge tree 與受審 tree 相同。新增 versioned v0.2 producer、nullable-safe member consumer、無 seed 的 real-seam／seal regressions 與 development payload／單次 resource evidence。完整 schedule／target-host qualification 尚未完成；item 7 AMENDMENT-REVIEW-PENDING，items 3--5 CLOSED-v0.1／REVALIDATION-PENDING，item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE，沒有新 namespace 或執行授權。*
