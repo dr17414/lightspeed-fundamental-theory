@@ -1,0 +1,4585 @@
+{
+  "state": "CHARACTERIZATION-NOT-QUALIFICATION",
+  "authorization": "NONE",
+  "seed_or_generator_calls": 0,
+  "suite_environment": {
+    "state": "CHARACTERIZATION-NOT-QUALIFICATION",
+    "authorization": "NONE",
+    "seed_or_generator_calls": 0,
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "threadpoolctl": "3.6.0"
+    },
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "affinity": [
+      0
+    ],
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cgroup_cpu_max": "800000 100000",
+    "cgroup_memory_max": "8589934592",
+    "source_blobs": {
+      "analysis/gmom_2d.py": "f319ad8104e9c7b6cf721bac88e2c28c87c11da6",
+      "analysis/gmom_2d_bbmm.py": "634811ddb1ae470d26cb95ea837d8a917d53783d",
+      "analysis/spectral_dim_2d.py": "5fcb1cb9a9b6e7993d115eafc3b3891988f84c94",
+      "analysis/spectral_dim_D.py": "d482382456fb02d71b4ee7d8b0b994d6f155583b",
+      "analysis/stage5a_kappa.py": "252a8928cbed4f64217ab9739bd9a95e0cd298bf",
+      "analysis/stage5b_link_channel.py": "0ac07971da923411d0d9cac2fb14e67c1fee0c9e",
+      "analysis/stage5c_6a_s_runner.py": "83ef9adb7a333408563c6054d0f7d56aafea2cfa",
+      "analysis/stage5c_blind_distance.py": "b1550b4d756cbbae9db68983f03ecf7c0fccb19f",
+      "analysis/stage5c_continuum_pairing.py": "8b32a3cf7a8ef23e5abae1e397f179c18ef3711e",
+      "analysis/stage5c_e4_wellposedness.py": "a96d368f75b03b1fc0317cb20dd34dfd9de2f581",
+      "analysis/stage5c_e4_wellposedness_v02.py": "8989a9f9b030ce2da5da5f99d68f15e12bff6360",
+      "analysis/stage5c_e5_budget.py": "22984f67779bf7d636f9653aa407332078a3376f",
+      "analysis/stage5c_e5_screen.py": "670c8e852d56b0c7d06333759df40a03fb026f4a",
+      "analysis/stage5c_hard_controls.py": "32f593c0b710b4c591fb7746c7014d72784da554",
+      "analysis/stage5c_joint_matched_law.py": "6c743aa5566d2f11e8aba61dd7d4490e37e277a5",
+      "analysis/stage5c_measure_prereg.py": "0b05b1fc913da77b4f1824fbf7901c52734efc19",
+      "analysis/stage5c_numerical_certification.py": "deae60470abfddf2d636a4b3fd9160bbfebccc91",
+      "analysis/stage5c_planted_certification.py": "2177416c772158793a1e1002854020442ca4f732",
+      "analysis/stage5c_primary_invariant.py": "6756fd1dae86065fc209b99a4b8cedb57efdaaac",
+      "analysis/stage5c_reference_probe.py": "cda90e4a65dfa4aa84cfa4ba1bee43a209aef2f3",
+      "analysis/stage5c_selector_family.py": "9b9bb5497e0dc432eb63939b47bede0070bd8120",
+      "analysis/stage5c_statistical_regions.py": "b0531af6bb585f0066cb04b55e573b7fbbcc6dcb",
+      "analysis/track_b_4d.py": "dc61488a2bd08a44dd5d0ea853c0d4d482a0d513",
+      "analysis/track_b_4d_analytic.py": "13498304a9d66588c6dee4718e7993008d222e1a",
+      "analysis/track_b_4d_irsafe.py": "84ef57aca18640777b0314cc56c4e466de0258a7",
+      "analysis/track_b_4d_spectral.py": "aeecc7f6d206287d078495b77b7f43c9634446de",
+      "analysis/track_b_spectral_dim.py": "fae2d9dbe643033105544106ae356e8a4f0a4628",
+      "benchmarks/stage5c_e4_v02_resource_characterization.py": "9ec0f0a73e8eb8039ef54b761fc605e8e8d17654"
+    },
+    "allowed_affinity_before_pin": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "selector_count_environment": {
+    "state": "CHARACTERIZATION-NOT-QUALIFICATION",
+    "authorization": "NONE",
+    "seed_or_generator_calls": 0,
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "threadpoolctl": "3.6.0"
+    },
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "BLIS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "affinity": [
+      0
+    ],
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cgroup_cpu_max": "800000 100000",
+    "cgroup_memory_max": "8589934592",
+    "source_blobs": {
+      "analysis/gmom_2d.py": "f319ad8104e9c7b6cf721bac88e2c28c87c11da6",
+      "analysis/gmom_2d_bbmm.py": "634811ddb1ae470d26cb95ea837d8a917d53783d",
+      "analysis/spectral_dim_2d.py": "5fcb1cb9a9b6e7993d115eafc3b3891988f84c94",
+      "analysis/spectral_dim_D.py": "d482382456fb02d71b4ee7d8b0b994d6f155583b",
+      "analysis/stage5a_kappa.py": "252a8928cbed4f64217ab9739bd9a95e0cd298bf",
+      "analysis/stage5b_link_channel.py": "0ac07971da923411d0d9cac2fb14e67c1fee0c9e",
+      "analysis/stage5c_6a_s_runner.py": "83ef9adb7a333408563c6054d0f7d56aafea2cfa",
+      "analysis/stage5c_blind_distance.py": "b1550b4d756cbbae9db68983f03ecf7c0fccb19f",
+      "analysis/stage5c_continuum_pairing.py": "8b32a3cf7a8ef23e5abae1e397f179c18ef3711e",
+      "analysis/stage5c_e4_wellposedness.py": "a96d368f75b03b1fc0317cb20dd34dfd9de2f581",
+      "analysis/stage5c_e4_wellposedness_v02.py": "8989a9f9b030ce2da5da5f99d68f15e12bff6360",
+      "analysis/stage5c_e5_budget.py": "22984f67779bf7d636f9653aa407332078a3376f",
+      "analysis/stage5c_e5_screen.py": "670c8e852d56b0c7d06333759df40a03fb026f4a",
+      "analysis/stage5c_hard_controls.py": "32f593c0b710b4c591fb7746c7014d72784da554",
+      "analysis/stage5c_joint_matched_law.py": "6c743aa5566d2f11e8aba61dd7d4490e37e277a5",
+      "analysis/stage5c_measure_prereg.py": "0b05b1fc913da77b4f1824fbf7901c52734efc19",
+      "analysis/stage5c_numerical_certification.py": "deae60470abfddf2d636a4b3fd9160bbfebccc91",
+      "analysis/stage5c_planted_certification.py": "2177416c772158793a1e1002854020442ca4f732",
+      "analysis/stage5c_primary_invariant.py": "6756fd1dae86065fc209b99a4b8cedb57efdaaac",
+      "analysis/stage5c_reference_probe.py": "cda90e4a65dfa4aa84cfa4ba1bee43a209aef2f3",
+      "analysis/stage5c_selector_family.py": "9b9bb5497e0dc432eb63939b47bede0070bd8120",
+      "analysis/stage5c_statistical_regions.py": "b0531af6bb585f0066cb04b55e573b7fbbcc6dcb",
+      "analysis/track_b_4d.py": "dc61488a2bd08a44dd5d0ea853c0d4d482a0d513",
+      "analysis/track_b_4d_analytic.py": "13498304a9d66588c6dee4718e7993008d222e1a",
+      "analysis/track_b_4d_irsafe.py": "84ef57aca18640777b0314cc56c4e466de0258a7",
+      "analysis/track_b_4d_spectral.py": "aeecc7f6d206287d078495b77b7f43c9634446de",
+      "analysis/track_b_spectral_dim.py": "fae2d9dbe643033105544106ae356e8a4f0a4628",
+      "benchmarks/stage5c_e4_v02_resource_characterization.py": "9ec0f0a73e8eb8039ef54b761fc605e8e8d17654"
+    },
+    "allowed_affinity_before_pin": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "probe_plan": [
+    [
+      "enclosure",
+      2016,
+      null
+    ],
+    [
+      "enclosure",
+      4560,
+      null
+    ],
+    [
+      "enclosure",
+      8128,
+      null
+    ],
+    [
+      "adaptive_stress",
+      252,
+      4096
+    ],
+    [
+      "adaptive_stress",
+      1008,
+      4096
+    ],
+    [
+      "adaptive_stress",
+      2016,
+      256
+    ],
+    [
+      "adaptive_stress",
+      4560,
+      256
+    ],
+    [
+      "adaptive_stress",
+      8128,
+      256
+    ],
+    [
+      "adaptive_stress",
+      8128,
+      512
+    ]
+  ],
+  "additional_probe": {
+    "stage": "adaptive_stress",
+    "atoms": 1008,
+    "subdivisions": 256
+  },
+  "limitations": [
+    "No target-law sampling, failure probability, production exhaustion witness, full schedule qualification, or target-host preflight.",
+    "Stress forces zero tolerances; only phase clocks and illustrative extrapolation, never a production bound."
+  ],
+  "selector_count_rows": [
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2016,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 63,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 62,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 61,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 60,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 59,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 406,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 414,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 405,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 371,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 420,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1024,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 1024,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 1024,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1536,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 768,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 256,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 512,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 768,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1104,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 241,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 80,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 86,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 108,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 58,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 175,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 325,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 193,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 186,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 225,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1236,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 110,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 92,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 121,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 56,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 117,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 235,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 315,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 135,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 302,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 249,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1056,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 191,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 80,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 134,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 60,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 102,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 177,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 247,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 245,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 192,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 195,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 831,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 528,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 4,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 6,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 8,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 10,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 303,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 528,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1055,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 63,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 992,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 992,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 63,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1085,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 124,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 961,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 961,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 124,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1113,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 183,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 930,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 930,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 183,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 1140,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 240,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 900,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 900,
+      "category": "SELECTED"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 64,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 240,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4560,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 95,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 94,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 93,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 92,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 91,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 903,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 927,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 871,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 954,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 905,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2304,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 2304,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 2304,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 3456,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 1728,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 576,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 1152,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 1728,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2416,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 401,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 169,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 130,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 214,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 117,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 430,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 569,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 323,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 616,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 478,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2660,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 275,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 86,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 150,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 128,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 171,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 585,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 465,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 600,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 475,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 535,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2480,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 243,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 198,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 228,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 56,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 311,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 471,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 563,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 315,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 623,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 508,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2175,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 715,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 68,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 76,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 72,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 84,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 646,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 814,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 715,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2351,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 95,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 2256,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 2256,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 95,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2397,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 188,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 2209,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 2209,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 188,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2441,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 279,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 2162,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 2162,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 279,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 2484,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 368,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 2116,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 2116,
+      "category": "SELECTED"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 96,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 368,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 8128,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 127,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 126,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 125,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 124,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 123,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 1653,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 1587,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 1611,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 1704,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "chain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 1573,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "antichain",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "DOMAIN-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4096,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 4096,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 4096,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "two_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 6144,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 3072,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 1024,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 2048,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 3072,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "four_layers",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4288,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 577,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 242,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 215,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 320,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 190,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 795,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 883,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 973,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 921,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "bit_reversal",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 716,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4852,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 275,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 192,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 235,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 108,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 316,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 901,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 1005,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 1074,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 963,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_5",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 909,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4096,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 623,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 192,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 259,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 132,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 351,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 646,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 794,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 1092,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 944,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_17",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 620,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 3967,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 874,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 132,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 204,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 144,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 212,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 1129,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 1048,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 1068,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "modular_31",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 722,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4159,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 127,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 4032,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 4032,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_1",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 127,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4221,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 252,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 3969,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 3969,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_2",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 252,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4281,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 375,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 3906,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 3906,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_3",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 375,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "all_relations",
+      "parameters": [],
+      "selected_pairs": 4340,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "links",
+      "parameters": [],
+      "selected_pairs": 496,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        1
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        3
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "interval_exact",
+      "parameters": [
+        4
+      ],
+      "selected_pairs": 3844,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.0,
+        0.2
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.2,
+        0.4
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.4,
+        0.6
+      ],
+      "selected_pairs": 3844,
+      "category": "SELECTED"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.6,
+        0.8
+      ],
+      "selected_pairs": 0,
+      "category": "SELECTION-EMPTY"
+    },
+    {
+      "N": 128,
+      "fixture": "interval_bridge_4",
+      "selector": "endpoint_depth_mass_band",
+      "parameters": [
+        0.8,
+        1.0
+      ],
+      "selected_pairs": 496,
+      "category": "SELECTED"
+    }
+  ],
+  "probes": [
+    {
+      "stage": "enclosure",
+      "atoms": 2016,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": null,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "COMPLETED",
+      "levels": [
+        64,
+        128,
+        256
+      ],
+      "cpu_seconds": 35.213259238,
+      "wall_seconds": 35.234957805999784,
+      "process_peak_rss_bytes": 389771264
+    },
+    {
+      "stage": "enclosure",
+      "atoms": 4560,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": null,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "COMPLETED",
+      "levels": [
+        64,
+        128,
+        256
+      ],
+      "cpu_seconds": 77.549257706,
+      "wall_seconds": 77.57142057700003,
+      "process_peak_rss_bytes": 429703168
+    },
+    {
+      "stage": "enclosure",
+      "atoms": 8128,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": null,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "COMPLETED",
+      "levels": [
+        64,
+        128,
+        256
+      ],
+      "cpu_seconds": 138.69715438499998,
+      "wall_seconds": 138.71272255299982,
+      "process_peak_rss_bytes": 467124224
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 252,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 4096,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 4096,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 56.796317550000005,
+      "wall_seconds": 56.80313807199991,
+      "process_peak_rss_bytes": 86630400
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 1008,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 4096,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 4096,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 200.459355604,
+      "wall_seconds": 200.4739438270003,
+      "process_peak_rss_bytes": 86650880
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 2016,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 256,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 256,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 24.401296493,
+      "wall_seconds": 24.405588542999794,
+      "process_peak_rss_bytes": 64217088
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 4560,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 256,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 256,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 54.423398554,
+      "wall_seconds": 54.426502489000086,
+      "process_peak_rss_bytes": 64372736
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 8128,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 256,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 256,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 94.351012622,
+      "wall_seconds": 94.35924300599982,
+      "process_peak_rss_bytes": 64487424
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 8128,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 512,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 512,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 190.33259588400003,
+      "wall_seconds": 190.34722621200035,
+      "process_peak_rss_bytes": 65941504
+    },
+    {
+      "stage": "adaptive_stress",
+      "atoms": 1008,
+      "fixture": "cyclic_three_atom_interior",
+      "subdivision_budget": 256,
+      "threadpools": [
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-fdde5778.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        },
+        {
+          "user_api": "blas",
+          "internal_api": "openblas",
+          "num_threads": 1,
+          "prefix": "libscipy_openblas",
+          "filepath": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/scipy.libs/libscipy_openblas-6cdc3b4a.so",
+          "version": "0.3.30",
+          "threading_layer": "pthreads",
+          "architecture": "SkylakeX"
+        }
+      ],
+      "cpu_clock": "time.process_time",
+      "scope": "phase only, excludes imports/setup and other E4/schedule costs",
+      "outcome": "FORCED-BUDGET-EXHAUSTED",
+      "subdivisions": 256,
+      "solver_status": "not_converged",
+      "stress_atol": 0.0,
+      "stress_rtol": 0.0,
+      "production_report": false,
+      "cpu_seconds": 12.670941483,
+      "wall_seconds": 12.674727478000023,
+      "process_peak_rss_bytes": 64360448
+    }
+  ]
+}
