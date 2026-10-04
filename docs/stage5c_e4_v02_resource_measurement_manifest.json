@@ -60,7 +60,7 @@
     "analysis/track_b_4d_irsafe.py": "a5035966d9fbcd70480f2eb53d7d791c62c4a79c648fdfd2fa0ce7de08a09bf0",
     "analysis/track_b_4d_spectral.py": "a2d2d09dee4732e1d5dd466dd53f643350bc796689503cad738f9903f4a35459",
     "analysis/track_b_spectral_dim.py": "8751ee2c99c721a2f6f10201fcd0e4086b3b1e88a7cc6fc283ab317686e60003",
-    "benchmarks/stage5c_e4_v02_resource_campaign.py": "0af77baa4d507b6d9d9ccc44682653a3fd914a9b33612c347ceee5d2834ed049",
+    "benchmarks/stage5c_e4_v02_resource_campaign.py": "f0277547ce850fa584700a6f1ee759bd57f4c908072dd01d40fae5fb917a7670",
     "benchmarks/stage5c_e4_v02_resource_characterization.py": "73c45c597f1fb9e47d5c229c042c23185bd5f0f3af2717b54c473e41f61854fa",
     "benchmarks/stage5c_e4_v02_resource_methods.py": "e90f63fff4b8c7fa6c378c38ced94d1c1a41ad3927f9244fbf791ce8b95c8190",
     "docs/stage5c_e4_item7_amendment_candidate_v0.2.json": "7c77ab396130a8973fe6ad46a855b22ce5d2d3d8f5d31a2025d660890ed947a7",

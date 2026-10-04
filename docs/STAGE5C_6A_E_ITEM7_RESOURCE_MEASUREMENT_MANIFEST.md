@@ -143,8 +143,10 @@ Host 不符即 preflight fail，不自行選新 host／threads。Host移轉需�
 
 每次啟動前要求 host MemAvailable 與 cgroup剩餘記憶體均≥3 GiB；child peak RSS cap
 2 GiB，parent+child concurrent RSS cap2.5 GiB，RLIMIT_AS32 GiB另記。每個 child 的
-ru_maxrss 與 live RSS監控均保留，retroactive RSS超限同樣停止。單 process 舊觀察
-467 MB不是 memory bound。本輪無 parallel worker memory資格化；8 GiB不是約7 GB
+ru_maxrss 與 live RSS監控均保留，retroactive RSS超限同樣停止。
+每項也記host/cgroup available memory、parent/child peaks。兩者peak之和是concurrent
+RSS的保守上界，未宣稱兩個peak同時發生；若此上界超2.5 GiB也停止，不取樣漏掉峰值。
+單 process 舊觀察467 MB不是 memory bound。本輪無 parallel worker memory資格化；8 GiB不是約7 GB
 target。Target preflight／aggregate worker memory仍須另證。
 
 新 harness 為 `benchmarks/stage5c_e4_v02_resource_campaign.py`。沒有 receipt 時在

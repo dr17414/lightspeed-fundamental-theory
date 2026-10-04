@@ -76,6 +76,7 @@ def memory_preflight():
                          if line.startswith("MemAvailable:"))) * 1024
     if min(cgroup, available) < 3 * 1024**3:
         raise RuntimeError("at least 3 GiB current host/cgroup memory headroom required")
+    return {"cgroup_remaining_bytes": cgroup, "host_available_bytes": available}
 
 
 def worker(job, fixtures):
@@ -131,7 +132,7 @@ def run_campaign(receipt_path, output_directory):
     resource.setrlimit(resource.RLIMIT_CPU, (120, 120))
     manifest = json.loads(MANIFEST.read_text())
     check_runtime(manifest)
-    memory_preflight()
+    initial_memory = memory_preflight()
     # Methods checks precede the campaign clock. No new data can refit this reference.
     methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
     fixtures = json.loads(FIXTURES.read_text())
@@ -147,7 +148,8 @@ def run_campaign(receipt_path, output_directory):
             stream.flush()
             os.fsync(stream.fileno())
         emit({"state": "DEVELOPMENT-NOT-QUALIFICATION", "manifest_sha256": sha256(MANIFEST.read_bytes()).hexdigest(),
-              "receipt": json.loads(Path(receipt_path).read_text()), "method_verified": True})
+              "receipt": json.loads(Path(receipt_path).read_text()), "method_verified": True,
+              "initial_memory": initial_memory, "actual_python": sys.version})
         for index, job in enumerate(manifest["jobs"]):
             # Reserve full parent CPU cap plus 2 s kernel/collection margin per admitted child.
             if children_cpu + job["cpu_cap"] + 2 + 120 > manifest["total_cpu_cap"]:
@@ -158,8 +160,8 @@ def run_campaign(receipt_path, output_directory):
                 status = "PLAN-WALL-BUDGET-INCOMPLETE"
                 emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
                 break
-            memory_preflight()
-            emit({"job_id": job["id"], "outcome": "ATTEMPT-STARTED"})
+            memory = memory_preflight()
+            emit({"job_id": job["id"], "outcome": "ATTEMPT-STARTED", "memory_preflight": memory})
             out, err = directory / (job["id"]+".json"), directory / (job["id"]+".stderr")
             with out.open("x") as stdout, err.open("x") as stderr:
                 command = [sys.executable, "-m", "benchmarks.stage5c_e4_v02_resource_campaign", "worker", "--job", str(index)]
@@ -197,8 +199,11 @@ def run_campaign(receipt_path, output_directory):
             children_cpu += cpu
             record = {"job_id": job["id"], "role": job["role"], "child_total_cpu_seconds": cpu,
                       "child_total_wall_seconds": time.monotonic()-began,
-                      "child_peak_rss_bytes": usage.ru_maxrss*1024}
-            if usage.ru_maxrss*1024 > 2*1024**3:
+                      "child_peak_rss_bytes": usage.ru_maxrss*1024,
+                      "parent_peak_rss_bytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
+                      "memory_preflight": memory}
+            record["sum_of_parent_child_peaks_bytes"] = record["parent_peak_rss_bytes"]+record["child_peak_rss_bytes"]
+            if usage.ru_maxrss*1024 > 2*1024**3 or record["sum_of_parent_child_peaks_bytes"] > 5*1024**3//2:
                 reason = "MEMORY-CAP-ABORT"
             if reason:
                 record.update(outcome=reason, phase_cpu_seconds=None, phase_wall_seconds=None,
