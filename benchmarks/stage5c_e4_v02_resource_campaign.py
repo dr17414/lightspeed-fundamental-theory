@@ -133,7 +133,7 @@ def run_campaign(receipt_path, output_directory):
     manifest = json.loads(MANIFEST.read_text())
     check_runtime(manifest)
     initial_memory = memory_preflight()
-    # Methods checks precede the campaign clock. No new data can refit this reference.
+    # Method checks are included in the campaign clock; new data cannot refit this reference.
     methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
     fixtures = json.loads(FIXTURES.read_text())
     directory = Path(output_directory).resolve()
@@ -160,7 +160,13 @@ def run_campaign(receipt_path, output_directory):
                 status = "PLAN-WALL-BUDGET-INCOMPLETE"
                 emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
                 break
-            memory = memory_preflight()
+            try:
+                memory = memory_preflight()
+            except RuntimeError as exc:
+                status = "MEMORY-PREFLIGHT-ABORT"
+                emit({"outcome": status, "error": str(exc),
+                      "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
             emit({"job_id": job["id"], "outcome": "ATTEMPT-STARTED", "memory_preflight": memory})
             out, err = directory / (job["id"]+".json"), directory / (job["id"]+".stderr")
             with out.open("x") as stdout, err.open("x") as stderr:

@@ -1,10 +1,17 @@
 """Method/input/gate regressions only; never execute a new timed probe."""
 import copy
 import json
+from hashlib import sha256
 import numpy as np
 import pytest
 from benchmarks import stage5c_e4_v02_resource_methods as methods
 from benchmarks import stage5c_e4_v02_resource_campaign as campaign
+
+
+def test_all_frozen_source_and_input_byte_pins_match():
+    manifest = json.loads(campaign.MANIFEST.read_text())
+    for path, expected in manifest["input_sha256"].items():
+        assert sha256((campaign.ROOT / path).read_bytes()).hexdigest() == expected, path
 
 
 def test_nnls_known_boundary_solution_and_rank_failure():
@@ -88,3 +95,32 @@ def test_no_receipt_blocks_before_resource_mutation_or_producer(monkeypatch, tmp
     with pytest.raises(campaign.ResourceNotAuthorized, match="receipt required"):
         campaign.run_campaign(None, tmp_path / "uncreated")
     assert not (tmp_path / "uncreated").exists()
+
+
+def test_memory_preflight_abort_retains_all_unstarted_jobs(monkeypatch, tmp_path):
+    # Simulate supervisor preflight only; no receipt, resource change or child probe is created.
+    output = tmp_path / "simulated-records"
+    monkeypatch.setattr(campaign, "check_receipt", lambda *a: {"reviewed_commit": "test-only"})
+    monkeypatch.setattr(campaign.resource, "setrlimit", lambda *a: None)
+    monkeypatch.setattr(campaign, "check_runtime", lambda *a: None)
+    monkeypatch.setattr(methods, "method_reference", lambda: {})
+    monkeypatch.setattr(methods, "verify_reference", lambda *a: None)
+    original_read = campaign.Path.read_text
+    monkeypatch.setattr(campaign.Path, "read_text", lambda p, *a, **k:
+                        '{}' if str(p) == "test-only-receipt" else original_read(p, *a, **k))
+    memory_calls = iter([{"host_available_bytes": 4*1024**3, "cgroup_remaining_bytes": 4*1024**3}, None])
+    def memory():
+        result = next(memory_calls)
+        if result is None:
+            raise RuntimeError("insufficient simulated headroom")
+        return result
+    monkeypatch.setattr(campaign, "memory_preflight", memory)
+    def forbidden(*a, **k):
+        raise AssertionError("no probe may start after failed preflight")
+    monkeypatch.setattr(campaign.subprocess, "Popen", forbidden)
+    campaign.run_campaign("test-only-receipt", output)
+    records = [json.loads(line) for line in (output / "records.jsonl").read_text().splitlines()]
+    abort = next(r for r in records if r.get("outcome") == "MEMORY-PREFLIGHT-ABORT")
+    manifest = json.loads(campaign.MANIFEST.read_text())
+    assert abort["not_run_ids"] == [j["id"] for j in manifest["jobs"]]
+    assert records[-1]["outcome"] == "MEMORY-PREFLIGHT-ABORT"
