@@ -225,7 +225,7 @@ Solver、loss/scaling、regression／held-out門檻、direct-first順序、整�
 57600 s aggregate CPU、censor/abort與memory/host pins均明列；external receipt尚未建立。
 本輪只有既有training資料的方法驗證與tests，沒有新timing probes或scientific樣本。
 獨立複核指出CPU hard-limit繼承與wall競態阻擋；修訂soft600/hard5001、完整wall admission、
-CPU1 supervisor／CPU0 worker及500 ms cadence、E4-only900／child1020 timer、
+CPU1 supervisor／CPU0 worker及500 ms cadence、E4-only900／child1020 wall／production CPU1100、SIGXCPU flag+SIG_IGN、
 identity-verified censored phase下界與逐模型用途；Linux stub end-to-end tests不呼叫producer。
 三held-out cells的全部模型10% intervals事前無共同交集，整組INSUFFICIENT必然；仍待新exact-head複核。
 Production caps／analysis／custody／burn registry不動；item7 AMENDMENT-REVIEW-PENDING，
@@ -373,6 +373,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.06（manifest小幅複核修訂，2026-10-06）- Production child CPU由1000增為1100，保留E4-only900／child wall1020與setup120；supervisor SIGXCPU改stop flag＋SIG_IGN，由checkpoints停止與cleanup，避免任意位置拋例外；更正evaluate-only timeout witness措辭。總60000 wall／57600 CPU不變，無新research probes／receipt，待新exact-head複核。*
+
 *v2.05（manifest harness review fixes，2026-10-06）- 修正CPU hard-limit繼承、global wall admission/deadline分類、supervisor輪詢與CPU/affinity預留、E4-only timer及stress censor下界；新增真實Linux limits/signals/kill與PID-identity stub tests，無numeric producer。量測前固定primary stress_affine與全部power scenario用途，明列整組model agreement不可能及cross-profile timing限制。仍review draft、authorization=NONE；無新research timing probes／scientific樣本。*
 
 *v2.04（measurement manifest review draft，2026-10-05）- 記錄 #60/#61 merge commits與受審tree一致，補兩處非阻擋措辭；新增version-pinned NNLS方法regression（只重用既有training資料）、完整exact-byte fixture選擇artifact、固定139-job計畫與review-gated diagnostic harness。Direct-first；censored續跑、fatal/global-budget停止；60000 s wall／57600 s aggregate CPU，10% held-out residual門檻與1e-8/1e-10 method regression tolerances均為待本manifest複核的固定判準。未執行新timing probes，無production code／caps／gates／namespace變動，authorization=NONE。*

@@ -113,7 +113,7 @@ def test_censored_phase_lower_bound_reaches_model_invalid_path():
 def test_production_phase_scope_and_setup_allowance_are_frozen():
     manifest = json.loads(campaign.MANIFEST.read_text())
     production = [j for j in manifest['jobs'] if j['kind'] == 'production']
-    assert all(j['e4_wall_cap'] == 900 and j['setup_allowance'] == 120 and j['wall_cap'] == 1020
+    assert all(j['e4_wall_cap'] == 900 and j['setup_allowance'] == 120 and j['wall_cap'] == 1020 and j['cpu_cap'] == 1100
                for j in production)
     assert manifest['poll_cadence_seconds'] == .5
     assert manifest['supervisor_cpu_soft_cap'] == 600

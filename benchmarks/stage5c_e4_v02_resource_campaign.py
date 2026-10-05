@@ -87,10 +87,6 @@ class E4WallExpired(TimeoutError):
     pass
 
 
-class SupervisorCPUExpired(RuntimeError):
-    pass
-
-
 @contextmanager
 def e4_deadline(seconds):
     """Same evaluate-only ITIMER_REAL scope as production; no whole-child alarm."""
@@ -112,11 +108,14 @@ def supervisor_limits(manifest):
     soft = manifest["supervisor_cpu_soft_cap"]
     hard = max(soft + 1, max(j["cpu_cap"] + 1 for j in manifest["jobs"]))
     # Children inherit a high hard limit, then lower it to their own cap+1.
+    stop = {"expired": False}
+    def expired(_signum, _frame):
+        stop["expired"] = True
+        signal.signal(signal.SIGXCPU, signal.SIG_IGN)
+    stop["old_handler"] = signal.signal(signal.SIGXCPU, expired)
     resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
     resource.setrlimit(resource.RLIMIT_CPU, (soft, hard))
-    def expired(_signum, _frame):
-        raise SupervisorCPUExpired("supervisor process CPU soft cap")
-    return signal.signal(signal.SIGXCPU, expired)
+    return stop
 
 
 def worker_limits(job, *, address_space_cap=32*1024**3):
@@ -172,11 +171,14 @@ def read_live_sample(pid, identity):
 
 
 def monitor_child(process, job, *, child_deadline, plan_deadline, cadence,
-                  child_rss_cap, aggregate_rss_cap, stderr_path=None):
+                  child_rss_cap, aggregate_rss_cap, stderr_path=None, cpu_stop=None):
     """Reap every path, including supervisor CPU expiry; no numerical work."""
     reason, sample, identity = None, None, None
     try:
         while True:
+            if cpu_stop is not None and cpu_stop["expired"]:
+                reason = "PLAN-PARENT-CPU-INCOMPLETE"
+                break
             pid, wait_status, usage = os.wait4(process.pid, os.WNOHANG)
             if pid:
                 process.returncode = os.waitstatus_to_exitcode(wait_status)
@@ -197,8 +199,6 @@ def monitor_child(process, job, *, child_deadline, plan_deadline, cadence,
             if reason:
                 break
             time.sleep(min(cadence, max(0, min(child_deadline, plan_deadline)-now)))
-    except SupervisorCPUExpired:
-        reason = "PLAN-PARENT-CPU-INCOMPLETE"
     except BaseException:
         try:
             os.kill(process.pid, signal.SIGKILL)
@@ -312,12 +312,14 @@ def run_campaign(receipt_path, output_directory):
     start_wall = time.monotonic()  # Includes receipt, preflight, method verification and all jobs.
     receipt = check_receipt(receipt_path, output_directory)  # No timed execution before this gate.
     manifest = json.loads(MANIFEST.read_text())
-    old_cpu_handler = supervisor_limits(manifest)
+    cpu_stop = supervisor_limits(manifest)
     check_runtime(manifest)
     initial_memory = memory_preflight()
     # Method checks are included in the campaign clock; new data cannot refit this reference.
     methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
     fixtures = json.loads(FIXTURES.read_text())
+    if cpu_stop["expired"]:
+        raise RuntimeError("supervisor CPU soft cap exhausted during preflight; no child started")
     directory = Path(output_directory).resolve()
     directory.mkdir(parents=True, exist_ok=False)  # One attempt; no resume or overwrite.
     start_cpu = 0.0  # Whole supervisor process CPU, including imports/method verification.
@@ -332,105 +334,113 @@ def run_campaign(receipt_path, output_directory):
         emit({"state": "DEVELOPMENT-NOT-QUALIFICATION", "manifest_sha256": sha256(MANIFEST.read_bytes()).hexdigest(),
               "receipt": json.loads(Path(receipt_path).read_text()), "method_verified": True,
               "initial_memory": initial_memory, "actual_python": sys.version})
-        attempted_ids, process = set(), None
-        try:
-            for index, job in enumerate(manifest["jobs"]):
-                process = None
-                # Reserve full parent soft cap, child hard-limit tail and collection margin.
-                if children_cpu + job["cpu_cap"] + 2 + manifest["supervisor_cpu_soft_cap"] > manifest["total_cpu_cap"]:
-                    status = "PLAN-CPU-BUDGET-INCOMPLETE"
-                    emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
-                    break
-                plan_deadline = start_wall + manifest["total_wall_cap"] - manifest["wall_cleanup_margin"]
-                if time.monotonic() + job["wall_cap"] + manifest["wall_startup_margin"] > plan_deadline:
-                    status = "PLAN-WALL-BUDGET-INCOMPLETE"
-                    emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
-                    break
-                try:
-                    memory = memory_preflight()
-                except RuntimeError as exc:
-                    status = "MEMORY-PREFLIGHT-ABORT"
-                    emit({"outcome": status, "error": str(exc),
-                          "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
-                    break
-                # Recheck after preflight/fsync setup before spending an attempt.
-                if time.monotonic() + job["wall_cap"] + manifest["wall_startup_margin"] > plan_deadline:
-                    status = "PLAN-WALL-BUDGET-INCOMPLETE"
-                    emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
-                    break
-                attempted_ids.add(job["id"])
-                emit({"job_id": job["id"], "outcome": "ATTEMPT-STARTED", "memory_preflight": memory})
-                out, err = directory / (job["id"]+".json"), directory / (job["id"]+".stderr")
-                with out.open("x") as stdout, err.open("x") as stderr:
-                    command = [sys.executable, "-m", "benchmarks.stage5c_e4_v02_resource_campaign", "worker", "--job", str(index)]
-                    environment = dict(os.environ, STAGE5C_RESOURCE_REVIEW_RECEIPT=str(Path(receipt_path).resolve()),
-                                       STAGE5C_RESOURCE_OUTPUT_DIRECTORY=str(directory),
-                                       STAGE5C_RESOURCE_PARENT_PID=str(os.getpid()),
-                                       STAGE5C_RESOURCE_REVIEWED_COMMIT=receipt["reviewed_commit"])
-                    began = time.monotonic()  # Whole-child cap starts before spawn, including imports.
-                    child_deadline = began + job["wall_cap"]
-                    deadline_source = "plan" if plan_deadline <= child_deadline else "per-child"
-                    process = subprocess.Popen(command, cwd=ROOT, stdout=stdout, stderr=stderr, env=environment)
-                    reason, usage, sample = monitor_child(
-                        process, job, child_deadline=child_deadline, plan_deadline=plan_deadline,
-                        cadence=manifest["poll_cadence_seconds"], child_rss_cap=manifest["child_rss_cap_bytes"],
-                        aggregate_rss_cap=manifest["aggregate_parent_child_rss_cap_bytes"], stderr_path=err)
-                cpu = usage.ru_utime + usage.ru_stime
-                children_cpu += cpu
-                record = {"job_id": job["id"], "role": job["role"], "child_total_cpu_seconds": cpu,
-                          "child_total_wall_seconds": time.monotonic()-began,
-                          "child_peak_rss_bytes": usage.ru_maxrss*1024,
-                          "parent_peak_rss_bytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
-                          "memory_preflight": memory, "worker_deadline_source": deadline_source,
-                          "child_deadline_monotonic": child_deadline, "plan_deadline_monotonic": plan_deadline,
-                          "supervisor_affinity": manifest["host"]["supervisor_affinity"],
-                          "worker_affinity": manifest["host"]["worker_affinity"]}
-                record["sum_of_parent_child_peaks_bytes"] = record["parent_peak_rss_bytes"]+record["child_peak_rss_bytes"]
-                if usage.ru_maxrss*1024 > 2*1024**3 or record["sum_of_parent_child_peaks_bytes"] > 5*1024**3//2:
-                    reason = "MEMORY-CAP-ABORT"
-                if reason:
-                    record.update(outcome=reason, phase_cpu_seconds=None, phase_wall_seconds=None,
-                                  phase_cost_bound="UNKNOWN; whole-child cost is not a phase lower bound")
-                elif process.returncode == -signal.SIGXCPU:
-                    record.update(outcome="CPU-CAP-CENSORED", phase_cpu_seconds=None, phase_wall_seconds=None)
-                elif process.returncode != 0:
-                    record.update(outcome="IMPLEMENTATION-ABORT", exit_code=process.returncode)
-                    reason = "IMPLEMENTATION-ABORT"
-                else:
-                    record.update(json.loads(out.read_text()))
-                if job["kind"] == "stress" and record["outcome"] in ("WALL-CAP-CENSORED", "CPU-CAP-CENSORED"):
-                    record.update(phase_lower_bounds(err, sample))
-                    if "phase_wall_lower_bound_seconds" in record:
-                        record["phase_cost_bound"] = "instrumented stress phase lower bound; includes start-marker flush"
-                emit(record)
-                if reason in ("MEMORY-CAP-ABORT", "IMPLEMENTATION-ABORT", "PLAN-WALL-BUDGET-INCOMPLETE", "PLAN-PARENT-CPU-INCOMPLETE"):
-                    status = reason
+        for index, job in enumerate(manifest["jobs"]):
+            if cpu_stop["expired"]:
+                status = "PLAN-PARENT-CPU-INCOMPLETE"
+                emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            # Reserve full parent soft cap, child hard-limit tail and collection margin.
+            if children_cpu + job["cpu_cap"] + 2 + manifest["supervisor_cpu_soft_cap"] > manifest["total_cpu_cap"]:
+                status = "PLAN-CPU-BUDGET-INCOMPLETE"
+                emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            plan_deadline = start_wall + manifest["total_wall_cap"] - manifest["wall_cleanup_margin"]
+            if time.monotonic() + job["wall_cap"] + manifest["wall_startup_margin"] > plan_deadline:
+                status = "PLAN-WALL-BUDGET-INCOMPLETE"
+                emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            try:
+                memory = memory_preflight()
+            except RuntimeError as exc:
+                status = "MEMORY-PREFLIGHT-ABORT"
+                emit({"outcome": status, "error": str(exc),
+                      "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            # Recheck after preflight/fsync setup before spending an attempt.
+            if time.monotonic() + job["wall_cap"] + manifest["wall_startup_margin"] > plan_deadline:
+                status = "PLAN-WALL-BUDGET-INCOMPLETE"
+                emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            if cpu_stop["expired"]:
+                status = "PLAN-PARENT-CPU-INCOMPLETE"
+                emit({"outcome": status, "not_run_ids": [x["id"] for x in manifest["jobs"][index:]]})
+                break
+            emit({"job_id": job["id"], "outcome": "ATTEMPT-STARTED", "memory_preflight": memory})
+            out, err = directory / (job["id"]+".json"), directory / (job["id"]+".stderr")
+            with out.open("x") as stdout, err.open("x") as stderr:
+                command = [sys.executable, "-m", "benchmarks.stage5c_e4_v02_resource_campaign", "worker", "--job", str(index)]
+                environment = dict(os.environ, STAGE5C_RESOURCE_REVIEW_RECEIPT=str(Path(receipt_path).resolve()),
+                                   STAGE5C_RESOURCE_OUTPUT_DIRECTORY=str(directory),
+                                   STAGE5C_RESOURCE_PARENT_PID=str(os.getpid()),
+                                   STAGE5C_RESOURCE_REVIEWED_COMMIT=receipt["reviewed_commit"])
+                began = time.monotonic()  # Whole-child cap starts before spawn, including imports.
+                child_deadline = began + job["wall_cap"]
+                deadline_source = "plan" if plan_deadline <= child_deadline else "per-child"
+                if cpu_stop["expired"]:
+                    status = "PLAN-PARENT-CPU-INCOMPLETE"
+                    emit({"job_id": job["id"], "outcome": status, "worker_started": False})
                     emit({"outcome": "NOT-RUN", "not_run_ids": [x["id"] for x in manifest["jobs"][index+1:]]})
                     break
-        except SupervisorCPUExpired:
-            # CPU cap can expire during launch or between jobs, not only while polling.
-            status = "PLAN-PARENT-CPU-INCOMPLETE"
-            if process is not None and process.returncode is None:
-                try:
-                    os.kill(process.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-                _, wait_status, usage = os.wait4(process.pid, 0)
-                process.returncode = os.waitstatus_to_exitcode(wait_status)
-                children_cpu += usage.ru_utime + usage.ru_stime
-            emit({"outcome": status, "attempted_ids": sorted(attempted_ids),
-                  "not_run_ids": [j["id"] for j in manifest["jobs"] if j["id"] not in attempted_ids]})
+                process = subprocess.Popen(command, cwd=ROOT, stdout=stdout, stderr=stderr, env=environment)
+                reason, usage, sample = monitor_child(
+                    process, job, child_deadline=child_deadline, plan_deadline=plan_deadline,
+                    cadence=manifest["poll_cadence_seconds"], child_rss_cap=manifest["child_rss_cap_bytes"],
+                    aggregate_rss_cap=manifest["aggregate_parent_child_rss_cap_bytes"], stderr_path=err, cpu_stop=cpu_stop)
+            cpu = usage.ru_utime + usage.ru_stime
+            children_cpu += cpu
+            record = {"job_id": job["id"], "role": job["role"], "child_total_cpu_seconds": cpu,
+                      "child_total_wall_seconds": time.monotonic()-began,
+                      "child_peak_rss_bytes": usage.ru_maxrss*1024,
+                      "parent_peak_rss_bytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
+                      "memory_preflight": memory, "worker_deadline_source": deadline_source,
+                      "child_deadline_monotonic": child_deadline, "plan_deadline_monotonic": plan_deadline,
+                      "supervisor_affinity": manifest["host"]["supervisor_affinity"],
+                      "worker_affinity": manifest["host"]["worker_affinity"]}
+            record["sum_of_parent_child_peaks_bytes"] = record["parent_peak_rss_bytes"]+record["child_peak_rss_bytes"]
+            if usage.ru_maxrss*1024 > 2*1024**3 or record["sum_of_parent_child_peaks_bytes"] > 5*1024**3//2:
+                reason = "MEMORY-CAP-ABORT"
+            if reason:
+                record.update(outcome=reason, phase_cpu_seconds=None, phase_wall_seconds=None,
+                              phase_cost_bound="UNKNOWN; whole-child cost is not a phase lower bound")
+            elif process.returncode == -signal.SIGXCPU:
+                record.update(outcome="CPU-CAP-CENSORED", phase_cpu_seconds=None, phase_wall_seconds=None)
+            elif process.returncode != 0:
+                record.update(outcome="IMPLEMENTATION-ABORT", exit_code=process.returncode)
+                reason = "IMPLEMENTATION-ABORT"
+            else:
+                record.update(json.loads(out.read_text()))
+            if job["kind"] == "stress" and record["outcome"] in ("WALL-CAP-CENSORED", "CPU-CAP-CENSORED"):
+                record.update(phase_lower_bounds(err, sample))
+                if "phase_wall_lower_bound_seconds" in record:
+                    record["phase_cost_bound"] = "instrumented stress phase lower bound; includes start-marker flush"
+            emit(record)
+            if cpu_stop["expired"]:
+                reason = "PLAN-PARENT-CPU-INCOMPLETE"
+            if reason in ("MEMORY-CAP-ABORT", "IMPLEMENTATION-ABORT", "PLAN-WALL-BUDGET-INCOMPLETE", "PLAN-PARENT-CPU-INCOMPLETE"):
+                status = reason
+                emit({"outcome": "NOT-RUN", "not_run_ids": [x["id"] for x in manifest["jobs"][index+1:]]})
+                break
         final_wall, final_parent_cpu = time.monotonic()-start_wall, time.process_time()-start_cpu
+        if cpu_stop["expired"]:
+            status = "PLAN-PARENT-CPU-INCOMPLETE"
         if status == "PLAN-COMPLETE":
             if final_wall > manifest["total_wall_cap"]:
                 status = "PLAN-WALL-BUDGET-INCOMPLETE"
             elif final_parent_cpu + children_cpu > manifest["total_cpu_cap"]:
                 status = "PLAN-CPU-BUDGET-INCOMPLETE"
-        emit({"outcome": status, "plan_wall_seconds": final_wall,
-              "parent_cpu_seconds": final_parent_cpu, "children_cpu_seconds": children_cpu,
-              "total_accounted_cpu_seconds": final_parent_cpu+children_cpu,
-              "production_schedule_cpu_bound": False})
-    signal.signal(signal.SIGXCPU, old_cpu_handler)
+        summary = {"outcome": status, "plan_wall_seconds": final_wall,
+                   "parent_cpu_seconds": final_parent_cpu, "children_cpu_seconds": children_cpu,
+                   "total_accounted_cpu_seconds": final_parent_cpu+children_cpu,
+                   "production_schedule_cpu_bound": False}
+        emit(summary)
+        # A signal arriving during the final write/fsync cannot interrupt the checkpoint.
+        # Append a corrected terminal summary if the flag was set in that interval.
+        if cpu_stop["expired"] and status != "PLAN-PARENT-CPU-INCOMPLETE":
+            parent_cpu = time.process_time()-start_cpu
+            summary.update(outcome="PLAN-PARENT-CPU-INCOMPLETE", plan_wall_seconds=time.monotonic()-start_wall,
+                           parent_cpu_seconds=parent_cpu, total_accounted_cpu_seconds=parent_cpu+children_cpu)
+            emit(summary)
+    signal.signal(signal.SIGXCPU, cpu_stop["old_handler"])
 
 
 def main():

@@ -1,4 +1,4 @@
-# Item 7 deterministic resource measurement manifest v0.2
+# Item 7 deterministic resource measurement manifest v0.3
 
 `REVIEW-DRAFT`；`authorization=NONE`。本 PR 提供完整的固定輸入、方法、執行計畫與
 診斷 harness，供 exact-head 複核；本輪只執行已公開training資料的方法驗證與tests；真實Linux limits/signals測試
@@ -98,7 +98,7 @@ Production calls 用真實 selector→adapter→v0.2 evaluate，完全保留 can
 |---|---|---:|---|
 | 0 | Receipt、source/host/memory pins、training method verification | — | Supervisor whole-process soft CPU 600 s |
 | 1 | 單次 direct stress (8128,4096) | 1 | 4500 / 5000 s |
-| 2 | 39 fixture/member × theta {-0.4,+0.4} | 78 | 1020 whole-child / 1000 s；E4 scope 900 s |
+| 2 | 39 fixture/member × theta {-0.4,+0.4} | 78 | 1020 whole-child / 1100 s；E4 scope 900 s |
 | 3a | a=8128, s=128，32 invocations | 32 | 900 / 1000 s |
 | 3b | a=8128, s=256，16 invocations | 16 | 900 / 1000 s |
 | 3c | a=8128, s=512，8 invocations | 8 | 900 / 1000 s |
@@ -112,8 +112,10 @@ worker 沒有 subprocess/parallel backend；這是 diagnostic campaign 的 aggre
 不改 production 的 process_time cap，也不能充作 production schedule CPU 上界。
 
 Supervisor CPU soft=600 s、inherited hard=5001 s（由最大child cap+1決定）。
-Soft超限仍送SIGXCPU；handler停止並kill/reap當前child，記PLAN-PARENT-CPU-INCOMPLETE
-和所有剩餘NOT-RUN。每worker將繼承的hard降低至自身cap+1，不需提升hard權限。
+Soft超限仍送SIGXCPU；handler只設stop flag並改SIG_IGN，不在任意位置拋例外。
+Preflight／job之間／monitor checkpoints讀flag，停止並kill/reap當前child，記
+PLAN-PARENT-CPU-INCOMPLETE和所有剩餘NOT-RUN；write/fsync與Popen不被signal例外打斷。
+Final summary寫入期間若新設flag，追加更正的terminal summary；忽略後續SIGXCPU直到cleanup完成。每worker將繼承的hard降低至自身cap+1，不需提升hard權限。
 Supervisor／worker均設RLIMIT_CORE=0。Admission保留完整600 s parent額度與2 s
 hard-tail／collection margin：`completed_child_CPU + next_cap + 2 + 600 > 57600`
 即不啟動下一項。600 s是diagnostic停止上限，不宣稱輪詢成本已有validated bound。
@@ -127,7 +129,9 @@ per-child／plan deadline及哪個較緊。Plan deadline先到一律PLAN-WALL-BU
 輪詢改500 ms，最多名義120000次／60000 s；supervisor pin CPU1，worker pin CPU0。
 Live RSS監控保留，wait4.ru_maxrss另作事後完整peak檢查。Worker不設whole-child SIGALRM；
 Linux PR_SET_PDEATHSIG=SIGKILL及設定後parent PID再驗保護orphan，supervisor負責wall kill。
-Production whole-child上限1020 s，其中固定setup allowance120 s；worker以ITIMER_REAL
+Production whole-child上限1020 s，其中固定setup allowance120 s；CPU cap1100 s，
+大於整個child wall cap，單CPU配置下不會吃掉120 s setup allowance。Admission按1100 s
+預留production child CPU，總57600 s不變；stress cycles仍1000 s。Worker以ITIMER_REAL
 只包evaluate設900 s，和production _e4_deadline同scope。Timeout輸出
 PRODUCTION-E4-WALL-CENSORED，wall lower bound=900 s；whole-child1020超時另記
 WALL-CAP-CENSORED，仍不可冒充evaluate-only witness。Allowance不足不加時或重跑。
@@ -219,7 +223,7 @@ Framework「維持現行caps」仍需要 production-domain validated U_wall×1.2
 U_CPU×1.25≤57600、完整error/overhead與memory資格化。REJECT中的必要成本lower
 bound也必須來自production domain，不能來自zero-tolerance stress或diagnostic probe。
 Production-E4-WALL-CENSORED由evaluate-only900 s timer產生，是該固定fixture／host的
-pointwise非可達性witness；若只是whole-child1020 s含setup超時，E4自身是否超900仍未知。任何ADOPT/REJECT不得偷換這兩種scope。
+該fixture／host上evaluate-only超過900秒的timeout witness；若只是whole-child1020 s含setup超時，E4自身是否超900仍未知。任何ADOPT/REJECT不得偷換這兩種scope。
 
 ## 7. 下一步
 
@@ -243,3 +247,8 @@ supervisor kill/reap、parent CPU停止、NOT-RUN與完整wall admission。另�
 kernel guard及/proc PID/start identity。Stub不呼叫numeric producer，resource限額只改
 可拋棄的test subprocess；測試輸出不當research probes或資源資格化evidence。
 Fixtures、solver reference、analysis、production caps與原evidence均未改動。
+
+
+v0.3依第二輪review補A/B/C：production child CPU1100；supervisor SIGXCPU改flag+SIG_IGN，
+不異步拋例外；production timeout統一用evaluate-only900秒timeout witness措辭。
+新增real SIGXCPU注入launch、write/fsync及final-summary的stub regressions；仍未執行研究probes。

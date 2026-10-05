@@ -64,9 +64,9 @@
     "analysis/track_b_4d_irsafe.py": "a5035966d9fbcd70480f2eb53d7d791c62c4a79c648fdfd2fa0ce7de08a09bf0",
     "analysis/track_b_4d_spectral.py": "a2d2d09dee4732e1d5dd466dd53f643350bc796689503cad738f9903f4a35459",
     "analysis/track_b_spectral_dim.py": "8751ee2c99c721a2f6f10201fcd0e4086b3b1e88a7cc6fc283ab317686e60003",
-    "benchmarks/stage5c_e4_v02_resource_campaign.py": "0999f9b2a7235281e049632089d3cba7a4125ec330b55991d4a88c63cf82810c",
+    "benchmarks/stage5c_e4_v02_resource_campaign.py": "27e8a5d7d8e5d86dba143be7769388fd05e83d3583cb6e74ef502ec042d1a8d2",
     "benchmarks/stage5c_e4_v02_resource_characterization.py": "73c45c597f1fb9e47d5c229c042c23185bd5f0f3af2717b54c473e41f61854fa",
-    "benchmarks/stage5c_e4_v02_resource_methods.py": "aaa9e022c0af59995e4dd779276fc5e693769fa868649331f1e2b9de174a308e",
+    "benchmarks/stage5c_e4_v02_resource_methods.py": "ef599a82246e10d66aacd16da22e55fa8365b1227db8c78e9b696b376800424e",
     "docs/stage5c_e4_item7_amendment_candidate_v0.2.json": "7c77ab396130a8973fe6ad46a855b22ce5d2d3d8f5d31a2025d660890ed947a7",
     "docs/stage5c_e4_v02_resource_characterization.json": "e7ae2ac3dd33b23521e637ef5809651a68d6f96373eedcc879004581cafbd321",
     "docs/stage5c_e4_v02_resource_fixture_bytes.json": "89c6bf22eb7289e54a08044903df061b021b9f526f95d8dfec42f4a28b0f6ff5",
@@ -84,7 +84,7 @@
     },
     {
       "case_index": 0,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-00--0.4",
       "kind": "production",
@@ -95,7 +95,7 @@
     },
     {
       "case_index": 0,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-00-+0.4",
       "kind": "production",
@@ -106,7 +106,7 @@
     },
     {
       "case_index": 1,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-01--0.4",
       "kind": "production",
@@ -117,7 +117,7 @@
     },
     {
       "case_index": 1,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-01-+0.4",
       "kind": "production",
@@ -128,7 +128,7 @@
     },
     {
       "case_index": 2,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-02--0.4",
       "kind": "production",
@@ -139,7 +139,7 @@
     },
     {
       "case_index": 2,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-02-+0.4",
       "kind": "production",
@@ -150,7 +150,7 @@
     },
     {
       "case_index": 3,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-03--0.4",
       "kind": "production",
@@ -161,7 +161,7 @@
     },
     {
       "case_index": 3,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-03-+0.4",
       "kind": "production",
@@ -172,7 +172,7 @@
     },
     {
       "case_index": 4,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-04--0.4",
       "kind": "production",
@@ -183,7 +183,7 @@
     },
     {
       "case_index": 4,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-04-+0.4",
       "kind": "production",
@@ -194,7 +194,7 @@
     },
     {
       "case_index": 5,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-05--0.4",
       "kind": "production",
@@ -205,7 +205,7 @@
     },
     {
       "case_index": 5,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-05-+0.4",
       "kind": "production",
@@ -216,7 +216,7 @@
     },
     {
       "case_index": 6,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-06--0.4",
       "kind": "production",
@@ -227,7 +227,7 @@
     },
     {
       "case_index": 6,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-06-+0.4",
       "kind": "production",
@@ -238,7 +238,7 @@
     },
     {
       "case_index": 7,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-07--0.4",
       "kind": "production",
@@ -249,7 +249,7 @@
     },
     {
       "case_index": 7,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-07-+0.4",
       "kind": "production",
@@ -260,7 +260,7 @@
     },
     {
       "case_index": 8,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-08--0.4",
       "kind": "production",
@@ -271,7 +271,7 @@
     },
     {
       "case_index": 8,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-08-+0.4",
       "kind": "production",
@@ -282,7 +282,7 @@
     },
     {
       "case_index": 9,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-09--0.4",
       "kind": "production",
@@ -293,7 +293,7 @@
     },
     {
       "case_index": 9,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-09-+0.4",
       "kind": "production",
@@ -304,7 +304,7 @@
     },
     {
       "case_index": 10,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-10--0.4",
       "kind": "production",
@@ -315,7 +315,7 @@
     },
     {
       "case_index": 10,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-10-+0.4",
       "kind": "production",
@@ -326,7 +326,7 @@
     },
     {
       "case_index": 11,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-11--0.4",
       "kind": "production",
@@ -337,7 +337,7 @@
     },
     {
       "case_index": 11,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-11-+0.4",
       "kind": "production",
@@ -348,7 +348,7 @@
     },
     {
       "case_index": 12,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-12--0.4",
       "kind": "production",
@@ -359,7 +359,7 @@
     },
     {
       "case_index": 12,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-12-+0.4",
       "kind": "production",
@@ -370,7 +370,7 @@
     },
     {
       "case_index": 13,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-13--0.4",
       "kind": "production",
@@ -381,7 +381,7 @@
     },
     {
       "case_index": 13,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-13-+0.4",
       "kind": "production",
@@ -392,7 +392,7 @@
     },
     {
       "case_index": 14,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-14--0.4",
       "kind": "production",
@@ -403,7 +403,7 @@
     },
     {
       "case_index": 14,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-14-+0.4",
       "kind": "production",
@@ -414,7 +414,7 @@
     },
     {
       "case_index": 15,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-15--0.4",
       "kind": "production",
@@ -425,7 +425,7 @@
     },
     {
       "case_index": 15,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-15-+0.4",
       "kind": "production",
@@ -436,7 +436,7 @@
     },
     {
       "case_index": 16,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-16--0.4",
       "kind": "production",
@@ -447,7 +447,7 @@
     },
     {
       "case_index": 16,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-16-+0.4",
       "kind": "production",
@@ -458,7 +458,7 @@
     },
     {
       "case_index": 17,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-17--0.4",
       "kind": "production",
@@ -469,7 +469,7 @@
     },
     {
       "case_index": 17,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-17-+0.4",
       "kind": "production",
@@ -480,7 +480,7 @@
     },
     {
       "case_index": 18,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-18--0.4",
       "kind": "production",
@@ -491,7 +491,7 @@
     },
     {
       "case_index": 18,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-18-+0.4",
       "kind": "production",
@@ -502,7 +502,7 @@
     },
     {
       "case_index": 19,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-19--0.4",
       "kind": "production",
@@ -513,7 +513,7 @@
     },
     {
       "case_index": 19,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-19-+0.4",
       "kind": "production",
@@ -524,7 +524,7 @@
     },
     {
       "case_index": 20,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-20--0.4",
       "kind": "production",
@@ -535,7 +535,7 @@
     },
     {
       "case_index": 20,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-20-+0.4",
       "kind": "production",
@@ -546,7 +546,7 @@
     },
     {
       "case_index": 21,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-21--0.4",
       "kind": "production",
@@ -557,7 +557,7 @@
     },
     {
       "case_index": 21,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-21-+0.4",
       "kind": "production",
@@ -568,7 +568,7 @@
     },
     {
       "case_index": 22,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-22--0.4",
       "kind": "production",
@@ -579,7 +579,7 @@
     },
     {
       "case_index": 22,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-22-+0.4",
       "kind": "production",
@@ -590,7 +590,7 @@
     },
     {
       "case_index": 23,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-23--0.4",
       "kind": "production",
@@ -601,7 +601,7 @@
     },
     {
       "case_index": 23,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-23-+0.4",
       "kind": "production",
@@ -612,7 +612,7 @@
     },
     {
       "case_index": 24,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-24--0.4",
       "kind": "production",
@@ -623,7 +623,7 @@
     },
     {
       "case_index": 24,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-24-+0.4",
       "kind": "production",
@@ -634,7 +634,7 @@
     },
     {
       "case_index": 25,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-25--0.4",
       "kind": "production",
@@ -645,7 +645,7 @@
     },
     {
       "case_index": 25,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-25-+0.4",
       "kind": "production",
@@ -656,7 +656,7 @@
     },
     {
       "case_index": 26,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-26--0.4",
       "kind": "production",
@@ -667,7 +667,7 @@
     },
     {
       "case_index": 26,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-26-+0.4",
       "kind": "production",
@@ -678,7 +678,7 @@
     },
     {
       "case_index": 27,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-27--0.4",
       "kind": "production",
@@ -689,7 +689,7 @@
     },
     {
       "case_index": 27,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-27-+0.4",
       "kind": "production",
@@ -700,7 +700,7 @@
     },
     {
       "case_index": 28,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-28--0.4",
       "kind": "production",
@@ -711,7 +711,7 @@
     },
     {
       "case_index": 28,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-28-+0.4",
       "kind": "production",
@@ -722,7 +722,7 @@
     },
     {
       "case_index": 29,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-29--0.4",
       "kind": "production",
@@ -733,7 +733,7 @@
     },
     {
       "case_index": 29,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-29-+0.4",
       "kind": "production",
@@ -744,7 +744,7 @@
     },
     {
       "case_index": 30,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-30--0.4",
       "kind": "production",
@@ -755,7 +755,7 @@
     },
     {
       "case_index": 30,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-30-+0.4",
       "kind": "production",
@@ -766,7 +766,7 @@
     },
     {
       "case_index": 31,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-31--0.4",
       "kind": "production",
@@ -777,7 +777,7 @@
     },
     {
       "case_index": 31,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-31-+0.4",
       "kind": "production",
@@ -788,7 +788,7 @@
     },
     {
       "case_index": 32,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-32--0.4",
       "kind": "production",
@@ -799,7 +799,7 @@
     },
     {
       "case_index": 32,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-32-+0.4",
       "kind": "production",
@@ -810,7 +810,7 @@
     },
     {
       "case_index": 33,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-33--0.4",
       "kind": "production",
@@ -821,7 +821,7 @@
     },
     {
       "case_index": 33,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-33-+0.4",
       "kind": "production",
@@ -832,7 +832,7 @@
     },
     {
       "case_index": 34,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-34--0.4",
       "kind": "production",
@@ -843,7 +843,7 @@
     },
     {
       "case_index": 34,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-34-+0.4",
       "kind": "production",
@@ -854,7 +854,7 @@
     },
     {
       "case_index": 35,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-35--0.4",
       "kind": "production",
@@ -865,7 +865,7 @@
     },
     {
       "case_index": 35,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-35-+0.4",
       "kind": "production",
@@ -876,7 +876,7 @@
     },
     {
       "case_index": 36,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-36--0.4",
       "kind": "production",
@@ -887,7 +887,7 @@
     },
     {
       "case_index": 36,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-36-+0.4",
       "kind": "production",
@@ -898,7 +898,7 @@
     },
     {
       "case_index": 37,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-37--0.4",
       "kind": "production",
@@ -909,7 +909,7 @@
     },
     {
       "case_index": 37,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-37-+0.4",
       "kind": "production",
@@ -920,7 +920,7 @@
     },
     {
       "case_index": 38,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-38--0.4",
       "kind": "production",
@@ -931,7 +931,7 @@
     },
     {
       "case_index": 38,
-      "cpu_cap": 1000,
+      "cpu_cap": 1100,
       "e4_wall_cap": 900,
       "id": "reach-38-+0.4",
       "kind": "production",
@@ -1516,6 +1516,7 @@
   "state": "MEASUREMENT-MANIFEST-REVIEW-DRAFT",
   "supervisor_cpu_inherited_hard_cap": 5001,
   "supervisor_cpu_soft_cap": 600,
+  "supervisor_cpu_stop": "SIGXCPU sets flag then SIG_IGN; checkpoints stop/reap; corrected terminal summary if flag arrives during fsync",
   "timing_scopes": {
     "censored_stress": "identity-verified last-live sample; two-tick CPU discount; never whole-child as phase",
     "production": "evaluate-only ITIMER_REAL900; whole-child1020 with fixed120 setup allowance",

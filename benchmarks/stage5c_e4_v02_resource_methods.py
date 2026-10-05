@@ -227,7 +227,7 @@ def build_plan(fixtures):
             jobs.append({"id": f"reach-{i:02d}-{theta:+.1f}", "kind": "production",
                          "case_index": i, "theta_hex": theta.hex(), "wall_cap": 1020,
                          "e4_wall_cap": 900, "setup_allowance": 120,
-                         "cpu_cap": 1000, "role": "reachability_only_not_model_validation"})
+                         "cpu_cap": 1100, "role": "reachability_only_not_model_validation"})
     for s in (128, 256, 512, 1024):
         for repetition in range(4096//s):
             jobs.append({"id": f"cycle-s{s}-{repetition:02d}", "kind": "stress", "atoms": 8128,

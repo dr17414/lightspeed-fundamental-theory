@@ -59,7 +59,7 @@ def stub_campaign(tmp_path, mode):
     mf.write_text(json.dumps(manifest)); receipt.write_text('{}')
     script = tmp_path/'supervisor.py'
     script.write_text(textwrap.dedent('''
-        import json, pathlib, sys, time
+        import json, os, pathlib, signal, sys, time
         from benchmarks import stage5c_e4_v02_resource_campaign as c
         mf, output, receipt, worker, mode = sys.argv[1:]
         c.MANIFEST = pathlib.Path(mf)
@@ -70,9 +70,27 @@ def stub_campaign(tmp_path, mode):
         c.methods.verify_reference = lambda *a: None
         real_popen = c.subprocess.Popen
         def launch(command, **kwargs):
+            assert mode != 'signal_fsync', 'no worker may start after the CPU stop flag'
             job = json.loads(pathlib.Path(mf).read_text())['jobs'][int(command[-1])]
-            return real_popen([sys.executable, worker, mode, str(job['cpu_cap'])], **kwargs)
+            process = real_popen([sys.executable, worker, mode, str(job['cpu_cap'])], **kwargs)
+            if mode == 'signal_launch':
+                os.kill(os.getpid(), signal.SIGXCPU)
+                assert signal.getsignal(signal.SIGXCPU) == signal.SIG_IGN
+                os.kill(os.getpid(), signal.SIGXCPU)
+            return process
         c.subprocess.Popen = launch
+        if mode in ('signal_fsync', 'signal_summary'):
+            real_fsync, calls = c.os.fsync, [0]
+            def inject(fd):
+                calls[0] += 1
+                data = (pathlib.Path(output)/'records.jsonl').read_text()
+                target = calls[0] == 2 if mode == 'signal_fsync' else 'production_schedule_cpu_bound' in data
+                if target:
+                    os.kill(os.getpid(), signal.SIGXCPU)
+                    assert signal.getsignal(signal.SIGXCPU) == signal.SIG_IGN
+                    os.kill(os.getpid(), signal.SIGXCPU)
+                return real_fsync(fd)
+            c.os.fsync = inject
         if mode == 'parent':
             def busy(seconds):
                 end = time.process_time() + .04
@@ -171,3 +189,12 @@ def test_worker_kernel_parent_death_guard(tmp_path):
         if fields[0] == 'Z' or int(fields[19]) != identity['start_ticks']: break
         assert campaign.time.monotonic() < deadline
         campaign.time.sleep(.01)
+
+
+@pytest.mark.parametrize('mode', ['signal_launch', 'signal_fsync', 'signal_summary'])
+def test_sigxcpu_flag_does_not_interrupt_launch_checkpoint_or_summary(tmp_path, mode):
+    records = stub_campaign(tmp_path, mode)
+    assert records[-1]['outcome'] == 'PLAN-PARENT-CPU-INCOMPLETE'
+    if mode != 'signal_summary':
+        assert next(r for r in records if r.get('outcome') == 'NOT-RUN')['not_run_ids'] == ['stub-next']
+        assert not any(r.get('job_id') == 'stub-next' for r in records)
