@@ -22,14 +22,18 @@
     "cgroup_cpu_max": "800000 100000",
     "cgroup_memory_max": "8589934592",
     "cpu_model": "AMD EPYC 9V74 80-Core Processor",
-    "pinned_affinity": [
-      0
-    ],
     "profile": "DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
     "python": "3.12.14",
+    "supervisor_affinity": [
+      1
+    ],
     "sys_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
     "thread_env_value": "1",
     "threadpoolctl": "3.6.0",
+    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; historical single process had no supervisor wakeups",
+    "worker_affinity": [
+      0
+    ],
     "workers": 1
   },
   "input_sha256": {
@@ -60,9 +64,9 @@
     "analysis/track_b_4d_irsafe.py": "a5035966d9fbcd70480f2eb53d7d791c62c4a79c648fdfd2fa0ce7de08a09bf0",
     "analysis/track_b_4d_spectral.py": "a2d2d09dee4732e1d5dd466dd53f643350bc796689503cad738f9903f4a35459",
     "analysis/track_b_spectral_dim.py": "8751ee2c99c721a2f6f10201fcd0e4086b3b1e88a7cc6fc283ab317686e60003",
-    "benchmarks/stage5c_e4_v02_resource_campaign.py": "6a343fcb77522678a056945079d3709a07caf70707e6b81325a3515fa7693b82",
+    "benchmarks/stage5c_e4_v02_resource_campaign.py": "0999f9b2a7235281e049632089d3cba7a4125ec330b55991d4a88c63cf82810c",
     "benchmarks/stage5c_e4_v02_resource_characterization.py": "73c45c597f1fb9e47d5c229c042c23185bd5f0f3af2717b54c473e41f61854fa",
-    "benchmarks/stage5c_e4_v02_resource_methods.py": "e90f63fff4b8c7fa6c378c38ced94d1c1a41ad3927f9244fbf791ce8b95c8190",
+    "benchmarks/stage5c_e4_v02_resource_methods.py": "aaa9e022c0af59995e4dd779276fc5e693769fa868649331f1e2b9de174a308e",
     "docs/stage5c_e4_item7_amendment_candidate_v0.2.json": "7c77ab396130a8973fe6ad46a855b22ce5d2d3d8f5d31a2025d660890ed947a7",
     "docs/stage5c_e4_v02_resource_characterization.json": "e7ae2ac3dd33b23521e637ef5809651a68d6f96373eedcc879004581cafbd321",
     "docs/stage5c_e4_v02_resource_fixture_bytes.json": "89c6bf22eb7289e54a08044903df061b021b9f526f95d8dfec42f4a28b0f6ff5",
@@ -81,704 +85,860 @@
     {
       "case_index": 0,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-00--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 0,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-00-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 1,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-01--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 1,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-01-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 2,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-02--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 2,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-02-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 3,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-03--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 3,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-03-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 4,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-04--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 4,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-04-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 5,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-05--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 5,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-05-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 6,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-06--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 6,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-06-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 7,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-07--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 7,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-07-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 8,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-08--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 8,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-08-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 9,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-09--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 9,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-09-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 10,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-10--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 10,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-10-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 11,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-11--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 11,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-11-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 12,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-12--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 12,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-12-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 13,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-13--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 13,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-13-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 14,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-14--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 14,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-14-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 15,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-15--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 15,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-15-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 16,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-16--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 16,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-16-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 17,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-17--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 17,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-17-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 18,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-18--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 18,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-18-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 19,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-19--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 19,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-19-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 20,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-20--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 20,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-20-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 21,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-21--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 21,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-21-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 22,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-22--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 22,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-22-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 23,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-23--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 23,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-23-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 24,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-24--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 24,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-24-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 25,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-25--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 25,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-25-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 26,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-26--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 26,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-26-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 27,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-27--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 27,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-27-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 28,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-28--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 28,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-28-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 29,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-29--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 29,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-29-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 30,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-30--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 30,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-30-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 31,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-31--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 31,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-31-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 32,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-32--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 32,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-32-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 33,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-33--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 33,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-33-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 34,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-34--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 34,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-34-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 35,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-35--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 35,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-35-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 36,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-36--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 36,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-36-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 37,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-37--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 37,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-37-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 38,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-38--0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "-0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "case_index": 38,
       "cpu_cap": 1000,
+      "e4_wall_cap": 900,
       "id": "reach-38-+0.4",
       "kind": "production",
       "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
       "theta_hex": "0x1.999999999999ap-2",
-      "wall_cap": 900
+      "wall_cap": 1020
     },
     {
       "atoms": 8128,
@@ -1325,11 +1485,16 @@
   "policy": {
     "coefficient_reference_atol": 1e-10,
     "coefficient_reference_rtol": 1e-08,
+    "model_set_all_pass": "structurally impossible at all three held-out cells; never an ADOPT criterion",
     "parallel_cpu_ratio_limit": 1.1,
     "parallel_jobs": 0,
+    "power_model_use": "all 16 frozen scenario forms reported; no winning subset",
+    "primary_stress_model": "stress_affine",
     "residual_limit": 0.1,
     "safety_multiplier": 1.25
   },
+  "poll_cadence_seconds": 0.5,
+  "production_setup_allowance": 120,
   "selected_package": "maintain_current_production_caps; diagnose reachability and model adequacy only",
   "solver": {
     "atol": "OMITTED; unused in pinned implementation",
@@ -1349,7 +1514,15 @@
     "tie_rule": "full-column-rank designs only; accept pinned active set, no alternate solver or post-result tie selection"
   },
   "state": "MEASUREMENT-MANIFEST-REVIEW-DRAFT",
-  "supervisor_cpu_hard_cap": 120,
+  "supervisor_cpu_inherited_hard_cap": 5001,
+  "supervisor_cpu_soft_cap": 600,
+  "timing_scopes": {
+    "censored_stress": "identity-verified last-live sample; two-tick CPU discount; never whole-child as phase",
+    "production": "evaluate-only ITIMER_REAL900; whole-child1020 with fixed120 setup allowance",
+    "stress": "instrumented action phase including start/end marker flushes and result metadata; cross-profile diagnostic only"
+  },
   "total_cpu_cap": 57600,
-  "total_wall_cap": 60000
+  "total_wall_cap": 60000,
+  "wall_cleanup_margin": 5,
+  "wall_startup_margin": 5
 }

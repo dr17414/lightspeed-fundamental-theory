@@ -1,7 +1,8 @@
-# Item 7 deterministic resource measurement manifest v0.1
+# Item 7 deterministic resource measurement manifest v0.2
 
 `REVIEW-DRAFT`；`authorization=NONE`。本 PR 提供完整的固定輸入、方法、執行計畫與
-診斷 harness，供 exact-head 複核；本輪只執行已公開 training 資料的方法驗證和 tests。
+診斷 harness，供 exact-head 複核；本輪只執行已公開training資料的方法驗證與tests；真實Linux limits/signals測試
+使用短sleep／busy stubs，不呼叫numeric producer，也不形成research timing evidence。
 沒有執行新計時 probes、screen、generator、seed、arm ledger／endpoint 或候選 K。
 合併不等於執行授權，沒有提交 external authorization receipt。
 
@@ -95,9 +96,9 @@ Production calls 用真實 selector→adapter→v0.2 evaluate，完全保留 can
 
 | 順序 | 工作 | Calls | Per-child wall / CPU cap |
 |---|---|---:|---|
-| 0 | Receipt、source/host/memory pins、training method verification | — | Supervisor whole-process CPU 120 s |
+| 0 | Receipt、source/host/memory pins、training method verification | — | Supervisor whole-process soft CPU 600 s |
 | 1 | 單次 direct stress (8128,4096) | 1 | 4500 / 5000 s |
-| 2 | 39 fixture/member × theta {-0.4,+0.4} | 78 | 900 / 1000 s |
+| 2 | 39 fixture/member × theta {-0.4,+0.4} | 78 | 1020 whole-child / 1000 s；E4 scope 900 s |
 | 3a | a=8128, s=128，32 invocations | 32 | 900 / 1000 s |
 | 3b | a=8128, s=256，16 invocations | 16 | 900 / 1000 s |
 | 3c | a=8128, s=512，8 invocations | 8 | 900 / 1000 s |
@@ -110,13 +111,26 @@ supervisor `process_time()`（含 imports）加 `wait4` 所取 direct child user
 worker 沒有 subprocess/parallel backend；這是 diagnostic campaign 的 aggregate 計量，
 不改 production 的 process_time cap，也不能充作 production schedule CPU 上界。
 
-Supervisor hard CPU=120 s；每 child 使用 RLIMIT_CPU soft=listed cap、hard=cap+1。
-Admission 固定保留完整120 s parent額度與2 s child kernel/collection margin：若
-`completed_child_CPU + next_cap + 2 + 120 > 57600`，不啟動下一項，記全部剩餘 NOT-RUN。
-Supervisor 留5 s wall cleanup margin；到整體 deadline 即 kill/reap current child 並停止。
-Worker 自身也有 SIGALRM，deadline 不超過 per-child 或剩餘整體 wall，以免 supervisor
-異常終止後留下無 wall 限制的 orphan。監控以50 ms cadence；若實測最終超限或缺完整
-summary，一律 PLAN-INCOMPLETE／證據不足，不宣稱診斷 cap 的 validated execution bound。
+Supervisor CPU soft=600 s、inherited hard=5001 s（由最大child cap+1決定）。
+Soft超限仍送SIGXCPU；handler停止並kill/reap當前child，記PLAN-PARENT-CPU-INCOMPLETE
+和所有剩餘NOT-RUN。每worker將繼承的hard降低至自身cap+1，不需提升hard權限。
+Supervisor／worker均設RLIMIT_CORE=0。Admission保留完整600 s parent額度與2 s
+hard-tail／collection margin：`completed_child_CPU + next_cap + 2 + 600 > 57600`
+即不啟動下一項。600 s是diagnostic停止上限，不宣稱輪詢成本已有validated bound。
+
+整體wall保留5 s cleanup；每次admission（含memory preflight後重新確認）要求
+`now + next_full_child_wall_cap + 5 s startup_margin <= plan_deadline`。
+啟動前起算whole-child wall，supervisor用monotonic浮點deadline，不向下取整；每列保存
+per-child／plan deadline及哪個較緊。Plan deadline先到一律PLAN-WALL-BUDGET-INCOMPLETE，
+不誤當個別censor或再放行新job。即使unexpected setup delay耗盡margin，也走此停止路徑。
+
+輪詢改500 ms，最多名義120000次／60000 s；supervisor pin CPU1，worker pin CPU0。
+Live RSS監控保留，wait4.ru_maxrss另作事後完整peak檢查。Worker不設whole-child SIGALRM；
+Linux PR_SET_PDEATHSIG=SIGKILL及設定後parent PID再驗保護orphan，supervisor負責wall kill。
+Production whole-child上限1020 s，其中固定setup allowance120 s；worker以ITIMER_REAL
+只包evaluate設900 s，和production _e4_deadline同scope。Timeout輸出
+PRODUCTION-E4-WALL-CENSORED，wall lower bound=900 s；whole-child1020超時另記
+WALL-CAP-CENSORED，仍不可冒充evaluate-only witness。Allowance不足不加時或重跑。
 
 Direct probe 固定在最前。Individual wall／CPU censor 仍續跑其餘 jobs；不補跑、不延長，
 不因 direct censor 改成較小 a。Source／runtime mismatch、方法 regression、memory
@@ -126,10 +140,18 @@ abort，包括無法判因的 hard-cap/OOM kill，不靠時間接近 cap 猜測�
 任何資料夾只允許一次 attempt；exclusive create、即時 JSONL checkpoint/fsync，無 resume。
 若 crash 前只有 ATTEMPT-STARTED，該項仍占 attempt，不能當未嘗試後重跑。
 
-Per-phase clocks 是 stress integral 或完整 E4 evaluate 前後 process_time／monotonic 差值；
-whole-child CPU/wall 包含 imports／selector／adapter／setup，兩者分開。Censored worker
-的 phase clocks 若不可取得，保存 null；whole-child cost 不能冒充 phase lower bound。
-Timeout 不刪除，也不當 completed output 或假造 adaptive subdivisions。
+Per-phase clocks與whole-child clocks分列。Stress phase從開始marker至結束marker flush完成，
+包含marker flush與結果metadata的instrumentation成本；這是相對舊training的額外overhead，
+residual只作cross-profile diagnostic，不能解釋成純numeric cost/domain bound。
+Production marker/setup不在E4 timer裡；evaluate-only timeout不保存假completed時間或subdivisions。
+Censored stress若有phase-start marker及identity-verified最後live樣本：wall lower bound
+用sample前monotonic減phase起點；CPU lower bound用同worker的/proc總utime+stime減
+phase process_time，再扣2個SC_CLK_TCK ticks並截到0。不同process的process_time不可相減。
+使用最後proven-live取樣時刻，不用kill／reap時間，以免完成/termination race產生假下界。
+Missing marker、phase已finished、missing/早於phase的sample均保留null／證據不足。
+Worker先公布/proc/self實際PID、namespace PID與start ticks；supervisor驗identity後才讀
+/proc CPU/RSS，避免PID namespace不一致或PID reuse誤讀其他process。
+Timeout不刪除、不當completed output；whole-child cost永遠不代替phase lower bound。
 PLAN-COMPLETE 只表示全計畫 attempts 已記錄，允許其中有 censoring；不等於模型驗證
 通過或 qualification 完成。缺 final summary 的 crash 一律屬 incomplete。
 
@@ -137,7 +159,7 @@ PLAN-COMPLETE 只表示全計畫 attempts 已記錄，允許其中有 censoring�
 
 固定為 development host：Python 3.12.14、AMD EPYC 9V74 80-Core Processor、
 cgroup cpu.max=`800000 100000`／memory.max=`8589934592`；allowed affinity=0..8，
-實際pin={0}。六個 thread env 在 numerical imports 前均為1；NumPy 2.3.5、SciPy1.17.0、
+supervisor pin={1}、worker pin={0}。六個 thread env 在 numerical imports 前均為1；NumPy 2.3.5、SciPy1.17.0、
 threadpoolctl3.6.0，實際全部 BLAS pools必須1，integrator workers=1。
 Host 不符即 preflight fail，不自行選新 host／threads。Host移轉需新 manifest/review。
 
@@ -169,8 +191,9 @@ repeatability diagnostics，不是 held-out。原十個 probes與 reference全�
 
 - `|r| ≤ 0.10*max(1 s, observed_phase_seconds)`：POINTWISE-MODEL-CHECK-PASS。
 - 超過此門檻：該 model為MODEL-INVALID。界線取≤通過，正負 residual都檢查。
-- Censored/not-run/phase-cost未知：INSUFFICIENT-EVIDENCE。若有獨立可信的 phase
-  lower bound，也只能在已超門檻時判invalid；不得拿whole-child時間套入。
+- Censored stress有上述可信phase lower bound時，對每個model執行one-sided residual檢查；
+  lower bound已超10%門檻才MODEL-INVALID，否則INSUFFICIENT-EVIDENCE，永不pass。
+  Not-run／phase-cost未知同樣INSUFFICIENT-EVIDENCE；不得拿whole-child時間套入。
 
 固定 loss/scaling／17個 stress model candidates不改，全部逐列 residual、最大正 residual、
 active set／coefficients、repeat scatter與censoring一併報告。不挑最快模型、不刪失敗列，
@@ -178,11 +201,25 @@ active set／coefficients、repeat scatter與censoring一併報告。不挑最�
 規劃model判INSUFFICIENT-EVIDENCE，不事後選通過子集；即使全部pointwise pass，也只標
 POINTWISE-ONLY-NO-DOMAIN-BOUND，不能ADOPT resource方案。
 
+量測前已用frozen training coefficients確認：在三個held-out cells、CPU與wall各自
+17個模型的10% acceptance intervals交集全為空。因此整組model_set_verdict必然
+INSUFFICIENT-EVIDENCE，這不是等待新量測才決定的gate，也不是本輪ADOPT標準。
+程式以absolute(<1 s)／relative(>=1 s)兩段interval交集檢查此事，只報existence booleans，
+沒有新增held-out numerical prediction artifact。
+
+事前指定stress_affine為primary predictive-adequacy diagnostic；16個power forms全部
+作scenario sensitivity／coverage報告。逐模型invalid／unresolved／pointwise pass及刪失
+下界仍有用途，但不得看到結果後選贏家、refit或以primary pass關閉item7。
+舊training為single-process CPU0，沒有新supervisor wakeups；本輪獨立CPU1 supervisor
+也不是相同orchestration。CPU與wall residual均標cross-profile diagnostic；尤其wall
+invalid不得單獨歸因於模型形式，須保留host/scheduler/instrumentation的差異，無paired
+training remeasurement，不能作like-for-like wall qualification或放大為domain verdict。
+
 Framework「維持現行caps」仍需要 production-domain validated U_wall×1.25≤900、
 U_CPU×1.25≤57600、完整error/overhead與memory資格化。REJECT中的必要成本lower
 bound也必須來自production domain，不能來自zero-tolerance stress或diagnostic probe。
-Observed production超時只能按實際E4區間解讀；若只是whole-child含setup超時，未完成
-的E4是否自身超900仍未知。任何ADOPT/REJECT不得偷換這兩種scope。
+Production-E4-WALL-CENSORED由evaluate-only900 s timer產生，是該固定fixture／host的
+pointwise非可達性witness；若只是whole-child1020 s含setup超時，E4自身是否超900仍未知。任何ADOPT/REJECT不得偷換這兩種scope。
 
 ## 7. 下一步
 
@@ -193,3 +230,16 @@ model checks與source/environment pins。若需要policy amendment，依framewor
 items3–5 REVALIDATION-PENDING、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。
 完整resource qualification／下游revalidation／independent review之後，另開state-only
 closeout；沒有新namespace、scientific authorization或候選K。
+
+## 8. Harness 修訂與驗證範圍
+
+v0.2修訂對應獨立review的六點；c4e3b754受審版本不予合併。
+CPU inherited hard／全額wall admission／plan分類為blocking fixes；supervisor預算、
+E4 timer scope、censor lower bounds與model用途均在freeze前更正。
+
+真實Linux end-to-end tests在獨立interpreter用test-only stub manifest與短sleep／busy
+workers，走過setrlimit繼承、SIGXCPU、scoped SIGALRM、unknown SIGALRM abort、
+supervisor kill/reap、parent CPU停止、NOT-RUN與完整wall admission。另驗parent-death
+kernel guard及/proc PID/start identity。Stub不呼叫numeric producer，resource限額只改
+可拋棄的test subprocess；測試輸出不當research probes或資源資格化evidence。
+Fixtures、solver reference、analysis、production caps與原evidence均未改動。

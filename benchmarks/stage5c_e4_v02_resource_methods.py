@@ -204,13 +204,29 @@ def predict_stress(reference, clock, model, a, s):
     return float(row @ x)
 
 
+def model_agreement_possible(reference, clock, a, s):
+    """Check existence of any nonnegative observation passing every frozen model.
+
+    Below 1 second the rule is absolute +/-0.1; above it is relative +/-10%.
+    This uses training coefficients only; no new timing or prediction artifact.
+    """
+    predictions = [predict_stress(reference, clock, k.split(":", 1)[1], a, s)
+                   for k in reference["fits"] if k.startswith(clock+":stress_")]
+    low_absolute = max([0.] + [p - MODEL_RESIDUAL_LIMIT for p in predictions])
+    high_absolute = min([1.] + [p + MODEL_RESIDUAL_LIMIT for p in predictions])
+    low_relative = max([1.] + [p/(1+MODEL_RESIDUAL_LIMIT) for p in predictions])
+    high_relative = min(p/(1-MODEL_RESIDUAL_LIMIT) for p in predictions)
+    return low_absolute <= high_absolute or low_relative <= high_relative
+
+
 def build_plan(fixtures):
     jobs = [{"id": "direct-8128-4096", "kind": "stress", "atoms": 8128, "s": 4096,
              "wall_cap": 4500, "cpu_cap": 5000, "role": "held_out_cell"}]
     for i in range(len(fixtures["cases"])):
         for theta in (-.4, .4):
             jobs.append({"id": f"reach-{i:02d}-{theta:+.1f}", "kind": "production",
-                         "case_index": i, "theta_hex": theta.hex(), "wall_cap": 900,
+                         "case_index": i, "theta_hex": theta.hex(), "wall_cap": 1020,
+                         "e4_wall_cap": 900, "setup_allowance": 120,
                          "cpu_cap": 1000, "role": "reachability_only_not_model_validation"})
     for s in (128, 256, 512, 1024):
         for repetition in range(4096//s):
@@ -234,11 +250,16 @@ def assess_held_out(manifest, reference, records):
                 record = latest.get(job["id"], {})
                 prediction = predict_stress(reference, clock, name, job["atoms"], job["s"])
                 observed = record.get(field)
-                if record.get("outcome") != "FORCED-BUDGET-EXHAUSTED" or observed is None:
+                bound = record.get(field.removesuffix("_seconds") + "_lower_bound_seconds")
+                censored = record.get("outcome") in ("WALL-CAP-CENSORED", "CPU-CAP-CENSORED")
+                if censored and bound is not None:
+                    verdict = residual_verdict(bound, prediction, censored=True)
+                elif record.get("outcome") != "FORCED-BUDGET-EXHAUSTED" or observed is None:
                     verdict = "INSUFFICIENT-EVIDENCE"
                 else:
                     verdict = residual_verdict(observed, prediction)
                 rows.append({"job_id": job["id"], "prediction": prediction, "observed": observed,
+                             "censored_lower_bound": bound if censored else None,
                              "outcome": record.get("outcome", "NOT-RUN"), "verdict": verdict})
             verdicts = {r["verdict"] for r in rows}
             summary = ("MODEL-INVALID" if "MODEL-INVALID" in verdicts else
@@ -248,4 +269,9 @@ def assess_held_out(manifest, reference, records):
     return {"model_set_verdict": "POINTWISE-ONLY-NO-DOMAIN-BOUND" if all(
                 r["verdict"] == "POINTWISE-MODEL-CHECK-PASS" for r in result.values())
             else "INSUFFICIENT-EVIDENCE", "models": result,
+            "primary_model": "stress_affine",
+            "scenario_models": "all 16 power forms; no post-result model selection",
+            "wall_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; orchestration differs from training",
+            "all_models_agreement_possible": {clock: [model_agreement_possible(reference, clock, 8128, s)
+                for s in (4096, 128, 1024)] for clock in ("cpu_seconds", "wall_seconds")},
             "new_count_or_mixture_domain_validation": False, "qualification": False}

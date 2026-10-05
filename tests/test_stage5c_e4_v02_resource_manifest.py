@@ -87,6 +87,39 @@ def test_missing_held_out_rows_are_retained_as_insufficient():
     assert all(r["outcome"] == "NOT-RUN" for m in result["models"].values() for r in m["rows"])
 
 
+def test_training_coefficients_preclude_unanimous_pass_before_measurement():
+    reference = json.loads(campaign.REFERENCE.read_text())
+    assert all(not methods.model_agreement_possible(reference, clock, 8128, s)
+               for clock in ("cpu_seconds", "wall_seconds") for s in (4096, 128, 1024))
+
+
+def test_censored_phase_lower_bound_reaches_model_invalid_path():
+    manifest = json.loads(campaign.MANIFEST.read_text())
+    reference = json.loads(campaign.REFERENCE.read_text())
+    maximum = max(methods.predict_stress(reference, clock, k.split(':', 1)[1], 8128, 4096)
+                  for clock in ('cpu_seconds', 'wall_seconds') for k in reference['fits']
+                  if k.startswith(clock+':stress_'))
+    record = dict(job_id='direct-8128-4096', outcome='WALL-CAP-CENSORED',
+                  phase_cpu_lower_bound_seconds=2*maximum, phase_wall_lower_bound_seconds=2*maximum)
+    result = methods.assess_held_out(manifest, reference, [record])
+    assert all(model['rows'][0]['verdict'] == 'MODEL-INVALID' for model in result['models'].values())
+    assert result['model_set_verdict'] == 'INSUFFICIENT-EVIDENCE'
+    assert result['primary_model'] == 'stress_affine'
+    record.pop('phase_cpu_lower_bound_seconds'); record.pop('phase_wall_lower_bound_seconds')
+    result = methods.assess_held_out(manifest, reference, [record])
+    assert all(model['rows'][0]['verdict'] == 'INSUFFICIENT-EVIDENCE' for model in result['models'].values())
+
+
+def test_production_phase_scope_and_setup_allowance_are_frozen():
+    manifest = json.loads(campaign.MANIFEST.read_text())
+    production = [j for j in manifest['jobs'] if j['kind'] == 'production']
+    assert all(j['e4_wall_cap'] == 900 and j['setup_allowance'] == 120 and j['wall_cap'] == 1020
+               for j in production)
+    assert manifest['poll_cadence_seconds'] == .5
+    assert manifest['supervisor_cpu_soft_cap'] == 600
+    assert manifest['supervisor_cpu_inherited_hard_cap'] == max(j['cpu_cap']+1 for j in manifest['jobs'])
+
+
 def test_no_receipt_blocks_before_resource_mutation_or_producer(monkeypatch, tmp_path):
     def forbidden(*args, **kwargs):
         raise AssertionError("execution must not pass the review gate")

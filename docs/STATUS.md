@@ -224,6 +224,10 @@ COMPLETED enclosure的44個solver方法reference，以及139項固定diagnostic�
 Solver、loss/scaling、regression／held-out門檻、direct-first順序、整體60000 s wall／
 57600 s aggregate CPU、censor/abort與memory/host pins均明列；external receipt尚未建立。
 本輪只有既有training資料的方法驗證與tests，沒有新timing probes或scientific樣本。
+獨立複核指出CPU hard-limit繼承與wall競態阻擋；修訂soft600/hard5001、完整wall admission、
+CPU1 supervisor／CPU0 worker及500 ms cadence、E4-only900／child1020 timer、
+identity-verified censored phase下界與逐模型用途；Linux stub end-to-end tests不呼叫producer。
+三held-out cells的全部模型10% intervals事前無共同交集，整組INSUFFICIENT必然；仍待新exact-head複核。
 Production caps／analysis／custody／burn registry不動；item7 AMENDMENT-REVIEW-PENDING，
 items3–5 REVALIDATION-PENDING、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE。
 完整manifest／harness須exact-head review後才另處理resource execution authorization；
@@ -369,6 +373,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.05（manifest harness review fixes，2026-10-06）- 修正CPU hard-limit繼承、global wall admission/deadline分類、supervisor輪詢與CPU/affinity預留、E4-only timer及stress censor下界；新增真實Linux limits/signals/kill與PID-identity stub tests，無numeric producer。量測前固定primary stress_affine與全部power scenario用途，明列整組model agreement不可能及cross-profile timing限制。仍review draft、authorization=NONE；無新research timing probes／scientific樣本。*
+
 *v2.04（measurement manifest review draft，2026-10-05）- 記錄 #60/#61 merge commits與受審tree一致，補兩處非阻擋措辭；新增version-pinned NNLS方法regression（只重用既有training資料）、完整exact-byte fixture選擇artifact、固定139-job計畫與review-gated diagnostic harness。Direct-first；censored續跑、fatal/global-budget停止；60000 s wall／57600 s aggregate CPU，10% held-out residual門檻與1e-8/1e-10 method regression tolerances均為待本manifest複核的固定判準。未執行新timing probes，無production code／caps／gates／namespace變動，authorization=NONE。*
 *v2.03（resource amendment decision-rule review draft，2026-10-04）- 依 freeze 前複核補齊全部十個 probes 為 training、錨定與 fitted-offset 方法、production subdivision 可達性與直接 (8128,4096) diagnostic probe 計畫；新增維持現行 caps 與組合選項的固定判定順序，分列 schedule CPU 與 worker aggregate memory。PR #61 疊在修訂後的 draft #60 上，合併順序為 #60→#61，保留 v2.02 記錄；引用 evidence blob 不變。1.25／1.10 仍待審，沒有新量測或 production code／caps／gates／namespace／authorization 變動；item 7 closeout 另案辦理。*
 *v2.02（resource characterization，2026-10-03）- PR #59 exact head `53692569` 經獨立 GO 後 squash-merge `d2c665ad`，tree 與受審 implementation tree 相同；此合併只是 implementation draft。補正 88-test 指令與低細分 probe 限定，新增釘選 OMP／OpenBLAS 等六個 thread env 為 1、single-CPU affinity 的固定成本曲線與無 RNG selector count witnesses。這不是 full schedule／target-host qualification、正式分布或 failure tail；任何資源政策修正須 amendment review，items 7／3–5／8 與 6a-E gates 維持 pending／open，沒有新 seed／namespace／authorization。*
