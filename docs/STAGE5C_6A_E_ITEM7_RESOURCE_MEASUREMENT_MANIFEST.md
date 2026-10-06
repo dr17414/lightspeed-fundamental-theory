@@ -1,10 +1,15 @@
-# Item 7 deterministic resource measurement manifest v0.3
+# Item 7 deterministic resource measurement manifest v0.4
 
 `REVIEW-DRAFT`；`authorization=NONE`。本 PR 提供完整的固定輸入、方法、執行計畫與
 診斷 harness，供 exact-head 複核；本輪只執行已公開training資料的方法驗證與tests；真實Linux limits/signals測試
 使用短sleep／busy stubs，不呼叫numeric producer，也不形成research timing evidence。
 沒有執行新計時 probes、screen、generator、seed、arm ledger／endpoint 或候選 K。
 合併不等於執行授權，沒有提交 external authorization receipt。
+
+v0.3 已由 PR #62 合併為 `e77515a887a0a015bef6b45c789724d1c04de4e6`，tree
+`227b03a93db2fb5adea923a67efdfbc5b81eb2f4` 與受審版本一致。v0.4 只補 terminal
+summary 的權威規則、殘餘訊號窗口說明與 preflight 錯誤紀錄／handler 清理；139 個
+jobs、caps、methods、fixtures、solver reference 與原 evidence 均不變，待新 exact-head 複核。
 
 ## 1. Baseline 與用途
 
@@ -115,7 +120,15 @@ Supervisor CPU soft=600 s、inherited hard=5001 s（由最大child cap+1決定�
 Soft超限仍送SIGXCPU；handler只設stop flag並改SIG_IGN，不在任意位置拋例外。
 Preflight／job之間／monitor checkpoints讀flag，停止並kill/reap當前child，記
 PLAN-PARENT-CPU-INCOMPLETE和所有剩餘NOT-RUN；write/fsync與Popen不被signal例外打斷。
-Final summary寫入期間若新設flag，追加更正的terminal summary；忽略後續SIGXCPU直到cleanup完成。每worker將繼承的hard降低至自身cap+1，不需提升hard權限。
+Final summary寫入期間若新設flag，追加更正的terminal summary；忽略後續SIGXCPU直到cleanup完成。
+Terminal summary以`record_type=TERMINAL-SUMMARY`識別，初版`summary_revision=1`；
+更正版為revision=2並帶`supersedes_previous_summary=true`。讀取者必須以最後一筆
+完整terminal summary為唯一權威，前一筆即使寫PLAN-COMPLETE也已被取代。
+最後一次flag檢查之後、handler還原之前仍有微小殘餘窗口：新SIGXCPU可設flag但不再
+修訂summary，後續訊號被忽略。`parent_cpu_seconds`只到最後取樣時刻，不含其後
+summary寫入／stream關閉／handler還原的CPU；不宣稱包含全數cleanup或已有validated bound。
+原SIGXCPU handler由`finally`還原，正常完成與preflight／checkpoint例外均適用。
+每worker將繼承的hard降低至自身cap+1，不需提升hard權限。
 Supervisor／worker均設RLIMIT_CORE=0。Admission保留完整600 s parent額度與2 s
 hard-tail／collection margin：`completed_child_CPU + next_cap + 2 + 600 > 57600`
 即不啟動下一項。600 s是diagnostic停止上限，不宣稱輪詢成本已有validated bound。
@@ -143,6 +156,12 @@ SIGXCPU 才記 CPU censor；無已知 supervisor kill reason 的 SIGKILL 一律 
 abort，包括無法判因的 hard-cap/OOM kill，不靠時間接近 cap 猜測原因。
 任何資料夾只允許一次 attempt；exclusive create、即時 JSONL checkpoint/fsync，無 resume。
 若 crash 前只有 ATTEMPT-STARTED，該項仍占 attempt，不能當未嘗試後重跑。
+Receipt通過後、建立output目錄之前若limits／runtime／memory／method／fixture preflight
+拋例外，stderr會flush一筆JSON `event=PREFLIGHT-ABORT`，含error type/message、receipt的
+reviewed commit、manifest hash、output path、全部NOT-RUN IDs、worker未啟動及CPU／wall取樣。
+CPU stop flag已設時outcome為PLAN-PARENT-CPU-INCOMPLETE，其他為PREFLIGHT-ABORT；
+保留原例外並還原handler，不建立output目錄。執行端須保存stderr；此紀錄不授權重試。
+RLIMIT本身不還原，supervisor仍只用一次性process；handler清理不表示可在同process重跑。
 
 Per-phase clocks與whole-child clocks分列。Stress phase從開始marker至結束marker flush完成，
 包含marker flush與結果metadata的instrumentation成本；這是相對舊training的額外overhead，
