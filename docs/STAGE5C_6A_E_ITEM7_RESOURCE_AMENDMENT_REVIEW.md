@@ -114,7 +114,8 @@ Proposal §5 的正式 E4 timing 必須包含完整 E4，不能只以 stress sub
 - Stress sensitivity：`S(a,s,g) = h0(g) + k(g)*a^p*s^q`。
   mixture strata 在 manifest 中固定；不以只量過的一個 mixture 推出所有 g 的界。
 
-固定擬合方式：對現有固定 cyclic recipe 的七列 completed stress training rows，以全部
+固定擬合方式：對現有固定 cyclic recipe 的七列未 censored stress training rows
+（outcome=FORCED-BUDGET-EXHAUSTED、非 timeout），以全部
 七列、等權 absolute-second squared loss 作 nonnegative least squares；主形式的
 四個 b 係數非負。Sensitivity 在每個固定 (p,q) 上以相同七列、同一 loss／非負
 約束擬合 h0、k。CPU／wall 各擬合一套，不以每-atom normalization 改變權重。
@@ -226,7 +227,7 @@ schedule 的逐列 residual、總 residual 與未涵蓋項；它不是 scientifi
 
 | 選項 | ADOPT 的額外必要條件 | REJECT | INSUFFICIENT-EVIDENCE |
 |---|---|---|---|
-| 維持現行 caps | 完整 domain 的 validated U_wall×1.25≤900、U_CPU×1.25≤57600，含全部 model/domain error 與 overhead；4096 subdivision contract、memory 及 target-host preflight 均通過 | 有有效 production-domain 超限 witness，或已證必要成本使該方案不能符合含 margin 的門檻 | 只有短 calls、training fits 或 reachability probes 沒撞 cap；validated upper 跨門檻不等於已證超時 |
+| 維持現行 caps | 完整 domain 的 validated U_wall×1.25≤900、U_CPU×1.25≤57600，含全部 model/domain error 與 overhead；4096 subdivision contract、memory 及 target-host preflight 均通過 | 有有效 production-domain 超限 witness，或已證必要成本使該方案不能符合含 margin 的門檻；必要成本下界也須來自 production domain，不能用 zero-tolerance stress／diagnostic probe | 只有短 calls、training fits 或 reachability probes 沒撞 cap；validated upper 跨門檻不等於已證超時 |
 | 提高 wall／CPU 預算 | 以 validated U_wall、U_CPU 及完整 error allowance 定案；新 wall cap ≥1.25 U_wall，新 total CPU cap ≥1.25 U_CPU；先確認 target-host 可負擔性、scheduler limits、memory 與 timeout cleanup，正式 amendment 舊 caps | 已受審的新預算仍無法容納有效 witness，或所需 budget 超出明訂 host/scheduler 限制 | 只有 1661 s 外推、無 model-error upper，或可負擔性未證；不得直接定成 1661×1.25 |
 | 切分工作量 | 說清是 scheduling/chunking 或新積分演算法；總 CPU／overhead 全計，report/enclosure/certification/seals 有等價性證明或新版 contract 與重驗；每個原 logical E4 的 wall 起點/截止仍按 contract | 重設 deadline 逃避原 per-call cap、忽略跨 chunk CPU、部分 estimate 冒充完整 report | 只有小 chunk 快，無重組誤差與總成本界；restart subdivisions 的 stress cycle 不證演算法等價 |
 | 經驗證平行化 | 相同 inputs/source 上的事前配對比較；validated wall 與 schedule CPU 都在 approved caps；CPU inflation ratio 的 validated upper ≤1.10；thread/worker/affinity/pools 及 peak memory 全 pin | production-domain 實測 CPU ratio >1.10，或 wall 雖過而 total CPU／memory 超 cap；本提案明訂拒絕此種 CPU tradeoff | ratio 上界跨 1.10、baseline 不配對、只見 wall speedup、無 thread/pool 或 CPU 子程序計量 |
