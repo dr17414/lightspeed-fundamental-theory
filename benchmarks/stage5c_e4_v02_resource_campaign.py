@@ -113,8 +113,12 @@ def supervisor_limits(manifest):
         stop["expired"] = True
         signal.signal(signal.SIGXCPU, signal.SIG_IGN)
     stop["old_handler"] = signal.signal(signal.SIGXCPU, expired)
-    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
-    resource.setrlimit(resource.RLIMIT_CPU, (soft, hard))
+    try:
+        resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+        resource.setrlimit(resource.RLIMIT_CPU, (soft, hard))
+    except BaseException:
+        signal.signal(signal.SIGXCPU, stop["old_handler"])
+        raise
     return stop
 
 
@@ -312,14 +316,39 @@ def run_campaign(receipt_path, output_directory):
     start_wall = time.monotonic()  # Includes receipt, preflight, method verification and all jobs.
     receipt = check_receipt(receipt_path, output_directory)  # No timed execution before this gate.
     manifest = json.loads(MANIFEST.read_text())
-    cpu_stop = supervisor_limits(manifest)
-    check_runtime(manifest)
-    initial_memory = memory_preflight()
-    # Method checks are included in the campaign clock; new data cannot refit this reference.
-    methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
-    fixtures = json.loads(FIXTURES.read_text())
-    if cpu_stop["expired"]:
-        raise RuntimeError("supervisor CPU soft cap exhausted during preflight; no child started")
+    cpu_stop = None
+    try:
+        try:
+            cpu_stop = supervisor_limits(manifest)
+            check_runtime(manifest)
+            initial_memory = memory_preflight()
+            # Method checks are included in the campaign clock; new data cannot refit this reference.
+            methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
+            json.loads(FIXTURES.read_text())
+            if cpu_stop["expired"]:
+                raise RuntimeError("supervisor CPU soft cap exhausted during preflight; no child started")
+        except Exception as exc:
+            print(json.dumps({"event": "PREFLIGHT-ABORT",
+                              "outcome": "PLAN-PARENT-CPU-INCOMPLETE" if cpu_stop and cpu_stop["expired"] else "PREFLIGHT-ABORT",
+                              "error_type": type(exc).__name__, "error": str(exc),
+                              "reviewed_commit": receipt["reviewed_commit"],
+                              "manifest_sha256": sha256(MANIFEST.read_bytes()).hexdigest(),
+                              "output_directory": str(Path(output_directory).resolve()),
+                              "output_directory_created": False, "worker_started": False,
+                              "not_run_ids": [j["id"] for j in manifest["jobs"]],
+                              "plan_wall_seconds": time.monotonic()-start_wall,
+                              "parent_cpu_seconds": time.process_time()}, sort_keys=True),
+                  file=sys.stderr, flush=True)
+            raise
+        return _run_preflighted_campaign(receipt_path, output_directory, receipt, manifest,
+                                         cpu_stop, start_wall, initial_memory)
+    finally:
+        if cpu_stop is not None:
+            signal.signal(signal.SIGXCPU, cpu_stop["old_handler"])
+
+
+def _run_preflighted_campaign(receipt_path, output_directory, receipt, manifest,
+                              cpu_stop, start_wall, initial_memory):
     directory = Path(output_directory).resolve()
     directory.mkdir(parents=True, exist_ok=False)  # One attempt; no resume or overwrite.
     start_cpu = 0.0  # Whole supervisor process CPU, including imports/method verification.
@@ -428,7 +457,8 @@ def run_campaign(receipt_path, output_directory):
                 status = "PLAN-WALL-BUDGET-INCOMPLETE"
             elif final_parent_cpu + children_cpu > manifest["total_cpu_cap"]:
                 status = "PLAN-CPU-BUDGET-INCOMPLETE"
-        summary = {"outcome": status, "plan_wall_seconds": final_wall,
+        summary = {"record_type": "TERMINAL-SUMMARY", "summary_revision": 1,
+                   "outcome": status, "plan_wall_seconds": final_wall,
                    "parent_cpu_seconds": final_parent_cpu, "children_cpu_seconds": children_cpu,
                    "total_accounted_cpu_seconds": final_parent_cpu+children_cpu,
                    "production_schedule_cpu_bound": False}
@@ -437,10 +467,10 @@ def run_campaign(receipt_path, output_directory):
         # Append a corrected terminal summary if the flag was set in that interval.
         if cpu_stop["expired"] and status != "PLAN-PARENT-CPU-INCOMPLETE":
             parent_cpu = time.process_time()-start_cpu
-            summary.update(outcome="PLAN-PARENT-CPU-INCOMPLETE", plan_wall_seconds=time.monotonic()-start_wall,
+            summary.update(summary_revision=2, supersedes_previous_summary=True,
+                           outcome="PLAN-PARENT-CPU-INCOMPLETE", plan_wall_seconds=time.monotonic()-start_wall,
                            parent_cpu_seconds=parent_cpu, total_accounted_cpu_seconds=parent_cpu+children_cpu)
             emit(summary)
-    signal.signal(signal.SIGXCPU, cpu_stop["old_handler"])
 
 
 def main():

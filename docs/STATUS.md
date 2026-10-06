@@ -373,6 +373,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.07（manifest execution前記錄清理，2026-10-06）- PR #62已合併為`e77515a8`，tree `227b03a9`與獨立複核版本一致，既有451 passed／5 warnings及A／B／C結論適用。新增v0.4 review draft：terminal summary revision與supersedes標記、最後summary權威規則、末次flag檢查後的殘餘窗口說明，以及preflight結構化stderr／finally還原handler；加入隔離stub錯誤與訊號測試。Jobs、caps、方法／fixture／solver artifacts與原evidence不變，待新exact-head複核。仍authorization=NONE，無receipt、新research probes或scientific執行授權。*
+
 *v2.06（manifest小幅複核修訂，2026-10-06）- Production child CPU由1000增為1100，保留E4-only900／child wall1020與setup120；supervisor SIGXCPU改stop flag＋SIG_IGN，由checkpoints停止與cleanup，避免任意位置拋例外；更正evaluate-only timeout witness措辭。總60000 wall／57600 CPU不變，無新research probes／receipt，待新exact-head複核。*
 
 *v2.05（manifest harness review fixes，2026-10-06）- 修正CPU hard-limit繼承、global wall admission/deadline分類、supervisor輪詢與CPU/affinity預留、E4-only timer及stress censor下界；新增真實Linux limits/signals/kill與PID-identity stub tests，無numeric producer。量測前固定primary stress_affine與全部power scenario用途，明列整組model agreement不可能及cross-profile timing限制。仍review draft、authorization=NONE；無新research timing probes／scientific樣本。*

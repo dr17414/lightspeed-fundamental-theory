@@ -68,6 +68,20 @@ def stub_campaign(tmp_path, mode):
         c.memory_preflight = lambda: {'host_available_bytes': 4*1024**3, 'cgroup_remaining_bytes': 4*1024**3}
         c.methods.method_reference = lambda: {}
         c.methods.verify_reference = lambda *a: None
+        def previous_handler(_signum, _frame): pass
+        signal.signal(signal.SIGXCPU, previous_handler)
+        if mode.startswith('preflight_'):
+            def fail(*a, **k):
+                raise RuntimeError('test-only ' + mode)
+            if mode == 'preflight_runtime': c.check_runtime = fail
+            elif mode == 'preflight_memory': c.memory_preflight = fail
+            elif mode == 'preflight_method': c.methods.verify_reference = fail
+            elif mode == 'preflight_signal':
+                def flag(*a, **k):
+                    os.kill(os.getpid(), signal.SIGXCPU)
+                    assert signal.getsignal(signal.SIGXCPU) == signal.SIG_IGN
+                    os.kill(os.getpid(), signal.SIGXCPU)
+                c.methods.verify_reference = flag
         real_popen = c.subprocess.Popen
         def launch(command, **kwargs):
             assert mode != 'signal_fsync', 'no worker may start after the CPU stop flag'
@@ -96,7 +110,21 @@ def stub_campaign(tmp_path, mode):
                 end = time.process_time() + .04
                 while time.process_time() < end: pass
             c.time.sleep = busy
-        c.run_campaign(receipt, output)
+        if mode == 'checkpoint_error':
+            def failed_write(fd): raise OSError('test-only checkpoint failure')
+            c.os.fsync = failed_write
+        if mode.startswith('preflight_'):
+            try: c.run_campaign(receipt, output)
+            except RuntimeError: pass
+            else: raise AssertionError('preflight must abort')
+            assert not pathlib.Path(output).exists()
+        elif mode == 'checkpoint_error':
+            try: c.run_campaign(receipt, output)
+            except OSError as exc: assert str(exc) == 'test-only checkpoint failure'
+            else: raise AssertionError('checkpoint must fail')
+        else:
+            c.run_campaign(receipt, output)
+        assert signal.getsignal(signal.SIGXCPU) is previous_handler
         assert 'numpy' not in sys.modules
     '''))
     env = dict(os.environ, PYTHONPATH=str(campaign.ROOT))
@@ -104,6 +132,9 @@ def stub_campaign(tmp_path, mode):
                              str(worker), mode], cwd=tmp_path, env=env, capture_output=True, text=True, timeout=25)
     assert result.returncode == 0, result.stderr
     assert not list(tmp_path.glob('core*'))
+    if mode.startswith('preflight_'):
+        assert not output.exists()
+        return [json.loads(x) for x in result.stderr.splitlines()]
     return [json.loads(x) for x in (output/'records.jsonl').read_text().splitlines()]
 
 
@@ -198,3 +229,43 @@ def test_sigxcpu_flag_does_not_interrupt_launch_checkpoint_or_summary(tmp_path, 
     if mode != 'signal_summary':
         assert next(r for r in records if r.get('outcome') == 'NOT-RUN')['not_run_ids'] == ['stub-next']
         assert not any(r.get('job_id') == 'stub-next' for r in records)
+    summaries = [r for r in records if r.get('record_type') == 'TERMINAL-SUMMARY']
+    assert summaries[-1] == records[-1]
+    assert summaries[0]['summary_revision'] == 1
+    if mode == 'signal_summary':
+        assert len(summaries) == 2
+        assert summaries[0]['outcome'] == 'PLAN-COMPLETE'
+        assert summaries[-1]['summary_revision'] == 2
+        assert summaries[-1]['supersedes_previous_summary'] is True
+    else:
+        assert len(summaries) == 1
+
+
+@pytest.mark.parametrize('mode', ['preflight_runtime', 'preflight_memory', 'preflight_method', 'preflight_signal'])
+def test_preflight_abort_restores_handler_and_emits_structured_stderr(tmp_path, mode):
+    records = stub_campaign(tmp_path, mode)
+    assert len(records) == 1
+    record = records[0]
+    assert record['event'] == 'PREFLIGHT-ABORT'
+    assert record['outcome'] == ('PLAN-PARENT-CPU-INCOMPLETE' if mode == 'preflight_signal' else 'PREFLIGHT-ABORT')
+    assert record['error_type'] == 'RuntimeError'
+    assert record['not_run_ids'] == ['stub-first', 'stub-next']
+    assert record['worker_started'] is False and record['output_directory_created'] is False
+    assert record['reviewed_commit'] == 'test-only'
+    assert record['plan_wall_seconds'] >= 0 and record['parent_cpu_seconds'] >= 0
+
+
+def test_failed_limit_installation_restores_previous_handler(monkeypatch):
+    previous = campaign.signal.getsignal(campaign.signal.SIGXCPU)
+    def fail(*a, **k):
+        raise ValueError('test-only inherited hard-limit failure')
+    monkeypatch.setattr(campaign.resource, 'setrlimit', fail)
+    with pytest.raises(ValueError, match='hard-limit failure'):
+        campaign.supervisor_limits({'supervisor_cpu_soft_cap': 1, 'jobs': [{'cpu_cap': 3}]})
+    assert campaign.signal.getsignal(campaign.signal.SIGXCPU) is previous
+
+
+def test_checkpoint_failure_also_restores_handler_without_false_summary(tmp_path):
+    records = stub_campaign(tmp_path, 'checkpoint_error')
+    assert len(records) == 1 and records[0]['method_verified'] is True
+    assert not any(r.get('record_type') == 'TERMINAL-SUMMARY' or 'job_id' in r for r in records)
