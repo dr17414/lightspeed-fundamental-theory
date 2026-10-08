@@ -2,7 +2,10 @@
 import copy
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
+import subprocess
+import sys
 
 import pytest
 
@@ -183,7 +186,7 @@ def test_new_receipt_binding_and_container_check_precedes_read(monkeypatch, fiel
     assert order == ["container-check", "receipt-read"]
 
 
-@pytest.mark.parametrize("fault", [None, "container-id", "mode", "manifest", "boot", "mount"])
+@pytest.mark.parametrize("fault", [None, "container-id", "mode", "manifest", "boot", "mount", "packages"])
 def test_effective_container_guard_rejects_stale_proof_before_runtime(monkeypatch, tmp_path, fault):
     inspection, paths = fixture()
     raw = campaign.MANIFEST.read_bytes()
@@ -207,12 +210,21 @@ def test_effective_container_guard_rejects_stale_proof_before_runtime(monkeypatc
     def read(path, *a, **k):
         if str(path) == "/proc/sys/kernel/random/boot_id": return "boot"
         if str(path) == "/proc/self/mountinfo": return actual_mounts
+        if str(path) == "/custody/receipt.json": pytest.fail("receipt read before numerical child PASS")
         return real_read(path, *a, **k)
     monkeypatch.setattr(Path, "read_text", read)
     monkeypatch.setattr(campaign, "check_runtime", lambda *a: calls.append("runtime"))
-    monkeypatch.setattr(campaign, "check_numerical_runtime", lambda *a: calls.append("packages"))
+    def packages(*a):
+        calls.append("packages")
+        if fault == "packages":
+            raise RuntimeError("numerical preflight subprocess failed")
+    monkeypatch.setattr(campaign, "check_numerical_runtime_in_subprocess", packages)
     monkeypatch.setattr(campaign, "memory_preflight", lambda: {"headroom": 4*1024**3})
-    if fault:
+    if fault == "packages":
+        with pytest.raises(RuntimeError, match="numerical preflight subprocess"):
+            campaign.check_receipt("/custody/receipt.json", "/output/campaign")
+        assert calls == ["runtime", "packages"]
+    elif fault:
         with pytest.raises(launch.ContainerMismatch):
             launch.check_before_receipt(manifest())
         assert calls == []
@@ -289,6 +301,89 @@ def test_openblas_version_kernel_thread_and_pool_count(monkeypatch):
     pools.pop()
     with pytest.raises(RuntimeError, match="OpenBLAS"):
         campaign.check_numerical_runtime(manifest())
+
+
+def test_real_openblas_loading_in_fresh_interpreter():
+    # A fresh exec prevents earlier tests from accidentally loading SciPy's BLAS.
+    # Observe real libraries, not a replacement for threadpool_info. CPU kernels
+    # may vary in CI, so only the count and prefix multiset are compared here.
+    script = '''
+import json, sys
+from benchmarks import stage5c_e4_v02_resource_campaign as campaign
+assert 'numpy' not in sys.modules and 'scipy' not in sys.modules
+manifest = json.loads(campaign.MANIFEST.read_text())
+pools = campaign.load_numerical_runtime(manifest)
+assert len(pools) == 2
+assert sorted(p['prefix'] for p in pools) == sorted(p['prefix'] for p in manifest['host']['blas_pools'])
+assert all(name in sys.modules for name in ('scipy.linalg', 'scipy.integrate', 'scipy.optimize'))
+print(json.dumps(pools))
+'''
+    env = dict(os.environ, **{k: "1" for k in campaign.THREAD_ENV})
+    result = subprocess.run([sys.executable, "-c", script], cwd=campaign.ROOT,
+                            env=env, capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stderr
+    assert len(json.loads(result.stdout)) == 2
+
+
+def test_real_numerical_preflight_keeps_supervisor_free_of_numerical_libraries():
+    script = '''
+import importlib.abc, json, os, resource, subprocess, sys
+from benchmarks import stage5c_e4_v02_resource_campaign as campaign
+class NoNumericalImports(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path=None, target=None):
+        if fullname.split('.')[0] in ('numpy', 'scipy'):
+            raise AssertionError('supervisor numerical import: ' + fullname)
+sys.meta_path.insert(0, NoNumericalImports())
+manifest = json.loads(campaign.MANIFEST.read_text())
+# Observe the local CPU in another fresh process, without faking library data.
+# Production pins are untouched; this test must also run on CI's other CPUs.
+observer = "import json; from benchmarks import stage5c_e4_v02_resource_campaign as c; print(json.dumps(c.load_numerical_runtime(json.loads(c.MANIFEST.read_text()))))"
+pools = json.loads(subprocess.check_output([sys.executable, '-c', observer], text=True))
+assert len(pools) == 2
+assert sorted(p['prefix'] for p in pools) == sorted(p['prefix'] for p in manifest['host']['blas_pools'])
+for expected, actual in zip(manifest['host']['blas_pools'], pools):
+    expected['architecture'] = actual['architecture']
+before = resource.getrusage(resource.RUSAGE_CHILDREN)
+for verify_method in (False, True):
+    checked = campaign.check_numerical_runtime_in_subprocess(manifest, verify_method=verify_method)
+    assert len(checked) == 2
+    assert sorted(p['prefix'] for p in checked) == sorted(p['prefix'] for p in pools)
+    assert not any(k.split('.')[0] in ('numpy', 'scipy') for k in sys.modules)
+after = resource.getrusage(resource.RUSAGE_CHILDREN)
+assert after.ru_utime + after.ru_stime > before.ru_utime + before.ru_stime
+# A genuine missing-pool rejection propagates back without loading the parent.
+manifest['host']['blas_pools'].pop()
+try:
+    campaign.check_numerical_runtime_in_subprocess(manifest)
+except RuntimeError as exc:
+    assert 'OpenBLAS version/kernel/thread pool pin mismatch' in str(exc)
+else:
+    raise AssertionError('missing pool must fail')
+assert not any(k.split('.')[0] in ('numpy', 'scipy') for k in sys.modules)
+'''
+    env = dict(os.environ, **{k: "1" for k in campaign.THREAD_ENV},
+               STAGE5C_RESOURCE_REVIEW_RECEIPT="/nonexistent-do-not-open-receipt")
+    result = subprocess.run([sys.executable, "-c", script], cwd=campaign.ROOT,
+                            env=env, capture_output=True, text=True, timeout=30)
+    assert result.returncode == 0, result.stderr
+
+
+@pytest.mark.parametrize("fault", ["exit", "timeout", "json", "report"])
+def test_numerical_preflight_subprocess_fails_closed(monkeypatch, fault):
+    def failed(command, **kwargs):
+        assert command[-1] == "numerical-preflight"
+        assert kwargs["timeout"] == 30 and kwargs["check"] is True
+        assert json.loads(kwargs["input"]) == manifest()
+        if fault == "exit":
+            raise subprocess.CalledProcessError(1, command, stderr="OpenBLAS mismatch")
+        if fault == "timeout":
+            raise subprocess.TimeoutExpired(command, kwargs["timeout"])
+        stdout = "not JSON" if fault == "json" else json.dumps(
+            {"event": "NUMERICAL-PREFLIGHT-PASS", "method_verified": True, "threadpools": []})
+        return subprocess.CompletedProcess(command, 0, stdout=stdout)
+    monkeypatch.setattr(campaign.subprocess, "run", failed)
+    with pytest.raises(RuntimeError, match="numerical preflight subprocess"):
+        campaign.check_numerical_runtime_in_subprocess(manifest())
 
 
 def test_numerical_caps_and_all_non_launcher_sources_remain_frozen():

@@ -228,7 +228,7 @@ def check_before_receipt(manifest, *, mode="run"):
     require(not Path(OUTPUT).exists(), "campaign output already exists")
     from benchmarks import stage5c_e4_v02_resource_campaign as campaign
     campaign.check_runtime(manifest)
-    campaign.check_numerical_runtime(manifest)
+    campaign.check_numerical_runtime_in_subprocess(manifest)
     memory = campaign.memory_preflight()
     return {"event": "CONTAINER-PREFLIGHT-PASS", "container_id": proof["container_id"],
             "image_config_digest": proof["inspection"]["Image"], "manifest_sha256": proof["manifest_sha256"],

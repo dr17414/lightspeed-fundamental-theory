@@ -118,7 +118,9 @@ Production calls 用真實 selector→adapter→v0.2 evaluate，完全保留 can
 總共139個新 timed invocations，每個 fresh child process，任何時刻只存在一個 worker。
 **整體計畫上限：60000 s wall、57600 s accounted CPU**，不是逐 probe caps 相加。
 計畫 wall 從 receipt/preflight 開始，含方法驗證／imports／setup／cleanup；CPU 是 whole
-supervisor `process_time()`（含 imports）加 `wait4` 所取 direct child user+system CPU。
+supervisor `process_time()` 加 direct child user+system CPU。Receipt前的package/pool檢查
+與receipt後既有training method驗證各在fresh exec短命子程序執行，supervisor不載入
+NumPy／SciPy。兩個子程序CPU由`RUSAGE_CHILDREN`納入初始children帳；後續jobs用`wait4`。
 worker 沒有 subprocess/parallel backend；這是 diagnostic campaign 的 aggregate 計量，
 不改 production 的 process_time cap，也不能充作 production schedule CPU 上界。
 
@@ -192,6 +194,11 @@ supervisor pin={1}、worker pin={0}。六個 thread env 在 numerical imports �
 threadpoolctl3.6.0，實際全部 BLAS pools必須1，integrator workers=1。
 CPU0/1 為同一實體核心的 SMT siblings；兩套 wheel OpenBLAS 0.3.30 皆選 SkylakeX kernel。
 Runtime 比對 version／architecture／prefix／thread 數；舊 training 僅 cross-profile diagnostic。
+Pool收集前明確import scipy.linalg、scipy.integrate及scipy.optimize，避免lazy import只見
+NumPy一套BLAS。Supervisor的檢查子程序30 s wall逾時kill/reap、CPU soft/hard=30/31 s、
+沿用32 GiB address-space cap、無core dump及parent-death guard；先退出再驗memory headroom。
+Preflight-only僅imports／版本／pools比對，不讀receipt、不fit reference、不呼叫producer。
+Production仍檢查SkylakeX；CI真實fresh-interpreter regression僅比兩個pools的數量與prefix。
 Host 不符即 preflight fail，不自行選新 host／threads。Host移轉需新 manifest/review。
 
 每次啟動前要求 host MemAvailable 與 cgroup剩餘記憶體均≥3 GiB；child peak RSS cap

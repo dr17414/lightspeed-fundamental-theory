@@ -33,12 +33,48 @@ Python is exactly `3.12.14 (main, Sep 29 2026, 15:01:18) [Clang 22.1.3 ]`.
 The dummy receipt says SMOKE-ONLY; receipt gate and numeric producer are not
 called. Minimum actual headroom 6395158528 bytes is a snapshot, not a reservation.
 
-NumPy/SciPy each load a bundled pthreads OpenBLAS 0.3.30 library, prefixes
-libscipy_openblas64_ / libscipy_openblas, architecture=SkylakeX on Turin, one
-thread. The manifest pins these fields and compares them before receipt read
+NumPy/SciPy each load a bundled pthreads OpenBLAS 0.3.30 library, with filename
+prefixes libscipy_openblas64_ / libscipy_openblas. threadpoolctl 3.6.0 reports
+the normalized prefix libscipy_openblas for both pools, architecture=SkylakeX
+on Turin, one thread. The manifest pins these fields and compares them before receipt read
 and in every worker before numerical action. This kernel selection affects
 timing; historical training and the new SMT/wheel/kernel profile remain
 cross-profile diagnostics, never hardware-comparable qualification by assertion.
+
+### Lazy-import failure and isolated numerical preflight
+
+The operator reported that head `79e8c4d928f51b9b43129714e2ab847973f3707c`
+failed Vultr preflight with `OpenBLAS version/kernel/thread pool pin mismatch`
+before receipt read. A fresh local interpreter reproduces the cause: importing
+only NumPy and scipy exposes one pool; scipy.linalg loads the second library.
+That failed head is not accepted host evidence and does not authorize execution.
+
+The revision explicitly imports scipy.linalg, scipy.integrate (worker/E4), and
+scipy.optimize (frozen NNLS verification) before collecting threadpool_info.
+Worker checks still enforce all six pool fields, including the pinned kernel.
+Supervisor-side pool inspection runs in a fresh exec child, with a 30-second
+wall timeout that kills/reaps it, CPU soft/hard limits 30/31 seconds, the existing
+32 GiB address-space ceiling, no core dump, and parent-death protection.
+The child inherits the final environment and supervisor affinity. Its failure,
+timeout or malformed report stops before receipt read; it reads no receipt and
+performs no solver/producer action in this pre-receipt mode. It exits before the
+memory-headroom check, so the supervisor retains no numerical library mappings.
+
+After an authorized receipt gate, the existing frozen ten-row method verification
+also moves to a fresh child using the same limits, preserving its solver,
+reference and acceptance tolerances. Its training-only fits are distinct from
+preflight-only import inspection. Both preflight children are direct children;
+their user+system CPU enters RUSAGE_CHILDREN and the existing aggregate CPU
+admission/terminal accounting. Wall time remains in the campaign clock.
+Supervisor soft CPU 600 and all 139 job/global caps remain unchanged.
+
+Fresh-interpreter regressions use real threadpool_info, assert exactly two pools
+and the manifest prefix multiset, and verify the actual worker submodules load.
+The tests do not assert a CPU-specific architecture. A real child regression
+uses the observed local kernel in its test-only manifest and verifies imports
+and frozen method checks cannot load NumPy/SciPy in the supervisor. Production
+architecture pins are unchanged. Failure-path Docker tests still use fake
+inspection data; they are not host acceptance evidence.
 
 ## Image custody and backup
 
@@ -79,12 +115,14 @@ Preserve the separately mounted complete runtime checkout as well.
    matching hostname/container ID/boot/manifest and clean reviewed commit/tree.
    It checks effective Linux mounts, rejecting writable protected mounts and
    nested overrides, then actual CPU/SMT/affinity, cpu.max, memory.max/swap.max,
-   Python build, source bytes, package versions, OpenBLAS pools and fresh memory
-   headroom. Imports/inspection call no solver/producer.
+   Python build and source bytes. A short-lived child checks package versions and
+   fully loaded OpenBLAS pools, then exits before fresh memory headroom is checked.
+   Imports/inspection call no solver/producer; the supervisor stays stdlib-only.
 4. Then read external receipt: require exact reviewed commit AND tree, image ID,
    canonical host profile hash, host boot ID, host output directory, manifest hash
    and container-visible output path.
-   Keep the existing limits/runtime/memory/method/fixture preflight and job gates.
+   Keep the existing limits/runtime/memory/fixture preflight and job gates; the
+   frozen method verification runs in a separate child after this receipt gate.
 
 Missing proof/direct CLI outside the reviewed container rejects before receipt
 read. CONTAINER-PREFLIGHT-ABORT stderr records no receipt gate, no producer, no
@@ -143,10 +181,13 @@ Local negative tests and fake-Docker gate ordering are not actual Vultr launcher
 execution evidence. Real revised-launcher exact-head preflight remains a BEFORE-MERGE prerequisite;
 new merged-checkout/receipt identity is rechecked before formal execution.
 
-Local validation: `python -m pytest -q tests/` → 541 passed, 5 pre-existing
-warnings; targeted launcher/manifest tests → 97 passed. Local interpreter is
-Python 3.12.14 (Aug 25 build), NumPy 2.3.5 / SciPy 1.17.0 / threadpoolctl 3.6.0.
+Revised local validation: `python -m pytest -q tests/` → 548 passed, 5 pre-existing
+warnings, using an isolated venv with the CI-pinned dependencies; targeted
+launcher/manifest/harness tests → 124 passed. Local interpreter is Python 3.12.14
+(Aug 25 build), NumPy 2.3.5 / SciPy 1.17.0 / threadpoolctl 3.6.0.
 It is a regression environment, not the pinned Sep 29 Vultr execution runtime.
 `python verify_integrity.py` and `git diff --check` pass. CI retains its pinned
 Python 3.12.13 configuration and explicitly installs pinned threadpoolctl 3.6.0
-for the new pool-identity regression test; no CI result is claimed before that run completes.
+for the real pool-loading regression tests; prior-head CI passing did not catch
+the lazy-import failure. Revised-head CI and host acceptance are separate checks;
+no revised-head CI result is claimed before that run completes.

@@ -66,8 +66,7 @@ def stub_campaign(tmp_path, mode):
         c.check_receipt = lambda *a: {'reviewed_commit': 'test-only'}
         c.check_runtime = lambda *a, **k: None
         c.memory_preflight = lambda: {'host_available_bytes': 4*1024**3, 'cgroup_remaining_bytes': 4*1024**3}
-        c.methods.method_reference = lambda: {}
-        c.methods.verify_reference = lambda *a: None
+        c.check_numerical_runtime_in_subprocess = lambda *a, **k: None
         def previous_handler(_signum, _frame): pass
         signal.signal(signal.SIGXCPU, previous_handler)
         if mode.startswith('preflight_'):
@@ -75,13 +74,13 @@ def stub_campaign(tmp_path, mode):
                 raise RuntimeError('test-only ' + mode)
             if mode == 'preflight_runtime': c.check_runtime = fail
             elif mode == 'preflight_memory': c.memory_preflight = fail
-            elif mode == 'preflight_method': c.methods.verify_reference = fail
+            elif mode == 'preflight_method': c.check_numerical_runtime_in_subprocess = fail
             elif mode == 'preflight_signal':
                 def flag(*a, **k):
                     os.kill(os.getpid(), signal.SIGXCPU)
                     assert signal.getsignal(signal.SIGXCPU) == signal.SIG_IGN
                     os.kill(os.getpid(), signal.SIGXCPU)
-                c.methods.verify_reference = flag
+                c.check_numerical_runtime_in_subprocess = flag
         real_popen = c.subprocess.Popen
         def launch(command, **kwargs):
             assert mode != 'signal_fsync', 'no worker may start after the CPU stop flag'
