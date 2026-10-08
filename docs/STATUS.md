@@ -373,6 +373,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.08（Vultr host candidate，2026-10-08）- 原始 archive 已收件並獨立核對 SHA-256、frozen source pins 與三輪 Docker 90 分鐘 stub PASS；每輪 541 筆連續心跳與不變 boot ID 為主要存活依據，早期跨回合 live observation 符合形式標準，VM 程序生命週期不依賴對話。summary 與 candidate 已補 archive hash；Claude 複核 8b20a15d 無阻擋問題，本修訂待 exact-head 複核。新增非執行 host manifest candidate 與 review：EPYC-Turin、Sep 29 Python build、CPU quota 2、6 GiB cgroup、CPU0/1 SMT siblings；保留 2.5 GiB aggregate RSS／3 GiB preflight 餘量及全部 139 jobs／34 source pins。正式 campaign image digest 尚未固定，candidate 不可 promote；runner 實讀 manifest 與所有 executable 不變，authorization NONE。舊 receipt 不用於新主機，新 executable manifest 合併後作廢重簽。三次存活觀察不等於 60000 秒窗口或 cross-profile 數值可比性；6a-E PREREGISTRATION-INCOMPLETE，科學篩檢未授權。*
+
 *v2.07（manifest execution前記錄清理，2026-10-06）- PR #62已合併為`e77515a8`，tree `227b03a9`與獨立複核版本一致，既有451 passed／5 warnings及A／B／C結論適用。新增v0.4 review draft：terminal summary revision與supersedes標記、最後summary權威規則、末次flag檢查後的殘餘窗口說明，以及preflight結構化stderr／finally還原handler；加入隔離stub錯誤與訊號測試。Jobs、caps、方法／fixture／solver artifacts與原evidence不變，待新exact-head複核。仍authorization=NONE，無receipt、新research probes或scientific執行授權。*
 
 *v2.06（manifest小幅複核修訂，2026-10-06）- Production child CPU由1000增為1100，保留E4-only900／child wall1020與setup120；supervisor SIGXCPU改stop flag＋SIG_IGN，由checkpoints停止與cleanup，避免任意位置拋例外；更正evaluate-only timeout witness措辭。總60000 wall／57600 CPU不變，無新research probes／receipt，待新exact-head複核。*

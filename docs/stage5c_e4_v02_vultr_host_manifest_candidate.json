@@ -1,0 +1,1580 @@
+{
+  "aggregate_parent_child_rss_cap_bytes": 2684354560,
+  "authorization": "NONE",
+  "baseline_merge_commit": "81f3d70079d32fe989050d4295b0ec2c9084a2e6",
+  "baseline_tree": "2a137a2aac32bb6429447e9c13db9329b1b91765",
+  "censor_rule": "individual wall/CPU censor continues; no retry; fatal source/runtime/memory/global-budget abort stops",
+  "child_address_space_cap_bytes": 34359738368,
+  "child_rss_cap_bytes": 2147483648,
+  "evidence_git_blob": "54b69083db971661b38196a5de65a1ec9b3c0e41",
+  "final_cpu_snapshot_limit": "SIGXCPU after the final flag check and before handler restoration may not revise the summary; parent CPU snapshot excludes subsequent final writes/stream close/handler restoration; no validated cleanup bound",
+  "host": {
+    "allowed_affinity": [
+      0,
+      1
+    ],
+    "cgroup_cpu_max": "200000 100000",
+    "cgroup_memory_max": "6442450944",
+    "cpu_model": "AMD EPYC-Turin Processor",
+    "host_os": "Ubuntu 26.04 LTS",
+    "logical_cpus": 2,
+    "physical_cores": 1,
+    "profile": "VULTR-ATLANTA-SMT-DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
+    "python": "3.12.14",
+    "smt_siblings": [
+      [
+        0,
+        1
+      ]
+    ],
+    "supervisor_affinity": [
+      1
+    ],
+    "sys_version": "3.12.14 (main, Sep 29 2026, 15:01:18) [Clang 22.1.3 ]",
+    "thread_env_value": "1",
+    "threadpoolctl": "3.6.0",
+    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; new CPU/build/cgroup/memory profile; worker CPU0 and supervisor CPU1 are SMT siblings on one physical core",
+    "worker_affinity": [
+      0
+    ],
+    "workers": 1
+  },
+  "host_amendment": {
+    "candidate_only": true,
+    "execution_container": {
+      "campaign_image_config_digest": null,
+      "campaign_image_status": "NOT-BUILT-OR-VERIFIED; stub image digest is not a campaign image pin",
+      "campaign_registry_manifest_digest": null,
+      "cgroup_memory_swap_max": "0",
+      "cgroup_namespace": "private",
+      "cpu_period": 100000,
+      "cpu_quota": 200000,
+      "cpuset_cpus": [
+        0,
+        1
+      ],
+      "image_enforcement": "Host launcher must verify exact campaign image/configuration before receipt gate; campaign.check_runtime currently does not enforce image identity",
+      "lifecycle": "docker run -d; init-reaped foreground supervisor; no restart",
+      "memory_limit_bytes": 6442450944,
+      "memory_swap_total_bytes": 6442450944,
+      "network": "none"
+    },
+    "memory_audit": {
+      "aggregate_parent_child_rss_cap_bytes": 2684354560,
+      "arithmetic_cap_minus_aggregate_rss_bytes": 3758096384,
+      "arithmetic_difference_bytes": 536870912,
+      "campaign_preflight_snapshot": "PENDING; stub preparation snapshot is not campaign preflight evidence",
+      "container_cap_bytes": 6442450944,
+      "gate": "min(memory.max-memory.current, host MemAvailable) >= 3 GiB before allocation; not a continuous 3 GiB reservation",
+      "minimum_preflight_headroom_bytes": 3221225472,
+      "prepare_snapshot_minimum_actual_headroom_bytes": 6429761536
+    },
+    "promotable": false,
+    "receipt_policy": "Do not use old external receipt on Vultr. After revised executable manifest merges, retire old receipt and sign a new one bound to new reviewed commit/tree/manifest hash, exact host and campaign image. No receipt consumed by stub or this candidate.",
+    "source_commit": "4ef42fefc9fc5c2915afa7fd15c5162e3abcbbca",
+    "source_manifest_sha256": "28b5e698b192b65a0d20ae00f15137816a57dc040004ee4afe7d29d5e17ee23e",
+    "source_tree": "4e2434e9806865f981f869ba3012b7ba044e7fc7",
+    "status": "DRAFT-RAW-EVIDENCE-AUDITED-PENDING-CAMPAIGN-IMAGE-AND-EXACT-HEAD-REVIEW",
+    "stub_survival": {
+      "consecutive_qualified_passes_reported": 3,
+      "meaning": "Three repeated 5400-second survival observations only; not an uninterrupted 60000-second qualification or numeric timing comparability",
+      "raw_archive_sha256": "bcd74b5297b4689cc0ee4ee841820b42dc0b76d7af9e0d4a56d3e415ce7f5adf",
+      "report_summary_path": "docs/stage5c_e4_v02_vultr_stub_reported_summary.json",
+      "source": "received raw archive independently audited against frozen stub assessor/source pins; primary continuity evidence is complete heartbeat sequences and unchanged boot ID; later-turn observations meet the formal criterion, without a causal link to chat lifetime",
+      "stub_base_registry_digest": "ubuntu@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7",
+      "stub_image_config_digest": "sha256:cd5a5b67382691aa7affdf89e8bd93312dde268a96ec099481175dddec9978eb"
+    }
+  },
+  "input_sha256": {
+    "analysis/gmom_2d.py": "a0698352e9e2d127a13ca8965b75d29995ff70800c6123ee660e129437d05939",
+    "analysis/gmom_2d_bbmm.py": "676bfda6eab278d61e2fbcad94593aeeb3c0119a123bf69f3d4736547cc6d8c3",
+    "analysis/spectral_dim_2d.py": "f2acb1ab37d4d6db2782d193ae21a40c44b209b9944d256ad127e1150d93a0a4",
+    "analysis/spectral_dim_D.py": "64817982687b0e92134749f3a78eb76a7909ed470bc139ab35ba12fccd2fdc6e",
+    "analysis/stage5a_kappa.py": "e33326708953d36c41bcce69f50dbe7129487a41acfc69266d0b23ed5309f42e",
+    "analysis/stage5b_link_channel.py": "7fabe46fe88c391d552bc38721b695ccd66c37f3b20ba7d590f6812a95847478",
+    "analysis/stage5c_6a_s_runner.py": "866febf1a5a317c134ba60e7cd251ec07963f96b7cf74d1099ec934546daa548",
+    "analysis/stage5c_blind_distance.py": "69c7dc49960f4464344c66e9e5d5cd892b8ddff5ff3073f1ef1802a7e6d3d708",
+    "analysis/stage5c_continuum_pairing.py": "9f45193877a6489b87e44938e04d346b442ebef37a6ca991aa36fe3b36a74fed",
+    "analysis/stage5c_e4_wellposedness.py": "a5892638a79f21dd6e8031653df83ffaa921f546fd20b163552495febc6e48ff",
+    "analysis/stage5c_e4_wellposedness_v02.py": "e2e81ed3e49434cf65dd65ab328518320a4ac1e2d27cbcb7ab69db0e5992b542",
+    "analysis/stage5c_e5_budget.py": "ed05e3fe7ee76bf39093b48f1f7c7f37fbd9f24d3b5cb880b8d03f6e7f69d791",
+    "analysis/stage5c_e5_screen.py": "a85586fa2695d391b78ab9421201d61a44db926bbd2cc1f9773e2b837147d42c",
+    "analysis/stage5c_hard_controls.py": "da6d277831d4e98571a80a443c4cba930c85ef93e7f36cc3b445e3256afbfbe6",
+    "analysis/stage5c_joint_matched_law.py": "5ad6e327499d36e17c3471374b19ef22b17757a45dfeaad1b55114cbc8538b4a",
+    "analysis/stage5c_measure_prereg.py": "8220defc4934284910c61444acbf518ead53c788a4f713f808db5c3c79fa3f06",
+    "analysis/stage5c_numerical_certification.py": "5fbf40b037217ab2a80d78501218f7e73c282d4f31bb70ca3e00ac42a57c88c1",
+    "analysis/stage5c_planted_certification.py": "ef1ed7a7fafa507642bb670ccfcf60b6c5a4a62acd91e220f51e3aad436659b0",
+    "analysis/stage5c_primary_invariant.py": "4ff3b032d0987e4fe3a7099f45459adc14e329c99d2e1c88f9b13e09be5f0be7",
+    "analysis/stage5c_reference_probe.py": "add2a51ab366a1dd044f6e4aa3798659c944991d814c6ddde83d26d9de892f5f",
+    "analysis/stage5c_selector_family.py": "5e182165664316b19db275fed369afeee3896c88e45bcffca99acca932dccfaa",
+    "analysis/stage5c_statistical_regions.py": "deb42ea5b913f7c549d4b52731bd334df6292ed20606de7b383d52e06e3a7e63",
+    "analysis/track_b_4d.py": "450afb66c56cff66ed5ce496b7ccc544e6d1ec0b58640c8c0740174035303e0a",
+    "analysis/track_b_4d_analytic.py": "2b2138a7503e8143221be20d0304887e527b43fdb070909b1953c941feab2d94",
+    "analysis/track_b_4d_irsafe.py": "a5035966d9fbcd70480f2eb53d7d791c62c4a79c648fdfd2fa0ce7de08a09bf0",
+    "analysis/track_b_4d_spectral.py": "a2d2d09dee4732e1d5dd466dd53f643350bc796689503cad738f9903f4a35459",
+    "analysis/track_b_spectral_dim.py": "8751ee2c99c721a2f6f10201fcd0e4086b3b1e88a7cc6fc283ab317686e60003",
+    "benchmarks/stage5c_e4_v02_resource_campaign.py": "f228c97b72bda364ac221c382b3b9dc456cca858007cc045042d204d27784432",
+    "benchmarks/stage5c_e4_v02_resource_characterization.py": "73c45c597f1fb9e47d5c229c042c23185bd5f0f3af2717b54c473e41f61854fa",
+    "benchmarks/stage5c_e4_v02_resource_methods.py": "ef599a82246e10d66aacd16da22e55fa8365b1227db8c78e9b696b376800424e",
+    "docs/stage5c_e4_item7_amendment_candidate_v0.2.json": "7c77ab396130a8973fe6ad46a855b22ce5d2d3d8f5d31a2025d660890ed947a7",
+    "docs/stage5c_e4_v02_resource_characterization.json": "e7ae2ac3dd33b23521e637ef5809651a68d6f96373eedcc879004581cafbd321",
+    "docs/stage5c_e4_v02_resource_fixture_bytes.json": "89c6bf22eb7289e54a08044903df061b021b9f526f95d8dfec42f4a28b0f6ff5",
+    "docs/stage5c_e4_v02_resource_method_reference.json": "1df3c1170e95d49bb6611b0ce2c976d9cebbb7e1b4f558d727ff10273c81fb23"
+  },
+  "jobs": [
+    {
+      "atoms": 8128,
+      "cpu_cap": 5000,
+      "id": "direct-8128-4096",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 4096,
+      "wall_cap": 4500
+    },
+    {
+      "case_index": 0,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-00--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 0,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-00-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 1,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-01--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 1,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-01-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 2,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-02--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 2,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-02-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 3,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-03--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 3,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-03-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 4,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-04--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 4,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-04-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 5,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-05--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 5,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-05-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 6,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-06--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 6,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-06-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 7,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-07--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 7,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-07-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 8,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-08--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 8,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-08-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 9,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-09--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 9,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-09-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 10,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-10--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 10,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-10-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 11,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-11--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 11,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-11-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 12,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-12--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 12,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-12-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 13,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-13--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 13,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-13-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 14,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-14--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 14,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-14-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 15,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-15--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 15,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-15-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 16,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-16--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 16,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-16-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 17,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-17--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 17,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-17-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 18,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-18--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 18,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-18-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 19,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-19--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 19,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-19-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 20,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-20--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 20,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-20-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 21,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-21--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 21,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-21-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 22,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-22--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 22,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-22-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 23,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-23--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 23,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-23-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 24,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-24--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 24,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-24-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 25,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-25--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 25,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-25-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 26,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-26--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 26,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-26-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 27,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-27--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 27,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-27-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 28,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-28--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 28,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-28-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 29,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-29--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 29,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-29-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 30,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-30--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 30,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-30-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 31,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-31--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 31,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-31-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 32,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-32--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 32,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-32-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 33,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-33--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 33,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-33-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 34,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-34--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 34,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-34-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 35,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-35--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 35,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-35-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 36,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-36--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 36,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-36-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 37,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-37--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 37,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-37-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 38,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-38--0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "-0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "case_index": 38,
+      "cpu_cap": 1100,
+      "e4_wall_cap": 900,
+      "id": "reach-38-+0.4",
+      "kind": "production",
+      "role": "reachability_only_not_model_validation",
+      "setup_allowance": 120,
+      "theta_hex": "0x1.999999999999ap-2",
+      "wall_cap": 1020
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-00",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-01",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-02",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-03",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-04",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-05",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-06",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-07",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-08",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-09",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-10",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-11",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-12",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-13",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-14",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-15",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-16",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-17",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-18",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-19",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-20",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-21",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-22",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-23",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-24",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-25",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-26",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-27",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-28",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-29",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-30",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s128-31",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 128,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-00",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-01",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-02",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-03",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-04",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-05",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-06",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-07",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-08",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-09",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-10",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-11",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-12",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-13",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-14",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s256-15",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 256,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-00",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-01",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-02",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-03",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-04",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-05",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-06",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s512-07",
+      "kind": "stress",
+      "role": "seen_cell_repeat",
+      "s": 512,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s1024-00",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 1024,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s1024-01",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 1024,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s1024-02",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 1024,
+      "wall_cap": 900
+    },
+    {
+      "atoms": 8128,
+      "cpu_cap": 1000,
+      "id": "cycle-s1024-03",
+      "kind": "stress",
+      "role": "held_out_cell",
+      "s": 1024,
+      "wall_cap": 900
+    }
+  ],
+  "minimum_memory_headroom_bytes": 3221225472,
+  "policy": {
+    "coefficient_reference_atol": 1e-10,
+    "coefficient_reference_rtol": 1e-08,
+    "model_set_all_pass": "structurally impossible at all three held-out cells; never an ADOPT criterion",
+    "parallel_cpu_ratio_limit": 1.1,
+    "parallel_jobs": 0,
+    "power_model_use": "all 16 frozen scenario forms reported; no winning subset",
+    "primary_stress_model": "stress_affine",
+    "residual_limit": 0.1,
+    "safety_multiplier": 1.25
+  },
+  "poll_cadence_seconds": 0.5,
+  "preflight_failure_record": "After receipt gate, pre-output limits/runtime/memory/method/fixture exception: flush structured PREFLIGHT-ABORT JSON to stderr with all NOT-RUN IDs and no worker/output creation, re-raise; CPU stop outcome PLAN-PARENT-CPU-INCOMPLETE; restore SIGXCPU handler in finally, not RLIMITs; preserve stderr, no retry authorization",
+  "production_setup_allowance": 120,
+  "selected_package": "maintain_current_production_caps; diagnose reachability and model adequacy only",
+  "solver": {
+    "atol": "OMITTED; unused in pinned implementation",
+    "loss": "equal-weight absolute-second squared residual",
+    "maxiter": 10000,
+    "name": "scipy.optimize.nnls",
+    "numpy": "2.3.5",
+    "power_column": "[1,(a/8192)**p*(s/4096)**q]",
+    "rank_relative_tolerance": 9.094947017729282e-13,
+    "scipy": "1.17.0",
+    "stress_affine_column_divisors": [
+      1,
+      8192,
+      4096,
+      33554432
+    ],
+    "tie_rule": "full-column-rank designs only; accept pinned active set, no alternate solver or post-result tie selection"
+  },
+  "state": "VULTR-HOST-AMENDMENT-CANDIDATE-NOT-EXECUTABLE",
+  "supervisor_cpu_inherited_hard_cap": 5001,
+  "supervisor_cpu_soft_cap": 600,
+  "supervisor_cpu_stop": "SIGXCPU sets flag then SIG_IGN; checkpoints stop/reap; corrected terminal summary if flag arrives during fsync",
+  "terminal_summary_rule": "Last complete record_type=TERMINAL-SUMMARY is authoritative; summary_revision=1 initially, correction=2 with supersedes_previous_summary=true; missing terminal summary is incomplete",
+  "timing_scopes": {
+    "censored_stress": "identity-verified last-live sample; two-tick CPU discount; never whole-child as phase",
+    "production": "evaluate-only ITIMER_REAL900; whole-child1020 with fixed120 setup allowance",
+    "stress": "instrumented action phase including start/end marker flushes and result metadata; cross-profile diagnostic only"
+  },
+  "total_cpu_cap": 57600,
+  "total_wall_cap": 60000,
+  "wall_cleanup_margin": 5,
+  "wall_startup_margin": 5
+}
