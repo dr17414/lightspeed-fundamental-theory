@@ -14,7 +14,7 @@ jobs、caps、methods、fixtures、solver reference 與原 evidence 均不變，
 v0.5 提議 Vultr runtime／正式映像 pins，以及在 receipt read 前實際核對 Docker
 image、參數、掛載與有效 runtime 的 launcher；OpenBLAS 0.3.30／SkylakeX kernel
 明列於 manifest。映像 smoke 與套件來源已由獨立 reviewer 核對；新 launcher
-待 exact-head review、merge 後主機 preflight-only 驗收。詳見
+待 exact-head 主機 preflight-only 驗收與獨立 review，通過後才 merge。詳見
 `STAGE5C_6A_E_ITEM7_VULTR_CONTAINER_LAUNCH_REVIEW.md`。authorization 仍 NONE。
 
 ## 1. Baseline 與用途

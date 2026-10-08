@@ -1590,7 +1590,7 @@
     "launcher": "benchmarks/stage5c_e4_v02_container_launch.py",
     "mode": "prepare stopped container; validate actual inspect; start re-inspects; container checks before reading receipt",
     "output": "/output/campaign",
-    "preflight_status": "LOCAL-REGRESSION-TESTS; revised-launcher host preflight pending after merge; no run authorization",
+    "preflight_status": "LOCAL-REGRESSION-TESTS-PASSED; exact-head host preflight and independent review REQUIRED BEFORE MERGE; merged-checkout identity rechecked before new receipt; no run authorization",
     "receipt": "/custody/receipt.json",
     "receipt_additional_bindings": [
       "reviewed_tree",

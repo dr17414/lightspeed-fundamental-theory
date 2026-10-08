@@ -98,22 +98,27 @@ socket is mounted. Host admins must not docker update, replace proof/receipt or
 mutate bind sources while prepared/running. Actual cgroup/mount checks do not
 defeat an administrator who can forge evidence or alter the host.
 
-## Operator sequence after independent review and merge
+## Exact-head acceptance before merge, then reviewed execution
 
 Image Python/dependencies stay pinned; /repo:ro mounts the NEW reviewed complete
 checkout. Historical smoke at the base is not execution evidence for this new
-launcher. First repeat **preflight-only** with final flags/proof mount and dummy
-SMOKE-ONLY receipt, running from the merged checkout:
+launcher. BEFORE MERGE, repeat **preflight-only** against the exact proposed
+PR head/tree with final flags/proof mount and a dummy SMOKE-ONLY receipt,
+running from that clean PR checkout. Return the logs/inspect/exit evidence for
+independent exact-head review; manifest promotion remains review-pending:
 
 ```bash
-python -m benchmarks.stage5c_e4_v02_container_launch prepare --repo /gpt/reviewed-checkout --custody /gpt/preflight-custody --output /gpt/preflight-output --launch /gpt/preflight-launch --reviewed-commit REVIEWED_MERGE_SHA --mode preflight
+python -m benchmarks.stage5c_e4_v02_container_launch prepare --repo /gpt/reviewed-checkout --custody /gpt/preflight-custody --output /gpt/preflight-output --launch /gpt/preflight-launch --reviewed-commit REVIEWED_PR_HEAD_SHA --mode preflight
 python -m benchmarks.stage5c_e4_v02_container_launch start --launch /gpt/preflight-launch
 ```
 
 Directories must exist, preflight-launch be empty, custody contain receipt.json.
 Retain Docker logs, inspect and exit status for the printed same container ID;
 require CONTAINER-PREFLIGHT-PASS and exit 0 without OOM/restart and archive it.
-Then retire the old receipt, issue a new external development-only receipt bound
+After this acceptance and independent review, merge the approved exact tree.
+Recheck the clean merged checkout through a fresh preflight-only launch (merge
+commit/manifest identity must match the new receipt). Then retire the old receipt,
+issue a new external development-only receipt bound
 to reviewed merge commit/tree, manifest, image and host profile, and confirm an
 uninterrupted 60000-second window. Three separate 90-minute passes do not prove it.
 host_profile_sha256 is SHA-256 of UTF-8 JSON of manifest.host with sort_keys=True,
@@ -135,11 +140,13 @@ campaign pin updates for guard/runtime code, one launcher pin is added (35 total
 No refit/new data selects thresholds. Items 8/9/10/12 remain OPEN, item 11 DRAFT,
 6a-E PREREGISTRATION-INCOMPLETE; no scientific status closes here.
 Local negative tests and fake-Docker gate ordering are not actual Vultr launcher
-execution evidence. Real revised-launcher preflight remains pending after merge.
+execution evidence. Real revised-launcher exact-head preflight remains a BEFORE-MERGE prerequisite;
+new merged-checkout/receipt identity is rechecked before formal execution.
 
 Local validation: `python -m pytest -q tests/` → 541 passed, 5 pre-existing
 warnings; targeted launcher/manifest tests → 97 passed. Local interpreter is
 Python 3.12.14 (Aug 25 build), NumPy 2.3.5 / SciPy 1.17.0 / threadpoolctl 3.6.0.
 It is a regression environment, not the pinned Sep 29 Vultr execution runtime.
 `python verify_integrity.py` and `git diff --check` pass. CI retains its pinned
-Python 3.12.13 configuration; no CI result is claimed before that run completes.
+Python 3.12.13 configuration and explicitly installs pinned threadpoolctl 3.6.0
+for the new pool-identity regression test; no CI result is claimed before that run completes.

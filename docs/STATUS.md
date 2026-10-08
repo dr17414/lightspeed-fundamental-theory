@@ -238,7 +238,7 @@ Vultr 正式映像與三輪 90 分鐘 survival 原始紀錄已獨立核對。本
 executable manifest host/image pins、OpenBLAS 0.3.30／SkylakeX timing identity，及
 create/inspect/start + container effective runtime 的 receipt 前強制驗收。映像 local-only，
 未 version-lock 的 apt 套件使其不可逐位元重建；建議 docker save 並存於 VM 外。
-新 launcher 待 exact-head review／merge 後主機 preflight-only 驗收、新 external receipt
+新 launcher 待 exact-head 主機 preflight-only 驗收／獨立 review，merge 後新 external receipt
 及 60000 秒窗口確認；authorization=NONE，無新 probes，科學 closure 不變。
 詳見 `docs/STAGE5C_6A_E_ITEM7_VULTR_CONTAINER_LAUNCH_REVIEW.md`。
 
