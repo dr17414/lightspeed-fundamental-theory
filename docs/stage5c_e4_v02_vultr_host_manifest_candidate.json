@@ -74,13 +74,13 @@
     "source_commit": "4ef42fefc9fc5c2915afa7fd15c5162e3abcbbca",
     "source_manifest_sha256": "28b5e698b192b65a0d20ae00f15137816a57dc040004ee4afe7d29d5e17ee23e",
     "source_tree": "4e2434e9806865f981f869ba3012b7ba044e7fc7",
-    "status": "DRAFT-PENDING-RAW-EVIDENCE-CAMPAIGN-IMAGE-AND-INDEPENDENT-REVIEW",
+    "status": "DRAFT-RAW-EVIDENCE-AUDITED-PENDING-CAMPAIGN-IMAGE-AND-EXACT-HEAD-REVIEW",
     "stub_survival": {
       "consecutive_qualified_passes_reported": 3,
       "meaning": "Three repeated 5400-second survival observations only; not an uninterrupted 60000-second qualification or numeric timing comparability",
-      "raw_archive_sha256": null,
+      "raw_archive_sha256": "bcd74b5297b4689cc0ee4ee841820b42dc0b76d7af9e0d4a56d3e415ce7f5adf",
       "report_summary_path": "docs/stage5c_e4_v02_vultr_stub_reported_summary.json",
-      "source": "user-pasted report and corroborated conversation live observations; raw archive pending",
+      "source": "received raw archive independently audited against frozen stub assessor/source pins; primary continuity evidence is complete heartbeat sequences and unchanged boot ID; later-turn observations meet the formal criterion, without a causal link to chat lifetime",
       "stub_base_registry_digest": "ubuntu@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7",
       "stub_image_config_digest": "sha256:cd5a5b67382691aa7affdf89e8bd93312dde268a96ec099481175dddec9978eb"
     }

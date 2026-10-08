@@ -2,9 +2,9 @@
 
 The old resource manifest pins EPYC 9V74, the August Python build, CPU quota 8,
 and an 8 GiB cgroup memory limit. These pins reject the user's new Vultr host.
-This draft proposes the measured replacement profile after three reported
-90-minute Docker survival passes. It keeps the runner's actual manifest unchanged
-until the image, evidence and exact-head review are complete.
+This draft proposes the measured replacement profile after three independently
+audited 90-minute Docker survival passes. It keeps the runner's actual manifest
+unchanged until the campaign image, launcher and exact-head review are complete.
 
 ## Base and changed files
 
@@ -40,13 +40,24 @@ Formal campaign image digest fields are null, never filled with the stub digest.
 
 ## Survival evidence and limits
 
-User-pasted report shows all three runs PASS, 541 heartbeats each, elapsed
+The received raw archive has SHA-256
+`bcd74b5297b4689cc0ee4ee841820b42dc0b76d7af9e0d4a56d3e415ce7f5adf`.
+Independent audit of series/protocol files, complete heartbeat and observation
+JSONL, summaries, container profiles and registrations against frozen source
+pins and the stub assessor confirms three PASS results. Every elapsed and gap
+value below matches the raw records exactly.
+
+Each run has 541 complete heartbeats over 5400 seconds, elapsed
 5400.004671048 / 5400.004532353001 / 5400.004529451 s; maximum heartbeat gaps
-10.00118532200031 / 10.0008130540009 / 10.00081466499978 s. Same reported boot/image,
-no OOM/restart, exit code 0. Each run has a live observation in a genuinely later
-conversation turn; the raw evidence retains exact tags and timestamps. Ephemeral boot/container/PID
-identities and absolute per-run timestamps are omitted from this public summary
-and kept in user-hosted evidence for private independent review.
+10.00118532200031 / 10.0008130540009 / 10.00081466499978 s. Boot ID is unchanged
+across all three runs; image is identical, no OOM/restart, exit code 0.
+The full heartbeat sequences and unchanged boot ID are the primary evidence of
+continuous survival within each run. Later-turn live observations occurred about
+121, 46 and 164 seconds after launch, respectively, and meet the formal criterion.
+On a self-managed VM, process lifetime is independent of chat lifetime; these
+early observations do not establish a causal connection to conversation turns.
+Ephemeral boot/container/PID identities, exact tags and absolute timestamps
+remain in private raw evidence and are omitted from this public summary.
 The duplicate start rejection before round-3 observation did not create a failed
 new attempt or alter the three recorded runs. The current stub streak display
 counts a running incomplete attempt as zero; final closed series correctly says
@@ -73,25 +84,53 @@ unchanged. Virtual address-space cap 32 GiB is not a physical memory allowance.
 
 ## Remaining exact-head review prerequisites
 
-1. Receive and independently audit original series.json, protocol files, all
-   heartbeat/observation JSONL, summaries, Docker registration/profile/logs;
-   retain archive SHA-256. Posted summary is explicitly not the raw archive.
-2. Build formal campaign image with pinned NumPy 2.3.5, SciPy 1.17.0,
+Raw archive receipt, hash and independent survival audit are complete. Claude's
+independent review of head `8b20a15d` found no blocking issue; the evidence and
+wording corrections in this revision still need exact amended-head review.
+
+1. Build formal campaign image with pinned NumPy 2.3.5, SciPy 1.17.0,
    threadpoolctl 3.6.0, exact Python build and reviewed source. Freeze full
    campaign image/config digest and registry digest only if available. Verify
    dependency/runtime and Docker resource/lifecycle identity without timed probes.
-3. Define/review how the host launcher verifies image and runtime before receipt
+2. Define/review how the host launcher verifies image and runtime before receipt
    gate; current campaign.check_runtime does not enforce Docker image identity.
    Do not mistake metadata in a candidate for implemented enforcement.
-4. Confirm planned uninterrupted 60000-second window and actual campaign memory
+3. Confirm planned uninterrupted 60000-second window and actual campaign memory
    preflight on the operator-controlled host. Survival tests alone do not prove it.
-5. Claude independently reviews the exact amended head, all preserved caps and
+4. Claude independently reviews the exact amended head, all preserved caps and
    comparability language. Promote a complete candidate into the executable
    manifest only after blockers are resolved. Recheck hash/source pins and CI.
-6. After new executable manifest merges, retire the old external receipt bound to
+5. After new executable manifest merges, retire the old external receipt bound to
    the old commit/manifest hash and obtain a new receipt bound to the reviewed
    new commit/tree/manifest, host, image and unique repo-external output directory.
    No old receipt may be used on Vultr; no receipt gate was called by this draft.
+
+## Next PR: formal measurement container acceptance
+
+The operator builds and tests the image over SSH and returns the outputs. The
+next PR must implement and demonstrate the following before manifest promotion:
+
+- Include Git and mount a complete clean checkout at `/repo:ro`, including its
+  usable `.git` directory. A worktree pointer into an unmounted host path is not
+  sufficient. Run the exact `git rev-parse HEAD` and `git status --porcelain`
+  checks used by `check_receipt` under the final read-only mount and UID. Require
+  the reviewed HEAD and empty status. Test any ownership/safe.directory or
+  optional-lock configuration explicitly; do not assume read-only Git works.
+- Keep the container root read-only and provide `--tmpfs /tmp` with a reviewed
+  size bound. Smoke-test pinned NumPy/SciPy imports and writable temporary files
+  with the final flags. Count tmpfs use against the same 6 GiB cgroup limit.
+- Explicitly pass all six variables with `-e NAME=1`:
+  `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, `MKL_NUM_THREADS`,
+  `BLIS_NUM_THREADS`, `VECLIB_MAXIMUM_THREADS`, `NUMEXPR_NUM_THREADS`.
+  Verify their effective values and threadpoolctl limits inside the container.
+- Bind the receipt read-only and output writable from separate host directories
+  outside the repo, for example `/custody/receipt.json:ro` and `/output:rw`.
+  The receipt's `output_directory` must equal the container-visible resolved
+  path used by the runner. Test mount resolution and permissions with dummy
+  files; avoid invoking the real receipt gate during image smoke checks.
+- Verify the exact campaign image/config digest, source pins, dependency/build
+  versions, CPU affinity, cgroup limits and lifecycle before any receipt gate.
+  Retain smoke evidence separately from campaign authorization and timed data.
 
 The scientific screen remains unauthorized, items 8/9/10/12 OPEN and item 11
 DRAFT; 6a-E remains PREREGISTRATION-INCOMPLETE. No scientific status is closed here.

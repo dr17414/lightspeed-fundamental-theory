@@ -2,10 +2,10 @@
   "boot_unchanged_reported": true,
   "consecutive_qualified_passes_reported": 3,
   "numeric_producer_called_reported": false,
-  "provenance": "Transcribed from user-pasted final SERIES-REPORT and corroborated conversation live observations on 2026-10-08. Not the raw JSONL archive. Ephemeral boot/container/PID identities and per-run absolute timestamps are omitted from this public review summary; retained in user-hosted raw evidence for private independent review.",
+  "provenance": "Raw archive received and independently audited on 2026-10-08 against the frozen stub assessor and source pins; every reported elapsed/gap value matches the raw JSONL and summaries exactly. Primary continuity evidence is 541 complete heartbeats over 5400 seconds per run plus an unchanged boot ID. Later-turn live observations satisfy the formal criterion but do not establish chat-dependent process survival on a self-managed VM. Ephemeral boot/container/PID identities and absolute timestamps remain in private raw evidence, omitted from this public summary.",
   "qualified_reported": true,
-  "raw_archive_received": false,
-  "raw_archive_sha256": null,
+  "raw_archive_received": true,
+  "raw_archive_sha256": "bcd74b5297b4689cc0ee4ee841820b42dc0b76d7af9e0d4a56d3e415ce7f5adf",
   "receipt_used_reported": false,
   "runs": [
     {
