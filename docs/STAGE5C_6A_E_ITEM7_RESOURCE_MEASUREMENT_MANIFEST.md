@@ -1,4 +1,4 @@
-# Item 7 deterministic resource measurement manifest v0.4
+# Item 7 deterministic resource measurement manifest v0.5
 
 `REVIEW-DRAFT`；`authorization=NONE`。本 PR 提供完整的固定輸入、方法、執行計畫與
 診斷 harness，供 exact-head 複核；本輪只執行已公開training資料的方法驗證與tests；真實Linux limits/signals測試
@@ -10,6 +10,12 @@ v0.3 已由 PR #62 合併為 `e77515a887a0a015bef6b45c789724d1c04de4e6`，tree
 `227b03a93db2fb5adea923a67efdfbc5b81eb2f4` 與受審版本一致。v0.4 只補 terminal
 summary 的權威規則、殘餘訊號窗口說明與 preflight 錯誤紀錄／handler 清理；139 個
 jobs、caps、methods、fixtures、solver reference 與原 evidence 均不變，待新 exact-head 複核。
+
+v0.5 提議 Vultr runtime／正式映像 pins，以及在 receipt read 前實際核對 Docker
+image、參數、掛載與有效 runtime 的 launcher；OpenBLAS 0.3.30／SkylakeX kernel
+明列於 manifest。映像 smoke 與套件來源已由獨立 reviewer 核對；新 launcher
+待 exact-head review、merge 後主機 preflight-only 驗收。詳見
+`STAGE5C_6A_E_ITEM7_VULTR_CONTAINER_LAUNCH_REVIEW.md`。authorization 仍 NONE。
 
 ## 1. Baseline 與用途
 
@@ -180,10 +186,12 @@ PLAN-COMPLETE 只表示全計畫 attempts 已記錄，允許其中有 censoring�
 
 ## 5. Host、memory 與執行 gate
 
-固定為 development host：Python 3.12.14、AMD EPYC 9V74 80-Core Processor、
-cgroup cpu.max=`800000 100000`／memory.max=`8589934592`；allowed affinity=0..8，
+提議固定為 Vultr development host：Sep 29 build 的 Python 3.12.14、AMD EPYC-Turin Processor、
+cgroup cpu.max=`200000 100000`／memory.max=`6442450944`／memory.swap.max=`0`；allowed affinity={0,1}，
 supervisor pin={1}、worker pin={0}。六個 thread env 在 numerical imports 前均為1；NumPy 2.3.5、SciPy1.17.0、
 threadpoolctl3.6.0，實際全部 BLAS pools必須1，integrator workers=1。
+CPU0/1 為同一實體核心的 SMT siblings；兩套 wheel OpenBLAS 0.3.30 皆選 SkylakeX kernel。
+Runtime 比對 version／architecture／prefix／thread 數；舊 training 僅 cross-profile diagnostic。
 Host 不符即 preflight fail，不自行選新 host／threads。Host移轉需新 manifest/review。
 
 每次啟動前要求 host MemAvailable 與 cgroup剩餘記憶體均≥3 GiB；child peak RSS cap
@@ -191,15 +199,18 @@ Host 不符即 preflight fail，不自行選新 host／threads。Host移轉需�
 ru_maxrss 與 live RSS監控均保留，retroactive RSS超限同樣停止。
 每項也記host/cgroup available memory、parent/child peaks。兩者peak之和是concurrent
 RSS的保守上界，未宣稱兩個peak同時發生；若此上界超2.5 GiB也停止，不取樣漏掉峰值。
-單 process 舊觀察467 MB不是 memory bound。本輪無 parallel worker memory資格化；8 GiB不是約7 GB
+單 process 舊觀察467 MB不是 memory bound。本輪無 parallel worker memory資格化；6 GiB容器亦不是約7 GB
 target。Target preflight／aggregate worker memory仍須另證。
 
 新 harness 為 `benchmarks/stage5c_e4_v02_resource_campaign.py`。沒有 receipt 時在
 resource mutations／numeric producer之前拒跑，tests鎖住這個 gate。
 未建立 receipt；待 exact-head review／merge與明確 resource execution授權後，external
 receipt才可釘：authorization=`DETERMINISTIC-RESOURCE-DEVELOPMENT-ONLY`、reviewed_commit
-（當時main merge SHA）、manifest_sha256、absolute output_directory。Receipt/output均
+（當時main merge SHA）、reviewed_tree、manifest_sha256、image_config_digest、host_profile_sha256、host_boot_id、host_output_directory、absolute output_directory。Receipt/output均
 在repo之外，checkout須clean。Receipt不授權 scientific screen或新seed namespace。
+Host launcher 先 create stopped container、核對 actual inspect、start 前重驗；container
+再驗 read-only proof 與有效 runtime，才 read receipt。固定 container paths 是
+`/custody/receipt.json` 與 `/output/campaign`；proof 為獨立 `/launch:ro`。不沿用舊 receipt。
 Worker只接受 supervisor parent／receipt／internal job index，不能以普通CLI啟動timing。
 
 ## 6. Held-out 判讀門檻（量測前固定）

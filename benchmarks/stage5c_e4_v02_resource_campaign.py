@@ -34,13 +34,31 @@ class ResourceNotAuthorized(RuntimeError):
 def check_receipt(path, directory):
     if path is None:
         raise ResourceNotAuthorized("external exact-commit review receipt required")
+    from benchmarks.stage5c_e4_v02_container_launch import check_before_receipt
+    manifest = json.loads(MANIFEST.read_text())
+    try:
+        launch = check_before_receipt(manifest)
+    except Exception as exc:
+        print(json.dumps({"event": "CONTAINER-PREFLIGHT-ABORT", "error_type": type(exc).__name__,
+                          "error": str(exc), "receipt_gate_called": False,
+                          "numeric_producer_called": False, "output_directory_created": False}),
+              file=sys.stderr, flush=True)
+        raise
     receipt_path, output = Path(path).resolve(), Path(directory).resolve()
+    if str(receipt_path) != "/custody/receipt.json" or str(output) != "/output/campaign":
+        raise ResourceNotAuthorized("reviewed container receipt/output paths required")
     if receipt_path.is_relative_to(ROOT) or output.is_relative_to(ROOT):
         raise ResourceNotAuthorized("receipt/output must be outside the repository")
     receipt = json.loads(receipt_path.read_text())
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     if (receipt.get("authorization") != "DETERMINISTIC-RESOURCE-DEVELOPMENT-ONLY"
             or receipt.get("reviewed_commit") != head
+            or receipt.get("reviewed_tree") != launch["reviewed_tree"]
+            or receipt.get("image_config_digest") != launch["image_config_digest"]
+            or receipt.get("host_boot_id") != launch["host_boot_id"]
+            or receipt.get("host_output_directory") != launch["host_output_directory"]
+            or receipt.get("host_profile_sha256") != sha256(json.dumps(
+                manifest["host"], sort_keys=True, separators=(",", ":")).encode()).hexdigest()
             or receipt.get("manifest_sha256") != sha256(MANIFEST.read_bytes()).hexdigest()
             or receipt.get("output_directory") != str(output)):
         raise ResourceNotAuthorized("review receipt mismatch")
@@ -59,7 +77,8 @@ def check_runtime(manifest, *, role="supervisor"):
     if sys.version != profile["sys_version"]:
         raise RuntimeError("campaign Python build pin mismatch")
     for field, file in (("cgroup_cpu_max", "/sys/fs/cgroup/cpu.max"),
-                        ("cgroup_memory_max", "/sys/fs/cgroup/memory.max")):
+                        ("cgroup_memory_max", "/sys/fs/cgroup/memory.max"),
+                        ("cgroup_memory_swap_max", "/sys/fs/cgroup/memory.swap.max")):
         if Path(file).read_text().strip() != profile[field]:
             raise RuntimeError("host/cgroup pin mismatch")
     model = next(line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines()
@@ -69,9 +88,36 @@ def check_runtime(manifest, *, role="supervisor"):
             profile["allowed_affinity"], profile["supervisor_affinity"], affinity):
         raise RuntimeError("CPU/affinity pin mismatch")
     os.sched_setaffinity(0, set(affinity))
+    for siblings in profile["smt_siblings"]:
+        for cpu in siblings:
+            text = Path(f"/sys/devices/system/cpu/cpu{cpu}/topology/thread_siblings_list").read_text().strip()
+            observed = []
+            for part in text.split(","):
+                ends = part.split("-")
+                observed.extend(range(int(ends[0]), int(ends[-1]) + 1))
+            if sorted(observed) != siblings:
+                raise RuntimeError("SMT sibling pin mismatch")
     for path, expected in manifest["input_sha256"].items():
         if sha256((ROOT / path).read_bytes()).hexdigest() != expected:
             raise RuntimeError("input/source pin mismatch: " + path)
+
+
+def check_numerical_runtime(manifest):
+    # Imports/version and pool inspection only; no solver or numerical producer.
+    import numpy as np
+    import scipy
+    from threadpoolctl import threadpool_info
+    if np.__version__ != manifest["solver"]["numpy"] or scipy.__version__ != manifest["solver"]["scipy"]:
+        raise RuntimeError("numerical dependency pin mismatch")
+    if importlib.metadata.version("threadpoolctl") != manifest["host"]["threadpoolctl"]:
+        raise RuntimeError("threadpoolctl pin mismatch")
+    pools = threadpool_info()
+    keys = ("user_api", "internal_api", "prefix", "version", "architecture", "num_threads")
+    actual = sorted([tuple(p.get(k) for k in keys) for p in pools], key=str)
+    expected = sorted([tuple(p[k] for k in keys) for p in manifest["host"]["blas_pools"]], key=str)
+    if actual != expected:
+        raise RuntimeError("OpenBLAS version/kernel/thread pool pin mismatch")
+    return pools
 
 
 def memory_preflight():
@@ -243,17 +289,10 @@ def phase_lower_bounds(stderr_path, sample):
 def worker(job, fixtures):
     import numpy as np
     import scipy
-    from threadpoolctl import threadpool_info
     from analysis import stage5c_e4_wellposedness_v02 as v02
     from analysis.stage5c_measure_prereg import uniform_pair_weights, normalised_weights
     from benchmarks.stage5c_e4_v02_resource_characterization import stress_integrand
-    if np.__version__ != "2.3.5" or scipy.__version__ != "1.17.0":
-        raise RuntimeError("numerical dependency pin mismatch")
-    if importlib.metadata.version("threadpoolctl") != "3.6.0":
-        raise RuntimeError("threadpoolctl pin mismatch")
-    pools = threadpool_info()
-    if not pools or any(p["num_threads"] != 1 for p in pools):
-        raise RuntimeError("actual thread pools must all be one")
+    pools = check_numerical_runtime(json.loads(MANIFEST.read_text()))
     if job["kind"] == "production":
         atoms, weights = methods.load_case(fixtures, job["case_index"])
         theta = float.fromhex(job["theta_hex"])
