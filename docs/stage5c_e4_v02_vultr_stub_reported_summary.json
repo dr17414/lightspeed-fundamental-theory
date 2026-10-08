@@ -1,0 +1,61 @@
+{
+  "boot_unchanged_reported": true,
+  "consecutive_qualified_passes_reported": 3,
+  "numeric_producer_called_reported": false,
+  "provenance": "Transcribed from user-pasted final SERIES-REPORT and corroborated conversation live observations on 2026-10-08. Not the raw JSONL archive. Ephemeral boot/container/PID identities and per-run absolute timestamps are omitted from this public review summary; retained in user-hosted raw evidence for private independent review.",
+  "qualified_reported": true,
+  "raw_archive_received": false,
+  "raw_archive_sha256": null,
+  "receipt_used_reported": false,
+  "runs": [
+    {
+      "boot_unchanged_reported": true,
+      "container_config_valid_reported": true,
+      "cross_conversation_live_observation": true,
+      "docker_exit_code": 0,
+      "docker_oom_killed": false,
+      "docker_restart_count": 0,
+      "elapsed_seconds": 5400.004671048,
+      "heartbeat_count": 541,
+      "max_heartbeat_gap_seconds": 10.00118532200031,
+      "protocol_pins_valid_reported": true,
+      "qualification_verdict_reported": "PASS",
+      "run": "run-01",
+      "source_pins_valid_reported": true,
+      "timing_verdict_reported": "PASS"
+    },
+    {
+      "boot_unchanged_reported": true,
+      "container_config_valid_reported": true,
+      "cross_conversation_live_observation": true,
+      "docker_exit_code": 0,
+      "docker_oom_killed": false,
+      "docker_restart_count": 0,
+      "elapsed_seconds": 5400.004532353001,
+      "heartbeat_count": 541,
+      "max_heartbeat_gap_seconds": 10.0008130540009,
+      "protocol_pins_valid_reported": true,
+      "qualification_verdict_reported": "PASS",
+      "run": "run-02",
+      "source_pins_valid_reported": true,
+      "timing_verdict_reported": "PASS"
+    },
+    {
+      "boot_unchanged_reported": true,
+      "container_config_valid_reported": true,
+      "cross_conversation_live_observation": true,
+      "docker_exit_code": 0,
+      "docker_oom_killed": false,
+      "docker_restart_count": 0,
+      "elapsed_seconds": 5400.004529451,
+      "heartbeat_count": 541,
+      "max_heartbeat_gap_seconds": 10.00081466499978,
+      "protocol_pins_valid_reported": true,
+      "qualification_verdict_reported": "PASS",
+      "run": "run-03",
+      "source_pins_valid_reported": true,
+      "timing_verdict_reported": "PASS"
+    }
+  ],
+  "stub_image_config_digest": "sha256:cd5a5b67382691aa7affdf89e8bd93312dde268a96ec099481175dddec9978eb"
+}
