@@ -11,31 +11,133 @@
   "host": {
     "allowed_affinity": [
       0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8
+      1
     ],
-    "cgroup_cpu_max": "800000 100000",
-    "cgroup_memory_max": "8589934592",
-    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
-    "profile": "DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
+    "blas_pools": [
+      {
+        "architecture": "SkylakeX",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "user_api": "blas",
+        "version": "0.3.30"
+      },
+      {
+        "architecture": "SkylakeX",
+        "internal_api": "openblas",
+        "num_threads": 1,
+        "prefix": "libscipy_openblas",
+        "user_api": "blas",
+        "version": "0.3.30"
+      }
+    ],
+    "cgroup_cpu_max": "200000 100000",
+    "cgroup_memory_max": "6442450944",
+    "cgroup_memory_swap_max": "0",
+    "cpu_model": "AMD EPYC-Turin Processor",
+    "host_os": "Ubuntu 26.04 LTS",
+    "logical_cpus": 2,
+    "physical_cores": 1,
+    "profile": "VULTR-ATLANTA-SMT-DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
     "python": "3.12.14",
+    "smt_siblings": [
+      [
+        0,
+        1
+      ]
+    ],
     "supervisor_affinity": [
       1
     ],
-    "sys_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "sys_version": "3.12.14 (main, Sep 29 2026, 15:01:18) [Clang 22.1.3 ]",
     "thread_env_value": "1",
     "threadpoolctl": "3.6.0",
-    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; historical single process had no supervisor wakeups",
+    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; new CPU/build/cgroup/memory profile; worker CPU0 and supervisor CPU1 are SMT siblings on one physical core; wheel OpenBLAS 0.3.30 selects SkylakeX kernel on Turin; historical training remains cross-profile only",
     "worker_affinity": [
       0
     ],
     "workers": 1
+  },
+  "host_amendment": {
+    "candidate_only": false,
+    "execution_container": {
+      "base_registry_digest": "ubuntu@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7",
+      "campaign_image_config_digest": "sha256:cf5c2502a59f57f2156be75c928c0c3b6db5b37e9a3f244e542662ccd5cc2f25",
+      "campaign_image_status": "LOCAL-ONLY-AUDITED-SMOKE-PASS; runtime checkout is separately mounted and reviewed",
+      "campaign_registry_manifest_digest": null,
+      "cgroup_memory_swap_max": "0",
+      "cgroup_namespace": "private",
+      "cpu_period": 100000,
+      "cpu_quota": 200000,
+      "cpuset_cpus": [
+        0,
+        1
+      ],
+      "image_enforcement": "Two-phase host create/inspect/start and container read-only proof/effective runtime checks before receipt read",
+      "launch_inspection_readonly": true,
+      "lifecycle": "docker run -d; init-reaped foreground supervisor; no restart",
+      "memory_limit_bytes": 6442450944,
+      "memory_swap_total_bytes": 6442450944,
+      "network": "none",
+      "output_writable": true,
+      "receipt_readonly": true,
+      "root_readonly": true,
+      "shm_bytes": 67108864,
+      "tmpfs_bytes": 268435456
+    },
+    "image_custody": {
+      "backup_status": "NOT-REPORTED; docker save to separate persistent storage recommended before formal run",
+      "bit_reproducible_rebuild": false,
+      "reason": "apt-get git/OS packages are not version locked; local image may be lost when VM/image is deleted",
+      "registry_published": false,
+      "restore_rule": "docker load then verify exact image/config digest, full launch preflight and new reviewed receipt; rebuilt/different image requires amendment and independent review"
+    },
+    "image_smoke": {
+      "archive_sha256": "25089234215b3668f0ee0b45496318a6732f24e51c81b1f61a2f4ae5b4911f91",
+      "dependency_tree_sha256": "f0d470d56803e346da78e3f1b6bab5f1ee4394438c5cba2d8c63327a6083031d",
+      "git_version": "git version 2.53.0",
+      "image_config_digest": "sha256:cf5c2502a59f57f2156be75c928c0c3b6db5b37e9a3f244e542662ccd5cc2f25",
+      "package_sources": {
+        "Dockerfile": "1e7e70912d89dc39638c10067b5a5592f5d648bc6f9e4b0b536de73945f8386c",
+        "README_zh.md": "58c63668f0a77d3fab60ea6e0d68a226111cb2570f88846751770df3cf722b57",
+        "VERIFICATION.json": "f8f351d9439318a8778c446d1c06d85673a07f067ff727b9605b7ed497b143da",
+        "control.py": "24c219c49783d65fbc5c158352aeda167238f55b9e26b3e5e93179326f44021a",
+        "requirements.in": "d755f51a28e5916af99e87348156853794f9699d62b43f747eceed0ce9560f3d",
+        "smoke.py": "1f7d1c02e3adf63adc467ad7d6d2809bc2133c1a9a10f7bbc03ac884002cbebe",
+        "spec.json": "883addb50120d770df9c157f3b6f116892a7ebb080df3709fc89f93cbefffbf7",
+        "test_acceptance.py": "906f0ac224cb9883c37e3bbeda04944cf3afc1fe34c9a0aa63a1e967634e9d69"
+      },
+      "python_tree_sha256": "83b30c2bd9c8dc5f2b7e420b86a95e8b31ef398bde1008c1bf8de495498551fa",
+      "requirements_lock_sha256": "17c89a342a431387f4f79a694a2b5be0eb6fe5c8f563907376049adc416dee4d",
+      "reviewed_commit": "38971dcbf9f8e0683bb4c0a4e3f6d53274d46a6e",
+      "reviewed_tree": "6918bf2edd9c5746531ac90f07dde720148b2752",
+      "scope": "Environment smoke only; no numeric producer or receipt gate; new launcher not executed by this historical smoke"
+    },
+    "memory_audit": {
+      "aggregate_parent_child_rss_cap_bytes": 2684354560,
+      "arithmetic_cap_minus_aggregate_rss_bytes": 3758096384,
+      "arithmetic_difference_bytes": 536870912,
+      "campaign_preflight_snapshot": "Smoke-only snapshot: 6395158528 bytes headroom; launcher repeats before receipt; campaign repeats before each job",
+      "container_cap_bytes": 6442450944,
+      "gate": "min(memory.max-memory.current, host MemAvailable) >= 3 GiB before allocation; not a continuous 3 GiB reservation",
+      "minimum_preflight_headroom_bytes": 3221225472,
+      "prepare_snapshot_minimum_actual_headroom_bytes": 6429761536
+    },
+    "promotable": false,
+    "receipt_policy": "Do not use old external receipt on Vultr. After revised executable manifest merges, retire old receipt and sign a new one bound to new reviewed commit/tree/manifest hash, exact host and campaign image. No receipt consumed by stub or this candidate.",
+    "source_commit": "38971dcbf9f8e0683bb4c0a4e3f6d53274d46a6e",
+    "source_manifest_sha256": "28b5e698b192b65a0d20ae00f15137816a57dc040004ee4afe7d29d5e17ee23e",
+    "source_tree": "6918bf2edd9c5746531ac90f07dde720148b2752",
+    "status": "EXECUTABLE-MANIFEST-REVIEW-DRAFT-PENDING-EXACT-HEAD-REVIEW",
+    "stub_survival": {
+      "consecutive_qualified_passes_reported": 3,
+      "meaning": "Three repeated 5400-second survival observations only; not an uninterrupted 60000-second qualification or numeric timing comparability",
+      "raw_archive_sha256": "bcd74b5297b4689cc0ee4ee841820b42dc0b76d7af9e0d4a56d3e415ce7f5adf",
+      "report_summary_path": "docs/stage5c_e4_v02_vultr_stub_reported_summary.json",
+      "source": "received raw archive independently audited against frozen stub assessor/source pins; primary continuity evidence is complete heartbeat sequences and unchanged boot ID; later-turn observations meet the formal criterion, without a causal link to chat lifetime",
+      "stub_base_registry_digest": "ubuntu@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7",
+      "stub_image_config_digest": "sha256:cd5a5b67382691aa7affdf89e8bd93312dde268a96ec099481175dddec9978eb"
+    }
   },
   "input_sha256": {
     "analysis/gmom_2d.py": "a0698352e9e2d127a13ca8965b75d29995ff70800c6123ee660e129437d05939",
@@ -65,7 +167,8 @@
     "analysis/track_b_4d_irsafe.py": "a5035966d9fbcd70480f2eb53d7d791c62c4a79c648fdfd2fa0ce7de08a09bf0",
     "analysis/track_b_4d_spectral.py": "a2d2d09dee4732e1d5dd466dd53f643350bc796689503cad738f9903f4a35459",
     "analysis/track_b_spectral_dim.py": "8751ee2c99c721a2f6f10201fcd0e4086b3b1e88a7cc6fc283ab317686e60003",
-    "benchmarks/stage5c_e4_v02_resource_campaign.py": "f228c97b72bda364ac221c382b3b9dc456cca858007cc045042d204d27784432",
+    "benchmarks/stage5c_e4_v02_container_launch.py": "983933f293d02dece14a9a612c9840abee75e9e4eb9507343846e09c1ac7c24e",
+    "benchmarks/stage5c_e4_v02_resource_campaign.py": "1016402f5d6befb0a30849a0eb857643acd384317549da8ef75c3e954a1fdb4e",
     "benchmarks/stage5c_e4_v02_resource_characterization.py": "73c45c597f1fb9e47d5c229c042c23185bd5f0f3af2717b54c473e41f61854fa",
     "benchmarks/stage5c_e4_v02_resource_methods.py": "ef599a82246e10d66aacd16da22e55fa8365b1227db8c78e9b696b376800424e",
     "docs/stage5c_e4_item7_amendment_candidate_v0.2.json": "7c77ab396130a8973fe6ad46a855b22ce5d2d3d8f5d31a2025d660890ed947a7",
@@ -1482,6 +1585,23 @@
       "wall_cap": 900
     }
   ],
+  "launch_contract": {
+    "inspection": "/launch/inspection.json",
+    "launcher": "benchmarks/stage5c_e4_v02_container_launch.py",
+    "mode": "prepare stopped container; validate actual inspect; start re-inspects; container checks before reading receipt",
+    "numerical_preflight": "Fresh direct exec child before receipt: load scipy.linalg/integrate/optimize and compare full pools; 30 s wall kill/reap, CPU soft/hard 30/31 s, existing address-space cap and parent-death guard; frozen method verification in separate child only after receipt; direct-child CPU remains in aggregate accounting; supervisor imports no NumPy/SciPy",
+    "output": "/output/campaign",
+    "preflight_status": "PREVIOUS-HEAD 79e8c4d HOST PREFLIGHT FAILED (operator report: lazy SciPy BLAS import); revised exact-head preflight and independent review REQUIRED BEFORE MERGE; no run authorization",
+    "receipt": "/custody/receipt.json",
+    "receipt_additional_bindings": [
+      "reviewed_tree",
+      "image_config_digest",
+      "host_profile_sha256",
+      "host_boot_id",
+      "host_output_directory"
+    ],
+    "trust_boundary": "Operator and host Docker daemon are trusted; no host admin docker update or bind-source mutation during prepared/running campaign; read-only inspection is not a cryptographic Docker attestation"
+  },
   "minimum_memory_headroom_bytes": 3221225472,
   "policy": {
     "coefficient_reference_atol": 1e-10,
@@ -1515,7 +1635,7 @@
     ],
     "tie_rule": "full-column-rank designs only; accept pinned active set, no alternate solver or post-result tie selection"
   },
-  "state": "MEASUREMENT-MANIFEST-REVIEW-DRAFT",
+  "state": "VULTR-MEASUREMENT-MANIFEST-REVIEW-DRAFT",
   "supervisor_cpu_inherited_hard_cap": 5001,
   "supervisor_cpu_soft_cap": 600,
   "supervisor_cpu_stop": "SIGXCPU sets flag then SIG_IGN; checkpoints stop/reap; corrected terminal summary if flag arrives during fsync",

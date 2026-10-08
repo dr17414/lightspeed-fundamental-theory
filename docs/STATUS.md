@@ -234,6 +234,14 @@ items3–5 REVALIDATION-PENDING、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE�
 resource qualification／下游revalidation之後再另開state-only closeout。
 詳見 `docs/STAGE5C_6A_E_ITEM7_RESOURCE_MEASUREMENT_MANIFEST.md`。
 
+Vultr 正式映像與三輪 90 分鐘 survival 原始紀錄已獨立核對。本修訂提議 v0.5
+executable manifest host/image pins、OpenBLAS 0.3.30／SkylakeX timing identity，及
+create/inspect/start + container effective runtime 的 receipt 前強制驗收。映像 local-only，
+未 version-lock 的 apt 套件使其不可逐位元重建；建議 docker save 並存於 VM 外。
+新 launcher 待 exact-head 主機 preflight-only 驗收／獨立 review，merge 後新 external receipt
+及 60000 秒窗口確認；authorization=NONE，無新 probes，科學 closure 不變。
+詳見 `docs/STAGE5C_6A_E_ITEM7_VULTR_CONTAINER_LAUNCH_REVIEW.md`。
+
 ---
 
 ## 3. 模型演進歷史對照表
@@ -373,6 +381,10 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+*v2.10（PR #66 lazy OpenBLAS import修正，2026-10-08）- 操作者回報79e8c4d的Vultr preflight在receipt read前因只載入NumPy BLAS而拒跑；fresh interpreter已重現。檢查前明確載入scipy.linalg／integrate／optimize。Supervisor的package/pool檢查與receipt後既有training method驗證改在fresh exec短命子程序，supervisor不載入NumPy／SciPy，child CPU仍納入aggregate帳；139 jobs、既有caps、方法／fixtures／reference／analysis／registry及host/image pins不變。新增真實pool數量／prefix與supervisor import隔離回歸；新head須獨立複核及fresh preflight-only驗收，舊失敗容器保留診斷，不讀真實receipt／不啟動campaign，authorization NONE。*
+
+*v2.09（Vultr image／launch review draft，2026-10-08）- 正式映像 smoke 及原套件8 hashes已獨立核對。提議將Sep 29 Python build、Turin SMT、6 GiB與local image digest寫入實讀manifest，固定兩套OpenBLAS 0.3.30／SkylakeX／single-thread；加入host stopped-create/inspect/reinspect/start與container effective-runtime檢查，任一失敗於receipt read之前拒跑。新receipt另釘tree／image／host-profile hash。文件明列未鎖apt套件、local-only／不可逐位元重建、docker save備份及新launcher主機preflight待辦。139 jobs與全caps／fixtures／reference／analysis／registry不變；新launcher pin加入、campaign pin更新，authorization NONE；待exact-head review／merge，不授權執行。*
+
 *v2.08（Vultr host candidate，2026-10-08）- 原始 archive 已收件並獨立核對 SHA-256、frozen source pins 與三輪 Docker 90 分鐘 stub PASS；每輪 541 筆連續心跳與不變 boot ID 為主要存活依據，早期跨回合 live observation 符合形式標準，VM 程序生命週期不依賴對話。summary 與 candidate 已補 archive hash；Claude 複核 8b20a15d 無阻擋問題，本修訂待 exact-head 複核。新增非執行 host manifest candidate 與 review：EPYC-Turin、Sep 29 Python build、CPU quota 2、6 GiB cgroup、CPU0/1 SMT siblings；保留 2.5 GiB aggregate RSS／3 GiB preflight 餘量及全部 139 jobs／34 source pins。正式 campaign image digest 尚未固定，candidate 不可 promote；runner 實讀 manifest 與所有 executable 不變，authorization NONE。舊 receipt 不用於新主機，新 executable manifest 合併後作廢重簽。三次存活觀察不等於 60000 秒窗口或 cross-profile 數值可比性；6a-E PREREGISTRATION-INCOMPLETE，科學篩檢未授權。*
 
 *v2.07（manifest execution前記錄清理，2026-10-06）- PR #62已合併為`e77515a8`，tree `227b03a9`與獨立複核版本一致，既有451 passed／5 warnings及A／B／C結論適用。新增v0.4 review draft：terminal summary revision與supersedes標記、最後summary權威規則、末次flag檢查後的殘餘窗口說明，以及preflight結構化stderr／finally還原handler；加入隔離stub錯誤與訊號測試。Jobs、caps、方法／fixture／solver artifacts與原evidence不變，待新exact-head複核。仍authorization=NONE，無receipt、新research probes或scientific執行授權。*

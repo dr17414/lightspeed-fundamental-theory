@@ -136,8 +136,7 @@ def test_memory_preflight_abort_retains_all_unstarted_jobs(monkeypatch, tmp_path
     monkeypatch.setattr(campaign, "check_receipt", lambda *a: {"reviewed_commit": "test-only"})
     monkeypatch.setattr(campaign.resource, "setrlimit", lambda *a: None)
     monkeypatch.setattr(campaign, "check_runtime", lambda *a: None)
-    monkeypatch.setattr(methods, "method_reference", lambda: {})
-    monkeypatch.setattr(methods, "verify_reference", lambda *a: None)
+    monkeypatch.setattr(campaign, "check_numerical_runtime_in_subprocess", lambda *a, **k: None)
     original_read = campaign.Path.read_text
     monkeypatch.setattr(campaign.Path, "read_text", lambda p, *a, **k:
                         '{}' if str(p) == "test-only-receipt" else original_read(p, *a, **k))

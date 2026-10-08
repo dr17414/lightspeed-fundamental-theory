@@ -25,6 +25,7 @@ FIXTURES = ROOT / "docs/stage5c_e4_v02_resource_fixture_bytes.json"
 REFERENCE = ROOT / "docs/stage5c_e4_v02_resource_method_reference.json"
 THREAD_ENV = ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
               "BLIS_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS")
+NUMERICAL_PREFLIGHT_TIMEOUT = 30
 
 
 class ResourceNotAuthorized(RuntimeError):
@@ -34,13 +35,31 @@ class ResourceNotAuthorized(RuntimeError):
 def check_receipt(path, directory):
     if path is None:
         raise ResourceNotAuthorized("external exact-commit review receipt required")
+    from benchmarks.stage5c_e4_v02_container_launch import check_before_receipt
+    manifest = json.loads(MANIFEST.read_text())
+    try:
+        launch = check_before_receipt(manifest)
+    except Exception as exc:
+        print(json.dumps({"event": "CONTAINER-PREFLIGHT-ABORT", "error_type": type(exc).__name__,
+                          "error": str(exc), "receipt_gate_called": False,
+                          "numeric_producer_called": False, "output_directory_created": False}),
+              file=sys.stderr, flush=True)
+        raise
     receipt_path, output = Path(path).resolve(), Path(directory).resolve()
+    if str(receipt_path) != "/custody/receipt.json" or str(output) != "/output/campaign":
+        raise ResourceNotAuthorized("reviewed container receipt/output paths required")
     if receipt_path.is_relative_to(ROOT) or output.is_relative_to(ROOT):
         raise ResourceNotAuthorized("receipt/output must be outside the repository")
     receipt = json.loads(receipt_path.read_text())
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     if (receipt.get("authorization") != "DETERMINISTIC-RESOURCE-DEVELOPMENT-ONLY"
             or receipt.get("reviewed_commit") != head
+            or receipt.get("reviewed_tree") != launch["reviewed_tree"]
+            or receipt.get("image_config_digest") != launch["image_config_digest"]
+            or receipt.get("host_boot_id") != launch["host_boot_id"]
+            or receipt.get("host_output_directory") != launch["host_output_directory"]
+            or receipt.get("host_profile_sha256") != sha256(json.dumps(
+                manifest["host"], sort_keys=True, separators=(",", ":")).encode()).hexdigest()
             or receipt.get("manifest_sha256") != sha256(MANIFEST.read_bytes()).hexdigest()
             or receipt.get("output_directory") != str(output)):
         raise ResourceNotAuthorized("review receipt mismatch")
@@ -59,7 +78,8 @@ def check_runtime(manifest, *, role="supervisor"):
     if sys.version != profile["sys_version"]:
         raise RuntimeError("campaign Python build pin mismatch")
     for field, file in (("cgroup_cpu_max", "/sys/fs/cgroup/cpu.max"),
-                        ("cgroup_memory_max", "/sys/fs/cgroup/memory.max")):
+                        ("cgroup_memory_max", "/sys/fs/cgroup/memory.max"),
+                        ("cgroup_memory_swap_max", "/sys/fs/cgroup/memory.swap.max")):
         if Path(file).read_text().strip() != profile[field]:
             raise RuntimeError("host/cgroup pin mismatch")
     model = next(line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines()
@@ -69,9 +89,71 @@ def check_runtime(manifest, *, role="supervisor"):
             profile["allowed_affinity"], profile["supervisor_affinity"], affinity):
         raise RuntimeError("CPU/affinity pin mismatch")
     os.sched_setaffinity(0, set(affinity))
+    for siblings in profile["smt_siblings"]:
+        for cpu in siblings:
+            text = Path(f"/sys/devices/system/cpu/cpu{cpu}/topology/thread_siblings_list").read_text().strip()
+            observed = []
+            for part in text.split(","):
+                ends = part.split("-")
+                observed.extend(range(int(ends[0]), int(ends[-1]) + 1))
+            if sorted(observed) != siblings:
+                raise RuntimeError("SMT sibling pin mismatch")
     for path, expected in manifest["input_sha256"].items():
         if sha256((ROOT / path).read_bytes()).hexdigest() != expected:
             raise RuntimeError("input/source pin mismatch: " + path)
+
+
+def load_numerical_runtime(manifest):
+    # Imports/version and pool inspection only; no solver or numerical producer.
+    import numpy as np
+    import scipy
+    # scipy alone is lazy: load its bundled BLAS and all numerical submodules
+    # used by the worker/integrator and the frozen NNLS method verification.
+    import scipy.linalg
+    import scipy.integrate
+    import scipy.optimize
+    from threadpoolctl import threadpool_info
+    if np.__version__ != manifest["solver"]["numpy"] or scipy.__version__ != manifest["solver"]["scipy"]:
+        raise RuntimeError("numerical dependency pin mismatch")
+    if importlib.metadata.version("threadpoolctl") != manifest["host"]["threadpoolctl"]:
+        raise RuntimeError("threadpoolctl pin mismatch")
+    return threadpool_info()
+
+
+def check_numerical_runtime(manifest):
+    pools = load_numerical_runtime(manifest)
+    keys = ("user_api", "internal_api", "prefix", "version", "architecture", "num_threads")
+    actual = sorted([tuple(p.get(k) for k in keys) for p in pools], key=str)
+    expected = sorted([tuple(p[k] for k in keys) for p in manifest["host"]["blas_pools"]], key=str)
+    if actual != expected:
+        raise RuntimeError("OpenBLAS version/kernel/thread pool pin mismatch")
+    return pools
+
+
+def check_numerical_runtime_in_subprocess(manifest, *, verify_method=False):
+    """Fresh bounded exec; the supervisor never imports numerical libraries."""
+    command = [sys.executable, "-m", "benchmarks.stage5c_e4_v02_resource_campaign",
+               "numerical-preflight"]
+    if verify_method:
+        command.append("--verify-method")
+    try:
+        result = subprocess.run(command, cwd=ROOT, input=json.dumps(manifest),
+                                env=dict(os.environ, STAGE5C_RESOURCE_PARENT_PID=str(os.getpid())),
+                                capture_output=True, text=True, check=True,
+                                timeout=NUMERICAL_PREFLIGHT_TIMEOUT)
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError("numerical preflight subprocess timed out") from exc
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError("numerical preflight subprocess failed: " + (exc.stderr or "").strip()) from exc
+    try:
+        report = json.loads(result.stdout)
+        if (report["event"] != "NUMERICAL-PREFLIGHT-PASS"
+                or report["method_verified"] is not verify_method
+                or not isinstance(report["threadpools"], list)):
+            raise ValueError("invalid report")
+        return report["threadpools"]
+    except (ValueError, KeyError, TypeError) as exc:
+        raise RuntimeError("invalid numerical preflight subprocess report") from exc
 
 
 def memory_preflight():
@@ -243,17 +325,10 @@ def phase_lower_bounds(stderr_path, sample):
 def worker(job, fixtures):
     import numpy as np
     import scipy
-    from threadpoolctl import threadpool_info
     from analysis import stage5c_e4_wellposedness_v02 as v02
     from analysis.stage5c_measure_prereg import uniform_pair_weights, normalised_weights
     from benchmarks.stage5c_e4_v02_resource_characterization import stress_integrand
-    if np.__version__ != "2.3.5" or scipy.__version__ != "1.17.0":
-        raise RuntimeError("numerical dependency pin mismatch")
-    if importlib.metadata.version("threadpoolctl") != "3.6.0":
-        raise RuntimeError("threadpoolctl pin mismatch")
-    pools = threadpool_info()
-    if not pools or any(p["num_threads"] != 1 for p in pools):
-        raise RuntimeError("actual thread pools must all be one")
+    pools = check_numerical_runtime(json.loads(MANIFEST.read_text()))
     if job["kind"] == "production":
         atoms, weights = methods.load_case(fixtures, job["case_index"])
         theta = float.fromhex(job["theta_hex"])
@@ -322,8 +397,9 @@ def run_campaign(receipt_path, output_directory):
             cpu_stop = supervisor_limits(manifest)
             check_runtime(manifest)
             initial_memory = memory_preflight()
-            # Method checks are included in the campaign clock; new data cannot refit this reference.
-            methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
+            # A fresh direct child verifies the frozen method; its CPU is charged
+            # below via RUSAGE_CHILDREN. The supervisor stays stdlib-only.
+            check_numerical_runtime_in_subprocess(manifest, verify_method=True)
             json.loads(FIXTURES.read_text())
             if cpu_stop["expired"]:
                 raise RuntimeError("supervisor CPU soft cap exhausted during preflight; no child started")
@@ -351,9 +427,9 @@ def _run_preflighted_campaign(receipt_path, output_directory, receipt, manifest,
                               cpu_stop, start_wall, initial_memory):
     directory = Path(output_directory).resolve()
     directory.mkdir(parents=True, exist_ok=False)  # One attempt; no resume or overwrite.
-    start_cpu = 0.0  # Whole supervisor process CPU, including imports/method verification.
+    start_cpu = 0.0  # Whole supervisor process CPU; numerical verification is in direct children.
     preflight_children = resource.getrusage(resource.RUSAGE_CHILDREN)
-    children_cpu = preflight_children.ru_utime + preflight_children.ru_stime  # Includes preflight git commands.
+    children_cpu = preflight_children.ru_utime + preflight_children.ru_stime  # Includes git and numerical preflight children.
     status = "PLAN-COMPLETE"
     with (directory / "records.jsonl").open("x") as stream:
         def emit(value):
@@ -475,13 +551,27 @@ def _run_preflighted_campaign(receipt_path, output_directory, receipt, manifest,
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=("run", "worker"))
+    parser.add_argument("mode", choices=("run", "worker", "numerical-preflight"))
     parser.add_argument("--authorization")
     parser.add_argument("--output")
     parser.add_argument("--job", type=int)
+    parser.add_argument("--verify-method", action="store_true")
     args = parser.parse_args()
     if args.mode == "run":
         run_campaign(args.authorization, args.output)
+    elif args.mode == "numerical-preflight":
+        expected_parent = os.environ.get("STAGE5C_RESOURCE_PARENT_PID")
+        if expected_parent is None:
+            raise ResourceNotAuthorized("internal supervisor parent required")
+        parent_death_guard(int(expected_parent))
+        manifest = json.load(sys.stdin)
+        worker_limits({"cpu_cap": NUMERICAL_PREFLIGHT_TIMEOUT},
+                      address_space_cap=manifest["child_address_space_cap_bytes"])
+        pools = check_numerical_runtime(manifest)
+        if args.verify_method:
+            methods.verify_reference(methods.method_reference(), json.loads(REFERENCE.read_text()))
+        print(json.dumps({"event": "NUMERICAL-PREFLIGHT-PASS", "threadpools": pools,
+                          "method_verified": args.verify_method}), flush=True)
     else:
         # Guard before costly imports/runtime checks; verify after prctl to close parent-death race.
         expected_parent = os.environ.get("STAGE5C_RESOURCE_PARENT_PID")
