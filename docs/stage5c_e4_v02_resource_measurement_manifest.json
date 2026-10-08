@@ -6,32 +6,59 @@
   "censor_rule": "individual wall/CPU censor continues; no retry; fatal source/runtime/memory/global-budget abort stops",
   "child_address_space_cap_bytes": 34359738368,
   "child_rss_cap_bytes": 2147483648,
+  "container_runtime": {
+    "base_registry_digest": "ubuntu@sha256:f144425ff09be612d6d9ad965196e9cdc23dae1f42110a8a11a3e9a8198759f7",
+    "image_config_digest": "sha256:cf5c2502a59f57f2156be75c928c0c3b6db5b37e9a3f244e542662ccd5cc2f25",
+    "implementation_sha256": {
+      "tools/stage5c_vultr_container.py": "7744f46440c39fe78bd5f7eb1200d7cd3f977a5668bc3c043e637e4f6e2d324f"
+    },
+    "launch_policy": "Only reviewed container launcher; start requires new external commit/tree/manifest/image/boot/output receipt plus explicit uninterrupted 60000-second operator confirmation. Host/image preflight is not campaign authorization.",
+    "lifecycle": "docker create; verify image/config/mounts before docker start; foreground supervisor under init; no restart",
+    "memory_bytes": 6442450944,
+    "output_directory": "/output/campaign",
+    "output_parent": "/output",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "threadpoolctl": "3.6.0"
+    },
+    "receipt_directory": "/custody",
+    "receipt_file": "/custody/receipt.json",
+    "registry_manifest_digest": null,
+    "repo_directory": "/repo",
+    "shm_bytes": 67108864,
+    "smoke_summary": "docs/stage5c_e4_v02_vultr_image_smoke_summary.json",
+    "tmpfs_bytes": 268435456,
+    "version": "vultr-resource-container-v1"
+  },
   "evidence_git_blob": "54b69083db971661b38196a5de65a1ec9b3c0e41",
   "final_cpu_snapshot_limit": "SIGXCPU after the final flag check and before handler restoration may not revise the summary; parent CPU snapshot excludes subsequent final writes/stream close/handler restoration; no validated cleanup bound",
   "host": {
     "allowed_affinity": [
       0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8
+      1
     ],
-    "cgroup_cpu_max": "800000 100000",
-    "cgroup_memory_max": "8589934592",
-    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
-    "profile": "DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
+    "cgroup_cpu_max": "200000 100000",
+    "cgroup_memory_max": "6442450944",
+    "cpu_model": "AMD EPYC-Turin Processor",
+    "host_os": "Ubuntu 26.04 LTS",
+    "logical_cpus": 2,
+    "physical_cores": 1,
+    "profile": "VULTR-ATLANTA-SMT-DEVELOPMENT-HOST-NOT-TARGET-QUALIFICATION",
     "python": "3.12.14",
+    "smt_siblings": [
+      [
+        0,
+        1
+      ]
+    ],
     "supervisor_affinity": [
       1
     ],
-    "sys_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "sys_version": "3.12.14 (main, Sep 29 2026, 15:01:18) [Clang 22.1.3 ]",
     "thread_env_value": "1",
     "threadpoolctl": "3.6.0",
-    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; historical single process had no supervisor wakeups",
+    "training_comparability": "CROSS-PROFILE-DIAGNOSTIC-ONLY; new CPU/build/cgroup/memory profile; worker CPU0 and supervisor CPU1 are SMT siblings on one physical core",
     "worker_affinity": [
       0
     ],
