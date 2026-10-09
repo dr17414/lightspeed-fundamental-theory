@@ -18,7 +18,7 @@
 
 Receipt 為 single-use `DETERMINISTIC-RESOURCE-DEVELOPMENT-ONLY`，與 records header 保存的 receipt 完全相同；header 顯示 `method_verified: true`，故本次已通過 receipt gate 並消耗收據，不能沿用。原 manifest 的 `authorization: NONE` 是凍結計畫欄位，維持原樣，不回填為執行授權。
 
-Receipt 引用獨立 merged-main pf3 包 SHA-256 `6187e7942e431bc096c9613a35540cf3e69b97d99b50bdb77c485f13eff1f33e`；**該 pf3 包未包含於本原包，故這輪不聲稱直接核對 standalone preflight 證據**。本次 run 的 stopped proof、final inspect、已驗證方法的 header 與完整 outcomes 則已直接核對。此核對依賴既有 trusted operator／Docker daemon 邊界，不是主機的密碼學 attestation。
+獨立 merged-main pf3 包 SHA-256 `6187e7942e431bc096c9613a35540cf3e69b97d99b50bdb77c485f13eff1f33e` **已由 Claude 於 2026-10-08 獨立核對**：repo 的 `verify_inspection` 對啟動前 proof 與結束後 inspect 均通過；容器 exit 0、未 OOM，commit `595d834e` 與 manifest `fb589f98…` 正確。原包不在本 PR 作者手上，亦未包含於 run1 原包；這裡記錄 Claude 的獨立複核，不聲稱本 PR 作者直接核對 pf3 原包。本次 run 的 stopped proof、final inspect、已驗證方法的 header 與完整 outcomes 則已直接核對。此核對依賴既有 trusted operator／Docker daemon 邊界，不是主機的密碼學 attestation。
 
 ## 2. 執行完整性（原包直接核對）
 
@@ -128,6 +128,6 @@ Receipt 引用獨立 merged-main pf3 包 SHA-256 `6187e7942e431bc096c9613a35540c
 
 原始 `run1-evidence.tar.gz` 已作為本對話附檔收到，未改寫其 bytes，完整 SHA-256 與原回報縮寫相符。本 PR 保存其 member／line hashes、parsed job records 與原 assessment，**不是替代原始 gzip 包的備份**；沒有聲稱驗證額外的離線備份。持有者應保留該唯一原包與完整 hash，日後從原包重播；不得重新擬合或更換判讀政策。Receipt、boot／container IDs 與主機路徑原文留在原包，公開轉錄只列核對結果及其 raw member hashes。
 
-本 PR 已完成原包核對，仍是待 exact-head 獨立複核的 draft，不合併、不更新 item 7 的 ADOPT／closure matrix，不授權新 campaign 或任何 confirmatory seed／screen／arm／候選 K 工作。獨立 pf3 包若要作 standalone preflight 複核仍須另提供，不能以 receipt 中的引用代替原包。
+本 PR 已完成原包核對，仍是待 exact-head 獨立複核的 draft，不合併、不更新 item 7 的 ADOPT／closure matrix，不授權新 campaign 或任何 confirmatory seed／screen／arm／候選 K 工作。獨立 pf3 包已由 Claude 於 2026-10-08 核對；原包不在本 PR 作者手上，仍保留來源區別。
 
-本輪未操作 Vultr 管理介面，未 Destroy，也未驗證映像備份。Reviewer 的停止計費建議仍適用於證據持有者確認原包已妥善保存、沒有近期重跑需求之後。Destroy 會使 local-only `cf5c2502` 映像消失；後續重建須重新審核，不能宣稱逐位元相同。映像保存限制沿用 PR #66 文件，不變更原 freeze。
+依操作者回報，Vultr 主機已由操作者刪除，local-only `cf5c2502` 映像隨之消失。之後若要重跑，必須重建映像並重新審核，不能宣稱逐位元相同。映像保存限制沿用 PR #66 文件，不變更原 freeze。

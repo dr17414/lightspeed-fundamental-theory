@@ -1,8 +1,12 @@
 """Preserve the submitted assessment and its frozen-policy provenance."""
 from collections import Counter
+from copy import deepcopy
 from hashlib import sha256
 import json
+import math
 from pathlib import Path
+
+import pytest
 
 from benchmarks.stage5c_e4_v02_resource_methods import assess_held_out
 
@@ -11,6 +15,31 @@ DOCS = Path(__file__).resolve().parents[1] / "docs"
 
 def read(name):
     return json.loads((DOCS / name).read_text())
+
+
+def assert_assessment_replay_matches(actual, expected):
+    # Some CI power predictions differ by one ULP across runtimes. Preserve every
+    # measured value/verdict exactly; this is not a scientific residual tolerance.
+    assert {k: v for k, v in actual.items() if k != "models"} == {
+        k: v for k, v in expected.items() if k != "models"
+    }
+    assert actual["models"].keys() == expected["models"].keys()
+    for name, model in expected["models"].items():
+        replay = actual["models"][name]
+        assert replay.keys() == model.keys()
+        assert replay["verdict"] == model["verdict"]
+        assert len(replay["rows"]) == len(model["rows"])
+        for row, original in zip(replay["rows"], model["rows"], strict=True):
+            assert row.keys() == original.keys()
+            assert {k: v for k, v in row.items() if k != "prediction"} == {
+                k: v for k, v in original.items() if k != "prediction"
+            }
+            prediction, frozen_prediction = row["prediction"], original["prediction"]
+            assert math.isfinite(prediction) and math.isfinite(frozen_prediction)
+            if ":stress_power_" in name:
+                assert abs(prediction - frozen_prediction) <= math.ulp(frozen_prediction)
+            else:
+                assert prediction == frozen_prediction
 
 
 def test_submitted_assessment_is_preserved_and_matches_frozen_policy():
@@ -23,11 +52,36 @@ def test_submitted_assessment_is_preserved_and_matches_frozen_policy():
         "7dd51e7e54f1306a1f2a439f8440caf3e220ce216a33ca4c2d9f20aee5ad2326"
     )
     assert sha256((DOCS / "stage5c_e4_v02_resource_measurement_manifest.json").read_bytes()).hexdigest() == results["manifest_sha256"]
-    assert assess_held_out(manifest, reference, results["assessment_projection"]) == json.loads(raw)
+    assert_assessment_replay_matches(
+        assess_held_out(manifest, reference, results["assessment_projection"]), json.loads(raw)
+    )
     evidence_raw = (DOCS / results["raw_evidence_artifact"]).read_bytes()
     assert sha256(evidence_raw).hexdigest() == results["raw_evidence_artifact_sha256"]
     evidence = json.loads(evidence_raw)
-    assert assess_held_out(manifest, reference, evidence["job_records"]) == json.loads(raw)
+    assert_assessment_replay_matches(
+        assess_held_out(manifest, reference, evidence["job_records"]), json.loads(raw)
+    )
+
+
+@pytest.mark.parametrize("change", ["power_one_ulp", "power_two_ulps", "observed", "verdict", "affine"])
+def test_replay_comparison_only_allows_one_ulp_in_power_predictions(change):
+    original = read("stage5c_e4_v02_resource_run1_assessment.json")
+    changed = deepcopy(original)
+    model = "cpu_seconds:stress_affine" if change == "affine" else "cpu_seconds:stress_power_p0.9_q0.9"
+    row = changed["models"][model]["rows"][0]
+    if change == "verdict":
+        row["verdict"] = ("MODEL-INVALID" if row["verdict"] == "POINTWISE-MODEL-CHECK-PASS"
+                          else "POINTWISE-MODEL-CHECK-PASS")
+    else:
+        field = "observed" if change == "observed" else "prediction"
+        row[field] = math.nextafter(row[field], math.inf)
+        if change == "power_two_ulps":
+            row[field] = math.nextafter(row[field], math.inf)
+    if change == "power_one_ulp":
+        assert_assessment_replay_matches(changed, original)
+    else:
+        with pytest.raises(AssertionError):
+            assert_assessment_replay_matches(changed, original)
 
 
 def test_139_job_ledger_matches_archived_start_result_pairs():
