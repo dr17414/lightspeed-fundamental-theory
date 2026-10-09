@@ -24,9 +24,13 @@ def test_submitted_assessment_is_preserved_and_matches_frozen_policy():
     )
     assert sha256((DOCS / "stage5c_e4_v02_resource_measurement_manifest.json").read_bytes()).hexdigest() == results["manifest_sha256"]
     assert assess_held_out(manifest, reference, results["assessment_projection"]) == json.loads(raw)
+    evidence_raw = (DOCS / results["raw_evidence_artifact"]).read_bytes()
+    assert sha256(evidence_raw).hexdigest() == results["raw_evidence_artifact_sha256"]
+    evidence = json.loads(evidence_raw)
+    assert assess_held_out(manifest, reference, evidence["job_records"]) == json.loads(raw)
 
 
-def test_139_job_ledger_preserves_order_and_does_not_invent_missing_outcomes():
+def test_139_job_ledger_matches_archived_start_result_pairs():
     results = read("stage5c_e4_v02_resource_run1_results.json")
     manifest = read("stage5c_e4_v02_resource_measurement_manifest.json")
     ledger = results["job_outcome_ledger"]
@@ -34,21 +38,58 @@ def test_139_job_ledger_preserves_order_and_does_not_invent_missing_outcomes():
     assert [r["job"] for r in ledger] == manifest["jobs"]
     assert [r["manifest_index_1_based"] for r in ledger] == list(range(1, 140))
     assert len({r["job_id"] for r in ledger}) == 139
-    assert Counter(r["source"] for r in ledger) == {
-        "ASSESSMENT-PROJECTION-NOT-RAW-RECORD": 37,
-        "REVIEWER-SUMMARY-NOT-RAW-RECORD": 78,
-        "OUTCOME-NOT-PROVIDED": 24,
+    evidence = read(results["raw_evidence_artifact"])
+    records = evidence["job_records"]
+    assert len(records) == 278
+    assert Counter(r["source"] for r in ledger) == {"ARCHIVE-RAW-JOB-RECORD": 139}
+    assert Counter(r["outcome"] for r in ledger) == {
+        "PRODUCTION-REPORT": 78, "FORCED-BUDGET-EXHAUSTED": 61,
     }
-    for row in ledger:
-        if row["source"] == "OUTCOME-NOT-PROVIDED":
-            assert row["outcome"] is None and row["status"] is None
-        if row["source"] == "REVIEWER-SUMMARY-NOT-RAW-RECORD":
-            assert row["job"]["kind"] == "production"
-            assert row["phase_cpu_seconds"] is None and row["phase_wall_seconds"] is None
-    assert results["raw_archive_sha256"] is None
-    assert results["raw_archive_available_to_pr_author"] is False
-    assert results["raw_archive_preservation_verified"] is False
-    assert results["receipt_verified"] is False
-    assert results["execution_commit_verified"] is False
+    for index, row in enumerate(ledger):
+        start, result = records[2*index:2*index+2]
+        assert start["job_id"] == result["job_id"] == row["job_id"]
+        assert start["outcome"] == "ATTEMPT-STARTED"
+        assert row["outcome"] == result["outcome"]
+        assert row["status"] == result.get("status")
+        assert row["phase_cpu_seconds"] == result["phase_cpu_seconds"]
+        assert row["phase_wall_seconds"] == result["phase_wall_seconds"]
+        assert row["child_total_cpu_seconds"] == result["child_total_cpu_seconds"]
+        assert row["child_total_wall_seconds"] == result["child_total_wall_seconds"]
+        assert row["start_line_1_based"] == 2*index+2
+        assert row["result_line_1_based"] == 2*index+3
+        if row["job"]["kind"] == "production":
+            assert row["status"] == "CLEAN"
+            assert row["phase_wall_seconds"] < row["job"]["e4_wall_cap"]
+    assert results["raw_archive_sha256"] == evidence["raw_archive_sha256"] == (
+        "8c26b6574ce12956474779434f24ad54e940584dbf3ecc43c9c582fd792b06bf"
+    )
+    assert results["raw_archive_available_to_pr_author"] is True
+    assert results["receipt_verified"] is True
+    assert results["execution_commit_verified"] is True
+    assert results["receipt_consumed"] is True
     assert results["qualification"] is False
     assert results["item7_adopt"] is False
+
+
+def test_resource_accounting_is_reproducible_from_all_archived_job_records():
+    results = read("stage5c_e4_v02_resource_run1_results.json")
+    evidence = read(results["raw_evidence_artifact"])
+    rows = evidence["job_records"][1::2]
+    terminal = evidence["terminal_summary"]
+    audit = results["execution_audit"]
+    assert terminal == audit["terminal_summary"]
+    assert terminal["outcome"] == "PLAN-COMPLETE"
+    cpu_sum = sum(r["child_total_cpu_seconds"] for r in rows)
+    assert cpu_sum == audit["summed_job_child_cpu_seconds"]
+    assert terminal["children_cpu_seconds"] - cpu_sum == audit["preflight_child_cpu_residual_seconds"]
+    assert terminal["total_accounted_cpu_seconds"] == terminal["children_cpu_seconds"] + terminal["parent_cpu_seconds"]
+    assert max(r["child_peak_rss_bytes"] for r in rows) == audit["peak_child_rss_bytes"]
+    assert max(r["sum_of_parent_child_peaks_bytes"] for r in rows) == audit["max_sum_of_parent_child_peaks_bytes"]
+    assert len(evidence["member_inventory"]) == 283
+    assert len(evidence["record_line_sha256_including_newline"]) == evidence["raw_record_count"] == 280
+    assert evidence["container_final_state"]["ExitCode"] == 0
+    assert evidence["container_final_state"]["OOMKilled"] is False
+    assert evidence["restart_count"] == 0
+    assert evidence["header_without_receipt"]["method_verified"] is True
+    assert evidence["stderr_event_counts"] == {"WORKER-READY": 139, "PHASE-STARTED": 139, "PHASE-FINISHED": 139}
+    assert evidence["receipt_and_launch_identity"]["pf3_separate_archive_available"] is False
