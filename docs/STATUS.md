@@ -381,6 +381,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.11（Vultr run 1 結果草案，2026-10-09）- 收入 reviewer 的原始 assessment JSON，既有 assess_held_out 以附件投影重播完全一致：CPU／wall 各 17 模型全為 MODEL-INVALID，整組 INSUFFICIENT-EVIDENCE，六個 agreement_possible 均 false。78 production CLEAN 與 139 jobs／PLAN-COMPLETE／資源帳是 reviewer 回報；完整原包 hash、receipt／容器身分及 24 seen-cell outcomes 尚待直接核對。139-job 表保留順序並逐項標示來源與 null 缺項；約 0.76 比值僅為 cross-profile 診斷，不 refit／不選模型／不資格化上限，item 7 仍不可 ADOPT。見 [run 1 結果草案](STAGE5C_6A_E_ITEM7_RESOURCE_RUN1_RESULTS.md)；凍結 manifest／35 input pins／判讀方法／registry 不變，未授權新 campaign 或 confirmatory 工作。*
 *v2.10（PR #66 lazy OpenBLAS import修正，2026-10-08）- 操作者回報79e8c4d的Vultr preflight在receipt read前因只載入NumPy BLAS而拒跑；fresh interpreter已重現。檢查前明確載入scipy.linalg／integrate／optimize。Supervisor的package/pool檢查與receipt後既有training method驗證改在fresh exec短命子程序，supervisor不載入NumPy／SciPy，child CPU仍納入aggregate帳；139 jobs、既有caps、方法／fixtures／reference／analysis／registry及host/image pins不變。新增真實pool數量／prefix與supervisor import隔離回歸；新head須獨立複核及fresh preflight-only驗收，舊失敗容器保留診斷，不讀真實receipt／不啟動campaign，authorization NONE。*
 
 *v2.09（Vultr image／launch review draft，2026-10-08）- 正式映像 smoke 及原套件8 hashes已獨立核對。提議將Sep 29 Python build、Turin SMT、6 GiB與local image digest寫入實讀manifest，固定兩套OpenBLAS 0.3.30／SkylakeX／single-thread；加入host stopped-create/inspect/reinspect/start與container effective-runtime檢查，任一失敗於receipt read之前拒跑。新receipt另釘tree／image／host-profile hash。文件明列未鎖apt套件、local-only／不可逐位元重建、docker save備份及新launcher主機preflight待辦。139 jobs與全caps／fixtures／reference／analysis／registry不變；新launcher pin加入、campaign pin更新，authorization NONE；待exact-head review／merge，不授權執行。*
