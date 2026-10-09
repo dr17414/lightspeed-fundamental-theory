@@ -381,6 +381,9 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.11（Vultr run 1 結果草案，2026-10-09）- 原包 SHA-256 8c26b6574ce12956474779434f24ad54e940584dbf3ecc43c9c582fd792b06bf 已直接核對：receipt／run-mode stopped proof／final inspect 身分一致，method_verified true；280 records 中 139 對 start/result 與 manifest 同序，78 production CLEAN、61 stress FORCED-BUDGET-EXHAUSTED，PLAN-COMPLETE／exit 0／無 OOM 或 restart。以原始 records 重播既有 assess_held_out，與原 assessment 完全一致：34 模型全 MODEL-INVALID，整組 INSUFFICIENT-EVIDENCE，六個 agreement_possible 均 false。CPU 帳差 2.191228 秒、RSS peaks 與逐筆 stdout／stderr 均吻合；獨立 pf3 包已由 Claude 於 2026-10-08 核對（原包不在本 PR 作者手上）；操作者回報 Vultr 主機已刪除，local-only cf5c2502 映像隨之消失，重跑須重建並重新審核。約 0.76 比值僅為 cross-profile 診斷，不 refit／不選模型／不資格化上限，item 7 仍不可 ADOPT。見 [run 1 結果草案](STAGE5C_6A_E_ITEM7_RESOURCE_RUN1_RESULTS.md)；凍結 manifest／35 input pins／判讀方法／registry 不變，未授權新 campaign 或 confirmatory 工作。*
+
 *v2.10（PR #66 lazy OpenBLAS import修正，2026-10-08）- 操作者回報79e8c4d的Vultr preflight在receipt read前因只載入NumPy BLAS而拒跑；fresh interpreter已重現。檢查前明確載入scipy.linalg／integrate／optimize。Supervisor的package/pool檢查與receipt後既有training method驗證改在fresh exec短命子程序，supervisor不載入NumPy／SciPy，child CPU仍納入aggregate帳；139 jobs、既有caps、方法／fixtures／reference／analysis／registry及host/image pins不變。新增真實pool數量／prefix與supervisor import隔離回歸；新head須獨立複核及fresh preflight-only驗收，舊失敗容器保留診斷，不讀真實receipt／不啟動campaign，authorization NONE。*
 
 *v2.09（Vultr image／launch review draft，2026-10-08）- 正式映像 smoke 及原套件8 hashes已獨立核對。提議將Sep 29 Python build、Turin SMT、6 GiB與local image digest寫入實讀manifest，固定兩套OpenBLAS 0.3.30／SkylakeX／single-thread；加入host stopped-create/inspect/reinspect/start與container effective-runtime檢查，任一失敗於receipt read之前拒跑。新receipt另釘tree／image／host-profile hash。文件明列未鎖apt套件、local-only／不可逐位元重建、docker save備份及新launcher主機preflight待辦。139 jobs與全caps／fixtures／reference／analysis／registry不變；新launcher pin加入、campaign pin更新，authorization NONE；待exact-head review／merge，不授權執行。*
