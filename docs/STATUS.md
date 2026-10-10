@@ -97,6 +97,18 @@ mixture／subdivision 範圍；這個 development schedule 不代替尚未定案
 解除。本草稿暫保留 v0.2 數值基線，尚未選定可執行資格化方案；不跑新量測、
 不產生 seed、不開主機，closure 狀態不變。
 
+PR #68 已以核准 tree squash-merge 為 `dd3323a0`（tree `8ec17408`）；
+操作者轉述獨立複核已用真實 v0.1／v0.2 producer 確認 O19，原始試驗檔未交本案。
+後續 [結構性座標統計修訂草稿](STAGE5C_6A_E_STRUCTURAL_COORDINATE_STATISTICAL_AMENDMENT_DRAFT.md)
+提出保留二維 region／七 claims，以 source-bound identity 承擔 C8 第二座標 `{0}`，
+第一座標另審 coverage／效果模型；不刪座標、不改 normalization／margin、不回收 alpha。
+有界 random-denominator coverage 候選明列 matched-conditional ratio estimand、
+局部 cohort 獨立性與全域 cap conditioning 缺口，未替換實作或證明 item 8 已成立。
+本案另外獲准有限真實 selector 的確定性開發 witness；預定 12 點只保存 2 點，
+chain/all_relations 的第一分量接近 0、第二為 0，程序 exit 137，kill 原因未獨立確定。
+保留 incomplete 證據，不補選／續跑、不推論母體飽和或功效；未產生 seed、未跑 matching、
+未開主機、未讀 scientific arm ledger，items 3–5／7／8 與 6a-E 狀態不變。
+
 Item 8 的部分審計提案已具名列出七個 regions 與不可回收的 lineage／successor
 名目預算；`docs/STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md` 另給出不讀 arm data 的
 power 充分條件與兩個反例。E1 缺 positive-gap effect model，E2 CLEAN numerical
@@ -392,6 +404,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.13（結構性座標統計協定修訂設計，2026-10-10）- PR #68 已合併為 dd3323a0，tree 8ec17408 與核准 head 相同；操作者轉述真實 producer 獨立確認 O19。本案保留二維 primary／七 claims／D=diag(3,1)／原 strict margins，提出 source-bound structural certificate 與 C8 R1×{0}，E3 diffusion 保留兩個隨機座標，blind-null 完整 sI 身份下兩個結構座標。給出 independent local-conditioned cohorts 的 pair-weighted ratio-estimand Hoeffding coverage 候選與完整推導，明列實際 law／null symmetry／全域 cap conditioning／科學目標橋接及保守成本未證，不替換 region 實作。本案另獲准確定性真實 selector 開發診斷：事前12點只保存chain/all_relations兩theta共2個CLEAN點，I1近0、I2/offdiag零；exit137／signal9、kill原因未獨立確定，無追加預算／補選／續跑。新增incomplete JSON不屬target-law樣本，不推母體分布／效果／功效。analysis／benchmarks／tests／既有manifest、evidence、assessment、pins、registry不改；無新seed／matching／host／scientific arm ledger／K，items3–5／7／8與6a-E狀態不變。*
 
 *v2.12（items 7／8 可行性與決策設計草稿，2026-10-10）- 以 PR #67 合併後 main 6941b97b／tree 0b757fdc 為基線，新增19項義務、Gate A/B及effect／reference／conditional-law／power缺口、完整production mixture／subdivision與900 wall／264-call aggregate CPU的紙上檢查。只讀既有run1 JSON做描述性算術：whole-child production CPU mean 56.435874 s、nearest-rank p90 146.149988 s、6筆超過忽略其他成本的174.545455 s/call規劃量；分清E4 phase與真正6a-E工作量，不能據此合格或否決。新增O19設計推導：既有diagonal C8 continuum pairing／primary公式與real-seam regression支持第二分量恆零、目前region builder拒絕零marginal variance，應先獨立複核此接縫及統計協定amendment需求；不因缺界宣布整體no-go，也不默改reference或刪座標。E4暫保留v0.2，資源資格化延後；一週設計窗口不承諾全部proof可解，不開host／不跑新measurement／不生成seed，無candidate K／arm ledger／endpoint access。analysis／benchmarks／tests／manifest／run1 evidence及assessment／pins／registry皆不變，items7／3–5／8及6a-E狀態不變。*
 
