@@ -86,6 +86,17 @@
 | **Stage 5C §1.4 fork-B invariant algebra** | **【已確認／完整生成與 relation ideal 已交付；後續 primary 已選】** | torus 半群 Hilbert basis 為 $u=|b|^2,v=|c|^2,W=bc,\bar W$，其 toric kernel 唯一關係 $uv=W\bar W$。取 swap 後，完整 complexified-real ring 由 $A,P,W,S,Q,R$ 及共軛生成；$Q$ 對 ring generation 必要、對點值 separation 不必要。final presentation 有六條 second-Veronese minors；上游 $uv=W\bar W$ 已在消去 $u,v$ 時吸收。625 點結構化格點的正確 unordered-pair 計數為全純 2950／跨完整 orbit 1000，實族 1950／跨完整 orbit 0；此只作 regression，不代替全域解析證明。E3 承重 primary 必須含實不變量；後續二維 endpoint 已符合此限制，但不倒推本文件曾選定它。 | `docs/STAGE5C_D1_4_INVARIANT_ALGEBRA.md`, `docs/STAGE5C_D1_3_PRIMARY_INVARIANT.md`, `tests/test_stage5c_invariant_algebra.py` |
 | **Stage 5C C3b blind-variety distance form** | **【已確認之 evaluator form／尚未 freeze】** | C3b 拆為兩個互不替代的必要軸：(i) program／source／capability preflight；(ii) value-level rank-one Segre blind variety $\mathcal B_1=\{A\otimes f\}$ 的 weighted Frobenius distance。把 $K$ 寫成 $4\times D$ 後，Eckart–Young 給 $d_{\mathcal B_1}^2=\sum_{i\ge2}\sigma_i^2$ 與 $\rho=d/\|K\|_w$；sharp 上界為 $\sqrt{1-1/\min(4,D)}$，不是固定 $\sqrt3/2$。row-major fiber action 是 $B\otimes\bar B$；pair columns 與 weights 必須共置換。精確 $K=0$ 因位於 $\mathcal B_1$ 直接 C3b FAIL；近零才可依事前 scale-aware nontriviality gate 記 INCONCLUSIVE。此 form 只排除 rank-one value degeneracy；rank $>1$ 不證明程式使用 sector，故 source audit 與 C4 仍獨立承重。具體 domain／weights、capability schema、effect-size／noise／continuum calibration 尚未固定，Freeze-1a 維持 PENDING。未設計候選 $K$。 | `docs/STAGE5C_C3B_BLIND_DISTANCE.md`, `analysis/stage5c_blind_distance.py`, `tests/test_stage5c_blind_distance.py` |
 
+跨 items 7／8 的下一輪設計評估見
+[可行性與決策草稿](STAGE5C_6A_E_ITEM7_ITEM8_FEASIBILITY_DECISION_DRAFT.md)。
+它逐項整理 closure 義務、Gate A/B、效果／條件律與功效前提，並同時檢查
+900 s per-call wall、264-call development qualification 的總 CPU 與完整
+mixture／subdivision 範圍；這個 development schedule 不代替尚未定案的正式
+6a-E 工作量。既有真實接縫另顯示：C8 的 diagonal continuum pairing 令 primary
+第二分量恆零，而目前 region builder 拒絕零 marginal variance；應先獨立複核
+此 producer／consumer 相容性及統計協定修訂需求，不能靠更密積分或更多 cohorts
+解除。本草稿暫保留 v0.2 數值基線，尚未選定可執行資格化方案；不跑新量測、
+不產生 seed、不開主機，closure 狀態不變。
+
 Item 8 的部分審計提案已具名列出七個 regions 與不可回收的 lineage／successor
 名目預算；`docs/STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md` 另給出不讀 arm data 的
 power 充分條件與兩個反例。E1 缺 positive-gap effect model，E2 CLEAN numerical
@@ -381,6 +392,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.12（items 7／8 可行性與決策設計草稿，2026-10-10）- 以 PR #67 合併後 main 6941b97b／tree 0b757fdc 為基線，新增19項義務、Gate A/B及effect／reference／conditional-law／power缺口、完整production mixture／subdivision與900 wall／264-call aggregate CPU的紙上檢查。只讀既有run1 JSON做描述性算術：whole-child production CPU mean 56.435874 s、nearest-rank p90 146.149988 s、6筆超過忽略其他成本的174.545455 s/call規劃量；分清E4 phase與真正6a-E工作量，不能據此合格或否決。新增O19設計推導：既有diagonal C8 continuum pairing／primary公式與real-seam regression支持第二分量恆零、目前region builder拒絕零marginal variance，應先獨立複核此接縫及統計協定amendment需求；不因缺界宣布整體no-go，也不默改reference或刪座標。E4暫保留v0.2，資源資格化延後；一週設計窗口不承諾全部proof可解，不開host／不跑新measurement／不生成seed，無candidate K／arm ledger／endpoint access。analysis／benchmarks／tests／manifest／run1 evidence及assessment／pins／registry皆不變，items7／3–5／8及6a-E狀態不變。*
 
 *v2.11（Vultr run 1 結果草案，2026-10-09）- 原包 SHA-256 8c26b6574ce12956474779434f24ad54e940584dbf3ecc43c9c582fd792b06bf 已直接核對：receipt／run-mode stopped proof／final inspect 身分一致，method_verified true；280 records 中 139 對 start/result 與 manifest 同序，78 production CLEAN、61 stress FORCED-BUDGET-EXHAUSTED，PLAN-COMPLETE／exit 0／無 OOM 或 restart。以原始 records 重播既有 assess_held_out，與原 assessment 完全一致：34 模型全 MODEL-INVALID，整組 INSUFFICIENT-EVIDENCE，六個 agreement_possible 均 false。CPU 帳差 2.191228 秒、RSS peaks 與逐筆 stdout／stderr 均吻合；獨立 pf3 包已由 Claude 於 2026-10-08 核對（原包不在本 PR 作者手上）；操作者回報 Vultr 主機已刪除，local-only cf5c2502 映像隨之消失，重跑須重建並重新審核。約 0.76 比值僅為 cross-profile 診斷，不 refit／不選模型／不資格化上限，item 7 仍不可 ADOPT。見 [run 1 結果草案](STAGE5C_6A_E_ITEM7_RESOURCE_RUN1_RESULTS.md)；凍結 manifest／35 input pins／判讀方法／registry 不變，未授權新 campaign 或 confirmatory 工作。*
 
