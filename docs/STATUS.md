@@ -109,6 +109,17 @@ chain/all_relations 的第一分量接近 0、第二為 0，程序 exit 137，ki
 保留 incomplete 證據，不補選／續跑、不推論母體飽和或功效；未產生 seed、未跑 matching、
 未開主機、未讀 scientific arm ledger，items 3–5／7／8 與 6a-E 狀態不變。
 
+操作者於 2026-10-11 明確採選項 B：保留現有 witness 的 2/12／exit137／死因未確證，
+不重跑、不追加預算、不換案例；本次只補 execution note，不改原結果、plan 或 runner。
+已知配置為 12 點共用 process 的 180/180 s CPU；run1 約37–259 s的既有單次紀錄
+事前已顯示預算規劃不足，跨profile數字不作本機下界或確證死因。未來診斷須另案
+事前審查、逐點子程序且soft<hard、supervisor保存signal與資源帳。本稿明列
+`O2/O13-FIRST-COORDINATE-SATURATION` 為 OPEN：兩點皆 u=v 對稱chain，不能代表
+一般selector，留到效果模型設計以事前審查方案處理。設計補齊不依賴witness的
+operator／scalar pairing／midpoint／primary／matching恆零證明鏈、coverage的條件式推導
+與items4–5／8影響；本週主力是協定設計，期限2026-10-17（台北）。PR標記可複核
+僅供Claude對新exact head／tree審查，不關閉item8或授權實作／科學執行。
+
 Item 8 的部分審計提案已具名列出七個 regions 與不可回收的 lineage／successor
 名目預算；`docs/STAGE5C_6A_E_E5_BUDGET_POWER_AUDIT.md` 另給出不讀 arm data 的
 power 充分條件與兩個反例。E1 缺 positive-gap effect model，E2 CLEAN numerical
@@ -404,6 +415,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.14（選項 B：停止 witness、交付統計協定設計複核，2026-10-11）- 操作者選 B：不重跑、不追加預算、不換案例，原2/12、exit137/signal9、kill_cause未獨立確證及rows／cases／plan／runner／runtime不變，只補execution note。明列12點共用process 180/180秒CPU的既有配置，run1約37–259秒單次觀察事前顯示預算規劃不足；這是跨profile規劃參考，非本機CPU下界或死因確證。未來診斷另案審查、逐點子程序soft<hard、supervisor記start/result/signal/資源。O2/O13-FIRST-COORDINATE-SATURATION保持OPEN，兩筆皆u=v對稱chain，不代表一般selector，不承重任何coverage／效果／variance／cap／B。結構協定草稿補齊固定operator→scalar pairing→actual np.diag/midpoint→primary→matching/CR1的零座標證明、作用域與保留raw error的規則，明列第一座標coverage條件及items4–5／8影響；待新exact-head複核，本週設計期限10/17（台北）。本次無producer重跑，analysis／benchmarks／tests／既有manifest、run1 evidence、assessment、pins、registry不改，無seed／matching／host／scientific arm ledger／K；closure與6a-E狀態不變。*
 
 *v2.13（結構性座標統計協定修訂設計，2026-10-10）- PR #68 已合併為 dd3323a0，tree 8ec17408 與核准 head 相同；操作者轉述真實 producer 獨立確認 O19。本案保留二維 primary／七 claims／D=diag(3,1)／原 strict margins，提出 source-bound structural certificate 與 C8 R1×{0}，E3 diffusion 保留兩個隨機座標，blind-null 完整 sI 身份下兩個結構座標。給出 independent local-conditioned cohorts 的 pair-weighted ratio-estimand Hoeffding coverage 候選與完整推導，明列實際 law／null symmetry／全域 cap conditioning／科學目標橋接及保守成本未證，不替換 region 實作。本案另獲准確定性真實 selector 開發診斷：事前12點只保存chain/all_relations兩theta共2個CLEAN點，I1近0、I2/offdiag零；exit137／signal9、kill原因未獨立確定，無追加預算／補選／續跑。新增incomplete JSON不屬target-law樣本，不推母體分布／效果／功效。analysis／benchmarks／tests／既有manifest、evidence、assessment、pins、registry不改；無新seed／matching／host／scientific arm ledger／K，items3–5／7／8與6a-E狀態不變。*
 

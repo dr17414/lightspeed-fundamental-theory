@@ -43,6 +43,14 @@
       "theta_hex": "-0x1.999999999999ap-2"
     },
     "no_budget_extension_or_replacement_cases": true,
+    "option_b_followup_2026_10_11": {
+      "decision": "OPTION-B-NO-RERUN; focus on statistical protocol design, review deadline 2026-10-17 Asia/Taipei",
+      "future_diagnostic_requirement": "Any separately reviewed future plan must use one short-lived subprocess per point with CPU soft limit strictly below hard limit, explicit per-point and aggregate budgets, and a supervisor persisting request starts, results, signals and CPU/memory resource usage. No future run is authorized by this note.",
+      "known_budget_configuration_issue": "All 12 requests shared one process-level cumulative CPU soft/hard limit of 180/180 seconds, including imports. Run 1 production E4 wall median 36.695758539 s and max 258.568497097 s (phase CPU/wall differences at most 0.110598 s) were already available. About 12 times the median is 440.35 s, and the recorded maximum alone exceeds 180 s: this was an inadequately planned diagnostic budget. These cross-profile measurements are planning references, not a lower bound for the 12 local requests or proof of the terminating signal source.",
+      "preserved_prior_evidence_sha256": "a15455d19492f928478cb819fd4cad592b44a2aca46abe6b2b2fab1a6723aeab",
+      "saturation_obligation": "O2/O13 remain OPEN: both saved requests are the same u=v symmetric chain/all_relations case; neither is evidence for the distribution of general selectors or a population effect model. Address this only in effect-model design under a pre-reviewed plan.",
+      "termination_attribution": "CPU hard-limit exhaustion is the leading explanation, not independently established; retain the original exit 137/signal 9 and kill_cause record unchanged."
+    },
     "planned_rows": 12,
     "recorded_rows": 2,
     "signal_from_shell_exit": 9,

@@ -1,6 +1,7 @@
 # Stage 5C / 6a-E — 結構性座標與統計協定修訂草稿
 
-**DESIGN-DRAFT／NOT-IMPLEMENTED／PROOF-OBLIGATIONS-OPEN。** 日期：2026-10-10（台北）。
+**DESIGN-DRAFT／NOT-IMPLEMENTED／PROOF-OBLIGATIONS-OPEN。** 初稿：2026-10-10；
+選項 B 修訂：2026-10-11（台北）。本稿待 exact-head 設計複核，不是已核准的執行協定。
 依 PR #68 的路線 C，暫保留 E4 v0.2；不刪 primary 的第二座標、不加 jitter、
 不以樣本零變異自動豁免 gate。本案提出具名的統計協定 amendment，尚未取代既有
 region builder，亦不關閉 items 3–5／7／8，不授權 6a-E 執行。
@@ -11,6 +12,12 @@ C8 E1／E2 的第二座標是 `{0}`，第一座標仍須有效推論與效果／
 §4 給出可逐步複核的 bounded-ratio coverage 候選，不把條件定理寫成實際法則已成立。
 §6 的真實 selector 診斷只完成預定 12 點中的 2 點，不能判定第一分量飽和是否普遍。
 
+**操作者決定選項 B：不重跑 witness。** 保留既有 2/12、exit 137、死因未獨立確證
+的紀錄；不追加預算、不換案例、不續跑。第一分量是否普遍接近 1 明列為 O2／O13 的
+未解義務，留到效果模型設計時以事前審查的計畫處理。本週交付集中於結構性零分量
+的統計協定修訂；可複核設計稿的期限仍為 **2026-10-17（台北）**，不承諾在該日前
+完成 item 8 全部證明、實作或資源資格化。
+
 ## 1. 基線與授權邊界
 
 基線是已合併的 PR #68：main `dd3323a061b5b9ad544ee02ceb29ffcbe4c8d03e`，
@@ -18,7 +25,8 @@ tree `8ec174080baea39ef2c03304d0d0ea80e6a61dbd`，與核准 head
 `9ece3d4f8883783eb5fff22901eb4b32ffd3c46c` 的 tree 相同。
 上輪 [items 7／8 可行性草稿](STAGE5C_6A_E_ITEM7_ITEM8_FEASIBILITY_DECISION_DRAFT.md)
 的 O1–O19 是本案義務索引；該草稿的禁止 producer 呼叫是上輪範圍，不是本案 witness 授權。
-本案操作者另外要求真實 selector 的確定性 witness，故只執行 §6 的有限開發診斷。
+本案先前依操作者要求執行 §6 的有限開發診斷；2026-10-11 明確選 B，
+本次只更新設計與 execution note，不再執行任何 witness 或 E4 producer。
 
 本 PR 只新增本設計文件、診斷 JSON，更新 STATUS。analysis、benchmarks、tests、
 既有 statistical／prereg source-of-record、manifest、run 1 evidence／assessment、pins、
@@ -61,6 +69,55 @@ $$
 經證明的 concentration bound：每個 matched cohort 的 normalized contrast 第一分量
 `Y1∈[-1/3,1/3]`。不得改用 `D11=1` 或借此放寬 E1 門檻。
 二維 minimality 的既有全域主張亦不改：E3 diffusion 需要非零第二座標。
+
+### 2.1.1 不依賴 witness 的完整零座標證明鏈
+
+對 [prereg §2](STAGE5C_6A_E_PREREGISTRATION_DRAFT.md) 固定的 C8 E1／E2 路徑，
+每個 source row 的 endpoint 都來自同一具名 massless continuum pairing；不是任意矩陣。
+下面五步是 operator／primary／aggregation 的解析及實作身份核對，不以 §6 點位為前提。
+
+1. **分佈的非對角項是零分佈。** [typed pairing §2](STAGE5C_6A_E_TYPED_PAIRING.md)
+   固定 `D0=diag(∂u,∂v)` 及
+   `S0=diag(H(ux−uy)δ(vx−vy), δ(ux−uy)H(vx−vy))`。
+   `Sθ=pθ(x)^(-1/4) S0 pθ(y)^(-1/4)` 的左右因子都是 scalar，
+   因此 `Sθ_RL=Sθ_LR=0` 是 distribution identity，無小量近似。
+   固定 zero-incoming／no-reflection boundary 不新增 sector mixing。
+2. **Scalar test measure 與 regulator 保持 identity。**
+   [符合 prereg measure 格式的既有 selector adapter](../analysis/stage5c_e5_screen.py) 的 `build_production_atoms`
+   把選出的 `(earlier,later)` 寫為四維 `(later,earlier)` atoms、uniform normalized weights。
+   它不建立 spinor-valued measure；[Gaussian mixture](../analysis/stage5c_e4_wellposedness.py)
+   的 `_mixture_density` 亦是 scalar。任意 member、任意非空合法 selected set、
+   合法 weights／theta 下，線性 pairing 零分佈仍得零。第一座標的 `[0,1]` 界另外
+   使用正 density／weights；第二座標的零 identity 本身不依賴 diagonal 大小相近。
+3. **兩條數值路徑與 midpoint 不產生非對角項。**
+   `pair_retarded_gauss_legendre` 與 v0.2 `_cubature_pairing` 分別累積兩個 scalar
+   characteristic integrals，直接 `np.diag`；不含其他 off-diagonal accumulator。
+   `_certified_midpoint` 將兩路每個實／虛部轉 exact dyadic rational 再平均：
+   `(0+0)/2=0`。item 3 在 finite、agreement、strict nonzero norm 等 gates 通過後，
+   以 `M/max(abs(M))` 作 primary reduction；finite nonzero scalar normalization
+   保持 off-diagonal 為零。不通過者仍沒有可用 endpoint，不能由此 lemma 升格 CLEAN。
+4. **Primary 的第二分量恆零。** 對每個合法非零對角真值與已認證 center，
+   `I2=(|b|²+|c|²)/||M||F²=0`。匹配後的每一對第二座標差為 `0−0=0`，
+   任意合法子集、uniform pair mean、既有 `m_b` 加權 cohort aggregation 都保持零；
+   population conditional ratio mean 的第二座標也為零，任何正機率 conditioning 不改它。
+5. **原零變異拒絕由此必然觸發。** 每個 cohort contrast 的第二座標與整體中心皆零，
+   CR1 第二個 cluster score 為零，所以 `V22=0`。
+   [既有 builder](../analysis/stage5c_statistical_regions.py) 的 `build_simultaneous_region`
+   遇到任何 marginal variance `<=0` 都不產生 region。結構性 singleton 是為這個
+   事前 identity 提出的新 consumer 規則；沒有放寬現行實作的 gate。
+
+**作用域。** proof 綁定 canonical `(R,L)` frame、目前 massless prescription、scalar
+measure／regulator、boundary 和完整 producer versions。
+[typed pairing §4](STAGE5C_6A_E_TYPED_PAIRING.md) 允許的 `G=T²⋊S2` unitary monomial
+basis action 只作 diagonal phases／slot swap：`B diag(a,d) B^-1` 仍 diagonal，故零
+identity 保持。一般會混合 slots 的 basis change、mass／sector-mixing operator、
+spinor-valued test measure、不同 boundary、E3 diffusion 或未來候選 K 不受此 proof 約束。
+有 source／domain 改動就重審 certificate，不靠觀測值看起來 diagonal 自動延用。
+
+**誤差集合與結構集合分開。** 原 item-3 ball 可包含 off-diagonal 擾動，故保守 error
+第二座標大於零並不矛盾；operator proof 另限制真值位於 diagonal 子空間。
+新 region 可在已驗證身份下對這個真值集合作推論，不能改寫原 ball／endpoint errors，
+也不能用零座標 proof 略過 norm、certification 或全池 CLEAN gates。
 
 ### 2.2 事前的 profile；不得按觀測選 mask
 
@@ -105,7 +162,7 @@ item-3 的原 matrix enclosure、endpoint errors、lower／upper 及 seals 不�
 ## 3. 二維 region、claim 規則與 family budget
 
 設 `A_g` 是事前固定的隨機座標集合，`S_g` 是經證明的結構座標集合，
-`A_g∪S_g={1,2}`。提案仍回傳二維 named region：
+`A_g∪S_g={1,2}`、`A_g∩S_g=∅`。提案仍回傳二維 named region：
 
 $$
 \mathcal R_g=\prod_{k\in A_g}[\hat z_k-h_k,\hat z_k+h_k]
@@ -152,6 +209,11 @@ oracle 不證真實 matched law 的 finite-sample coverage。把 `p=2` 改成 `p
   `(m_b,Y_b,k)` 保持獨立；每個 b 都有同一個確定值
   `μ_k = E[m_b Y_b,k | C_b] / E[m_b | C_b]`。
 
+若 inputs 獨立且各 `C_b` 只讀該 cohort，則 conditional joint law 的因式分解為
+`Pr(∩{X_b∈E_b} | C0)=∏Pr(X_b∈E_b | C_b)`；這證明局部 conditioning 保持
+cohort 獨立。共用 fitted calibration 或 aggregate cap 就不能用這一步，須另有證明。
+每個 fixed claim 的兩臂可以同時依賴同一 cohort，並不要求它們或 matched pairs 獨立。
+
 iid 的同一 conditional cohort law 是最後一項的充分條件。真實 runner 是否有共享校準、
 matching tie-breaking／arm orientation 是否破壞 null symmetry，都必須由 O2／O10 證明。
 `μ` 是本候選明文的 **pair-weighted matched-conditional population estimand**，不是
@@ -163,7 +225,9 @@ matching tie-breaking／arm orientation 是否破壞 null symmetry，都必須�
 
 寫 `m_min=192`、`m_max=384`、`R=R_k`，
 `Z_b=m_b(Y_b,k−μ_k)`。依上述 ratio 定義，`E[Z_b | C0]=0`。
-因 `μ_k∈[-R,R]`，每個 `Z_b` 在長度 `2R m_max` 的固定區間內。
+因 `μ_k∈[-R,R]`，每個 `Z_b` 都在
+`[m_max(−R−μ_k), m_max(R−μ_k)]` 這個固定區間內；兩端分別非正／非負，
+所以任意 `m_b≤m_max` 不會超出它，區間長度為 `2R m_max`。
 Hoeffding 對 independent bounded variables 的雙尾界給出
 
 $$
@@ -189,6 +253,8 @@ $$
 現有 source-sealed、ensemble-bound triangle propagation 若已證
 `|hat z_k−tilde z_k|≤ν_k`，用 `h_k=h_stat+ν_k` 即得
 `Pr(μ∈R_g | C0)≥1−alpha_g`；結構座標是確定 identity，不需 sampling tail。
+每個隨機座標的尾機率至多 `alpha_g/d_g`，對固定 `d_g` 個座標 union bound
+才得到上述 simultaneous coverage；依 operator identity 證明的 singleton 則 coverage 為 1。
 不要求 cohort 內 pairs 獨立，亦不要求座標間獨立；要求的是 cohorts 及局部條件律。
 `d_g=0` 另走全結構 proof path，不對 `log(0)` 套公式。
 
@@ -207,7 +273,7 @@ CR1 covariance 可留作診斷，但不在這個 reference 中冒充 coverage �
 ### 4.3 全域 cap 與條件化：本定理不能跨過的界線
 
 若 `A` 是全域 numerical cap／resource／selection gate，依全部 cohorts 而定，
-從上述定理只能推出
+在 `Pr(A | C0)>0` 時，從上述定理只能推出
 
 $$
 \Pr(\mu\notin\mathcal R_g, A\mid C_0)\le\alpha_g;
@@ -226,6 +292,14 @@ family union bound 仍須各 cell 對固定目標有效、fresh streams 與原 s
 ## 5. 功效、items 4–5／8 與資源影響
 
 ### 5.1 O2／O13：第一分量仍可能缺效果
+
+**具名未解義務 `O2/O13-FIRST-COORDINATE-SATURATION`：OPEN-NO-DISTRIBUTION-EVIDENCE。**
+第一分量在一般真實 selector 輸出／目標律中是否普遍接近 1，其 distribution、variance
+與 E1 matched effect gap 的影響，都尚未證明。O2 承擔 matched／conditioned law 和
+coverage 目標橋接；O13 承擔事前有方向的 positive-gap model，兩者不能由點位代替。
+目前僅存的 2 筆同屬 `u=v` 的對稱 chain／all_relations，不能代表一般 selector。
+按操作者選項 B，這項義務留到效果模型設計，以事前審查的分析或診斷計畫處理；
+本週不為回答它追加運算，也不用不完整 witness 選 reference、effect model、cap 或 B。
 
 飽和和小變異是不同命題。若兩個 targets 的 `I1` 都接近 1，contrast 可能小；
 也可能存在事前有方向的差距。若都接近 0 也一樣，單一點不回答 `μ_plus−μ_minus`。
@@ -259,14 +333,30 @@ $$
 | :--- | :--- | :--- |
 | O19；items 4–5 | 提出完整二維 structural-region 接縫；保留所有 named component gates | typed proof／source seals、真實 v0.2 seam 與 mutation checks、獨立複核；目前 blocker 未被可執行程式解除 |
 | O1；item 8 budget | 保留七 regions／11 members／splits／lineage；零座標不借 alpha | ledger／fixed profiles／freshness 接線，對每個 cell 真正有效的 coverage |
-| O2／O10／O12 | §4 有明確 ratio estimand 與局部条件定理 | 真實 matching 推前、null symmetry、局部獨立性、共享校準稽核、全域 cap conditioning 與科學目標橋接 |
-| O13／O14 | E1／兩個 E2 的 stochastic 問題只在第一座標；原 threshold 不改 | matched conditional positive gap／null law、error slack、success 概率；§6 不能代替它們 |
+| O2／O10／O12 | §4 有明確 ratio estimand 與局部條件定理 | 真實 matching 推前、null symmetry、局部獨立性、共享校準稽核、全域 cap conditioning 與科學目標橋接 |
+| O13／O14 | E1／兩個 E2 的 stochastic 問題只在第一座標；原 threshold 不改 | matched conditional positive gap／null law、error slack、success 概率；O2／O13 第一分量飽和義務仍 OPEN，對稱 chain 的 2 筆不承重 |
 | O15 | 區分 diagonal E3／diffusion／全結構 blind-null，保留原 Gate O/E | 完整 finite-cohort operator 身份；逐 claim 的 directional／equivalence 效果，不把 continuum gap 當有限樣本功效 |
 | O3–O8 | 本案不改 selector／E4／norm gates | 各 empty-selection、geometry、backend／subdivision、underflow／certification failure 的承重界仍 OPEN |
 | O9／O11 | 結構零可經獨立證明限制 derived coord 2，但不改原 error vector | 第一座標完整 mixture error／matched amplification／cap 界；不能把現有 factor 8 私自縮小 |
 | O16；item 7 | 新 reference 的 cohort 成本須加入真正 workload | conditional 和 unconditional power、每 claim／operation floors、完整 cost envelope；不是只重跑 264 calls |
 | O17；item 3／4–5 | E4 v0.2 payload 不變；新增 derived inference 版本 | item-3 seals 不變但消費者重審；新的 region ID／width／mask／proof fingerprint，舊 Student objects 不自動升級 |
 | O18；items 9–12 | 本 witness 是明定的非隨機開發診斷 | 任何 stochastic pilot／新 seed／runner／decision table／正式 closeout 均另案事前審查 |
+
+**Items 4–5 的新交付邊界。** 依 [closure §8](STAGE5C_6A_E_PREREGISTRATION_DRAFT.md)，
+item 4 是 E1 joint contrast：其二維 interval object 須新增 identity-bound structural
+coordinates、active dimension 與 coverage-reference ID，保留原 E1 closed-box exclusion。
+item 5 是 E2 null equivalence：plus-null／minus-null 每個 comparison 都要同一版本的新
+二維 region，保留 typed same-target specs、兩者共同成功和 strict open-box inclusion。
+兩項的第一座標 numerical width 仍由原 sealed rows／matching／ensemble 傳播；第二座標
+以已證 singleton 送進原 component gate。共用這個 builder 的 E3 亦按 §2.2 逐 profile
+重審，原方向／equivalence rules 不改。舊 Student objects／歷史 v0.1 closeout 不能直接
+升級；新的 typed real-seam／mutation evidence 與獨立 review 仍待交。
+
+**Item 8 沒有被縮成一維功效問題。** sampling coverage 只在 active coordinates 分配，
+但全 11 members 的 selector／E4／certification failures、matching 推前與 cap conditioning、
+E1 positive effect、兩個 E2 null laws、四個 E3 finite-cohort claims、完整無條件功效及
+資源工作量仍全部承擔。結構恆零只完成具名子義務，不把其餘缺界寫成已解。
+§4 是有明確前提的候選定理；實際 law 前提和科學 estimand 橋接未證就維持 OPEN。
 
 item 7 的紙上範圍仍同時要求 `1.25 U_wall≤900 s` 與完整 264-call **development**
 qualification 的 `1.25 U_CPU_schedule≤57600 s`；margin 前每次平均規劃量
@@ -277,11 +367,14 @@ qualification 的 `1.25 U_CPU_schedule≤57600 s`；margin 前每次平均規劃
 ## 6. 真實 selector 的確定性 witness：不完整結果
 
 證據：[stage5c_structural_coordinate_design_witnesses.json](stage5c_structural_coordinate_design_witnesses.json)，
-SHA-256 `a15455d19492f928478cb819fd4cad592b44a2aca46abe6b2b2fab1a6723aeab`。
+SHA-256 `6aff24d77ce196a123618eebf664fffa2518ab7956a2128ec0598b679a487d50`。
 JSON 包含事前 plan 原文／hash、diagnostic runner 原文／hash、基線 source blobs、
 已開始 case 的 exact coordinates／order／pairs
 bytes與 hashes、atom／weight hashes、fixed／adaptive matrices、certified endpoint／error hex、
-actual runtime 與 incomplete terminal。它不是 run 1 證據，也不修改任何既有 assessment。
+actual runtime 與 incomplete terminal。原證據版本 SHA-256 `a15455d19492f928478cb819fd4cad592b44a2aca46abe6b2b2fab1a6723aeab`
+可由前一 head `ac3d0276` 取得；本次 JSON 只在 execution note 增補選項 B 的說明，
+原 rows／cases／plan／runner／source hashes／runtime／terminal 及既有 note 欄位均不改。
+它不是 run 1 證據，也不修改任何既有 assessment。
 
 ### 6.1 事前選點與實際路徑
 
@@ -301,6 +394,19 @@ six thread envs 固定 1，CPU hard limit 180 s、address-space limit 3 GiB。
 初次 writer 使用兩個不存在的 result attributes，未保存任何 row；修正欄位 mapping 後，
 按完全相同的 plan 重啟。這不是一次性 receipt campaign，不能宣稱只呼叫 12 次 producer。
 
+**已知預算配置問題。** 原腳本在同一 process 設 `RLIMIT_CPU=(180,180)`：
+imports 與 12 個請求共用累積 CPU 預算，soft 與 hard 相同。
+[run 1 §4](STAGE5C_6A_E_ITEM7_RESOURCE_RUN1_RESULTS.md) 先前已有 E4 wall 中位數
+36.695758539 s、最長 258.568497097 s 的紀錄，phase CPU／wall 差最多 0.110598 s。
+12 倍中位數約 440.35 s，單次既有最長值更已超過 180 s，所以 180 s 作為整輪預算
+事前即規劃不足；這是已知的配置問題。跨 profile 數字只作規劃參考，不是本機 12 點
+的 CPU 下界，也不能單憑它確證終止死因。CPU hard limit 是主要解釋，但保留
+「死因未獨立確證」，不把推斷補寫為歷史測量。
+
+未來任何另案診斷須事前審查，逐點使用短命子程序、CPU soft 嚴格低於 hard，
+明列單點與總預算，由 supervisor 保存每點 start／result、signal、CPU／記憶體用量；
+記錄寫入不與會被硬停止的 worker 共命運。這是未來設計要求，本次不改 runner、不執行。
+
 ### 6.2 全部已保存結果與缺漏
 
 | case／selector／theta | atoms | v0.2 status | certified point I1 | I2／max off-diagonal | a/d |
@@ -314,19 +420,23 @@ runner 在下一個未保存請求 `chain64／links／−0.4` 期間以 shell ex
 未保存不記成 CLEAN／FAIL／censored。沒有追加預算、補選 cases 或挑出較有利結果。
 
 兩個點都在 0 附近，故「人工 atom 的 near-one 現象可直接套給所有真實 selector」沒有
-證據；但這也不能否定真實 target 的飽和或證明效果良好。只完成同一 chain 的兩個 theta，
-無法回答其他 cases／members 的分布。point midpoint 不是精確 continuum truth：本案
+證據；但這也不能否定真實 target 的飽和或證明效果良好。只完成同一 `u=v` 對稱 chain 的兩個 theta，
+不是其他 cases／members 的分布證據。這組 coordinates 的每個 atom 都保持 sector-swap
+對稱，scalar Gaussian 與 `pθ(u,v)=pθ(v,u)` 配合使精確 characteristic integrals 相等，
+故第一分量精確為 0；表中極小非零數是既有浮點 producer 的 certified point，非一般
+selector 的效果模型。此對稱性可直接由保存的 coordinate bytes 與已固定公式核對，
+不是新增 numerical witness。point midpoint 不是精確 continuum truth：本案
 第一分量 certified error 分別 0.10733285441070511、0.10338824640116889；
 第二分量仍有原保守 error，未清零。這些不能當零 population variance 或 numeric-cap 合格。
 
-若需要擴充診斷，須先另定有限 cases、全 11 members 適用性、預算／stop policy，
-保存全部 outcome（包括 incomplete），才執行；本案不隱性續跑未完成 10 點。
-若目的是 O2／O13 的**分布**或 positive-gap 證據，確定性 witness 不足，須先提交
-candidate-independent 的 target-law 分析／合法 stochastic manifest，不能讀 scientific arms。
+**本輪採選項 B，不重跑或擴充診斷。** §5.1 的 O2／O13 未解義務留到效果模型設計，
+任何後續計畫須在執行前審查 cases／member 適用性、完整 outcome、budget／stop policy
+與 target-law 分析；若需 stochastic evidence，另立合法 manifest，不讀 scientific arms。
+現有 10 個未完成請求維持無 outcome，不換案例、不追加預算或補跑。
 
 ## 7. 決策與後續審查界線
 
-**建議先審此結構性 amendment；保留 v0.2，延後 item 7 資格化。**
+**依操作者選 B：本稿交付 exact-head 設計複核；保留 v0.2，延後 item 7 資格化。**
 O19 已有獨立 producer 複核，確實需要統計接縫修訂；本案沒有證據要求 numerical E4 改版。
 第一分量是否普遍飽和仍未解，不用不完整 witness 選 effect model／reference／cap。
 
@@ -340,3 +450,17 @@ O19 已有獨立 producer 複核，確實需要統計接縫修訂；本案沒有
 主張，以及實際條件律前提何處有證據；(3) finite-sample reference 的保守成本是否值得
 繼續證更銳利的界；(4) O13–O16 的 gap／numerical slack／無條件 power 與成本缺口。
 若前提或成本未證，就保留 OPEN，不把設計合併寫成 item 8 CLOSED 或 6a-E 可跑。
+
+### 7.1 本週交付與 exact-head 複核清單
+
+可複核交付是本設計、既有不完整 witness 加註說明與 STATUS；期限 2026-10-17（台北）。
+標記 PR ready 是**待審設計已可複核**，不是科學結果、implementation review 或執行 GO。
+本案完成文件檢查及新 head 的 CI 後，由操作者將 exact head／tree 交 Claude 複核：
+
+- §2.1.1 的 operator → scalar pairing → actual fixed／adaptive／midpoint → primary →
+  matching／CR1 證明是否完整，且版本／basis／boundary／E3／K 的作用域正確；
+- §3／§4 的二維 singleton region、第一座標 coverage、ratio estimand、numerical width、
+  局部／全域 conditioning 與未證前提是否分清，沒有把 Student reference 自動視為有效；
+- §5 的 items 4–5／8 新交付與仍 OPEN 的義務是否完整，沒有藉恆零回收 alpha 或放寬 gate；
+- §5.1／§6 明列 O2／O13 缺口、對稱 chain 的限制、已知預算配置與死因未確證是否相容，
+  不完整 witness 是否完全沒有用於 coverage、effect、variance、cap、B 或可行性結論。
