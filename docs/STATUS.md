@@ -41,13 +41,26 @@ PR #71 已獨立核對數學並合併為 `f574e06b…`，合併前只增補 G0-B
 註記，受審解析內容不變。依操作者的 PR #72 複核，Nicholas 已由 Claude 獨立讀取
 並確認引用範圍一致；Anker–Ziegler 仍未讀取，亦未認證兩篇的全篇證明。
 
-**B2＋B5 續篇（【探索／待獨立複核】）：**
+**B2＋B5 續篇（【已確認／限定解析；橋接 OPEN】）：**
 [有限區間體積與錐體前提審計](foundations/b2_b5_interval_volume_cone_audit.md) 在已給定
 finite-dimensional affine space、closed convex full-dimensional cone 與 Lebesgue measure
 的類別中，提出 interior FV iff pointed closure 的完整短證明，並處理 Poisson intensity
 及所有 sampled pairs 的同時性。strictly positive linear clock 的存在不等於物理時計
 已導出；finite-volume 時計反例及明訂 clock／spatial O(d) 後的 quadratic-cone 命題分帳。
 B1–B7、Gate 0、Freeze-1a 與 6a-E closure 不因條件式結果而結案。
+
+PR #72 的 `9a4c219a…`／tree `fdeb9edb…` 已獲獨立數學 GO；僅補正文獻讀取說明，
+`36b3bb4e…`／tree `7c4341e2…` 經 CI #241（556 passed／5 warnings）後合併
+為 `044879b8…`，合併 tree 相同。Nicholas 的有限引用已由 Claude 核對，Anker–Ziegler
+仍未讀取；不認證全篇證明。
+
+**B3＋B4 續篇（【已確認／限定解析；物理橋接 OPEN】）：**
+[可操作的時鐘與觀察者等價審計](foundations/b3_b4_operational_clock_observer_audit.md)
+給出正時計非唯一、tilted clock 的 coordinate cap 反例、給定 Lorentz cone／fixed
+volume 下的最大 affine 幾何群、boost 下沒有單一 invariant positive clock、
+calibrated metric 下的等變時計族；並區分 process-law symmetry、固定 mark 與實際
+裝置／完整物理 law。BHS 的 full-space Poisson 作用域保留；不報物理時計、observer
+或 signal 已由 L0 湧現。B3／B4 及其他橋接 OPEN，協定與既有結果不變。
 
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
@@ -443,6 +456,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.18（B3＋B4 時計與觀察者等價前提審計草稿，2026-10-11）- PR #72 核准的 9a4c219a／fdeb9edb 僅補正三處現行文獻讀取說明，36b3bb4e／7c4341e2 經 CI #241 556 passed／5 warnings 後 squash-merge 044879b8，merge tree 相同。Nicholas 的有限引用現由 Claude 獨立核對，Anker–Ziegler 仍未讀取，歷史紀錄及數學未重寫；B2＋B5 僅已核對解析升格。新稿給出時計非唯一、tilted-clock 反例、已給 Lorentz cone＋fixed volume 的最大 affine 群、boost invariant clock 障礙及 calibrated 等變族；明列 device／law／signal／scale 的未證義務，BHS 保留 full Minkowski Poisson scope。新解析待 exact-head 複核，不稱 pre-spacetime 或 operational 物理結果。僅五份 Markdown，無程式／tests／CI／manifest／registry／證據改動，無抽樣／量測／seed／host／ledger／K；B1–B7、Gate 0 OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 及既有 closure 不變。*
 
 *v2.17（B2＋B5 有限區間體積與錐體前提審計草稿，2026-10-11）- PR #71 的 a7388292／7e5c18a3 解析內容獲獨立 GO；依授權只補回歷史原文與註記兩行，0d7015b2／d54d3f2b 經 CI #238 同 head rerun 556 passed／5 warnings 後 squash-merge f574e06b，merge tree 相同。首次 CI 的既有 /proc exists/read 競態與重跑結果保留於 PR。續篇給出限定 cone／Poisson 類別中的 FV／pointed／LF_o 等價、positive functional existence、兩個 measure／clock countermodels 與明訂 spatial isotropy 下的 cone 形狀；全部新解析待獨立複核，不宣稱 physical c、observers、dimension 或 dynamics 已湧現。T1＋T5 狀態只升格已核對的限定數學，兩篇作者文獻仍非雙方全篇認證。本輪五份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無抽樣／量測／seed／host／ledger／K；G0-B／G0-C OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 及既有 closure 不變。*
 

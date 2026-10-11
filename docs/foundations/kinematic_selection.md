@@ -37,7 +37,8 @@
     *   > **本提案 G0-C 目前尚未獲得證明**。這是一個待驗證的開放數學假說。
     *   > 絕對不得將「局部有限性 (local finiteness)」單獨寫成「可以推出有限 $c$」的結論。局部有限性僅限制了因果區間內事件的離散數量，要導出速度上限的有限性，還必須有尺度、體積以及流形逼近的交互作用。
 *   **作用域校正（T1＋T5，限定解析已獨立複核）**：`R×S¹` 上的 absolute-time order＋正密度 homogeneous Poisson 是 LF_o 的 unlimited-propagation 反例；「spacetime 非緊緻」仍不足。若另指定 full `R×R^d`、`dt d^d x`、正 constant density 與同一 order，則每個 comparable interval 幾乎必然含無限點，可排除這組模型。這些 continuum／measure／sampling 前提尚非 L0 導出；排除它也不提供 Lorentzian 存在性或 physical c。詳見 [T1＋T5 審計](t1_t5_premise_audit.md) §5–6；G0-C 總目標維持 OPEN。
-*   **B2＋B5 續篇（待獨立複核）**：[有限區間體積與錐體前提審計](b2_b5_interval_volume_cone_audit.md) 給出具名閉凸滿維 cone 類別中的 FV／pointed equivalence、intensity 與 LF_o 的橋接；另以時計反例區分 bounded-section existence 與 physical c。quadratic cone 還須明訂 clock／spatial O(d)；本稿未把這些前提報為 L0 導出。
+*   **B2＋B5 續篇（限定解析已獨立複核）**：[有限區間體積與錐體前提審計](b2_b5_interval_volume_cone_audit.md) 給出具名閉凸滿維 cone 類別中的 FV／pointed equivalence、intensity 與 LF_o 的橋接；另以時計反例區分 bounded-section existence 與 physical c。quadratic cone 還須明訂 clock／spatial O(d)；本稿未把這些前提報為 L0 導出。
+*   **B3＋B4 續篇（限定解析已獨立複核）**：[可操作的時鐘與觀察者等價審計](b3_b4_operational_clock_observer_audit.md) 證明正時計多重性、給定 Lorentz cone／fixed volume 的最大 affine 群、boost 下單一 invariant 時計障礙與 calibrated 時計族；physical clock／rod／signal、完整 law 等價仍需額外橋接。
 
 ---
 
