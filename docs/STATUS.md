@@ -37,6 +37,14 @@ Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選�
 actor 尚待申報的未知項，不宣稱完整盲性。merge／CI／GO 均不等於 activation；
 現行 Freeze-1a 前 K 禁令仍有效，正式 closure／資料／執行授權不變。
 
+**PR #75 已審核、未生效：** Claude 核准 `d57d3cb6…`／tree `4353c6f0…`，操作者
+授權原 head 合併為 `83b54e05…`，merge tree 與核准 tree 相同。本次补充
+[禁令定位清單](STAGE5C_EXPLORATION_BAN_LOCATION_AUDIT.md) 及 review-only 有限數值／符號
+檢查的界線，新增文字另待exact-head複核。Claude 的[本人申報原檔](claude_exposure_declaration_2026-10-12.md)
+原樣保存，GPT 的[有界本人申報](gpt_exposure_declaration_2026-10-12.md) 亦已提交；
+接觸帳只追加，不以別人的申報代填。Claude 人工E4 endpoint屬evaluator-development，
+不倒改成純數學spot check；舊階段UNKNOWN保留。操作者申報仍PENDING，沒有activation。
+
 **T1＋T5 第一份交付（【已確認／限定解析；橋接 OPEN】）：**
 [前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
 與真正湧現目標；區分 order-interval／拓撲局部有限、volume／density、metric／symmetry。
@@ -481,6 +489,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.21（探索審查工具、禁令定位與actor申報補充，2026-10-12）- PR #75 的d57d3cb6／4353c6f0獲Claude exact-head GO與操作者合併授權，原head squash為83b54e05，merge tree相同，狀態REVIEWED-NOT-ACTIVE。逐位元保存Claude本人申報（SHA-256 20f79f3b…1edb23），追加EXP-0016–0018，分開資源證據包與人工E4 endpoint接觸，歷史UNKNOWN不刪；GPT提交目前可回溯scope的本人申報，操作者scope仍待本人提供。新禁令定位列原文、章節／基線行號及48份keyword來源blob；特別保留hard controls、results README、reference probe禁回流。草案釐清固定命題的有限review-only numerical／symbolic／RNG檢查與模型探索執行的差別，不開producer或禁止資料例外；新條款待複核。僅Markdown，未開始模型、未新跑診斷／RNG／sampling、未生成seed／主機／formal attempt，無activation；operative acceptance／prereg／roadmap、closure、科學JSON、tests／CI／source／原log與burn registry保留。*
 
 *v2.20（探索軌道協定修訂決策草案，2026-10-12）- PR #74 核准 head 5b4c0127／tree 91aa8411 依操作者授權原樣 squash-merge 為 87ff77a1，merge tree 與核准 tree 相同；只將 B4/B6 受審限定解析升格，裝置實現與物理橋接 OPEN。操作者選 B，交付紙上 X-I/X-C 權限、oracle／output-only／資料隔離、接觸初盤、標記升格、X→F freeze／criterion 污染與 fresh-data 義務、逐項 operative 修改方案及停止規則。草案待 Claude exact-head 複核與操作者另案 activation；merge／CI／GO 不自動生效，現行 K 禁令仍有效。初盤區分公開可達／實際讀取／轉述 review／UNKNOWN，不聲稱 actor-complete 或盲性；原 DEV／AMEND／burn／evidence／witness 保留。僅 Markdown，未構造模型、未執行新診斷／抽樣／量測、未生成 seed／開主機／讀 arm ledger；Gate0、B1–B7、item7 不可 ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE 與 Freeze-1a PENDING 不變。*
 

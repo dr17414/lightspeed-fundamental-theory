@@ -1,8 +1,12 @@
 # 探索軌道協定修訂決策草案：理論構造與正式驗證分離
 
-狀態：**【提案／待 Claude exact-head 複核與操作者生效決定；未生效】**。
+狀態：**【PR #75 已審核、未生效；本次補充修訂待 exact-head 複核】**。
+Claude 核准 #75 head `d57d3cb661d168f56cc8d04cbcd8315ea41b400e`、tree
+`4353c6f065f674c200e7f0e50f0ae28b00ba04a6`；依操作者授權原 head 合併 main
+`83b54e051c4339594f48dbe2858b4f7e6fb00a2b`，tree 完全相同。沒有 activation commit。
+下述審查工具釐清、禁令定位與申報補充須另複核，不把原 GO 擴成對新文字的核准。
 操作者於 2026-10-12（Asia/Taipei）選擇 B，授權起草本案，**沒有授權開始構造**。
-基線為 PR #74 合併後 main `87ff77a1a3c44bef4f3c33ade91c3ef0e0623acd`，
+原稿基線為 PR #74 合併後 main `87ff77a1a3c44bef4f3c33ade91c3ef0e0623acd`，
 tree `91aa84112329bdee017c7d7dddc44a53e1d67afa`。
 本次只交 Markdown、接觸盤點與逐項修改方案；既有候選 K 禁令繼續有效。
 
@@ -38,7 +42,7 @@ tree `91aa84112329bdee017c7d7dddc44a53e1d67afa`。
 | 解析比較 | 人工明寫有限 toy 定義、精確反例、符號推導，或對已有文獻模型作具名條件分析 | toy／論文例不是正式樣本；不把一個例子推成典型性或全域結論；文獻若承重須完成適用域／convention mapping |
 | 模型選擇與撤回 | 比較具名版本、記錄否定／未完成方向與前提改動 | 全部保留；每個選擇有來源／接觸依賴，不能只留下成功版本 |
 
-本案**不**授權新的程式模型實作、可執行 symbolic／toy 診斷、RNG、seed 生成、selector／
+本案**不**授權新的程式模型實作、用於模型探索／篩選的 symbolic／toy 診斷、研究 RNG／seed 生成、selector／
 E4 witness、抽樣、量測、主機、雲端消費、receipt、正式 arm ledger 或 scientific PASS。
 「紙上 toy」是文件中的定義與推導，不包括執行 toy ensemble。既有 regression suite
 只可作 repo 檢查，不能呼叫正式 runner 或產生新科學資料；新增執行工作須另案具名
@@ -47,6 +51,31 @@ E4 witness、抽樣、量測、主機、雲端消費、receipt、正式 arm ledg
 X-C 可以研究另給背景的物質；它不是把原 S5C-Claim 改成背景給定，也不解除 C11 的
 3+1D output firewall。每個背景、時鐘刻度、狀態、裝置 mark、作用量或概率律都須逐項
 列為假设或已證輸入，並將 B1–B7 的未證橋接帶到下游。
+
+### 1.1 審查工具與模型探索計算的界線（補充提案，待複核）
+
+**數學複核可用有限的本機數值／符號 spot check**，包括人工矩陣或 reviewer 自定
+RNG 檢查已寫出的 BdG 行列式、cone／Lorentz 等變性、體積或回波恆等式，以及
+嘗試找固定命題的反例。這類工具不因使用 NumPy／RNG 就變成模型探索；判別依據是
+是否檢查**事先已存在、具名、固定前提與 source version 的命題**，以及輸入／輸出的用途。
+本條釐清獨立複核的方法，不啟動 X 的模型構造；本次沒有新 spot check 執行。
+§1 已允許的既有 regression suite 仍限 repo 檢查；不能用它的既有 producer tests
+推論新的直接 E4／selector 診斷亦已獲准。
+
+允許的審查報告須列：被檢命題／版本、人工定義域、程式／算法、matrix sizes／
+cases／精度／資源的有限邊界、review RNG／draw policy（若使用）、失敗／反例與
+全部嘗試摘要。這些是 review-only randomness，**不是 scientific seed／formal manifest**。
+不得呼叫 causet／selector／E4 producer、讀 raw arm／sealed artifact，亦不能重算
+reference probe 或使用禁止回流的 planted material。若 reviewer 檢查需要超出此邊界，
+先另案授權；Claude 已申報的歷史人工 E4 接觸仍是 evaluator-development，不由本條
+倒改為純恆等式檢查或恢復其資料盲性。
+
+數值 agreement 只檢查已給等式／實作、可發現錯誤；它不證全稱定理、典型性、
+power、coverage、物理可實現性，也不產生 scientific PASS。找到反例應修正／撤回
+該具名命題並留版本；不能依觀察調 model／weight／phase／projector／margin，或
+改輸入／抽樣直到得到有利圖樣。若結果促成**新模型或參數選擇**，它已跨到 exploration：
+停止該用法、追加 exposure／decision，檢查 ACTIVE scope；可執行模型探索仍需另案。
+不得把 reviewer 的反例搜尋／修正論證偷偷用作新候選搜尋。
 
 ## 2. 雙軌、oracle 與資訊流
 
@@ -90,6 +119,12 @@ GPT／Claude 心理上「忘記了」。X-I 文件／dependency graph 列出每�
 0028、6a-S burn registry、run1／witness 的 source anchors，不讀 raw arm ledger，
 也不改原 JSON。**repo 公開不等於每位研究者實際看過**；初始表分開可達、repo custody、
 本輪讀取、操作者轉述 Claude 複核和尚待本人申報。
+
+2026-10-12 補充：Claude 的[自行申報原檔](claude_exposure_declaration_2026-10-12.md)
+逐位元保存，GPT 亦提交[目前可回溯範圍的自行申報](gpt_exposure_declaration_2026-10-12.md)，
+接觸帳追加 EXP-0016–0018／§5；不覆寫初盤，也不代替操作者申報。
+Claude 的人工 E4 endpoint 接觸記為 evaluator-development；舊階段 UNKNOWN 保留。
+操作者申報仍 PENDING，因此本輪不提交 activation 或宣稱三方申報已完成。
 
 生效條件：操作者、GPT、Claude 分別列出其可回溯的接觸範圍、取得途徑、程度、
 相關模型／criterion 決策及未知項；不得由 GPT 代替 Claude 宣稱未見資料。
@@ -198,6 +233,11 @@ order ansatz、weight 或 phase prescription；不是第一個模型的 construc
 不是現在的規則。** activation PR 必須檢索所有現行禁令，逐項給 diff 與審查結果；
 歷史快照／舊版本 changelog 原文保留並標其時間，不全域替換歷史「未設計 K」。
 
+具體位置、原文錨點與基線 blob 見[禁令定位清單](STAGE5C_EXPLORATION_BAN_LOCATION_AUDIT.md)。
+它另點名 hard controls §尚未完成第1項、results README 的候選輸入禁用，以及
+reference probe §0／§5 的 features／weights／patterns；三處都保留，不是 E0 豁免。
+activation 前仍需重跑搜尋、逐列 current／KEEP／HISTORY 核對；本次未修改其原文。
+
 統一擬議條款 **E0**（各 current 文件引用同一 activation commit）：
 
 > Freeze-1a 完成前，原 Stage 5C 正式候選資格與 confirmatory evaluation 仍不得開始。
@@ -230,7 +270,7 @@ order ansatz、weight 或 phase prescription；不是第一個模型的 construc
 | 發現 sealed／禁止 oracle 接觸、來源不明或未記新 exposure | 暫停相關分支、封存版本與接觸 metadata；不再讀 payload 來調模型 | 事故／影響審查、追加接觸帳；排除不掉污染則該分支不得轉原 F |
 | X 輸出已用來調 formal core／projector／test-space／margin | 停止舊 formal 資格承重，不以 fresh seed 補救 | §5 的新版 prereg／適當 independent／blinded review；不能回填舊 PASS |
 | 證明矛盾、精確反例或先驗 device 語意無法滿足 | 停止相應命題／版本，標限定否定或未決，留失敗依據 | 新定義／前提須新版本，不能加 jitter、刪難例或抹去反例維持原結論 |
-| 要超出紙上 scope、動用 RNG／測試新模型／量測／主機 | 停在執行前，提出具名另案 | 操作者授權＋事前審查的方案與適用的執行保護；不能拿 activation 代 receipt |
+| 要超出紙上 scope、動用探索用 RNG／測試新模型／量測／主機 | 停在執行前，提出具名另案；§1.1 有限審查工具分帳 | 操作者授權＋事前審查的方案與適用的執行保護；不能拿 activation 代 receipt |
 | 模型只是在重述給定 metric／tick／null legs 而無實現論證 | 不報裝置存在／湧現；將成果限為條件式分析 | 明寫尚缺實現橋接；可另案研究，不保證續做有價值 |
 | 找不到可判定問題、超出操作者投入上限，或操作者決定結束 | 暫停／關閉 X；不預設用加錢或加樣本續命 | 操作者另決定範圍；本案不自行設定費用／一週成功承諾 |
 

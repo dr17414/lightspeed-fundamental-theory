@@ -93,3 +93,35 @@ protected pattern。`NONE` 表示本稿沒有模型，不是宣稱歷史沒接�
 更正、撤回、轉交、誤接觸皆append；不保存被禁止payload／私人ID，只記可核對
 custody metadata。新X模型決策仍另進development log；formal揭露仍另依正式帳本，
 不能靠本帳「已登記」變成合法或免除budget。此帳合併後也不是生效批准。
+
+## 5. Actor 自行申報追加（2026-10-12；初盤不覆寫）
+
+本節以申報人原文和有界scope補充 §1–4；舊 UNKNOWN 不刪，亦不將原 actor-specific
+事實改成GPT的獨立核對。§4是初盤歷史，現在申報狀態以下表為準。
+
+| 新EXP-ID／actor | 來源、hash與本次實際接觸 | 影響／隔離／資格 |
+| :--- | :--- | :--- |
+| EXP-0016／Claude | [actor自行申報原檔](claude_exposure_declaration_2026-10-12.md)，操作者2026-10-12轉交；SHA-256 `20f79f3b3ad0201dc42c9dab4d68f696543560ebf663f11c9465a7a62b1edb23`，與附件逐位元一致。A公開文本／code；B五包resource／execution；C1人工atoms的v0.1/v0.2 E4矩陣與endpoint；C2 witness欄位；C3 run1重播；C4規劃；C5review spot checks；C6匯入失敗；D文獻；E影响。 | 補充EXP-0003、0006、0008–0013的Claude scope，**由Claude申報、未由GPT重建raw或atoms獨立驗證**。C1含endpoint，與B的資源包無endpoint申報分開；不能因此把整份申報寫成「無endpoint接觸」。本工作階段以前UNKNOWN、無blinded資格。 |
+| EXP-0017／GPT | [GPT有界自行申報](gpt_exposure_declaration_2026-10-12.md)：可回溯current文本／工具、#75文件起草／測試／合併、本次禁令查找與Claude原檔讀取；沒有據C1重建atoms或跑新producer。跨舊對話raw／私人歷史UNKNOWN。 | 收到Claude申報後GPT也已見人工E4配置與endpoint範圍，不能說未見此觀察。沒有新model ID／模型構造；未知保守隔離，不代替其他actor。 |
+| EXP-0018／操作者pending／GPT current接收 | 操作者轉交Claude原檔與#75核准／未生效決定，證實本次transfer；**不能推定操作者已開啟任何特定raw包／endpoint**。 | 操作者下載／轉交／terminal／raw／舊對話的本人申報仍PENDING，尚無actor-complete scope。留待其自行提供，記不清楚者UNKNOWN；不提交activation。 |
+
+Claude C1 申報用人工 fixture atoms、RNG0、均勻擾動、正規化mix、两theta呼叫E4，
+看過完整矩陣、第一分量約0.34–0.9999999、第二分量0，非selector／target-law樣本。
+這是已見 evaluator 行為，不承重O2/O13一般分布／variance／cap／power；日後若X-I
+以第一分量行為設計，必須引用EXP-0016/C1、檢查回流並暫停未釐清分支。
+原檔說exact atoms可重建是actor說明，GPT本次**未重建、未宣稱已獨立恢復精確manifest**。
+
+五份原包的完整讀取與「無scientific endpoint」範圍由Claude申報，GPT本次只讀申報。
+原檔partial hashes維持原文，不補猜成full SHA；run1／pf3已存在的full hashes仍在原
+source-of-record。宣告不保留跨工作階段記憶，不能据此取消以前DEV／review的暴露風險。
+Claude讀Nicholas的範圍、未讀Anker–Ziegler及本階段未直接讀BHS／Perlick，依原文保存；
+repo曾有作者讀原文紀錄，不等於Claude自己已讀。獨立數學GO仍不等於blinded criterion資格。
+
+| 目前actor申報狀態 | 已有材料 | 仍待處理 |
+| :--- | :--- | :--- |
+| Claude | 本工作階段的本人A–E申報已收存 | 階段以前UNKNOWN保守隔離；新接觸append，不能承諾blind |
+| GPT | 目前可回溯工作範圍的本人申報已保存 | 舊對話／私人raw UNKNOWN保守隔離；不是全歷史attestation |
+| 操作者 | 本次transfer與決定已記，尚無本人接觸清單 | 自行列下載／轉交哪些包、terminal看過哪些輸出、是否打開raw、其他舊對話；不確定填UNKNOWN |
+
+本補充仍待exact-head複核。申報收件不自動判定所有分支可用、正式資料fresh，
+或activation條件已滿足；三方scope／未知隔離仍须依決策草案逐項審查。
