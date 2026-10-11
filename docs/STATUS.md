@@ -24,9 +24,18 @@
 
 **研究排序（2026-10-11）：** 操作者選擇先推進理論，優先前提審計、解析限制與精確
 反例，大規模驗證留到有值得檢驗的具名目標。具體路線與協定調整方案見
-[理論優先草稿](THEORY_FIRST_ROADMAP_DRAFT.md)（【提案／待獨立複核】）。本稿不改
+[理論優先路線圖](THEORY_FIRST_ROADMAP_DRAFT.md)（PR #70 已獨立複核並合併；
+路線中的物理提案仍待證）。本稿不改
 Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選的必要條件分析，
 候選探索須另案版本化 amendment。6a-E closure／執行條件與已封存結果不變。
+
+**T1＋T5 第一份交付（【探索／待獨立複核】）：**
+[前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
+與真正湧現目標；區分 order-interval／拓撲局部有限、volume／density、metric／symmetry。
+給出裸 order 的 metric 反例、nonquadratic cone 反例、compact Galilean 反例與 scale／density
+不可識別性；另列完整 spacetime rotations 與 full-space absolute-time Poisson 的有條件
+排除證明。未證 B1–B7 必須沿用，沒有報成 finite c／Lorentzian／3+1D 已湧現。
+Gate 0 總目標維持 OPEN；本輪無候選 K、量測、seed、主機或 ledger。
 
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
@@ -44,8 +53,8 @@ Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選�
 | **區間大小 $|I(j,i)|$ 足以描述自旋傳輸** | **【已否定】** | 錯誤。區間大小僅為純量，自旋傳輸必須具備 Clifford 代數結構或框架傳輸規則。 | `handoff_v1.0.md#9.4` |
 | **Ignatowski 類無光相對論限制** | **【已知】** | 可以在不假設光速不變下限制慣性系變換；不同公理化版本假設不同，不宣稱存在唯一「公認五條最小公理」。 | `docs/foundations/kinematic_selection.md` |
 | **因果共形重建 (Malament/HKM)** | **【已知】** | 在適當條件下決定 continuum metric 的 conformal structure；Malament/HKM 是在既有 Lorentzian spacetime 類別中的重建定理，不能誤寫成「任意偏序會產生 Lorentzian spacetime」。 | `docs/foundations/kinematic_selection.md` |
-| **非平凡因果偏序排除歐氏特徵 (G0-B)** | **【提案】** | 非平凡、有一致過去/未來方向的 causal partial order 是否可以排除 Euclidean signature。 | `docs/foundations/kinematic_selection.md` |
-| **多公理融合排除伽利略極限 (G0-C)** | **【提案／條件式論證】** | causal order + local finiteness + number-volume correspondence + 適當均勻性/非緊緻條件，是否可以排除 Galilean K=0，從而要求有限 invariant causal speed。此提案尚未獲得證明，且 local finiteness 單獨不得寫成可推出有限 c。 | `docs/foundations/kinematic_selection.md` |
+| **非平凡因果偏序排除歐氏特徵 (G0-B)** | **【提案／OPEN；解析審計待複核】** | bare order 可與外加 Euclidean metric 並存；完整 spacetime rotations 與非平凡 translation-invariant strict order 才有有條件排除。尚未由 poset 選出 Lorentzian signature。 | `docs/foundations/kinematic_selection.md`, `docs/foundations/t1_t5_premise_audit.md` |
+| **多公理融合排除伽利略極限 (G0-C)** | **【提案／OPEN；解析審計待複核】** | compact spatial volume 是 unlimited-propagation 反例；full infinite-volume absolute-time order＋正密度 homogeneous Poisson 則不滿足 order-interval 局部有限。這組 continuum／sampling 前提未由 L0 導出，也未證其排除會選出有限 physical c。 | `docs/foundations/kinematic_selection.md`, `docs/foundations/t1_t5_premise_audit.md` |
 | **前時空不變量／投影假說** | **【提案】** | 探索事件、因果關係與量子振幅是否本身可由更底層的不變結構產生。目前沒有候選數學定義，僅作為基礎研究支線。 | `docs/foundations/invariant_projection_hypothesis.md` |
 | **Smeared causal-set d'Alembertian benchmark** | **【已確認／Benchmark】** | $B_{\epsilon}^{(2)}$ 通過 1+1D 連續極限基準驗證，符合對應 mesoscale $\xi$ 下的波動算子極限，且波動係數隨 density 上升符合 $N^{-0.6}$ 左右之收斂速度；$B_{\epsilon}^{(3)}$ 通過獨立 2+1D 基準驗證，利用已發表 3D 係數在 past cone 上順利回復 $\Box$。 | `benchmarks/b_eps_2d.py`, `benchmarks/b_eps_3d.py` |
 | **Momentum-space 2D continuum operator** | **【已確認】** | 已數值驗證 2D continuum averaged nonlocal d'Alembertian 的動量空間特徵：IR 極限下回復 continuum $\Box$，UV 極限下飽和為常數（$g \cdot \xi^2 \to -2$）。**追加確認**：此 UV 常數即 BBMM Eq.(4) 的 $a^{(2)}\rho$（$a^{(2)}=-2$），本專案獨立導出的 $g$ 與 BBMM Eq.(15)（取 $\gamma_2=1/2$）逐位吻合，subleading 係數 $b^{(2)}=8$。 | `analysis/gmom_2d.py`, `analysis/gmom_2d_bbmm.py` |
@@ -422,6 +431,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.16（T1＋T5 前提、公理與反例審計草稿，2026-10-11）- PR #70 已 squash-merge 為 92bbc473，tree 5e150413 與核准 head 相同。新增第一份純紙上交付，分帳 primitive／oracle／emergence，明定 LF_o／LF_top／FV／NV_P；列出三個 countermodels、scale／density 識別缺口、兩個 narrow conditional exclusions 及 B1–B7 未證橋接。核對原作者文獻作用域，不把重建／分類當生成定理。同步校正 Gate 0 的弱前提語句與 README 過時進度，G0-B／G0-C 總目標仍 OPEN；解析內容待獨立 exact-head 複核。僅四份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無抽樣／量測／seed／host／ledger／K；Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 與既有 closure 不變。*
 
 *v2.15（理論優先路線圖草稿，2026-10-11）- PR #69 已合併為 main 1839f6bb，tree dc895f8f 與測試通過的 head 相同；§5.1 記錄約 129 萬 E4／2.3 CPU 年的條件式 sufficient-bound 成本示例，非必要下界。依操作者選擇新增理論優先草稿，先做 primitive／公理／反例審計及既有 no-go 作用域，新增【探索】證據標記；區分完整解析證明與未證物理橋接。候選探索 amendment 僅為後續提案，operative K 禁令、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE、item 7 不可 ADOPT 與其餘 closure 不變。提醒 matched pairs 不能未證依賴界就採 variance/m，正式 workload 應核 cohort variance 與合法 endpoint 重用。本輪只改兩份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無量測／seed／host／ledger／K。*
 

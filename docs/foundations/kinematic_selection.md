@@ -26,7 +26,9 @@
 
 ### 2.3 【提案 G0-B】排除歐幾里得特徵
 *   **核心假說**：一個非平凡的、且具備一致過去/未來方向的因果偏序關係（causal partial order），是否可以在本質上排除歐幾里得特徵（Euclidean signature）？
+*   **歷史註記**：以下保留 T1＋T5 審計前的直覺原文；它不是目前已成立的論斷，應連同後面的作用域校正閱讀。
 *   **物理直覺**：歐幾里得空間（如 $\mathbb{R}^4$）中任意兩點都可以通過連續曲線相連，且不存在物理上不對稱的、具有單向流動特徵的「因果過去與未來」偏序結構。只有勞侖茲特徵自然地將切空間劃分為類時（雙錐體）與類空區域，從而允許非平凡的單向因果關係定義。
+*   **作用域校正（T1＋T5，待獨立複核）**：Euclidean metric 本身沒有 timelike cone，但可以外加非平凡 order；因此 bare order 不足以排除此 metric。完整 Euclidean **spacetime rotation group** 與 translation-invariant、非平凡 strict order 的不相容性有短證明；這是 symmetry-relative 排除，不是由任意 poset 推出 Lorentzian signature。反例與證明見 [T1＋T5 審計](t1_t5_premise_audit.md) §3–4；G0-B 總目標維持 OPEN。
 
 ### 2.4 【提案 G0-C】排除伽利略極限（有限不變因果速度的必然性）
 *   **核心假說**：結合因果關係（Causal Order）+ 局部有限性（Local Finiteness）+ 事件數量與時空體積對應（Number-Volume Correspondence）+ 適當的均勻性或非緊緻條件，是否可以從數學上排除伽利略變換（$K = 0$），從而要求存在一個有限的 invariant causal speed？
@@ -34,6 +36,7 @@
     *   > [!IMPORTANT]
     *   > **本提案 G0-C 目前尚未獲得證明**。這是一個待驗證的開放數學假說。
     *   > 絕對不得將「局部有限性 (local finiteness)」單獨寫成「可以推出有限 $c$」的結論。局部有限性僅限制了因果區間內事件的離散數量，要導出速度上限的有限性，還必須有尺度、體積以及流形逼近的交互作用。
+*   **作用域校正（T1＋T5，待獨立複核）**：`R×S¹` 上的 absolute-time order＋正密度 homogeneous Poisson 是 LF_o 的 unlimited-propagation 反例；「spacetime 非緊緻」仍不足。若另指定 full `R×R^d`、`dt d^d x`、正 constant density 與同一 order，則每個 comparable interval 幾乎必然含無限點，可排除這組模型。這些 continuum／measure／sampling 前提尚非 L0 導出；排除它也不提供 Lorentzian 存在性或 physical c。詳見 [T1＋T5 審計](t1_t5_premise_audit.md) §5–6；G0-C 總目標維持 OPEN。
 
 ---
 
