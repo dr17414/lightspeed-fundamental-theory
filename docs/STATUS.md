@@ -62,6 +62,19 @@ calibrated metric 下的等變時計族；並區分 process-law symmetry、固�
 裝置／完整物理 law。BHS 的 full-space Poisson 作用域保留；不報物理時計、observer
 或 signal 已由 L0 湧現。B3／B4 及其他橋接 OPEN，協定與既有結果不變。
 
+PR #73 的 `9e86874e…`／tree `8d6e584a…` 已獲獨立數學 GO；依授權只補正四份
+Markdown 的限定解析狀態／provenance，`6cac0553…`／tree `e6cec988…` 經 CI #244
+（556 passed／5 warnings）後合併 `4ff0227e…`，合併 tree 相同。解析 §0–8 原樣保留。
+
+**B4＋B6 續篇（【探索／限定解析待獨立複核；實現 OPEN】）：**
+[時計、尺規、訊號的紀錄與實現必要條件](foundations/b4_b6_clock_rod_signal_record_realization_audit.md)
+給出 forgetful-fiber 可識別性、標準時計的 affine 刻度、單 Poisson count 無 exact duration
+readout、指定 homogeneous Poisson 全域無 exact null pairs、ideal echo 解碼及未知
+response latency／距離混淆的完整解析。區分 chronology／weak causality／actual signal，
+不把 no exact null pair 報成無有效 light propagation；不把 record contract 當裝置 law。
+B4／B6 與其他橋接 OPEN；下一步建議具名實現問題之前先起草探索軌道決策修訂，
+本稿不啟動 amendment、不解除候選禁令，也不授權任何量測／seed／主機。
+
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
 | **光狀虛歷史量子總和可表現有質量傳播** | **【已知】** | 在 1+1 維 Feynman Checkerboard 模型中，以光速前進的鋸齒路徑經疊加後可重現 Dirac 傳播子。 | `handoff_v1.0.md#4.1` |
@@ -456,6 +469,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.19（B4＋B6 紀錄與實現必要條件審計草稿，2026-10-12）- PR #73 的 9e86874e／8d6e584a 獲獨立數學 GO；依授權僅補正限定解析狀態／provenance 四份 Markdown，6cac0553／e6cec988 經 CI #244 556 passed／5 warnings 後 squash-merge 4ff0227e，merge tree 相同，受審解析 §0–8 不變。新稿給出紀錄 factorization 判準、tick 標記反例、standard parameter 的 affine 唯一性與兩端 calibration 不足、單 Poisson interval count 的 exact readout 障礙、full homogeneous Poisson 無 exact null pairs 的同時性證明，以及 ideal rest echo／未知 latency 的 identifiability 和 error bounds。全部新解析待 exact-head 複核，不報物理鐘／尺／signal 已實現；B4／B6 和其他橋接仍 OPEN。建議下一份探索軌道協定決策草案，未啟動或更改 operative 禁令。僅四份 Markdown，無程式／tests／CI／manifest／registry／證據改動，無抽樣／量測／seed／host／ledger／K；Gate 0 OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 與既有 closure 保留。*
 
 *v2.18（B3＋B4 時計與觀察者等價前提審計草稿，2026-10-11）- PR #72 核准的 9a4c219a／fdeb9edb 僅補正三處現行文獻讀取說明，36b3bb4e／7c4341e2 經 CI #241 556 passed／5 warnings 後 squash-merge 044879b8，merge tree 相同。Nicholas 的有限引用現由 Claude 獨立核對，Anker–Ziegler 仍未讀取，歷史紀錄及數學未重寫；B2＋B5 僅已核對解析升格。新稿給出時計非唯一、tilted-clock 反例、已給 Lorentz cone＋fixed volume 的最大 affine 群、boost invariant clock 障礙及 calibrated 等變族；明列 device／law／signal／scale 的未證義務，BHS 保留 full Minkowski Poisson scope。新解析待 exact-head 複核，不稱 pre-spacetime 或 operational 物理結果。僅五份 Markdown，無程式／tests／CI／manifest／registry／證據改動，無抽樣／量測／seed／host／ledger／K；B1–B7、Gate 0 OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 及既有 closure 不變。*
 
