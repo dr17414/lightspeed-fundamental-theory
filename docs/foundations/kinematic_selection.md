@@ -26,6 +26,8 @@
 
 ### 2.3 【提案 G0-B】排除歐幾里得特徵
 *   **核心假說**：一個非平凡的、且具備一致過去/未來方向的因果偏序關係（causal partial order），是否可以在本質上排除歐幾里得特徵（Euclidean signature）？
+*   **歷史註記**：以下保留 T1＋T5 審計前的直覺原文；它不是目前已成立的論斷，應連同後面的作用域校正閱讀。
+*   **物理直覺**：歐幾里得空間（如 $\mathbb{R}^4$）中任意兩點都可以通過連續曲線相連，且不存在物理上不對稱的、具有單向流動特徵的「因果過去與未來」偏序結構。只有勞侖茲特徵自然地將切空間劃分為類時（雙錐體）與類空區域，從而允許非平凡的單向因果關係定義。
 *   **作用域校正（T1＋T5，待獨立複核）**：Euclidean metric 本身沒有 timelike cone，但可以外加非平凡 order；因此 bare order 不足以排除此 metric。完整 Euclidean **spacetime rotation group** 與 translation-invariant、非平凡 strict order 的不相容性有短證明；這是 symmetry-relative 排除，不是由任意 poset 推出 Lorentzian signature。反例與證明見 [T1＋T5 審計](t1_t5_premise_audit.md) §3–4；G0-B 總目標維持 OPEN。
 
 ### 2.4 【提案 G0-C】排除伽利略極限（有限不變因果速度的必然性）
