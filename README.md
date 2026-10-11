@@ -22,8 +22,9 @@
 - **1+1D and 2+1D smeared causal-set d'Alembertian benchmarks** (smeared 算子連續極限校準)
 - **First continuum momentum-space calibration in 1+1D** (動量空間 IR/UV 飽和分析)
 
-### 目前正在進入：
-- **Literature-faithful regularization / spectral-dimension benchmark** (文獻一致性正則化與譜維度基準建立)
+### 目前研究重點：
+- **Theory-first premise and counterexample audit**：先區分輸入與湧現目標，審計 finite c／signature 的前提與未證橋接；見 [理論優先路線圖](docs/THEORY_FIRST_ROADMAP_DRAFT.md) 與 [T1＋T5 審計草稿](docs/foundations/t1_t5_premise_audit.md)。大規模驗證延後，不把探索結果當正式結論。
+- **Stage 5C 的準備狀態**：6a-E 仍為 `PREREGISTRATION-INCOMPLETE`、Freeze-1a 為 `PENDING`，尚未設計候選 K；目前不解除候選設計禁令。已完成與未完成的細項以 [STATUS](docs/STATUS.md) 為準。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
