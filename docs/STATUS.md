@@ -38,7 +38,8 @@ Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選�
 Gate 0 總目標維持 OPEN；本輪無候選 K、量測、seed、主機或 ledger。
 
 PR #71 已獨立核對數學並合併為 `f574e06b…`，合併前只增補 G0-B 歷史直覺原文及
-註記，受審解析內容不變。Nicholas／Anker–Ziegler 的文獻讀取未完成雙方獨立認證。
+註記，受審解析內容不變。依操作者的 PR #72 複核，Nicholas 已由 Claude 獨立讀取
+並確認引用範圍一致；Anker–Ziegler 仍未讀取，亦未認證兩篇的全篇證明。
 
 **B2＋B5 續篇（【探索／待獨立複核】）：**
 [有限區間體積與錐體前提審計](foundations/b2_b5_interval_volume_cone_audit.md) 在已給定

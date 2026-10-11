@@ -283,8 +283,9 @@ pointed closure 對應 dual cone 有 interior。本文 §3–§6 自行寫出需
 [Nicholas v1](https://arxiv.org/html/2606.25993v1)（§2.1、§5.4–5.5、§6），
 [Anker–Ziegler v2](https://arxiv.org/pdf/2007.09301v2)（Theorem 1、Eq.(4)）。
 2026-10-11 再讀作者頁面，與上一稿有限的前提對照一致；不新增對全篇證明的認證，
-本稿的命題 P／V／H／S 不依賴這兩篇。操作者轉述 Claude 已獨立核准 PR #71 的數學，
-其文獻讀取受阻亦保留紀錄，不能改寫成兩篇已經雙方獨立認證。
+本稿的命題 P／V／H／S 不依賴這兩篇。依操作者的 PR #72 複核更新：Nicholas 已由
+Claude 獨立讀取摘要及 §2.1、§5、§6，並確認引用範圍一致；Anker–Ziegler 仍未讀取。
+先前讀取受阻的歷史紀錄保留，有限引用核對不等於兩篇全篇證明已雙方認證。
 
 6a-S 封存、run1、O19、witness、item 7 不可 ADOPT、items 3–5 v0.2 重驗待辦、
 item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING 與候選 K 禁令不變。
