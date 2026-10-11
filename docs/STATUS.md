@@ -6,13 +6,14 @@
 
 ## 1. 標記與狀態定義
 
-在專案文件與討論中，所有結論、猜想與模型均採用以下四種標記分類：
+在專案文件與討論中，所有結論、猜想與模型均採用以下五種標記分類：
 
 | 標記 | 英文對應 | 意思 | 後續處理方式 |
 | :--- | :--- | :--- | :--- |
 | **【已知】** | **Known** | 現有物理或數學已有可靠學術文獻與理論依據。 | 可以當作限制條件與基底，但引用時仍須精確。 |
 | **【已確認】** | **Confirmed** | 本專案中的特定推導與數值模擬已經過核對無誤。 | 可以繼續沿用；若未來有改動必須說明理由。 |
-| **【提案】** | **Proposed** | 目前看來合理、但尚未被證明的全新構想或假說。 | 必須通過計算或數值模擬驗證，不能用文字當證明。 |
+| **【提案】** | **Proposed** | 目前看來合理、但尚未被證明的全新構想或假說。 | 須有完整可檢查的推導、精確反例或適用的驗證；敘述與測試不自動代替證明。 |
+| **【探索】** | **Exploratory** | 有可檢查的推導片段或精確例支持，但一般性、橋接或獨立複核尚未完成。 | 可用於研究排序；引用時保留未證前提，不得冒充已確認、scientific PASS 或執行授權。 |
 | **【已否定】** | **Rejected** | 已找到明確的物理／數學矛盾，或被證明必然失效的方案。 | **不得再作為後續理論設計的支柱**。 |
 
 ---
@@ -20,6 +21,12 @@
 ## 2. 結論與核心主張狀態清單
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
+
+**研究排序（2026-10-11）：** 操作者選擇先推進理論，優先前提審計、解析限制與精確
+反例，大規模驗證留到有值得檢驗的具名目標。具體路線與協定調整方案見
+[理論優先草稿](THEORY_FIRST_ROADMAP_DRAFT.md)（【提案／待獨立複核】）。本稿不改
+Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選的必要條件分析，
+候選探索須另案版本化 amendment。6a-E closure／執行條件與已封存結果不變。
 
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
@@ -415,6 +422,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.15（理論優先路線圖草稿，2026-10-11）- PR #69 已合併為 main 1839f6bb，tree dc895f8f 與測試通過的 head 相同；§5.1 記錄約 129 萬 E4／2.3 CPU 年的條件式 sufficient-bound 成本示例，非必要下界。依操作者選擇新增理論優先草稿，先做 primitive／公理／反例審計及既有 no-go 作用域，新增【探索】證據標記；區分完整解析證明與未證物理橋接。候選探索 amendment 僅為後續提案，operative K 禁令、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE、item 7 不可 ADOPT 與其餘 closure 不變。提醒 matched pairs 不能未證依賴界就採 variance/m，正式 workload 應核 cohort variance 與合法 endpoint 重用。本輪只改兩份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無量測／seed／host／ledger／K。*
 
 *v2.14（選項 B：停止 witness、交付統計協定設計複核，2026-10-11）- 操作者選 B：不重跑、不追加預算、不換案例，原2/12、exit137/signal9、kill_cause未獨立確證及rows／cases／plan／runner／runtime不變，只補execution note。明列12點共用process 180/180秒CPU的既有配置，run1約37–259秒單次觀察事前顯示預算規劃不足；這是跨profile規劃參考，非本機CPU下界或死因確證。未來診斷另案審查、逐點子程序soft<hard、supervisor記start/result/signal/資源。O2/O13-FIRST-COORDINATE-SATURATION保持OPEN，兩筆皆u=v對稱chain，不代表一般selector，不承重任何coverage／效果／variance／cap／B。結構協定草稿補齊固定operator→scalar pairing→actual np.diag/midpoint→primary→matching/CR1的零座標證明、作用域與保留raw error的規則，明列第一座標coverage條件及items4–5／8影響；待新exact-head複核，本週設計期限10/17（台北）。本次無producer重跑，analysis／benchmarks／tests／既有manifest、run1 evidence、assessment、pins、registry不改，無seed／matching／host／scientific arm ledger／K；closure與6a-E狀態不變。*
 
