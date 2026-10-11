@@ -327,6 +327,16 @@ $$
 候選 sufficient bound 很保守。加 `t_beta`／numerical slack 後可能更貴。若無法負擔，
 合法下一步是證更銳利的事前 concentration／law，或另外評估研究範圍；不放寬 margin。
 
+成本換算供決策參考：若單一 claim／member／split 的每 cohort 至少 192 matched pairs、
+兩個 arms 的每個 endpoint 各需一次 E4，且不重用結果，則上述 `B=3349` 對應
+`3349×192×2=1,286,016` 次 E4；以 run 1 production 平均約 56.4 whole-child CPU s
+代入，約為 **2.3 CPU 年**（一年按 365 日）。這是該保守 sufficient bound 的條件式
+工作量示例，不是 E1／E2 的必要成本下界或不可行定理：run 1 fixtures 不代表正式輸入，
+whole-child CPU 包含非 E4 開銷；全池 certification 尚有成本，跨 claims／members
+是否可合法重用 endpoints 亦須另核，不能直接再乘所有 claims。此候選界尚不足以支持
+投入正式計算；優先工作是證更緊的真實條件律／集中界或另審 claim 範圍，不能把
+O2／O13 未解的飽和觀察當成已證 variance／support 界。
+
 ### 5.2 逐項義務與版本遷移
 
 | O／closure | 本案可支持的改動 | 仍缺的證據與下一份交付 |
