@@ -125,3 +125,16 @@ repo曾有作者讀原文紀錄，不等於Claude自己已讀。獨立數學GO�
 
 本補充仍待exact-head複核。申報收件不自動判定所有分支可用、正式資料fresh，
 或activation條件已滿足；三方scope／未知隔離仍须依決策草案逐項審查。
+
+## 6. 操作者本人申報追加（2026-10-12 02:39:47 Asia/Taipei）
+
+本節補充 §5 的收件前 PENDING 狀態，原 entry 與歷史表不覆寫。
+
+| 新EXP-ID／actor | 來源與實際申報 | 影響／隔離／資格 |
+| :--- | :--- | :--- |
+| EXP-0019／操作者；GPT 接收文字與截圖 | [操作者有界申報](operator_exposure_declaration_2026-10-12.md) 保留本人原句；截圖可辨識 `vultr_stub_evidence.tar.gz`、`pf3-evidence.tar.gz`、`run1-evidence.tar.gz`、`vultr_campaign_image_v1.zip`。本人申報已下載、沒有打開 raw 檔、其他不知道。GPT 僅核對截圖檔名，未開包或驗證下載副本 hash。 | 下載不等於內容閱讀；未開 raw 是本人聲明，不延伸為未見摘要／終端／endpoint。其他接觸 UNKNOWN，既有確知 transfer 保留；不推定 zip 與舊 image tar.gz 相同。本輪沒有新模型或 criterion 決定；新接觸仍追加，未知保守隔離，不授予 blind／fresh 資格。 |
+
+操作者的有界本人申報現已收存；GPT 也已讀取此申報及四個檔名的截圖。
+三方皆有本人有界申報，不表示完整歷史已知或隔離審查通過。終端畫面、其他 raw／私人
+材料、舊對話等未知項不要求以新開檔案消除；依協定保守處置。
+本次是申報紀錄更新，仍待 PR #76 exact-head 複核；沒有 activation 或候選構造許可。

@@ -43,7 +43,9 @@ actor 尚待申報的未知項，不宣稱完整盲性。merge／CI／GO 均不�
 檢查的界線，新增文字另待exact-head複核。Claude 的[本人申報原檔](claude_exposure_declaration_2026-10-12.md)
 原樣保存，GPT 的[有界本人申報](gpt_exposure_declaration_2026-10-12.md) 亦已提交；
 接觸帳只追加，不以別人的申報代填。Claude 人工E4 endpoint屬evaluator-development，
-不倒改成純數學spot check；舊階段UNKNOWN保留。操作者申報仍PENDING，沒有activation。
+不倒改成純數學spot check；舊階段UNKNOWN保留。
+操作者其後提供[本人有界申報](operator_exposure_declaration_2026-10-12.md)：下載截圖四包、
+未打開raw檔，其他UNKNOWN，追加EXP-0019。三方有界申報已收存，未知隔離仍待核對；沒有activation。
 
 **T1＋T5 第一份交付（【已確認／限定解析；橋接 OPEN】）：**
 [前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
@@ -489,6 +491,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.22（操作者有界申報收件，2026-10-12）- 操作者以本人文字及截圖申報下載四份具名證據包、沒有打開 raw 檔，其他 UNKNOWN；原句收存，接觸帳追加 EXP-0019，不覆寫收件前 PENDING 歷史。GPT 只核對截圖檔名，不開包、不推定下載副本 hash 或 image zip 與 tar.gz 相同。三方有界申報已收到，未知保守隔離與 exact-head 複核仍待處理；本次僅四份 Markdown 更新，無 activation、模型構造、seed、主機或量測。*
 
 *v2.21（探索審查工具、禁令定位與actor申報補充，2026-10-12）- PR #75 的d57d3cb6／4353c6f0獲Claude exact-head GO與操作者合併授權，原head squash為83b54e05，merge tree相同，狀態REVIEWED-NOT-ACTIVE。逐位元保存Claude本人申報（SHA-256 20f79f3b…1edb23），追加EXP-0016–0018，分開資源證據包與人工E4 endpoint接觸，歷史UNKNOWN不刪；GPT提交目前可回溯scope的本人申報，操作者scope仍待本人提供。新禁令定位列原文、章節／基線行號及48份keyword來源blob；特別保留hard controls、results README、reference probe禁回流。草案釐清固定命題的有限review-only numerical／symbolic／RNG檢查與模型探索執行的差別，不開producer或禁止資料例外；新條款待複核。僅Markdown，未開始模型、未新跑診斷／RNG／sampling、未生成seed／主機／formal attempt，無activation；operative acceptance／prereg／roadmap、closure、科學JSON、tests／CI／source／原log與burn registry保留。*
 

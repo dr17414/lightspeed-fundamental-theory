@@ -124,7 +124,10 @@ GPT／Claude 心理上「忘記了」。X-I 文件／dependency graph 列出每�
 逐位元保存，GPT 亦提交[目前可回溯範圍的自行申報](gpt_exposure_declaration_2026-10-12.md)，
 接觸帳追加 EXP-0016–0018／§5；不覆寫初盤，也不代替操作者申報。
 Claude 的人工 E4 endpoint 接觸記為 evaluator-development；舊階段 UNKNOWN 保留。
-操作者申報仍 PENDING，因此本輪不提交 activation 或宣稱三方申報已完成。
+操作者其後提交[本人文字與截圖的有界申報](operator_exposure_declaration_2026-10-12.md)：
+下載四份具名證據包、未打開 raw 檔，其餘 UNKNOWN；接觸帳追加 EXP-0019／§6，
+不覆寫 §5 的收件前狀態。三方的有界申報現已收存，未知與隔離仍須審查，
+不宣稱全歷史完整、盲性或 activation 條件已滿足；本輪不提交 activation。
 
 生效條件：操作者、GPT、Claude 分別列出其可回溯的接觸範圍、取得途徑、程度、
 相關模型／criterion 決策及未知項；不得由 GPT 代替 Claude 宣稱未見資料。
