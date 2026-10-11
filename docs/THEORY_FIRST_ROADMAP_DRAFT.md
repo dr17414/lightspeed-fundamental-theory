@@ -104,6 +104,10 @@ path-sum 或耦合重力作用量不由此式判定；更不能把 abs(det) 的�
 
 ## 5. 協定調整方案：先做無候選的理論，再決定是否開啟候選探索
 
+**2026-10-12 續接：** 操作者選擇 B 並授權起草
+[探索軌道決策草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)，只交審查、不開始構造。
+草案未生效；下列兩階段方案與現行禁令仍有效，merge／review GO 不自動 activation。
+
 操作者的理論優先決定支持上述研究排序；目前 acceptance §0／附錄 D.1、
 STATUS 的 Stage 5C 列及 prereg §0 仍禁止 Freeze-1a 前候選設計。
 **本 PR 不改這些 operative 禁令**，也不把合併本草稿解讀為豁免。

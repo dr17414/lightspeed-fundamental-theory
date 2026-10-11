@@ -2,6 +2,10 @@
 
 狀態：**【review draft／PREREGISTRATION-INCOMPLETE／不可執行】**。
 
+**Pending 決策（未生效，2026-10-12）：** [探索軌道協定修訂草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)
+只提出另軌紙上構造的權限／隔離與逐項同步修改方案；本稿仍不授權候選設計、
+seed、arm numerical access 或正式執行，closure 與原 firewall 不變。
+
 本文件把 6a-E 的既有硬約束、完整型別鏈、first-past-the-post lifecycle、判決閉包與仍缺的
 承重欄位整理成單一 review surface。它**不是** selector-prereg freeze、不授權生成任何
 6a-E seed、不授權讀取任何 6a-S arm numerical field，也不授權 active wrong-support arm 判決，亦不完成 D.1

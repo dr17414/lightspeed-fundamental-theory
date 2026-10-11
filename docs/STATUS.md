@@ -29,6 +29,14 @@
 Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選的必要條件分析，
 候選探索須另案版本化 amendment。6a-E closure／執行條件與已封存結果不變。
 
+**探索軌道決策草案（2026-10-12，未生效）：** 操作者選擇 B，授權
+[協定修訂決策草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md) 供 Claude exact-head
+複核，再由操作者裁定是否生效；本輪只寫草案，沒有構造模型。擬議權限先限另軌
+紙上 X-I／X-C，原 formal oracle／output-only／seed／arm／core 限制保留。
+[接觸帳初盤](stage5c_exploration_exposure_log.md) 明列公開材料、burned／sealed 邊界與
+actor 尚待申報的未知項，不宣稱完整盲性。merge／CI／GO 均不等於 activation；
+現行 Freeze-1a 前 K 禁令仍有效，正式 closure／資料／執行授權不變。
+
 **T1＋T5 第一份交付（【已確認／限定解析；橋接 OPEN】）：**
 [前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
 與真正湧現目標；區分 order-interval／拓撲局部有限、volume／density、metric／symmetry。
@@ -66,7 +74,7 @@ PR #73 的 `9e86874e…`／tree `8d6e584a…` 已獲獨立數學 GO；依授權�
 Markdown 的限定解析狀態／provenance，`6cac0553…`／tree `e6cec988…` 經 CI #244
 （556 passed／5 warnings）後合併 `4ff0227e…`，合併 tree 相同。解析 §0–8 原樣保留。
 
-**B4＋B6 續篇（【探索／限定解析待獨立複核；實現 OPEN】）：**
+**B4＋B6 續篇（【已確認／限定解析結果；實現 OPEN】）：**
 [時計、尺規、訊號的紀錄與實現必要條件](foundations/b4_b6_clock_rod_signal_record_realization_audit.md)
 給出 forgetful-fiber 可識別性、標準時計的 affine 刻度、單 Poisson count 無 exact duration
 readout、指定 homogeneous Poisson 全域無 exact null pairs、ideal echo 解碼及未知
@@ -74,6 +82,10 @@ response latency／距離混淆的完整解析。區分 chronology／weak causal
 不把 no exact null pair 報成無有效 light propagation；不把 record contract 當裝置 law。
 B4／B6 與其他橋接 OPEN；下一步建議具名實現問題之前先起草探索軌道決策修訂，
 本稿不啟動 amendment、不解除候選禁令，也不授權任何量測／seed／主機。
+
+PR #74 的 `5b4c0127…`／tree `91aa8411…` 已獲 Claude 獨立數學 GO，依操作者
+授權原 head squash 合併為 `87ff77a1…`，合併 tree 與核准 tree 完全相同。
+Q／J／C／Z／R、E／D／L 只按原前提確認；B4／B6 裝置與物理橋接仍 OPEN。
 
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
@@ -469,6 +481,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.20（探索軌道協定修訂決策草案，2026-10-12）- PR #74 核准 head 5b4c0127／tree 91aa8411 依操作者授權原樣 squash-merge 為 87ff77a1，merge tree 與核准 tree 相同；只將 B4/B6 受審限定解析升格，裝置實現與物理橋接 OPEN。操作者選 B，交付紙上 X-I/X-C 權限、oracle／output-only／資料隔離、接觸初盤、標記升格、X→F freeze／criterion 污染與 fresh-data 義務、逐項 operative 修改方案及停止規則。草案待 Claude exact-head 複核與操作者另案 activation；merge／CI／GO 不自動生效，現行 K 禁令仍有效。初盤區分公開可達／實際讀取／轉述 review／UNKNOWN，不聲稱 actor-complete 或盲性；原 DEV／AMEND／burn／evidence／witness 保留。僅 Markdown，未構造模型、未執行新診斷／抽樣／量測、未生成 seed／開主機／讀 arm ledger；Gate0、B1–B7、item7 不可 ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE 與 Freeze-1a PENDING 不變。*
 
 *v2.19（B4＋B6 紀錄與實現必要條件審計草稿，2026-10-12）- PR #73 的 9e86874e／8d6e584a 獲獨立數學 GO；依授權僅補正限定解析狀態／provenance 四份 Markdown，6cac0553／e6cec988 經 CI #244 556 passed／5 warnings 後 squash-merge 4ff0227e，merge tree 相同，受審解析 §0–8 不變。新稿給出紀錄 factorization 判準、tick 標記反例、standard parameter 的 affine 唯一性與兩端 calibration 不足、單 Poisson interval count 的 exact readout 障礙、full homogeneous Poisson 無 exact null pairs 的同時性證明，以及 ideal rest echo／未知 latency 的 identifiability 和 error bounds。全部新解析待 exact-head 複核，不報物理鐘／尺／signal 已實現；B4／B6 和其他橋接仍 OPEN。建議下一份探索軌道協定決策草案，未啟動或更改 operative 禁令。僅四份 Markdown，無程式／tests／CI／manifest／registry／證據改動，無抽樣／量測／seed／host／ledger／K；Gate 0 OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 與既有 closure 保留。*
 
