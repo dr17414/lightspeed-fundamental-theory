@@ -1,6 +1,10 @@
 # B4＋B6：時鐘、尺規、訊號的紀錄與實現必要條件審計
 
-狀態：**【探索／限定解析待獨立複核；實現與物理橋接 OPEN】**。
+狀態：**【已確認／限定解析結果；實現與物理橋接 OPEN】**。
+Claude 已獨立核對 PR #74 exact head `5b4c0127398450c34a730499b9ef18615ef7ad6c`、
+tree `91aa84112329bdee017c7d7dddc44a53e1d67afa` 的 Q／J／C／Z／R 與 E／D／L，
+依操作者轉述給予 GO；squash main `87ff77a1…` 的 tree 完全相同。只升格受審限定解析，
+裝置實現、物理詮釋、未證橋接與探索權限不隨之升格。§0–8 數學與歷史範圍保留。
 基線：PR #73 squash main `4ff0227e853e9c07c8a9fb49ea8ede13f87134dd`，
 tree `e6cec988a365a62f10b964a9af2cf3773918232f`。
 承接 [B3＋B4](b3_b4_operational_clock_observer_audit.md) §5–§8 的 calibrated family

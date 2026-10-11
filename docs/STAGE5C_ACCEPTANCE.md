@@ -9,6 +9,10 @@
 
 `docs/STATUS.md` 仍為唯一 source of truth。
 
+**Pending 決策（未生效，2026-10-12）：** [探索軌道協定修訂草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)
+§8 列出本文件首段、§0、§5.2、§7、附錄 D.1 及反繞道條款的逐項修改方案。
+本次僅供審查，不改任何 operative 禁令；Freeze-1a 前仍不得設計候選 K 或開始正式評測。
+
 ---
 
 ## 0. 本文件的地位與明確排除
