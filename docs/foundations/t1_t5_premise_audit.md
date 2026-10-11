@@ -1,6 +1,9 @@
 # T1＋T5：輸入、湧現目標與運動學前提的紙上審計
 
-狀態：**【探索／解析審計待獨立複核】**，不是新物理理論或正式驗證結論。
+狀態：**【已確認／限定解析結果；未證橋接 OPEN】**，不是新物理理論或正式驗證結論。
+操作者轉述 Claude 已核對 PR #71 exact head `a7388292…` 的三個反例、§3.1、兩個引理
+與 §6 算術。合併前只補回歷史直覺及註記兩行，解析內容不變；Nicholas／Anker–Ziegler
+兩篇未經 Claude 獨立讀取，不能把下述有限引用寫成全篇證明已雙方認證。
 基線：PR #70 squash main `92bbc473b7d873fe556ef019e6453216ec714503`，
 tree `5e1504136dec9f9839890d6441407ddccd3f3a6b`。
 依 [理論優先路線圖](../THEORY_FIRST_ROADMAP_DRAFT.md) §2、§4 交付 T1＋T5。
@@ -26,7 +29,7 @@ propagation。另一方面，**full 無界空間的 absolute-time order 與正�
 Poisson 抽樣，確實不可能同時具有 order-interval 局部有限性**（§5.2）。
 若另要求非平凡 order 對完整 Euclidean spacetime rotations 等變，則可排除此群（§4.2）。
 這兩個有條件排除結果不等於已導出 Lorentzian metric、有限不變 c、3+1D 或量子 dynamics。
-它們待獨立複核；不把 Gate 0 或任何 scientific closure 標為 CLOSED。
+以上具名數學已獨立複核；不把 Gate 0 或任何 scientific closure 標為 CLOSED。
 
 ## 1. T1：primitive 與目標分帳
 
@@ -271,7 +274,7 @@ Layer 0 的 generation theorem。smoothness、continuum dimension、volume measu
 ## 9. 狀態與否定結果的保存
 
 本審計給出四類反例／識別缺口及兩個 narrow conditional exclusions；它們有完整
-紙上推導，仍待 exact-head 獨立複核。Gate 0 G0-B／G0-C 的總目標維持 OPEN，
+紙上推導，已經 exact-head 獨立數學複核。Gate 0 G0-B／G0-C 的總目標維持 OPEN，
 Layer 0 尚無模型；no-go 只限於列明的假設組。沒有把量測預算或 E4 數值改成結論。
 
 PR #70 的【提案】措辭修訂是專案證據規則的明文改動：允許完整可核的解析證明，

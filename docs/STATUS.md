@@ -29,13 +29,24 @@
 Freeze-1a 前禁止候選 K 設計的 operative 規則；當前可做無候選的必要條件分析，
 候選探索須另案版本化 amendment。6a-E closure／執行條件與已封存結果不變。
 
-**T1＋T5 第一份交付（【探索／待獨立複核】）：**
+**T1＋T5 第一份交付（【已確認／限定解析；橋接 OPEN】）：**
 [前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
 與真正湧現目標；區分 order-interval／拓撲局部有限、volume／density、metric／symmetry。
 給出裸 order 的 metric 反例、nonquadratic cone 反例、compact Galilean 反例與 scale／density
 不可識別性；另列完整 spacetime rotations 與 full-space absolute-time Poisson 的有條件
 排除證明。未證 B1–B7 必須沿用，沒有報成 finite c／Lorentzian／3+1D 已湧現。
 Gate 0 總目標維持 OPEN；本輪無候選 K、量測、seed、主機或 ledger。
+
+PR #71 已獨立核對數學並合併為 `f574e06b…`，合併前只增補 G0-B 歷史直覺原文及
+註記，受審解析內容不變。Nicholas／Anker–Ziegler 的文獻讀取未完成雙方獨立認證。
+
+**B2＋B5 續篇（【探索／待獨立複核】）：**
+[有限區間體積與錐體前提審計](foundations/b2_b5_interval_volume_cone_audit.md) 在已給定
+finite-dimensional affine space、closed convex full-dimensional cone 與 Lebesgue measure
+的類別中，提出 interior FV iff pointed closure 的完整短證明，並處理 Poisson intensity
+及所有 sampled pairs 的同時性。strictly positive linear clock 的存在不等於物理時計
+已導出；finite-volume 時計反例及明訂 clock／spatial O(d) 後的 quadratic-cone 命題分帳。
+B1–B7、Gate 0、Freeze-1a 與 6a-E closure 不因條件式結果而結案。
 
 | 主張 / 結論內容 | 分類狀態 | 詳細說明與物理根據 | 關聯章節 / 程式檔案 |
 | :--- | :--- | :--- | :--- |
@@ -431,6 +442,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.17（B2＋B5 有限區間體積與錐體前提審計草稿，2026-10-11）- PR #71 的 a7388292／7e5c18a3 解析內容獲獨立 GO；依授權只補回歷史原文與註記兩行，0d7015b2／d54d3f2b 經 CI #238 同 head rerun 556 passed／5 warnings 後 squash-merge f574e06b，merge tree 相同。首次 CI 的既有 /proc exists/read 競態與重跑結果保留於 PR。續篇給出限定 cone／Poisson 類別中的 FV／pointed／LF_o 等價、positive functional existence、兩個 measure／clock countermodels 與明訂 spatial isotropy 下的 cone 形狀；全部新解析待獨立複核，不宣稱 physical c、observers、dimension 或 dynamics 已湧現。T1＋T5 狀態只升格已核對的限定數學，兩篇作者文獻仍非雙方全篇認證。本輪五份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無抽樣／量測／seed／host／ledger／K；G0-B／G0-C OPEN、Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 及既有 closure 不變。*
 
 *v2.16（T1＋T5 前提、公理與反例審計草稿，2026-10-11）- PR #70 已 squash-merge 為 92bbc473，tree 5e150413 與核准 head 相同。新增第一份純紙上交付，分帳 primitive／oracle／emergence，明定 LF_o／LF_top／FV／NV_P；列出三個 countermodels、scale／density 識別缺口、兩個 narrow conditional exclusions 及 B1–B7 未證橋接。核對原作者文獻作用域，不把重建／分類當生成定理。同步校正 Gate 0 的弱前提語句與 README 過時進度，G0-B／G0-C 總目標仍 OPEN；解析內容待獨立 exact-head 複核。僅四份 Markdown，無程式／測試／CI／manifest／registry／證據變更，無抽樣／量測／seed／host／ledger／K；Freeze-1a PENDING、6a-E PREREGISTRATION-INCOMPLETE 與既有 closure 不變。*
 
