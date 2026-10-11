@@ -1,6 +1,8 @@
 # B3＋B4：可操作的時鐘與觀察者等價之前提審計
 
-狀態：**【探索／限定解析待獨立複核；物理橋接 OPEN】**。
+狀態：**【已確認／限定解析結果；物理橋接 OPEN】**。
+操作者轉述 Claude 已核對 PR #73 exact head `9e86874e…`／tree `8d6e584a…`，
+N／A／I／F、T／M 及附帶推導全部成立；本次只更新複核狀態，解析內容不變。
 基線：PR #72 squash main `044879b8532d5ff89752fd221dc3271bf425a4a7`，
 tree `7c4341e2e650682d23150c151203a945ba3a2bb4`。
 承接 [B2＋B5](b2_b5_interval_volume_cone_audit.md) §4–§7 與
@@ -276,7 +278,8 @@ F 的 calibrated family 與 operational gap；M 的固定／變換 mark。不得
 
 Nicholas 的讀取狀態已依操作者 PR #72 複核修正：Claude 已讀摘要及 §2.1、§5、§6，
 引用範圍一致；Anker–Ziegler 仍未由 Claude 讀取。這不表示全篇證明已獨立雙方認證。
-本稿 N／A／I／F 與 T／M 待 exact-head 獨立數學複核；不先升格【已確認】。
+本稿 N／A／I／F 與 T／M 已依上述 exact-head 獨立複核標為限定解析已確認；
+物理裝置、完整 law 與 L0 橋接仍 OPEN，不把數學 GO 升格為物理實現。
 
 6a-S 封存、run1、O19、witness 2/12／exit137、item 7 不可 ADOPT、items 3–5 v0.2
 重驗待辦、item 8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING 與

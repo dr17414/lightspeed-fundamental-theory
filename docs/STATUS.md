@@ -54,7 +54,7 @@ PR #72 的 `9a4c219a…`／tree `fdeb9edb…` 已獲獨立數學 GO；僅補正�
 為 `044879b8…`，合併 tree 相同。Nicholas 的有限引用已由 Claude 核對，Anker–Ziegler
 仍未讀取；不認證全篇證明。
 
-**B3＋B4 續篇（【探索／待獨立複核】）：**
+**B3＋B4 續篇（【已確認／限定解析；物理橋接 OPEN】）：**
 [可操作的時鐘與觀察者等價審計](foundations/b3_b4_operational_clock_observer_audit.md)
 給出正時計非唯一、tilted clock 的 coordinate cap 反例、給定 Lorentz cone／fixed
 volume 下的最大 affine 幾何群、boost 下沒有單一 invariant positive clock、
