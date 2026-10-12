@@ -29,7 +29,9 @@
 正式候選資格／評測、來源禁用／未知隔離、core／gate、fresh holdout／burn／spending
 與執行限制全保留；不是 scientific PASS，未授權主機／量測／研究 RNG／seed／程式模型。
 操作者已選「訊號回應」；[X-SIGNAL-RESPONSE-P0.1](foundations/signal_response_problem_contract_v0_1.md)
-只定問題，待獨立複核。model ID NONE，tick／rod comparison 不加入。
+只定問題，現為模型構造前 r2（待獨立複核）：兩段操作依賴及合法無回應對照都須成立，
+A 本地記憶／共同初態／事後挑選不充數；窗口型別與 B 回應方式需申報。
+Claude 的本次閱讀範圍與修訂來源追加 EXP-0023–0024。model ID NONE，tick／rod comparison 不加入。
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
@@ -510,6 +512,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.26（訊號回應契約 r2，2026-10-12）- PR #79 r1 的 A 回讀依賴條件可被 A 本地記憶滿足，未獲 GO。依 Claude 複核在模型構造前修正為 A→B 的 B 接收分布依賴 A 合法準備干預，及 B→A 的 A 回讀依賴 B 回應、在合法無回應對照中消失；記「非訊號」語意，排除共同初態／事後挑選。窗口型別、B 固定自動／可選回應需申報。接觸帳原句保存 Claude 的局部閱讀申報，追加 EXP-0023–0024與開發修訂記錄；model ID NONE、無新 law／模型／計算，formal criterion／E0／生效身分不變。*
 
 *v2.25（紙上 activation 生效與訊號回應契約，2026-10-12）- CI #255 為556 passed／5 warnings；#78 核准69e57e41／c8e4e6ff原樣合併0c386716，tree完全相同，Git committer UTC09:57:23／台北17:57:23為ACT-X-0001生效。範圍僅紙上，formal／資料／執行限制不變。操作者選訊號回應，交付X-SIGNAL-RESPONSE-P0.1只定問題契約（待複核），引用實際生效SHA，EXP-0022及問題登記只追加；model ID NONE，未構造／執行新模型或生成seed。*
 

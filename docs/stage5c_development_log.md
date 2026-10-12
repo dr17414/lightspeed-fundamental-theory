@@ -53,3 +53,13 @@ Freeze-1a commit 固定；三本帳不得混用。
 | Problem ID | 操作者選擇／權限 | 產物與來源 | 模型／執行／判決 |
 | :--- | :--- | :--- | :--- |
 | X-SIGNAL-RESPONSE-P0.1 | 本輪選擇訊號回應；ACT-X-0001 生效 SHA `0c386716701589c9a6b0b799636a808aacb9ade5` | [只定問題契約](foundations/signal_response_problem_contract_v0_1.md)，依公開 B4／B6 的必要條件、Q／Z／R／L；EXP-0022。有限宣告紀錄窗口、準備／接收／回應／回讀的識別與實現義務 | model ID NONE；未定 operator／law／state／材料／參數，未有推導結果或 scientific PASS；無新 RNG／seed／producer／主機／量測。契約待 exact-head 複核，失敗或後續改版仍另追加 |
+
+### X-SIGNAL-RESPONSE-P0.1 r2：模型前修訂（2026-10-12）
+
+r1 保留在 PR #79 舊 head `373607d4d9f3314845f44b1356affa9ac6aaaa97`，未獲 GO。
+Claude 發現「A 回讀依賴 A 準備」可以只靠 A 的本地記憶滿足，故不承擔回訊判別。
+r2 要求 A→B 的 B 完整接收分布依賴合法 A 準備干預；固定 A 準備／記憶後，B→A
+的 A 回讀依賴 B 回應，且事前合法無回應對照中該依賴消失。共同初態／事後挑選、
+外部標籤直入 A、只靠 A 記憶均不充數；窗口型別與 B 自動／可選回應必須申報。
+來源／閱讀申報見 EXP-0023–0024。這是未構造模型、未有輸出前的問題契約修訂；
+model ID NONE，不是正式 gate／core／margin 變更、科學結果、attempt 或模型搜尋。
