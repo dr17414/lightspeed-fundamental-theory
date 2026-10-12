@@ -192,7 +192,7 @@ Stage 5B 的 witness 證明的是：**同一抽象 poset 的 pure-order function
 
 E0 不變更上述 freeze hashes、不可逆規則或正式前置。若探索已影響 core／projector／
 test-space／margin，原 candidate-independent 資格不能沿用，須 activation §5 的
-新版 prereg、來源對照及適當独立／blinded review；僅換新 seed 無效。
+新版 prereg、來源對照及適當獨立／blinded review；僅換新 seed 無效。
 
 ### 5.2.1 Freeze-1b/1c 的 candidate-independence〔v0.6 重寫〕
 

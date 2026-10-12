@@ -158,7 +158,7 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 
 | 新EXP-ID／actor | 來源／接觸與決定 | 隔離／生效範圍 |
 | :--- | :--- | :--- |
-| EXP-0021／操作者；GPT 接收與起草 | 2026-10-12 09:46:37 Asia/Taipei（UTC 01:46:37），操作者原句「啟動」，承接前述 ACTIVE-PAPER-ONLY 選擇。GPT 讀取此决定及公開禁令／受審規則以作文件同步。具名 [ACT-X-0001](STAGE5C_EXPLORATION_ACTIVATION.md)，權限來源為 PR #76 exact head；#77 事實補充仍同交新複核。 | 原 UNKNOWN／禁回流／burn 不解除；未使用私人或 sealed payload。核准 activation 合併 main 才生效，批准不授權提前構造。X model ID NONE，無 target 選擇、seed、主機、量測或 formal attempt；不声稱 blind／fresh。 |
+| EXP-0021／操作者；GPT 接收與起草 | 2026-10-12 09:46:37 Asia/Taipei（UTC 01:46:37），操作者原句「啟動」，承接前述 ACTIVE-PAPER-ONLY 選擇。GPT 讀取此決定及公開禁令／受審規則以作文件同步。具名 [ACT-X-0001](STAGE5C_EXPLORATION_ACTIVATION.md)，權限來源為 PR #76 exact head；#77 事實補充仍同交新複核。 | 原 UNKNOWN／禁回流／burn 不解除；未使用私人或 sealed payload。核准 activation 合併 main 才生效，批准不授權提前構造。X model ID NONE，無 target 選擇、seed、主機、量測或 formal attempt；不聲稱 blind／fresh。 |
 
 本帳舊列全部保留；未完成的 raw／私有歷史不由「啟動」變成完整或可用。
-生效後每次新接觸／模型選擇照原规则 append，正式披露另走其帳，不以此規避 spending。
+生效後每次新接觸／模型選擇照原規則 append，正式披露另走其帳，不以此規避 spending。

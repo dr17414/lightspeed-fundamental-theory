@@ -23,8 +23,8 @@
 **現行紙上探索決策（ACT-X-0001／E0）：** 操作者於 2026-10-12 09:46:37 Asia/Taipei
 明確批准僅紙上啟動。[activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md) 只在
 核准 activation PR 合併到 main 後生效為 ACTIVE-PAPER-ONLY，此前 NOT-ACTIVE；
-work branch、一般草案 merge／CI／GO 皆不授權构造。生效後每次工作引用實際 activation SHA。
-X-I／X-C 僅紙上模型及解析研究；來源禁用／未知隔離、正式候選资格與 core／gate、
+work branch、一般草案 merge／CI／GO 皆不授權構造。生效後每次工作引用實際 activation SHA。
+X-I／X-C 僅紙上模型及解析研究；來源禁用／未知隔離、正式候選資格與 core／gate、
 fresh holdout／burn／spending 均保留。沒有主機／量測／研究 RNG／seed／可執行模型／
 正式 attempt 授權，也沒有 scientific PASS。探索模型 ID NONE，B4／B6 目標尚未選定。
 下方 #75–77 的 pending／未生效為各次歷史狀態；現行作用域以本記錄與 E0 為準。

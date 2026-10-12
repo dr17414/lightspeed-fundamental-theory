@@ -6,14 +6,14 @@
 其 activation PR 經新 exact-head 複核並合併到 main 時才生效；此前 NOT-ACTIVE。
 下列未生效／待審文字保留原時點，不用來否定其後合法 activation，也不擴張受審權限。
 
-狀態：**【PR #75／#76 已審核、未生效；本次事實性接觸補充待複核】**。
+狀態（#77 時點）：**【PR #75／#76 已審核、未生效；本次事實性接觸補充待複核】**。
 Claude 核准 #75 head `d57d3cb661d168f56cc8d04cbcd8315ea41b400e`、tree
 `4353c6f065f674c200e7f0e50f0ae28b00ba04a6`；依操作者授權原 head 合併 main
 `83b54e051c4339594f48dbe2858b4f7e6fb00a2b`，tree 完全相同。沒有 activation commit。
 其後 Claude 核准 #76 head `450a7cfdd9c6a844a9dd08993ea8f7d196ab440d`、tree
 `4c198ce75bfee1f92fb59e417b75ba116bdc9c12`，涵蓋審查工具釐清、禁令定位與三方
 有界申報；原 head 合併為 `8d16f9b2ccbbcd74d727694b2770024a91f30616`，tree 相同。
-本次只追加操作者提供的歷史轉交／終端閱覽補充（EXP-0020）；不把 #76 GO 擴成
+（#77 時點）本次只追加操作者提供的歷史轉交／終端閱覽補充（EXP-0020）；不把 #76 GO 擴成
 對新文字的核准，亦不提交 activation。
 操作者於 2026-10-12（Asia/Taipei）選擇 B，授權起草本案，**沒有授權開始構造**。
 原稿基線為 PR #74 合併後 main `87ff77a1a3c44bef4f3c33ade91c3ef0e0623acd`，
