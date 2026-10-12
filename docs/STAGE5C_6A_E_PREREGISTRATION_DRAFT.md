@@ -2,9 +2,10 @@
 
 狀態：**【review draft／PREREGISTRATION-INCOMPLETE／不可執行】**。
 
-**Pending 決策（未生效，2026-10-12）：** [探索軌道協定修訂草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)
-只提出另軌紙上構造的權限／隔離與逐項同步修改方案；本稿仍不授權候選設計、
-seed、arm numerical access 或正式執行，closure 與原 firewall 不變。
+**探索作用域（ACT-X-0001／E0）：** 另軌紙上設計僅依[activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)，
+在核准 activation 合併到 main 後生效。這不是 6a-E prereg freeze 或執行授權，
+seed、arm numerical access、planted 禁回流、closure 與原 firewall 均不變；此前 NOT-ACTIVE。
+X→F 另走 activation §5；污染 criterion 時需新版 prereg／獨立審核，不靠新 seed 恢復舊資格。
 
 本文件把 6a-E 的既有硬約束、完整型別鏈、first-past-the-post lifecycle、判決閉包與仍缺的
 承重欄位整理成單一 review surface。它**不是** selector-prereg freeze、不授權生成任何
@@ -322,6 +323,9 @@ Stage 5C-1 PASS、不授權 3+1D 或「已導出 spinor／chirality」敘述。
 ---
 
 ## 8. Freeze closure matrix
+
+E0 紙上權限不完成任何 closure，亦不授權 §9 的執行或 numerical access。
+探索結果／模型不能填入本矩陣或原 power 欄位；轉正式須 activation §5 的完整 handoff。
 
 只有每一列都有具名文件、source-of-record、tests、numerical constants／bounds、seed manifest
 與獨立 review，狀態才可由 `OPEN` 改為 `CLOSED`。

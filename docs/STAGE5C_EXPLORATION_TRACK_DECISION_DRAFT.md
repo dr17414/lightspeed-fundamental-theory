@@ -1,5 +1,11 @@
 # 探索軌道協定修訂決策草案：理論構造與正式驗證分離
 
+**條款來源與 current activation：** 本文件是 PR #75／#76 已審核的提案來源，原時點
+狀態與「merge 不生效」指草案合併。操作者其後於 2026-10-12 09:46:37 明確批准
+僅紙上啟動，獨立 [ACT-X-0001／E0 記錄](STAGE5C_EXPLORATION_ACTIVATION.md) 在
+其 activation PR 經新 exact-head 複核並合併到 main 時才生效；此前 NOT-ACTIVE。
+下列未生效／待審文字保留原時點，不用來否定其後合法 activation，也不擴張受審權限。
+
 狀態：**【PR #75／#76 已審核、未生效；本次事實性接觸補充待複核】**。
 Claude 核准 #75 head `d57d3cb661d168f56cc8d04cbcd8315ea41b400e`、tree
 `4353c6f065f674c200e7f0e50f0ae28b00ba04a6`；依操作者授權原 head 合併 main

@@ -1,5 +1,10 @@
 # Stage 5C item 8 — audit-only E4 screen 授權審查清單
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 狀態：**目標主機 custody pin 更新 REVIEW-PENDING／不構成執行授權／不得執行**。
 audit-only 協定已由 PR #41 merge `a5cf4dd6` 成為
 `FROZEN-PROTOCOL`；runner 的 Linux-only preflight 已由 PR #42 merge

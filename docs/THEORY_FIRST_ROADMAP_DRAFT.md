@@ -104,15 +104,14 @@ path-sum 或耦合重力作用量不由此式判定；更不能把 abs(det) 的�
 
 ## 5. 協定調整方案：先做無候選的理論，再決定是否開啟候選探索
 
-**2026-10-12 續接：** 操作者選擇 B 並授權起草
-[探索軌道決策草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)，只交審查、不開始構造。
-草案未生效；下列兩階段方案與現行禁令仍有效，merge／review GO 不自動 activation。
+**2026-10-12 現行決策：** PR #75／#76 的權限與隔離草案已獨立複核。操作者於
+09:46:37 Asia/Taipei 明確批准僅紙上啟動；具名[ACT-X-0001／E0](STAGE5C_EXPLORATION_ACTIVATION.md)
+只在 activation PR 獲 exact-head GO 並合併到 main 後生效，此前不開始構造。
+正式候選資格／評測、資料與執行仍受原限制；X→F handoff 和 criterion 污染依該記錄，
+不得以舊 closure 或新 seed 繞過。以下兩階段是原排序紀錄；第二階段權限已另案提出，
+實際工作開始需引用有效 activation SHA。
 
-操作者的理論優先決定支持上述研究排序；目前 acceptance §0／附錄 D.1、
-STATUS 的 Stage 5C 列及 prereg §0 仍禁止 Freeze-1a 前候選設計。
-**本 PR 不改這些 operative 禁令**，也不把合併本草稿解讀為豁免。
-
-建議採兩階段：
+原兩階段方案（歷史排序；第一階段仍可繼續）：
 
 1. **現在的理論審計階段**：做定義、必要條件、已有構造的 no-go 與精確反例；
    不提出新 K／order ansatz／weight／構造材料，不操作 science data。

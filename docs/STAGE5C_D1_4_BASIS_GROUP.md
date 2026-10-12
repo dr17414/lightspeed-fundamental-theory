@@ -1,5 +1,10 @@
 # Stage 5C §1.4 — 可容許基底群 $G$ 與 invariant-family 分析
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 狀態：**【已確認之代數交付物／v0.7；fork B 已定案，尚未 freeze】** — ambient norm、完整 invariant algebra、後續 primary endpoint 與 wrong-direction gauge 邊界已交付。
 
 範圍：observable contract v0.10 §1.4 的 candidate-independent 交付物。
