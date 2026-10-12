@@ -1,5 +1,10 @@
 # Stage 5C — 6a-S Protocol Amendment 001
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 狀態：**【Amendment-001 frozen；DEV-0012／0013／0014／0015 已合併；replacement
 categorical combine 為 11/11 `6a-S PASS` 且 6a-S 已封存；6a-E 尚未開始】**。
 

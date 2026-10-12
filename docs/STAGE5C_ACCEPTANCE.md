@@ -1,6 +1,6 @@
 # Stage 5C — Derived Two-Sector Nonlocal Kernel Acceptance Specification (v0.9)
 
-狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.9 修正 C3b 把 program/provenance class 誤當成 pointwise linear blind space 的型別錯誤，並加入 rank-one blind-variety 的有限作用域。本文件只固定 acceptance contract；附錄 D.1 九項尚未在單一 freeze commit 全部完成，故目前**不構成 Freeze-1a**，不得開始候選設計或 confirmatory evaluation。
+狀態：**【已確認／規格定稿；Freeze-1a 未完成】** — v0.9 修正 C3b 把 program/provenance class 誤當成 pointwise linear blind space 的型別錯誤，並加入 rank-one blind-variety 的有限作用域。本文件只固定 acceptance contract；附錄 D.1 九項尚未在單一 freeze commit 全部完成，故目前**不構成 Freeze-1a**，不得開始正式候選資格或 confirmatory evaluation；另軌紙上設計僅在 ACT-X-0001／E0 生效後依其範圍許可。
 
 修訂基準：`docs/STAGE5C_ACCEPTANCE_AUDIT.md`（STATUS v1.12）的獨立審計判決「規格需修訂」，v0.2–v0.8 的後續獨立 review，以及 `docs/STAGE5C_C8_4_HARD_CONTROLS.md` 的跨 seed 復檢。
 
@@ -9,13 +9,18 @@
 
 `docs/STATUS.md` 仍為唯一 source of truth。
 
-**Pending 決策（未生效，2026-10-12）：** [探索軌道協定修訂草案](STAGE5C_EXPLORATION_TRACK_DECISION_DRAFT.md)
-§8 列出本文件首段、§0、§5.2、§7、附錄 D.1 及反繞道條款的逐項修改方案。
-本次僅供審查，不改任何 operative 禁令；Freeze-1a 前仍不得設計候選 K 或開始正式評測。
+**探索作用域（ACT-X-0001／E0）：** [僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)
+是正式 freeze 前紙上探索的唯一例外，只有其核准 activation 合併到 main 才生效；此前仍 NOT-ACTIVE。
+本 acceptance 自身不給 K 公式或材料；正式資格／評測、九項 D.1 blockers、資料與反繞道限制仍有效。
 
 ---
 
 ## 0. 本文件的地位與明確排除
+
+本節排除的是本 acceptance／evaluator 提供 construction 輸入，不禁止另軌在已生效 E0
+範圍内自行提出紙上探索定義。matching／diagnostics／targets 不因此成為候選材料。
+探索若影響 evaluator 或 criterion，依 activation §5 走新版 prereg／適當獨立審核；
+不能以「尚非正式候選」掩蓋候選獨立性已失效。
 
 本文件**不包含任何候選 kernel $K$ 的公式、構造、材料選擇或參數化**。
 
@@ -174,7 +179,7 @@ Stage 5B 的 witness 證明的是：**同一抽象 poset 的 pure-order function
 
 | Freeze | 凍結內容 | 最遲完成時點 |
 | :--- | :--- | :--- |
-| **Freeze-1a** | C0–C8（含 C3b，下同）的 verdict taxonomy；C3b capability-restricted source audit、rank-one blind-variety distance 與 invariant-norm **形式**；C5 diagnostic 的選擇與形式；C6 selectors；C7/C8 primary observable、massless target、smearing、norm、planted alternatives；C8.1 matching protocol；C8.4 controls；batch lifecycle；全域 confirmatory ledger 與跨版本 multiplicity/attempt budget | 任何候選設計及 Stage 5C-1 confirmatory evaluation 前 |
+| **Freeze-1a** | C0–C8（含 C3b，下同）的 verdict taxonomy；C3b capability-restricted source audit、rank-one blind-variety distance 與 invariant-norm **形式**；C5 diagnostic 的選擇與形式；C6 selectors；C7/C8 primary observable、massless target、smearing、norm、planted alternatives；C8.1 matching protocol；C8.4 controls；batch lifecycle；全域 confirmatory ledger 與跨版本 multiplicity/attempt budget | 正式候選資格及 Stage 5C-1 confirmatory evaluation 前；另軌紙上設計僅依已生效 E0 |
 | **Freeze-2a** | 該候選的 $K$、object/basis contract、normalization、C0–C8（含 C3b）的 L3 family／參數、domain、source-audit instantiation、blind-variety norm 的 object-specific instantiation、數值門檻、樣本數、RNG/seed | 接觸 Stage 5C-1 fresh holdout A 前 |
 | **Freeze-1b** | C9 finite test-function space／projector 的形式、spectral criteria、CAR/sum-rule/analytic-stability criteria、獨立 pipeline 的結構要求 | Stage 5C-2 confirmatory evaluation 前；不阻塞 Stage 5C-1 |
 | **Freeze-2b** | 同一候選的 $W$ 導出、state、pairing、quantum prescription、representation mapping、pipeline 實例與 C9 數值容差 | 接觸 Stage 5C-2 fresh holdout B 前 |
@@ -184,6 +189,10 @@ Stage 5B 的 witness 證明的是：**同一抽象 poset 的 pure-order function
 **不可逆規則.** 後段 freeze 不得修改已通過的 $K$、object/basis contract 或早期 evaluator。若 C9/C10 顯示必須改 $K$ 或較早契約，必須建立新 candidate version，返回 Freeze-2a，使用全新的 holdout A，並消耗全域 confirmatory budget。重新 freeze 絕不恢復既有資料的盲性。
 
 本規格定稿 commit 是後續 Freeze-1a 的 immutable baseline；只有附錄 D.1 九項交付物全部完成、在單一 freeze commit 中固定並明確引用本規格 commit，才構成 Freeze-1a。Freeze-1b/1c 可在前一階段 PASS 後另行完成，不得追溯修改 Freeze-1a。
+
+E0 不變更上述 freeze hashes、不可逆規則或正式前置。若探索已影響 core／projector／
+test-space／margin，原 candidate-independent 資格不能沿用，須 activation §5 的
+新版 prereg、來源對照及適當獨立／blinded review；僅換新 seed 無效。
 
 ### 5.2.1 Freeze-1b/1c 的 candidate-independence〔v0.6 重寫〕
 
@@ -654,7 +663,7 @@ firewall 不只限制構造，也限制**每一份輸出**：
 
 | 階段 | 內容 | 通過條件 |
 | :--- | :--- | :--- |
-| **Freeze-1a** | 本規格基線 + C3b/C5/C6/C7/C8 candidate-independent evaluator forms + C8.4 controls + 全域 confirmatory ledger/budget | 附錄 D.1 九項在單一 freeze commit 中完成、並引用本規格 commit 後生效；完成前不得設計候選 |
+| **Freeze-1a** | 本規格基線 + C3b/C5/C6/C7/C8 candidate-independent evaluator forms + C8.4 controls + 全域 confirmatory ledger/budget | 附錄 D.1 九項在單一 freeze commit 中完成、並引用本規格 commit 後生效；完成前不得取得正式候選資格；另軌紙上設計僅依已生效 E0 |
 | **Freeze-2a** | 候選 $K$、object/basis、C0–C8（含 C3b）instantiation 與門檻 | 接觸 fresh holdout A 前完成 |
 | **Stage 5C-1** | Massless feasibility；basis-invariant chiral decoupling | C0–C8（含 C3b）全部 PASS |
 | **Freeze-1b / 2b** | C9 evaluator form / 同一候選的 quantum instantiation | 5C-1 PASS 後、接觸 fresh holdout B 前完成 |
@@ -800,7 +809,7 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
 
 ## 附錄 D — v0.4 尚未完成的 staged-freeze 項目
 
-### D.1 Freeze-1a blockers（阻塞候選設計與 Stage 5C-1）
+### D.1 Freeze-1a blockers（阻塞正式候選資格與 Stage 5C-1；X 紙上範圍見 E0）
 
 1. **C3b evaluator form**：capability-restricted source audit、rank-one Segre blind-variety、basis-covariant weighted distance 與 null／continuum-survival 規則。
 2. **C5 diagnostic form**：明定 evaluation-only pure-order diagnostic 的選擇、定義與不回流測試。
@@ -820,9 +829,14 @@ v0.1 寫「若所有合理的 fermionic 結構都無法取得足夠的 Clifford 
    **未作出聲明**才是 PENDING。依 §5.2.1(v)，在 mapping 完成前這些文獻一律只有動機性資格。路徑一經聲明即凍結；事後改採路徑 B 屬 protocol amendment，須進 amendment ledger。
 9. **兩本帳的 schema**〔v0.6 新增〕：`docs/stage5c_development_log.md`（append-only、事後登記、不佔統計預算）與 `docs/stage5c_protocol_amendment_log.md`（implementation 修改紀錄、不佔統計預算），與第 6 項的 confirmatory ledger 三者分離，職責不得混用。
 
-本規格 v0.9 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始候選設計或 Stage 5C-1 confirmatory evaluation。
+本規格 v0.9 已定稿；但九項交付物全部完成、在單一 freeze commit 中固定並引用本規格定稿 commit 前，Freeze-1a 仍為 **PENDING**，不得開始正式候選資格或 Stage 5C-1 confirmatory evaluation；另軌紙上設計僅依已生效 E0，九項義務不刪減。
 
 **風險註記.** 第 5 項原先的「對照族能否構造」風險已由獨立交付物解除；目前其最高實質存活風險移到第 3 項：evaluation-only $L_\theta$ 能否合法下降為同一個 basis-invariant primary observable／smearing／norm。若此 mapping 失敗，必須在候選存在前版本化修改或撤回 control，不得硬接，也不得降低 C8 門檻。
+
+上述「候選存在前」的 mapping 規則不得藉 E0 默改成正式資格前而假稱仍獨立。若
+已受 X 模型／輸出影響，舊 mapping 資格失效，須 activation §5 的新版與合資格審查。
+§3、§4.3、§5.2.1／5.3、C0／C9／C10／C11、D.2–D.3 的 object、core、holdout、
+資料與 output 約束對正式軌道全保留；§5.3 的「不佔 budget」本身不授權構造或執行。
 
 ### D.2 Freeze-1b deferred items（只阻塞 Stage 5C-2）
 

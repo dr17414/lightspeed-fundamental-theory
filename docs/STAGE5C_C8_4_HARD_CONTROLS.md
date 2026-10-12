@@ -1,5 +1,10 @@
 # Stage 5C C8.4 — 定義域內困難對照可行性與預登記草案
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 狀態：**【已確認／核心可構造性成立；尚未構成 Freeze-1a】**
 
 本文件處理 `STAGE5C_ACCEPTANCE.md` 附錄 D.1 第 5 項，並給出第 4 項
@@ -468,6 +473,6 @@ module-boundary proof；後者仍是 Freeze-1a blocker。
    是否足夠保守；
 4. 本輪沒有產生或揭露任何 confirmatory holdout；上述 seeds 全屬
    candidate-independent protocol development，未來不得冒充 candidate holdout；
-5. Freeze-1a 仍為 PENDING，候選設計禁令不變；
+5. Freeze-1a 仍為 PENDING，正式候選資格／評測禁令不變；另軌紙上設計僅依已生效 ACT-X-0001／E0，本 control 的評估資格與禁回流不享例外；
 6. 256-per-side 的完整與 $\kappa=1$ audits 都不足；負結果保留為 sample-size
    sensitivity，不能再被解讀成 $\kappa=1$ domain 不可行。

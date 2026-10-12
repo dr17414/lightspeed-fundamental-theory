@@ -108,3 +108,11 @@ activation reviewer須在diff逐列標「E0引用已同步／KEEP未改／HISTOR
 | `docs/stage5c_exploration_exposure_log.md` | 30,36 | `1ab75618fd2f8e09496faf72a353ee7889f64988` |
 | `docs/stage5c_protocol_amendment_log.md` | 9 | `765f4e94a918a6bebbbfca5f8855bf886d3d0045` |
 | `results/README.md` | 31 | `a9b1932c28f2f972c26d959c81b732d5380be3d1` |
+
+## 4. 後續 activation 的 current 處置
+
+本文件前述基線／待審／未生效是 PR #75–76 時點的定位紀錄，原文保留。
+操作者其後批准 [ACT-X-0001／E0](STAGE5C_EXPLORATION_ACTIVATION.md) 僅紙上啟動；
+[同步驗收清單](STAGE5C_EXPLORATION_ACTIVATION_SYNC_AUDIT.md) 逐來源列 diff 處置。
+只有核准 activation 合併 main 才生效，舊定位清單本身不授權工作；KEEP／HISTORY
+不因 E0 變成可用的候選材料。新發現條款仍須獨立語意核對，不能靠命中數保證完整。

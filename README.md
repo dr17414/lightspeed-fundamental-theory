@@ -24,7 +24,7 @@
 
 ### 目前研究重點：
 - **Theory-first premise and counterexample audit**：先區分輸入與湧現目標，審計 finite c／signature 的前提與未證橋接；見 [理論優先路線圖](docs/THEORY_FIRST_ROADMAP_DRAFT.md) 與 [T1＋T5 審計草稿](docs/foundations/t1_t5_premise_audit.md)。大規模驗證延後，不把探索結果當正式結論。
-- **Stage 5C 的準備狀態**：6a-E 仍為 `PREREGISTRATION-INCOMPLETE`、Freeze-1a 為 `PENDING`，尚未設計候選 K；目前不解除候選設計禁令。已完成與未完成的細項以 [STATUS](docs/STATUS.md) 為準。
+- **Stage 5C 與紙上探索**：6a-E 仍為 `PREREGISTRATION-INCOMPLETE`、Freeze-1a 為 `PENDING`，正式候選資格／評測仍未授權。[ACT-X-0001／E0](docs/STAGE5C_EXPLORATION_ACTIVATION.md) 僅在核准 activation 合併到 main 後允許另軌紙上 X-I／X-C；此前 NOT-ACTIVE。沒有主機、seed 或量測授權，目前探索模型 ID 為 NONE。細項以 [STATUS](docs/STATUS.md) 為準。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)

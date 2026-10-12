@@ -138,3 +138,27 @@ repo曾有作者讀原文紀錄，不等於Claude自己已讀。獨立數學GO�
 三方皆有本人有界申報，不表示完整歷史已知或隔離審查通過。終端畫面、其他 raw／私人
 材料、舊對話等未知項不要求以新開檔案消除；依協定保守處置。
 本次是申報紀錄更新，仍待 PR #76 exact-head 複核；沒有 activation 或候選構造許可。
+
+## 7. PR #76 複核與操作者已知接觸追加（2026-10-12）
+
+PR #76 head `450a7cfdd9c6a844a9dd08993ea8f7d196ab440d`、tree
+`4c198ce75bfee1f92fb59e417b75ba116bdc9c12` 已獲 Claude exact-head GO，依操作者
+轉交的批准原 head 合併為 main `8d16f9b2ccbbcd74d727694b2770024a91f30616`，
+merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審是當時狀態，原文保留。
+
+| 新EXP-ID／actor | 來源、程度與補充已知範圍 | 影響／隔離／資格 |
+| :--- | :--- | :--- |
+| EXP-0020／操作者歷史接觸；GPT 本次接收 reviewer 補充 | 操作者 2026-10-12 09:09:08 Asia/Taipei 轉交 Claude 的 PR #76 複核文字。詳見[操作者申報追加](operator_exposure_declaration_2026-10-12.md)：已轉交 audit JSON、managed-session bundle、stub v1、image v1 zip、stub／campaign-image-evidence／pf3／run1 四類證據包；已透過截圖／貼文看過 run1 最後 stress 計時与 PLAN-COMPLETE（依補充無 endpoint）、preflight PASS JSON、image smoke JSON、stub PREPARED／STARTED。 | 已知轉交／部分終端閱覽補充 EXP-0018–0019，不再僅作 UNKNOWN；不推定開 raw／完整 records、包副本身分或 sealed 數值。其餘未知仍隔離。GPT 僅讀補充、未新開包或重播；未構造模型或調整 criterion，不聲稱 blind／fresh。 |
+
+這是操作者提供的 reviewer 接觸紀錄補充，不由 GPT 代寫新的全歷史本人保證。
+若有具體更正，另 append；不覆寫原申報、接觸帳或 burn。收件與 PR #76 GO 不等於
+探索 activation；本次沒有決定啟動，也未選 B4／B6 實現目標。
+
+## 8. 操作者僅紙上啟動批准（2026-10-12；activation 待審合併）
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 隔離／生效範圍 |
+| :--- | :--- | :--- |
+| EXP-0021／操作者；GPT 接收與起草 | 2026-10-12 09:46:37 Asia/Taipei（UTC 01:46:37），操作者原句「啟動」，承接前述 ACTIVE-PAPER-ONLY 選擇。GPT 讀取此決定及公開禁令／受審規則以作文件同步。具名 [ACT-X-0001](STAGE5C_EXPLORATION_ACTIVATION.md)，權限來源為 PR #76 exact head；#77 事實補充仍同交新複核。 | 原 UNKNOWN／禁回流／burn 不解除；未使用私人或 sealed payload。核准 activation 合併 main 才生效，批准不授權提前構造。X model ID NONE，無 target 選擇、seed、主機、量測或 formal attempt；不聲稱 blind／fresh。 |
+
+本帳舊列全部保留；未完成的 raw／私有歷史不由「啟動」變成完整或可用。
+生效後每次新接觸／模型選擇照原規則 append，正式披露另走其帳，不以此規避 spending。

@@ -33,3 +33,32 @@ GPT 已直接讀取截圖，依四個可辨識檔名轉錄如下。只核對畫�
 - 本文件是已收到的有界本人申報；未知照協定保守隔離，不宣稱全歷史完整、blind／fresh
   資格或所有分支可回用。新增、更正另追加，不覆寫本人原句。
 - 收存申報不等於 activation；探索軌道仍未生效，現行候選 K 禁令仍適用。
+
+## 追加：已知轉交與終端閱覽（2026-10-12 09:09:08 Asia/Taipei）
+
+來源是操作者在本對話转交的 Claude PR #76 exact-head 複核與事實補充；UTC 為
+2026-10-12 01:09:08。下列列為有記錄的已知轉交／閱覽，補充原「其他不知道」的
+有界範圍；不覆寫本人原句，也不把 reviewer 補充改寫成 GPT 的獨立開檔稽核。
+
+| 已知轉交給 Claude 的材料 | 接觸程度與限制 |
+| :--- | :--- |
+| `item7_preexecution_audit_20261006.json` | 已轉交；不由轉交推定操作者讀過全部欄位 |
+| `item7_managed_session_result_bundle.zip` | 已轉交；不推定解壓或看過包內 raw |
+| `vultr_stub_v1.zip` | 已轉交；不推定解壓或看過包內 raw |
+| `vultr_campaign_image_v1.zip` | 已轉交；另有 §2 本人下載申報，不推定與其他 image 包相同 |
+| stub 證據包 | 已轉交；本次補充以包的類別指稱，未新核對下載副本的 hash |
+| campaign-image-evidence 證據包 | 已轉交；本次未提供精確版本／完整檔名／副本 hash，保留既有 custody |
+| pf3 證據包 | 已轉交；另有 §2 本人下載申報，未新核對副本 hash |
+| run1 證據包 | 已轉交；另有 §2 本人下載申報，未新核對副本 hash |
+
+| 已看過的終端輸出（透過截圖／貼文） | 已知內容範圍 |
+| :--- | :--- |
+| run1 `records.jsonl` 最後兩筆 | 一筆 stress job 的計時與 `PLAN-COMPLETE` summary；依補充不含 endpoint。不推定看過完整 records |
+| 各次 preflight 的 PASS JSON | 執行／環境檢查結果；不補猜未提供的完整欄位、版本或 hash |
+| image smoke 的 JSON | 映像冒煙輸出；不推定完整包或其他科學數值已開啟 |
+| stub 的 `PREPARED`／`STARTED` | stub 狀態輸出；不推定操作者讀過其他 raw 紀錄 |
+
+本人原先「沒有打開過 raw 檔」和「看過截圖／貼文中的部分輸出」分開記錄，並不
+互相取代。以上可指認範圍不再僅作 UNKNOWN；其餘私人材料、終端內容、舊對話等
+未知仍保守隔離。GPT 本次只讀這段轉交文字，沒有新讀這些包、重放 producer 或補算 endpoint。
+未因此取得 blind／fresh 資格、解除禁回流，或批准 activation。

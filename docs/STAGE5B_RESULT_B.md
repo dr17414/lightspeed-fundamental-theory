@@ -1,5 +1,9 @@
 # Stage 5B-2 — Limited Result B: global sectors do not supply a microscopic nearest-neighbour channel
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+本文件的原時點禁令、結論與提案為歷史紀錄，原文保留；不由此啟用舊候選材料。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 ## Status
 
 This note freezes the negative result reached after Stage 5A. It deliberately stops **before** any fermionic kernel `K` is proposed.

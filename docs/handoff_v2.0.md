@@ -1,5 +1,9 @@
 # Handoff v2.0 — 交接文件（Stage 5B 完成 → Stage 5C 開始前）
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+本文件的原時點禁令、結論與提案為歷史紀錄，原文保留；不由此啟用舊候選材料。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 初稿基準（本文件建立前的 main）：`40105831802909c4b3386b6e29249f1c149d1359`
 首次併入 main：`4693aba86a5e7c04bbbe4b082db2b6d9e10963f3`；合併後 repo 40 檔。
 初稿基準的驗證狀態：STATUS v1.10，全庫 104 passed，`verify_integrity.py` 通過。

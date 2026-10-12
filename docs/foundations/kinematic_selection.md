@@ -1,5 +1,9 @@
 # Gate 0 / Kinematic Selection (運動學選擇)
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](../STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+本文件的原時點禁令、結論與提案為歷史紀錄，原文保留；不由此啟用舊候選材料。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 本文件建立「Gate 0 / Kinematic Selection」研究支線。此支線的核心問題並非重新推導時間膨脹，而是探討更根本的運動學結構選擇問題。
 
 ## 1. 核心問題

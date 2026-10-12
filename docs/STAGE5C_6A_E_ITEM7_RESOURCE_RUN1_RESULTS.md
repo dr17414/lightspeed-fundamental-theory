@@ -1,5 +1,10 @@
 # Stage 5C / 6a-E item 7 — Vultr resource campaign run 1 結果草案
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 **DRAFT-RAW-EVIDENCE-AUDITED-PENDING-INDEPENDENT-REVIEW。** 已直接核對原始證據包及 reviewer 的 `assessment.json`；用既有 `assess_held_out` 對原始 280 筆 records 重播，與附件完全一致。139 個 jobs 無跳過，78 production 全部 CLEAN，61 stress 全為 FORCED-BUDGET-EXHAUSTED。34 個模型均為 `MODEL-INVALID`，整組為 `INSUFFICIENT-EVIDENCE`；item 7 仍不可 ADOPT，沒有任何上限或新 count／mixture domain 獲得資格化。
 
 ## 1. 證據、身分與可核對範圍

@@ -1,5 +1,10 @@
 # Stage 5C D.1 第 3 項 — Primary Invariant Endpoint $\mathfrak I_G$
 
+**現行權限對照（ACT-X-0001／E0）：** 見[僅紙上 activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md#2-e0--統一作用域條款)。
+E0 不豁免本文的正式資格、資料／oracle 禁回流、candidate-independent、數值或執行限制；
+既有「本輪未設計／不觸候選」是該交付 scope，不作對另軌紙上工作的全面否定。
+僅經獨立複核的 activation 合併至 main 後，才有 E0 所限紙上探索；此前 NOT-ACTIVE。
+
 狀態：**【已確認之 candidate-independent 代數交付物／尚未 freeze】**。
 
 範圍：只固定 smeared $2\times2$ matrix 的 primary invariant endpoint；不設計候選 $K$，
