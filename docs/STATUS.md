@@ -20,14 +20,17 @@
 
 ## 2. 結論與核心主張狀態清單
 
-**現行紙上探索決策（ACT-X-0001／E0）：** 操作者於 2026-10-12 09:46:37 Asia/Taipei
-明確批准僅紙上啟動。[activation 記錄](STAGE5C_EXPLORATION_ACTIVATION.md) 只在
-核准 activation PR 合併到 main 後生效為 ACTIVE-PAPER-ONLY，此前 NOT-ACTIVE；
-work branch、一般草案 merge／CI／GO 皆不授權構造。生效後每次工作引用實際 activation SHA。
-X-I／X-C 僅紙上模型及解析研究；來源禁用／未知隔離、正式候選資格與 core／gate、
-fresh holdout／burn／spending 均保留。沒有主機／量測／研究 RNG／seed／可執行模型／
-正式 attempt 授權，也沒有 scientific PASS。探索模型 ID NONE，B4／B6 目標尚未選定。
-下方 #75–77 的 pending／未生效為各次歷史狀態；現行作用域以本記錄與 E0 為準。
+**現行紙上探索（ACT-X-0001／E0，已生效）：** PR #78 的核准 head
+`69e57e4183792c02ba17615b1afce89ee2c71e57` 原樣合併 main
+`0c386716701589c9a6b0b799636a808aacb9ade5`，merge tree
+`c8e4e6ffae89718f77cc70431423244b88b53e79` 與獨立 GO 相同。CI #255 為
+556 passed／5 既有 warnings，integrity 通過。[ACT-X-0001](STAGE5C_EXPLORATION_ACTIVATION.md)
+於 Git committer 時間 UTC 2026-10-12 09:57:23／台北17:57:23 生效，範圍 ACTIVE-PAPER-ONLY。
+正式候選資格／評測、來源禁用／未知隔離、core／gate、fresh holdout／burn／spending
+與執行限制全保留；不是 scientific PASS，未授權主機／量測／研究 RNG／seed／程式模型。
+操作者已選「訊號回應」；[X-SIGNAL-RESPONSE-P0.1](foundations/signal_response_problem_contract_v0_1.md)
+只定問題，待獨立複核。model ID NONE，tick／rod comparison 不加入。
+下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
 
@@ -507,6 +510,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.25（紙上 activation 生效與訊號回應契約，2026-10-12）- CI #255 為556 passed／5 warnings；#78 核准69e57e41／c8e4e6ff原樣合併0c386716，tree完全相同，Git committer UTC09:57:23／台北17:57:23為ACT-X-0001生效。範圍僅紙上，formal／資料／執行限制不變。操作者選訊號回應，交付X-SIGNAL-RESPONSE-P0.1只定問題契約（待複核），引用實際生效SHA，EXP-0022及問題登記只追加；model ID NONE，未構造／執行新模型或生成seed。*
 
 *v2.24（僅紙上 activation 提交，2026-10-12）- 操作者於09:46:37明確批准 ACTIVE-PAPER-ONLY，以ACT-X-0001記錄；核准 activation PR 合併 main 才生效，批准／分支時間不倒填生效。逐文件同步 E0 作用域，保留 formal freeze／core／oracle／資料／執行限制與歷史。承接 PR #77 事實補充一併交審；新增權限決策接觸 entry，不新建模型、seed、主機、科學結果或空confirmatory ledger。*
 

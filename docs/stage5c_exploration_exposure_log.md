@@ -162,3 +162,13 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 
 本帳舊列全部保留；未完成的 raw／私有歷史不由「啟動」變成完整或可用。
 生效後每次新接觸／模型選擇照原規則 append，正式披露另走其帳，不以此規避 spending。
+
+## 9. Activation 合併與首個目標選擇（2026-10-12）
+
+| 新EXP-ID／actor | 來源、接觸程度與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0022／操作者；GPT 接收與文件作者 | 本輪操作者轉交 Claude #78 exact-head GO，並在目標選項中選「訊號回應」。GPT 核對 GitHub CI #255、merge metadata／tree，讀生效版本 ACT-X-0001 與 B4／B6 審計 §1–2／§4–6 的公開必要條件／反例。merge SHA `0c386716701589c9a6b0b799636a808aacb9ade5`、tree `c8e4e6ffae89718f77cc70431423244b88b53e79`，於 UTC 09:57:23／台北17:57:23 生效。目標回答在本輪收到，精確回答時間未另取得；不倒填為批准或 merge 時間。 | 選 X-SIGNAL-RESPONSE-P0.1，只定條件式訊號回應問題；model ID NONE，沒有 law／K／材料／參數或 criterion 選擇。只讀公開文件與執行 metadata，未讀 raw／sealed／新 endpoint，未跑新診斷或科學 RNG。舊曝光／UNKNOWN 不抹除，非 blind／fresh attestation；未授權 seed／主機／量測。 |
+
+本 entry 記目標與公開來源依賴，不聲稱研究者已忘掉舊 evaluator 行為。未來若其影響
+實際構造，仍需 provenance 與 claim-specific 影響審查；禁止回流條款不因已登記而解除。
+本問題契約的新接收方另記其實際閱讀 scope，不由 GPT 代申報。

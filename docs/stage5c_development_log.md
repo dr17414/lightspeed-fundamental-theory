@@ -47,3 +47,9 @@ Freeze-1a commit 固定；三本帳不得混用。
 來源與 EXP 依賴、定義域／條件前提、採用／失敗／撤回及對 criterion 的影響；
 不冒稱 candidate-independent，不能因不佔統計預算就執行 RNG／producer／正式 runner。
 本次尚無 X model／新 DEV 科學 entry；權限決定在 activation register、接觸在 EXP-0021。
+
+## 紙上 X 問題登記（不冒稱模型或科學結果）
+
+| Problem ID | 操作者選擇／權限 | 產物與來源 | 模型／執行／判決 |
+| :--- | :--- | :--- | :--- |
+| X-SIGNAL-RESPONSE-P0.1 | 本輪選擇訊號回應；ACT-X-0001 生效 SHA `0c386716701589c9a6b0b799636a808aacb9ade5` | [只定問題契約](foundations/signal_response_problem_contract_v0_1.md)，依公開 B4／B6 的必要條件、Q／Z／R／L；EXP-0022。有限宣告紀錄窗口、準備／接收／回應／回讀的識別與實現義務 | model ID NONE；未定 operator／law／state／材料／參數，未有推導結果或 scientific PASS；無新 RNG／seed／producer／主機／量測。契約待 exact-head 複核，失敗或後續改版仍另追加 |

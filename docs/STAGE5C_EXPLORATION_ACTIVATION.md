@@ -122,3 +122,21 @@ attempt 各帳分開。實質權限擴張須新版本與獨立複核，不能只
 本次 **X model ID NONE、實現目標尚未選定**。生效後由操作者從 B4／B6 選一個
 目標（tick／signal response／rod comparison），再寫只定問題的契約；本 PR 不選
 算子形式、不指定 order ansatz／weight／phase，不構造模型。
+
+## 7. 生效核對與首個目標追加（2026-10-12）
+
+前述「尚未取得 GO／未選目標」是 activation PR 提交時點。其後操作者轉交 Claude
+對 PR #78 head `69e57e4183792c02ba17615b1afce89ee2c71e57`、tree
+`c8e4e6ffae89718f77cc70431423244b88b53e79` 的獨立 GO；CI #255 為
+556 passed／5 個既有 warnings，integrity 通過。
+
+原 head squash 合併 main **`0c386716701589c9a6b0b799636a808aacb9ade5`**，
+merge tree **`c8e4e6ffae89718f77cc70431423244b88b53e79`** 與核准 tree 相同。
+Git committer 時間為 **2026-10-12 09:57:23 UTC／17:57:23 Asia/Taipei**；
+這是 ACT-X-0001 的生效 commit／時間，現為 **ACTIVE-PAPER-ONLY**。
+後續工作引用此 immutable SHA／E0；本次事實性追加不是新的 activation，亦不擴張權限。
+
+操作者在本輪選擇「訊號回應」。首份交付為
+[X-SIGNAL-RESPONSE-P0.1 問題契約](foundations/signal_response_problem_contract_v0_1.md)，
+只定問題、不構造模型，另交 exact-head 複核。Problem ID 不是 model ID；model ID
+仍為 NONE。tick／rod comparison 未加入，資料／執行限制與所有 OPEN 義務不變。
