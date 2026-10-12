@@ -47,6 +47,13 @@ actor 尚待申報的未知項，不宣稱完整盲性。merge／CI／GO 均不�
 操作者其後提供[本人有界申報](operator_exposure_declaration_2026-10-12.md)：下載截圖四包、
 未打開raw檔，其他UNKNOWN，追加EXP-0019。三方有界申報已收存，未知隔離仍待核對；沒有activation。
 
+**PR #76 已審核、未生效（2026-10-12）：** Claude 核准 `450a7cfd…`／tree `4c198ce7…`，
+依操作者轉交的批准原 head 合併為 `8d16f9b2…`，merge tree 相同；CI #251 為
+556 passed／5 個既有 warnings，integrity 通過。§1.1、禁令定位與三方有界申報已複核。
+另依本次轉交的 Claude 事實補充，在操作者申報和接觸帳追加 EXP-0020：具名材料轉交、
+run1 最後兩筆計時／summary、preflight／image smoke JSON、stub 狀態輸出。
+已知範圍不再僅列 UNKNOWN；其餘未知隔離、現行禁令仍保留，沒有 activation 或模型構造。
+
 **T1＋T5 第一份交付（【已確認／限定解析；橋接 OPEN】）：**
 [前提、公理與反例審計](foundations/t1_t5_premise_audit.md) 分帳 L0–L4 輸入、oracle
 與真正湧現目標；區分 order-interval／拓撲局部有限、volume／density、metric／symmetry。
@@ -491,6 +498,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.23（PR #76 核准合併與已知接觸追加，2026-10-12）- reviewed head 450a7cfd／tree 4c198ce7 原樣合併 main 8d16f9b2，merge tree 相同，CI #251 為556 passed／5 warnings，仍 REVIEWED-NOT-ACTIVE。依操作者轉交的 Claude 事實補充，追加具名資料轉交與部分終端輸出閱覽為 EXP-0020；本人原句、原表與UNKNOWN歷史不覆寫，未聲稱開過 raw、已見全 records 或全歷史完整。其餘未知隔離，沒有 activation、實現目標選擇、新模型、seed、主機或量測。本次只改四份 Markdown。*
 
 *v2.22（操作者有界申報收件，2026-10-12）- 操作者以本人文字及截圖申報下載四份具名證據包、沒有打開 raw 檔，其他 UNKNOWN；原句收存，接觸帳追加 EXP-0019，不覆寫收件前 PENDING 歷史。GPT 只核對截圖檔名，不開包、不推定下載副本 hash 或 image zip 與 tar.gz 相同。三方有界申報已收到，未知保守隔離與 exact-head 複核仍待處理；本次僅四份 Markdown 更新，無 activation、模型構造、seed、主機或量測。*
 
