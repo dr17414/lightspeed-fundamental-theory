@@ -73,3 +73,14 @@ Claude 本輪指出兩段可由不相干的單向通道滿足（其提出的獨�
 對照中相同。A 的準備記憶另記，不要求兩欄統計獨立；完整 law 仍須說明實際路徑。
 兩段、對照與其他 r2 限制保留，無串接不構成回訊；來源 EXP-0025–0026。
 沒有模型、law／材料／state／參數、診斷／RNG／seed／量測或正式 criterion 改動。
+
+## 首份具名紙上 X-C 模型（2026-10-13；契約定案後）
+
+PR #79 r3 原 head GO 後合併 `ac2226ee08a8babf71e326a7aabcd71388e24515`，tree
+`312e3142add7460ddeab129bc8c090bf4b8f1f7e` 相同。此時問題契約已定案，才提出以下
+紙上構造；舊 model ID NONE 列是各次模型前時點，原文保留。來源 EXP-0027–0028。
+
+| X model ID | 問題／法則與來源 | 紙上結果／採用與限制 | 執行／formal 狀態 |
+| :--- | :--- | :--- | :--- |
+| X-SIGNAL-DELAY-RELAY-v0.1 | [X-C 延遲回訊研究](foundations/conditional_delay_relay_signal_study_v0_1.md)，依定案 P0.1 r3目標設計：外加同步tick、字母表⊥／0／1、雙向有向移位鏈、正延遲、B局部 XOR、靜默η=0、A回訊只讀返回末端。全部參數於law中事前聲明，無量測挑選 | 待複核歸納給出 B接收在m、回應發出在m+d、A返回在T=m+d+n；H≥T時兩段／同一對照／串接滿足，短窗口不延長。採作條件式有限符號law存在／自洽例，理想無串音等輸入未由物質實現，不稱物理裝置或L0湧現 | 新紙上模型已構造，未實作／執行／RNG／seed／producer／量測；沒有formal K、attempt、scientific PASS，條件結果待獨立複核 |
+| X-SIGNAL-BEACON-CONTROL-v0.1 | 同研究的限定變體，只將B輸出改成外加clock在固定m時發b、不讀接收內容；源自Claude r2信標反例，此時才作具名law與解析 | H≥T時兩段與無回應對照成立，但固定b不依A準備，故無串接，不構成回訊；負結果保留，不能只列成功模型或改r3容納它。不推成所有自動回應器no-go | 只紙上定義／推導，無新計算／數據／formal verdict |

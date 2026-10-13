@@ -198,3 +198,19 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 本輪接觸與判準補強為模型前問題契約修訂，沒有由模型或觀測挑門檻。
 原 actor 申報、人工 E4 接觸與歷史 UNKNOWN 不覆寫；ACT-X-0001 已生效仍僅紙上，
 契約待審不產生 scientific PASS 或任何執行／正式資料授權。
+
+## 12. PR #79 r2／r3 閱讀申報與首份紙上模型（2026-10-13）
+
+操作者轉交的 Claude 本人申報原句：
+
+> Claude（PR #79 r2、r3 複核）：只讀 r1→r2→r3 的 diff 及 merge 資訊；沒有讀 raw／sealed 資料，沒有呼叫 E4／selector／causet producer，沒有使用 RNG，獨立信標反例只在文字上推理。只跑既有的回歸測試和 integrity 檢查。
+
+| 新EXP-ID／actor | 來源／接觸程度與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0027／Claude 申報由操作者轉交 | 2026-10-13 09:09:24 Asia/Taipei（UTC 01:09:24），操作者轉交上句及 r3 head `ea48729578941cf6938699a9d2fe6698989a7398`／tree `312e3142add7460ddeab129bc8c090bf4b8f1f7e` 的 GO；補充 EXP-0025 當時尚未有的新 scope。只限本人所列 r2／r3 diff、merge資訊與既有regression／integrity，不推廣為完整舊歷史。 | r3 契約可原樣合併；提醒理想對照要求串音完全消失，若要容許串音需構造前修訂。舊申報與 EXP-0016 的人工 E4／RNG 接觸不覆寫；不由此申報 blind／fresh，也不替 Claude 申報已讀本輪新模型。 |
+| EXP-0028／GPT 作者 | 同一轉交訊息；GPT 核對 CI #259 綠、原 head merge `ac2226ee08a8babf71e326a7aabcd71388e24515`／tree相同，讀定案契約與既有紙上權限。契約定案後構造 `X-SIGNAL-DELAY-RELAY-v0.1` 的外加 tick／移位鏈／局部 XOR／靜默對照與完整記錄 law，及 `X-SIGNAL-BEACON-CONTROL-v0.1` 的獨立信標變體，僅紙上歸納／分布比較。 | 現在有兩個具名紙上模型，不再稱本輪 model ID NONE。法則因 r3 目標而設計，負模型源自 reviewer文字反例；無模型／數值結果驅動的 gate 放寬、pilot或擬合。沒有新外部文獻、raw／sealed／endpoint、generator／RNG／code模型、量測／主機／seed／正式attempt；formal K未構造。新模型待 exact-head數學複核，既有曝光與 UNKNOWN 保留。 |
+
+本次採用的 response law、延遲結構、字母表與理想無串音都記為外加 X-C 前提；
+沒有稱它們來自 L0、沒有形成 formal candidate-independent 資格。後續若回 F 或用
+這些結果改 formal criterion，須依 E0 做 exposure mapping／新版 prereg與合資格審查。
+不以「純解析」取消來源審計；本輪沒有觀測或執行資料，也不預填未來 reviewer接觸。

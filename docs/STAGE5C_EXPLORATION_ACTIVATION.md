@@ -140,3 +140,15 @@ Git committer 時間為 **2026-10-12 09:57:23 UTC／17:57:23 Asia/Taipei**；
 [X-SIGNAL-RESPONSE-P0.1 問題契約](foundations/signal_response_problem_contract_v0_1.md)，
 只定問題、不構造模型，另交 exact-head 複核。Problem ID 不是 model ID；model ID
 仍為 NONE。tick／rod comparison 未加入，資料／執行限制與所有 OPEN 義務不變。
+
+## 8. 問題契約定案後的模型登記（2026-10-13）
+
+PR #79 r3 核准 head `ea48729578941cf6938699a9d2fe6698989a7398` 原樣合併 main
+`ac2226ee08a8babf71e326a7aabcd71388e24515`，tree `312e3142add7460ddeab129bc8c090bf4b8f1f7e`
+與 GO 相同；CI #259 為556 passed／5既有warnings。契約此時定案，ACT-X-0001
+生效身分仍是 `0c386716701589c9a6b0b799636a808aacb9ade5`，不是這個後續文件merge。
+
+其後才構造 [首份 X-C 紙上研究](foundations/conditional_delay_relay_signal_study_v0_1.md)：
+`X-SIGNAL-DELAY-RELAY-v0.1` 與限定負模型 `X-SIGNAL-BEACON-CONTROL-v0.1`，待獨立
+解析複核。前節 model ID NONE 為模型前歷史，現在已存在紙上模型；仍未有正式候選K。
+這是原有 ACTIVE-PAPER-ONLY 範圍內的工作，不擴張 E0／formal／資料／執行權限。
