@@ -178,3 +178,18 @@ PR #81 r1 head `02645caed8bfbb98ca89fdc19c94c4fa22c33d9e`／tree
 沒有構造新模型、求解傳播子或執行；本問題 model ID NONE，不改原兩模型。
 ACT生效仍 `0c386716701589c9a6b0b799636a808aacb9ade5`，E0／formal／資料及執行
 限制全保留；本次不是新的activation，也不取得科學PASS或量測授權。
+
+
+## 11. P0.2定案後的文獻核實例與M／V研究（2026-10-13）
+
+Claude對PR #81 r2 head `b0f53948747e8770f79519396d5bce1ebbee03c6`／tree
+`3e415ff465eb08ff9c75724ee1d8e7678f579d00` GO；CI #264綠（556 passed／5既有
+warnings、integrity通過）後原核准tree合併 main
+`c5bc9c6533f34c3121f793e68e3710cc9f67f6e5`，tree相同。契約此時定案。
+ACT生效身分仍 `0c386716701589c9a6b0b799636a808aacb9ade5`，不是這份後續merge。
+
+定案後才交 [X-C2-LINK-MV-v0.1 紙上研究](foundations/c2_johnston_link_mv_study_v0_1.md)，
+具名參照實例 `X-C2-JOHNSTON-LINK-v0.1`：固定文獻無質量link核，沒有新權重，
+提出M與V完整短證明／界，待獨立exact-head。前節model ID NONE為問題前歷史，
+現在有此文獻核紙上實例；原兩模型保留，正式K未構造，沒有執行或scientific PASS。
+本追加不改E0、formal、資料／執行限制或停止／回F規則。

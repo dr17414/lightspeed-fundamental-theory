@@ -115,3 +115,18 @@ PR #81 r1 `02645cae…`／`6d4436e7…` 未 GO。Claude 在複核、任何新模
 
 下一份只在契約定案後作紙上參照類／誤差與漲落研究。若權重或尺度要改，先保留
 指定類的失敗／未決，另立問題，不在結果後擬合或放寬；正式資格與OPEN不變。
+
+
+## P0.2定案後的具名文獻實例與M／V研究（2026-10-13）
+
+#81 r2 head b0f53948／tree3e415ff4原核准內容經CI #264後合併
+`c5bc9c6533f34c3121f793e68e3710cc9f67f6e5`，tree相同。契約定案後才作本項
+紙上實例化與推導；舊待審／model ID NONE列保留為提交時點。
+
+| 具名研究／參照 ID | 問題與選擇 | 本次解析／限制 | 執行與狀態 |
+| :--- | :--- | :--- | :--- |
+| X-C2-LINK-MV-v0.1；X-C2-JOHNSTON-LINK-v0.1 | [P0.2 M／V研究](foundations/c2_johnston_link_mv_study_v0_1.md)，固定m=0之文獻aχlink核，外加Minkowski／Poisson／D／x／L／φ，零擬合；來源EXP-0033–0034 | M是文獻覆核，給null座標、來源點與平均誤差界；V為主要義務，用共享Π的精確covariance、不同方向重疊上界與全部近方向／vertex／tails分割，提出Var→0及粗上界、機率量詞。不是field-first、sampled detectors、器件回訊、Dirac或L0湧現 | 已有具名紙上參照實例，不是formal候選。全部新解析待exact-head，未執行／撒點／RNG／數值／symbolic診斷／producer／seed／主機／量測；沒有新DEV科學結果、attempt或scientific PASS |
+
+M／V提出的證明若有缺口，保留此版本與未決／否定，不依結果改核、φ或criterion。
+相關DHS2010source-detector漲落文獻只作作用域對照，不搬用其讀值／近似／參數。
+原P0.1／P0.2契約、#80兩模型／r3、formal／burn／凍結來源均不改。

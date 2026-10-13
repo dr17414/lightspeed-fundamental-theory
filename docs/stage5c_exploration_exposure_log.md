@@ -247,3 +247,20 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 
 原EXP-0030是P0.1提交時點，保留；新反例、退回及方向選擇沒有倒寫進舊條目。
 新題待審，不開始構造或執行，不改E0、r3、formal core／gate、凍結來源或seed規則。
+
+
+## 15. PR #81 r2 GO、本人scope與M／V紙上研究（2026-10-13）
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #81 r2 複核）：讀 r1→r2 的 diff 與 P0.2 全文。逐式核對 Green 函數的換算與量詞。做了一行確定性算術，確認 ∫₀^∞ a·e^{−ρπs²/24} ds = 1/(2π)；沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有再讀 Johnston 或 1701.07212 的原文。只跑既有的回歸測試和 integrity。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0033／Claude申報由操作者轉交 | 2026-10-13 15:04:53 Asia/Taipei（UTC07:04:53），操作者轉交上句及b0f53948／3e415ff4 GO；只依本人scope收存，不擴張為全文新文獻閱讀。指出M為Johnston覆核，V才是主要義務，否定亦有價值 | 固定命題的一行確定性算術是review-only，不是新撒點／模型探索。原兩阶段申報保留，未替本人宣告已讀本次新M／V研究；UNKNOWN／人工E4與舊曝光不改 |
+| EXP-0034／GPT作者 | 同一訊息；核對CI #264、原head merge c5bc9c65／tree同GO，讀定案P0.2及公開紙上帳。合併後具名實例化固定Johnston m=0 link核；解析M的null座標／Gaussian質量／頂點與誤差，解析V的共同Π void-union law、重疊幾何、dominated convergence與保守分割上界。重讀Johnston0806.3083v2 §3.1–3.3／相關式；另搜尋並讀DHS1009.3058v2的§2–3.2及結論相關文字，僅對照source-detector讀值／相關漲落，未使用其數值或模型參數 | 本次新研究由定案契約而選；proof cutoffs為積分上界策略，不修改model／window／φ／weight。無新RNG／撒點／數值／symbolic檢查、producer、raw／sealed／endpoint、seed／主機／量測。既有regression／integrity與檔案保留只作repo驗證。待exact-head，不宣稱首次物理低漲落結果、scientific PASS、blind或candidate-independent；全歷史UNKNOWN與禁回流保留 |
+
+本輪已提出具名紙上參照實例與M／V解析，不能再把當前工作稱model ID NONE。
+契約／評測準則、原actor申報及EXP舊條目全部保留，沒有事後放寬或資料回流。
+本研究只適用於fixed-source augmented-endpoint Lebesgue泛函；若改為sampled
+source／detector、器件／moving source或新權重，須先另立契約，不挪用本界。
