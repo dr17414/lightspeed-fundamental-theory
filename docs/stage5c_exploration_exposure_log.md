@@ -230,3 +230,20 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 本次沒有新的準備／回應 law 或 formal criterion 修訂；回訊 r3 與凍結來源原樣。
 支持選擇問題不等於物理傳播或光速已導出，下一份實質研究待契約定案才開始。
 若之後受禁止／未知材料影響，按 E0 暫停；不能以新 Problem ID 消除歷史接觸。
+
+
+## 14. PR #81 退回、方向1與 Johnston 閱讀（2026-10-13）
+
+操作者本次訊息轉交的 Claude 兩階段本人申報原句，均保存：
+
+> Claude（PR #81 複核）：讀 PR #81 的 diff。星形反例和方向建議只在文字上推理，沒有讀 Johnston 原文，也沒有讀 BHS 原文，只讀契約中的轉述。沒有使用 RNG，沒有呼叫任何 producer，沒有讀 raw／sealed 資料。只跑既有的回歸測試和 integrity。
+
+> Claude（PR #81 複核與方向 1 建議）：讀 PR #81 的 diff。星形反例只在文字上推理。為查證文獻，搜尋並讀了 arXiv:0806.3083 的摘要頁，沒有讀全文；沒有讀 BHS 原文。沒有使用 RNG，沒有呼叫任何 producer，沒有讀 raw／sealed 資料。只跑既有的回歸測試和 integrity。
+
+| 新EXP-ID／actor | 來源／接觸程度與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0031／Claude 申報由操作者轉交 | 2026-10-13 14:27:01 Asia/Taipei（UTC06:27:01），操作者訊息包含以上兩句、PR #81 r1 head02645cae／tree6d4436e7的NO-GO、星形文字反例及方向1建議，並明示選1。此為轉交時間，不倒填兩階段閱讀／選項原發生時間 | 初次只讀diff／契約轉述；之後搜尋並讀Johnston摘要，沒有全文或BHS原文。本人限定反例在任何新模型構造前，無執行；不是simulation或producer結果。保留兩階段原句，不代填未來P0.2閱讀、不取消舊曝光／UNKNOWN |
+| EXP-0032／GPT作者 | 同一訊息；核對PR仍draft／未合併、讀原P0.1／帳本／ACT／STATUS。作者讀Johnston arXiv:0806.3083v2（PDF標記2008-10-01）全文§1–5與式號；HTML讀取失敗後用PDF。另搜尋後續1701.07212並讀v5 PDF限定§2.1–2.2、式(10)、(23)、(25)、(30)、(32)以核對慣例，未讀全篇。未重讀BHS原文，沿用已有有界帳。依Claude已給星形反例作紙上量詞覆核並追加；提出P0.2固定文獻類／m=0目標、Poisson端點及共同Π讀值、平均與方差量詞 | 文獻參照與精確子題是模型前規格，不是新模型／求解／本題已證。選題源自操作者／reviewer；不以simulation數值、E4／witness／run1或sealed模式選權重／mass／尺度。無新數值計算、撒點、RNG、producer、raw／sealed／endpoint、seed／主機／量測；只有既有regression與文件保留／integrity檢查。平均文獻結果不冒充新的單次證明；全歷史UNKNOWN／formal禁回流保留 |
+
+原EXP-0030是P0.1提交時點，保留；新反例、退回及方向選擇沒有倒寫進舊條目。
+新題待審，不開始構造或執行，不改E0、r3、formal core／gate、凍結來源或seed規則。

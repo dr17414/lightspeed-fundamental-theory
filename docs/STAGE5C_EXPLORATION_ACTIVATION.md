@@ -166,3 +166,15 @@ ACT 生效 commit 仍是 §7 的 `0c386716701589c9a6b0b799636a808aacb9ade5`。
 操作者本輪另選 C2 因果傳輸；[支持問題契約](foundations/causal_transport_c2_problem_contract_v0_1.md)
 只定問題、待 exact-head 複核，不構造新模型／law／反例。本問題 model ID NONE；
 原兩個紙上模型仍存在。E0、資料與執行限制、停止規則及回 F 條件均不改。
+
+
+## 10. C2 原題退回與方向1追加（2026-10-13）
+
+PR #81 r1 head `02645caed8bfbb98ca89fdc19c94c4fa22c33d9e`／tree
+`6d4436e75f1ffc979f9e7b1816656f9438028630` 未 GO、未合併。§9 的待審原題是
+該時點紀錄；Claude 提出星形反例，P0.1 限定否定與來源保存在原稿尾部。
+操作者選方向1；[P0.2 契約](foundations/causal_transport_c2_problem_contract_v0_2.md)
+只固定文獻參照／背景、目標、參數與量詞，另待 exact-head 複核。
+沒有構造新模型、求解傳播子或執行；本問題 model ID NONE，不改原兩模型。
+ACT生效仍 `0c386716701589c9a6b0b799636a808aacb9ade5`，E0／formal／資料及執行
+限制全保留；本次不是新的activation，也不取得科學PASS或量測授權。

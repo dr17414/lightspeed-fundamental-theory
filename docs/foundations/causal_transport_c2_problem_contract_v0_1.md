@@ -151,3 +151,26 @@ UNKNOWN 不覆寫、不用於本題，不由此宣稱 blind 或 candidate-indepe
 本次沒有新模型、選擇法、反例、抽樣或數值結果，也不動 formal core／gates、
 凍結來源、manifest／assessment／burn。Gate 0／B1–B7 OPEN、item 7 不可 ADOPT、
 item 8 OPEN、Freeze-1a PENDING 與 6a-E PREREGISTRATION-INCOMPLETE 全部保留。
+
+
+## 7. 複核退回與限定否定追加（2026-10-13）
+
+前述狀態與「下一份研究」是 PR #81 r1 提交時點，原文保留。Claude 複核
+head `02645caed8bfbb98ca89fdc19c94c4fa22c33d9e`／tree
+`6d4436e75f1ffc979f9e7b1816656f9438028630` **不給 GO**；不是檔案或測試失敗，
+而是此題有立即可得的對稱反例、並非值得續做的主要研究。r1 未合併。
+原稿 blob `7d5b067054ab31b0745af79be24bdfcf2396b46a` 在上述 head 保存。
+
+**【已確認／僅原四項聯立的組合否定】**：以下反例由 Claude 在複核、
+任何新模型構造之前提出，作者依原量詞紙上覆核，沒有新執行。
+對任意所宣告 k≥1，取 P={p,q₁,…,q_(k+1)}，只有 p≺qᵢ，qᵢ 彼此互不可比。
+全部 qᵢ 的排列都是固定 p 的自同構。同構等變要求 S_P(p) 是這個單一軌道的不變
+子集，故只能為空或全部 k+1 點。因非空義務，大小為 k+1>k。這對每個 k 成立，
+所以原 §3 四項聯立的規則不存在。沒有挑編號、隨機化或附加標記來更改原問題。
+
+這是簡單的限定反例，不是所有 intrinsic 傳輸、Lorentz 群、causal set、物質或
+有限 c 的 no-go；也不直接承擔 BHS 的 full-Minkowski 文獻定理。
+將它記成已解決小結論，不再投入一份「存在性研究」重述此否定。
+操作者選方向1；現行待審目標為
+[P0.2 非局部推遲傳播子契約](causal_transport_c2_problem_contract_v0_2.md)。
+新題不要求有限出度，不抹去本題的反例、退回理由與來源。EXP-0031–0032。

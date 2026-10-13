@@ -40,11 +40,16 @@ CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
 現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0030，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
-操作者選下一步 **C2 因果傳輸**；[X-CAUSAL-TRANSPORT-C2-P0.1](foundations/causal_transport_c2_problem_contract_v0_1.md)
-【提案／只定問題，待複核】，先問所有有限無標記偏序上的 order-only、同構等變、
-非空、有方向與統一有限出支持。此窄類不是所有物理訊號的必要公理；有限出支持
-不等於 finite c，支持不是傳播 law。本問題新 model ID NONE；未構造新選法／反例。
+來源／新申報追加EXP-0027–0032，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+C2 [P0.1 原題](foundations/causal_transport_c2_problem_contract_v0_1.md) 因 Claude 在複核提出
+星形反例而限定否定：同構等變、方向、非空與統一有界出支持四項不能聯立。
+PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反例及原稿保留。
+不推成所有訊號／因果集的 no-go。操作者選方向1，改交
+[X-CAUSAL-TRANSPORT-C2-P0.2](foundations/causal_transport_c2_problem_contract_v0_2.md)
+【提案／只定問題，待複核】：固定文獻 link-path 類與無可擬合參數的係數，
+3+1維無質量 retarded Green 為目標；固定 Poisson 校準域、端點、test function、
+密度極限與誤差量詞，平均弱收斂和單次抹平漲落另列。平均基線已有文獻，
+不能冒充新發現；不稱a.s.／逐點／物理訊號或c已湧現。本問題新 model ID NONE。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -526,6 +531,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.30（PR #81 r1 退回與模型前改題，2026-10-13）- Claude對02645cae／6d4436e7不給GO，指出星形自同構反例；P0.1原稿逐位元保留並尾部追加限定否定與來源，不將簡單no-go當新主要研究。操作者選方向1，P0.2先固定3+1維無質量光錐分布、文獻link-path權重與無擬合參數、背景Poisson／固定端點／共同撒點讀值、平均與方差的獨立量詞。Johnston2008全文核對表明1+1維有限密度平均、3+1維無限密度平均與未完成漲落義務；補讀後續原文僅核對慣例。全部是問題規格，不構造新模型、不求解或執行。新增Claude兩階段本人scope與作者文獻接觸EXP-0031–0032，只追加；#80補記／公式、r3、E0／formal／凍結來源及舊歷史不改。*
 
 *v2.29（PR #80 限定解析 GO 與 C2 問題契約，2026-10-13）- CI #261 綠，556 passed／5既有warnings及integrity通過；f1017f88／429da9a1原樣合併0f88bf2e，tree相同。Claude逐式核對及review-only確定性窮舉11,776情形0不符；只將C1–C6下主模型滿足r3及信標無串接兩項解析限定升格，物理詮釋仍探索。補明C4可選b、靜默η與無回應替換，更新README現行ACTIVE。操作者選C2，新增只定問題契約，區分統一有限出支持／方向與動力學／clock／physical c；無新模型、選法、反例、執行或seed。EXP-0029–0030、開發登記與ACT後續事實只追加，原UNKNOWN／formal／凍結來源保留。*
 
