@@ -84,3 +84,34 @@ PR #79 r3 原 head GO 後合併 `ac2226ee08a8babf71e326a7aabcd71388e24515`，tre
 | :--- | :--- | :--- | :--- |
 | X-SIGNAL-DELAY-RELAY-v0.1 | [X-C 延遲回訊研究](foundations/conditional_delay_relay_signal_study_v0_1.md)，依定案 P0.1 r3目標設計：外加同步tick、字母表⊥／0／1、雙向有向移位鏈、正延遲、B局部 XOR、靜默η=0、A回訊只讀返回末端。全部參數於law中事前聲明，無量測挑選 | 待複核歸納給出 B接收在m、回應發出在m+d、A返回在T=m+d+n；H≥T時兩段／同一對照／串接滿足，短窗口不延長。採作條件式有限符號law存在／自洽例，理想無串音等輸入未由物質實現，不稱物理裝置或L0湧現 | 新紙上模型已構造，未實作／執行／RNG／seed／producer／量測；沒有formal K、attempt、scientific PASS，條件結果待獨立複核 |
 | X-SIGNAL-BEACON-CONTROL-v0.1 | 同研究的限定變體，只將B輸出改成外加clock在固定m時發b、不讀接收內容；源自Claude r2信標反例，此時才作具名law與解析 | H≥T時兩段與無回應對照成立，但固定b不依A準備，故無串接，不構成回訊；負結果保留，不能只列成功模型或改r3容納它。不推成所有自動回應器no-go | 只紙上定義／推導，無新計算／數據／formal verdict |
+
+
+## PR #80 解析複核與下一問題登記（2026-10-13）
+
+Claude 對 `f1017f88…`／`429da9a1…` 給 GO；CI #261 綠後原樣合併
+`0f88bf2e46e0864bdffba865e81eeefce0cc428f`，tree相同。舊表的待複核是提交時點。
+兩項解析現僅在 C1–C6／H≥T 限定已確認，物理模型／詮釋仍探索；短窗口、
+未發送／靜默及信標否定均保留，沒有重跑模型或改 law／公式／r3。
+reviewer 的確定性窮舉與作者接觸另見 EXP-0029–0030，不列新的 DEV 科學結果。
+
+| Problem ID | 操作者選擇／權限 | 產物與來源 | 模型／執行／判決 |
+| :--- | :--- | :--- | :--- |
+| X-CAUSAL-TRANSPORT-C2-P0.1 | 本輪選 C2 因果傳輸；ACT-X-0001 僅紙上，生效 SHA `0c386716701589c9a6b0b799636a808aacb9ade5` | [只定問題契約](foundations/causal_transport_c2_problem_contract_v0_1.md)，由回訊研究外加 C2、公開 B2／B5、B3／B4、B4／B6 與 BHS 原文作用域啟發；先問所有有限無標記偏序上確定性非空有向同構等變統一有界出支持的存在性，物理傳輸橋接另列 | 本問題新 model ID NONE；沒有選擇法、K／law、具名反例、參數值、數值結果或新執行。契約待獨立複核；無 scientific PASS、seed／producer／主機／量測授權。若窄類否定，不擴張為所有訊號 no-go |
+
+補明既有研究 C4 的可選 b／靜默 η 與無回應替換，README 改為現行 ACTIVE；
+只是回應模式與狀態校正，不在此登記新的模型變體或放寬回訊判準。
+
+
+## C2 P0.1 退回、小結論與 P0.2 登記（2026-10-13）
+
+PR #81 r1 `02645cae…`／`6d4436e7…` 未 GO。Claude 在複核、任何新模型構造之前
+提出 p 加 k+1 個互不可比未來的星形反例；自同構使非空支持必為全部，超過 k。
+原四項聯立限定否定已由作者紙上覆核，舊題／量詞保留，不擴張成物理no-go。
+上段原題待複核列是歷史，不能據它再開始那份存在性研究。沒有改模型或新運算。
+
+| Problem ID | 操作者決策／來源 | 研究義務 | 模型／執行／判決 |
+| :--- | :--- | :--- | :--- |
+| X-CAUSAL-TRANSPORT-C2-P0.2 | 本輪明選方向1；Claude提出方向與星形反例，作者讀Johnston2008v2全文及1701.07212v5限定§2.1–2.2；EXP-0031–0032 | [只定問題契約](foundations/causal_transport_c2_problem_contract_v0_2.md)：固定3+1維m=0、外加Minkowski／Poisson校準、文獻link-path係數、完整測試類及平均／方差量詞；平均文獻基線不當新發現，單次漲落不能以平均代答 | 新model ID NONE；未構造新kernel／law、求解、撒點、RNG、數值診斷／seed／producer／主機／量測。原r3不變；契約待exact-head，沒有scientific PASS |
+
+下一份只在契約定案後作紙上參照類／誤差與漲落研究。若權重或尺度要改，先保留
+指定類的失敗／未決，另立問題，不在結果後擬合或放寬；正式資格與OPEN不變。

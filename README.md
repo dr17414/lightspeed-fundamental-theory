@@ -24,7 +24,7 @@
 
 ### 目前研究重點：
 - **Theory-first premise and counterexample audit**：先區分輸入與湧現目標，審計 finite c／signature 的前提與未證橋接；見 [理論優先路線圖](docs/THEORY_FIRST_ROADMAP_DRAFT.md) 與 [T1＋T5 審計草稿](docs/foundations/t1_t5_premise_audit.md)。大規模驗證延後，不把探索結果當正式結論。
-- **Stage 5C 與紙上探索**：6a-E 仍為 `PREREGISTRATION-INCOMPLETE`、Freeze-1a 為 `PENDING`，正式候選資格／評測仍未授權。[ACT-X-0001／E0](docs/STAGE5C_EXPLORATION_ACTIVATION.md) 僅在核准 activation 合併到 main 後允許另軌紙上 X-I／X-C；此前 NOT-ACTIVE。沒有主機、seed 或量測授權。契約定案後已有[另軌 X-C 紙上延遲回訊模型與信標反例](docs/foundations/conditional_delay_relay_signal_study_v0_1.md)，均為探索、待數學複核，不稱物理湧現或正式 PASS。細項以 [STATUS](docs/STATUS.md) 為準。
+- **Stage 5C 與紙上探索**：6a-E 仍為 `PREREGISTRATION-INCOMPLETE`、Freeze-1a 為 `PENDING`，正式候選資格／評測仍未授權。[ACT-X-0001／E0](docs/STAGE5C_EXPLORATION_ACTIVATION.md) 已於生效 commit `0c386716701589c9a6b0b799636a808aacb9ade5` 啟動，範圍為 ACTIVE-PAPER-ONLY，允許另軌紙上 X-I／X-C。沒有主機、seed 或量測授權。契約定案後已有[另軌 X-C 紙上延遲回訊模型與信標反例](docs/foundations/conditional_delay_relay_signal_study_v0_1.md)，其限定解析已獨立複核，模型及物理詮釋仍為探索，不稱物理湧現或正式 PASS。有限出度舊題已由星形反例否定並保留；操作者改選 [C2 P0.2 非局部推遲傳播子問題契約](docs/foundations/causal_transport_c2_problem_contract_v0_2.md)，固定3+1維無質量光錐目標，分列平均收斂與單次漲落，只定問題、待複核。細項以 [STATUS](docs/STATUS.md) 為準。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
