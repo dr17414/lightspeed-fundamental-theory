@@ -187,3 +187,14 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 本次申報不代替跨工作階段的完整歷史；操作者目標選擇沿 EXP-0022，Claude 本次是
 複核與判準補強來源，不倒寫成其推薦或選擇訊號目標。生效仍僅紙上，不以接觸帳
 登記授權執行；沒有模型構造或 scientific PASS。
+
+## 11. PR #79 r2 未串接缺口與模型前 r3（2026-10-13）
+
+| 新EXP-ID／actor | 來源與接觸程度 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0025／Claude 複核由操作者轉交 | 2026-10-13 08:23:06 Asia/Taipei（UTC 00:23:06），操作者轉交 Claude 對 #79 r2 head `7722b0fe5c226b1a35b8023edbc812d6965eda0e`／tree `15de0076afc9363fe5ce2d5d7dc7aa3d992e791c` 的複核與獨立信標反例描述，回報556 passed／5既有warnings、integrity及原限制保存。GPT 只接收文字，未重建或運算該例。本輪未提供新的完整本人閱讀／執行 scope 申報，不擴張 EXP-0023 的局部聲明。 | r2 仍未 GO。來源是 reviewer 指出的語意缺口：兩段不保證回應請求；建議在模型前加回訊欄位／串接，不是模型挑選或科學結果。既有曝光與 UNKNOWN 保留，不由此申報 Claude 全歷史 NONE／盲性。 |
+| EXP-0026／GPT 接收與文件作者 | 同一轉交訊息；GPT 讀 r2 契約、公開接觸與問題登記，依文字修 r3：分開 A 回訊欄位與準備記憶；固定 B 設定的跨 A 準備比較，正常不同／同一無回應對照相同；無串接不構成回訊。 | 只定問題，model ID NONE；沒有新 law／參數／材料、raw／sealed／endpoint 讀取、producer／探索 RNG／數值驗算或模型構造。formal core／gate／margin、E0／生效身分不變；r1／r2 head 與原理由保留，r3 待 exact-head 複核。 |
+
+本輪接觸與判準補強為模型前問題契約修訂，沒有由模型或觀測挑門檻。
+原 actor 申報、人工 E4 接觸與歷史 UNKNOWN 不覆寫；ACT-X-0001 已生效仍僅紙上，
+契約待審不產生 scientific PASS 或任何執行／正式資料授權。
