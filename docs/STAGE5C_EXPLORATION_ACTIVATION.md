@@ -152,3 +152,17 @@ PR #79 r3 核准 head `ea48729578941cf6938699a9d2fe6698989a7398` 原樣合併 ma
 `X-SIGNAL-DELAY-RELAY-v0.1` 與限定負模型 `X-SIGNAL-BEACON-CONTROL-v0.1`，待獨立
 解析複核。前節 model ID NONE 為模型前歷史，現在已存在紙上模型；仍未有正式候選K。
 這是原有 ACTIVE-PAPER-ONLY 範圍內的工作，不擴張 E0／formal／資料／執行權限。
+
+
+## 9. PR #80 限定複核與 C2 目標追加（2026-10-13）
+
+Claude 核准 PR #80 head `f1017f88f94d2c4c10f6af7d8ce89b6a08650dc7`／tree
+`429da9a1282369b3b6039fdf53d4e74119546177`；CI #261 綠（556 passed／5既有warnings、
+integrity通過）後原樣合併 main `0f88bf2e46e0864bdffba865e81eeefce0cc428f`，tree相同。
+ACT 生效 commit 仍是 §7 的 `0c386716701589c9a6b0b799636a808aacb9ade5`。
+在 C1–C6 與 H≥T 子域，主模型滿足 r3 及獨立信標無串接的解析結果限定已確認；
+不升格物理實現、湧現或 formal 科學判決。本人 review-only 窮舉申報原句見 EXP-0029。
+
+操作者本輪另選 C2 因果傳輸；[支持問題契約](foundations/causal_transport_c2_problem_contract_v0_1.md)
+只定問題、待 exact-head 複核，不構造新模型／law／反例。本問題 model ID NONE；
+原兩個紙上模型仍存在。E0、資料與執行限制、停止規則及回 F 條件均不改。

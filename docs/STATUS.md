@@ -33,10 +33,18 @@
 `ac2226ee08a8babf71e326a7aabcd71388e24515`；CI #259為556 passed／5既有warnings。
 契約定案後首次構造[具名 X-C 紙上研究](foundations/conditional_delay_relay_signal_study_v0_1.md)：
 `X-SIGNAL-DELAY-RELAY-v0.1` 與負模型 `X-SIGNAL-BEACON-CONTROL-v0.1`，
-【探索／限定解析待複核】。現在有紙上模型，不再稱 model ID NONE；尚無正式候選 K。
+兩項解析結果經 Claude 對 PR #80 head `f1017f88…`／tree `429da9a1…` 複核，
+限定升格【已確認／C1–C6 下的解析】，模型及物理詮釋仍【探索】。
+CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
+`0f88bf2e46e0864bdffba865e81eeefce0cc428f`，tree 與 GO 相同。
+現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0028，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+來源／新申報追加EXP-0027–0030，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+操作者選下一步 **C2 因果傳輸**；[X-CAUSAL-TRANSPORT-C2-P0.1](foundations/causal_transport_c2_problem_contract_v0_1.md)
+【提案／只定問題，待複核】，先問所有有限無標記偏序上的 order-only、同構等變、
+非空、有方向與統一有限出支持。此窄類不是所有物理訊號的必要公理；有限出支持
+不等於 finite c，支持不是傳播 law。本問題新 model ID NONE；未構造新選法／反例。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -518,6 +526,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.29（PR #80 限定解析 GO 與 C2 問題契約，2026-10-13）- CI #261 綠，556 passed／5既有warnings及integrity通過；f1017f88／429da9a1原樣合併0f88bf2e，tree相同。Claude逐式核對及review-only確定性窮舉11,776情形0不符；只將C1–C6下主模型滿足r3及信標無串接兩項解析限定升格，物理詮釋仍探索。補明C4可選b、靜默η與無回應替換，更新README現行ACTIVE。操作者選C2，新增只定問題契約，區分統一有限出支持／方向與動力學／clock／physical c；無新模型、選法、反例、執行或seed。EXP-0029–0030、開發登記與ACT後續事實只追加，原UNKNOWN／formal／凍結來源保留。*
 
 *v2.28（定案契約與首份 X-C 紙上研究，2026-10-13）- CI #259 綠（556 passed／5 warnings），PR #79 r3的ea487295／312e3142原樣merge ac2226ee，tree相同，問題契約定案；ACT生效仍0c386716。之後才構造X-SIGNAL-DELAY-RELAY-v0.1與負模型X-SIGNAL-BEACON-CONTROL-v0.1，外加tick／移位結構／XOR／理想無串音，純解析歸納，無執行。H≥T時主模型滿足兩段／同一靜默對照／串接，獨立信標無串接；均待限定數學複核，不稱物質／時空湧現或scientific PASS。現在有紙上model，formal K仍無；新Claude局部申報與作者來源／選law記為EXP-0027–0028，舊紀錄不覆寫。*
 

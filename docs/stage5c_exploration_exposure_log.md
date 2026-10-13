@@ -214,3 +214,19 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 沒有稱它們來自 L0、沒有形成 formal candidate-independent 資格。後續若回 F 或用
 這些結果改 formal criterion，須依 E0 做 exposure mapping／新版 prereg與合資格審查。
 不以「純解析」取消來源審計；本輪沒有觀測或執行資料，也不預填未來 reviewer接觸。
+
+
+## 13. PR #80 本人申報與 C2 選題（2026-10-13）
+
+操作者轉交的 Claude 本人申報原句：
+
+> Claude（PR #80 複核）：讀 PR #80 的 diff 與定案契約 r3；做了一次只用於複核的確定性窮舉，檢查版本是 head `f1017f88`，範圍是 m、d、n 各取 1–4、H 取 0 到 T+3、16 種設定，方法是直接逐 tick 模擬已寫出的 law 並和封閉式及判準比對，結果 11,776 個情形 0 不符。沒有使用 RNG，沒有呼叫 E4／selector／causet producer，沒有讀 raw／sealed 資料，也沒有用結果選模型。另外只跑既有的回歸測試和 integrity。
+
+| 新 EXP-ID／actor | 來源／接觸程度與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0029／Claude 申報由操作者轉交 | 2026-10-13 11:29:38 Asia/Taipei（UTC 03:29:38），操作者轉交上句及 PR #80 f1017f88／429da9a1 的 GO。本人逐式核對，另作固定 law 的有限確定性窮舉；只按上述 source、範圍與用途收存，不代填原程式或擴張其他閱讀範圍 | 限定確認明給前提下的移位、回訊必要條件與信標串接否定；11,776 case 是 review-only 檢查，不當普遍證明或物理實現。舊 actor 檔與 UNKNOWN 不覆寫；不替 Claude 申報本輪尚未讀的新 C2 契約 |
+| EXP-0030／GPT 作者及操作者選題 | 同一轉交訊息及本輪選項回覆「C2 因果傳輸」；選項回覆精確時間未另外取得，不倒填。GPT 核對 GitHub CI #261、merge commit／tree，讀已定案 r3、回訊研究、公開 B2／B5、B3／B4、B4／B6 與 ACT／STATUS／README／帳本；另讀 BHS v1 原文 §2 Theorem 1／後續推論與 §3，僅對照限定作用域。起草所有有限無標記偏序上確定性、非空、有向、同構等變與統一有限出支持的問題量詞，未選取支持法或構造新反例；補明 C4 模式、README 狀態及兩項限定解析的審核狀態 | 選題受既有公開紙上模型及 reviewer 建議啟發，不稱 candidate-independent；沒有使用窮舉輸出選 law／參數。未讀新 raw／sealed／endpoint，未呼叫 producer、RNG、模型／toy 診斷或量測；只作既有 regression、integrity 及文件保留檢查。全歷史 UNKNOWN、evaluator 接觸與原禁回流不取消；本問題待複核、無新模型或 scientific PASS |
+
+本次沒有新的準備／回應 law 或 formal criterion 修訂；回訊 r3 與凍結來源原樣。
+支持選擇問題不等於物理傳播或光速已導出，下一份實質研究待契約定案才開始。
+若之後受禁止／未知材料影響，按 E0 暫停；不能以新 Problem ID 消除歷史接觸。
