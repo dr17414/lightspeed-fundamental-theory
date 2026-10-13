@@ -47,3 +47,29 @@ Freeze-1a commit 固定；三本帳不得混用。
 來源與 EXP 依賴、定義域／條件前提、採用／失敗／撤回及對 criterion 的影響；
 不冒稱 candidate-independent，不能因不佔統計預算就執行 RNG／producer／正式 runner。
 本次尚無 X model／新 DEV 科學 entry；權限決定在 activation register、接觸在 EXP-0021。
+
+## 紙上 X 問題登記（不冒稱模型或科學結果）
+
+| Problem ID | 操作者選擇／權限 | 產物與來源 | 模型／執行／判決 |
+| :--- | :--- | :--- | :--- |
+| X-SIGNAL-RESPONSE-P0.1 | 本輪選擇訊號回應；ACT-X-0001 生效 SHA `0c386716701589c9a6b0b799636a808aacb9ade5` | [只定問題契約](foundations/signal_response_problem_contract_v0_1.md)，依公開 B4／B6 的必要條件、Q／Z／R／L；EXP-0022。有限宣告紀錄窗口、準備／接收／回應／回讀的識別與實現義務 | model ID NONE；未定 operator／law／state／材料／參數，未有推導結果或 scientific PASS；無新 RNG／seed／producer／主機／量測。契約待 exact-head 複核，失敗或後續改版仍另追加 |
+
+### X-SIGNAL-RESPONSE-P0.1 r2：模型前修訂（2026-10-12）
+
+r1 保留在 PR #79 舊 head `373607d4d9f3314845f44b1356affa9ac6aaaa97`，未獲 GO。
+Claude 發現「A 回讀依賴 A 準備」可以只靠 A 的本地記憶滿足，故不承擔回訊判別。
+r2 要求 A→B 的 B 完整接收分布依賴合法 A 準備干預；固定 A 準備／記憶後，B→A
+的 A 回讀依賴 B 回應，且事前合法無回應對照中該依賴消失。共同初態／事後挑選、
+外部標籤直入 A、只靠 A 記憶均不充數；窗口型別與 B 自動／可選回應必須申報。
+來源／閱讀申報見 EXP-0023–0024。這是未構造模型、未有輸出前的問題契約修訂；
+model ID NONE，不是正式 gate／core／margin 變更、科學結果、attempt 或模型搜尋。
+
+### X-SIGNAL-RESPONSE-P0.1 r3：請求串接（2026-10-13）
+
+r2 保留在 PR #79 舊 head `7722b0fe5c226b1a35b8023edbc812d6965eda0e`，未獲 GO。
+Claude 本輪指出兩段可由不相干的單向通道滿足（其提出的獨立信標例），不保證 B
+回應 A。GPT 未實作或運算此例；在 model ID NONE 時追加回訊欄位來源分隔與串接：
+固定 B 設定／自動規則，正常時 A 回訊欄位分布隨 A 合法準備不同，同一合法無回應
+對照中相同。A 的準備記憶另記，不要求兩欄統計獨立；完整 law 仍須說明實際路徑。
+兩段、對照與其他 r2 限制保留，無串接不構成回訊；來源 EXP-0025–0026。
+沒有模型、law／材料／state／參數、診斷／RNG／seed／量測或正式 criterion 改動。

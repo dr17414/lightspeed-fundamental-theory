@@ -57,7 +57,7 @@ E0-scope 改現行時序文字；KEEP 的禁止資料／core／candidate-indepen
 | [docs/handoff_v1.0.md](handoff_v1.0.md) | HISTORY + KEEP | 只附 current／歷史分界；原限定定理、no-go、反例、OPEN、舊材料與原時點文字全保留 | `2941fc750c9c91ab866ade17563eb17832f5f6e2` |
 | [docs/handoff_v2.0.md](handoff_v2.0.md) | HISTORY + KEEP | 只附 current／歷史分界；原限定定理、no-go、反例、OPEN、舊材料與原時點文字全保留 | `e14b8b92ee5296f672811f96b414c638b5600f94` |
 | [docs/stage5c_development_log.md](stage5c_development_log.md) | KEEP／append-only | 只於末尾追加 X scope／獨立權限 register／EXP-0021；DEV、AMEND、EXP 原列不動，不生成 fake attempt／burn | `186d9790ad534414750f46106071cf28270b3e49` |
-| [docs/stage5c_exploration_exposure_log.md](stage5c_exploration_exposure_log.md) | KEEP／append-only | 承接 #77 的 EXP-0020，再末尾追加批准決策 EXP-0021；原 EXP 列不动，不生成 fake attempt／burn | `9215ca053a66333759ee0ee9bae036c89c802dbf` |
+| [docs/stage5c_exploration_exposure_log.md](stage5c_exploration_exposure_log.md) | KEEP／append-only | 承接 #77 的 EXP-0020，再末尾追加批准決策 EXP-0021；原 EXP 列不動，不生成 fake attempt／burn | `9215ca053a66333759ee0ee9bae036c89c802dbf` |
 | [docs/stage5c_protocol_amendment_log.md](stage5c_protocol_amendment_log.md) | KEEP／append-only | 只於末尾追加 X scope／獨立權限 register／EXP-0021；DEV、AMEND、EXP 原列不動，不生成 fake attempt／burn | `765f4e94a918a6bebbbfca5f8855bf886d3d0045` |
 | [results/README.md](../results/README.md) | KEEP + HISTORY | 只附 E0 不豁免 current 提示；raw／sealed／output-only 禁用及原控制判決原文保留 | `a9b1932c28f2f972c26d959c81b732d5380be3d1` |
 
@@ -80,7 +80,7 @@ rg -n '不得.*候選|禁止.*候選|候選.*禁令|不得.*construction|不作.
 rg -n -i '候選|construction|construct.*(forbid|input)|Freeze-1a' docs README.md results/README.md -g '*.md'
 ```
 
-本表以原48來源及新增申報／activation／定位表為界。新增命中若具有操作性，须读上下文另列；
+本表以原48來源及新增申報／activation／定位表為界。新增命中若具有操作性，須讀上下文另列；
 keyword數目不能證明完備。reviewer逐行核對 E0／KEEP／HISTORY，不由作者表直接判 GO。
 
 作者檢查包括：E0 五行與 PR #76 源完全相同；acceptance C0–C11／core、D.1九項、prereg

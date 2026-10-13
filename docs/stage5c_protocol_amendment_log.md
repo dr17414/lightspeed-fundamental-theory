@@ -13,3 +13,11 @@ development log、6a-E confirmatory ledger 分離，不消耗 statistical attemp
 | Decision ID | 操作者批准 | 受審來源／範圍 | 生效與限制 |
 | :--- | :--- | :--- | :--- |
 | ACT-X-0001 | 2026-10-12 09:46:37 Asia/Taipei；原句「啟動」 | PR #76 exact head `450a7cfdd9c6a844a9dd08993ea8f7d196ab440d`／tree `4c198ce75bfee1f92fb59e417b75ba116bdc9c12`；[activation E0](STAGE5C_EXPLORATION_ACTIVATION.md) 僅紙上 X-I／X-C | activation exact-head GO ＋ main 合併才生效；合併前 NOT-ACTIVE。實際 commit 由該核准 merge 定位，批准時間不倒填。不是 implementation AMEND、statistical attempt 或執行授權；AMEND-0001／burn 原樣保留。 |
+
+### ACT-X-0001 生效事實追加
+
+PR #78 的獨立 GO head `69e57e4183792c02ba17615b1afce89ee2c71e57`、tree
+`c8e4e6ffae89718f77cc70431423244b88b53e79`；CI #255 為556 passed／5既有warnings。
+原樣 merge main `0c386716701589c9a6b0b799636a808aacb9ade5`，tree 相同，Git committer
+時間 UTC 2026-10-12 09:57:23／台北17:57:23，於此時生效 ACTIVE-PAPER-ONLY。
+原批准列保留；本追加不是 AMEND-0002、formal attempt／budget 或新的執行授權。
