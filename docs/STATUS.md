@@ -40,16 +40,22 @@ CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
 現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0032，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+來源／新申報追加EXP-0027–0034，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
 C2 [P0.1 原題](foundations/causal_transport_c2_problem_contract_v0_1.md) 因 Claude 在複核提出
 星形反例而限定否定：同構等變、方向、非空與統一有界出支持四項不能聯立。
 PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反例及原稿保留。
 不推成所有訊號／因果集的 no-go。操作者選方向1，改交
 [X-CAUSAL-TRANSPORT-C2-P0.2](foundations/causal_transport_c2_problem_contract_v0_2.md)
-【提案／只定問題，待複核】：固定文獻 link-path 類與無可擬合參數的係數，
-3+1維無質量 retarded Green 為目標；固定 Poisson 校準域、端點、test function、
-密度極限與誤差量詞，平均弱收斂和單次抹平漲落另列。平均基線已有文獻，
-不能冒充新發現；不稱a.s.／逐點／物理訊號或c已湧現。本問題新 model ID NONE。
+經 Claude 對 PR #81 r2 head `b0f53948…`／tree `3e415ff4…` GO，CI #264 綠
+（556 passed／5既有warnings、integrity通過），原樣合併
+`c5bc9c6533f34c3121f793e68e3710cc9f67f6e5`，tree相同，問題契約定案。
+其後 [X-C2-LINK-MV-v0.1](foundations/c2_johnston_link_mv_study_v0_1.md)
+【探索／解析待exact-head複核】具名實例化 `X-C2-JOHNSTON-LINK-v0.1`，
+僅固定文獻核、零擬合參數；M明列文獻覆核，提出涵蓋來源的平均誤差界，
+V用共享Π的union／重疊界提出方差趨零與非最優界，未假設link獨立。
+現在有具名紙上參照實例，不稱本輪model ID NONE；沒有新權重、執行或正式K。
+M／V新證明尚未升格，不稱a.s.／逐點／sampled-pair／器件或c已湧現，
+不以related文獻或CI代替數學複核。原契約及全部formal／OPEN保留。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -531,6 +537,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.31（P0.2定案及首份M／V研究，2026-10-13）- #81 r2核准b0f53948／3e415ff4經CI #264 556 passed／5warnings及integrity後原樣merge c5bc9c65，tree相同，P0.2原契約全文不改。之後具名實例化固定Johnston無質量link核，M為文獻覆核，提出null座標／來源頂點／平均誤差；V主要義務用共同Π之void-union law、幾何重疊、integrable dominator和近同方向／vertex分割提出方差趨零及粗界，附Chebyshev量詞。全部解析待exact-head複核，不報新知首創或scientific PASS。新增Claude r2本人scope EXP-0033及作者解析／有限文獻接觸EXP-0034；ACT／dev／exposure只追加，UNKNOWN／原actor、P0.1／P0.2／r3與兩舊模型、formal／凍結來源、全部程式／JSON／tests／CI／科學紀錄不改。無撒點／RNG／數值／symbolic診斷、producer／seed／主機／量測。*
 
 *v2.30（PR #81 r1 退回與模型前改題，2026-10-13）- Claude對02645cae／6d4436e7不給GO，指出星形自同構反例；P0.1原稿逐位元保留並尾部追加限定否定與來源，不將簡單no-go當新主要研究。操作者選方向1，P0.2先固定3+1維無質量光錐分布、文獻link-path權重與無擬合參數、背景Poisson／固定端點／共同撒點讀值、平均與方差的獨立量詞。Johnston2008全文核對表明1+1維有限密度平均、3+1維無限密度平均與未完成漲落義務；補讀後續原文僅核對慣例。全部是問題規格，不構造新模型、不求解或執行。新增Claude兩階段本人scope與作者文獻接觸EXP-0031–0032，只追加；#80補記／公式、r3、E0／formal／凍結來源及舊歷史不改。*
 
