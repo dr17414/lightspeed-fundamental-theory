@@ -130,3 +130,18 @@ PR #81 r1 `02645cae…`／`6d4436e7…` 未 GO。Claude 在複核、任何新模
 M／V提出的證明若有缺口，保留此版本與未決／否定，不依結果改核、φ或criterion。
 相關DHS2010source-detector漲落文獻只作作用域對照，不搬用其讀值／近似／參數。
 原P0.1／P0.2契約、#80兩模型／r3、formal／burn／凍結來源均不改。
+
+
+## PR #82 限定M／V確認與P0.3問題登記（2026-10-14）
+
+Claude對1e067c63／3b53b07a逐式手算GO；CI #266綠後原核准tree合併
+`f43762f2917a3b2ce86782d1b4de033b2075da3f`，tree相同。舊待審列保留為歷史。
+M／V及機率收斂僅在固定來源、augmented-endpoint Lebesgue泛函限定已確認；
+不是原生點探測器或物理實現。原核、P0.2及證明§2–7不改，沒有重跑或新科學結果。
+
+| Problem ID | 選題／來源 | 構造前規格 | 模型／執行／狀態 |
+| :--- | :--- | :--- | :--- |
+| X-CAUSAL-TRANSPORT-C2-P0.3 | 操作者轉交Claude建議，承接#82的讀值作用域限制；EXP-0035–0036 | [只定問題契約](foundations/causal_transport_c2_problem_contract_v0_3.md)：外加3+1維m=0固定來源／D／L／φ；同一Π兼接收及阻擋，以aρ／ρ原生點求和，固定完整測試類、M_D／V_D與機率量詞；需另證端點、自相關及相關矩 | 待契約exact-head，未開始推導或新模型law；新model ID NONE，既有實例保留。無撒點／RNG／新數值／符號診斷、producer／seed／主機／量測、DEV科學結果、正式attempt或scientific PASS |
+
+若後續研究發現失敗／缺口，保留本題與否定／未決，不結果後改讀值或收斂目標。
+既有regression／integrity只作repo驗證；原formal／禁止資料／UNKNOWN／r3／凍結來源不改。
