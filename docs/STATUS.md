@@ -40,7 +40,7 @@ CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
 現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0036，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+來源／新申報追加EXP-0027–0038，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
 C2 [P0.1 原題](foundations/causal_transport_c2_problem_contract_v0_1.md) 因 Claude 在複核提出
 星形反例而限定否定：同構等變、方向、非空與統一有界出支持四項不能聯立。
 PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反例及原稿保留。
@@ -57,10 +57,17 @@ PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反�
 具名參照 `X-C2-JOHNSTON-LINK-v0.1` 與物理詮釋仍【探索】；M明列文獻覆核，
 V沒有假設link獨立，但連續積分的平均作用不能直接搬給原生探測點。
 不稱a.s.／逐點／sampled-pair／器件或c已湧現，不產生scientific PASS。
-下一份[X-CAUSAL-TRANSPORT-C2-P0.3](foundations/causal_transport_c2_problem_contract_v0_3.md)
-【提案／待複核】只固定原生點求和、ρ⁻¹歸一化、同一Π的端點／阻擋與M_D／V_D量詞；
-沒有新核、裝置law或新的推導／執行，本問題新model ID NONE，既有實例保留。
-原P0.2全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
+[X-CAUSAL-TRANSPORT-C2-P0.3](foundations/causal_transport_c2_problem_contract_v0_3.md)
+經Claude對PR #83 head `7271b215…`／tree `aa53f2b1…`給GO，CI #268綠
+（556 passed／5既有warnings、integrity通過）後原樣合併
+`8a8524cdfdd34934d629547449c92d0668a34cc6`，tree相同，契約此時定案。
+其後[X-C2-NATIVE-MV-v0.1](foundations/c2_native_detector_mv_study_v0_1.md)
+【探索／解析待exact-head複核】實例化既定原生讀值 `X-C2-NATIVE-READOUT-v0.1`，
+核仍為 `X-C2-JOHNSTON-LINK-v0.1`，沒有新權重／物質／器件law。
+提出M_D的Mecke期望恆等式，及Var S=Var F+D−J；同點D≥0、變號φ的J不預設正，
+兩項絕對界均O(κ⁻¹ᐟ²)，再傳遞原V與Chebyshev量詞，定位為校準延伸。
+新解析未升格，不稱a.s.／逐點／全φ一致、器件／回訊或c已湧現；無新科學執行。
+原P0.2／P0.3全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -542,6 +549,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.33（P0.3定案與原生點M_D／V_D研究，2026-10-14）- #83核准7271b215／aa53f2b1經CI #268綠後原樣merge 8a8524cd，tree相同，P0.3全文不改。定案後交X-C2-NATIVE-MV-v0.1：固定既定求和／核／權重，證Mecke期望橋接與精確二階矩，分同點與有符號阻擋項，完整區間體積給兩項O(κ⁻¹ᐟ²)絕對界，再傳遞原Lebesgue M／V及固定輸入機率量詞。屬校準延伸，全部新解析待exact-head；無器件／物質／c或scientific PASS。新增Claude新對話本人scope／腦中草算來源EXP-0037及GPT紙上推導／有限文獻接觸EXP-0038；ACT／dev／exposure逐位元只追加，原actor、UNKNOWN、契約／原證明、formal／凍結來源、程式／JSON／tests／CI保留。無撒點／新RNG／數值／symbolic診斷、producer／raw／sealed、seed／主機／量測。*
 
 *v2.32（限定M／V複核及P0.3問題規格，2026-10-14）- #82核准1e067c63／3b53b07a經CI #266綠後原樣merge f43762f2，tree相同。僅固定來源augmented-endpoint Lebesgue M／V與機率收斂限定已確認，模型／物理詮釋仍探索；原證明§2–7、P0.2全文不改。新P0.3只固定原生撒點接收點的求和、密度歸一化與M_D／V_D量詞，待exact-head，不作新的矩／收斂推導。新增Claude本人申報EXP-0035與作者有限文獻／契約接觸EXP-0036；ACT／dev只追加，接觸帳除操作者要求EXP-0033「阶」→「階」的一字編輯並記帳外只追加。原actor申報、所有formal／凍結來源、程式／JSON／測試／CI／科學紀錄保留；沒有撒點、RNG、新數值／symbolic診斷、producer／seed／主機／量測。*
 
