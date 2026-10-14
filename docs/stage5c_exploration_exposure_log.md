@@ -319,3 +319,22 @@ P0.3構造前定案，草算不觸發契約修訂；新解析未獨立複核，�
 原actor申報及全部舊EXP逐位元保留，只在檔尾追加；本輪申報不重置新對話前的接觸。
 限定數學GO不解除E0／formal／資料或執行限制；原P0.2／P0.3、#82基線與本研究
 §2–7／附錄A／公式保持原版本。本次不另展開研究或預填任何未來reviewer接觸。
+
+
+## 19. PR #85 本人申報與原樣合併紀錄（2026-10-14）
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #85 複核）：以 exact head 讀 #85 全部 diff，以 git 核對 head、tree 與 merge-base，確認研究檔 §2–7 與附錄 A、P0.2、P0.3、#82 基線研究均未改，三本帳沒有刪除行，並比對 EXP-0039 引用的申報原句。沒有重新推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或任何文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0041／Claude申報由操作者轉交 | 2026-10-14 17:50:26 Asia/Taipei（UTC09:50:26），操作者轉交上句與#85 head `fa83ff7406e4384c9dc7eed28feac3e11c4253b4`／tree `4d771c277279ec524ae573b255bfb582f033c934` GO；本人只複核diff、身分、保全性與申報原句，並在detached exact head跑556 passed／5warnings／integrity，未建立本地分支 | 不擴張為重新推導、新文獻閱讀或科學數值診斷；不代填未來研究接觸。確認P0.2／P0.3限定解析紀錄，不升格器件／r3回訊、c／a.s.或formal資格；下一研究方向未選定。舊曝光／UNKNOWN及人工E4接觸保留 |
+| EXP-0042／GPT作者 | 同一轉交訊息；核對#85遠端head、CI #272 success、核准tree原樣合併main `f1a33070cf1c3bc1153e870e12cb34993ca92069`，讀公開接觸帳、接觸／升格條款及README工作規則；本次只追加操作者轉交的本人原句、作者scope與merge身分 | 純申報與保全性紀錄，無新推導／選題／模型／參數／速率改進或外部文獻；沒有新數值／symbolic／RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測。git／字串及integrity檢查只作文件驗證，不作科學證據。不稱blind、candidate-independent或scientific PASS；所有歷史UNKNOWN與禁止資料隔離保留 |
+
+#85在CI #272綠後原樣合併，merge tree與核准tree完全相同；
+Git committer UTC 2026-10-14 09:53:18／台北17:53:18。
+ACT-X-0001生效SHA不變，P0.2／P0.3限定確認及物理探索的作用域均不改。
+本條依「下個交付前追加接觸記錄」保存於申報紀錄分支，待下一份已選工作一併送審；
+沒有另開純申報PR、沒有修改main的核准tree，也不預先選題或授權新研究。
+舊帳／本人申報逐位元保留，只在檔尾追加；本輪不預填任何未來reviewer接觸。
