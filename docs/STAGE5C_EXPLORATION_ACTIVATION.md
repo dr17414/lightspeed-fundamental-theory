@@ -229,3 +229,19 @@ Readout ID `X-C2-NATIVE-READOUT-v0.1`，原核仍 `X-C2-JOHNSTON-LINK-v0.1`。
 M_D／V_D新解析待exact-head，屬校準延伸，不確認器件、r3回訊或c／L0湧現。
 來源見EXP-0037–0038，原本人申報／UNKNOWN／禁止資料保留；E0／formal／seed／
 producer／主機／量測限制、停止／回F條件、原r3與全部OPEN不改。
+
+
+## 14. PR #84 原生點校準求和的限定複核（2026-10-14）
+
+Claude核准exact head `577ea0e3ab687f39b820ee895c59ee5659cee250`／tree
+`1ddfc5fda603985712fe9eb41e644db4b39d32f7`，CI #270綠後原樣合併main
+`8839df0eb8bff88dd6e040b8c81ee60117932445`，tree相同；556 passed／5既有warnings、
+integrity通過。Git committer UTC 2026-10-14 05:14:55／台北13:14:55。
+前節待審是提交時點；現在只限定確認定案P0.3原生點校準求和的M_D／V_D與機率收斂。
+物理詮釋仍探索，不確認器件／r3回訊、c／L0湧現或formal資格。
+
+ACT生效commit仍 `0c386716701589c9a6b0b799636a808aacb9ade5`，本次不是activation，
+不改E0、formal／禁止資料、停止／回F、seed／producer／主機／量測限制或原r3。
+本人申報及作者文件scope見EXP-0039–0040；全歷史UNKNOWN保留。
+原生點研究只更新審核狀態／追加記錄，原契約、全部證明／公式不改；
+本次沒有新研究、構造或執行授權。

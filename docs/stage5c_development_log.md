@@ -160,3 +160,17 @@ P0.3此時定案，前列待審／model ID NONE為提交時點；契約全文不
 原P0.1／P0.2／P0.3、已核准M／V、r3／兩舊模型與formal／凍結來源保留。
 研究若有缺口，保留head與否定／未決，不結果後改讀值、窗口或criterion。
 既有regression／integrity及檔案比對只作repo驗證，不代替新解析的獨立複核。
+
+
+## PR #84 限定解析確認（2026-10-14）
+
+Claude對head577ea0e3／tree1ddfc5fd逐式手算GO，另對照#82的e_M、e_V與常數。
+CI #270綠後原樣合併main `8839df0eb8bff88dd6e040b8c81ee60117932445`，tree相同；
+556 passed／5既有warnings、integrity通過。前列待審是提交時點，原文保留。
+
+`X-C2-NATIVE-MV-v0.1` 現限定已確認定案原生點校準求和的M_D／V_D與機率收斂；
+模型／讀值物理詮釋仍探索，非器件／回訊或L0／c湧現，沒有scientific PASS。
+§2–7、附錄A、所有公式、原P0.2／P0.3、基線M／V／r3與formal／凍結來源全不改。
+只有本人申報EXP-0039與作者文件scope EXP-0040，沒有新的DEV科學結果、attempt、
+新推導／選題、模型／權重、數值／symbolic／RNG／撒點或producer／seed／主機／量測。
+既有regression／integrity與檔案比對只作repo驗證；全部未證物理／formal義務保留。

@@ -303,3 +303,19 @@ merge f43762f2查回；不是Claude本人引句，沒有改事實、範圍或act
 本次作者另實查遠端並原樣合併，未把該local review branch視為新產物。
 所有舊EXP、原actor申報及一字編輯例外歷史逐位元保留，只在檔尾追加。
 P0.3構造前定案，草算不觸發契約修訂；新解析未獨立複核，未代替r3／物質或formal義務。
+
+
+## 18. PR #84 本人申報與限定升格紀錄（2026-10-14）
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #84 複核）：以 exact head 讀 #84 全部 diff 與 X-C2-NATIVE-MV-v0.1 全文，逐式手算核對換單位、Mecke 形式與附錄 A、期望恆等式、二階矩分解、null 座標 Jacobian、K₁ 常數、阻擋嵌套與 factor 2、分部積分、方差傳遞與 Chebyshev 量詞。為了對照常數，讀了 #82 M／V 研究 §4 的 e_M 段與 §6 的 K₀／e_V 段。以 git 核對 head、tree 與 blob，確認凍結檔案未變。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有讀 Last–Penrose、DHS 或 Johnston 原文。只在 exact head 跑了既有的回歸測試和 integrity。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0039／Claude申報由操作者轉交 | 2026-10-14 13:13:57 Asia/Taipei（UTC05:13:57），操作者轉交上句與#84 exact head577ea0e3／tree1ddfc5fd GO，本人逐式手算及有限基線常數對照，在detached exact head跑556 passed／5warnings／integrity，沒有建立本地分支 | 本輪本人未作數值／符號／RNG／producer或新文獻閱讀；只按原句scope收存，不代填其他歷史。原EXP-0037腦中草算仍是該時點的草算，沒有倒寫為其完整證明；本輪限定確認不升格物理詮釋、器件／回訊、c／a.s.或formal資格。舊曝光／UNKNOWN及人工E4接觸保留 |
+| EXP-0040／GPT作者 | 同一轉交訊息；核對遠端#84 head、CI #270 success及原核准tree合併8839df0e，讀公開研究§1及§2開頭、既有status／README／ACT及帳本以更新複核狀態，對原證明／契約／凍結來源只作檔案保留比對，追加本人原句與merge身分／限定作用域 | 純文件紀錄，沒有新推導／選題／模型／參數或速率改進；沒有新外部文獻、數值／symbolic／RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測。既有regression／integrity／git與字串比對只作repo驗證。不稱blind、candidate-independent、器件／物理湧現或scientific PASS；全歷史UNKNOWN與禁止資料隔離保留 |
+
+原actor申報及全部舊EXP逐位元保留，只在檔尾追加；本輪申報不重置新對話前的接觸。
+限定數學GO不解除E0／formal／資料或執行限制；原P0.2／P0.3、#82基線與本研究
+§2–7／附錄A／公式保持原版本。本次不另展開研究或預填任何未來reviewer接觸。
