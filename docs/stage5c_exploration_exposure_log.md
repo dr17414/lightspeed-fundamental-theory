@@ -285,3 +285,21 @@ merge f43762f2查回；不是Claude本人引句，沒有改事實、範圍或act
 
 本次原P0.2、M／V證明、原r3與三個既有模型／參照實例保留，限定解析升格不升格
 物理詮釋。新P0.3契約待複核，沒有提前推導或解除formal／資料／執行限制。
+
+
+## 17. PR #83 新對話本人scope、草算來源與具名紙上研究（2026-10-14）
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #83 複核）：以 exact head 讀 #83 全部 diff、P0.3 契約全文，以及 M／V 研究 §2 與 §5 開頭（為了核對 Lebesgue 泛函的定義）。核對 blob、tree 與一字差異時用了 git 與一段字串比較腳本。複核良設性時，在腦中粗估了 Mecke 期望式，以及兩個新增方差項的量級，未寫成證明。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有讀 DHS 或 Last–Penrose 原文（定理編號憑記憶核對）。只跑了既有的回歸測試和 integrity。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0037／Claude申報由操作者轉交 | 2026-10-14 11:26:03 Asia/Taipei（UTC03:26:03），操作者說換新對話並轉交上述scope與#83 exact head7271b215／treeaa53f2b1 GO、556／5warnings。良設性時腦中粗估Mecke期望與shot noise／互相阻擋項的O(κ⁻¹ᐟ²)，本人明說未寫成證明、不要求改契約；研究可較短並定位校準延伸 | 原句不擴張成完整M／V重讀或新文獻閱讀；字串比對是保全性工具，不當科學數值診斷。草算作研究來源，不作已證結論、不據此改criterion。新對話不清除過去接觸／UNKNOWN／人工E4；未代填本人已讀本次新研究或推導 |
+| EXP-0038／GPT作者 | 同一轉交訊息；核對遠端#83 exact head／CI #268 success、原tree merge8a8524cd，讀P0.3、已核准P0.2 M／V及公開狀態／帳本。合併後實例化既定原生讀值並紙上推導單／雙點Mecke、精確Var S=Var F+D−J、完整區間嵌套、同點及阻擋的明確K₁／√κ界和機率量詞。接受reviewer草算提示為來源，沒有稱獨立盲發現 | 本輪嘗試重讀Last–Penrose作者PDF逾時，搜尋並讀作者書頁核對2017稿版本，沿用EXP-0036已讀Thm4.1／4.4限定陳述，另在finite homogeneous域直接證所用形式；沒有新讀全書、DHS或Johnston。沒有新撒點／RNG／數值／symbolic診斷、producer／raw／sealed／endpoint、seed／主機／量測；既有regression／integrity與git／字串比對只作repo驗證。校準延伸待exact-head，不稱器件／物理c、首創、blind／candidate-independent或scientific PASS；全歷史UNKNOWN及禁回流保留 |
+
+操作者另轉述Claude session只有唯讀權限，pr83是抓下來的GPT遠端head，並已回main／
+刪除其本地審查分支；此為本人工作目錄處理的轉述，不當本repo遠端改動或commit作者。
+本次作者另實查遠端並原樣合併，未把該local review branch視為新產物。
+所有舊EXP、原actor申報及一字編輯例外歷史逐位元保留，只在檔尾追加。
+P0.3構造前定案，草算不觸發契約修訂；新解析未獨立複核，未代替r3／物質或formal義務。

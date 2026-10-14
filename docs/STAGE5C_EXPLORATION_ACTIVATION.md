@@ -211,3 +211,21 @@ merge Git committer UTC 2026-10-14 01:50:55／台北09:50:55；
 不開始推導、新構造或執行。本問題新model ID NONE，既有三個參照／模型ID保留。
 本人申報與作者來源見EXP-0035–0036；不改E0／formal／禁止資料、停止／回F條件、
 seed／producer／主機／量測限制或原r3。
+
+
+## 13. P0.3定案後的原生點M_D／V_D登記（2026-10-14）
+
+Claude對PR #83 exact head `7271b215ab630b6b892ddc9886aab974b40a272c`／tree
+`aa53f2b1111064f6fc0efd0815576eefd956b1ce` GO，CI #268綠（556 passed／5既有warnings、
+integrity通過）後按原核准tree合併main
+`8a8524cdfdd34934d629547449c92d0668a34cc6`，tree相同。
+Git committer UTC 2026-10-14 03:26:52／台北11:26:52；P0.3此時定案，
+前節未定案／不開始推導為歷史。ACT生效commit仍
+`0c386716701589c9a6b0b799636a808aacb9ade5`，本次不是activation或權限擴張。
+
+合併後才交[X-C2-NATIVE-MV-v0.1紙上研究](foundations/c2_native_detector_mv_study_v0_1.md)，
+Readout ID `X-C2-NATIVE-READOUT-v0.1`，原核仍 `X-C2-JOHNSTON-LINK-v0.1`。
+現在有具名讀值實例，不再把本輪全部實例稱NONE；沒有新kernel／物質／裝置law。
+M_D／V_D新解析待exact-head，屬校準延伸，不確認器件、r3回訊或c／L0湧現。
+來源見EXP-0037–0038，原本人申報／UNKNOWN／禁止資料保留；E0／formal／seed／
+producer／主機／量測限制、停止／回F條件、原r3與全部OPEN不改。

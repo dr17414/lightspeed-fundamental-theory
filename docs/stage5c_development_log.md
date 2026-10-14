@@ -145,3 +145,18 @@ M／V及機率收斂僅在固定來源、augmented-endpoint Lebesgue泛函限定
 
 若後續研究發現失敗／缺口，保留本題與否定／未決，不結果後改讀值或收斂目標。
 既有regression／integrity只作repo驗證；原formal／禁止資料／UNKNOWN／r3／凍結來源不改。
+
+
+## P0.3定案後的原生點讀值M_D／V_D（2026-10-14）
+
+#83核准head7271b215／treeaa53f2b1經CI #268綠後原樣合併
+`8a8524cdfdd34934d629547449c92d0668a34cc6`，tree相同。
+P0.3此時定案，前列待審／model ID NONE為提交時點；契約全文不改。
+
+| 具名研究／讀值／核ID | 來源與固定規格 | 本次解析／限制 | 執行與狀態 |
+| :--- | :--- | :--- | :--- |
+| X-C2-NATIVE-MV-v0.1；X-C2-NATIVE-READOUT-v0.1；X-C2-JOHNSTON-LINK-v0.1 | [原生點M_D／V_D研究](foundations/c2_native_detector_mv_study_v0_1.md)，P0.3固定同一Π兼接收／阻擋、aρ／ρ與完整φ類；Claude良設性草算列為來源EXP-0037，作者推導EXP-0038 | 單點Mecke期望精確接回已證M；有序不同點Mecke插回端點，得Var S=Var F+D−J，區分自相關與有符號阻擋。兩項絕對界≤K₁/√κ，傳遞舊V／固定輸入機率量詞；有限域Mecke附短證。校準延伸，不稱新物理機制、器件或L0／c | 具名紙上讀值實例，沒有新kernel／law或正式K；全部新解析待exact-head，未作撒點／新RNG／數值／符號診斷、producer／seed／主機／量測；沒有新的DEV科學執行、attempt或scientific PASS |
+
+原P0.1／P0.2／P0.3、已核准M／V、r3／兩舊模型與formal／凍結來源保留。
+研究若有缺口，保留head與否定／未決，不結果後改讀值、窗口或criterion。
+既有regression／integrity及檔案比對只作repo驗證，不代替新解析的獨立複核。
