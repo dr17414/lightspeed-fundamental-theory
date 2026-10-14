@@ -40,7 +40,7 @@ CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
 現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0038，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+來源／新申報追加EXP-0027–0040，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
 C2 [P0.1 原題](foundations/causal_transport_c2_problem_contract_v0_1.md) 因 Claude 在複核提出
 星形反例而限定否定：同構等變、方向、非空與統一有界出支持四項不能聯立。
 PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反例及原稿保留。
@@ -62,11 +62,14 @@ V沒有假設link獨立，但連續積分的平均作用不能直接搬給原生
 （556 passed／5既有warnings、integrity通過）後原樣合併
 `8a8524cdfdd34934d629547449c92d0668a34cc6`，tree相同，契約此時定案。
 其後[X-C2-NATIVE-MV-v0.1](foundations/c2_native_detector_mv_study_v0_1.md)
-【探索／解析待exact-head複核】實例化既定原生讀值 `X-C2-NATIVE-READOUT-v0.1`，
-核仍為 `X-C2-JOHNSTON-LINK-v0.1`，沒有新權重／物質／器件law。
-提出M_D的Mecke期望恆等式，及Var S=Var F+D−J；同點D≥0、變號φ的J不預設正，
-兩項絕對界均O(κ⁻¹ᐟ²)，再傳遞原V與Chebyshev量詞，定位為校準延伸。
-新解析未升格，不稱a.s.／逐點／全φ一致、器件／回訊或c已湧現；無新科學執行。
+經Claude對PR #84 exact head `577ea0e3…`／tree `1ddfc5fd…`逐式手算GO，
+CI #270綠（556 passed／5既有warnings、integrity通過）後原樣合併
+`8839df0eb8bff88dd6e040b8c81ee60117932445`，tree與GO相同。
+限定升格【已確認／定案原生點校準求和的M_D／V_D與機率收斂】，
+讀值 `X-C2-NATIVE-READOUT-v0.1`／核 `X-C2-JOHNSTON-LINK-v0.1` 的物理詮釋仍探索。
+Mecke期望恆等式、Var S=Var F+D−J、有符號阻擋項及兩項O(κ⁻¹ᐟ²)界保持原式；
+整體仍是非最優O(κ⁻¹ᐟ²⁰)校準延伸，不稱a.s.／逐點／全φ一致、器件／回訊或c湧現。
+本輪只有複核／狀態紀錄，沒有新推導、研究選題、權重／law或科學執行。
 原P0.2／P0.3全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
@@ -549,6 +552,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.34（原生點校準求和限定複核記錄，2026-10-14）- #84 exact-head GO 577ea0e3／1ddfc5fd經CI #270綠後原樣merge 8839df0e，tree相同。X-C2-NATIVE-MV-v0.1限定升格定案原生點校準求和的M_D／V_D與機率收斂，物理詮釋仍探索；§2–7、附錄A、全部公式及P0.2／P0.3不改。新增Claude本人手算／基線對照scope EXP-0039、GPT文件紀錄EXP-0040；ACT／dev／exposure逐位元只追加，原actor／UNKNOWN與formal／凍結來源、程式／JSON／tests／CI保留。不另選研究、改善速率或構造模型；沒有新推導、撒點／RNG／數值／symbolic診斷、producer／raw／sealed、seed／主機／量測或scientific PASS。*
 
 *v2.33（P0.3定案與原生點M_D／V_D研究，2026-10-14）- #83核准7271b215／aa53f2b1經CI #268綠後原樣merge 8a8524cd，tree相同，P0.3全文不改。定案後交X-C2-NATIVE-MV-v0.1：固定既定求和／核／權重，證Mecke期望橋接與精確二階矩，分同點與有符號阻擋項，完整區間體積給兩項O(κ⁻¹ᐟ²)絕對界，再傳遞原Lebesgue M／V及固定輸入機率量詞。屬校準延伸，全部新解析待exact-head；無器件／物質／c或scientific PASS。新增Claude新對話本人scope／腦中草算來源EXP-0037及GPT紙上推導／有限文獻接觸EXP-0038；ACT／dev／exposure逐位元只追加，原actor、UNKNOWN、契約／原證明、formal／凍結來源、程式／JSON／tests／CI保留。無撒點／新RNG／數值／symbolic診斷、producer／raw／sealed、seed／主機／量測。*
 
