@@ -40,7 +40,7 @@ CI #261 為556 passed／5既有warnings、integrity通過；原樣合併 main
 現在有紙上模型，不再稱全部 model ID NONE；尚無正式候選 K。
 外加 tick、移位鏈、局部 XOR 與理想無串音均列前提，回訊判準／串接不放寬。
 沒有實作、執行、RNG、seed、主機或量測，沒有 scientific PASS；B6物質實現與原OPEN不關閉。
-來源／新申報追加EXP-0027–0034，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
+來源／新申報追加EXP-0027–0036，舊版本／失敗／UNKNOWN保留。tick／rod目標不另擴域。
 C2 [P0.1 原題](foundations/causal_transport_c2_problem_contract_v0_1.md) 因 Claude 在複核提出
 星形反例而限定否定：同構等變、方向、非空與統一有界出支持四項不能聯立。
 PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反例及原稿保留。
@@ -50,12 +50,17 @@ PR #81 r1 `02645cae…`／tree `6d4436e7…` 未 GO、未合併；此簡單反�
 （556 passed／5既有warnings、integrity通過），原樣合併
 `c5bc9c6533f34c3121f793e68e3710cc9f67f6e5`，tree相同，問題契約定案。
 其後 [X-C2-LINK-MV-v0.1](foundations/c2_johnston_link_mv_study_v0_1.md)
-【探索／解析待exact-head複核】具名實例化 `X-C2-JOHNSTON-LINK-v0.1`，
-僅固定文獻核、零擬合參數；M明列文獻覆核，提出涵蓋來源的平均誤差界，
-V用共享Π的union／重疊界提出方差趨零與非最優界，未假設link獨立。
-現在有具名紙上參照實例，不稱本輪model ID NONE；沒有新權重、執行或正式K。
-M／V新證明尚未升格，不稱a.s.／逐點／sampled-pair／器件或c已湧現，
-不以related文獻或CI代替數學複核。原契約及全部formal／OPEN保留。
+經Claude對PR #82 head `1e067c63…`／tree `3b53b07a…`逐式手算GO，CI #266綠
+（556 passed／5既有warnings、integrity通過）後原樣合併
+`f43762f2917a3b2ce86782d1b4de033b2075da3f`，tree與GO相同。
+限定升格【已確認／固定來源augmented-endpoint Lebesgue M／V及機率收斂】。
+具名參照 `X-C2-JOHNSTON-LINK-v0.1` 與物理詮釋仍【探索】；M明列文獻覆核，
+V沒有假設link獨立，但連續積分的平均作用不能直接搬給原生探測點。
+不稱a.s.／逐點／sampled-pair／器件或c已湧現，不產生scientific PASS。
+下一份[X-CAUSAL-TRANSPORT-C2-P0.3](foundations/causal_transport_c2_problem_contract_v0_3.md)
+【提案／待複核】只固定原生點求和、ρ⁻¹歸一化、同一Π的端點／阻擋與M_D／V_D量詞；
+沒有新核、裝置law或新的推導／執行，本問題新model ID NONE，既有實例保留。
+原P0.2全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -537,6 +542,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.32（限定M／V複核及P0.3問題規格，2026-10-14）- #82核准1e067c63／3b53b07a經CI #266綠後原樣merge f43762f2，tree相同。僅固定來源augmented-endpoint Lebesgue M／V與機率收斂限定已確認，模型／物理詮釋仍探索；原證明§2–7、P0.2全文不改。新P0.3只固定原生撒點接收點的求和、密度歸一化與M_D／V_D量詞，待exact-head，不作新的矩／收斂推導。新增Claude本人申報EXP-0035與作者有限文獻／契約接觸EXP-0036；ACT／dev只追加，接觸帳除操作者要求EXP-0033「阶」→「階」的一字編輯並記帳外只追加。原actor申報、所有formal／凍結來源、程式／JSON／測試／CI／科學紀錄保留；沒有撒點、RNG、新數值／symbolic診斷、producer／seed／主機／量測。*
 
 *v2.31（P0.2定案及首份M／V研究，2026-10-13）- #81 r2核准b0f53948／3e415ff4經CI #264 556 passed／5warnings及integrity後原樣merge c5bc9c65，tree相同，P0.2原契約全文不改。之後具名實例化固定Johnston無質量link核，M為文獻覆核，提出null座標／來源頂點／平均誤差；V主要義務用共同Π之void-union law、幾何重疊、integrable dominator和近同方向／vertex分割提出方差趨零及粗界，附Chebyshev量詞。全部解析待exact-head複核，不報新知首創或scientific PASS。新增Claude r2本人scope EXP-0033及作者解析／有限文獻接觸EXP-0034；ACT／dev／exposure只追加，UNKNOWN／原actor、P0.1／P0.2／r3與兩舊模型、formal／凍結來源、全部程式／JSON／tests／CI／科學紀錄不改。無撒點／RNG／數值／symbolic診斷、producer／seed／主機／量測。*
 

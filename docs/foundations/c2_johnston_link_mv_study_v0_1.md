@@ -1,6 +1,7 @@
 # X-C2-LINK-MV-v0.1 — 定案 P0.2 的 M 覆核與 V 紙上研究
 
-狀態：**【探索／完整解析推導草稿，待 exact-head 獨立複核】**。
+狀態：**【已確認／限定解析結果：固定來源 augmented-endpoint Lebesgue M／V；物理橋接仍 OPEN】**。
+模型及物理詮釋仍【探索】；複核與合併身分見§9。
 Study ID `X-C2-LINK-MV-v0.1`；具名文獻參照實例 `X-C2-JOHNSTON-LINK-v0.1`。
 這是契約定案後對固定文獻核的具名實例化與分析；本輪不能再稱 model ID NONE。
 不是新的權重 ansatz、物質 law 或正式候選 K；沒有 scientific PASS。
@@ -19,7 +20,8 @@ Study ID `X-C2-LINK-MV-v0.1`；具名文獻參照實例 `X-C2-JOHNSTON-LINK-v0.1
 
 **M 是 Johnston 結果的覆核**，本稿補齊固定測試函數、來源頂點與可檢查誤差。
 **V 才是本次主要研究義務**：以下提出共享撒點下的協方差、重疊界及趨零上界。
-它們都待複核，不能以M的既有文獻結果替代V，也不宣稱V是文獻上首次結果。
+上述M／V已由Claude逐式複核，僅在本稿固定域與讀值內確認；
+不能以M的既有文獻結果替代V，也不宣稱V是文獻上首次結果。
 若任何推導不成立，保留未決／限定否定，不換權重、窗口或抹平尺度。
 
 | 六欄 | 本研究 |
@@ -27,7 +29,7 @@ Study ID `X-C2-LINK-MV-v0.1`；具名文獻參照實例 `X-C2-JOHNSTON-LINK-v0.1
 | 命題 | 定案P0.2的M、V是否成立？提出固定φ的平均誤差及方差上界，再推機率收斂；不是逐點、a.s.或器件實現 |
 | 定義域 | 明給3+1維Minkowski、m=0；fixed bounded causally convex diamond D、x∈int D、L>0、實值φ∈C_c∞(int D)，包含φ(x)≠0；每個密度內共用同一Poisson配置 |
 | 證據 | §2具名核／可測性；§3–4平均與頂點控制；§5–6聯合void law、幾何重疊與方差；§7機率量詞。均為解析，未執行 |
-| 未證橋接 | 獨立數學複核、速率最優性、sampled-pair／Poisson quadrature／moving-source／器件readout、r3兩段與串接、物質／Lorentz／L0橋接仍未完成 |
+| 未證橋接 | 速率最優性、sampled-pair／Poisson quadrature／moving-source／器件readout、r3兩段與串接、物質／Lorentz／L0橋接仍未完成 |
 | 否定條件 | 接觸來源不合法、任一步不成立或超出指定域即停止相關claim；只處理這個核／泛函，不推成所有傳輸或物質no-go |
 | 後續驗證 | 逐式exact-head複核；尤其常數、單側delta質量、共用Π之joint law、近同方向／頂點及積分上界。沒有量測計畫或執行授權 |
 
@@ -295,3 +297,20 @@ C1／C3–C6仍為外加。Gate0／B1–B7、item7／8、6a-E、Freeze-1a現狀�
 單側質量與M導數界；聯合void law／union；重疊hτ界與volume；近同方向cap、
 q尾與K₀常數；core threshold及Chebyshev量詞。若出錯保留受審head／理由，
 不在看到計算後換model或criterion。本稿沒有作數值、RNG或新的symbolic檢查。
+
+
+## 9. PR #82 複核與限定升格（2026-10-14）
+
+Claude對head `1e067c63e34e9afa8909f6604698beeff8b1f80e`／tree
+`3b53b07af0691de2b2d19056afc17469b698761b` 給GO，逐式手算核對M／V，
+未另作數值／符號檢查；本人申報原句見EXP-0035。CI #266綠，556 passed／
+5個既有warnings及integrity通過，原樣合併 main
+`f43762f2917a3b2ce86782d1b4de033b2075da3f`，tree與GO相同。
+本次只更正審核狀態與追加作用域，不改§2–7任何證明、公式或原契約。
+
+限定確認的是fixed-source、augmented-endpoint Lebesgue泛函的M、V與機率收斂。
+連續probe積分對不同方向細區間作平均，是V趨零機制的一部分；
+它不是原生撒點探測器求和的證明，也沒有生成物質、裝置、r3回訊或背景／c。
+模型／物理詮釋仍探索，原物理與formal OPEN不關閉。
+下一份[P0.3問題契約](causal_transport_c2_problem_contract_v0_3.md)只固定原生點求和
+及M_D／V_D量詞，尚未定案或推導；不從本稿直接挪用矩或方差界。

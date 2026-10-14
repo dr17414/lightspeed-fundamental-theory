@@ -257,10 +257,31 @@ merge tree 相同，狀態仍 REVIEWED-NOT-ACTIVE。§5–6 的收件／待審�
 
 | 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
 | :--- | :--- | :--- |
-| EXP-0033／Claude申報由操作者轉交 | 2026-10-13 15:04:53 Asia/Taipei（UTC07:04:53），操作者轉交上句及b0f53948／3e415ff4 GO；只依本人scope收存，不擴張為全文新文獻閱讀。指出M為Johnston覆核，V才是主要義務，否定亦有價值 | 固定命題的一行確定性算術是review-only，不是新撒點／模型探索。原兩阶段申報保留，未替本人宣告已讀本次新M／V研究；UNKNOWN／人工E4與舊曝光不改 |
+| EXP-0033／Claude申報由操作者轉交 | 2026-10-13 15:04:53 Asia/Taipei（UTC07:04:53），操作者轉交上句及b0f53948／3e415ff4 GO；只依本人scope收存，不擴張為全文新文獻閱讀。指出M為Johnston覆核，V才是主要義務，否定亦有價值 | 固定命題的一行確定性算術是review-only，不是新撒點／模型探索。原兩階段申報保留，未替本人宣告已讀本次新M／V研究；UNKNOWN／人工E4與舊曝光不改 |
 | EXP-0034／GPT作者 | 同一訊息；核對CI #264、原head merge c5bc9c65／tree同GO，讀定案P0.2及公開紙上帳。合併後具名實例化固定Johnston m=0 link核；解析M的null座標／Gaussian質量／頂點與誤差，解析V的共同Π void-union law、重疊幾何、dominated convergence與保守分割上界。重讀Johnston0806.3083v2 §3.1–3.3／相關式；另搜尋並讀DHS1009.3058v2的§2–3.2及結論相關文字，僅對照source-detector讀值／相關漲落，未使用其數值或模型參數 | 本次新研究由定案契約而選；proof cutoffs為積分上界策略，不修改model／window／φ／weight。無新RNG／撒點／數值／symbolic檢查、producer、raw／sealed／endpoint、seed／主機／量測。既有regression／integrity與檔案保留只作repo驗證。待exact-head，不宣稱首次物理低漲落結果、scientific PASS、blind或candidate-independent；全歷史UNKNOWN與禁回流保留 |
 
 本輪已提出具名紙上參照實例與M／V解析，不能再把當前工作稱model ID NONE。
 契約／評測準則、原actor申報及EXP舊條目全部保留，沒有事後放寬或資料回流。
 本研究只適用於fixed-source augmented-endpoint Lebesgue泛函；若改為sampled
 source／detector、器件／moving source或新權重，須先另立契約，不挪用本界。
+
+
+## 16. PR #82 本人申報、限定核准與 P0.3 問題（2026-10-14）
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #82 複核）：讀 PR #82 的 diff 與 M／V 研究全文，逐式手算核對換變數、常數、重疊引理、各區域上界與量詞。這次沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有讀 Johnston 或 DHS 原文。只跑既有的回歸測試和 integrity。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0035／Claude申報由操作者轉交 | 2026-10-14 09:49:38 Asia/Taipei（UTC01:49:38），操作者轉交上句與PR #82 head1e067c63／tree3b53b07a GO；本人只作手算，數學核對不等於讀Johnston／DHS原文。指出連續probe積分的平均作用及原生撒點探測求和未證，建議先另立問題契約 | 限定確認P0.2的M／V，不代填本人已讀新P0.3、不推廣為物理器件／L0／formal資格。沒有新增本人數值／符號檢查或RNG；舊actor申報、人工E4接觸與UNKNOWN均保留 |
+| EXP-0036／GPT作者 | 同一訊息；核對GitHub CI #266綠、原head merge f43762f2與GO tree相同，讀公開P0.2／M-V研究、README／STATUS／ACT及帳本。只重讀DHS1009.3058v2 §3.2相關接收端點／阻擋與漲落文字，另讀Last–Penrose 2017作者稿第4章Theorem4.1／4.4陳述；未稱讀全書，未重讀Johnston。依操作者轉交建議只寫原生點求和讀值、權重、來源／探測域與M_D／V_D量詞的問題規格，未作本題矩／收斂推導 | 文獻只列工具前提與作用域，未轉用DHS器件／參數／方差結論或自行選新law。沒有新RNG／撒點／數值／symbolic診斷、producer／raw／sealed／endpoint、seed／主機／量測；既有regression／integrity及檔案比對只作repo驗證。不宣稱blind、首次物理結果、candidate-independent或scientific PASS；全歷史UNKNOWN與禁回流保留 |
+
+**操作者指定的一字編輯例外：** 同一轉交訊息要求EXP-0033「原兩阶段」改為
+「原兩階段」，本次只替換該既有條目中的「阶」→「階」。原文可由核准#82 head／
+merge f43762f2查回；不是Claude本人引句，沒有改事實、範圍或actor申報。
+除這個明示字形修正外，接觸帳舊內容逐位元保留，新增內容只在檔尾追加；
+不能將此次帳本描述為毫無例外的逐位元只追加。
+
+本次原P0.2、M／V證明、原r3與三個既有模型／參照實例保留，限定解析升格不升格
+物理詮釋。新P0.3契約待複核，沒有提前推導或解除formal／資料／執行限制。

@@ -193,3 +193,21 @@ ACT生效身分仍 `0c386716701589c9a6b0b799636a808aacb9ade5`，不是這份後�
 提出M與V完整短證明／界，待獨立exact-head。前節model ID NONE為問題前歷史，
 現在有此文獻核紙上實例；原兩模型保留，正式K未構造，沒有執行或scientific PASS。
 本追加不改E0、formal、資料／執行限制或停止／回F規則。
+
+
+## 12. PR #82 限定解析核准與 P0.3 問題追加（2026-10-14）
+
+Claude核准PR #82 head `1e067c63e34e9afa8909f6604698beeff8b1f80e`／tree
+`3b53b07af0691de2b2d19056afc17469b698761b`，CI #266綠（556 passed／5既有
+warnings、integrity通過）後原樣合併 main
+`f43762f2917a3b2ce86782d1b4de033b2075da3f`，tree相同。
+merge Git committer UTC 2026-10-14 01:50:55／台北09:50:55；
+這不是activation，生效SHA仍 `0c386716701589c9a6b0b799636a808aacb9ade5`。
+前節待審是歷史；現僅確認固定來源augmented-endpoint Lebesgue M／V及機率收斂，
+不確認原生點讀值、物理訊號／器件／物質或L0湧現，formal OPEN不改。
+
+承接操作者轉交的reviewer建議，追加[P0.3問題契約](foundations/causal_transport_c2_problem_contract_v0_3.md)。
+僅固定同一Π的原生接收點求和、既有核／權重、ρ⁻¹及M_D／V_D量詞，待exact-head；
+不開始推導、新構造或執行。本問題新model ID NONE，既有三個參照／模型ID保留。
+本人申報與作者來源見EXP-0035–0036；不改E0／formal／禁止資料、停止／回F條件、
+seed／producer／主機／量測限制或原r3。
