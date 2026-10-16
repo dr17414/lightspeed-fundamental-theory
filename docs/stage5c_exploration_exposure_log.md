@@ -397,3 +397,23 @@ Claude是在推送後的34bfd9a0上首次複核，**不是本地版本的事前�
 
 EXP-0041–0044及其commit鏈全部保留；0045僅保留待補，0046為作者scope，下一個新ID為0047。
 本輪選題不改ACT生效身分、不授權正式候選或任何科學執行；契約仍待exact-head。
+
+
+## 22. EXP-0045本人原句補齊（2026-10-16；只追加）
+
+操作者於 **2026-10-16 15:19:00 Asia/Taipei／07:19:00 UTC** 轉交以下完整原句；
+這是轉交時間，不倒填為Claude的閱讀／複核時間，也不改§21的選題時間證據。
+原句逐字收錄如下：
+
+> Claude（紀錄 commit `34bfd9a0` 複核）：以 git 核對遠端紀錄分支 head 與 parent 鏈、main `f1a33070…`，讀 `4cd99590..34bfd9a0` 的全部 diff（只有接觸帳追加），比對 EXP-0043 引用的原句。這是首次看到 EXP-0043／0044，事前沒有批准任何本地版本。沒有推導，沒有執行測試、數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻。
+
+| EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0045／Claude本人申報由操作者轉交，完成原保留ID | 上述原句；首次看到EXP-0043／0044是在紀錄commit34bfd9a0上，以git查遠端head／parent鏈／main與4cd99590..34bfd9a0的接觸帳diff，並核對EXP-0043原句 | 本條完成§21保留的同一EXP-0045，不是另建或重複編號；狀態由PENDING-VERBATIM轉為RECORDED-VERBATIM。本人明說事前未批准本地版本、未推導／測試／數值／符號計算／RNG／撒點／producer／raw／sealed／文獻；不延伸為已讀PR #86或批准本契約 |
+| EXP-0047／GPT作者，申報補齊與文件同步 | 本輪接收並逐字保存上述本人原句；核對遠端PR #86 head5f8434f9與main f1a33070，讀目前帳本／README／STATUS／ACT／dev及契約兩處待補文字，只追加帳本、ACT、dev並同步現行狀態 | 沒有更改問題的介面、泛函、目標、M／V或r3量詞，也沒有新推導、文獻、模型／參數／窗口選擇、數值／symbolic／RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測。既有regression／integrity、git與逐字比對僅作repo驗證；不把Claude對34bfd9a0的複核當作PR #86 GO。所有歷史UNKNOWN與禁止回流隔離保留 |
+
+§21的等待紀錄及全部舊句逐位元保留；較早PENDING-VERBATIM是補齊前的歷史狀態，
+目前EXP-0045已逐字收錄。操作者批准推送前本地版本、Claude推送後首次複核的歸屬不變，
+「事前沒有批准任何本地版本」仍是Claude對本人的陳述。
+下一個新EXP-ID為0048；EXP-0046原作者scope保留。本次不新增選題決定或提前推導。
+申報原句待補這一項已解除；PR #86仍待其新exact-head獨立複核及CI，不授予合併GO。

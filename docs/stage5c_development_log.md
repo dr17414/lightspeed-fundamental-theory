@@ -187,3 +187,11 @@ CI #270綠後原樣合併main `8839df0eb8bff88dd6e040b8c81ee60117932445`，tree�
 
 沒有新的DEV科學結果、正式attempt、seed／主機／量測／receipt或producer執行。
 既有regression／integrity只作repo驗證；原P0.2／P0.3／r3、全部證明、formal與凍結檔不改。
+
+
+## PR #86申報原句補齊（2026-10-16）
+
+EXP-0045已按操作者台北15:19:00／UTC07:19:00轉交的Claude原句，逐字追加於接觸帳§22。
+上列「待補」是收件前的歷史，未改寫；EXP-0047只記作者收件／同步scope。
+本次只更新申報與現行狀態，不更動X-C2-R3-BRIDGE-P0.1的§2–6規格／公式／判準，
+也不新增推導／模型／DEV科學結果。PR #86仍需新exact-head獨立複核，沒有合併GO。
