@@ -72,6 +72,13 @@ Mecke期望恆等式、Var S=Var F+D−J、有符號阻擋項及兩項O(κ⁻¹�
 本輪只有複核／狀態紀錄，沒有新推導、研究選題、權重／law或科學執行。
 原P0.2／P0.3全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
+**下一個已選題（2026-10-16，尚待契約審查）：** 操作者明選方向1「r3回訊與C2串接」。
+[X-C2-R3-BRIDGE-P0.1](foundations/c2_r3_response_bridge_problem_contract_v0_1.md)只固定
+共同Π、原生B接收／再發射、外加線性回應、同一零輸出替換、完整紀錄與M／絕對V／r3量詞。
+未推導聯合矩、極限或實現；不直接轉用單段P0.3的方差界，不稱器件／光速湧現。
+申報鏈4cd99590→34bfd9a0與舊「未選定」句保留，時間／批准者在接觸帳§21只追加釐清。
+EXP-0045本人全文待補、0046作者scope；PR維持draft，不先稱可合併。所有formal／OPEN不改。
+
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
@@ -552,6 +559,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.35（方向1問題契約待審，2026-10-16）- 操作者選定r3回訊與C2串接；本稿只固定共享Π、外加線性回應與零輸出替換、完整紀錄、待檢雙段泛函及M／絕對V／r3量詞，不作矩／極限或物質實現推導。保留4cd99590→34bfd9a0及全部舊句，接觸帳只追加選題／批准者釐清。EXP-0045保留待補本人全文，不以EXP-0043替代；EXP-0046記作者scope，draft仍不可合併。原契約／研究／凍結檔、程式／JSON／測試不改，無新科學執行或scientific PASS。*
 
 *v2.34（原生點校準求和限定複核記錄，2026-10-14）- #84 exact-head GO 577ea0e3／1ddfc5fd經CI #270綠後原樣merge 8839df0e，tree相同。X-C2-NATIVE-MV-v0.1限定升格定案原生點校準求和的M_D／V_D與機率收斂，物理詮釋仍探索；§2–7、附錄A、全部公式及P0.2／P0.3不改。新增Claude本人手算／基線對照scope EXP-0039、GPT文件紀錄EXP-0040；ACT／dev／exposure逐位元只追加，原actor／UNKNOWN與formal／凍結來源、程式／JSON／tests／CI保留。不另選研究、改善速率或構造模型；沒有新推導、撒點／RNG／數值／symbolic診斷、producer／raw／sealed、seed／主機／量測或scientific PASS。*
 
