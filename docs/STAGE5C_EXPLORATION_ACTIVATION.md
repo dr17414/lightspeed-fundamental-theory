@@ -270,3 +270,15 @@ ACT-X-0001生效SHA、E0、formal／禁止資料／UNKNOWN、停止／回F與執
 本人事前沒有批准本地版本，不影響操作者事前批准的事實；此申報不等於PR #86複核GO。
 僅解除原句待補項，EXP-0047登記作者同步scope；問題契約仍待新exact-head複核與CI。
 ACT生效SHA、E0、所有formal／資料／執行限制不變，不授權開始推導或任何科學執行。
+
+
+## 17. PR #86 r1未GO與r2方案b（2026-10-16；權限不變）
+
+Claude對r1 head9dd6710e／tree4660f45e未GO，要求在推導前校正四項law差異的地位。
+操作者本輪明選方案b；[問題契約r2](foundations/c2_r3_response_bridge_problem_contract_v0_1.md)
+把四項只記為介面構造下成立，另固定單次判定a>gC/2及最壞誤判機率趨零目標。
+不改原核／回應介面／泛函／M／V量詞；補明r3配對可識別性、穩定性／failure OPEN，
+本題不報時間或延遲。r1原head與未GO理由保留，沒有開始矩／極限或單次判定證明。
+本人申報EXP-0048及作者修訂scope EXP-0049只追加於接觸帳§23。
+這次操作者選b不是r2 exact-head GO；仍須獨立複核與CI後才可合併。
+ACT生效SHA／E0、formal／資料隔離、停止條件及全部執行限制均不改。
