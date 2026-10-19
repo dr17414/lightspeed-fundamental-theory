@@ -72,17 +72,25 @@ Mecke期望恆等式、Var S=Var F+D−J、有符號阻擋項及兩項O(κ⁻¹�
 本輪只有複核／狀態紀錄，沒有新推導、研究選題、權重／law或科學執行。
 原P0.2／P0.3全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
-**C2–r3問題契約已定案；新紙上研究待審（2026-10-18）：**
+**C2–r3共享配置雙段讀值的限定解析已確認（2026-10-19）：**
 [X-C2-R3-BRIDGE-P0.1 r2](foundations/c2_r3_response_bridge_problem_contract_v0_1.md)
 在head b4e3deb1／tree435fc3e8獲Claude GO，CI #276 success後原樣合併
 `7bc202b586167ac2eb15a12a8846ec59e90d2a9f`，tree相同。契約全文與r1／r2歷史保留。
-新增[X-C2-R3-SHARED-MVPD-v0.1](foundations/c2_r3_shared_mvpd_study_v0_1.md)：
+[X-C2-R3-SHARED-MVPD-v0.1](foundations/c2_r3_shared_mvpd_study_v0_1.md)：
 補H平滑性與C良定性，轉用一致單段bias給M，另以高階矩／共享Π的L²比較給V，
-再分別推P與固定閾值D；保守V界O(κ⁻¹ᐟ⁸⁰)，全部新解析仍【探索／待exact-head】。
+再分別推P與固定閾值D；保守V界O(κ⁻¹ᐟ⁸⁰)保持非最優。
+Claude對PR #87 head `924c90c1bb89d887fd140d3795c6bec147c6f865`／tree
+`e7d4c476e762d2b091c010e5f2d8a19269ed1233` 給GO，CI #278 success後原樣合併
+main `6cd3eb4386582eb80e528b631673b6b8aebca647`，tree相同。
+限定升格【已確認／定案共享配置雙段讀值（外加線性介面）的M、絕對V、P與單次判定D】；
+只限契約固定輸入與量詞，物理詮釋仍探索。
 沒有新核／回應介面／權重／窗口，也不把四項構造性law當成果。
 配對可識別性、穩定性／failure及物理實現仍OPEN，不報時間／延遲／距離。
-EXP-0050逐字本人申報、0051作者scope與合併前已有策略推理的流程時間偏差只追加；
-此偏差待reviewer裁定，不把文件建立時間倒填成最早推理時間。
+EXP-0054逐字本人申報、0055作者同步scope只追加於接觸帳§26；EXP-0051時間偏差保留，
+Claude裁定不阻擋，因r2判準與合併blob未變；不倒填最早推理時間。
+公開推送批准人是操作者，Claude只提供預讀建議與後續exact-head GO。
+舊本地commit2247edb4及tree7adb918b未公開，外部不能直接由Git驗證其與公開tree的差異；
+reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張其查核範圍。
 無科學執行或scientific PASS；原formal／凍結來源、所有UNKNOWN與禁止資料隔離不改。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
@@ -565,6 +573,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.39（PR #87原樣合併與限定解析升格，2026-10-19）- exact head924c90c1／treee7d4c476獲Claude GO，CI #278成功後squash為main6cd3eb43，tree相同。只升格外加線性介面的定案共享配置雙段讀值M／絕對V／P／單次D，保留非最優O(κ⁻¹ᐟ⁸⁰)與所有物理／formal OPEN。三本帳追加EXP-0054原句、0055作者scope、操作者推送批准與本地commit不能公開直接查核的限制；研究§2–8、契約／舊研究／凍結來源、程式／JSON／tests／CI不動，未另選方向或新推導／執行。*
 
 *v2.38（#86定案與共享配置M／V／P／D稿，2026-10-18）- Claude對b4e3deb1／435fc3e8給GO，CI #276綠後原樣merge 7bc202b5，tree相同。新增具名紙上研究，補良定性與一致單段／高階矩／共享Π加權L²證明，分別提出M、V、P、D，全部新解析待exact-head。EXP-0050逐字本人申報、0051作者來源與合併前策略推理的時間偏差只追加並待審。契約、舊證明／凍結來源、程式／JSON／tests／CI不改，四項構造law不作成果，沒有新科學執行、formal資格或scientific PASS。*
 
