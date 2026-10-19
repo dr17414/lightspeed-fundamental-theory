@@ -443,3 +443,49 @@ r1及被退回理由保留在原head，不改寫任何舊EXP／申報／時間�
 四項日後只報「介面構造下成立」，不能當作回訊研究成果；M、絕對V、P、D仍需分別交代。
 V未證或不成立不等同於D已否定，D成立也不替代原V義務；不新增formal gate或資格。
 下一個新EXP-ID為0050；r2仍待新exact-head獨立複核，沒有GO／合併或推導授權。
+
+
+## 24. PR #86 r2 GO、原樣合併與具名M／V／P／D研究（2026-10-18；只追加）
+
+操作者於 **2026-10-18 23:33:06 Asia/Taipei／15:33:06 UTC** 轉交r2 exact-head GO：
+head b4e3deb1／tree435fc3e8。GitHub確認CI #276 success，按expected head轉ready、
+原樣squash合併main `7bc202b586167ac2eb15a12a8846ec59e90d2a9f`，tree與GO相同。
+Git committer UTC 2026-10-18 15:34:54／台北2026-10-18 23:34:54；這不是新activation。
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #86 r2 複核）：以 exact head `b4e3deb1` 讀 r1→r2 的全部 diff，包括契約修訂、接觸帳 §23 與狀態文件。以 git 核對 head、tree、commit 鏈，確認凍結檔案沒有改動、帳本沒有刪除行，並比對 EXP-0048 原句。逐式手算核對 §6.2 判定規則：q=0 時恆判對；q=1 時誤判就是 Cρ ≤ C/2 的事件，由 P 可推得誤判率趨零。沒有推導 M、V、P 本身，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0050／Claude本人申報由操作者轉交 | 上述原句與r2 GO；只手算D的固定閾值及P→D，不推M／V／P。另提醒r1良定性只給一行論證，後續研究須補正式證明 | 原句逐字保存，不擴張為已審新研究、已推M／V／P或已讀原文；本人未作新數值／符號程式／RNG／撒點／producer／raw／sealed／文獻，只有既有regression／integrity。保留全部歷史UNKNOWN |
+| EXP-0051／GPT作者，具名紙上研究與時間偏差披露 | 核對#86 head／CI／核准tree，原樣合併並核對main；讀公開r2契約、單段原生點研究§2–7相關公式、Lebesgue基線§6–7及狀態／帳本。本輪在實際merge API操作前已作雙段L²控制策略的紙上推理；具名文件於合併與tree核對後建立。新稿補H平滑性／C良定性、一致移動固定來源的單段誤差、Poisson高階矩、共享Π的Mecke／加權Cauchy–Schwarz與插回端點控制，分別給M、V、P、D；全部待exact-head | 不能聲稱最早推理全部在merge後。原契約要求先合併後研究，故把上述時間先後記為流程偏差，供reviewer裁定，不自行宣稱合規或將時間倒填。沒有新資料接觸、判準變更、核／介面／窗口／模型參數選擇或執行；全部新推導只在紙上，未執行數值／符號程式、RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測／receipt，未讀新外部文獻。既有regression／integrity與git／文字比對只作repo驗證，沒有scientific PASS或提前升格 |
+
+舊帳／本人申報逐位元保留。r1／r2 reviewer提示列為來源，不冒稱盲推導；
+四項law比較仍只報介面構造下成立，不充作回訊證據。
+新研究的證明、可用作用域及上述時間偏差均待獨立複核，未自行確認。
+下一個新EXP-ID為0052；E0、formal、禁止資料／UNKNOWN、凍結來源與執行限制不變。
+
+
+EXP-0051的repo驗證接觸補充：為處理首輪回歸的ProcessLookupError，另讀既有
+parent-death測試的/proc exists／read段及失敗trace，只判讀程式／測試層的程序消失競態；
+重跑既有單項與全庫，不改程式／測試，也不作任何新的科學或數值診斷。
+
+
+## 25. 推送前預讀與本人申報（2026-10-19；只追加）
+
+操作者於 **2026-10-19 11:28:34 Asia/Taipei／03:28:34 UTC** 轉交Claude預讀建議，
+不是操作者對公開推送的明確批准，也不是新研究的exact-head GO。
+原待批准版本保留在local commit `2247edb46c55e4116f98b92a330105731f7ff7d4`、
+tree `7adb918b6c35d8797de59e02b34c54a29b83503e`；本次只追加此節，研究稿及另外四份文件不改。
+操作者轉交的Claude本人申報原句：
+
+> Claude（M／V／P／D 研究稿推送前預讀）：讀操作者上傳的研究稿全文與接觸帳；以 git 核對 main `7bc202b5…` 的 tree 與契約 blob，並以 diff 確認上傳的接觸帳相對 main 只有追加，也比對了 EXP-0050 原句。逐式手算核對 §3–7 的主要步驟與常數。這不是 exact-head 複核，沒有看到 tree `7adb918b…`，也沒有看到另外四份文件。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文，也沒有跑測試。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0052／Claude本人申報由操作者轉交 | 上述原句；預讀操作者上傳的研究稿與接觸帳，手算主要步驟，未見完整tree及README／STATUS／ACT／dev四份文件 | 只是推送前預讀，不升格為exact-head GO或推送批准。本人評時間偏差不阻擋，理由是r2判準已固定且merge blob未變；此為reviewer預讀判斷，原EXP-0051與完整時間偏差紀錄不覆寫。未跑測試、未執行數值／符號程式／RNG／撒點／producer，也未讀raw／sealed或文獻原文 |
+| EXP-0053／GPT作者，接收預讀與本地申報保存 | 本輪讀操作者轉交的完整預讀及本人申報，查本地branch／commit／tree與現有接觸帳，只在檔尾逐字追加0052及本scope；保留原待批准commit／tree，沒有把預讀當正式GO或操作者批准 | 未修改研究稿／其餘四份文件、未新增推導或採用reviewer提示選模型／參數／窗口。只作既有regression／integrity、git與逐字／prefix驗證，不作新科學、數值／符號程式診斷、RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測。沒有新外部文獻或新的遠端發布；自動審查先前拒絕的完整公開寫入仍待操作者明確批准 |
+
+本節不改寫任何舊句或原申報；0052只代表已收到上述有界本人申報。
+完整六份文件仍須先取得操作者的公開推送批准，建立draft PR後再由Claude做exact-head複核。
+下一個新EXP-ID為0054；物理詮釋／formal／資料隔離／執行限制均不變，沒有scientific PASS。

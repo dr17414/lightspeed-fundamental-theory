@@ -205,3 +205,24 @@ Claude對r1 head9dd6710e／tree4660f45e未GO：線性介面的四項law比較按
 報時間條款直接對應r3 §3，本題不報時間／延遲，不以同點介面消除未知延遲。
 舊head、原M／V及所有舊帳保留；EXP-0048逐字本人申報、0049作者修訂scope只追加。
 只有問題修訂，沒有矩／收斂／P／D推導、新DEV科學結果或模型實現；r2待exact-head。
+
+
+## PR #86定案與共享配置M／V／P／D紙上稿（2026-10-18）
+
+#86 r2核准b4e3deb1／435fc3e8，CI #276後原樣merge 7bc202b5，tree相同；契約blob79c34b88不動。
+
+| Study／Readout ID | 規格與紙上進展 | 未解與執行狀態 |
+| :--- | :--- | :--- |
+| X-C2-R3-SHARED-MVPD-v0.1／X-C2-R3-RELAY-READOUT-v0.1 | [具名研究](foundations/c2_r3_shared_mvpd_study_v0_1.md)：補連續目標平滑性／良定性；一致單段bias給M；高階矩與共享Π的加權L²比較給保守V界，再分別給P及固定單次D | 新解析全部待exact-head；四項構造law不作成果，物質／配對識別／穩定性OPEN，不報時間／延遲／距離。EXP-0050逐字本人申報，0051作者來源及合併前策略推理的時間偏差待審 |
+
+沒有新核／回應／權重／窗口、DEV科學執行或正式attempt。原文件／凍結來源保留，
+既有regression／integrity只作repo驗證；無數值／符號程式、RNG／撒點、producer／seed／主機／量測。
+
+
+本交付首輪本地regression為1 failed／555 passed／5warnings（113.44秒）；
+既有test_worker_kernel_parent_death_guard在確認/proc狀態檔存在後讀取時遇到ProcessLookupError。
+檢視既有測試第216–218行：exists與read分開，程序可在兩者之間消失。
+單項原樣重跑1 passed（0.09秒）；未修改程式／測試。全庫重跑另記，首輪失敗不隱去。
+
+全庫原樣重跑結果：556 passed／5既有warnings（109.01秒）；integrity與diff格式檢查通過。
+首輪失敗及單項重跑結果均保留，沒有改動程式／測試來取得通過。
