@@ -337,3 +337,20 @@ Problem IDs X-T2-MATTER-GEOMETRY-P0.1、X-T3-SECTOR-SPINOR-P0.1，
 未取得全文不代填，未宣稱全申報已齊。契約須exact-head GO、原樣合併，
 且0057原句與來源審查完成後，才開始具名紙上研究。
 本次不改E0／生效SHA、formal、禁止資料／UNKNOWN、停止／回F及全部執行限制。
+
+
+## 21. PR #89定案與T2／T3具名紙上審計（2026-10-19；權限不變）
+
+#89 r2 head `0f56e951`／tree `3ec33536` 獲exact-head GO，CI #283成功後原樣合併
+main `cae0f69e24e3ca0bcf4820deaa284efec5749819`，tree相同；
+UTC12:48:54／台北20:48:54。EXP-0057在原ID補齊並獲增量GO，契約blob434e85fc保留。
+完成三條件與tree核對後才開始兩份獨立具名研究：
+[T2總量審計](foundations/t2_class_sum_audit_v0_1.md)、
+[T3 sector能力](foundations/t3_sector_capability_audit_v0_1.md)。
+本條只登記【探索／待exact-head】紙上推導，不將任一新結論升格。
+T2實際class／分母與物質機制、T3一般intrinsic spinor／L-FIN／動力學仍OPEN。
+EXP-0062逐字記Claude本輪增量申報，0063記作者來源／原文／推導範圍。
+不構造K、作用量、動力／傳播算子或mass law；新model ID NONE。
+C2暫停與既有限定結果／全部OPEN保留，ACT-X-0001仍以0c386716生效且僅紙上；
+本條不重新activation、不改E0／formal／item7／8／6a-E／Freeze-1a，
+亦不授權科學執行、seed、主機、量測／receipt或任何禁止資料回流。

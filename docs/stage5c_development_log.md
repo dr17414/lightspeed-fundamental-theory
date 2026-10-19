@@ -281,3 +281,28 @@ T2只固定history／measure／weight型別與類總振幅比，純phase速率�
 
 全庫原樣重跑：556 passed／5既有warnings（115.36秒），integrity與diff格式檢查通過。
 沒有改動程式／測試、未跳過失敗項；首輪1 failed紀錄與單項重跑結果並存。
+
+
+## PR #89 r2定案與T2／T3具名紙上審計（2026-10-19）
+
+#89 r2 head0f56e951／tree3ec33536獲GO，補取CI #283 run39222282955與
+job117960164574的exact-head成功證據後原樣合併main
+`cae0f69e24e3ca0bcf4820deaa284efec5749819`，tree相同，UTC12:48:54／台北20:48:54。
+第一次merge自動審查因缺CI證據未批准，補證據後才通過，未繞過。
+EXP-0057補齊且獲增量GO；核對三個開始條件完成後才作本輪新策略／推導。
+
+新增兩份獨立紙上稿，狀態均探索待exact-head：
+
+- X-T2-CLASS-SUM-AUDIT-v0.1：共同measure與orbit換算、純phase比值的必要且充分條件、分母上下界方向、leading熵邊界及同重力baseline改善；不選具體class／F／作用量。
+- X-T3-SECTOR-CAPABILITY-AUDIT-v0.1：orbit／代表與two-order作用域、S₃障礙、fiber型別、中心／Clifford維數與尺度分帳；不構造K或物質law。
+
+新原文讀取BHS、KR原文的作者上傳轉錄、Noldus指定片段，限制詳兩稿與EXP-0063。
+0062逐字保留本輪Claude增量申報；三本帳只追加，定案契約及其他凍結來源不動。
+README／STATUS同步當前待審狀態，不提前升格任何新結果，C2與formal限制不變。
+驗證結果將在本節後追加；不使用測試作科學量測或新研究診斷。
+
+本輪repo驗證：既有全庫 `pytest tests/ -q` 首輪即 **556 passed、5 warnings，247.40秒**；
+未發生上一輪的/proc競態，也未修改程式／測試。`verify_integrity.py`、`git diff --check`、
+三帳byte-prefix、EXP-0062逐字、固定契約／凍結協定blob及七份Markdown範圍檢查皆通過。
+兩份新研究稿的本地連結存在；其他定案契約與既有證明diff為零。
+這些是repo回歸／保全結果，不是新科學執行或解析證明已獨立確認。
