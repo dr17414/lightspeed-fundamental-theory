@@ -622,3 +622,45 @@ EXP-0059的repo驗證接觸補充：首輪既有回歸在parent-death測試遇�
 才可按契約處理後續具名紙上研究；本輪不推導，也不自動授權任何構造或執行。
 E0、生效SHA、formal、item7／8、6a-E／Freeze-1a、C2暫停與原確認／OPEN、
 所有UNKNOWN／禁止資料／回F隔離均不改。下一個新EXP-ID為0062。
+
+
+## 29. PR #89 r2定案與T2／T3紙上研究（2026-10-19；只追加）
+
+操作者本輪轉交r2 exact-head GO與下列本人原句；本次介面可得收件時間
+**2026-10-19 20:47:27 Asia/Taipei／12:47:27 UTC**，只作收件時間。
+不倒填Claude實際閱讀時間，也不把本輪申報改成新研究稿的複核。
+
+**EXP-0062：操作者轉交的PR #89 r2增量複核原句**
+
+> Claude（PR #89 r2 增量複核）：以 exact head `0f56e951` 讀 `3f4c37db..0f56e951` 的全部 diff（只有接觸帳追加），以 git 核對 head、tree、parent，確認沒有刪除行、其他檔案沒有改動，並比對 EXP-0057、0060 原句。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+#89 r2 head `0f56e95103611613cef4b7c0e7135365271e7229`／tree
+`3ec3353628cc57d6230ea891f358013226a89bc8` 獲GO。
+第一次merge請求被自動審查擋下，理由是缺CI #283的成功證據；未繞過此限制。
+作者補取run39222282955與job117960164574的completed／success、exact head證據，
+再提交同一合併請求，審查通過。原樣squash main
+`cae0f69e24e3ca0bcf4820deaa284efec5749819`，tree與GO相同；
+Git committer UTC12:48:54／台北20:48:54。
+0057補齊、契約GO及原樣merge三條件均完成，contract blob
+`434e85fcd10a0f5b8590f556ec9a60e9469750de`不改。
+本輪新研究策略／推導在上述merge及tree核對後才開始，無本輪提前推導偏差。
+
+**EXP-0063：GPT作者，合併與兩份獨立紙上審計**
+
+| 類別 | 實際接觸、用途與限制 |
+| :--- | :--- |
+| 操作者／reviewer來源 | 讀本輪r2 GO與0062原句；此前0060的Spin中心及KR記憶性提示已知，不稱盲推導。新研究未獲Claude GO；0062只及#89增量 |
+| Repo公開文字 | 讀定案T2＋T3契約全文、Stage 5B Result B §1–6、STATUS的Stage 5A κ／Q_test／KR與現行狀態、handoff v2相關段、acceptance audit §1–2及工具回傳的後續片段、舊共享M／V／P／D稿首段作狀態對照、帳本及配套文件；另讀analysis/stage5a_kappa.py開頭docstring約80行，未import或執行。既有公開診斷數字／seed metadata可能可見，不讀原始檔或重跑producer |
+| T2紙上推導 | orbit–stabilizer換算、正計數leading squeeze、純phase精確比值、必要／充分不等式及leading邊界、一般F的充分界與同重力改善比；只對任意已宣告型別／條件證明，不選class／phase law／F公式／作用量 |
+| T3紙上推導 | orbit自然性、1+1條件式two-order、六點S₃及3+1比較域的機率障礙、fiber型別、有限置換／中心／Clifford trace維數與單位尺度引理；只作邏輯反例與任意目標表示的能力審計，不選K、γ矩陣、動力law或物質模型 |
+| 新原文BHS | 讀gr-qc/0605006v1 HTML §2定理／證明、延伸(1)–(5)及§3；重新核對full Minkowski、measurable等變方向與boundary範圍。未把其no-go擴成所有fiber不存在 |
+| 新原文KR | AMS原PDF返回403；改讀ResearchGate上第一作者D.J.Kleitman上傳的原文轉錄，§1–3與工具回傳§4片段。核對log底數、全部標記P_N與特定Q_N的範圍，未重證全文技術引理、不使用OCR不清的prefactor；未把任意K_N自動認作原文class |
+| 新原文Noldus | 讀1305.0443摘要頁及v3 PDF的摘要／§1與工具回傳§2–3開頭，見到generating structure、矩陣例及mixed-norm／ghost內容；未採用為本題候選，未驗證其構造或quantum viability。不是只看摘要 |
+| 舊原文／檢索 | 契約中Loomis–Carlip、Mathur–Singh–Surya、Sverdlov、Johnston定位沿EXP-0059，本輪未重讀／重證；搜尋所見其他摘要僅作找原文索引，不作承重證據。原文URL與限定用途寫於兩稿 |
+| 執行範圍 | 僅Git、文字／blob／prefix比對及既有regression／integrity作repo驗證；沒有新數值或符號診斷、RNG、撒點、producer、raw／sealed／arm ledger、seed、主機、量測或receipt，沒有scientific PASS |
+
+兩份具名研究均【探索／待exact-head獨立複核】，不將紙上完成當成已確認。
+新model ID NONE；C2暫停及原已確認／OPEN、E0、formal／item7／8／6a-E／Freeze-1a、
+所有UNKNOWN／禁止資料／回F隔離與執行上限均保留。
+舊0057待補與契約待審文字保留為歷史，現行狀態以本節與配套頁面為準。
+下一個新EXP-ID為0064。

@@ -95,20 +95,22 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**現行選題：T2＋T3問題契約待審，C2暫停新增研究（2026-10-19）：**
-操作者於台北14:44／UTC06:44（只知分鐘）選定路線圖§4的T2＋T3；
-Claude提供方向建議，操作者決定，兩者角色分記。
-PR #88 exact head bde2ca03／tree06bae466獲GO，CI #280成功後原樣合併main
-`b80ef2fd566ffabb43b5a77581087ef37938ebc7`，tree相同；本契約以此為基線。
-[T2＋T3 v0.1](foundations/t2_t3_problem_contract_v0_1.md)只定問題，兩個獨立ID與六欄：
-T3固定局部性／等變、1+1與3+1、fiber／Clifford／mass目標型別；
-T2固定history計數慣例、權重型別、類總振幅比與熵／分母義務，不選作用量或K。
-新model ID NONE；能力格全部OPEN，純phase速率列待證，不預填答案。
-文獻原文指定段落只作作用域對照，全部記於EXP-0059；沒有新推導／構造／科學執行。
-EXP-0056、0058逐字本人申報與0059作者scope只追加；0057保留上一則方向建議的原句待補，
-不以0058替代，不宣稱全申報已齊。契約待exact-head GO與原樣合併，0057需補齊及來源審查後才開始研究。
-C2三項限定解析確認、r3配對可識別性／穩定性與failure／器件OPEN全部保留；
-E0、formal、item7／8、6a-E／Freeze-1a、禁止資料與執行限制不變。
+**現行研究：T2＋T3問題契約定案，兩份紙上審計待複核（2026-10-19）：**
+操作者台北14:44／UTC06:44選題，Claude提供方向建議；角色不混記。
+#89 r2 exact head `0f56e951`／tree `3ec33536` 獲GO，CI #283成功後原樣合併main
+`cae0f69e24e3ca0bcf4820deaa284efec5749819`，tree相同，UTC12:48:54／台北20:48:54。
+EXP-0057已在原保留ID逐字補齊並獲增量GO；[契約](foundations/t2_t3_problem_contract_v0_1.md)
+blob `434e85fc`不改，其待審／待補文字保留為原受審時點。
+三項開始條件完成並核對後，才進行兩份獨立的具名紙上研究：
+
+- [T2總量審計](foundations/t2_class_sum_audit_v0_1.md)：標記／同構類精確measure、純phase抑制的必要且充分式、分母上下界的不同方向及同重力baseline；具體class與物質機制仍OPEN。
+- [T3能力審計](foundations/t3_sector_capability_audit_v0_1.md)：orbit／代表、two-order的維度作用域、fiber型別、中心／Clifford維數及mass尺度分帳，逐子命題矩陣；一般intrinsic spinor、L-FIN與動力學仍OPEN。
+
+兩稿皆【探索／待exact-head獨立複核】，不提前升格；各命題列實際輸入與限定域。
+新model ID仍NONE；沒有K、作用量、傳播／動力算子或mass law構造。
+EXP-0062逐字收錄本輪Claude增量複核原句；0063記作者來源／推導／驗證範圍。
+C2線暫停新增研究，既有限定解析及r3配對可識別性／穩定性／failure／器件OPEN保留。
+E0、formal、item7／8、6a-E／Freeze-1a、UNKNOWN、禁止資料與全部執行限制不變。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
 
@@ -588,6 +590,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.41（T2＋T3契約定案與紙上審計，2026-10-19）- #89 r2 GO／CI #283後原樣合併cae0f69e、tree3ec33536；0057已補齊。核對合併後才推導兩份獨立稿：T2 measure與相消／分母條件；T3 orbit、two-order作用域及fiber／表示／mass能力。均探索待複核，不構造K／作用量／算子，不改定案契約／凍結來源。三帳追加0062本人原句及0063作者來源，C2與formal限制不變。*
 
 *v2.40（#88定案與T2＋T3問題契約，2026-10-19）- CI #280後原樣合併main b80ef2fd，tree06bae466與GO相同。操作者台北14:44選T2＋T3，C2暫停新增研究。新增一份只定問題的契約、兩個獨立ID與六欄，model ID NONE；固定T3表示／局部性／等變型別與T2 class總量定義，不構造K／作用量／算子或推導。三本帳只追加0056原句、0057保留待補、0058原句及0059作者／文獻接觸；舊契約／證明／凍結來源、程式／JSON／tests／CI不動，全部formal／物理OPEN及執行限制保留。*
 
