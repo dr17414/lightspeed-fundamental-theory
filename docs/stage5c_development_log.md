@@ -249,3 +249,35 @@ EXP-0051流程時間偏差及首輪/proc競態／重跑紀錄保留；Claude正�
 本次只同步狀態與追加三本帳；不改契約／舊研究／凍結來源、程式／JSON／tests／CI。
 沒有新推導、研究選題、DEV科學執行、attempt、RNG／撒點、producer、
 raw／sealed、seed／主機／量測／receipt或scientific PASS。
+
+
+## PR #88定案與T2＋T3問題契約（2026-10-19）
+
+#88 head bde2ca03／tree06bae466獲Claude GO，CI #280成功後原樣合併main
+`b80ef2fd566ffabb43b5a77581087ef37938ebc7`，tree相同；
+Git committer UTC06:47:32／台北14:47:32。這次不重寫已確認研究或凍結契約。
+
+操作者在台北14:44／UTC06:44（只知分鐘）選定路線圖T2＋T3，採Claude建議，
+C2線暫停新增研究；來源／先後與EXP-0056–0059見接觸帳§27。
+[問題契約v0.1](foundations/t2_t3_problem_contract_v0_1.md)有兩個獨立ID／六欄：
+T3只固定四列能力矩陣、局部性／等變／維度及表示型別；
+T2只固定history／measure／weight型別與類總振幅比，純phase速率留作待證問題。
+本問題新model ID NONE；沒有K、作用量、算子、場方程、反例構造或新證明。
+
+作者讀五份外部原文的指定段落作來源定位，沒有把其公式採為候選或重做抑制計算；
+能力矩陣各格OPEN，沒有從文獻摘要冒稱費米子選幾何或所有fiber no-go。
+上一則方向建議申報缺原句，保留0057 PENDING-VERBATIM，0058是另一份實際收到的申報；
+不讓記憶檢索的摘要代替本人原句，不以本輪契約為研究已開始。
+無新數值／符號診斷、RNG／撒點、producer／raw／sealed、seed／主機／量測／receipt。
+既有regression／integrity與Git／文字比對只驗證repo；全部formal及物理OPEN保留。
+
+本交付首輪全庫回歸為1 failed／555 passed／5既有warnings（116.78秒）。
+失敗在既有test_worker_kernel_parent_death_guard的/proc exists→read間，
+程序被回收時觸發ProcessLookupError，位置仍為tests第218行。
+保留首輪失敗與trace，不改程式／測試；既有單項及全庫原樣重跑結果後補，
+不把這個repo驗證失敗改寫成研究結果或跳過失敗項。
+
+既有parent-death單項原樣重跑：1 passed（0.09秒）。首次全庫失敗不隱去。
+
+全庫原樣重跑：556 passed／5既有warnings（115.36秒），integrity與diff格式檢查通過。
+沒有改動程式／測試、未跳過失敗項；首輪1 failed紀錄與單項重跑結果並存。

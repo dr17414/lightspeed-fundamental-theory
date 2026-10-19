@@ -315,3 +315,25 @@ tree相同；Git committer UTC06:00:56／台北14:00:56。
 不能把上傳檔比對說成外部直接驗證了本地tree；原時間偏差及reviewer不阻擋裁定並存。
 本次不是activation，不改E0、生效SHA、formal、禁止資料／UNKNOWN、停止及回F條件。
 沒有新研究選題、模型／窗口／權重／判準、新推導或任何科學執行授權。
+
+
+## 20. PR #88定案、T2＋T3選題與只定問題（2026-10-19；權限不變）
+
+操作者於台北14:46:13／UTC06:46:13轉交#88 GO；核准head
+`bde2ca038b0170692048fc0ee04528b8f933e6cf`／tree
+`06bae466a0c3b71551664c994a260fec63f51ef9`，CI #280 success後原樣squash為main
+`b80ef2fd566ffabb43b5a77581087ef37938ebc7`，tree相同；
+Git committer UTC06:47:32／台北14:47:32，不是新的activation。
+
+操作者另於 **2026-10-19台北14:44／UTC06:44** 選路線圖T2＋T3，
+只知分鐘不補秒；採Claude方向建議，操作者為決定人，選題早於#88合併。
+C2暫停新增研究，三項既有校準確認與全部物理／r3 OPEN保留。
+新增[只定問題契約](foundations/t2_t3_problem_contract_v0_1.md)，
+Problem IDs X-T2-MATTER-GEOMETRY-P0.1、X-T3-SECTOR-SPINOR-P0.1，
+新model ID NONE，各有六欄；沒有K／作用量／operator構造或新推導。
+原文文獻只作作用域核對，不採用其構造、不擴張為L0湧現或formal資格。
+
+接觸帳§27逐字追加EXP-0056與0058、0059作者scope，0057保留上一則方向建議待本人原句；
+未取得全文不代填，未宣稱全申報已齊。契約須exact-head GO、原樣合併，
+且0057原句與來源審查完成後，才開始具名紙上研究。
+本次不改E0／生效SHA、formal、禁止資料／UNKNOWN、停止／回F及全部執行限制。
