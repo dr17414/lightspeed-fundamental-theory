@@ -72,16 +72,18 @@ Mecke期望恆等式、Var S=Var F+D−J、有符號阻擋項及兩項O(κ⁻¹�
 本輪只有複核／狀態紀錄，沒有新推導、研究選題、權重／law或科學執行。
 原P0.2／P0.3全文、已核准證明、r3、所有formal／OPEN及凍結來源保留。
 
-**下一個已選題（2026-10-16，尚待契約審查）：** 操作者明選方向1「r3回訊與C2串接」。
-[X-C2-R3-BRIDGE-P0.1](foundations/c2_r3_response_bridge_problem_contract_v0_1.md)只固定
-共同Π、原生B接收／再發射、外加線性回應、同一零輸出替換及M／絕對V。
-**r1未GO；操作者選方案b，r2待審：** 四項law差異對每個正密度按構造成立，
-只記「介面構造下成立」，不當回訊證據。新增固定判定a>gC/2、等號判0、
-完整配置下兩準備最壞誤判趨零的D目標；配對可識別性、穩定性／failure仍OPEN，本題不報時間。
-未推導聯合矩、極限或實現；不直接轉用單段P0.3的方差界，不稱器件／光速湧現。
-申報鏈4cd99590→34bfd9a0與舊「未選定」句保留，時間／批准者在接觸帳§21只追加釐清。
-EXP-0045原句及0046／0047保留；接觸帳§23追加0048本人r1複核、0049作者r2修訂scope；
-PR仍待新exact-head獨立複核，不先稱可合併。所有formal／OPEN不改。
+**C2–r3問題契約已定案；新紙上研究待審（2026-10-18）：**
+[X-C2-R3-BRIDGE-P0.1 r2](foundations/c2_r3_response_bridge_problem_contract_v0_1.md)
+在head b4e3deb1／tree435fc3e8獲Claude GO，CI #276 success後原樣合併
+`7bc202b586167ac2eb15a12a8846ec59e90d2a9f`，tree相同。契約全文與r1／r2歷史保留。
+新增[X-C2-R3-SHARED-MVPD-v0.1](foundations/c2_r3_shared_mvpd_study_v0_1.md)：
+補H平滑性與C良定性，轉用一致單段bias給M，另以高階矩／共享Π的L²比較給V，
+再分別推P與固定閾值D；保守V界O(κ⁻¹ᐟ⁸⁰)，全部新解析仍【探索／待exact-head】。
+沒有新核／回應介面／權重／窗口，也不把四項構造性law當成果。
+配對可識別性、穩定性／failure及物理實現仍OPEN，不報時間／延遲／距離。
+EXP-0050逐字本人申報、0051作者scope與合併前已有策略推理的流程時間偏差只追加；
+此偏差待reviewer裁定，不把文件建立時間倒填成最早推理時間。
+無科學執行或scientific PASS；原formal／凍結來源、所有UNKNOWN與禁止資料隔離不改。
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
@@ -563,6 +565,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.38（#86定案與共享配置M／V／P／D稿，2026-10-18）- Claude對b4e3deb1／435fc3e8給GO，CI #276綠後原樣merge 7bc202b5，tree相同。新增具名紙上研究，補良定性與一致單段／高階矩／共享Π加權L²證明，分別提出M、V、P、D，全部新解析待exact-head。EXP-0050逐字本人申報、0051作者來源與合併前策略推理的時間偏差只追加並待審。契約、舊證明／凍結來源、程式／JSON／tests／CI不改，四項構造law不作成果，沒有新科學執行、formal資格或scientific PASS。*
 
 *v2.37（PR #86 r2方案b問題修訂，2026-10-16）- r1 head9dd6710e／tree4660f45e未GO。操作者選b，r2校正四項law差異對每個ρ>0按構造成立、不作回訊證據，新增固定a>gC/2判定及兩準備最壞誤判趨零D目標；M／V仍獨立，配對可識別性／穩定性OPEN，不報時間或延遲。未改核／介面／泛函／M／V量詞，不開始推導或科學執行。舊head／所有帳保留，只追加EXP-0048本人原句與0049作者scope及ACT／dev紀錄；r2待新exact-head，未GO。*
 

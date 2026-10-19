@@ -282,3 +282,18 @@ Claude對r1 head9dd6710e／tree4660f45e未GO，要求在推導前校正四項law
 本人申報EXP-0048及作者修訂scope EXP-0049只追加於接觸帳§23。
 這次操作者選b不是r2 exact-head GO；仍須獨立複核與CI後才可合併。
 ACT生效SHA／E0、formal／資料隔離、停止條件及全部執行限制均不改。
+
+
+## 18. PR #86 r2定案與具名共享配置研究（2026-10-18）
+
+Claude對head b4e3deb1／tree435fc3e8給GO，CI #276 success後原樣合併main
+`7bc202b586167ac2eb15a12a8846ec59e90d2a9f`，tree與核准版本相同。
+Git committer UTC 2026-10-18 15:34:54／台北2026-10-18 23:34:54；契約此時定案，舊待審列保留為歷史。
+ACT生效commit仍0c386716，本次不是activation或執行／formal權限擴張。
+
+新增[X-C2-R3-SHARED-MVPD-v0.1](foundations/c2_r3_shared_mvpd_study_v0_1.md)，
+Readout ID X-C2-R3-RELAY-READOUT-v0.1；同一契約介面與泛函，不換核、窗口或判準。
+新稿補良定性及M／V／P／D的紙上證明，全部探索／待exact-head，不先升格或稱物理回訊。
+EXP-0050本人申報、0051作者來源與合併前已有紙上策略推理的時間偏差，只追加於接觸帳§24；
+不把具名文件合併後建立說成所有推理都在合併後，留待reviewer判斷。
+原契約、r3／P0.2／P0.3、既有證明、formal／資料／執行限制與停止條件不改。
