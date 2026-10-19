@@ -586,3 +586,39 @@ EXP-0056及0058原句、所有舊帳／偏差／批准歸屬逐位元保留；00
 EXP-0059的repo驗證接觸補充：首輪既有回歸在parent-death測試遇到ProcessLookupError，
 作者另讀該trace及測試第185–226行的公開程式，確認exists／read的程序回收競態位置；
 只原樣重跑既有單項與全庫，不改程式／測試、不作新科學或數值／符號診斷。
+
+
+## 28. EXP-0057原句補齊與PR #89首版GO收件（2026-10-19；只追加）
+
+操作者於 **2026-10-19 16:18:09 Asia/Taipei／08:18:09 UTC** 轉交#89 exact-head GO，
+並提供此前保留的0057本人原句及本輪0060本人申報。
+本輪GO只及head `3f4c37dba2b132555e9a2c11d0d151667967fcc1`、tree
+`4a5c43ab95c713ed180a98c8a4e11a1312516dbe`；GitHub確認CI #282 success。
+採操作者轉交的建議，在#89追加一個只改本帳的小commit，先交增量複核再合併。
+不把首版GO自動延伸至追加後的head，也不先合併或開始T2／T3研究。
+
+**完成原保留ID EXP-0057：操作者轉交的本人申報原句**
+
+> Claude（方向建議）：讀 main 的 README、理論優先路線圖全文、T1＋T5 審計的開頭與六欄、STATUS 中 G0-B／G0-C 那兩列，並列出 foundations 目錄的檔案清單。方向排序是根據 repo 已記載的路線圖與未決項目所作的判斷。沒有做文獻檢索，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+本條完成§27的同一EXP-0057，狀態由PENDING-VERBATIM轉為RECORDED-VERBATIM，
+不是重用ID或另建立第二個0057。§27的待補行及全部舊內容逐位元保留。
+申報未給當時的main SHA或閱讀時間，不自行補成b80ef2fd或本輪收件時間；
+本輪時間只代表收到本人原句，不能倒填為首次選題、閱讀或批准時間。
+
+**EXP-0060：操作者轉交的PR #89複核本人申報原句**
+
+> Claude（PR #89 複核）：以 exact head `3f4c37db` 讀 #89 全部 diff 與 T2＋T3 契約全文，以 git 核對 head、tree、parent，確認只有六份 Markdown 的新增，帳本沒有刪除行，並比對 EXP-0056、0058 原句。逐項核對兩題的六欄、局部性與等變的定義、Spin 中心作用的作用域、Clifford 目標的維數，以及 T2 的測度、振幅比與分母義務。文獻部分只憑記憶核對作者與編號，沒有讀原文或做檢索；Kleitman–Rothschild 計數的提示也憑記憶。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+| EXP-ID／actor | 實際收件／來源 | 影響與隔離 |
+| :--- | :--- | :--- |
+| EXP-0057／Claude本人申報，由操作者補齊原保留ID | 上述方向建議原句；閱讀公開README／路線圖、T1＋T5開頭與六欄、STATUS指定兩列及foundations檔案清單，沒有文獻檢索／推導／執行 | 完成RECORDED-VERBATIM，僅解除本人原句缺項；不擴張為全歷史無接觸、不代填未給的SHA／時間，不去除既有UNKNOWN或來源隔離。來源與本次追加仍交新exact-head增量複核 |
+| EXP-0060／Claude本人申報由操作者轉交 | 上述#89原句與首版GO，含契約型別核對及既有regression／integrity；五篇文獻原文未讀，KR計數提示憑記憶 | 原句逐字保留；不把記憶性作者／編號／漸近提示當作已核原文或新證明，不據此填T2速率或T3能力格；原文定位仍是作者EXP-0059的有界責任，不聲稱已經雙方獨立核實 |
+| EXP-0061／GPT作者，只追加申報與首版GO紀錄 | 本輪讀操作者轉交的完整#89複核、0057／0060原句、公開接觸帳§26–27，核對遠端#89 head／base／draft及CI #282 success；只在本帳檔尾收錄兩段原句、補齊保留ID及本scope | 沒有改契約／六欄／primitive／history measure／表示目標／判準、狀態頁或其他檔案；未採用reviewer提示作新證明、選模型或參數，未讀新文獻原文。只作Git／逐字／prefix／固定來源與既有regression／integrity檢查，沒有新數值／符號診斷、RNG／撒點、producer／raw／sealed、seed／主機／量測／receipt或scientific PASS |
+
+契約§1及README／STATUS較早的0057待補文字保留為原受審時點；本節追加原句收件的其後事實。
+只有原句缺項已解除，不宣稱增量已獲GO或研究開始條件已全部完成。
+#89仍維持draft，須追加後exact-head增量複核與CI成功，再原樣合併並核對tree，
+才可按契約處理後續具名紙上研究；本輪不推導，也不自動授權任何構造或執行。
+E0、生效SHA、formal、item7／8、6a-E／Freeze-1a、C2暫停與原確認／OPEN、
+所有UNKNOWN／禁止資料／回F隔離均不改。下一個新EXP-ID為0062。
