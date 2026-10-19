@@ -297,3 +297,21 @@ Readout ID X-C2-R3-RELAY-READOUT-v0.1；同一契約介面與泛函，不換核�
 EXP-0050本人申報、0051作者來源與合併前已有紙上策略推理的時間偏差，只追加於接觸帳§24；
 不把具名文件合併後建立說成所有推理都在合併後，留待reviewer判斷。
 原契約、r3／P0.2／P0.3、既有證明、formal／資料／執行限制與停止條件不改。
+
+
+## 19. PR #87原樣合併與限定解析確認（2026-10-19；權限不變）
+
+操作者於台北14:00:20／UTC06:00:20轉交Claude對head
+`924c90c1bb89d887fd140d3795c6bec147c6f865`／tree
+`e7d4c476e762d2b091c010e5f2d8a19269ed1233` 的exact-head GO。
+CI #278 success後原樣squash為main `6cd3eb4386582eb80e528b631673b6b8aebca647`，
+tree相同；Git committer UTC06:00:56／台北14:00:56。
+[X-C2-R3-SHARED-MVPD-v0.1](foundations/c2_r3_shared_mvpd_study_v0_1.md)限定升格為
+【已確認／定案共享配置雙段讀值（外加線性介面）的M、絕對V、P與單次判定D】；
+物理詮釋、r3配對可識別性／穩定性與器件實現仍OPEN。
+
+本人申報EXP-0054與作者同步scope EXP-0055只追加於接觸帳§26。
+公開推送批准人是操作者，Claude只作預讀及後續複核；舊本地commit未公開，
+不能把上傳檔比對說成外部直接驗證了本地tree；原時間偏差及reviewer不阻擋裁定並存。
+本次不是activation，不改E0、生效SHA、formal、禁止資料／UNKNOWN、停止及回F條件。
+沒有新研究選題、模型／窗口／權重／判準、新推導或任何科學執行授權。

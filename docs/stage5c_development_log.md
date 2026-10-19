@@ -226,3 +226,26 @@ Claude對r1 head9dd6710e／tree4660f45e未GO：線性介面的四項law比較按
 
 全庫原樣重跑結果：556 passed／5既有warnings（109.01秒）；integrity與diff格式檢查通過。
 首輪失敗及單項重跑結果均保留，沒有改動程式／測試來取得通過。
+
+
+## PR #87原樣合併、限定升格與來源釐清（2026-10-19）
+
+Claude對exact head924c90c1／treee7d4c476給GO；CI #278成功，
+556 passed／5既有warnings與integrity通過，原樣squash為main
+`6cd3eb4386582eb80e528b631673b6b8aebca647`，tree相同。
+Git committer UTC06:00:56／台北14:00:56；GO轉交時間為台北14:00:20／UTC06:00:20。
+
+限定確認X-C2-R3-SHARED-MVPD-v0.1的定案共享配置雙段讀值（外加線性介面）
+M、絕對V、P與單次判定D；只改研究審核狀態並追加§9，§2–8全部證明不變。
+保守非最優O(κ⁻¹ᐟ⁸⁰)、四項law比較的構造性、原量詞及所有物理／formal OPEN保留。
+物理詮釋仍探索；r3 §4.3配對可識別性、§4.4穩定性與器件實現仍OPEN。
+
+EXP-0054逐字保存本人申報，0055記作者來源與文件同步；公開推送是操作者批准，
+Claude預讀只是建議。2247edb4／7adb918b僅本地、未公開，
+外部不能由Git直接驗證其與公開tree的差異；reviewer比對的是上傳檔與公開版本。
+EXP-0051流程時間偏差及首輪/proc競態／重跑紀錄保留；Claude正式裁定時間偏差不阻擋，
+理由是r2判準及merge blob固定，不把文件建立時間當作最早推理時間。
+
+本次只同步狀態與追加三本帳；不改契約／舊研究／凍結來源、程式／JSON／tests／CI。
+沒有新推導、研究選題、DEV科學執行、attempt、RNG／撒點、producer、
+raw／sealed、seed／主機／量測／receipt或scientific PASS。

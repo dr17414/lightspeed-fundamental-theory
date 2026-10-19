@@ -489,3 +489,41 @@ tree `7adb918b6c35d8797de59e02b34c54a29b83503e`；本次只追加此節，研究
 本節不改寫任何舊句或原申報；0052只代表已收到上述有界本人申報。
 完整六份文件仍須先取得操作者的公開推送批准，建立draft PR後再由Claude做exact-head複核。
 下一個新EXP-ID為0054；物理詮釋／formal／資料隔離／執行限制均不變，沒有scientific PASS。
+
+
+## 26. PR #87 exact-head GO、原樣合併與公開查核界線（2026-10-19；只追加）
+
+操作者於 **2026-10-19 14:00:20 Asia/Taipei／06:00:20 UTC** 轉交本輪正式GO，
+head `924c90c1bb89d887fd140d3795c6bec147c6f865`，tree
+`e7d4c476e762d2b091c010e5f2d8a19269ed1233`。
+GitHub確認CI #278 success後按expected head轉ready並原樣squash合併main
+`6cd3eb4386582eb80e528b631673b6b8aebca647`，tree相同；
+Git committer UTC2026-10-19 06:00:56／台北14:00:56，不是新的activation。
+
+**公開推送批准人是操作者。** 2026-10-19 12:44:37 Asia/Taipei／04:44:37 UTC，
+操作者以「同意你執行」批准完整六份Markdown的tree e7d4c476公開推送並建draft PR；
+自動批准審查服務容量不足時兩次未執行。操作者於台北13:23:10／UTC05:23:10
+要求「請再試試可以嗎？」後，同一內容成功發布為PR #87，沒有改動已批准tree。
+遠端commit924c90c1的Git時間UTC05:24:08／台北13:24:08，
+PR建立時間UTC05:24:59／台北13:24:59；批准時間、發布時間及正式GO時間分開記錄。
+Claude此前只提供預讀建議，既非公開推送批准人，也未事前給新研究exact-head GO。
+
+**未公開本地版本的查核限制。** §25所列2247edb4／tree7adb918b只在本地，未推送；
+外部無法直接由公開Git核對「7adb918b與e7d4c476只差§25」。
+本地比較只能作作者的本地來源紀錄，不當作外部可直接重現的Git證據。
+Claude可確認的是公開研究稿等於其預讀的上傳檔、公開接觸帳等於上傳版加§25；
+不延伸為本人看過四份配套文件的未公開版本或查核過本地tree。
+原EXP-0051時間偏差保留；reviewer本輪裁定不阻擋，因r2判準固定且merge blob未變，
+不以此裁定覆寫最早推理時間或宣稱原先完全遵守時間先後。
+
+操作者轉交的Claude本人申報原句：
+
+> Claude（PR #87 exact-head 複核）：以 exact head `924c90c1` 讀 #87 全部 diff，比對推送的研究稿與預讀時的上傳版本（逐字相同），以及接觸帳（上傳版本加上 §25），並比對 EXP-0052 原句。以 git 核對 head、tree、parent，確認凍結檔案沒有改動、帳本沒有刪除行。逐式重核 §4.1 的轉用前提、§6.2 的 Z′ 四階矩與兩次 Cauchy–Schwarz，其餘步驟沿用預讀時的手算結果。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+| 新EXP-ID／actor | 來源／接觸與決定 | 影響／隔離／範圍 |
+| :--- | :--- | :--- |
+| EXP-0054／Claude本人申報由操作者轉交 | 上述原句及PR #87正式GO；exact-head讀全部diff、比對預讀上傳檔，重核§4.1及§6.2，其餘沿用預讀手算；既有regression 556 passed／5warnings、integrity通過 | 原句逐字保存，不冒稱已直接查核本地commit2247edb4／tree7adb918b；本人未執行數值／符號計算、RNG／撒點、producer，未讀raw／sealed或文獻原文。限定GO只及定案泛函的M／絕對V／P／D，不是推送批准或物理／formal資格 |
+| EXP-0055／GPT作者，原樣合併與限定升格紀錄 | 本輪讀完整GO與申報、公開研究首段／§1／§8及基線狀態與帳本，核對#87 head／parent／CI與signed merge tree；原樣合併後，只同步六份Markdown的限定審核狀態與三本帳，補操作者批准來源及本地版本公開查核限制 | 未重推導或改§2–8證明、契約／核／介面／權重／窗口／判準，未選新研究方向。只作Git／逐字／prefix／固定blob檢查、既有regression與integrity，不作新數值／符號診斷、RNG／撒點、producer／raw／sealed／endpoint、seed／主機／量測／receipt；未讀新外部文獻。物理詮釋／器件／配對識別／穩定性、formal及全部UNKNOWN與禁回流隔離保留 |
+
+舊帳、0051偏差、0052預讀與0053收件scope逐位元保留，較早待批准／待GO是當時狀態。
+下一個新EXP-ID為0056；本次不授予新科學執行、scientific PASS或下一題的研究授權。
