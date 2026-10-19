@@ -28,6 +28,8 @@
 
 - **C2–r3 串接（限定解析已確認）**：[問題契約r2](docs/foundations/c2_r3_response_bridge_problem_contract_v0_1.md)保留不變；[共享配置M／V／P／D研究](docs/foundations/c2_r3_shared_mvpd_study_v0_1.md)經PR #87 exact-head GO與CI #278後原樣合併，限定確認外加線性介面下的M、絕對V、P及單次判定D，保留非最優O(κ⁻¹ᐟ⁸⁰)界。物理詮釋仍探索；四項law比較只算介面構造，r3配對可識別性／穩定性與器件實現OPEN，不報時間／延遲／距離或c湧現。時間偏差原紀錄及reviewer裁定、操作者推送批准與本地版本公開查核限制見接觸帳§26；沒有新推導或科學執行。
 
+- **目前選題：T2＋T3，只定問題**：操作者於2026-10-19台北14:44選定[物質選幾何／sector能力問題契約](docs/foundations/t2_t3_problem_contract_v0_1.md)，各有獨立ID與六欄，固定class總量、局部性／等變及Clifford比較型別，沒有新K／作用量／算子或推導。C2線暫停新增研究，既有確認與OPEN項保留；契約待exact-head，上一則方向建議申報EXP-0057待本人原句，不以本次申報替代。
+
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
 - **Manifold selection** (流形選擇/幾何相消機制)

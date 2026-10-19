@@ -527,3 +527,98 @@ Claude可確認的是公開研究稿等於其預讀的上傳檔、公開接觸�
 
 舊帳、0051偏差、0052預讀與0053收件scope逐位元保留，較早待批准／待GO是當時狀態。
 下一個新EXP-ID為0056；本次不授予新科學執行、scientific PASS或下一題的研究授權。
+
+
+## 27. PR #88 GO、T2＋T3選題與來源登記（2026-10-19；只追加）
+
+操作者於 **2026-10-19 14:46:13 Asia/Taipei／06:46:13 UTC** 轉交#88複核與題目說明。
+#88 exact head `bde2ca038b0170692048fc0ee04528b8f933e6cf`／tree
+`06bae466a0c3b71551664c994a260fec63f51ef9`，parent main6cd3eb43；
+CI #280 success後按expected head轉ready、原樣squash合併為
+main `b80ef2fd566ffabb43b5a77581087ef37938ebc7`，tree相同。
+Git committer UTC2026-10-19 06:47:32／台北14:47:32；不是新activation。
+
+**選題人是操作者。** 明示決定時間為 **2026-10-19 14:44 Asia/Taipei／06:44 UTC**，
+只知分鐘不補秒；採Claude方向建議中的T2＋T3，早於#88合併及本契約起草。
+C2線暫停新增研究，已確認單段／雙段校準與全部OPEN項保留。
+契約以合併後main b80ef2fd為基線，不把選題時間倒填為推導／構造批准。
+
+**EXP-0056：操作者轉交的#88本人申報原句**
+
+> Claude（PR #88 複核）：以 exact head `bde2ca03` 讀 #88 全部 diff，以 git 核對 head、tree、parent；確認研究稿只改了首段、第 6 行、§1 的證據格並追加 §9，§2–8 沒有改動；凍結檔案沒有改動，帳本沒有刪除行。另比對了 EXP-0054 原句，並核對兩項來源釐清與我的建議一致。沒有重新推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+**EXP-0057：上一則方向建議申報，PENDING-VERBATIM（保留ID）**
+
+操作者要求把「上一則的方向建議申報」登記為下一個可用ID，因此保留0057。
+本次可見訊息含0056及下列0058，但未附那一則申報原句；
+個人脈絡檢索也未取回其本人原文，只返回既有#87／#88狀態摘要。
+不能由GPT用「T2＋T3為Claude建議」重建閱讀範圍、沒有做什麼或其他本人事實，
+也不能以0058覆蓋這個不同的申報。未取得全文之前維持PENDING-VERBATIM；
+舊歷史UNKNOWN與來源隔離保留，相關具名研究不開始，契約仍可先供審。
+
+**EXP-0058：操作者轉交的本輪題目說明申報原句**
+
+> Claude（T2＋T3 題目說明）：讀 main `6cd3eb43` 的 STAGE5B_RESULT_B 與 handoff_v2.0 的章節標題，以及 STATUS 中 Q_test 和 KR 熵的相關行，用來寫出引用位置。題目說明中的文獻名稱憑記憶提出，沒有讀原文或做檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+| EXP-ID／actor | 實際取得／閱讀／決定 | 影響、未讀與隔離 |
+| :--- | :--- | :--- |
+| EXP-0056／Claude本人申報由操作者轉交 | 上述#88 exact-head原句，核對改動／來源釐清、逐字申報及既有regression／integrity，沒有重新推導 | 原句逐字保存，只及本次申報範圍，不當推送批准或下一題研究結果；原來未讀／未執行的陳述不延伸到其他session |
+| EXP-0057／Claude上一則方向建議申報，保留ID待補 | 只有操作者提及該申報及建議歸屬；本人全文未取回 | PENDING-VERBATIM，不代填、不拿0058替代；補齊前需來源審查，不聲稱帳已完整 |
+| EXP-0058／Claude本人申報由操作者轉交 | 上述題目說明原句；作者／文獻名稱來自本人記憶，未讀原文或檢索 | 逐字保存，不把GPT其後閱讀原文改寫成Claude也讀過；選題由操作者台北14:44作決定 |
+| EXP-0059／GPT作者，合併、來源定位與問題契約 | 核對#88 head／parent／CI與signed merge tree；讀STAGE5B_RESULT_B §1–6（含原文既有公開診斷數字與seed metadata）、handoff_v2 §0–2及後接公開片段、handoff_v1 §7.1–7.3與三角det段、路線圖§1–7、STATUS的Q_test／KR／歷史行、T1＋T5審計開頭與部分前提／反例段、探索決策的接觸／停止條款及現行帳本。查外部文獻並讀下表原文指定段落；個人脈絡檢索只查缺申報，未取回全文。起草兩個ID、六欄與型別／量詞，不選模型或推導必要速率 | 已接觸reviewer題目與記憶性提示，不稱盲選題；外部閱讀只作來源作用域對照，未採用其K／作用量／模型。不呼叫producer、不讀raw／sealed／arm ledger，無新數值／符號計算、RNG／撒點、seed／主機／量測／receipt。Git／文字比對、既有regression／integrity只作repo驗證，沒有scientific PASS或formal權限變更 |
+
+EXP-0059外部來源讀取（均2026-10-19；URL及定位亦在契約§5）：
+
+| 原文 | 實際閱讀程度／用途 |
+| :--- | :--- |
+| BHS gr-qc/0605006v1 | HTML §2 Theorem 1、延伸(1)–(5)及§3，連同其前置配置／law說明；核對逐配置等變、full Minkowski與有限boundary限制，不重新證定理 |
+| Loomis–Carlip 1709.00064v2 | PDF摘要、§1、§3–5及相鄰提取文字，含BD action／class sum、two-level範圍與參數條件、KR延伸當時仍待辦；沒有重核steepest descent附錄 |
+| Mathur–Singh–Surya 2009.07623v2 | PDF摘要、§1、§2開頭標記定義、§3.1及其前後片段、§3.4末與§4；注意link action／BDG區別、class限制及KR＋dust警告，沒有重證計數或執行文中數值 |
+| Sverdlov 0808.2956v1 | PDF摘要、§1、§2的vierbein／scalar資料段與式(9)–(15)及相鄰提取文字；只核primitive來源，未驗證整篇構造或其Lorentz性 |
+| Johnston 1010.5514v1 | 摘要頁、HTML §6.1–6.3開頭、§7.1及工具回傳的相鄰片段（含§6.5末）；只定位Clifford／spinor條件與speculative構想，未採用其中構造或作全篇複核 |
+
+檢索結果含其他論文／網頁摘要與不相關結果，只作找原文的索引，沒有作承重依據。
+本次沒有新證明或能力結論；兩題的新model ID NONE，T3矩陣各格OPEN。
+EXP-0056及0058原句、所有舊帳／偏差／批准歸屬逐位元保留；0057補齊須使用同一保留ID。
+下一個新EXP-ID為0060，不重用0057；契約待exact-head與原樣合併及上述來源缺項解除，
+才可開始具名紙上研究，E0／formal／禁止資料／UNKNOWN與全部執行限制不變。
+
+EXP-0059的repo驗證接觸補充：首輪既有回歸在parent-death測試遇到ProcessLookupError，
+作者另讀該trace及測試第185–226行的公開程式，確認exists／read的程序回收競態位置；
+只原樣重跑既有單項與全庫，不改程式／測試、不作新科學或數值／符號診斷。
+
+
+## 28. EXP-0057原句補齊與PR #89首版GO收件（2026-10-19；只追加）
+
+操作者於 **2026-10-19 16:18:09 Asia/Taipei／08:18:09 UTC** 轉交#89 exact-head GO，
+並提供此前保留的0057本人原句及本輪0060本人申報。
+本輪GO只及head `3f4c37dba2b132555e9a2c11d0d151667967fcc1`、tree
+`4a5c43ab95c713ed180a98c8a4e11a1312516dbe`；GitHub確認CI #282 success。
+採操作者轉交的建議，在#89追加一個只改本帳的小commit，先交增量複核再合併。
+不把首版GO自動延伸至追加後的head，也不先合併或開始T2／T3研究。
+
+**完成原保留ID EXP-0057：操作者轉交的本人申報原句**
+
+> Claude（方向建議）：讀 main 的 README、理論優先路線圖全文、T1＋T5 審計的開頭與六欄、STATUS 中 G0-B／G0-C 那兩列，並列出 foundations 目錄的檔案清單。方向排序是根據 repo 已記載的路線圖與未決項目所作的判斷。沒有做文獻檢索，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+本條完成§27的同一EXP-0057，狀態由PENDING-VERBATIM轉為RECORDED-VERBATIM，
+不是重用ID或另建立第二個0057。§27的待補行及全部舊內容逐位元保留。
+申報未給當時的main SHA或閱讀時間，不自行補成b80ef2fd或本輪收件時間；
+本輪時間只代表收到本人原句，不能倒填為首次選題、閱讀或批准時間。
+
+**EXP-0060：操作者轉交的PR #89複核本人申報原句**
+
+> Claude（PR #89 複核）：以 exact head `3f4c37db` 讀 #89 全部 diff 與 T2＋T3 契約全文，以 git 核對 head、tree、parent，確認只有六份 Markdown 的新增，帳本沒有刪除行，並比對 EXP-0056、0058 原句。逐項核對兩題的六欄、局部性與等變的定義、Spin 中心作用的作用域、Clifford 目標的維數，以及 T2 的測度、振幅比與分母義務。文獻部分只憑記憶核對作者與編號，沒有讀原文或做檢索；Kleitman–Rothschild 計數的提示也憑記憶。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+| EXP-ID／actor | 實際收件／來源 | 影響與隔離 |
+| :--- | :--- | :--- |
+| EXP-0057／Claude本人申報，由操作者補齊原保留ID | 上述方向建議原句；閱讀公開README／路線圖、T1＋T5開頭與六欄、STATUS指定兩列及foundations檔案清單，沒有文獻檢索／推導／執行 | 完成RECORDED-VERBATIM，僅解除本人原句缺項；不擴張為全歷史無接觸、不代填未給的SHA／時間，不去除既有UNKNOWN或來源隔離。來源與本次追加仍交新exact-head增量複核 |
+| EXP-0060／Claude本人申報由操作者轉交 | 上述#89原句與首版GO，含契約型別核對及既有regression／integrity；五篇文獻原文未讀，KR計數提示憑記憶 | 原句逐字保留；不把記憶性作者／編號／漸近提示當作已核原文或新證明，不據此填T2速率或T3能力格；原文定位仍是作者EXP-0059的有界責任，不聲稱已經雙方獨立核實 |
+| EXP-0061／GPT作者，只追加申報與首版GO紀錄 | 本輪讀操作者轉交的完整#89複核、0057／0060原句、公開接觸帳§26–27，核對遠端#89 head／base／draft及CI #282 success；只在本帳檔尾收錄兩段原句、補齊保留ID及本scope | 沒有改契約／六欄／primitive／history measure／表示目標／判準、狀態頁或其他檔案；未採用reviewer提示作新證明、選模型或參數，未讀新文獻原文。只作Git／逐字／prefix／固定來源與既有regression／integrity檢查，沒有新數值／符號診斷、RNG／撒點、producer／raw／sealed、seed／主機／量測／receipt或scientific PASS |
+
+契約§1及README／STATUS較早的0057待補文字保留為原受審時點；本節追加原句收件的其後事實。
+只有原句缺項已解除，不宣稱增量已獲GO或研究開始條件已全部完成。
+#89仍維持draft，須追加後exact-head增量複核與CI成功，再原樣合併並核對tree，
+才可按契約處理後續具名紙上研究；本輪不推導，也不自動授權任何構造或執行。
+E0、生效SHA、formal、item7／8、6a-E／Freeze-1a、C2暫停與原確認／OPEN、
+所有UNKNOWN／禁止資料／回F隔離均不改。下一個新EXP-ID為0062。
