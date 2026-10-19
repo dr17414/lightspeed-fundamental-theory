@@ -354,3 +354,20 @@ EXP-0062逐字記Claude本輪增量申報，0063記作者來源／原文／推�
 C2暫停與既有限定結果／全部OPEN保留，ACT-X-0001仍以0c386716生效且僅紙上；
 本條不重新activation、不改E0／formal／item7／8／6a-E／Freeze-1a，
 亦不授權科學執行、seed、主機、量測／receipt或任何禁止資料回流。
+
+
+## 22. PR #90原樣合併與T2／T3限定解析確認（2026-10-19；權限不變）
+
+#90 exact head81f1a260／treebc579c93獲Claude GO，CI #285 run39257616818與
+job118076754933在同一head success後原樣合併main
+`a5f584a679911f13eb3e4a1909407856e203d39d`，tree相同，UTC15:42:54／台北23:42:54。
+[T2總量審計](foundations/t2_class_sum_audit_v0_1.md)限定確認measure換算及條件式相消／改善式；
+一般F的充分上界不升格為必要且充分定理。
+[T3能力審計](foundations/t3_sector_capability_audit_v0_1.md)限定確認§6分格no-go與「需外加」判定，
+不擴張為所有intrinsic spinor都不可能；物理詮釋與既有OPEN保留。
+只改兩稿狀態／§1及追加複核紀錄，證明／矩陣與契約不改；
+STATUS記T2契約§4.5提問方向已由研究§4.2釐清，不修改定案契約。
+EXP-0064逐字保留本人申報，0065記作者只合併／紀錄scope；沒有新研究題、推導或構造。
+ACT-X-0001仍以0c386716生效且僅紙上，C2暫停與原確認／OPEN保留；
+本條不activation、不改E0或formal／item7／8／6a-E／Freeze-1a、UNKNOWN與禁止資料隔離，
+不授權seed／主機／量測／receipt或其他科學執行。

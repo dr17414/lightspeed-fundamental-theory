@@ -664,3 +664,41 @@ Git committer UTC12:48:54／台北20:48:54。
 所有UNKNOWN／禁止資料／回F隔離與執行上限均保留。
 舊0057待補與契約待審文字保留為歷史，現行狀態以本節與配套頁面為準。
 下一個新EXP-ID為0064。
+
+
+## 30. PR #90原樣合併與兩稿限定升格（2026-10-19；只追加）
+
+操作者轉交#90 GO與本人申報的本輪訊息時間是
+**2026-10-19 23:42:03 Asia/Taipei／15:42:03 UTC**，只作收件時間，
+不倒填Claude實際閱讀時間或原文接觸。
+
+**EXP-0064：操作者轉交的PR #90複核本人申報原句**
+
+> Claude（PR #90 複核）：以 exact head `81f1a260` 讀 #90 全部 diff、T2 與 T3 兩份研究稿全文、接觸帳 §29 與狀態文件。以 git 核對 head、tree、parent 與契約 blob，確認只有預期的七份 Markdown、帳本沒有刪除行，並比對 EXP-0062 原句。逐式手算核對 T2 的 (T2.1)–(T2.11)，以及 T3 的 1+1 two-order、六點 S₃ 與 witness 距離、機率論證、置換路徑、中心障礙、Clifford trace 維數與單位引理。KR 計數只憑記憶核對；沒有讀 KR、Noldus、BHS 或其他文獻原文，也沒有做檢索。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+#90 head `81f1a2607a2ea6a953195746d2944a788df6ea39`／tree
+`bc579c93103815d1861e6a985b7441a6aeb5adeb` 原樣GO；
+CI #285 run39257616818在同一head completed／success，job118076754933與全部steps success。
+轉ready後原樣squash為main `a5f584a679911f13eb3e4a1909407856e203d39d`，tree相同；
+Git committer UTC15:42:54／台北23:42:54。沒有修改GO head後再合併。
+
+**EXP-0065：GPT作者，本輪只合併與限定升格紀錄**
+
+| 接觸／動作 | 實際範圍與界線 |
+| :--- | :--- |
+| 操作者轉交的複核 | 讀本輪GO、逐項核對說明與0064原句；原句逐字收錄，不把Claude記憶性KR核對寫成讀過原文 |
+| Git／CI | 查#90 head／parent／tree、main、CI #285直接run的head／success及job／steps，轉ready、原樣merge並核對signed merge tree；本輪未遇自動合併審查拒絕 |
+| Repo公開文字 | 讀兩稿首段／§1及相鄰內容、T2 §4.2／contract §4.5的既有提問、README／STATUS及三帳，參考舊共享M／V／P／D稿末尾限定升格紀錄的格式；只作狀態／來源同步，不重推公式 |
+| 升格與提問方向 | 按0064的限定GO只改兩稿首段、§1審核句／證據格，檔尾追加；T2 §2–6、T3 §2–7逐位元保留。STATUS記下界給充分、必要需上界／尺度的既有釐清，不動契約或判準；一般F界的充分性不升成任意F的iff |
+| T3概括的作用域 | 保留各格的個別輸出／輸入／維數限制，不把其合集說成所有intrinsic spinor都不可能；「需外加」仍不排除未給出的來源路徑。reviewer的2+1維提醒只收作複核意見，本輪不擴寫或新增定理 |
+| 未接觸／未執行 | 沒有重讀KR／Noldus／BHS或其他新文獻、沒有檢索原文；未另選研究題、未新增推導／構造或數值／符號診斷、RNG／撒點、producer、raw／sealed／arm ledger、seed、主機、量測或receipt。只用Git／文字／blob／prefix及既有regression／integrity作repo驗證 |
+
+T2限定升格【已確認／限定解析：measure 換算，以及純相位與一般物質因子的條件式必要與充分式】；
+一般F的(T2.10)仍只給充分上界，(T2.11)仍為同重力baseline精確改善比。
+T3限定升格【已確認／限定解析：§6 分格矩陣中的限定 no-go 與「需外加」判定】。
+兩稿物理詮釋仍【探索】，實際class／F_N／分母界與一般intrinsic spinor／L-FIN／動力學OPEN。
+作者原EXP-0063的文獻責任範圍保留，不冒稱已由reviewer獨立核實原文。
+C2暫停、全部已確認與OPEN、E0／formal／item7／8／6a-E／Freeze-1a、
+UNKNOWN／禁止資料／回F隔離均不變；沒有新scientific PASS或執行授權。
+本次文件增量仍須新exact-head複核，不把#90 GO延伸成新PR已GO。
+下一個新EXP-ID為0066。
