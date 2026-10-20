@@ -814,3 +814,36 @@ r1 exact head `aeca9033fadf87defde1a91468369a2be1500f09`／tree
 本r2待增量exact-head複核與原樣合併，不開始具名T6研究；model ID仍NONE。
 C2暫停、T2／T3限定確認、所有formal／item7／8／6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
 下一個新EXP-ID為0073，不重用已補齊的0068。
+
+
+## 34. PR #92 r2原樣合併與T6具名紙上研究（UTC2026-10-20／台北2026-10-21；只追加）
+
+操作者轉交r2 GO與本人原句，收件時間為UTC2026-10-20 17:13:56／台北2026-10-21 01:13:56，
+不是Claude閱讀時間。r2 exact head ada4b412／tree12634a4a經CI #290 run39444635314與
+job118703171118全步成功後，原樣合併main `865d74a37960a76e1585ec5065ff21ff76395e2d`，
+tree `12634a4a80ee9b5aa11d2353da419249c972d767`與GO相同。
+Git committer UTC2026-10-20 17:14:49／台北2026-10-21 01:14:49。
+契約blob `ce332f5f3b7b999ca2a8c4836540085a0560b886`不變；0068已補、GO與原樣合併三項完成並核對後，
+才開始本輪新策略／推導。沒有本輪提前推導偏差；舊r1／r2待審行作歷史紀錄保留。
+
+**EXP-0073：操作者轉交的PR #92 r2增量複核本人申報原句**
+
+> Claude（PR #92 r2 增量複核）：以 exact head `ada4b412` 讀 `aeca9033..ada4b412` 的全部 diff，以 git 核對 head、tree、parent，確認契約只改 §1 並新增 §2.1、§3–7 與 r1 逐字相同、acceptance 和 formal 檔案沒有改動、帳本沒有刪除行，並比對 EXP-0068、0071 原句。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+**EXP-0074：GPT作者，T6具名條件式代數／資料來源審計**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| 操作者／reviewer來源 | 讀本輪r2 GO與0073原句、既有0069／0071對CAR與一般state負方向的提示；已知提示，不稱盲推導或新發現。沒有替Claude擴張閱讀／批准範圍 |
+| Git／repo公開文字 | 核對#92 head／tree、CI #290 run與job／steps、merge main與tree及契約blob；讀定案契約全文、相關帳本／ACT／README／STATUS目前段及來源標記。formal引用沿定案契約，沒有改正式文件 |
+| 本輪原文 | 重讀Araki原PDF §2與§3 Lemmas 3.2–3.3，工具亦回傳引言與相鄰§4片段；Noldus 1305.0443v3 §3與回傳§2末，見bar／H、generating structure與vacuum符號；Sorkin 1107.0698v2 §2附近Eqs.(3)–(7)及回傳histories相鄰段。只作已知代數／型別校準，未採物理構造 |
+| 本輪未讀 | 沒有新讀Johnston、AAS、Potting、BBMM／Track B或其他原文；前輪定位保留在EXP-0070，不冒稱本輪重核 |
+| 紙上工作 | 新稿X-T6-QUANTUM-OBLIGATION-AUDIT-v0.1交條件式A=Q+R／正性、null quotient與Riesz表示、charged異常兩點／self-dual Γ分型、positive-part轉用障礙、已給dynamics的form保留、逐對form極限及QO義務表。全部新證明待exact-head複核，物理來源仍OPEN |
+| 構造界線 | 定理只量化任意已給資料；H_A與S是已給A／Q的條件式表示，沒有選本專案K／state／物理pairing／test space／projector／算子，不提出C9／C10 criterion或evaluator。Green／adjoint到實際總CAR form未完成對接，沒有本專案quantum FAIL／PASS |
+| 執行界線 | 僅Git／文字／逐字／prefix／blob、既有regression與integrity作repo驗證；沒有新數值／符號診斷、RNG／撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行 |
+
+原文URL及各段作用域列新稿§9。探索軌，不具 §5.2.1(v) 依據資格；
+即使獲GO／合併／STATUS轉述，也不能自動完成D.1第8項A聲明；讀原文不是B mapping。
+若回formal，須另案handoff、曝光對應與合資格審查。契約／acceptance／prereg及所有formal來源原樣。
+C2暫停、T2／T3限定確認與全部OPEN、E0、item7／8、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0075。
