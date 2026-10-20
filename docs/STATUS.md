@@ -95,22 +95,24 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**現行研究：T2＋T3問題契約定案，兩份紙上審計待複核（2026-10-19）：**
-操作者台北14:44／UTC06:44選題，Claude提供方向建議；角色不混記。
-#89 r2 exact head `0f56e951`／tree `3ec33536` 獲GO，CI #283成功後原樣合併main
-`cae0f69e24e3ca0bcf4820deaa284efec5749819`，tree相同，UTC12:48:54／台北20:48:54。
-EXP-0057已在原保留ID逐字補齊並獲增量GO；[契約](foundations/t2_t3_problem_contract_v0_1.md)
-blob `434e85fc`不改，其待審／待補文字保留為原受審時點。
-三項開始條件完成並核對後，才進行兩份獨立的具名紙上研究：
+**現行研究：T2＋T3限定解析確認，物理橋接OPEN（2026-10-19）：**
+操作者轉交Claude對#90 exact head `81f1a260`／tree `bc579c93`的GO；
+CI #285 run39257616818及job118076754933在該head成功後，原樣合併main
+`a5f584a679911f13eb3e4a1909407856e203d39d`，tree相同；UTC15:42:54／台北23:42:54。
+兩題仍獨立，各自限定升格：
 
-- [T2總量審計](foundations/t2_class_sum_audit_v0_1.md)：標記／同構類精確measure、純phase抑制的必要且充分式、分母上下界的不同方向及同重力baseline；具體class與物質機制仍OPEN。
-- [T3能力審計](foundations/t3_sector_capability_audit_v0_1.md)：orbit／代表、two-order的維度作用域、fiber型別、中心／Clifford維數及mass尺度分帳，逐子命題矩陣；一般intrinsic spinor、L-FIN與動力學仍OPEN。
+- [T2總量審計](foundations/t2_class_sum_audit_v0_1.md)：【已確認／限定解析：measure 換算，以及純相位與一般物質因子的條件式必要與充分式】。純phase的精確等價式、分母上下界方向與同重力baseline依原條件成立；一般F的(T2.10)仍僅是充分界，不擴為任意F的必要且充分定理。
+- [T3能力審計](foundations/t3_sector_capability_audit_v0_1.md)：【已確認／限定解析：§6 分格矩陣中的限定 no-go 與「需外加」判定】。各格作用域分開，不拼成全面spinor no-go；「需外加」不否定未給出的其他來源路徑，一般intrinsic spinor／L-FIN仍OPEN。
 
-兩稿皆【探索／待exact-head獨立複核】，不提前升格；各命題列實際輸入與限定域。
-新model ID仍NONE；沒有K、作用量、傳播／動力算子或mass law構造。
-EXP-0062逐字收錄本輪Claude增量複核原句；0063記作者來源／推導／驗證範圍。
-C2線暫停新增研究，既有限定解析及r3配對可識別性／穩定性／failure／器件OPEN保留。
-E0、formal、item7／8、6a-E／Freeze-1a、UNKNOWN、禁止資料與全部執行限制不變。
+**T2提問方向釐清：** [契約](foundations/t2_t3_problem_contract_v0_1.md) §4.5原問
+「給定流形類分母獨立下界，χ須滿足什麼必要速率」，已由研究稿§4.2更正方向：
+下界只能支撐充分條件，必要條件須用上界或匹配尺度資訊。記錄釐清，不改契約blob434e85fc或判準。
+T2 §2–6、T3 §2–7及其矩陣／公式原樣保留；只更正審核狀態、在檔尾追加複核紀錄。
+EXP-0064逐字收錄本人申報，0065記作者本輪合併／紀錄scope；文獻原文未由Claude重讀，不擴大雙方查核範圍。
+物理詮釋仍【探索】：具體class predicate、物質機制／F_N與分母界、一般intrinsic spinor、
+局部fiber／表示來源及動力學仍OPEN；沒有K／作用量／傳播或mass law構造，新model ID NONE。
+C2暫停及既有限定解析、r3配對可識別性／穩定性／failure／器件OPEN保留。
+本輪不另選下一題、不新推導或科學執行，E0、formal、item7／8、6a-E／Freeze-1a、UNKNOWN及隔離限制不變。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
 
@@ -590,6 +592,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.42（#90原樣合併與T2／T3限定解析升格，2026-10-19）- CI #285 exact-head成功後合併main a5f584a6、tree bc579c93與GO相同。只同步兩稿限定審核狀態並追加紀錄，T2 §2–6及T3 §2–7原樣；STATUS記契約§4.5下界／必要速率提問方向由T2 §4.2釐清，不改契約。EXP-0064本人申報逐字追加、0065作者scope；物理／一般intrinsic可導出性仍OPEN，不另選題／構造／執行，全部formal與隔離限制保留。*
 
 *v2.41（T2＋T3契約定案與紙上審計，2026-10-19）- #89 r2 GO／CI #283後原樣合併cae0f69e、tree3ec33536；0057已補齊。核對合併後才推導兩份獨立稿：T2 measure與相消／分母條件；T3 orbit、two-order作用域及fiber／表示／mass能力。均探索待複核，不構造K／作用量／算子，不改定案契約／凍結來源。三帳追加0062本人原句及0063作者來源，C2與formal限制不變。*
 

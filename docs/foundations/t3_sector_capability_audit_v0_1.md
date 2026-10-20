@@ -1,6 +1,6 @@
 # X-T3-SECTOR-CAPABILITY-AUDIT-v0.1 — global sector與spinor能力的紙上審計
 
-狀態：**【探索／完整紙上稿待 exact-head 獨立複核】**。
+狀態：**【已確認／限定解析：§6 分格矩陣中的限定 no-go 與「需外加」判定】**。
 Problem ID `X-T3-SECTOR-SPINOR-P0.1`；Study ID `X-T3-SECTOR-CAPABILITY-AUDIT-v0.1`。
 新 model ID **NONE**；沒有構造K、傳播／動力算子、作用量或mixing law。
 本稿的有限偏序與Clifford字是邏輯反例／任意目標表示的論證，不是物質模型。
@@ -14,13 +14,13 @@ Problem ID `X-T3-SECTOR-SPINOR-P0.1`；Study ID `X-T3-SECTOR-CAPABILITY-AUDIT-v0
 與job117960164574成功後，原樣合併main **`cae0f69e24e3ca0bcf4820deaa284efec5749819`**，tree相同。
 Git committer UTC2026-10-19 **12:48:54／台北20:48:54**。
 本推導在merge及tree核對後開始；0057已補齊並獲增量GO。ACT生效SHA仍0c386716。
-T2獨立，不由本稿替物質選幾何作判決；所有新解析仍待獨立複核。
+T2獨立，不由本稿替物質選幾何作判決；#90限定複核與仍OPEN的物理橋接見§8。
 
 | 六欄 | 本研究 |
 | :--- | :--- |
 | 命題 | 分開realizer orbit、實際sector標籤、linear fiber、Spin／Clifford及mass資料；證若干限定障礙，交§6分格矩陣，不聲稱spinor物質已導出 |
 | 定義域與輸入 | 定案I-ORD／NUM／PHASE／UV；1+1及3+1分帳。有限κ=1域、外加Minkowski／Poisson比較域與條件表示空間各自明列 |
-| 證據 | §2的重標記自然性、null-order條件式存在與六點障礙；§3的fiber型別；§4的中心、有限置換及Clifford維數；§5的尺度條件。全部紙上 |
+| 證據 | §2的重標記自然性、null-order條件式存在與六點障礙；§3的fiber型別；§4的中心、有限置換及Clifford維數；§5的尺度條件。經#90 exact-head限定複核；作用域見§8 |
 | 未證橋接 | 一般I輸入的intrinsic spinor賦值、L-FIN、frame／transport、物質／量子viability及mass動力學仍OPEN；P3-FIB／GEO／REP／MASS不自動消失 |
 | 否定條件 | 每個no-go只及其輸出／表示維數／覆蓋／尺度前提，不否定其他internal fiber、Weyl表示、非局域或帶新增primitive的方案 |
 | 後續驗證 | exact-head逐式核對六點embedding與概率域、trace論證、Spin中心慣例及矩陣分格；若需候選operator，停止並另立契約 |
@@ -217,3 +217,31 @@ reviewer的中心作用與KR提示已接觸，見EXP-0060；不將提示冒充�
 若要真正提供spinor賦值／傳輸／K／mass law，依契約先另立構造問題，不在本稿延伸。
 無新數值／符號診斷、RNG／撒點、producer、raw／sealed、seed／主機／量測／receipt；
 regression／integrity只作repo驗證，formal／物理OPEN與全部UNKNOWN隔離保留。
+
+
+## 8. PR #90限定解析複核與原樣合併（2026-10-19）
+
+#90 exact head `81f1a2607a2ea6a953195746d2944a788df6ea39`／tree
+`bc579c93103815d1861e6a985b7441a6aeb5adeb` 獲Claude GO；CI #285 run39257616818
+在同一head成功，job118076754933及所有steps成功後，原樣squash為main
+**`a5f584a679911f13eb3e4a1909407856e203d39d`**，tree與GO相同。
+Git committer UTC **2026-10-19 15:42:54／台北23:42:54**。
+這是解析複核與原樣合併身分，不是新的activation或科學執行。
+
+限定升格為【已確認／限定解析：§6 分格矩陣中的限定 no-go 與「需外加」判定】。
+§2–7的推導、公式、矩陣、輸入與來源界線逐位元保留；§6標題及其他待複核文字
+保留受審時點，本節記錄其後的GO，不用狀態升格重寫數學。
+「需外加」仍只指本稿目前資料／路徑所缺的primitive，不代表所有未給出的
+I-PHASE law或其他intrinsic構造均不可能；一般可導出性仍OPEN。
+
+升格不能把幾個不同限制拼成全面的spinor no-go：two-order覆蓋、固定C²的完整
+Clifford乘法、僅經S₂的連續表示、中心條件下的preferred section及無量綱尺度，
+各保留自己的輸入、輸出與比較域；二維Weyl、一般fiber與物質動力學不被合併排除。
+reviewer提醒六點witness只用空間平面；本輪不新增2+1定理或擴大原文作用域，
+僅保留這項複核意見的來源，不在紀錄PR展開新研究。
+
+Claude手算核對§2.2、§2.3及§4–5與矩陣；未讀KR、Noldus、BHS或其他原文，
+引用定位仍屬作者EXP-0063的限定責任；EXP-0064逐字記錄本人範圍。
+物理詮釋仍【探索】：一般intrinsic spinor、L-FIN、frame／transport、物質／量子
+viability與mass機制仍OPEN，不稱已否定所有spinor或已構造Dirac算子。
+未另選研究題、未新增推導、科學執行或formal資格；E0及全部隔離限制不變。

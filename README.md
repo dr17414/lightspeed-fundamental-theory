@@ -28,7 +28,7 @@
 
 - **C2–r3 串接（限定解析已確認）**：[問題契約r2](docs/foundations/c2_r3_response_bridge_problem_contract_v0_1.md)保留不變；[共享配置M／V／P／D研究](docs/foundations/c2_r3_shared_mvpd_study_v0_1.md)經PR #87 exact-head GO與CI #278後原樣合併，限定確認外加線性介面下的M、絕對V、P及單次判定D，保留非最優O(κ⁻¹ᐟ⁸⁰)界。物理詮釋仍探索；四項law比較只算介面構造，r3配對可識別性／穩定性與器件實現OPEN，不報時間／延遲／距離或c湧現。時間偏差原紀錄及reviewer裁定、操作者推送批准與本地版本公開查核限制見接觸帳§26；沒有新推導或科學執行。
 
-- **目前研究：T2＋T3紙上審計待複核**：[問題契約](docs/foundations/t2_t3_problem_contract_v0_1.md)經 #89 r2 GO、CI #283成功並原樣合併main `cae0f69e`（tree `3ec33536`）；EXP-0057已補齊。合併核對後完成兩份獨立稿：[T2總量／相消條件](docs/foundations/t2_class_sum_audit_v0_1.md)、[T3 sector能力](docs/foundations/t3_sector_capability_audit_v0_1.md)。新結果均【探索／待exact-head】，不構造K／作用量／算子；實際class與物質機制、一般spinor／局部fiber仍OPEN。C2暫停新增研究，原確認與OPEN保留。
+- **目前研究：T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停，未另選研究題或構造K。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
