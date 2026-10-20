@@ -326,3 +326,40 @@ EXP-0064逐字追加，0065作者只合併／紀錄scope，原作者原文責任
 Git diff格式、三帳byte-prefix、EXP-0064逐字、契約／凍結協定blob、兩稿原證明／矩陣
 逐位元保全、七份Markdown範圍及研究稿本地連結檢查皆通過。沒有改程式／測試／JSON／CI，
 也沒有重跑任何新科學或數值／符號診斷。
+
+
+## T6問題契約：量子一致性必要條件（2026-10-20；不推導）
+
+操作者台北11:00／UTC03:00選T6，採Claude首選建議；從紀錄分支8fa27315接續，
+parent main a288dc64／treeac9600e8，保留0066／0067。
+只新增一份問題契約、六欄／輸入帳／QO1–9全OPEN及QN1–4待證問題，不預填答案，model ID NONE。
+限1+1 massless two-sector比較；不提出K、state、pairing或具體物理test space構造，
+不選／改正式C9／C10 criterion、projector或evaluator，不變更任何formal來源。
+新讀Araki、Johnston、Sorkin、Afshordi–Aslanbeigi–Sorkin、Potting、Noldus的指定原文段落，
+僅定位CAR／CCR／adjoint／dimension作用域，閱讀程度詳契約§6與EXP-0070，沒有新證明。
+0068上一則本人申報未取回，保留待補；0069題目說明本人原句及0070作者scope只追加，
+缺項解除／契約GO／原樣合併前不開始研究。C2、T2／T3及全部formal／隔離限制不變。
+README／STATUS同步本契約待審；三帳只追加，舊契約／證明／程式／JSON／tests／CI不改。
+驗證結果於下方追加，既有回歸僅作repo驗證，不作T6新科學證據。
+
+本輪repo驗證：全庫既有回歸首輪 **556 passed、5 warnings，107.02秒**；integrity及diff格式通過。
+三帳相對8fa27315的byte-prefix、EXP-0069逐字、0066／0067保留、acceptance／C9／prereg、
+T2／T3契約與兩稿及凍結協定逐位元不變、六份Markdown範圍與新契約連結皆通過。
+未改程式／JSON／tests／CI，也沒有用回歸測試來推導T6答案或形成科學判決。
+
+
+## PR #92 r1未GO與r2依據管道修訂（2026-10-20；不推導）
+
+r1 head aeca9033／tree530a7d9f保留；Claude要求點名§5.2.1(v)／D.1第8項管道及補0068。
+同一r2 commit：契約§2.1明訂T6合併／寫入STATUS不自動取得依據資格，handoff／曝光／
+合資格審查前不能完成A聲明；原文閱讀不是B mapping，不提升文獻資格；STATUS／README同步。
+契約§1記r1身分／退回與其後0068收件，原保留0068與0071本人原句逐字追加，0072作者scope；
+三帳只追加，不刪§32舊待補行。QN／QO與原文定位原樣，reviewer非約束草算只記曝光，不轉用。
+未新讀文獻／檢索、未新增證明／構造／科學執行；acceptance／formal、舊契約／兩稿、
+程式／JSON／tests／CI不改。r2仍待增量GO與原樣合併，不開始T6研究。
+驗證結果於下方追加。
+
+本輪repo驗證：全庫既有回歸首輪 **556 passed、5 warnings，120.92秒**；integrity與diff格式通過。
+三帳相對r1的byte-prefix、0068／0071原句逐字、T6 §3–7（含QN／QO）全文、formal／
+acceptance／prereg、T2／T3及凍結來源逐位元保全、六份Markdown範圍皆通過。
+沒有改程式／測試以取得通過，也沒有把回歸當作T6必要條件證明或科學判決。

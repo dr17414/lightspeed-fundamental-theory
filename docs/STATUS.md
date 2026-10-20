@@ -95,7 +95,29 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**現行研究：T2＋T3限定解析確認，物理橋接OPEN（2026-10-19）：**
+**現行選題：T6量子一致性必要條件契約r2待審（2026-10-20）：**
+
+**探索軌，不具 §5.2.1(v) 依據資格。**
+
+操作者於台北11:00／UTC03:00選定T6，採Claude方向建議，Claude保留獨立複核、GPT起草。
+main `a288dc6429495951679925f1a96698eea651a392`／tree `ac9600e8`；
+本PR從紀錄分支head `8fa273158e7da9dd9e3f628330b62135e2f571fe`接續，保留0066／0067。
+[T6 v0.1](foundations/t6_quantum_necessity_problem_contract_v0_1.md)只定問題，
+ID X-T6-QUANTUM-NECESSITY-P0.1，model ID NONE，限1+1 massless two-sector比較路徑。
+QO1–9分列test／Hilbert、adjoint／pairing、state、Hermiticity／正性、CAR／normalization、
+正能量、unitarity與continuum mapping，全部OPEN；QN1–4只登記待證問題，不預填答案。
+文獻原文只定位型別／適用條件，不導入K／state／pairing，不提出或修改C9／C10的
+criterion、具體test space、projector、evaluator或任何freeze交付物；formal檔案不改。
+T6即使合併／寫入STATUS，另案handoff、曝光對應與合資格審查完成前，
+不構成§5.2.1(v)可用的既有STATUS結論；也不得改稱數學必要條件而完成D.1第8項路徑A。
+原文讀取不是路徑B的mapping，不取得承重資格或改變原文現有分級。
+若日後轉用，先停止／記曝光並走原正式流程，不能以STATUS更新或換seed繞過。
+r1 head aeca9033／tree530a7d9f保留，兩項退回理由及本輪申報記於帳本§33。
+原保留0068已由操作者提供並逐字收錄；舊§32待補行不改，0069／0070保留。
+0071逐字記本輪複核、0072作者scope；r2仍待新exact-head來源／增量複核及原樣合併，不開始研究。
+僅紙上、無新推導／構造／科學執行；C2暫停與全部前份限定確認／OPEN及隔離限制不變。
+
+**前份交付：T2＋T3限定解析確認，物理橋接OPEN（2026-10-19）：**
 操作者轉交Claude對#90 exact head `81f1a260`／tree `bc579c93`的GO；
 CI #285 run39257616818及job118076754933在該head成功後，原樣合併main
 `a5f584a679911f13eb3e4a1909407856e203d39d`，tree相同；UTC15:42:54／台北23:42:54。
@@ -112,7 +134,7 @@ EXP-0064逐字收錄本人申報，0065記作者本輪合併／紀錄scope；文
 物理詮釋仍【探索】：具體class predicate、物質機制／F_N與分母界、一般intrinsic spinor、
 局部fiber／表示來源及動力學仍OPEN；沒有K／作用量／傳播或mass law構造，新model ID NONE。
 C2暫停及既有限定解析、r3配對可識別性／穩定性／failure／器件OPEN保留。
-本輪不另選下一題、不新推導或科學執行，E0、formal、item7／8、6a-E／Freeze-1a、UNKNOWN及隔離限制不變。
+該輪沒有新推導或科學執行，E0、formal、item7／8、6a-E／Freeze-1a、UNKNOWN及隔離限制不變。
 
 本清單條列了本專案目前累積的所有具體論斷及其狀態：
 
@@ -592,6 +614,10 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.44（T6契約r2，2026-10-20）- r1暫不GO，保留aeca9033／530a7d9f；§2點名§5.2.1(v)／D.1第8項A、B管道。T6即使寫入STATUS，handoff／曝光／合資格審查前不具正式依據資格；讀原文不是mapping，不升級文獻。原0068本人原句及0071複核逐字追加、0072作者scope，舊待補行不改；QN／QO與全部formal來源不動，r2待增量GO及合併，不推導。*
+
+*v2.43（T6問題契約，2026-10-20）- 操作者台北11:00選T6；從8fa27315接續0066／0067，新增只定問題的一個ID、六欄與QO1–9全OPEN義務表。正式C9／C10完全隔離，不選test space／projector／evaluator或K／state／pairing；原文只作作用域定位。三帳追加0068保留待補、0069本人原句與0070作者scope；缺項解除／GO／原樣合併前不推導。前份T2／T3、C2與formal／執行限制不改。*
 
 *v2.42（#90原樣合併與T2／T3限定解析升格，2026-10-19）- CI #285 exact-head成功後合併main a5f584a6、tree bc579c93與GO相同。只同步兩稿限定審核狀態並追加紀錄，T2 §2–6及T3 §2–7原樣；STATUS記契約§4.5下界／必要速率提問方向由T2 §4.2釐清，不改契約。EXP-0064本人申報逐字追加、0065作者scope；物理／一般intrinsic可導出性仍OPEN，不另選題／構造／執行，全部formal與隔離限制保留。*
 

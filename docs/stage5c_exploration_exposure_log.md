@@ -702,3 +702,115 @@ C2暫停、全部已確認與OPEN、E0／formal／item7／8／6a-E／Freeze-1a�
 UNKNOWN／禁止資料／回F隔離均不變；沒有新scientific PASS或執行授權。
 本次文件增量仍須新exact-head複核，不把#90 GO延伸成新PR已GO。
 下一個新EXP-ID為0066。
+
+
+## 31. PR #91增量GO與原樣合併（2026-10-20；只追加）
+
+操作者於 **2026-10-20 09:06:29 Asia/Taipei／01:06:29 UTC** 轉交本輪GO與本人申報；
+此時間只作收件時間，不倒填Claude實際閱讀時間。
+
+**EXP-0066：操作者轉交的PR #91增量複核本人申報原句**
+
+> Claude（PR #91 增量複核）：以 exact head `2e43cc9f` 讀 #91 全部 diff，以 git 核對 head、tree、parent，確認兩份研究稿的推導、公式與矩陣沒有改動，契約沒有改動，帳本沒有刪除行，並比對 EXP-0064 原句。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+#91 exact head `2e43cc9f3e94008a822df8f03cceb17960e10bc9`／tree
+`ac9600e8721852e193fd77a17b6a17ddc45fb7cc` 獲GO；
+CI #287 run39280741527在同一head completed／success，job118154156274與全部steps success。
+轉ready後原樣squash為main **`a288dc6429495951679925f1a96698eea651a392`**，tree與GO相同；
+Git committer UTC **2026-10-20 01:07:21／台北09:07:21**，未修改GO head後再合併。
+路線圖第二份交付T2＋T3的限定解析與狀態紀錄已定案，物理詮釋與一般intrinsic
+spinor可導出性等OPEN保留；本輪沒有選定下一研究方向。
+
+**EXP-0067：GPT作者，本輪合併核對與只追加紀錄**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| 轉交文字與repo | 讀本輪#91增量GO、0066原句與接觸帳末尾；核對下一ID為0066。未讀新文獻、未重新推導兩稿或擴張任何作用域 |
+| Git／CI／merge | 核對遠端#91 head／parent／tree、main、CI #287直接run的exact head／success及job／steps；轉ready、原樣merge並核對signed merge tree。未改契約、研究稿、STATUS／README、程式／JSON／tests／CI或其他檔案 |
+| 本地驗證與執行界線 | 只做Git／文字／quote／byte-prefix／固定blob及integrity檢查；本輪沒有在本地重跑pytest，回歸成功資訊來自上述CI與操作者轉交的獨立複核。不作新數值／符號診斷、RNG／撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行 |
+
+本條只在檔尾追加，保存於獨立紀錄分支 `docs/pr91-review-exposure`，main的核准tree不動；
+留待下一份已選定工作的PR一起送審，沒有另開純申報PR，也不把本增量當作已獲GO。
+後續須以本紀錄commit為基底或cherry-pick本commit，避免遺漏0066／0067或撞ID。
+E0／formal／item7／8／6a-E／Freeze-1a、C2暫停、全部既有確認／OPEN與UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0068。
+
+
+## 32. T6選題與只定問題契約（2026-10-20；只追加）
+
+**操作者選T6。** 決定時間為 **2026-10-20 11:00 Asia/Taipei／03:00 UTC**，
+只知分鐘不補秒，採Claude方向選項中的首選；題目說明於台北11:30:42／UTC03:30:42轉交。
+作者從 `8fa273158e7da9dd9e3f628330b62135e2f571fe` 接續，parent是main
+`a288dc6429495951679925f1a96698eea651a392`；EXP-0066／0067原文與全部舊帳保留。
+新Problem ID X-T6-QUANTUM-NECESSITY-P0.1，model ID NONE，只定問題、不推導。
+
+**EXP-0068：#91合併後核對與方向選項本人申報，PENDING-VERBATIM（保留ID）**
+
+操作者要求登記「上一則（#91合併後核對與方向選項）的申報」，但本輪只附下面0069的原句。
+個人脈絡檢索明確限定尋找該本人原句，回報對話搜尋錯誤、沒有相關檔案，未取回全文。
+不可由GPT把「核對結果沒有問題」或T6建議重建成本人申報，不以0069替代。
+0068補齊及來源審查前不開始T6具名研究推導；契約可先供審，不稱全帳已齊。
+
+**EXP-0069：操作者轉交的T6題目說明本人申報原句**
+
+> Claude（T6 題目說明）：讀 main `a288dc64` 中 STATUS 有關 positivity 與 Track A／B 的各列、STAGE5C_ACCEPTANCE 的章節標題、§1.1–1.2、C9 全節，以及 ACT 記錄中提到 criterion 與 formal 的行，用來界定 T6 與正式驗收的分界，並寫出引用位置。題目說明中關於 CAR 狀態的條件與文獻名稱都憑記憶提出，沒有讀原文或做檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+**EXP-0070：GPT作者，來源定位與T6問題契約**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| 決定／reviewer來源 | 讀操作者轉交的#91合併後核對、T6選題／題目說明及0069本人原句；CAR條件與文獻名稱原為reviewer記憶性提示，已接觸，不稱盲選題。0068原句未取得，保留待補 |
+| Git／repo公開文字 | 核對main與紀錄分支遠端head，從8fa27315建立契約分支。讀路線圖T6及相鄰排序、acceptance §0–5.2與C9／C10開頭及§5.2.1的相關段落，搜尋結果亦見D.1／D.2與歷史修訂行；讀ACT §5及相鄰限制、STATUS Track A／B positivity等相關公開行、帳本與狀態文件。公開已封存數字／seed metadata可能可見，沒有讀raw／sealed或重算producer |
+| CAR原文 | 讀Araki出版社頁／原PDF，§2與§3 Lemmas 3.2–3.3及工具回傳引言／相鄰片段，PDF p.388頁圖核對OCR不清處；定位Hilbert、antiunitary involution與self-dual covariance條件。不重證state存在定理，不替本專案選state／pairing |
+| scalar SJ原文 | 讀Johnston 0909.0944v2 §I與§II／II.1、Eqs.(18)–(30)相鄰段；工具亦回傳§III開頭與模擬結果討論。讀Sorkin 1107.0698v2 §2及§3開頭、Eqs.(1)–(7)附近；讀Afshordi–Aslanbeigi–Sorkin 1205.1296v4 §2–3、Eqs.(3)–(12)與引言片段。只核scalar／CCR／self-adjointness與positive-part的作用域，不採用為fermionic state |
+| fermionic原文 | 讀Potting 1112.5739v2 §III Eqs.(26)–(31)、(46)–(54)及工具回傳(32)–(45)，定位4D LV、bar／Hilbert adjoint與normalization；讀Noldus 1305.0443v3 §3、§2末，工具另回傳§2生成矩陣例子與§4 ghost例子片段。看見原文構造但未採作本題候選，也不把其negative-norm警告擴成全面no-go |
+| 檢索／未讀界線 | 搜尋含Derezinski講義／其他論文與非相關頁面，只作原文索引；未讀Derezinski全文或用其結果承重。作者憑記憶誤開0909.0511摘要頁，實為天文論文，排除後核實Johnston正確編號0909.0944；天文內容不作物理論證。Araki DOI入口曾錯誤，改用出版社原頁／PDF。沒有新讀BBMM／Track B原文或重跑既有positivity結果 |
+| 契約工作 | 一個ID、六欄、輸入／型別帳、QO1–9全OPEN、QN1–4待證問題及來源表；不預填必要條件結論，不構造K、state、算子、pairing或具體物理test space。只引用正式物件型別，不提出／修改C9 criterion、projector或evaluator；不存在formal equation mapping成果 |
+| 執行界線 | 只用Git／文字／blob／prefix／逐字及既有regression／integrity作repo驗證；不作新數值／符號診斷、RNG／撒點、producer、raw／sealed／arm ledger、seed、主機、量測／receipt或任何科學執行 |
+
+原文URL與閱讀作用域在T6契約§6，不能把作者讀取改寫成Claude也讀過。
+無新推導或科學判決；全部義務格OPEN，不產生C9／C10或其他formal PASS／FAIL。
+0068補齊、契約exact-head GO及原樣合併三條件完成前，不開始具名T6研究。
+若日後結果要用來選formal criterion／test-space／projector／evaluator，先停止回用、記曝光，
+另走E0／activation §5及原正式流程，換seed不能補救criterion污染。
+C2暫停、T2／T3限定確認與全部OPEN、E0／formal／item7／8／6a-E／Freeze-1a、
+UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0071，不重用保留的0068。
+
+
+## 33. PR #92 r1退回、0068補齊與r2邊界修訂（2026-10-20；只追加）
+
+操作者於 **2026-10-20 22:54:03 Asia/Taipei／14:54:03 UTC** 轉交r1複核及兩段本人原句，
+只作本輪收件時間，不倒填原方向建議／閱讀時間。
+r1 exact head `aeca9033fadf87defde1a91468369a2be1500f09`／tree
+`530a7d9f2fcf83957143d0caee437ed7211122e9` **暫不GO**；原commit完整保留。
+必修兩項：(1)點名§5.2.1(v)／D.1第8項依據管道，避免T6合併／STATUS轉述後成為core供料；
+(2)補齊原保留ID 0068。保全與契約其餘內容已獲肯定，不把這部分肯定當作整體GO。
+
+**完成原保留ID EXP-0068：操作者轉交的本人申報原句**
+
+> Claude（#91 合併後核對與方向選項）：以 git 核對 main `a288dc64…` 的 tree，讀紀錄分支 `8fa27315` 相對 main 的全部 diff（只有接觸帳追加），並比對 EXP-0066 原句。方向選項依據 repo 已記載的路線圖與已確認結果的作用域整理，沒有做文獻檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文，也沒有跑測試。
+
+本條完成§32的同一0068，狀態由PENDING-VERBATIM轉為RECORDED-VERBATIM；
+不是第二個0068或以0069替代。§32待補行及所有舊內容逐位元保留。
+原句沒有精確main SHA與閱讀時間，照原句中的`a288dc64…`保留，不代填或拿收件時間倒填。
+本人原句已收到；r2及來源補齊仍交新的exact-head增量複核，不聲稱已獲GO／合併或可開始研究。
+
+**EXP-0071：操作者轉交的PR #92 r1複核本人申報原句**
+
+> Claude（PR #92 r1 複核）：以 exact head `aeca9033` 讀 #92 全部 diff 與 T6 契約全文。以 git 核對 head、tree 與 parent 鏈，確認 acceptance 和 formal 檔案都沒有改動、帳本沒有刪除行，並比對 EXP-0069 原句。另讀了 STAGE5C_ACCEPTANCE 的附錄 D.1（第 7、8 項）、D.2 開頭與 §5.2.1(v)，用來核對契約的引用，並找出 C9 core 依據的管道。在腦中粗估了 QN2 一般 state 分支的一行論證，沒有寫成證明。文獻原文（Araki、Johnston、Sorkin、AAS、Potting、Noldus）都沒有讀。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+**EXP-0072：GPT作者，本輪只修契約邊界與收錄申報**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| reviewer與操作者來源 | 讀本輪r1暫不GO、兩項必修、0068／0071原句，以及QN2一般state分支的非約束草算；已接觸提示，但不作新證明、不據此更改QN1–4或QO1–9、不開始研究 |
+| Repo／Git | 核對#92目前head仍aeca9033、main a288dc64，讀T6 §1–2、STATUS現行段、帳本及README／ACT／dev，另讀acceptance §5.2.1(v)與相鄰段、D.1第7–8項原文。只確認依據／聲明／mapping管道，不改任何formal檔案 |
+| 修訂內容 | 同一r2 commit補§2.1：T6合併／寫入STATUS仍不具§5.2.1(v)依據資格；未經另案handoff、exposure mapping與合資格審查，不能完成D.1第8項A聲明。讀原文不是B路徑mapping，不提升文獻承重資格。STATUS／README同步標記；§1記r1身分／退回與0068其後收件事實 |
+| 證據界線 | reviewer的一行QN2提示僅記來源；QN／QO、所有數學問題與原文定位不改，不把r1複核或補句當作T6結果。沒有新讀Araki／Johnston／Sorkin／AAS／Potting／Noldus或其他文獻，沒有文獻檢索 |
+| 執行界線 | 僅Git／文字／逐字／prefix／blob與既有regression／integrity作repo驗證；不作新推導、數值／符號診斷、RNG／撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行 |
+
+原正式協定不變；本新增來源使用條款只限制T6探索內容的回用，不改其他既有獨立依據資格。
+0066／0067／0069／0070及所有歷史偏差／未取得紀錄保留；r1原版與退回理由不覆寫。
+本r2待增量exact-head複核與原樣合併，不開始具名T6研究；model ID仍NONE。
+C2暫停、T2／T3限定確認、所有formal／item7／8／6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0073，不重用已補齊的0068。
