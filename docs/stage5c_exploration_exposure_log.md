@@ -702,3 +702,35 @@ C2暫停、全部已確認與OPEN、E0／formal／item7／8／6a-E／Freeze-1a�
 UNKNOWN／禁止資料／回F隔離均不變；沒有新scientific PASS或執行授權。
 本次文件增量仍須新exact-head複核，不把#90 GO延伸成新PR已GO。
 下一個新EXP-ID為0066。
+
+
+## 31. PR #91增量GO與原樣合併（2026-10-20；只追加）
+
+操作者於 **2026-10-20 09:06:29 Asia/Taipei／01:06:29 UTC** 轉交本輪GO與本人申報；
+此時間只作收件時間，不倒填Claude實際閱讀時間。
+
+**EXP-0066：操作者轉交的PR #91增量複核本人申報原句**
+
+> Claude（PR #91 增量複核）：以 exact head `2e43cc9f` 讀 #91 全部 diff，以 git 核對 head、tree、parent，確認兩份研究稿的推導、公式與矩陣沒有改動，契約沒有改動，帳本沒有刪除行，並比對 EXP-0064 原句。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+#91 exact head `2e43cc9f3e94008a822df8f03cceb17960e10bc9`／tree
+`ac9600e8721852e193fd77a17b6a17ddc45fb7cc` 獲GO；
+CI #287 run39280741527在同一head completed／success，job118154156274與全部steps success。
+轉ready後原樣squash為main **`a288dc6429495951679925f1a96698eea651a392`**，tree與GO相同；
+Git committer UTC **2026-10-20 01:07:21／台北09:07:21**，未修改GO head後再合併。
+路線圖第二份交付T2＋T3的限定解析與狀態紀錄已定案，物理詮釋與一般intrinsic
+spinor可導出性等OPEN保留；本輪沒有選定下一研究方向。
+
+**EXP-0067：GPT作者，本輪合併核對與只追加紀錄**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| 轉交文字與repo | 讀本輪#91增量GO、0066原句與接觸帳末尾；核對下一ID為0066。未讀新文獻、未重新推導兩稿或擴張任何作用域 |
+| Git／CI／merge | 核對遠端#91 head／parent／tree、main、CI #287直接run的exact head／success及job／steps；轉ready、原樣merge並核對signed merge tree。未改契約、研究稿、STATUS／README、程式／JSON／tests／CI或其他檔案 |
+| 本地驗證與執行界線 | 只做Git／文字／quote／byte-prefix／固定blob及integrity檢查；本輪沒有在本地重跑pytest，回歸成功資訊來自上述CI與操作者轉交的獨立複核。不作新數值／符號診斷、RNG／撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行 |
+
+本條只在檔尾追加，保存於獨立紀錄分支 `docs/pr91-review-exposure`，main的核准tree不動；
+留待下一份已選定工作的PR一起送審，沒有另開純申報PR，也不把本增量當作已獲GO。
+後續須以本紀錄commit為基底或cherry-pick本commit，避免遺漏0066／0067或撞ID。
+E0／formal／item7／8／6a-E／Freeze-1a、C2暫停、全部既有確認／OPEN與UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0068。
