@@ -371,3 +371,18 @@ EXP-0064逐字保留本人申報，0065記作者只合併／紀錄scope；沒有
 ACT-X-0001仍以0c386716生效且僅紙上，C2暫停與原確認／OPEN保留；
 本條不activation、不改E0或formal／item7／8／6a-E／Freeze-1a、UNKNOWN與禁止資料隔離，
 不授權seed／主機／量測／receipt或其他科學執行。
+
+
+## 23. T6問題契約登記（2026-10-20；權限不變）
+
+操作者於台北11:00／UTC03:00選T6，採Claude建議，由GPT起草
+[只定問題契約](foundations/t6_quantum_necessity_problem_contract_v0_1.md)。
+Problem ID X-T6-QUANTUM-NECESSITY-P0.1，model ID NONE，限1+1 massless two-sector路徑。
+只交六欄、型別／來源與全OPEN義務表、待證問題及文獻範圍，不構造K／state／pairing。
+C9／C10的正式criterion、test space／projector／evaluator形式或實例本次皆不選、不改；
+原文讀取不構成formal mapping或Freeze交付物。日後若要用結果選formal判準，
+先停止回用／記曝光，再按§5及原正式協定另案處理，換seed不能補救。
+從8fa27315接續保留0066／0067，0068方向建議申報保留待原句、0069本輪原句及0070作者scope只追加。
+來源缺項解除、本契約exact-head GO及原樣合併前，不開始具名T6研究推導。
+本條不activation、不改E0／formal／item7／8／6a-E／Freeze-1a或UNKNOWN／禁止資料隔離，
+C2暫停及T2／T3限定確認與物理OPEN保留，亦不授權任何科學執行／seed／主機／量測／receipt。

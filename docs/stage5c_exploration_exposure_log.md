@@ -734,3 +734,44 @@ spinor可導出性等OPEN保留；本輪沒有選定下一研究方向。
 後續須以本紀錄commit為基底或cherry-pick本commit，避免遺漏0066／0067或撞ID。
 E0／formal／item7／8／6a-E／Freeze-1a、C2暫停、全部既有確認／OPEN與UNKNOWN／禁止資料隔離不變。
 下一個新EXP-ID為0068。
+
+
+## 32. T6選題與只定問題契約（2026-10-20；只追加）
+
+**操作者選T6。** 決定時間為 **2026-10-20 11:00 Asia/Taipei／03:00 UTC**，
+只知分鐘不補秒，採Claude方向選項中的首選；題目說明於台北11:30:42／UTC03:30:42轉交。
+作者從 `8fa273158e7da9dd9e3f628330b62135e2f571fe` 接續，parent是main
+`a288dc6429495951679925f1a96698eea651a392`；EXP-0066／0067原文與全部舊帳保留。
+新Problem ID X-T6-QUANTUM-NECESSITY-P0.1，model ID NONE，只定問題、不推導。
+
+**EXP-0068：#91合併後核對與方向選項本人申報，PENDING-VERBATIM（保留ID）**
+
+操作者要求登記「上一則（#91合併後核對與方向選項）的申報」，但本輪只附下面0069的原句。
+個人脈絡檢索明確限定尋找該本人原句，回報對話搜尋錯誤、沒有相關檔案，未取回全文。
+不可由GPT把「核對結果沒有問題」或T6建議重建成本人申報，不以0069替代。
+0068補齊及來源審查前不開始T6具名研究推導；契約可先供審，不稱全帳已齊。
+
+**EXP-0069：操作者轉交的T6題目說明本人申報原句**
+
+> Claude（T6 題目說明）：讀 main `a288dc64` 中 STATUS 有關 positivity 與 Track A／B 的各列、STAGE5C_ACCEPTANCE 的章節標題、§1.1–1.2、C9 全節，以及 ACT 記錄中提到 criterion 與 formal 的行，用來界定 T6 與正式驗收的分界，並寫出引用位置。題目說明中關於 CAR 狀態的條件與文獻名稱都憑記憶提出，沒有讀原文或做檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+**EXP-0070：GPT作者，來源定位與T6問題契約**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| 決定／reviewer來源 | 讀操作者轉交的#91合併後核對、T6選題／題目說明及0069本人原句；CAR條件與文獻名稱原為reviewer記憶性提示，已接觸，不稱盲選題。0068原句未取得，保留待補 |
+| Git／repo公開文字 | 核對main與紀錄分支遠端head，從8fa27315建立契約分支。讀路線圖T6及相鄰排序、acceptance §0–5.2與C9／C10開頭及§5.2.1的相關段落，搜尋結果亦見D.1／D.2與歷史修訂行；讀ACT §5及相鄰限制、STATUS Track A／B positivity等相關公開行、帳本與狀態文件。公開已封存數字／seed metadata可能可見，沒有讀raw／sealed或重算producer |
+| CAR原文 | 讀Araki出版社頁／原PDF，§2與§3 Lemmas 3.2–3.3及工具回傳引言／相鄰片段，PDF p.388頁圖核對OCR不清處；定位Hilbert、antiunitary involution與self-dual covariance條件。不重證state存在定理，不替本專案選state／pairing |
+| scalar SJ原文 | 讀Johnston 0909.0944v2 §I與§II／II.1、Eqs.(18)–(30)相鄰段；工具亦回傳§III開頭與模擬結果討論。讀Sorkin 1107.0698v2 §2及§3開頭、Eqs.(1)–(7)附近；讀Afshordi–Aslanbeigi–Sorkin 1205.1296v4 §2–3、Eqs.(3)–(12)與引言片段。只核scalar／CCR／self-adjointness與positive-part的作用域，不採用為fermionic state |
+| fermionic原文 | 讀Potting 1112.5739v2 §III Eqs.(26)–(31)、(46)–(54)及工具回傳(32)–(45)，定位4D LV、bar／Hilbert adjoint與normalization；讀Noldus 1305.0443v3 §3、§2末，工具另回傳§2生成矩陣例子與§4 ghost例子片段。看見原文構造但未採作本題候選，也不把其negative-norm警告擴成全面no-go |
+| 檢索／未讀界線 | 搜尋含Derezinski講義／其他論文與非相關頁面，只作原文索引；未讀Derezinski全文或用其結果承重。作者憑記憶誤開0909.0511摘要頁，實為天文論文，排除後核實Johnston正確編號0909.0944；天文內容不作物理論證。Araki DOI入口曾錯誤，改用出版社原頁／PDF。沒有新讀BBMM／Track B原文或重跑既有positivity結果 |
+| 契約工作 | 一個ID、六欄、輸入／型別帳、QO1–9全OPEN、QN1–4待證問題及來源表；不預填必要條件結論，不構造K、state、算子、pairing或具體物理test space。只引用正式物件型別，不提出／修改C9 criterion、projector或evaluator；不存在formal equation mapping成果 |
+| 執行界線 | 只用Git／文字／blob／prefix／逐字及既有regression／integrity作repo驗證；不作新數值／符號診斷、RNG／撒點、producer、raw／sealed／arm ledger、seed、主機、量測／receipt或任何科學執行 |
+
+原文URL與閱讀作用域在T6契約§6，不能把作者讀取改寫成Claude也讀過。
+無新推導或科學判決；全部義務格OPEN，不產生C9／C10或其他formal PASS／FAIL。
+0068補齊、契約exact-head GO及原樣合併三條件完成前，不開始具名T6研究。
+若日後結果要用來選formal criterion／test-space／projector／evaluator，先停止回用、記曝光，
+另走E0／activation §5及原正式流程，換seed不能補救criterion污染。
+C2暫停、T2／T3限定確認與全部OPEN、E0／formal／item7／8／6a-E／Freeze-1a、
+UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0071，不重用保留的0068。
