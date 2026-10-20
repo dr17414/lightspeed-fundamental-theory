@@ -775,3 +775,42 @@ E0／formal／item7／8／6a-E／Freeze-1a、C2暫停、全部既有確認／OPE
 另走E0／activation §5及原正式流程，換seed不能補救criterion污染。
 C2暫停、T2／T3限定確認與全部OPEN、E0／formal／item7／8／6a-E／Freeze-1a、
 UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0071，不重用保留的0068。
+
+
+## 33. PR #92 r1退回、0068補齊與r2邊界修訂（2026-10-20；只追加）
+
+操作者於 **2026-10-20 22:54:03 Asia/Taipei／14:54:03 UTC** 轉交r1複核及兩段本人原句，
+只作本輪收件時間，不倒填原方向建議／閱讀時間。
+r1 exact head `aeca9033fadf87defde1a91468369a2be1500f09`／tree
+`530a7d9f2fcf83957143d0caee437ed7211122e9` **暫不GO**；原commit完整保留。
+必修兩項：(1)點名§5.2.1(v)／D.1第8項依據管道，避免T6合併／STATUS轉述後成為core供料；
+(2)補齊原保留ID 0068。保全與契約其餘內容已獲肯定，不把這部分肯定當作整體GO。
+
+**完成原保留ID EXP-0068：操作者轉交的本人申報原句**
+
+> Claude（#91 合併後核對與方向選項）：以 git 核對 main `a288dc64…` 的 tree，讀紀錄分支 `8fa27315` 相對 main 的全部 diff（只有接觸帳追加），並比對 EXP-0066 原句。方向選項依據 repo 已記載的路線圖與已確認結果的作用域整理，沒有做文獻檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻原文，也沒有跑測試。
+
+本條完成§32的同一0068，狀態由PENDING-VERBATIM轉為RECORDED-VERBATIM；
+不是第二個0068或以0069替代。§32待補行及所有舊內容逐位元保留。
+原句沒有精確main SHA與閱讀時間，照原句中的`a288dc64…`保留，不代填或拿收件時間倒填。
+本人原句已收到；r2及來源補齊仍交新的exact-head增量複核，不聲稱已獲GO／合併或可開始研究。
+
+**EXP-0071：操作者轉交的PR #92 r1複核本人申報原句**
+
+> Claude（PR #92 r1 複核）：以 exact head `aeca9033` 讀 #92 全部 diff 與 T6 契約全文。以 git 核對 head、tree 與 parent 鏈，確認 acceptance 和 formal 檔案都沒有改動、帳本沒有刪除行，並比對 EXP-0069 原句。另讀了 STAGE5C_ACCEPTANCE 的附錄 D.1（第 7、8 項）、D.2 開頭與 §5.2.1(v)，用來核對契約的引用，並找出 C9 core 依據的管道。在腦中粗估了 QN2 一般 state 分支的一行論證，沒有寫成證明。文獻原文（Araki、Johnston、Sorkin、AAS、Potting、Noldus）都沒有讀。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+**EXP-0072：GPT作者，本輪只修契約邊界與收錄申報**
+
+| 接觸／動作 | 實際範圍與限制 |
+| :--- | :--- |
+| reviewer與操作者來源 | 讀本輪r1暫不GO、兩項必修、0068／0071原句，以及QN2一般state分支的非約束草算；已接觸提示，但不作新證明、不據此更改QN1–4或QO1–9、不開始研究 |
+| Repo／Git | 核對#92目前head仍aeca9033、main a288dc64，讀T6 §1–2、STATUS現行段、帳本及README／ACT／dev，另讀acceptance §5.2.1(v)與相鄰段、D.1第7–8項原文。只確認依據／聲明／mapping管道，不改任何formal檔案 |
+| 修訂內容 | 同一r2 commit補§2.1：T6合併／寫入STATUS仍不具§5.2.1(v)依據資格；未經另案handoff、exposure mapping與合資格審查，不能完成D.1第8項A聲明。讀原文不是B路徑mapping，不提升文獻承重資格。STATUS／README同步標記；§1記r1身分／退回與0068其後收件事實 |
+| 證據界線 | reviewer的一行QN2提示僅記來源；QN／QO、所有數學問題與原文定位不改，不把r1複核或補句當作T6結果。沒有新讀Araki／Johnston／Sorkin／AAS／Potting／Noldus或其他文獻，沒有文獻檢索 |
+| 執行界線 | 僅Git／文字／逐字／prefix／blob與既有regression／integrity作repo驗證；不作新推導、數值／符號診斷、RNG／撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行 |
+
+原正式協定不變；本新增來源使用條款只限制T6探索內容的回用，不改其他既有獨立依據資格。
+0066／0067／0069／0070及所有歷史偏差／未取得紀錄保留；r1原版與退回理由不覆寫。
+本r2待增量exact-head複核與原樣合併，不開始具名T6研究；model ID仍NONE。
+C2暫停、T2／T3限定確認、所有formal／item7／8／6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0073，不重用已補齊的0068。

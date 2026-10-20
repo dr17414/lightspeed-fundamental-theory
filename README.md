@@ -30,7 +30,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前選題：T6，只定問題**：操作者於2026-10-20台北11:00選定[量子一致性必要條件契約](docs/foundations/t6_quantum_necessity_problem_contract_v0_1.md)，限定1+1 massless two-sector比較路徑。一個問題ID、六欄與全OPEN義務表，不構造K／state／pairing，不提出或修改C9正式判準、test space、projector或evaluator。從紀錄分支8fa27315接續保留EXP-0066／0067；0068方向建議申報待原句，0069本輪原句已收錄。待來源缺項解除、exact-head GO及原樣合併後才開始研究。
+- **目前選題：T6 r2，只定問題**：操作者於2026-10-20台北11:00選定[量子一致性必要條件契約](docs/foundations/t6_quantum_necessity_problem_contract_v0_1.md)，限定1+1 massless two-sector比較路徑。一個問題ID、六欄與全OPEN義務表，不構造K／state／pairing，不提出或修改C9正式判準、test space、projector或evaluator。從紀錄分支8fa27315接續保留EXP-0066／0067；0068方向建議申報已由本人原句補齊，0071本輪複核原句亦已追加；r2待增量exact-head GO及原樣合併。T6為探索軌，不具§5.2.1(v)依據資格，不能因寫入STATUS而完成D.1第8項A聲明；讀原文亦非B路徑mapping，轉用須另案handoff與合資格審查。研究尚未開始。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)

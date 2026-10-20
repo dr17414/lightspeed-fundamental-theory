@@ -386,3 +386,16 @@ C9／C10的正式criterion、test space／projector／evaluator形式或實例�
 來源缺項解除、本契約exact-head GO及原樣合併前，不開始具名T6研究推導。
 本條不activation、不改E0／formal／item7／8／6a-E／Freeze-1a或UNKNOWN／禁止資料隔離，
 C2暫停及T2／T3限定確認與物理OPEN保留，亦不授權任何科學執行／seed／主機／量測／receipt。
+
+
+## 24. T6 r1退回與r2依據隔離（2026-10-20；權限不變）
+
+#92 r1 head aeca9033／tree530a7d9f暫不GO，原版與退回理由保留。
+T6契約r2點名§5.2.1(v)／D.1第8項：探索結果即使合併／寫入STATUS，在另案handoff、
+曝光對應與合資格審查完成前，不構成該條可用的既有STATUS或數學必要條件依據，
+不能完成路徑A聲明；原文讀取不是路徑B mapping，不提升原文現有資格。
+STATUS標「探索軌，不具 §5.2.1(v) 依據資格」，不改acceptance或其他formal檔案。
+0068本人原句已在原保留ID逐字補齊，舊待補行保留；0071本人複核與0072作者scope只追加。
+r2仍待新exact-head增量GO與原樣合併，不開始具名研究；QN／QO及model ID NONE不變。
+本條不activation、不修改formal規格或其他獨立依據的資格；E0／全部禁止資料／UNKNOWN、
+C2暫停與T2／T3限定確認／OPEN、item7／8／6a-E／Freeze-1a及執行限制不變。
