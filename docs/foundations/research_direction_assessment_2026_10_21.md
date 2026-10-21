@@ -106,3 +106,14 @@ link-action摘要及部分2026相關條目；未讀其全文，不給模型優�
 不改T6契約、acceptance、formal來源、6a-E／Freeze-1a、E0與UNKNOWN／禁止資料隔離。
 本輪來源與推薦申報見[獨立補充檔](research_direction_exposure_supplement_2026_10_21.md)；
 擬登記0077／0078，尚未整合進canonical三帳，整合前須核對ID。無Claude本輪申報，不代填。
+
+
+## 7. 操作者選題與只定問題的契約追加（#95 r2；2026-10-21）
+
+操作者其後表示：「好。照你的建議進行。哪些要貼給claude」。
+前文「尚未選題」等描述保留為r1時點。現承接原始輸入下1+1非局域構造與量子對接方向，
+新增[問題契約X-KQ-1P1-P0.1](kq_1p1_construction_problem_contract_v0_1.md)供exact-head複核。
+只固定問題、D1／來源／同源交付及停止條件；沒有K、state、pairing、材料／ansatz或證明策略。
+#94及含本契約的最終#95尚未各自GO／原樣合併，構造不開始；不是formal資格或科學執行授權。
+本輪新增申報見[選題／起草獨立申報](kq_problem_contract_selection_2026_10_21.md)；
+r1 head80457d5a／treef486a852及原方向申報補充檔完整保留可查。
