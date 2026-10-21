@@ -385,3 +385,21 @@ charged／self-dual分型、positive-part轉用障礙、已給dynamics相容與�
 所有formal／前份來源逐位元保全、新稿本地連結及章節／式號檢查通過。
 章節檢查腳本初次用substring誤計三級標題，改用行首二級標題匹配後通過；文件未因該檢查改寫。
 沒有首輪測試失敗、沒有改程式／tests／CI；回歸結果不作T6量子一致性證據。
+
+
+## PR #93限定解析複核與合併封存（2026-10-21；只追加）
+
+【已確認／限定解析：任意已給 CAR 資料下的條件式必要界（A=Q+R、0≤Q≤A、Riesz 表示、charged／self-dual 必要式、正部分障礙、form 保留與逐對極限）】
+
+PR #93 exact head `9c26d4729462ae03688b24341b019c05e443a54a`／tree
+`1a85110bc0e3d44a64efa2a9f6df24deff5c0208`取得操作者轉交的Claude GO；
+CI #292（run39466497029）success後轉ready並原樣squash合併main
+`630d4628b7e8603a08d2167a92122b3073dc9759`，merge tree與核准tree完全相同。
+Git committer時間為2026-10-21 12:10:52 Asia/Taipei（UTC04:10:52）。
+限定確認已知CAR代數必要條件與抽象轉用；物理詮釋、同一K的Green到總CAR form、
+state／pairing／time來源與量子continuum對接仍OPEN。沒有新的量子實現或新穎性結論。
+探索軌，不具 §5.2.1(v) 依據資格；D.1第8項A／B、E0、全部formal、
+item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+本輪只封存複核與同步狀態；下一研究方向尚未選定，不開始構造或文獻盤點。
+
+EXP-0075逐字收錄reviewer本人申報；EXP-0076記本輪作者接續範圍。

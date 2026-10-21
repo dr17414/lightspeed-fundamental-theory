@@ -95,7 +95,22 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**現行交付：T6具名紙上研究待審（UTC2026-10-20／台北2026-10-21）：**
+**現行交付：T6限定解析已確認（2026-10-21）：**
+
+【已確認／限定解析：任意已給 CAR 資料下的條件式必要界（A=Q+R、0≤Q≤A、Riesz 表示、charged／self-dual 必要式、正部分障礙、form 保留與逐對極限）】
+
+PR #93 exact head `9c26d4729462ae03688b24341b019c05e443a54a`／tree
+`1a85110bc0e3d44a64efa2a9f6df24deff5c0208`取得操作者轉交的Claude GO；
+CI #292（run39466497029）success後轉ready並原樣squash合併main
+`630d4628b7e8603a08d2167a92122b3073dc9759`，merge tree與核准tree完全相同。
+Git committer時間為2026-10-21 12:10:52 Asia/Taipei（UTC04:10:52）。
+限定確認已知CAR代數必要條件與抽象轉用；物理詮釋、同一K的Green到總CAR form、
+state／pairing／time來源與量子continuum對接仍OPEN。沒有新的量子實現或新穎性結論。
+探索軌，不具 §5.2.1(v) 依據資格；D.1第8項A／B、E0、全部formal、
+item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+本輪只封存複核與同步狀態；下一研究方向尚未選定，不開始構造或文獻盤點。
+
+以下待審文字保留為#93提交時點歷史。
 
 **探索軌，不具 §5.2.1(v) 依據資格。**
 
