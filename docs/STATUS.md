@@ -95,27 +95,32 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**現行選題：T6量子一致性必要條件契約r2待審（2026-10-20）：**
+**現行交付：T6具名紙上研究待審（UTC2026-10-20／台北2026-10-21）：**
 
 **探索軌，不具 §5.2.1(v) 依據資格。**
 
-操作者於台北11:00／UTC03:00選定T6，採Claude方向建議，Claude保留獨立複核、GPT起草。
-main `a288dc6429495951679925f1a96698eea651a392`／tree `ac9600e8`；
-本PR從紀錄分支head `8fa273158e7da9dd9e3f628330b62135e2f571fe`接續，保留0066／0067。
-[T6 v0.1](foundations/t6_quantum_necessity_problem_contract_v0_1.md)只定問題，
-ID X-T6-QUANTUM-NECESSITY-P0.1，model ID NONE，限1+1 massless two-sector比較路徑。
-QO1–9分列test／Hilbert、adjoint／pairing、state、Hermiticity／正性、CAR／normalization、
-正能量、unitarity與continuum mapping，全部OPEN；QN1–4只登記待證問題，不預填答案。
-文獻原文只定位型別／適用條件，不導入K／state／pairing，不提出或修改C9／C10的
-criterion、具體test space、projector、evaluator或任何freeze交付物；formal檔案不改。
-T6即使合併／寫入STATUS，另案handoff、曝光對應與合資格審查完成前，
-不構成§5.2.1(v)可用的既有STATUS結論；也不得改稱數學必要條件而完成D.1第8項路徑A。
-原文讀取不是路徑B的mapping，不取得承重資格或改變原文現有分級。
-若日後轉用，先停止／記曝光並走原正式流程，不能以STATUS更新或換seed繞過。
-r1 head aeca9033／tree530a7d9f保留，兩項退回理由及本輪申報記於帳本§33。
-原保留0068已由操作者提供並逐字收錄；舊§32待補行不改，0069／0070保留。
-0071逐字記本輪複核、0072作者scope；r2仍待新exact-head來源／增量複核及原樣合併，不開始研究。
-僅紙上、無新推導／構造／科學執行；C2暫停與全部前份限定確認／OPEN及隔離限制不變。
+[T6契約r2](foundations/t6_quantum_necessity_problem_contract_v0_1.md) exact head ada4b412／tree12634a4a
+取得Claude增量GO，CI #290 run39444635314及job118703171118全部成功後，原樣合併main
+`865d74a37960a76e1585ec5065ff21ff76395e2d`，tree `12634a4a80ee9b5aa11d2353da419249c972d767`。
+Git committer UTC17:14:49／台北次日01:14:49，契約blob ce332f5f不改。
+0068已在原ID逐字補齊，三項開始條件及merge tree核對後才開始本輪新策略／推導，無本輪時間偏差。
+r1、r2與舊待補／待審敘述作歷史保留；0073本人原句及0074作者scope只追加於接觸帳§34。
+
+[具名義務審計 X-T6-QUANTUM-OBLIGATION-AUDIT-v0.1](foundations/t6_quantum_obligation_audit_v0_1.md)
+現為【探索／完整紙上稿待exact-head獨立複核】，model ID NONE，限1+1 massless two-sector比較路徑。
+新稿對任意已給資料證A=Q+R、0≤Q≤A及負方向的正state障礙，並交null quotient／Riesz表示、
+charged異常兩點與self-dual Γ分型、scalar positive-part轉用障礙、已給dynamics的form保留、
+逐對form極限必要界，以及QO1–9分項來源表。這些是已知代數的條件式校準，不稱新物理機制。
+實際總CAR form、Green／adjoint／pairing對接、state來源與同一K相容性、物理Hilbert、
+正能量／unitarity與量子連續極限仍OPEN；沒有本專案quantum PASS／FAIL或具體K／state／pairing構造。
+Araki／Noldus／Sorkin本輪重讀範圍與reviewer已知提示均披露，不冒稱Claude也讀過原文。
+
+T6即使獲GO、合併、寫入STATUS或被轉述，另案handoff、曝光對應與合資格審查前，
+不構成§5.2.1(v)可用既有STATUS／數學必要條件依據，不能完成D.1第8項路徑A。
+原文閱讀不是路徑B mapping，不提升原文承重資格；沒有提出／修改C9／C10 criterion、
+物理test space、projector或evaluator，acceptance與所有formal來源一個位元不改。
+僅紙上；既有回歸只作repo驗證，沒有新數值／符號診斷、RNG、撒點、producer或科學執行。
+C2暫停及全部前份限定確認／OPEN、E0／formal／item7／8／6a-E／Freeze-1a與隔離限制不變。
 
 **前份交付：T2＋T3限定解析確認，物理橋接OPEN（2026-10-19）：**
 操作者轉交Claude對#90 exact head `81f1a260`／tree `bc579c93`的GO；
@@ -614,6 +619,8 @@ $$[D_C]_{ij} \neq 0 \implies j \prec i \implies j < i$$
 
 ---
 *狀態頁更新記錄：*
+
+*v2.45（T6具名義務審計待審，UTC2026-10-20／台北2026-10-21）- #92 r2於CI #290成功後原樣合併865d74a3／tree12634a4a，契約ce332f5f保留，三項開始條件核對後才推導。新稿交條件式CAR／Γ／極限必要界與QO來源表，全部待複核，實際物理對接OPEN；0073逐字本人申報、0074作者scope只追加。T6不具§5.2.1(v)依據資格，A／B管道隔離與全部formal／執行限制不變。*
 
 *v2.44（T6契約r2，2026-10-20）- r1暫不GO，保留aeca9033／530a7d9f；§2點名§5.2.1(v)／D.1第8項A、B管道。T6即使寫入STATUS，handoff／曝光／合資格審查前不具正式依據資格；讀原文不是mapping，不升級文獻。原0068本人原句及0071複核逐字追加、0072作者scope，舊待補行不改；QN／QO與全部formal來源不動，r2待增量GO及合併，不推導。*
 

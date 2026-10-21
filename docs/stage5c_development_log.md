@@ -363,3 +363,25 @@ r1 head aeca9033／tree530a7d9f保留；Claude要求點名§5.2.1(v)／D.1第8�
 三帳相對r1的byte-prefix、0068／0071原句逐字、T6 §3–7（含QN／QO）全文、formal／
 acceptance／prereg、T2／T3及凍結來源逐位元保全、六份Markdown範圍皆通過。
 沒有改程式／測試以取得通過，也沒有把回歸當作T6必要條件證明或科學判決。
+
+
+## T6契約原樣合併與具名義務審計（UTC2026-10-20／台北2026-10-21）
+
+#92 r2 exact head ada4b412／tree12634a4a在Claude增量GO與CI #290 run39444635314、
+job118703171118全步success後原樣合併main865d74a3，tree一致；UTC17:14:49／台北次日01:14:49。
+契約blob ce332f5f與三項開始條件核對後才開始本輪策略／推導，無本輪提前推導偏差。
+新稿X-T6-QUANTUM-OBLIGATION-AUDIT-v0.1完成條件式正CAR form／互補、null quotient與Riesz、
+charged／self-dual分型、positive-part轉用障礙、已給dynamics相容與逐對form極限證明，並分列QO來源。
+這是已知代數校準，沒有選具體K／state／物理pairing／test space，不給S5C量子判決。
+實際Green到總form、state／pairing／time與continuum來源仍OPEN，全部新稿待exact-head複核。
+0073本人原句逐字追加；0074披露已知reviewer提示、Araki／Noldus／Sorkin重讀範圍與未讀界線。
+三帳只追加，README／STATUS僅同步現況；契約、acceptance／formal、前份研究、程式／JSON／tests／CI皆不改。
+探索軌，不具 §5.2.1(v) 依據資格；A聲明與B mapping管道隔離原樣，不以STATUS更新繞過。
+沒有新數值／符號診斷、RNG、撒點、producer、raw／sealed、seed、主機、量測／receipt或科學執行。
+驗證結果於下方追加。
+
+本輪repo驗證：全庫既有回歸首輪 **556 passed、5 warnings，120.58秒**；integrity與diff格式通過。
+六份Markdown範圍、三帳對main865d74a3的byte-prefix、EXP-0073原句逐字、定案契約ce332f5f與
+所有formal／前份來源逐位元保全、新稿本地連結及章節／式號檢查通過。
+章節檢查腳本初次用substring誤計三級標題，改用行首二級標題匹配後通過；文件未因該檢查改寫。
+沒有首輪測試失敗、沒有改程式／tests／CI；回歸結果不作T6量子一致性證據。

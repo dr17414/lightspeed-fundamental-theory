@@ -399,3 +399,18 @@ STATUS標「探索軌，不具 §5.2.1(v) 依據資格」，不改acceptance或�
 r2仍待新exact-head增量GO與原樣合併，不開始具名研究；QN／QO及model ID NONE不變。
 本條不activation、不修改formal規格或其他獨立依據的資格；E0／全部禁止資料／UNKNOWN、
 C2暫停與T2／T3限定確認／OPEN、item7／8／6a-E／Freeze-1a及執行限制不變。
+
+
+## 25. T6契約原樣合併與具名研究待審（UTC2026-10-20／台北2026-10-21；權限不變）
+
+#92 r2 exact head ada4b412／tree12634a4a取得增量GO、CI #290全步成功後，
+原樣合併main `865d74a37960a76e1585ec5065ff21ff76395e2d`，tree與GO相同；
+UTC17:14:49／台北次日01:14:49。契約blob ce332f5f保留，三項開始條件核對後才開始本輪推導。
+新增[具名T6義務審計](foundations/t6_quantum_obligation_audit_v0_1.md)，只交條件式代數證明與QO資料來源表，
+全部待exact-head獨立複核，model ID NONE。總CAR form若有負方向可排除正state，
+但實際Green／adjoint／pairing到總form的對接未交付，不構成本專案quantum判決。
+0073本人原句與0074作者scope只追加；原文閱讀／已知提示來源與停止點均已披露。
+探索軌，不具 §5.2.1(v) 依據資格；不得以STATUS或必要條件名義完成D.1第8項A，
+讀原文亦非B mapping，轉用仍須另案handoff／曝光／合資格審查。
+本條不activation、不改E0或formal／item7／8／6a-E／Freeze-1a，不授權任何科學執行。
+C2暫停、T2／T3限定確認、全部OPEN與UNKNOWN／禁止資料隔離不變。
