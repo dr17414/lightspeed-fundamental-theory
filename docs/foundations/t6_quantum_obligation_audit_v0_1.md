@@ -1,6 +1,6 @@
 # X-T6-QUANTUM-OBLIGATION-AUDIT-v0.1 — CAR必要條件與量子資料來源審計
 
-狀態：**【探索／完整紙上稿待 exact-head 獨立複核】**。
+狀態：**【已確認／限定解析：任意已給 CAR 資料下的條件式必要界（A=Q+R、0≤Q≤A、Riesz 表示、charged／self-dual 必要式、正部分障礙、form 保留與逐對極限）】**。
 **探索軌，不具 §5.2.1(v) 依據資格。**
 Problem ID `X-T6-QUANTUM-NECESSITY-P0.1`；Study ID `X-T6-QUANTUM-OBLIGATION-AUDIT-v0.1`。
 新 model ID **NONE**；不提出K、state、pairing、物理test space、projector或量子模型。
@@ -278,3 +278,19 @@ reviewer QN2一般state分支的草算已在EXP-0071公開，非本稿盲發現�
 不呼叫producer、不讀raw／sealed、不產生seed、不開主機、不量測／receipt；
 既有regression／integrity只作repo驗證。若要實現上述資料鏈或回formal，依契約另案先審。
 E0、item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a、全部UNKNOWN／禁止資料隔離不變。
+
+
+## 10. exact-head複核與原樣合併封存（2026-10-21）
+
+PR #93 exact head `9c26d4729462ae03688b24341b019c05e443a54a`／tree
+`1a85110bc0e3d44a64efa2a9f6df24deff5c0208`取得操作者轉交的Claude GO；
+CI #292（run39466497029）success後轉ready並原樣squash合併main
+`630d4628b7e8603a08d2167a92122b3073dc9759`，merge tree與核准tree完全相同。
+Git committer時間為2026-10-21 12:10:52 Asia/Taipei（UTC04:10:52）。
+限定確認已知CAR代數必要條件與抽象轉用；物理詮釋、同一K的Green到總CAR form、
+state／pairing／time來源與量子continuum對接仍OPEN。沒有新的量子實現或新穎性結論。
+探索軌，不具 §5.2.1(v) 依據資格；D.1第8項A／B、E0、全部formal、
+item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+本輪只封存複核與同步狀態；下一研究方向尚未選定，不開始構造或文獻盤點。
+
+正文中的待審用語保留為提交時點歷史；§2–9證明、公式與來源記錄不改。

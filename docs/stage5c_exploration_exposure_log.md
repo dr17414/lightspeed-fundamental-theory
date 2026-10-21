@@ -847,3 +847,25 @@ Git committer UTC2026-10-20 17:14:49／台北2026-10-21 01:14:49。
 若回formal，須另案handoff、曝光對應與合資格審查。契約／acceptance／prereg及所有formal來源原樣。
 C2暫停、T2／T3限定確認與全部OPEN、E0、item7／8、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
 下一個新EXP-ID為0075。
+
+
+## 35. PR #93複核收件與合併封存（2026-10-21；只追加）
+
+PR #93 exact head `9c26d4729462ae03688b24341b019c05e443a54a`／tree
+`1a85110bc0e3d44a64efa2a9f6df24deff5c0208`取得操作者轉交的Claude GO；
+CI #292（run39466497029）success後轉ready並原樣squash合併main
+`630d4628b7e8603a08d2167a92122b3073dc9759`，merge tree與核准tree完全相同。
+Git committer時間為2026-10-21 12:10:52 Asia/Taipei（UTC04:10:52）。
+限定確認已知CAR代數必要條件與抽象轉用；物理詮釋、同一K的Green到總CAR form、
+state／pairing／time來源與量子continuum對接仍OPEN。沒有新的量子實現或新穎性結論。
+探索軌，不具 §5.2.1(v) 依據資格；D.1第8項A／B、E0、全部formal、
+item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+本輪只封存複核與同步狀態；下一研究方向尚未選定，不開始構造或文獻盤點。
+
+**EXP-0075：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #93 複核）：以 exact head `9c26d472` 讀 #93 全部 diff、T6 義務審計全文與狀態文件；以 git 核對 head、tree、parent，確認 acceptance、契約與 formal 檔案沒有改動、帳本沒有刪除行，並比對 EXP-0073 原句。逐式手算核對 §2.1 的正 functional 性質、定理 A 與推論 A−、§3.1 的商空間與 Riesz 表示、§3.2 的 charged 不等式與 gauge 論證、§3.3 的 self-dual 互補式（含 ΓSΓ 的自伴性）、(T6.9)、(T6.10) 與 §7 的極限轉用。沒有讀 Araki、Noldus、Sorkin 或其他文獻原文，也沒有做檢索。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。只在 detached exact head 跑了既有的回歸測試和 integrity，沒有建立本地分支。
+
+**EXP-0076：GPT接續／封存申報**
+
+讀操作者轉交的#93 GO、限定升格建議、兩個後續方向觀察及上述本人原句；不推定Claude讀過文獻。以GitHub工具核對PR head／tree／parent、CI #292 success；轉ready、以expected head原樣squash，從Git取得main與merge tree一致性。讀定案T6契約與activation／帳本／狀態及#93公開diff；只同步限定確認狀態與追加封存，不推導、不選新方向。沒有新讀文獻原文、數值／符號診斷、RNG、撒點、producer、raw／sealed、seed、主機、量測或receipt。既有integrity及文字／prefix／diff驗證只作repo檢查。本輪不重跑全庫，沿用exact head CI #292與Claude申報；新PR交CI與獨立複核。下一個新EXP-ID為0077。

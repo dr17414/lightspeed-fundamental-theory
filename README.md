@@ -30,7 +30,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **T6具名紙上研究待審**：[問題契約r2](docs/foundations/t6_quantum_necessity_problem_contract_v0_1.md)在exact-head GO、CI #290後原樣合併main `865d74a3`（tree `12634a4a`），0068補齊與三項開始條件已核對，之後才開始[CAR必要條件與量子資料來源審計](docs/foundations/t6_quantum_obligation_audit_v0_1.md)。新稿只對任意已給資料證條件式form界、charged／self-dual分型及抽象極限轉用，仍待獨立複核；沒有構造物理K／state／pairing，實際Green到總CAR form與QO物理實現仍OPEN。**探索軌，不具 §5.2.1(v) 依據資格**；不能因合併或寫入STATUS而完成D.1第8項A聲明，讀原文亦非B mapping，轉用須另案handoff／曝光／合資格審查。正式C9／C10與所有執行限制不變。
+- **T6限定解析已確認**：[CAR義務審計](docs/foundations/t6_quantum_obligation_audit_v0_1.md)經#93 exact-head GO、CI #292成功後原樣合併main `630d4628`（tree `1a85110b`）。【已確認／限定解析：任意已給 CAR 資料下的條件式必要界（A=Q+R、0≤Q≤A、Riesz 表示、charged／self-dual 必要式、正部分障礙、form 保留與逐對極限）】。實際Green／CAR、state／pairing／time與量子極限仍OPEN。**探索軌，不具 §5.2.1(v) 依據資格**；下一方向尚未選定，正式規格與執行限制不變。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
