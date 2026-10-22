@@ -27,7 +27,7 @@ ACT-X-0001生效SHA仍`0c386716701589c9a6b0b799636a808aacb9ade5`，限紙上。
 | 六欄 | 本題 |
 | :--- | :--- |
 | 問題 | 能否交出一個具名、來源合規的有限域非局域kinetic構造，並由同一資料鏈對接retarded inverse、總CAR form及正state？ |
-| 定義域 | 下述D1上的有限資料規則；1+1 massless僅是後續連續比較目標，不是有限poset已具維度／質量的結論 |
+| 定義域 | 下述事前固定D_KQ⊂D1上的有限資料規則；1+1 massless僅是後續連續比較目標，不是有限poset已具維度／質量的結論 |
 | 輸入 | I-KQ-ORD／NUM／UV，及須逐項申報的L2 quantum scaffolding；本題先限derived amplitude，不採drawn phase分支 |
 | 證據 | 後續須交顯式定義、型別與來源鏈、完整紙上證明；本契約不預填任何存在／否定結果 |
 | 未證橋接 | K、Green、test／adjoint／CAR、state及dynamics全部尚未構造；連續極限、physical vacuum、質量與幾何選擇不在第一階段完成義務內 |
@@ -36,18 +36,36 @@ ACT-X-0001生效SHA仍`0c386716701589c9a6b0b799636a808aacb9ade5`，限紙上。
 固定D1為所有非空有限strict posets P，使R2(P)/(Aut(P)×S2)只有一個orbit；
 R2(P)是交集恰等於P的成對total orders。這只引用既有Stage5A／T3定義，
 不是宣稱D1涵蓋全部撒點、所有posets或任意3+1背景。
-**主問題的正面完成量詞：** 一條在看任何構造輸出之前已固定的規則，定義在整個D1上，
-對所有同構f:P→P′自然，且對**每個**P∈D1都實質交出§4第1–4項。
+**r4事前固定的工作域：** 定義
+q(P)=#{(y,x)∈P×P:y≺x}，每個strict comparable pair只按其唯一order方向計一次，
+不計對角項。令D_KQ={P∈D1:q(P)≥2}。
+這個predicate只使用order／count，在任何K、Green、form或state的構造嘗試前固定。
+選擇理由僅是§4.1(a)至少需要一個可比對，§4.1(b)至少需要兩個可能的非對角order
+blocks；此為最低支撐數要求，**不是**已證其中存在合格K或所有量子義務可同時滿足。
+不使用任何試算、evaluator摘要、負譜或成功模式選此域。
+
+**非空與尺寸無界的來源證明。** 對任意m≥3，取m元素全序鏈C_m。
+若兩個total orders的交集是C_m，兩者均須延伸C_m；鏈的total-order延伸只有自己，
+故R2(C_m)僅有(C_m,C_m)，其Aut×S₂ quotient只有一個orbit，C_m∈D1。
+鏈含至少兩個strict comparable pairs，因此C_m∈D_KQ，證D_KQ非空且含任意大尺寸。
+鏈的相鄰元素構成Hasse path，兩端點的最短directed path長m−1，故輸入域也含
+任意大order-hop距離。這只證輸入域的非空／無界性；沒有定義K或證其nonzero support，
+不能當作§4.1(c)所要求的K非局域witness。
+
+**主問題的正面完成量詞：** 一條在看任何構造輸出之前已固定的規則，定義在整個D_KQ上，
+對所有同構f:P→P′自然，且對**每個**P∈D_KQ都實質交出§4第1–4項。
 須明寫f在事件／sector／test／algebra資料上的誘導映射，所有物件與identities與之交換；
 只核對Aut(P)或S₂下降不足。失效狀態、OPEN或僅按構造成立的state不算正面完成。
-最低非平凡性另依§4.1逐P與family量詞檢查，不以刪掉小N或不利輸入維持全D1成功。
+§4.1(a)(b)(d)逐P檢查，(c)在此工作域內對尺寸無界family檢查。
 
-局部結果的子類必須在查看其構造輸出前，以明文、只用order／count的predicate刻畫，
-並列非空性與適用量詞；子類成功只能記局部結果。本r3不另選工作子類或變更D1。
-D1包含鏈、單點等不像流形的輸入；全D1上的資料／代數成功不代表1+1維流形性質。
-單點無非對角order對，不能滿足§4.1(a)；這種尺寸退化不得獲豁免後又稱強全域問題完成。
-若全域要求因退化輸入而不相容，僅記精確作用域的障礙，不當作有分量的物理no-go，
-也不藉此聲稱已解決後續非平凡局部構造問題。
+D_KQ以外的D1退化輸入不作本題構造成功的要求。**全D1的強要求因退化輸入已不可能**：
+單點與兩點反鏈沒有可比對，不能滿足(a)；兩點鏈僅一個可能非對角order block，不能
+滿足(b)。這是已知的作用域事實，不當作本研究結果，也不把排除這些退化輸入稱為物理進展。
+D_KQ仍包含鏈等非流形輸入，故本題資料／代數成功不代表1+1維流形性質。
+
+若只在D_KQ的真子類得到結果，須在查看其構造輸出前以明文order／count predicate
+登記子類與非空性；只能記局部結果，不能改稱主問題已解。若要改本題工作域，須在
+任何新構造前修契約並另交exact-head複核；不得看過結果後改predicate維持成功。
 
 **第一階段跨N一致性：要求規則層的一致性。** 使用同一條已固定來源／容量的規則，
 不得逐N另選law、pairing、state或擬合表；明寫的自然count依賴不等同逐尺寸調參。
@@ -103,7 +121,7 @@ embedding或nested-region限制都與inverse／state嚴格交換；該較強相�
 以下是可失敗的探索要求，**不是C3b／C5／C6或C9**，不使用其evaluator／controls，
 也不得回流為formal判準、projector、排除規則或容差；§5隔離完整適用。
 (a)、(b)、(d)對每個聲稱完成的P要求；(c)只能對跨尺寸family要求，不能要求單一有限P
-有無限hop距離。主問題按全D1檢查；局部主張只按§2事前order predicate的子類檢查，
+有無限hop距離。主問題按§2已固定的D_KQ檢查；局部主張只按其事前order predicate子類檢查，
 並須證該子類非空及(c)所需的無界輸入族，不以空域／有限例使要求真空成立。
 
 (a) **傳播。** G_R至少有一個x≠y的非零block，且所有非對角非零block均須y≺x。

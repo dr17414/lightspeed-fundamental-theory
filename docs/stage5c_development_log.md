@@ -403,3 +403,31 @@ item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離�
 本輪只封存複核與同步狀態；下一研究方向尚未選定，不開始構造或文獻盤點。
 
 EXP-0075逐字收錄reviewer本人申報；EXP-0076記本輪作者接續範圍。
+
+
+## KQ r3量詞／非平凡性／反修補與canonical整合（2026-10-22；只追加）
+
+#94經CI #294與exact-head GO後原樣合併main7f782bb6，treee6eb52f6與核准一致；
+Git committer UTC2026-10-21 20:07:11／台北2026-10-22 04:07:11。
+#95 r2 aa43fb2c／8fa9ccff需修訂；r3修X-KQ-1P1-P0.1的全D1自然性／逐P量詞、
+跨N規則、局部order predicate要求與四項探索非平凡性、form不得依正負譜修補及同源state規則。
+D1含單點，不能以豁免退化輸入維持全域成功；局部結果先列order predicate，不另選工作域。
+探索定義不作formal criterion，A／B及§5.2.1(v)隔離原樣。
+接觸帳§36已逐字整合EXP-0077–0079及Claude本人原句0080，0081記作者r3範圍；
+兩份補充檔既有內容保留原樣；權威登記以canonical本節為準。本r3尚待增量exact-head複核與原樣合併，
+model ID NONE，沒有K／state／pairing選擇或推導、數值／符號診斷或科學執行。
+定案T6契約／研究、acceptance／所有formal、程式／tests／CI不改；E0、item7／8、
+6a-E／Freeze-1a、UNKNOWN與禁止資料隔離不變。
+
+
+## KQ r4工作域與canonical補漏整合（2026-10-22；只追加）
+
+#95 r3 5d060cb1／d71d6bc1仍未GO，CI #297 success；本r4依reviewer最小條件事前固定
+D_KQ={P∈D1:至少兩個strict comparable pairs}，補全序鏈的非空／無界性證明。
+§4.1只同步工作域量詞，四項探索最低要求及反補洞規則不改；全D1退化不可能性
+記為已知作用域事實，不作研究成果。沒有K／state／pairing／ansatz／策略或科學執行。
+本版本把#96已核對追加內容及漏掉的§36開頭授權原句整合進canonical接觸帳，
+0077–0081保留，0082逐字收錄Claude本輪申報，0083記GPT r4範圍；補充檔／研究稿原樣。
+#96只作核對紀錄，patch檔不合併。完整blob發布仍待操作者明確授權；本地整合不算
+main登記或開始構造。待#95 r4的GO、必要CI、原樣main合併與tree核對後才可依契約進行。
+formal／E0、§5.2.1(v)及A／B隔離、6a-E／Freeze-1a與UNKNOWN／禁止資料限制不變。
