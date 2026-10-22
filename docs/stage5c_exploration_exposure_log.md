@@ -869,3 +869,155 @@ item7不可ADOPT、item8 OPEN、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離�
 **EXP-0076：GPT接續／封存申報**
 
 讀操作者轉交的#93 GO、限定升格建議、兩個後續方向觀察及上述本人原句；不推定Claude讀過文獻。以GitHub工具核對PR head／tree／parent、CI #292 success；轉ready、以expected head原樣squash，從Git取得main與merge tree一致性。讀定案T6契約與activation／帳本／狀態及#93公開diff；只同步限定確認狀態與追加封存，不推導、不選新方向。沒有新讀文獻原文、數值／符號診斷、RNG、撒點、producer、raw／sealed、seed、主機、量測或receipt。既有integrity及文字／prefix／diff驗證只作repo檢查。本輪不重跑全庫，沿用exact head CI #292與Claude申報；新PR交CI與獨立複核。下一個新EXP-ID為0077。
+
+
+## 36. KQ方向／契約申報整合與r3修訂（2026-10-22；只追加）
+
+先核對canonical最後可用ID為0077。依操作者轉交的本輪複核與整合要求，將已存在於
+公開補充檔的0077／0078及選題申報0079逐字整合，0080逐字收錄Claude本輪本人原句。
+下列原文保留其當時「擬登記／尚未整合」等字樣，僅為來源時點；本節的EXP標頭與
+整合說明為canonical登記，兩份補充檔保留原樣作歷史，權威登記指向本節。r3尚待GO／原樣合併，
+不提前聲稱main已含本次整合，不在合併前開始構造。
+
+#94 exact head8dceb4b3／treee6eb52f6經CI #294與Claude GO，原樣合併main
+`7f782bb64ad30abd42032b3a82e476fd409607a6`；merge tree
+`e6eb52f66dbc1789cbbf2b00eb71a9f61c7ccb3b`與核准一致。
+Git committer UTC2026-10-21 20:07:11／台北2026-10-22 04:07:11。
+#95 r2 aa43fb2c／8fa9ccff未GO；本r3只修契約及來源／狀態同步，沒有開始構造。
+
+**EXP-0077：方向閱讀範圍；原補充原文逐字整合**
+
+**方向評估授權來源（補充檔§36開頭原文逐字補錄）**
+
+操作者原句：「你來研究並建議方向」。本輪授權用於研究／推薦，未指定新的具體模型，
+也不代替具名構造契約的定案／先審條件。#94仍待獨立複核；其CI #294 run39542912512 success，
+不以此代替GO或原樣合併。新評估接在#94 head8dceb4b3，保留EXP-0075／0076。
+
+**擬登記EXP-0077：GPT方向評估的實際接觸範圍**
+
+讀公開路線圖、T1/T5、T2/T3、T6、C2/r3研究片段與acceptance的claim／object／來源／
+freeze規則；讀STATUS搜尋命中行，工具連帶回傳既有reference-probe公開結果摘要與
+item7／8狀態，包括數值，並非未接觸這些摘要。未開raw、sealed、feature／weight／score
+檔案或producer；本輪未用其數值或成功模式提出K／law／參數／cap，相關隔離及既有曝光血緣不解除。
+
+本輪查網路原始文獻。具體閱讀：Arrighi–Nesme–Forets 1307.3524v1摘要、引言及工具回傳
+§I–VI／收斂段；Gupta–Short 2412.03466v3摘要、§1–4及Appendix A起段與出版頁；
+Noldus 1305.0443v3摘要、§1–3及工具連帶回傳的譜分解／有限例片段；
+Carlip–Carlip–Surya 2209.00327v1摘要、§1–4工具可得片段；CFS作者網站基本定義，
+Finster–Fischer 2605.30199v1摘要／引言／§4定位及2026出版頁工具回傳§4–5片段。
+上述原文公式已可見，不聲稱盲接觸，不表示已採或驗證其模型，未逐式比較CFS版本。
+Farrelly–Short 1303.4652及Markopoulou hep-th/9904009v5只核原摘要／出版資訊，HTML正文
+請求失敗，不冒稱讀過全文。搜尋另回傳Johnston、Sverdlov、Mathur–Singh–Surya摘要及
+其他2026條目；未讀其全文。二手、無關搜尋命中不用作物理證據，來源清單見評估§3。
+沒有另讀Araki全文或做其新穎性查全；沿用T6既有記錄不改成此次獨立核實。
+
+只有公開解析資料及文字整理；沒有新數值／符號計算、RNG、撒點、producer、raw／sealed、
+seed、主機、量測／receipt或科學執行。無subagent或新Claude申報，不能代填。
+
+**EXP-0078：推薦與未開始界線；原補充原文逐字整合**
+
+**擬登記EXP-0078：GPT推薦方向與未開始界線**
+
+新增X-DIRECTION-20261021評估：推薦把原始輸入下的1+1 massless非局域構造與同源
+量子對接列為主線，文獻盤點限於支援此題；已知QW／QCA作參照、額外primitive須另案
+conditional契約；物質選幾何、CFS換框架及正式量測不列立即主線。
+這是作者的排序與研究問題輪廓，尚未選實際構造類、K、state、pairing、domain公式或law，
+沒有開始新推導或用文獻決定正式C9／C10內容。推薦不是操作者已選題／新契約已定案；
+不把本輪評估稱為新的正面／否定科學結果或完成新穎性盤點。
+探索軌，不具 §5.2.1(v) 依據資格；A／B使用隔離、全部formal、E0、6a-E／Freeze-1a、
+UNKNOWN／禁止資料與已見evaluator內容的來源血緣均保留。本補充尚未整合進canonical接觸帳；0077／0078為擬用ID，整合前須核對當時下一個可用ID。
+
+**EXP-0079：選題與起草；原選題申報全文逐字整合**
+
+# KQ問題契約：本輪選題與起草申報
+
+狀態：【新增申報／待複核】。2026-10-21 Asia/Taipei，只知日期，不補時間。
+Supplement ID `X-KQ-SELECTION-20261021`。本檔僅含本輪新增內容。
+
+操作者原句：「好。照你的建議進行。哪些要貼給claude」。
+承接原始輸入下1+1非局域構造與同源量子對接方向；不批准任意新增physical primitive。
+本輪只起草X-KQ-1P1-P0.1與供操作者轉貼的審查文字；沒有工具傳送給Claude。
+
+GPT讀本輪原句、現有待審PR版本、公開T2/T3契約前段及原方向申報；無新增文獻閱讀。
+契約固定D1量詞、來源／L2界線、同源交付及開始／停止條件。
+未選K、state、pairing、材料／ansatz、phase law或證明策略，無新研究推導。
+沒有數值／符號診斷、RNG、撒點、producer、raw／sealed、seed、主機、科學量測或receipt。
+既有integrity及文字／prefix／diff／連結檢查只作repo驗證。
+
+依賴PR與本契約的最終版本各自獲GO、必要CI通過、原樣merge／tree核對及申報整合審查前，
+不開始構造。原正式規格、既有研究、三本歷史帳與原方向申報補充檔皆不改。
+本輪申報擬登記EXP-0079，須與既有擬0077／0078一併核對當時可用ID再整合，尚未canonical登記。
+不代填Claude申報或稱已取得獨立GO。
+
+原接觸補充檔重傳遭自動核准審查拒絕，本次保留原檔，僅新增本輪內容。
+探索軌，不具 §5.2.1(v) 依據資格；E0、formal與原來源隔離限制不變。
+
+**EXP-0080：操作者轉交的Claude本輪本人申報原句**
+
+> Claude（PR #94 與 PR #95 r2 複核）：以 exact head `8dceb4b3`（#94）與 `aa43fb2c`（#95 r2）讀兩個 PR 的全部 diff。#94 部分：讀 T6 研究稿的狀態行與 §10、STATUS／README 的改動、ACT／dev 帳與接觸帳 §35，並比對 EXP-0075 原句。#95 部分：讀方向評估全文、方向申報補充檔、選題申報檔與 X-KQ-1P1-P0.1 契約全文。以 git 核對兩個 head、tree、parent，以及 r1 的 tree，確認 #94 的研究證明、契約與 formal 檔案沒有改動、帳本只有追加；也確認 #95 r1→r2 只有新增，補充檔與 r1 相同，canonical 帳本、STATUS、README 與 formal 檔案都沒有改動。指出非平凡性時舉的退化例（單位局域 K 使 A=0），以及有限維 Fock 態的存在性，都是在腦中推理，沒有寫成證明。方向評估引用的文獻原文都沒有讀，也沒有做檢索。沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。為了抓取兩個 PR head，建立了暫時的本地 ref `pr94`、`pr95`；在 detached exact head 上跑既有回歸測試與 integrity 後，這兩個 ref 都已刪除，沒有推送任何東西。
+
+**EXP-0081：GPT r3契約修訂與申報整合範圍**
+
+讀操作者轉交的#94 GO／#95 r2退回四項與0080原句，核對#94／#95身分與CI。
+#94原樣合併及merge tree核對後才記本輪修訂；不是以#94的GO批准KQ契約。
+本輪紙上只作問題契約一致性與最低目標定義：注意D1單點無非對角order對，明列全D1
+強問題與局部結果須事前order predicate的界線；不另選工作子類，不能以子類成功替代全域；新增所有同構自然性、
+跨N的單一來源規則、order傳播、非對角block span排除類、跨尺寸無Hasse-hop cutoff，
+及rank A≥|P|的探索目標。這些是r3作者事前選的研究要求／定義，未證任何構造存在，
+不冒充由物理推得的必要律，也不是C3b／C5／C6／C9的新formal形式。
+單點相容性是在腦中作契約邏輯檢查，不是具名K反例構造或新研究證明；reviewer已提示
+局域單位K／A=0與Fock存在性，不稱盲發現。沒有設計K、state、pairing、phase law、
+材料／ansatz或其證明策略，沒有用原文／evaluator摘要挑此類材料。
+補上test／adjoint／projection／quotient規則不得依所得form符號或譜回修、canonical零商
+只能在完整T上已證A≥0後表示，及同源state規則與按構造Fock存在性的判定分界。
+操作者補充r3授權邊界後，在未更新遠端head前撤回較廣的未提交草稿，包括另選D_KQ
+工作子類與修改補充檔／評估；最終不選該子類，所有補充檔／研究稿恢復r2逐位元內容。
+被操作者取消的API批次可能已建立未被ref引用的blob，未完成commit／ref發布；最終變更
+以r2→r3 diff與tree核對為準，不把未提交草稿當已授權／已生效研究。
+沒有本輪新讀文獻、數值／符號診斷、RNG、撒點、producer、raw／sealed、seed、主機、
+科學量測或receipt；既有regression／integrity與文字／prefix／連結檢查只作repo驗證。
+原三帳逐位元只追加，0077–0079原申報及0080本人句保全；舊supplement與研究稿／r1／r2逐位元保全。
+同步ACT／dev／STATUS／README只記KQ r3待審，定案T6契約／研究、acceptance與其他formal、
+程式／tests／CI皆不改。不為Claude擴張原文或手算／執行範圍。
+canonical整合與r3仍待新exact-head GO、必要CI與原樣main merge／tree核對，未開始構造。
+探索軌，不具 §5.2.1(v) 依據資格；A／B隔離、E0、formal、6a-E／Freeze-1a及全部UNKNOWN／
+禁止資料隔離保留。下一個新EXP-ID為0082。
+
+
+## 37. KQ r4工作域修訂、補漏與新增複核申報（2026-10-22；只追加）
+
+main的canonical最後既有ID仍0076；本版本依已核對patch整合0077–0081後，
+本輪Claude本人申報使用下一個0082，GPT r4範圍0083。這是本地待授權發布的r4整合版本；
+不把本地完成稱為main已含登記，亦不在r4 GO／CI／原樣合併與tree核對前開始構造。
+§36補上方向補充檔的開頭授權來源段，原文逐字，其他已核對patch內容原樣保留。
+原研究稿、兩份補充檔與formal不改；canonical整合版本為權威，補充的舊「擬／未整合」
+字樣只記當時歷史。#96留作核對紀錄，不將patch檔合併當作整合完成。
+
+**EXP-0082：操作者轉交的Claude r3增量複核／patch核對本人申報原句**
+
+> Claude（PR #95 r3 增量複核與 PR #96 patch 核對）：以 exact head `5d060cb1`（#95 r3）讀 r2→r3 的契約與 README diff，以 git 確認 r3 是以 r2 與 main `7f782bb6` 為 parent 的 merge commit、r2 與 main 的 tree 一致。以 exact head `4ec434fa`（#96）讀說明檔與 patch 全文，核對 patch SHA-256 與五個 base blob；在 scratchpad 建立暫時 worktree，於 r3 上實際套用 patch，確認三帳沒有刪除行、目前狀態段為唯一替換，用腳本逐段比對補充檔 §36、選題申報與 EXP-0080 原句是否逐字收錄；核對後已移除 worktree。指出 D1 中單點、兩點反鏈、兩點鏈不可能滿足 §4.1，以及 (b) 的等價性與不變性，都是在腦中推理，沒有寫成證明。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在兩個 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+來源核對附註（不修改本人原句）：原句「r2與main的tree一致」如實收錄。
+實際r2 aa43fb2c的tree為8fa9ccff，main7f782bb6的tree為e6eb52f6，兩者不同；
+r2所接的#94 head8dceb4b3之tree才與該main一致。r3兩個parents仍是r2與main。
+本附註僅固定Git身分事實，不為Claude改寫申報或擴張其閱讀／核准範圍。
+
+**EXP-0083：GPT r4工作域文字修訂與canonical整合範圍**
+
+讀操作者轉交的#95 r3退回、#96補漏與整合建議及0082本人原句；核對遠端heads、
+main7f782bb6及r3的CI #297 success。未新讀文獻或禁止資料，沿用既有曝光與來源血緣。
+本輪只依reviewer的最小predicate，將工作域事前固定為D_KQ={P∈D1:q(P)≥2}，
+q計strict comparable pairs；補C_m（m≥3）的非空／尺寸與order-hop無界性短證。
+這只是契約作用域驗證，不是K模型或§4.1(c)的nonzero K witness。全D1退化不可能性
+按已知作用域事實保存，不當研究成果；不是從任何構造／試算或evaluator摘要選域。
+§4.1只同步工作域量詞，(a)–(d)定義及§4.2反補洞規則不改；沒有選K、state、pairing、
+phase law、ansatz或其證明策略，沒有執行數值／符號計算、RNG、撒點、producer、raw／
+sealed、seed、主機、科學量測或receipt。只有Git／文字／逐字／prefix／patch與integrity檢查。
+本地先套用已核對的#96新增行patch，補上§36授權來源原文及0082／0083，三帳原有內容
+保持完整byte-prefix；ACT／dev只追加，README／STATUS只替換目前狀態。其他契約段落、
+研究稿／補充檔、T6、acceptance／formal、程式／tests／CI皆不改，不合併patch副本。
+#96已關閉且未合併，保留exact head／patch作核對紀錄；未刪檔或重寫其commit。
+完整歷史blob的回傳仍等待操作者明確授權；本輪未重試此前被拒的全文API上傳，
+也未以其他通道繞過。r4整合版本待具體差異批准、發布後CI與Claude exact-head增量複核。
+探索軌，不具§5.2.1(v)依據資格；所有formal／E0／6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0084。
