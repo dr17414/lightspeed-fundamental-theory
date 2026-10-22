@@ -1021,3 +1021,34 @@ sealed、seed、主機、科學量測或receipt。只有Git／文字／逐字／
 也未以其他通道繞過。r4整合版本待具體差異批准、發布後CI與Claude exact-head增量複核。
 探索軌，不具§5.2.1(v)依據資格；所有formal／E0／6a-E／Freeze-1a及UNKNOWN隔離不變。
 下一個新EXP-ID為0084。
+
+
+## 38. PR #95 r4 GO收件與構造前申報登記（2026-10-22；只追加）
+
+操作者轉交Claude對#95 r4的exact-head GO：head
+`9517c4b35d8593335ce80c7b699a2f2573c77954`，tree
+`16bb788a45924e3b257a845a18eaeabc7179ac53`，parent r3
+`5d060cb1a34a97531cb98d6d35cfd9d0728b2714`。
+核對受審分支最後ID為0083；main7f782bb6仍止於0076，0077–0083在受審r4中，
+因此本次本人原句使用下一個0084，作者接續範圍使用0085，不重用既有ID。
+本commit只作構造開始前的追加紀錄，不修改#95核准tree，也不表示#95已合併。
+
+**EXP-0084：操作者轉交的Claude PR #95 r4增量複核本人申報原句**
+
+> Claude（PR #95 r4 增量複核）：以 exact head `9517c4b3` 讀 r3→r4 的全部 diff，包括契約的工作域修訂、README、STATUS，以及三本帳新增的 §36–37 和 ACT／dev 段落。以 git 核對 head、tree、parent，並確認 `git diff 5d060cb1 9517c4b3` 的 SHA-256 等於操作者提供的 patch hash。將三本帳的 r3 與 r4 版本暫存於 scratchpad，逐位元組比對前綴；確認研究稿、補充檔、選題申報、T6 兩份文件與 acceptance 都沒有改動。用腳本逐段比對補充檔 §36、選題申報，以及 EXP-0080、0082 原句是否逐字收錄。D_KQ 的非空性、鏈的 realizer 唯一性與 hop 無界性，是在腦中驗算的。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支或 worktree，也沒有推送任何東西。
+
+**EXP-0085：GPT收件、核對與只追加紀錄範圍**
+
+讀操作者本輪轉交的#95 r4 GO及EXP-0084原句，讀受審契約、activation及三帳末段，
+核對遠端#95仍是draft／open、head9517c4b3、base main7f782bb6及CI #298
+run39713083804 success；Git核對head／tree／parent與當前canonical ID。
+嘗試轉ready遭自動核准審查拒絕：先前明確的保持draft／不合併限制尚缺操作者明確解除，
+未重試或繞過。#95未合併，沒有merge tree可核對，不能聲稱構造開始條件已滿足。
+本地在受審r4後建立紀錄分支，只追加0084本人原句與本0085及ACT／dev對應紀錄，
+保留三帳原文的完整byte-prefix；契約、STATUS／README、研究稿、補充與formal皆不改。
+尚未開始K／Green／state／pairing選擇、構造推導或證明策略，沒有新讀文獻或做檢索，
+沒有新數值／符號科學計算、RNG、撒點、producer、raw／sealed、seed或科學執行。
+Git、文字／prefix／範圍與既有integrity檢查僅作repo驗證；沒有重跑全庫回歸。
+待明確解除draft／不合併限制，且#95原樣合併並核對tree後，再銜接本紀錄commit；
+本地追加不稱main已登記。探索軌不具§5.2.1(v)依據資格，formal／E0、A／B隔離、
+6a-E／Freeze-1a及UNKNOWN／禁止資料限制不變。下一個新EXP-ID為0086。

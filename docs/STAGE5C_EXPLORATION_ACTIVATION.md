@@ -460,3 +460,16 @@ D_KQ={P∈D1:至少兩個strict comparable pairs}，補全序鏈的非空／無�
 #96只作核對紀錄，patch檔不合併。完整blob發布仍待操作者明確授權；本地整合不算
 main登記或開始構造。待#95 r4的GO、必要CI、原樣main合併與tree核對後才可依契約進行。
 formal／E0、§5.2.1(v)及A／B隔離、6a-E／Freeze-1a與UNKNOWN／禁止資料限制不變。
+
+
+## PR #95 r4 GO收件與構造前本人申報（2026-10-22；只追加）
+
+操作者轉交#95 r4 exact-head9517c4b3／tree16bb788a的GO，CI #298
+run39713083804 success。接觸帳§38逐字追加Claude本人申報EXP-0084，
+EXP-0085記GPT本輪核對／轉ready被自動核准審查拒絕與本地紀錄範圍。
+受審r4已有0077–0083，main7f782bb6仍止於0076；本地追加不算main已登記。
+#95保持draft，未合併，沒有merge tree可核對；待操作者明確解除原draft／不合併限制。
+本commit只有三帳追加，保留完整byte-prefix，不改契約、STATUS／README、研究稿、
+補充、formal、程式、測試或CI。未選K／state／pairing，未開始構造或證明策略，
+無新科學執行；既有integrity與文字／Git核對僅作repo檢查。後續須先核對#95原樣合併tree，
+再銜接本紀錄，不能倒填研究開始時間。探索軌／§5.2.1(v)、E0、A／B及既有資料隔離不變。
