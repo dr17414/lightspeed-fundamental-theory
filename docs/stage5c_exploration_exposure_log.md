@@ -1052,3 +1052,76 @@ Git、文字／prefix／範圍與既有integrity檢查僅作repo驗證；沒有�
 待明確解除draft／不合併限制，且#95原樣合併並核對tree後，再銜接本紀錄commit；
 本地追加不稱main已登記。探索軌不具§5.2.1(v)依據資格，formal／E0、A／B隔離、
 6a-E／Freeze-1a及UNKNOWN／禁止資料限制不變。下一個新EXP-ID為0086。
+
+
+## 39. PR #97 r2：保留歷史原句並追加其後授權／合併事實（2026-10-23；只追加）
+
+核對main3387d732最後ID0083；#97 r1已保留0084／0085，
+本輪按申報事件順序使用下一個0086、0087，作者追加範圍0088，不重用既有ID。
+
+**其後事實：授權、原樣合併與紀錄位置。**
+
+操作者明確授權原句（節錄）：
+
+> **授權（操作者）**：我解除先前對 #95 設下的「保持 draft、不合併」限制，並授權以下動作：
+
+授權日期依本對話當時的Asia/Taipei日期為2026-10-22；原訊息未提供時分秒，
+故只記日期，不以工具執行或Git committer時間倒填授權時間。授權發生在下述合併之前。
+授權範圍僅三個動作：①核對#95完整head、tree及該head的CI #298成功；
+②轉ready，以expected head9517c4b3原樣squash至main；③核對merge tree並回報main SHA。
+原授權亦明列head變動即停止，EXP-0084紀錄不在該次合併授權內、須另行推送與複核，
+且0084完成canonical登記並經複核前不得開始構造。此處不擴張該授權。
+
+GitHub紀錄確認CI #298（run39713083804）在完整head
+`9517c4b35d8593335ce80c7b699a2f2573c77954`上completed／success。
+#95依此expected head轉ready後原樣squash合併為main
+`3387d73241876edd8ed79e26cf6149bbf118cd0d`，唯一parent
+`7f782bb64ad30abd42032b3a82e476fd409607a6`；merge tree
+`16bb788a45924e3b257a845a18eaeabc7179ac53`與核准r4 tree完全一致。
+Git committer為GitHub，時間2026-10-22T12:31:30Z，
+即2026-10-22 20:31:30 Asia/Taipei；這是合併時間，不是授權或研究開始時間。
+契約X-KQ-1P1-P0.1及EXP-0077–0083由此進入main。
+
+原紀錄6f62c417的寫作基線是合併前r4，保留該內容後重接到上述合併後main，
+本地重接head07c5bb36；操作者另以「同意授權」同意將三帳既有公開原文＋
+限定追加以完整Git blob推到新分支並建立draft PR，不合併、不開始構造。
+API發布的#97 r1 head為`3a98ee3890eb609c20b4f2fc21f6a5cafec12516`，
+tree `ce381af343c17f8fc033de28f10428c28d4a90b3`，唯一parent就是main3387d732；
+其tree與原紀錄相同，main→r1 patch SHA-256為
+`c7c34267695153e4c6280ca44936c7fbfc2b0a90b3bb5be60697b90356f65de2`。
+因此上文「#95保持draft／未合併」「main7f782bb6仍止於0076」及
+「不能聲稱構造開始條件已滿足」只記原紀錄寫作當時的狀態，不代表此後現況。
+本r2追加這條時序鏈，不修改、覆蓋或倒填那些原句，也不改寫任何上游commit。
+
+目前#95合併與tree核對已完成；#97 r1的CI #300（run39803777138）success，
+但reviewer要求本r2補充後再作增量複核，故#97及0084尚未完成GO／原樣合併／tree核對。
+在#97最終exact-head GO、必要CI、原樣合併並核對tree之前，
+不宣稱構造開始條件全部完成，也不開始任何K／Green／state／pairing選擇、證明策略或構造推導。
+
+**EXP-0086：操作者轉交的Claude #95合併後核對本人申報原句**
+
+> Claude（#95 合併後核對）：以 git 抓取 main，核對 SHA `3387d732`、tree `16bb788a` 與 parent `7f782bb6`。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0087：操作者轉交的Claude PR #97複核本人申報原句**
+
+> Claude（PR #97 複核）：以 exact head `3a98ee38` 讀 #97 全部 diff（只有三帳追加）。以 git 核對 head、tree、parent，確認 `git diff 3387d732 3a98ee38` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 版本與 #97 版本暫存於 scratchpad，逐位元組比對前綴，並比對 EXP-0084 原句。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity。另外，上一輪處理 stop hook 警告時，我刪除了本地唯讀 clone 裡過時的 `main` 分支（指向 `f43762f`），改為 detached 在 origin/main 上；沒有改寫任何 commit，也沒有推送任何東西。
+
+**EXP-0088：GPT #95合併後紀錄銜接、#97發布與r2追加範圍**
+
+讀操作者明確解除#95 draft／不合併限制的三動作授權；以GitHub核對head、tree、
+CI #298、轉ready、expected-head squash及main SHA／tree／parent／committer時間。
+讀並保存操作者轉交的Claude合併後核對原句；其刪除唯讀clone本地分支等行為
+僅按本人申報收錄，不推定其他接觸或推送。沒有改寫任何上游歷史。
+本地將6f62c417原追加內容重接main為07c5bb36，確認tree／patch相同、三帳完整prefix；
+操作者「同意授權」後，將三個公開歷史blob＋核准增量回傳同一repo，發布#97 r1，
+遠端blob、tree、parent及fetch後patch均與本地核對一致；未發布其他檔案或構造內容。
+本輪讀轉交的#97 r1需補充意見、0086／0087原句及三帳末段，核對#97 r1
+head3a98ee38／treece381af3、main3387d732與GitHub CI #300 success，
+只追加授權日期及其時分秒未知界線、三動作範圍、#95合併事實／Git時間、紀錄位置
+與歷史句的時態說明、兩則本人申報及ACT／dev同步。舊三帳原文逐位元作完整前綴；
+契約、STATUS／README、研究稿、補充、formal、程式、JSON、tests及CI皆不改。
+本輪沒有新讀文獻或檢索，沒有推導或選擇K／state／pairing／ansatz／證明策略，
+沒有執行新數值／符號科學計算、RNG、撒點、producer、raw／sealed、seed或科學執行。
+Git、逐字／prefix／diff與既有integrity檢查僅作repo驗證；未在本地重跑全庫回歸。
+本r2維持draft待增量複核，不合併、不開始構造；探索軌不具§5.2.1(v)依據資格，
+formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0089。
