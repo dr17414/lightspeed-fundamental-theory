@@ -95,18 +95,19 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：KQ契約r4待增量複核（2026-10-22）：**
+**目前狀態：首個KQ紙上試作失敗，待exact-head逐式複核（2026-10-23）：**
 
-[契約X-KQ-1P1-P0.1](foundations/kq_1p1_construction_problem_contract_v0_1.md)將主問題的
-工作域事前固定為D_KQ={P∈D1:strict comparable pairs至少兩個}；全序鏈短證只驗證
-非空／尺寸與order-hop無界性，不提供K或非局域witness。全D1退化不可能性記為已知
-作用域事實，不當研究結果；§4.1四項探索要求與§4.2反補洞規則保留。
-本地canonical整合版本納入0077–0079與漏掉的方向授權來源原文、0080本人申報、
-0081作者r3範圍，追加0082本輪本人申報與0083作者r4範圍；三帳只追加，補充／研究稿原樣。
-#96保留核對紀錄，不合併patch副本。本版本整合不代表main已登記。r4仍須增量GO、必要CI、原樣合併／tree核對，之前不開始構造。
-沒有K、state、pairing、phase law、ansatz或策略選擇，也沒有新科學計算。
-T6限定確認與全部OPEN、formal／E0、§5.2.1(v)與A／B隔離、item7／8、6a-E／Freeze-1a、
-UNKNOWN與禁止資料限制不變。
+#95 main3387d732與#97 main1ac30ceb已經各自GO、CI通過、原樣合併並核對tree；
+KQ契約§1開始條件已銜接，主契約及固定D_KQ、四項非平凡性與反補洞條款原樣。
+本分支第一commit逐字記EXP-0089／0090，0091披露開始及先有內部預想；0092記試作範圍。
+[OP-01固定規則](foundations/kq_order_polynomial_attempt_spec_v0_1.md)之後交
+[研究稿](foundations/kq_order_polynomial_attempt_study_v0_1.md)：實際K及同源retarded inverse，
+(a)與(c)成立；(b)在原域內三葉star失敗，固定ordinary-adjoint CAR橋接有負方向、無正state，
+(d)的正Hilbert前提不成立。另證G_swap的限定對稱性障礙，不擴為所有K／spinor不可能。
+這不是完整同源構造；主問題、actual I-UV來源、physical／massless／continuum仍OPEN。
+全部解析結果待獨立複核；停止此試作，不縮域或換pairing補洞，不新增physical primitive。
+**探索軌，不具§5.2.1(v)依據資格**；T6限定確認與全部OPEN、formal／E0、A／B、
+item7／8、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。無任何新科學執行。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 

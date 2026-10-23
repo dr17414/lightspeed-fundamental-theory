@@ -98,3 +98,11 @@ $$K_{P′}(f(x),f(y))=V_fK_P(x,y)V_f^{-1}.\tag{OP.3}$$
 不以有限反例宣稱typicality，不改工作域。鏈若出現，只作原工作域內的解析witness，
 不另宣告「鏈子類已完成主問題」。全程不執行模型／symbolic／toy程式、RNG或producer。
 若需physical primitive或改輸入，停止原分支另立契約；本規則不預先授權該分支。
+
+## 7. 來源分類更正（只追加，不改§1–6的數學規則）
+
+按acceptance §4的五層定義，§2把count／函數空間索引列為L1的文字需更正：
+order與count屬L0；free complex linearization屬L2；本試作未用L1的realizer導出量。
+L2的two-slot／pairing／CAR及L3的固定公式／prescription仍須明列，不是由poset湧現。
+本更正只處理帳本分類，所有K係數、test、adjoint、CAR與G_swap假設皆原樣。
+原分類保留供追溯；不借更正提高formal資格或掩蓋負form／sector失敗。

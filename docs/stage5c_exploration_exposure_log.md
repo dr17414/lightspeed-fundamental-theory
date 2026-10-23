@@ -1167,3 +1167,40 @@ Git fetch核對main1ac30ceb／tree3350d8bd／parent3387d732／committer時間及
 producer、raw／sealed、seed、主機或receipt。既有integrity僅作repo檢查。
 探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
 下一個新EXP-ID為0092。
+
+
+## 41. X-KQ-OP-01固定試作與失敗交付（2026-10-23；只追加）
+
+**EXP-0092：GPT首次KQ紙上試作／限定障礙與停止範圍**
+
+承接0091披露的本輪內部預想，從已核對main1ac30ceb開始；先記0089／0090與程序規則，
+再在本地commit1bd15a5固定OP-01規則§1–6，再寫研究稿。這些是本地內容先後的checkpoint，
+不以本地鐘或API發布時間倒填研究開始的時分秒，不稱盲預註冊。
+實際新讀公開解析材料：KQ契約全文、T3全文、T6正state必要界段落、activation／E0、
+決策稿相關權限文字、acceptance §4五層分類相關段落與帳本／狀態。
+未讀文獻原文或作檢索，未開任何evaluator、probe、planted、run1、raw／sealed或UNKNOWN資料。
+本輪source／capacity只依order／count、L2 bookkeeping及T3／T6公開型別；不取禁止來源成功模式。
+唯一採用試作OP-01為K=I+Z⊗I+Z²⊗J，Z為strict-order矩陣，J是anonymous two-slot交換。
+完整T=C^P⊗C[S]、counting pairing、ordinary adjoint與CAR prescription在規則檔明列；
+沒有projection／quotient或新physical primitive。先前Cayley／contraction思路未採用，
+未發布第二候選、未驗證其量子可行性，不能稱已窮盡其他規則。
+紙上證明同一K的nilpotent有限級數inverse、cover傳播及鏈上的K無統一hop cutoff，
+並在三葉star證sector span失敗；對G_swap另交honest global action保留natural swap的限定障礙。
+固定CAR橋接在cover支撐的兩個完整test向量上有正負方向，因而任何正歸一化state均不可能。
+這是該橋接／G_swap的限定結果，不是所有K／二維fiber／S5C的no-go；主問題仍OPEN。
+停止此失敗試作，不更改test／pairing／K／contact或工作域，不以positive part、Fock存在性或W補洞。
+規則檔§2的L1來源分類發現不準，原文保留，末尾追加§7分類更正：order/count為L0，
+free linearization為L2，未用L1 realizer量。該更正不改任何數學規則或acceptance。
+沒有執行模型、symbolic／toy程式、RNG、撒點、seed、producer、科學量測、主機消費或receipt。
+所有公式／有限例／群作用皆內部紙上推理，不使用CAS或腳本驗算。Python／Git只編輯文件、
+比對原句／prefix／hash／範圍並跑既有integrity；全庫回歸交CI，沒有模型測試程式。
+三帳只追加，STATUS／README只更新目前狀態；新增規則與研究稿，已定案契約、T3／T6、
+acceptance／formal、程式／JSON／tests／CI皆保全。所有結果待exact-head獨立逐式複核。
+探索軌，不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a及UNKNOWN資料隔離不變。
+下一個新EXP-ID為0093。
+
+發布補記（本0092範圍，只追加）：嘗試以GitHub API發布分階段內容時，第一個ACT blob
+65496ad5ec59acaf57adaf18276b1fcc0fef4085建立成功但未掛接任何commit；其後development log
+全文blob遭自動核准審查拒絕，理由是具體歷史全文payload尚缺明確外傳授權。
+已停止，沒有重試或換通道，尚未建立遠端commit／分支／PR，main仍是1ac30ceb。
+本地完整差異已整理供操作者批准；不把未發布的本地版本稱為已canonical整合或已獲GO。

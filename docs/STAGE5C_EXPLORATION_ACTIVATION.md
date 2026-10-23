@@ -532,3 +532,17 @@ tree3350d8bd與核准相同，parent3387d732；Git時間UTC02:27:57／台北10:2
 紙上預想；不宣稱盲預註冊。後續先版本化固定試作規則再寫完整證明，所有失敗保留。
 三帳只追加，主契約與其固定工作域／四項非平凡性／反補洞條款及formal不改。
 探索軌不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a及原資料隔離不變。
+
+
+## X-KQ-OP-01首次紙上試作：失敗保留、待逐式複核（2026-10-23；只追加）
+
+首次交付第一commit逐字收EXP-0089／0090，0091披露開始來源與內部預想；
+其後獨立commit固定OP-01規則，再交完整研究稿；0092申報實際新讀文字／模型選擇與失敗。
+工作域D_KQ、契約§4.1／4.2與停止條款不改。試作K=I+Z⊗I+Z²⊗J有同源retarded inverse，
+(a)傳播、(c)無統一Hasse-hop cutoff成立，但(b)在三葉star失敗；固定ordinary-adjoint
+CAR prescription有負方向，不能有正state，(d)前提不成立。主問題未完成，結果待複核。
+G_swap限定障礙只及honest global二維fiber保留natural swap的明文類，不擴成所有K／spinor不可能。
+規則§7只追加L0/L1分類更正，不改既有數學規則。失敗不補洞，不縮工作域，不另給新primitive。
+三帳只追加、目前狀態同步；已定案契約、T3／T6、acceptance／formal、程式與科學資料皆不改。
+無模型／symbolic／toy執行、RNG或producer；所有推理在紙上。探索軌不具§5.2.1(v)依據資格，
+E0、A／B及全部既有資料隔離不變。本分支保持draft、不合併。
