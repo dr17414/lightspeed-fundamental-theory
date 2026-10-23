@@ -1125,3 +1125,45 @@ head3a98ee38／treece381af3、main3387d732與GitHub CI #300 success，
 Git、逐字／prefix／diff與既有integrity檢查僅作repo驗證；未在本地重跑全庫回歸。
 本r2維持draft待增量複核，不合併、不開始構造；探索軌不具§5.2.1(v)依據資格，
 formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0089。
+
+
+## 40. #97原樣合併、紀錄申報規則與首次KQ紙上工作接續（2026-10-23；只追加）
+
+#97 r2 head451044ed／tree3350d8bd經Claude GO、CI #301 success與操作者「同意授權」，
+以expected head原樣squash為main `1ac30ceb14887d8c4d24636bc9ad17a0baa913e7`；
+tree `3350d8bdb86dddd5dd7d1f13393e20ba9e65c563`與核准相同，唯一parent3387d732。
+Git committer為2026-10-23T02:27:57Z／台北10:27:57，不倒填為研究或授權時間。
+#94、#95及#97之GO／CI／原樣合併與tree核對已銜接；0077–0088在main的canonical帳中。
+本地從此main建立首次紙上交付分支，不改寫已核准tree或上游歷史。
+
+採用操作者轉交的程序建議：只涉及紀錄PR、無新科學內容的reviewer申報，
+在下一份交付以只追加方式登記，不再要求先有另一份紀錄PR的GO，避免遞迴無窮。
+這不放寬科學接觸、候選／pairing／test規則、UNKNOWN隔離、契約先審或新增primitive停止條件。
+本次將0089與0090逐字放在首次交付的第一個commit；主契約及§4.1／4.2不改。
+核對main最後ID0088，故以下依事件順序用0089、0090，作者接續範圍0091。
+
+**EXP-0089：操作者轉交的Claude #97 r2增量複核本人申報原句**
+
+> Claude（PR #97 r2 增量複核）：以 exact head `451044ed` 讀 r1→r2 的全部 diff（只有三帳追加）。以 git 核對 head、tree、parent，確認 `git diff 3a98ee38 451044ed` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 r1、main 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，並比對 EXP-0086、0087 原句。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0090：操作者轉交的Claude #97合併後核對本人申報原句**
+
+> Claude（#97 合併後核對）：以 git 抓取 main，核對 SHA `1ac30ceb`、tree `3350d8bd`、parent `3387d732` 與 committer 時間，並在 canonical 接觸帳中搜尋 EXP-0084 至 0089 的編號。關於 0089 登記時點的規則，是程序上的建議。沒有讀其他檔案內容，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0091：GPT首次KQ紙上工作開始與前置來源／預想**
+
+讀本輪操作者轉交的#97合併核對、程序建議及0090原句，連同上一輪0089原句；
+Git fetch核對main1ac30ceb／tree3350d8bd／parent3387d732／committer時間及ID。
+讀已合併X-KQ-1P1-P0.1全文、既有T3全文、T6正state必要界段落、activation／E0及
+決策稿相關權限文字與三帳末段；只讀公開解析文件，未開evaluator或禁止資料。
+研究承接合法order／count、數學linearization及既有T3／T6；不稱盲研究或fresh資格。
+本輪在合併／tree核對後已有少量內部紙上預想：strict-order矩陣多項式與兩slot交換、
+三葉star的對稱性障礙、unit-contact搭配ordinary adjoint的零對角正性風險；
+亦曾考慮但未採用Cayley／contraction型代數正性路徑。這些預想早於本commit，
+如後續使用須明示來源，不冒稱未知結果的盲預註冊。未執行任何數值／符號程式。
+接下來先另commit固定單一探索試作的K、完整test／adjoint／CAR橋接規則與限定比較類，
+再寫可複核證明；不依所得負譜改規則、縮工作域或刪測試方向。新增physical primitive即停。
+本第一commit僅三帳追加，所有既有內容作完整byte-prefix；沒有科學程式、RNG、撒點、
+producer、raw／sealed、seed、主機或receipt。既有integrity僅作repo檢查。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0092。
