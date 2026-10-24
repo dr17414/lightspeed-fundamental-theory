@@ -1125,3 +1125,157 @@ head3a98ee38／treece381af3、main3387d732與GitHub CI #300 success，
 Git、逐字／prefix／diff與既有integrity檢查僅作repo驗證；未在本地重跑全庫回歸。
 本r2維持draft待增量複核，不合併、不開始構造；探索軌不具§5.2.1(v)依據資格，
 formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。下一個新EXP-ID為0089。
+
+
+## 40. #97原樣合併、紀錄申報規則與首次KQ紙上工作接續（2026-10-23；只追加）
+
+#97 r2 head451044ed／tree3350d8bd經Claude GO、CI #301 success與操作者「同意授權」，
+以expected head原樣squash為main `1ac30ceb14887d8c4d24636bc9ad17a0baa913e7`；
+tree `3350d8bdb86dddd5dd7d1f13393e20ba9e65c563`與核准相同，唯一parent3387d732。
+Git committer為2026-10-23T02:27:57Z／台北10:27:57，不倒填為研究或授權時間。
+#94、#95及#97之GO／CI／原樣合併與tree核對已銜接；0077–0088在main的canonical帳中。
+本地從此main建立首次紙上交付分支，不改寫已核准tree或上游歷史。
+
+採用操作者轉交的程序建議：只涉及紀錄PR、無新科學內容的reviewer申報，
+在下一份交付以只追加方式登記，不再要求先有另一份紀錄PR的GO，避免遞迴無窮。
+這不放寬科學接觸、候選／pairing／test規則、UNKNOWN隔離、契約先審或新增primitive停止條件。
+本次將0089與0090逐字放在首次交付的第一個commit；主契約及§4.1／4.2不改。
+核對main最後ID0088，故以下依事件順序用0089、0090，作者接續範圍0091。
+
+**EXP-0089：操作者轉交的Claude #97 r2增量複核本人申報原句**
+
+> Claude（PR #97 r2 增量複核）：以 exact head `451044ed` 讀 r1→r2 的全部 diff（只有三帳追加）。以 git 核對 head、tree、parent，確認 `git diff 3a98ee38 451044ed` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 r1、main 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，並比對 EXP-0086、0087 原句。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0090：操作者轉交的Claude #97合併後核對本人申報原句**
+
+> Claude（#97 合併後核對）：以 git 抓取 main，核對 SHA `1ac30ceb`、tree `3350d8bd`、parent `3387d732` 與 committer 時間，並在 canonical 接觸帳中搜尋 EXP-0084 至 0089 的編號。關於 0089 登記時點的規則，是程序上的建議。沒有讀其他檔案內容，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0091：GPT首次KQ紙上工作開始與前置來源／預想**
+
+讀本輪操作者轉交的#97合併核對、程序建議及0090原句，連同上一輪0089原句；
+Git fetch核對main1ac30ceb／tree3350d8bd／parent3387d732／committer時間及ID。
+讀已合併X-KQ-1P1-P0.1全文、既有T3全文、T6正state必要界段落、activation／E0及
+決策稿相關權限文字與三帳末段；只讀公開解析文件，未開evaluator或禁止資料。
+研究承接合法order／count、數學linearization及既有T3／T6；不稱盲研究或fresh資格。
+本輪在合併／tree核對後已有少量內部紙上預想：strict-order矩陣多項式與兩slot交換、
+三葉star的對稱性障礙、unit-contact搭配ordinary adjoint的零對角正性風險；
+亦曾考慮但未採用Cayley／contraction型代數正性路徑。這些預想早於本commit，
+如後續使用須明示來源，不冒稱未知結果的盲預註冊。未執行任何數值／符號程式。
+接下來先另commit固定單一探索試作的K、完整test／adjoint／CAR橋接規則與限定比較類，
+再寫可複核證明；不依所得負譜改規則、縮工作域或刪測試方向。新增physical primitive即停。
+本第一commit僅三帳追加，所有既有內容作完整byte-prefix；沒有科學程式、RNG、撒點、
+producer、raw／sealed、seed、主機或receipt。既有integrity僅作repo檢查。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0092。
+
+
+## 41. X-KQ-OP-01固定試作與失敗交付（2026-10-23；只追加）
+
+**EXP-0092：GPT首次KQ紙上試作／限定障礙與停止範圍**
+
+承接0091披露的本輪內部預想，從已核對main1ac30ceb開始；先記0089／0090與程序規則，
+再在本地commit1bd15a5固定OP-01規則§1–6，再寫研究稿。這些是本地內容先後的checkpoint，
+不以本地鐘或API發布時間倒填研究開始的時分秒，不稱盲預註冊。
+實際新讀公開解析材料：KQ契約全文、T3全文、T6正state必要界段落、activation／E0、
+決策稿相關權限文字、acceptance §4五層分類相關段落與帳本／狀態。
+未讀文獻原文或作檢索，未開任何evaluator、probe、planted、run1、raw／sealed或UNKNOWN資料。
+本輪source／capacity只依order／count、L2 bookkeeping及T3／T6公開型別；不取禁止來源成功模式。
+唯一採用試作OP-01為K=I+Z⊗I+Z²⊗J，Z為strict-order矩陣，J是anonymous two-slot交換。
+完整T=C^P⊗C[S]、counting pairing、ordinary adjoint與CAR prescription在規則檔明列；
+沒有projection／quotient或新physical primitive。先前Cayley／contraction思路未採用，
+未發布第二候選、未驗證其量子可行性，不能稱已窮盡其他規則。
+紙上證明同一K的nilpotent有限級數inverse、cover傳播及鏈上的K無統一hop cutoff，
+並在三葉star證sector span失敗；對G_swap另交honest global action保留natural swap的限定障礙。
+固定CAR橋接在cover支撐的兩個完整test向量上有正負方向，因而任何正歸一化state均不可能。
+這是該橋接／G_swap的限定結果，不是所有K／二維fiber／S5C的no-go；主問題仍OPEN。
+停止此失敗試作，不更改test／pairing／K／contact或工作域，不以positive part、Fock存在性或W補洞。
+規則檔§2的L1來源分類發現不準，原文保留，末尾追加§7分類更正：order/count為L0，
+free linearization為L2，未用L1 realizer量。該更正不改任何數學規則或acceptance。
+沒有執行模型、symbolic／toy程式、RNG、撒點、seed、producer、科學量測、主機消費或receipt。
+所有公式／有限例／群作用皆內部紙上推理，不使用CAS或腳本驗算。Python／Git只編輯文件、
+比對原句／prefix／hash／範圍並跑既有integrity；全庫回歸交CI，沒有模型測試程式。
+三帳只追加，STATUS／README只更新目前狀態；新增規則與研究稿，已定案契約、T3／T6、
+acceptance／formal、程式／JSON／tests／CI皆保全。所有結果待exact-head獨立逐式複核。
+探索軌，不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a及UNKNOWN資料隔離不變。
+下一個新EXP-ID為0093。
+
+發布補記（本0092範圍，只追加）：嘗試以GitHub API發布分階段內容時，第一個ACT blob
+65496ad5ec59acaf57adaf18276b1fcc0fef4085建立成功但未掛接任何commit；其後development log
+全文blob遭自動核准審查拒絕，理由是具體歷史全文payload尚缺明確外傳授權。
+已停止，沒有重試或換通道，尚未建立遠端commit／分支／PR，main仍是1ac30ceb。
+本地完整差異已整理供操作者批准；不把未發布的本地版本稱為已canonical整合或已獲GO。
+
+
+## 42. PR #98 r2：公開證據等級與發布其後事實（2026-10-24；只追加）
+
+核對main最後ID0088，r1分支已逐字登0089／0090及作者0091／0092；
+本次Claude申報用下一個0093，作者r2範圍0094，不覆寫0092的歷史發布補記。
+
+**本地checkpoint與公開commit的對照、可查核範圍。**
+
+| 本地checkpoint（作者保留） | 所報tree | 公開可抓取commit | 公開tree |
+| :--- | :--- | :--- | :--- |
+| eeb5ea6d1e46cb227890a5aa1ff6dd43fe01c3db | 6a4858d0851d8065817b12a924034c0eae64acd4 | a01c4ea6103306335e4c48c5f36972276c09352b | 6a4858d0851d8065817b12a924034c0eae64acd4 |
+| 1bd15a5ef57d1f60906cf9b0d619f9980f92770f | eb594400860abcf1399432a006126b6db7ae97cb | e30d9bd9eb970295786748463b5573b72cb3a7c1 | eb594400860abcf1399432a006126b6db7ae97cb |
+| ac83c4e666a26dcc1df99523001c2a97c0eee4bd | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 | 8176f9848ba892119f757c2b2d6414c1d7871d46 | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 |
+
+這是API發布後的內容對照，不是同一個commit物件。作者本地可見上述checkpoint；
+reviewer向公開repo抓取eeb5ea6d與1bd15a5e失敗（not our ref），因此這兩個本地SHA
+**不能作公開可查核的承重證據**。表中本地身分／對應是作者披露，不能代替取得那些物件的獨立查核。
+
+公開可查的鏈是main1ac30ceb → a01c4ea6 → e30d9bd9 → 8176f984：
+a01只追加紀錄，e30包含固定規格§1–6，8176才包含研究稿，且在規格末尾只追加§7。
+公開Git證據只證明這個commit層面的先後順序與各版內容，不獨立證明作者私下何時思考、
+看到或預期科學輸出，更不能證明「看任何輸出之前」的盲固定。原文的規格先固定說法
+只按此公開版本化順序理解；超出它的本地時序／內部思考僅為作者申報。
+EXP-0091已披露固定規格前的零對角／對稱性風險預想，本追加不提高其證據等級或盲性資格。
+不以API commit時間倒填研究開始或內部規則選定時間；本地SHA、原句與數學全文均保留。
+
+**EXP-0092發布補記的其後事實（不改原句）。**
+
+操作者推送授權原句（節錄）：「同意授權」。授權日期為2026-10-23 Asia/Taipei；
+原訊息未提供時分秒，不用API或Git時間補填。該答覆針對已核對patch
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`的七個檔案，
+允許把既有公開原文＋限定增量以完整Git blob回傳dr17414/lightspeed-fundamental-theory，
+包括規則檔已寫成的K／pairing／CAR prescription／G_swap與研究稿推導及失敗證明，
+連同其餘五份紀錄／狀態檔，只建draft PR，不合併、不新增構造。
+這裡範圍是授權上下文的轉述，不把助手所擬條文冒充操作者的逐字原句。
+
+其後發布完成：分支 `docs/kq-op01-first-paper`，draft PR
+https://github.com/dr17414/lightspeed-fundamental-theory/pull/98 。
+三個公開commit及tree逐一如上表，parent鏈由main1ac30ceb起，沒有改寫上游歷史。
+r1 head8176f984／tree0f7e1e4e；main→r1的完整patch SHA-256為
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`，
+遠端重新fetch後的patch與當時核准本地版逐位元組一致。CI #303（run39979065472）
+在該head上success；這是repo回歸，不是新科學執行。
+上文「尚未建立遠端commit／分支／PR」只記首次阻擋當時，並非其後的r1發布現況。
+#98仍未GO／合併；main仍1ac30ceb，本r2只是追加追溯紀錄，不新增構造或更改已核數學。
+
+ACT blob `65496ad5ec59acaf57adaf18276b1fcc0fef4085`最初僅被建立、未掛接時，
+該次create-blob動作沒有改動任何tree、commit或ref；不影響當時main。
+其後依核准內容發布時，a01c4ea6與e30d9bd9的ACT路徑合法引用同一blob，
+所以不能把「當時未掛接」擴成「此blob永遠未在tree出現」。r1最終8176f984的ACT blob
+是 `c98d5904728816433f51226d03e71e565b35c6d9`；main1ac30ceb的ACT blob仍是
+`ff7ca60320ddae34c0d2e524cdcd6a676d3b6b1d`。單獨blob建立與後續明確tree引用分帳，
+沒有隱藏或未核准的tree變更；既有七檔範圍及patch hash不因此改變。
+
+**EXP-0093：操作者轉交的Claude PR #98複核本人申報原句**
+
+> Claude（PR #98 複核）：以 exact head `8176f984` 讀 #98 全部 diff、OP-01 規格與研究稿全文、帳本 §40–41 與 README 狀態行。以 git 核對 head、tree、parent 鏈，確認 `git diff 1ac30ceb 8176f984` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認契約與 acceptance 沒有改動、規格在第三個 commit 只追加了 §7，並比對 EXP-0089、0090 原句。向公開 repo 抓取 `eeb5ea6d` 與 `1bd15a5e` 失敗（not our ref），並記下公開 commit 的 tree。逐式手算核對 (KQ.2)–(KQ.7)、star 的 D_KQ 身分、G_swap 的三循環論證，以及 ordinary-adjoint 類的推廣，全部在腦中推理，沒有寫成程式。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0094：GPT #98 r2追溯性追加範圍**
+
+讀操作者轉交的#98 r1數學成立但需補追溯紀錄意見、方向評估及0093原句；
+方向意見只作接觸紀錄，不在本輪選新K／fiber／adjoint或起草conditional契約。
+GitHub核對r1 head8176f984、三個公開commit的tree／parent及CI #303 success，
+main仍1ac30ceb；Git核對本地與公開內容對照，承認本地SHA不是公開可抓取證據。
+只追加規格／研究稿§8與三帳，區分公開版本順序與無法由Git獨立證明的內部思考時序，
+補上2026-10-23操作者推送授權與公開發布結果、ACT blob的初次未掛接與後續合法引用，
+逐字收0093。沒有改任何數學、原規則、證明、工作域、反補洞或停止條件。
+三帳、規格、研究稿均保留r1的完整byte-prefix；README／STATUS、契約、T3／T6、
+acceptance／formal、其他研究稿、程式、JSON、tests及CI均不改。
+沒有讀文獻原文或作檢索，沒有新推導、科學數值／符號計算、模型／toy執行、RNG、
+撒點、producer、raw／sealed、seed或科學主機消費；Git／文字／hash／prefix及既有integrity
+僅作repo檢查。本地未重跑全庫；待新exact-head增量複核，不合併、不新增構造。
+探索軌不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0095。

@@ -519,3 +519,86 @@ tree `ce381af343c17f8fc033de28f10428c28d4a90b3`，唯一parent就是main3387d732
 接觸帳§39逐字追加EXP-0086（Claude #95合併後核對）與0087（Claude #97 r1複核），
 EXP-0088記作者本輪來源／發布及只追加範圍。0084原句與三帳既有文字完整保留，
 其他檔案不改；探索軌不具§5.2.1(v)依據資格，E0、A／B及全部既有資料隔離不變。
+
+
+## #97合併後接續：首份KQ交付的先行紀錄（2026-10-23；只追加）
+
+#97 exact-head451044ed經GO、CI #301及操作者同意授權，原樣squash main1ac30ceb，
+tree3350d8bd與核准相同，parent3387d732；Git時間UTC02:27:57／台北10:27:57。
+#94／#95／#97追溯及0077–0088 canonical整合已完成。
+採用「只涉紀錄PR的reviewer申報隨下一份交付追加，不再形成遞迴開始門檻」的程序規則；
+不放寬科學接觸、來源、契約、UNKNOWN或新增physical primitive的停止條件。
+本分支第一commit在接觸帳§40逐字登記EXP-0089／0090，0091披露作者接續與少量內部
+紙上預想；不宣稱盲預註冊。後續先版本化固定試作規則再寫完整證明，所有失敗保留。
+三帳只追加，主契約與其固定工作域／四項非平凡性／反補洞條款及formal不改。
+探索軌不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a及原資料隔離不變。
+
+
+## X-KQ-OP-01首次紙上試作：失敗保留、待逐式複核（2026-10-23；只追加）
+
+首次交付第一commit逐字收EXP-0089／0090，0091披露開始來源與內部預想；
+其後獨立commit固定OP-01規則，再交完整研究稿；0092申報實際新讀文字／模型選擇與失敗。
+工作域D_KQ、契約§4.1／4.2與停止條款不改。試作K=I+Z⊗I+Z²⊗J有同源retarded inverse，
+(a)傳播、(c)無統一Hasse-hop cutoff成立，但(b)在三葉star失敗；固定ordinary-adjoint
+CAR prescription有負方向，不能有正state，(d)前提不成立。主問題未完成，結果待複核。
+G_swap限定障礙只及honest global二維fiber保留natural swap的明文類，不擴成所有K／spinor不可能。
+規則§7只追加L0/L1分類更正，不改既有數學規則。失敗不補洞，不縮工作域，不另給新primitive。
+三帳只追加、目前狀態同步；已定案契約、T3／T6、acceptance／formal、程式與科學資料皆不改。
+無模型／symbolic／toy執行、RNG或producer；所有推理在紙上。探索軌不具§5.2.1(v)依據資格，
+E0、A／B及全部既有資料隔離不變。本分支保持draft、不合併。
+
+
+## PR #98 r2：公開版本證據與發布追溯補充（2026-10-24；只追加）
+
+**本地checkpoint與公開commit的對照、可查核範圍。**
+
+| 本地checkpoint（作者保留） | 所報tree | 公開可抓取commit | 公開tree |
+| :--- | :--- | :--- | :--- |
+| eeb5ea6d1e46cb227890a5aa1ff6dd43fe01c3db | 6a4858d0851d8065817b12a924034c0eae64acd4 | a01c4ea6103306335e4c48c5f36972276c09352b | 6a4858d0851d8065817b12a924034c0eae64acd4 |
+| 1bd15a5ef57d1f60906cf9b0d619f9980f92770f | eb594400860abcf1399432a006126b6db7ae97cb | e30d9bd9eb970295786748463b5573b72cb3a7c1 | eb594400860abcf1399432a006126b6db7ae97cb |
+| ac83c4e666a26dcc1df99523001c2a97c0eee4bd | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 | 8176f9848ba892119f757c2b2d6414c1d7871d46 | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 |
+
+這是API發布後的內容對照，不是同一個commit物件。作者本地可見上述checkpoint；
+reviewer向公開repo抓取eeb5ea6d與1bd15a5e失敗（not our ref），因此這兩個本地SHA
+**不能作公開可查核的承重證據**。表中本地身分／對應是作者披露，不能代替取得那些物件的獨立查核。
+
+公開可查的鏈是main1ac30ceb → a01c4ea6 → e30d9bd9 → 8176f984：
+a01只追加紀錄，e30包含固定規格§1–6，8176才包含研究稿，且在規格末尾只追加§7。
+公開Git證據只證明這個commit層面的先後順序與各版內容，不獨立證明作者私下何時思考、
+看到或預期科學輸出，更不能證明「看任何輸出之前」的盲固定。原文的規格先固定說法
+只按此公開版本化順序理解；超出它的本地時序／內部思考僅為作者申報。
+EXP-0091已披露固定規格前的零對角／對稱性風險預想，本追加不提高其證據等級或盲性資格。
+不以API commit時間倒填研究開始或內部規則選定時間；本地SHA、原句與數學全文均保留。
+
+**EXP-0092發布補記的其後事實（不改原句）。**
+
+操作者推送授權原句（節錄）：「同意授權」。授權日期為2026-10-23 Asia/Taipei；
+原訊息未提供時分秒，不用API或Git時間補填。該答覆針對已核對patch
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`的七個檔案，
+允許把既有公開原文＋限定增量以完整Git blob回傳dr17414/lightspeed-fundamental-theory，
+包括規則檔已寫成的K／pairing／CAR prescription／G_swap與研究稿推導及失敗證明，
+連同其餘五份紀錄／狀態檔，只建draft PR，不合併、不新增構造。
+這裡範圍是授權上下文的轉述，不把助手所擬條文冒充操作者的逐字原句。
+
+其後發布完成：分支 `docs/kq-op01-first-paper`，draft PR
+https://github.com/dr17414/lightspeed-fundamental-theory/pull/98 。
+三個公開commit及tree逐一如上表，parent鏈由main1ac30ceb起，沒有改寫上游歷史。
+r1 head8176f984／tree0f7e1e4e；main→r1的完整patch SHA-256為
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`，
+遠端重新fetch後的patch與當時核准本地版逐位元組一致。CI #303（run39979065472）
+在該head上success；這是repo回歸，不是新科學執行。
+上文「尚未建立遠端commit／分支／PR」只記首次阻擋當時，並非其後的r1發布現況。
+#98仍未GO／合併；main仍1ac30ceb，本r2只是追加追溯紀錄，不新增構造或更改已核數學。
+
+ACT blob `65496ad5ec59acaf57adaf18276b1fcc0fef4085`最初僅被建立、未掛接時，
+該次create-blob動作沒有改動任何tree、commit或ref；不影響當時main。
+其後依核准內容發布時，a01c4ea6與e30d9bd9的ACT路徑合法引用同一blob，
+所以不能把「當時未掛接」擴成「此blob永遠未在tree出現」。r1最終8176f984的ACT blob
+是 `c98d5904728816433f51226d03e71e565b35c6d9`；main1ac30ceb的ACT blob仍是
+`ff7ca60320ddae34c0d2e524cdcd6a676d3b6b1d`。單獨blob建立與後續明確tree引用分帳，
+沒有隱藏或未核准的tree變更；既有七檔範圍及patch hash不因此改變。
+
+接觸帳§42逐字登記Claude本輪EXP-0093，0094為作者僅追加的追溯範圍。
+本r2只追加規格／研究稿§8及三帳，所有r1原文作完整byte-prefix；數學與其餘檔案不改。
+#98未GO／未合併，不開始新構造或conditional契約；探索軌不具§5.2.1(v)依據資格，
+formal／E0、A／B及全部既有資料隔離不變。
