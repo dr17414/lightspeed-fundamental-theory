@@ -1204,3 +1204,78 @@ acceptance／formal、程式／JSON／tests／CI皆保全。所有結果待exact
 全文blob遭自動核准審查拒絕，理由是具體歷史全文payload尚缺明確外傳授權。
 已停止，沒有重試或換通道，尚未建立遠端commit／分支／PR，main仍是1ac30ceb。
 本地完整差異已整理供操作者批准；不把未發布的本地版本稱為已canonical整合或已獲GO。
+
+
+## 42. PR #98 r2：公開證據等級與發布其後事實（2026-10-24；只追加）
+
+核對main最後ID0088，r1分支已逐字登0089／0090及作者0091／0092；
+本次Claude申報用下一個0093，作者r2範圍0094，不覆寫0092的歷史發布補記。
+
+**本地checkpoint與公開commit的對照、可查核範圍。**
+
+| 本地checkpoint（作者保留） | 所報tree | 公開可抓取commit | 公開tree |
+| :--- | :--- | :--- | :--- |
+| eeb5ea6d1e46cb227890a5aa1ff6dd43fe01c3db | 6a4858d0851d8065817b12a924034c0eae64acd4 | a01c4ea6103306335e4c48c5f36972276c09352b | 6a4858d0851d8065817b12a924034c0eae64acd4 |
+| 1bd15a5ef57d1f60906cf9b0d619f9980f92770f | eb594400860abcf1399432a006126b6db7ae97cb | e30d9bd9eb970295786748463b5573b72cb3a7c1 | eb594400860abcf1399432a006126b6db7ae97cb |
+| ac83c4e666a26dcc1df99523001c2a97c0eee4bd | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 | 8176f9848ba892119f757c2b2d6414c1d7871d46 | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 |
+
+這是API發布後的內容對照，不是同一個commit物件。作者本地可見上述checkpoint；
+reviewer向公開repo抓取eeb5ea6d與1bd15a5e失敗（not our ref），因此這兩個本地SHA
+**不能作公開可查核的承重證據**。表中本地身分／對應是作者披露，不能代替取得那些物件的獨立查核。
+
+公開可查的鏈是main1ac30ceb → a01c4ea6 → e30d9bd9 → 8176f984：
+a01只追加紀錄，e30包含固定規格§1–6，8176才包含研究稿，且在規格末尾只追加§7。
+公開Git證據只證明這個commit層面的先後順序與各版內容，不獨立證明作者私下何時思考、
+看到或預期科學輸出，更不能證明「看任何輸出之前」的盲固定。原文的規格先固定說法
+只按此公開版本化順序理解；超出它的本地時序／內部思考僅為作者申報。
+EXP-0091已披露固定規格前的零對角／對稱性風險預想，本追加不提高其證據等級或盲性資格。
+不以API commit時間倒填研究開始或內部規則選定時間；本地SHA、原句與數學全文均保留。
+
+**EXP-0092發布補記的其後事實（不改原句）。**
+
+操作者推送授權原句（節錄）：「同意授權」。授權日期為2026-10-23 Asia/Taipei；
+原訊息未提供時分秒，不用API或Git時間補填。該答覆針對已核對patch
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`的七個檔案，
+允許把既有公開原文＋限定增量以完整Git blob回傳dr17414/lightspeed-fundamental-theory，
+包括規則檔已寫成的K／pairing／CAR prescription／G_swap與研究稿推導及失敗證明，
+連同其餘五份紀錄／狀態檔，只建draft PR，不合併、不新增構造。
+這裡範圍是授權上下文的轉述，不把助手所擬條文冒充操作者的逐字原句。
+
+其後發布完成：分支 `docs/kq-op01-first-paper`，draft PR
+https://github.com/dr17414/lightspeed-fundamental-theory/pull/98 。
+三個公開commit及tree逐一如上表，parent鏈由main1ac30ceb起，沒有改寫上游歷史。
+r1 head8176f984／tree0f7e1e4e；main→r1的完整patch SHA-256為
+`e50617c29594b5dd0d631cbef37081effae522d5fb143e43a3c6345aa846086e`，
+遠端重新fetch後的patch與當時核准本地版逐位元組一致。CI #303（run39979065472）
+在該head上success；這是repo回歸，不是新科學執行。
+上文「尚未建立遠端commit／分支／PR」只記首次阻擋當時，並非其後的r1發布現況。
+#98仍未GO／合併；main仍1ac30ceb，本r2只是追加追溯紀錄，不新增構造或更改已核數學。
+
+ACT blob `65496ad5ec59acaf57adaf18276b1fcc0fef4085`最初僅被建立、未掛接時，
+該次create-blob動作沒有改動任何tree、commit或ref；不影響當時main。
+其後依核准內容發布時，a01c4ea6與e30d9bd9的ACT路徑合法引用同一blob，
+所以不能把「當時未掛接」擴成「此blob永遠未在tree出現」。r1最終8176f984的ACT blob
+是 `c98d5904728816433f51226d03e71e565b35c6d9`；main1ac30ceb的ACT blob仍是
+`ff7ca60320ddae34c0d2e524cdcd6a676d3b6b1d`。單獨blob建立與後續明確tree引用分帳，
+沒有隱藏或未核准的tree變更；既有七檔範圍及patch hash不因此改變。
+
+**EXP-0093：操作者轉交的Claude PR #98複核本人申報原句**
+
+> Claude（PR #98 複核）：以 exact head `8176f984` 讀 #98 全部 diff、OP-01 規格與研究稿全文、帳本 §40–41 與 README 狀態行。以 git 核對 head、tree、parent 鏈，確認 `git diff 1ac30ceb 8176f984` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認契約與 acceptance 沒有改動、規格在第三個 commit 只追加了 §7，並比對 EXP-0089、0090 原句。向公開 repo 抓取 `eeb5ea6d` 與 `1bd15a5e` 失敗（not our ref），並記下公開 commit 的 tree。逐式手算核對 (KQ.2)–(KQ.7)、star 的 D_KQ 身分、G_swap 的三循環論證，以及 ordinary-adjoint 類的推廣，全部在腦中推理，沒有寫成程式。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0094：GPT #98 r2追溯性追加範圍**
+
+讀操作者轉交的#98 r1數學成立但需補追溯紀錄意見、方向評估及0093原句；
+方向意見只作接觸紀錄，不在本輪選新K／fiber／adjoint或起草conditional契約。
+GitHub核對r1 head8176f984、三個公開commit的tree／parent及CI #303 success，
+main仍1ac30ceb；Git核對本地與公開內容對照，承認本地SHA不是公開可抓取證據。
+只追加規格／研究稿§8與三帳，區分公開版本順序與無法由Git獨立證明的內部思考時序，
+補上2026-10-23操作者推送授權與公開發布結果、ACT blob的初次未掛接與後續合法引用，
+逐字收0093。沒有改任何數學、原規則、證明、工作域、反補洞或停止條件。
+三帳、規格、研究稿均保留r1的完整byte-prefix；README／STATUS、契約、T3／T6、
+acceptance／formal、其他研究稿、程式、JSON、tests及CI均不改。
+沒有讀文獻原文或作檢索，沒有新推導、科學數值／符號計算、模型／toy執行、RNG、
+撒點、producer、raw／sealed、seed或科學主機消費；Git／文字／hash／prefix及既有integrity
+僅作repo檢查。本地未重跑全庫；待新exact-head增量複核，不合併、不新增構造。
+探索軌不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0095。

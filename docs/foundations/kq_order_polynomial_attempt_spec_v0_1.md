@@ -106,3 +106,28 @@ order與count屬L0；free complex linearization屬L2；本試作未用L1的reali
 L2的two-slot／pairing／CAR及L3的固定公式／prescription仍須明列，不是由poset湧現。
 本更正只處理帳本分類，所有K係數、test、adjoint、CAR與G_swap假設皆原樣。
 原分類保留供追溯；不借更正提高formal資格或掩蓋負form／sector失敗。
+
+
+## 8. 公開版本對照與時序證據等級（2026-10-24；只追加）
+
+**本地checkpoint與公開commit的對照、可查核範圍。**
+
+| 本地checkpoint（作者保留） | 所報tree | 公開可抓取commit | 公開tree |
+| :--- | :--- | :--- | :--- |
+| eeb5ea6d1e46cb227890a5aa1ff6dd43fe01c3db | 6a4858d0851d8065817b12a924034c0eae64acd4 | a01c4ea6103306335e4c48c5f36972276c09352b | 6a4858d0851d8065817b12a924034c0eae64acd4 |
+| 1bd15a5ef57d1f60906cf9b0d619f9980f92770f | eb594400860abcf1399432a006126b6db7ae97cb | e30d9bd9eb970295786748463b5573b72cb3a7c1 | eb594400860abcf1399432a006126b6db7ae97cb |
+| ac83c4e666a26dcc1df99523001c2a97c0eee4bd | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 | 8176f9848ba892119f757c2b2d6414c1d7871d46 | 0f7e1e4e6c72d51fff34d5b5926904ba3430a3e8 |
+
+這是API發布後的內容對照，不是同一個commit物件。作者本地可見上述checkpoint；
+reviewer向公開repo抓取eeb5ea6d與1bd15a5e失敗（not our ref），因此這兩個本地SHA
+**不能作公開可查核的承重證據**。表中本地身分／對應是作者披露，不能代替取得那些物件的獨立查核。
+
+公開可查的鏈是main1ac30ceb → a01c4ea6 → e30d9bd9 → 8176f984：
+a01只追加紀錄，e30包含固定規格§1–6，8176才包含研究稿，且在規格末尾只追加§7。
+公開Git證據只證明這個commit層面的先後順序與各版內容，不獨立證明作者私下何時思考、
+看到或預期科學輸出，更不能證明「看任何輸出之前」的盲固定。原文的規格先固定說法
+只按此公開版本化順序理解；超出它的本地時序／內部思考僅為作者申報。
+EXP-0091已披露固定規格前的零對角／對稱性風險預想，本追加不提高其證據等級或盲性資格。
+不以API commit時間倒填研究開始或內部規則選定時間；本地SHA、原句與數學全文均保留。
+
+本節只補追溯性；§1–7的K、test／pairing、CAR prescription與G_swap假設不改。
