@@ -101,8 +101,11 @@ f:P→P′須保持原order，且是L→L′的order isomorphism。
 參考資料換表述由共同unitary V:E₀→E₀′給出，保持h並滿足Vη₀=η₀′V。
 各事件使用同一global V，映射須滿足identity與composition法則。
 後續須明寫這些映射在field、source、test、K／Green、CAR代數與state上的誘導作用與交換圖。
-不只檢查Aut(P)。可用L導出的order-rank書寫，但仍須給上述完整自然性證明，
-不能以重排座標代替證明。
+不只檢查Aut(P)。依reviewer在#99 r1的提示：有限total order的事件自同構平凡，
+兩個(P,L)間若有事件同構，也只能是依L排名的唯一對應。因此事件重標記自然性
+無法排除任意排名演算法，不再對此類演算法提供實質限制；共同V的fiber協變義務仍在。
+本題不准以排名生成sector差異，L進入K的方式限於下列§4.4，仍須交完整交換圖。
+這項限制與§6的實際證明共同把關，不能宣稱自然性或限制本身已保證非平凡性。
 只對(P,L,R₀)自然，比只給P的原要求使用更多輸入，不能把這個結果升回原問題。
 
 ### 4.2 Sector側：本題選擇的是明示增強輸入，沒有刪掉star
@@ -123,6 +126,49 @@ indefinite pairing的矩陣、未識別的裸Green差、或η-adjoint，都不�
 unital *-algebra的*、物理field adjoint、數學Hermitian adjoint及總form必須型別分開並交同源識別。
 只處理這一側，不能宣稱§4.2的sector義務也已完成；反向亦然。
 
+### 4.4 r2事前選定的非局域時間序依賴類
+
+本題選reviewer所列(ii)，不選只看因果區間內L的類別，亦不縮D_Ξ。
+以下只限定容許的規則類，沒有選任何係數、K、adjoint／CAR實現或state。
+對原order pair y≺x，令閉區間[y,x]_P={z:y≼z≼x}，並定義
+
+$$S_{xy}(P)=\{z\notin[y,x]_P:(z\parallel_P y\ \text{或}\ z\parallel_P x)\}.$$
+
+只容許讀取這些z與兩端點的L先後關係；不讀z彼此的L順序或全域rank。
+對每個z以σ_L(z;y,x)∈{pre,between,post}記z<_L y、y<_L z<_L x或x<_L z。
+用τ_P(z;y,x)=(rel_P(z,y),rel_P(z,x))分類，其中rel∈{≺,≻,∥}，
+令n_τσ(P,L;x,y)是S_xy中同時屬該order型別與時間位置的事件數。
+L對K的**全部**依賴限定為
+
+$$K(P,L,R_0)(x,y)=K^{\rm ord}(P,R_0)(x,y)
+  +\sum_{\tau\in\{\prec,\succ,\parallel\}^2}\sum_{\sigma\in\{pre,between,post\}}
+  n_{\tau\sigma}(P,L;x,y)\,M_{\tau\sigma}(R_0),\qquad y\prec x.$$
+
+K^ord完全不讀L，須對原P同構自然；非order非對角block仍為零，diagonal亦不讀L。
+M_τσ是全問題只固定一次的endomorphism，跨P、N、pair、L皆相同，依共同V作共軛協變；
+允許型別至多27個2×2矩陣，即至多108個complex scalar entries的上界，
+這只是表述容量上界，不把不可能型別或共變限制算成已獨立參數。
+其實際來源、參數及值須在後續任何構造輸出之前另行完整登記；本契約不預選它們。
+不得把M_τσ改成逐P／逐pair的表、讓K^ord暗讀L，或把其他L依賴藏進normalization。
+依賴n_τσ只可用上述固定線性和；禁止奇偶、模k、count／rank查表、非線性門檻、
+依輸入挑矩陣、n_τσ的乘積或再以輸出調整係數。不得由這些統計重建排名後作上述算術；
+准許的只有這份已明列的order型別／時間位置線性彙總，而非任意全域rank演算法。
+
+這個conditional物理解讀是：兩個因果端點之前、之間、之後的preferred切片環境，
+只以因果鑽石外、與至少一個端點類空的事件之order型別作固定線性彙總。
+即使兩端點之間沒有其他L事件，也不能據此把切片前後環境默認刪去；三種位置在此一次列全。
+它刻意容許鑽石外的preferred foliation資訊，是新增的非局域時間序自由度，
+不是由P導出的局域時間或已證物理機制；不增加原P的causal propagation edges。
+固定線性／型別彙總是事前選定的探索限制，不稱由物理原理唯一導出，亦不保證§6(b)成立。
+L原有容量仍是§3的log₂(N!)上界，容許讀取的統計限制不把primitive容量改報為零。
+
+reviewer另提示：若block只依賴(P限制於[y,x], L限制於[y,x], R₀)的同構型，
+三葉star的三個兩點區間型別相同，會重現一維span障礙；這個命題另要求區間型別自然性，
+不能把「只限制L的讀取、卻另允許區間外P資料」混稱同一假設。
+本段與§4.1的數學觀察來源均為reviewer提示，本稿只據此限定問題，未交正式證明。
+後續研究稿若採用這些觀察作承重論證，須先列完整假設並補正式證明，不記盲發現。
+更改本依賴類，包括讀取更多L資料或改彙總方式，須在新構造前修約並重新exact-head審查。
+
 ## 5. 第一階段實質交付：仍須完成整條同源鏈
 
 固定完整field／test型別T_P=C^P⊗E₀，dim_C T_P=2|P|；
@@ -136,7 +182,7 @@ source／domain、物理smearing及所有projection／quotient規則依§7事前
    source、contact、boundary與適用domain全部明寫。L不增加原P的因果關係，
    不能因兩事件在L有先後就把原本不可比者當成傳播pair。evolution kernel不能冒充inverse。
 3. **總CAR form。** 交事前固定test／adjoint／smearing／field ordering與實際CAR關係，
-   證它們由上述同一資料鏈識別。在完整T上證A≥0，不能以投影或外加positive自由度造假。
+   證它們符合下述可檢查的同源條件。在完整T上證A≥0，不能以投影或外加positive自由度造假。
 4. **同源state。** 實際state由同一輸入鏈的事前固定規則決定，證正性、歸一化及與同一K／Green／CAR的相容。
    有正A時generic Fock／S=0或任意contraction的存在性，只記「按構造成立」，不算state來源機制。
 5. **額外主張分帳。** 若聲稱dynamics，交實際代數作用與相容性；unitarity、stationarity、
@@ -145,6 +191,27 @@ source／domain、物理smearing及所有projection／quotient規則依§7事前
 主問題正面完成須實質交出1–4、§6以及§8的差異證據；不能只把前提寫到足以包含答案。
 部分結果記「具體定義／限定障礙已交、待複核」或OPEN，不由§5某一項通過升格整條鏈。
 只排除一個構造類G時，先明定G及全部假設，不報所有Ξ下構造均不可能。
+
+### 5.3 總form與Green的同源條件（r2明定）
+
+後續須在看所得form的符號／譜之前，完整宣告一個有型別、可計算及可審查的規則
+A=F(G_R,G_A;Ξ)。須寫出F的定義域、值域、全部配對／adjoint／smearing／contact資料，
+及G_A由同一K、G_R與Ξ取得的規則；不在本稿選定F的具體實現。
+只寫「存在F」或把事後得到的A重新命名為F不合格。每次換K，必須從該K重求Green，
+再用**同一F**決定A，不能把獨立的kinematic CAR沿用並聲稱已對接。
+
+可核查的必要條件包括：列明K→Green→F各步的定義／恆等式及structured自然性交換圖；
+在事前固定、保持Ξ與test型別的合法K比較類上，交F經Green對K非恆定的數學證據。
+比較類及變化不得依A是否正來篩選；至少須有兩個合法比較對象使所得form不同。
+這不要求F對K單射，也不要求每個K變化都改A；但語法上帶Green參數而實際忽略它不合格。
+非恆定仍只是必要條件，不替代實際CAR／field adjoint與同一inverse的代數識別證明；
+只把某個K-dependent scalar乘在無關正W上，也不能以此取代該識別或規避§3／§7。
+
+**所有與K無關的CAR prescription均算外加positive CAR form**，包括對全部事件直接指定
+{ψ(x),ψ†(y)}=δ_xy I_E、再只讓K控制演化的作法；它會觸發§3停止條件，
+不得改稱RΞ-L3或以A=I／rank=2|P|充作本題的§6(d)成果。
+若採「kinematic CAR先給、K只控制動力學」的同源概念，那是另一條問題鏈，
+必須另立契約說明，不得在本題混用。本條不先判定任何具體F能否通過。
 
 ## 6. 探索最低非平凡性：至少保留原契約強度
 
@@ -158,6 +225,7 @@ source／domain、物理smearing及所有projection／quotient規則依§7事前
 排除存在scalar kernel h_Ξ及單一2×2 M_Ξ使全部K(x,y)=h_Ξ(x,y)M_Ξ，
 即使M可依完整輸入或N選擇也不放行。只改diagonal不能補救。
 共同global GL(2,C)換基保留此維數；不允許新增per-event基底調整來偽造差異。
+L依賴必須逐項符合§4.4；藉排名奇偶／模數／查表得到span≥2仍判失敗，不能只報維數。
 仍須另交primitive／sector來源解釋，兩個數值獨立blocks不是Spin／chirality已導出的證據。
 
 (c) **K自身非局域。** 使用原P的最短directed Hasse-hop距離d_P。

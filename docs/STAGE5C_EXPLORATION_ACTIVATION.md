@@ -615,3 +615,20 @@ OP-01封存失敗及限定障礙，原始輸入主問題仍OPEN；停止該題�
 對所有合規L量化；不以primitive補正譜，不假裝兩側障礙已解除。只定問題、無新model／K／state。
 conditional構造須待新契約GO、必要CI、原樣合併與tree核對；formal／E0及全部資料隔離不變。
 本稿不具§5.2.1(v)依據資格，不提高OP-01或文獻承重資格；無新科學執行。
+
+
+## PR #99 r2：限定時間序讀取與同源CAR條件（2026-10-26；只追加）
+
+r1公開鏈main be55a80a → 1fa6ce70（紀錄）→ 40e14003（契約），treeb440dec3；
+main→r1 patch SHA-256為fcbb4a03a1259ac091f49e0f2d26bcf5e81a1c2b00bba709128d6ee0ada1d84c。
+CI #306（run40188991114）在r1 completed／success，#99仍draft且未合併，main仍be55a80a。
+操作者轉交Claude「需修訂（r2）」；本輪只改conditional契約§4、§5.3、§6(b)，不動其他文件。
+接觸帳§44逐字追加EXP-0097，0098登作者修約／來源及未開始構造的範圍。
+選(ii)：明列L只能透過區間外類空事件的order型別／pre-between-post位置count固定線性和進入K，
+跨P／N固定matrix family，禁止任意rank算術、非線性count處理與逐P調整；不選具體係數或K。
+事件自然性不足及區間型別star觀察標為reviewer提示，承重使用前須另補完整假設／證明。
+總form須有事前宣告A=F(G_R,G_A;Ξ)及同一K的依賴／代數識別證據，不能以獨立δ-CAR補洞。
+不預判新限制足夠；D_Ξ及全部L量詞、§6(a)(c)(d)、primitive型別與停止條件不改。
+三帳完整保留r1及main的byte-prefix；README／STATUS、原契約、OP-01及formal全不改。
+新model ID NONE；r2尚待exact-head增量複核，保持draft、不合併、不開始conditional構造。
+探索軌不具§5.2.1(v)依據資格；formal／E0、A／B及全部資料隔離不變。無新科學執行。

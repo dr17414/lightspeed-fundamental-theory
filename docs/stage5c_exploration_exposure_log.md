@@ -1333,3 +1333,58 @@ L亦是外加preferred資料，不從realizer orbit挑代表冒充原始輸入�
 原KQ契約、OP-01規則／研究、T3／T6、acceptance／formal、程式／JSON／tests／CI均不改。
 探索軌，不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
 下一個新EXP-ID為0097。
+
+
+## 44. PR #99 r2：限定時間序讀取類與Green→CAR同源條件（2026-10-26；只追加）
+
+操作者轉交Claude對#99 r1的「需修訂（r2）」意見及下列本人原句；本輪依該範圍修約，
+只改conditional契約§4、§5.3與§6(b)，其餘只追加三帳。不把此意見當成GO，
+不解除draft／不合併限制，不開始conditional構造，原始輸入問題仍OPEN。
+
+先前r1已發布在分支docs/kq-conditional-time-adjoint／draft PR #99：
+main be55a80a8bbc80f1d5d371ada9c081f78789e094 → 紀錄commit
+1fa6ce70bee640b6dee6a43fd887ac32d0de6b94（tree3c9e428907297e9a85b52279ff5b124dc98518ed）
+→ 契約commit40e140036474db43f8ce67459f38b3f3e3c6f384（treeb440dec3b6c3767775786ffc1f8f1f9ce7d6dde5）。
+main→r1 patch SHA-256為fcbb4a03a1259ac091f49e0f2d26bcf5e81a1c2b00bba709128d6ee0ada1d84c，
+遠端與當時核准本地版內容一致；兩個stage的tree也一致，不以本地checkpoint的SHA作公開證據。
+CI #306（run40188991114）在該head completed／success；這只是既有repo回歸。
+2026-10-26讀取時main仍be55a80a，#99仍draft且未合併；以上是已發生的r1發布事實，
+不是本r2尚未完成的發布結果，也不是構造開始時間。
+
+核對r1帳本止於0096，依序追加以下0097／0098，不改既有條目。
+
+**EXP-0097：操作者轉交的Claude PR #99複核本人申報原句**
+
+> Claude（PR #99 複核）：以 exact head `40e14003` 讀 #99 全部 diff 與 X-KQ-COND-TA-P0.1 契約全文。以 git 核對 head、tree、parent 鏈，確認 `git diff be55a80a 40e14003` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認原始輸入契約、OP-01 文件與 acceptance 沒有改動，並用腳本比對 EXP-0095 原句。以下幾點都是在腦中推理，沒有寫成證明：Aut(P,L) 平凡、L 排名使自然性失去約束、排名奇偶可讓 (b) 空洞通過、區間局域的 L 依賴會讓 star 的障礙重現，以及 δ-CAR 的漏洞。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0098：GPT #99 r2契約修訂與來源範圍**
+
+讀本輪轉交的完整複核、reviewer腦中觀察與0097原句；讀本地conditional契約全文及三帳末段，
+GitHub核對r1的head／tree／parent鏈、draft／未合併狀態、main及CI #306 success，
+Git fetch核對本地r1文件與公開head相同，從公開r1作本修訂parent，不改寫舊commit。
+未讀新文獻、未做檢索；本輪僅針對複核意見作契約型別與容許依賴類的文字設計／邏輯自檢，
+不是盲發現，不把reviewer提示升為本作者已證結論。
+
+在reviewer提供的二選一中選(ii)：K只可透過因果鑽石外、與端點至少一側類空的事件，
+按其與端點的order型別及preferred序中pre／between／post位置之count固定線性和讀L。
+這是明列的全域foliation環境依賴類與容量上界，不是具體K／係數／state／adjoint的選擇；
+沒有宣稱它能解決star或對全部D_Ξ存在合格規則，也不把自然性當成sector非平凡性的證明。
+禁止任意rank算術、奇偶／模數／查表、非線性count處理、逐P係數及隱藏L依賴；
+固定matrix family的實際值與來源留待契約GO合併後、任何構造輸出之前登記。
+Aut與區間型別的star觀察明標來自reviewer；若後續採作承重論證須另補正式證明，
+其中區間型別自然性的假設須寫全，不混同僅限制L的讀取範圍。
+
+另把同源總form規定為事前宣告的A=F(G_R,G_A;Ξ)、G_A來源規則、型別／交換圖／代數識別，
+要求在事前合法比較類上有K依賴的證據。非恆定只是必要條件，不接受K-dependent scalar×無關W。
+獨立δ-CAR及只讓K控制動力學均按外加CAR觸發停止；另一種問題鏈須另立契約。
+本輪未選F或任何Green／CAR公式實現，未選K、pairing、state或構造／證明策略，
+未開始conditional構造推導；只有定義容許規則類與可核查交付義務，未證存在性／不可能性。
+
+本修訂只動契約§4／§5.3／§6(b)及三帳追加；README／STATUS、原始輸入契約、
+OP-01規格與研究稿、T3／T6、其他研究稿、acceptance／formal、程式／JSON／tests／CI皆不改。
+三帳在r1與main的byte-prefix保持不變，0097逐字；Git／文字／hash／prefix及既有integrity
+只作repo檢查。本地不重跑全庫，回歸交CI；沒有數值／符號計算、模型或toy執行、RNG、撒點、
+producer、raw／sealed、seed、科學主機消費、量測或receipt。
+新model ID NONE；仍待r2 exact-head增量GO、必要CI、原樣合併與tree核對，不合併、不構造。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0099。
