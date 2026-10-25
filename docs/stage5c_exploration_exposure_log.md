@@ -1279,3 +1279,57 @@ acceptance／formal、其他研究稿、程式、JSON、tests及CI均不改。
 僅作repo檢查。本地未重跑全庫；待新exact-head增量複核，不合併、不新增構造。
 探索軌不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
 下一個新EXP-ID為0095。
+
+
+## 43. #98原樣合併與另立conditional契約（2026-10-25；只追加）
+
+操作者於本對話2026-10-25 Asia/Taipei表示「同意授權」，解除#98 draft／不合併限制，
+授權轉ready、expected-head原樣squash、核對tree及回報main；原訊息無時分秒，不補填。
+另轉交Claude同意conditional方向及四項起草建議：兩側障礙均須處理、primitive來源與容量／
+自然性／不看譜、避免已知格點重述、conditional標示與formal隔離。這是轉交的方向意見，
+本訊息未另附該方向意見的本人接觸申報，不為Claude代填閱讀或研究範圍。
+
+#98 head `ae8d0d3b91d6fc3248f22fc18b362b451aba8c41`／tree
+`6b9cf7d32bee0a30f006d820e225aaea558e28c0`獲exact-head GO，
+CI #304（run40090584925）在該head success後轉ready，以expected head原樣squash為main
+`be55a80a8bbc80f1d5d371ada9c081f78789e094`，唯一parent1ac30ceb，tree與核准相同。
+Git committer UTC2026-10-24 17:09:47／台北2026-10-25 01:09:47；這是合併時間，
+不作授權或研究開始時間。OP-01失敗及兩項限定障礙已封存；未改成全面不可能定理。
+原始輸入問題保持OPEN，本輪停止沿該題新增試作，依原契約§5另立conditional問題。
+
+核對main的最後ID0094，以下用0095登記轉交的reviewer原句，作者本輪範圍0096。
+紀錄PR reviewer申報隨下一交付追加的程序規則照舊，不放寬科學來源或新契約先審要求。
+
+**EXP-0095：操作者轉交的Claude #98 r2增量複核本人申報原句**
+
+> Claude（PR #98 r2 增量複核）：以 exact head `ae8d0d3b` 讀 r1→r2 的全部 diff，包括規格與研究稿的 §8 以及三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff 8176f984 ae8d0d3b` 的 SHA-256 等於操作者提供的 patch hash；把五個檔案的 r1 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0093 原句，並以 git 讀取 `1ac30ceb`、`a01c4ea6`、`e30d9bd9`、`8176f984` 中 ACT 檔的 blob 編號，核對帳本的說法。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0096：GPT #98合併封存與conditional契約起草／原文接觸範圍**
+
+讀上述GO、本人原句、操作者同意授權與轉交的conditional四點建議；GitHub核對#98的
+head／tree、CI #304、ready／expected-head squash及main／tree／parent／Git committer。
+fetch合併後main作新契約基線，不修改上游歷史。讀既有方向評估全文、原KQ契約的工作域／
+義務／停止界線、OP-01已核准結果與三帳末段；不新開禁止資料，不以舊數值摘要選新輸入。
+
+為限定比較既有格點構造，作一次公開檢索並嘗試開arXiv HTML1307.3524v1與1303.4652v1，
+HTML皆失敗；後讀arXiv PDF原文。Arrighi–Nesme–Forets1307.3524v1：工具回傳約L0–257，
+即摘要、引言與§I開頭，含Dirac、shift／unitary walk公式；Farrelly–Short1303.4652v1：
+工具回傳約L0–161，即摘要、§I與§II起段，含lattice／CAR／Fock定義。沒有讀完整8／16頁、
+沒有逐式驗算或搬用其算子／coin公式，沒有核定後文定理適用本題。搜尋也回傳其他原始摘要、
+作者簡報、CFS百科／二手結果等片段；只以前述兩篇原文作比較證據，不採其他結果作構造材料。
+因此本契約起草已有公開文獻公式曝光，不稱盲或fresh；沒有完成新穎性查全、formal B mapping或handoff。
+
+本輪只選定conditional問題的外加輸入型別：preferred total time order L延伸P，及一次固定的
+二維複參考space／正Hermitian h／h-self-adjoint involution η（正負eigenline各一維）。
+η作新增的conditional Hermitian／adjoint資料，不當作poset已導出或「免費L2」；
+L亦是外加preferred資料，不從realizer orbit挑代表冒充原始輸入。
+底層仍涵蓋整個D_KQ，對所有合規L量化，無事後縮域／挑L；固定參考資料不逐P調整。
+這是選題與primitive型別／容量契約，不是K、總CAR公式、state、物理adjoint或證明策略的選擇。
+本題不預填η或L能解決正性／sector；兩個障礙的前提差異與剩餘義務須逐項交待。
+新model ID NONE，conditional構造待新契約exact-head GO、必要CI、原樣合併與tree核對。
+沒有新構造、數值／符號程式、toy執行、RNG、撒點、producer、raw／sealed、seed、
+科學量測、主機消費或receipt；Python／Git與既有integrity只作文件／repo核對。
+三帳只追加，README／STATUS只同步目前狀態，新增conditional問題契約；
+原KQ契約、OP-01規則／研究、T3／T6、acceptance／formal、程式／JSON／tests／CI均不改。
+探索軌，不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0097。

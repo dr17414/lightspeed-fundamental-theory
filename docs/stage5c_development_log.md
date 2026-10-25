@@ -573,3 +573,16 @@ ACT blob `65496ad5ec59acaf57adaf18276b1fcc0fef4085`最初僅被建立、未掛�
 本r2只追加規格／研究稿§8及三帳，所有r1原文作完整byte-prefix；數學與其餘檔案不改。
 #98未GO／未合併，不開始新構造或conditional契約；探索軌不具§5.2.1(v)依據資格，
 formal／E0、A／B及全部既有資料隔離不變。
+
+
+## #98原樣合併與conditional問題起草（2026-10-25；只追加）
+
+操作者「同意授權」後，#98 head ae8d0d3b經GO及CI #304 success，expected-head原樣squash
+為main be55a80a8bbc80f1d5d371ada9c081f78789e094，tree6b9cf7d3與核准相同，parent1ac30ceb。
+Git committer UTC2026-10-24 17:09:47／台北2026-10-25 01:09:47；不是授權或研究開始時間。
+OP-01封存失敗及限定障礙，原始輸入主問題仍OPEN；停止該題新增試作，另立conditional契約。
+接觸帳§43逐字登EXP-0095，0096記操作者／Claude方向、兩篇原文的有限實讀與起草範圍。
+新題擬固定外加preferred時間序L與跨尺寸固定二維Hermitian參考資料，底層不縮D_KQ，
+對所有合規L量化；不以primitive補正譜，不假裝兩側障礙已解除。只定問題、無新model／K／state。
+conditional構造須待新契約GO、必要CI、原樣合併與tree核對；formal／E0及全部資料隔離不變。
+本稿不具§5.2.1(v)依據資格，不提高OP-01或文獻承重資格；無新科學執行。
