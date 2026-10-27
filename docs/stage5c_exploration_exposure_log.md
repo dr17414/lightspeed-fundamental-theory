@@ -1279,3 +1279,164 @@ acceptance／formal、其他研究稿、程式、JSON、tests及CI均不改。
 僅作repo檢查。本地未重跑全庫；待新exact-head增量複核，不合併、不新增構造。
 探索軌不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
 下一個新EXP-ID為0095。
+
+
+## 43. #98原樣合併與另立conditional契約（2026-10-25；只追加）
+
+操作者於本對話2026-10-25 Asia/Taipei表示「同意授權」，解除#98 draft／不合併限制，
+授權轉ready、expected-head原樣squash、核對tree及回報main；原訊息無時分秒，不補填。
+另轉交Claude同意conditional方向及四項起草建議：兩側障礙均須處理、primitive來源與容量／
+自然性／不看譜、避免已知格點重述、conditional標示與formal隔離。這是轉交的方向意見，
+本訊息未另附該方向意見的本人接觸申報，不為Claude代填閱讀或研究範圍。
+
+#98 head `ae8d0d3b91d6fc3248f22fc18b362b451aba8c41`／tree
+`6b9cf7d32bee0a30f006d820e225aaea558e28c0`獲exact-head GO，
+CI #304（run40090584925）在該head success後轉ready，以expected head原樣squash為main
+`be55a80a8bbc80f1d5d371ada9c081f78789e094`，唯一parent1ac30ceb，tree與核准相同。
+Git committer UTC2026-10-24 17:09:47／台北2026-10-25 01:09:47；這是合併時間，
+不作授權或研究開始時間。OP-01失敗及兩項限定障礙已封存；未改成全面不可能定理。
+原始輸入問題保持OPEN，本輪停止沿該題新增試作，依原契約§5另立conditional問題。
+
+核對main的最後ID0094，以下用0095登記轉交的reviewer原句，作者本輪範圍0096。
+紀錄PR reviewer申報隨下一交付追加的程序規則照舊，不放寬科學來源或新契約先審要求。
+
+**EXP-0095：操作者轉交的Claude #98 r2增量複核本人申報原句**
+
+> Claude（PR #98 r2 增量複核）：以 exact head `ae8d0d3b` 讀 r1→r2 的全部 diff，包括規格與研究稿的 §8 以及三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff 8176f984 ae8d0d3b` 的 SHA-256 等於操作者提供的 patch hash；把五個檔案的 r1 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0093 原句，並以 git 讀取 `1ac30ceb`、`a01c4ea6`、`e30d9bd9`、`8176f984` 中 ACT 檔的 blob 編號，核對帳本的說法。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0096：GPT #98合併封存與conditional契約起草／原文接觸範圍**
+
+讀上述GO、本人原句、操作者同意授權與轉交的conditional四點建議；GitHub核對#98的
+head／tree、CI #304、ready／expected-head squash及main／tree／parent／Git committer。
+fetch合併後main作新契約基線，不修改上游歷史。讀既有方向評估全文、原KQ契約的工作域／
+義務／停止界線、OP-01已核准結果與三帳末段；不新開禁止資料，不以舊數值摘要選新輸入。
+
+為限定比較既有格點構造，作一次公開檢索並嘗試開arXiv HTML1307.3524v1與1303.4652v1，
+HTML皆失敗；後讀arXiv PDF原文。Arrighi–Nesme–Forets1307.3524v1：工具回傳約L0–257，
+即摘要、引言與§I開頭，含Dirac、shift／unitary walk公式；Farrelly–Short1303.4652v1：
+工具回傳約L0–161，即摘要、§I與§II起段，含lattice／CAR／Fock定義。沒有讀完整8／16頁、
+沒有逐式驗算或搬用其算子／coin公式，沒有核定後文定理適用本題。搜尋也回傳其他原始摘要、
+作者簡報、CFS百科／二手結果等片段；只以前述兩篇原文作比較證據，不採其他結果作構造材料。
+因此本契約起草已有公開文獻公式曝光，不稱盲或fresh；沒有完成新穎性查全、formal B mapping或handoff。
+
+本輪只選定conditional問題的外加輸入型別：preferred total time order L延伸P，及一次固定的
+二維複參考space／正Hermitian h／h-self-adjoint involution η（正負eigenline各一維）。
+η作新增的conditional Hermitian／adjoint資料，不當作poset已導出或「免費L2」；
+L亦是外加preferred資料，不從realizer orbit挑代表冒充原始輸入。
+底層仍涵蓋整個D_KQ，對所有合規L量化，無事後縮域／挑L；固定參考資料不逐P調整。
+這是選題與primitive型別／容量契約，不是K、總CAR公式、state、物理adjoint或證明策略的選擇。
+本題不預填η或L能解決正性／sector；兩個障礙的前提差異與剩餘義務須逐項交待。
+新model ID NONE，conditional構造待新契約exact-head GO、必要CI、原樣合併與tree核對。
+沒有新構造、數值／符號程式、toy執行、RNG、撒點、producer、raw／sealed、seed、
+科學量測、主機消費或receipt；Python／Git與既有integrity只作文件／repo核對。
+三帳只追加，README／STATUS只同步目前狀態，新增conditional問題契約；
+原KQ契約、OP-01規則／研究、T3／T6、acceptance／formal、程式／JSON／tests／CI均不改。
+探索軌，不具§5.2.1(v)依據資格；E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
+下一個新EXP-ID為0097。
+
+
+## 44. PR #99 r2：限定時間序讀取類與Green→CAR同源條件（2026-10-26；只追加）
+
+操作者轉交Claude對#99 r1的「需修訂（r2）」意見及下列本人原句；本輪依該範圍修約，
+只改conditional契約§4、§5.3與§6(b)，其餘只追加三帳。不把此意見當成GO，
+不解除draft／不合併限制，不開始conditional構造，原始輸入問題仍OPEN。
+
+先前r1已發布在分支docs/kq-conditional-time-adjoint／draft PR #99：
+main be55a80a8bbc80f1d5d371ada9c081f78789e094 → 紀錄commit
+1fa6ce70bee640b6dee6a43fd887ac32d0de6b94（tree3c9e428907297e9a85b52279ff5b124dc98518ed）
+→ 契約commit40e140036474db43f8ce67459f38b3f3e3c6f384（treeb440dec3b6c3767775786ffc1f8f1f9ce7d6dde5）。
+main→r1 patch SHA-256為fcbb4a03a1259ac091f49e0f2d26bcf5e81a1c2b00bba709128d6ee0ada1d84c，
+遠端與當時核准本地版內容一致；兩個stage的tree也一致，不以本地checkpoint的SHA作公開證據。
+CI #306（run40188991114）在該head completed／success；這只是既有repo回歸。
+2026-10-26讀取時main仍be55a80a，#99仍draft且未合併；以上是已發生的r1發布事實，
+不是本r2尚未完成的發布結果，也不是構造開始時間。
+
+核對r1帳本止於0096，依序追加以下0097／0098，不改既有條目。
+
+**EXP-0097：操作者轉交的Claude PR #99複核本人申報原句**
+
+> Claude（PR #99 複核）：以 exact head `40e14003` 讀 #99 全部 diff 與 X-KQ-COND-TA-P0.1 契約全文。以 git 核對 head、tree、parent 鏈，確認 `git diff be55a80a 40e14003` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認原始輸入契約、OP-01 文件與 acceptance 沒有改動，並用腳本比對 EXP-0095 原句。以下幾點都是在腦中推理，沒有寫成證明：Aut(P,L) 平凡、L 排名使自然性失去約束、排名奇偶可讓 (b) 空洞通過、區間局域的 L 依賴會讓 star 的障礙重現，以及 δ-CAR 的漏洞。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0098：GPT #99 r2契約修訂與來源範圍**
+
+讀本輪轉交的完整複核、reviewer腦中觀察與0097原句；讀本地conditional契約全文及三帳末段，
+GitHub核對r1的head／tree／parent鏈、draft／未合併狀態、main及CI #306 success，
+Git fetch核對本地r1文件與公開head相同，從公開r1作本修訂parent，不改寫舊commit。
+未讀新文獻、未做檢索；本輪僅針對複核意見作契約型別與容許依賴類的文字設計／邏輯自檢，
+不是盲發現，不把reviewer提示升為本作者已證結論。
+
+在reviewer提供的二選一中選(ii)：K只可透過因果鑽石外、與端點至少一側類空的事件，
+按其與端點的order型別及preferred序中pre／between／post位置之count固定線性和讀L。
+這是明列的全域foliation環境依賴類與容量上界，不是具體K／係數／state／adjoint的選擇；
+沒有宣稱它能解決star或對全部D_Ξ存在合格規則，也不把自然性當成sector非平凡性的證明。
+禁止任意rank算術、奇偶／模數／查表、非線性count處理、逐P係數及隱藏L依賴；
+固定matrix family的實際值與來源留待契約GO合併後、任何構造輸出之前登記。
+Aut與區間型別的star觀察明標來自reviewer；若後續採作承重論證須另補正式證明，
+其中區間型別自然性的假設須寫全，不混同僅限制L的讀取範圍。
+
+另把同源總form規定為事前宣告的A=F(G_R,G_A;Ξ)、G_A來源規則、型別／交換圖／代數識別，
+要求在事前合法比較類上有K依賴的證據。非恆定只是必要條件，不接受K-dependent scalar×無關W。
+獨立δ-CAR及只讓K控制動力學均按外加CAR觸發停止；另一種問題鏈須另立契約。
+本輪未選F或任何Green／CAR公式實現，未選K、pairing、state或構造／證明策略，
+未開始conditional構造推導；只有定義容許規則類與可核查交付義務，未證存在性／不可能性。
+
+本修訂只動契約§4／§5.3／§6(b)及三帳追加；README／STATUS、原始輸入契約、
+OP-01規格與研究稿、T3／T6、其他研究稿、acceptance／formal、程式／JSON／tests／CI皆不改。
+三帳在r1與main的byte-prefix保持不變，0097逐字；Git／文字／hash／prefix及既有integrity
+只作repo檢查。本地不重跑全庫，回歸交CI；沒有數值／符號計算、模型或toy執行、RNG、撒點、
+producer、raw／sealed、seed、科學主機消費、量測或receipt。
+新model ID NONE；仍待r2 exact-head增量GO、必要CI、原樣合併與tree核對，不合併、不構造。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0099。
+
+
+## 45. PR #99 r3：將時間序依賴禁令延伸至整條下游鏈（2026-10-26；只追加）
+
+操作者轉交Claude「#99 r2需修訂（r3），只剩一個漏洞」與下列本人申報。
+本輪只補conditional契約§4.5及§5.3交叉限制，三帳只追加；不把複核意見當GO，
+不解除draft／不合併限制，不開始conditional構造。原始輸入問題仍OPEN。
+
+其後r2已發布於既有分支docs/kq-conditional-time-adjoint／draft PR #99：
+公開head a33cb211b65bcc9a712e7479096233624edb5090，tree0b2fc8c6e7f57feb5ddbcd79fb6399b8866bb64c，
+唯一parent為r1 40e140036474db43f8ce67459f38b3f3e3c6f384。
+r1→r2 patch SHA-256為051c20bf83ddfccb6238c9c35162232b5ed93a68d6d4a448b260d702e953a85c，
+main→r2為2f6465ac2206a8780ab06309c8beea34d2f8b4175ffa80960009c233444afab0；
+遠端重新fetch後，tree與完整增量patch均與本地驗證版相同，三帳前綴保留。
+CI #307（run40217430617）在r2 completed／success；這是既有repo回歸，不是科學執行。
+2026-10-26核對時#99仍draft且未合併，main仍be55a80a8bbc80f1d5d371ada9c081f78789e094。
+這是r2發布的其後事實，不是r3尚未完成的發布紀錄或構造開始時間。
+核對r2最後ID0098，以下追加0099／0100，下一可用ID0101。
+
+**EXP-0099：操作者轉交的Claude PR #99 r2增量複核本人申報原句**
+
+> Claude（PR #99 r2 增量複核）：以 exact head `a33cb211` 讀 r1→r2 的全部 diff，包括契約 §4.1、§4.4、§5.3 的修訂與三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff 40e14003 a33cb211` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 r1 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，確認其他檔案沒有改動，並用腳本比對 EXP-0097 原句。在三葉 star 上推算 §4.4 的計數與 block span、可能出現的 order 型別與 L 位置限制，以及 F 一側的排名算術漏洞，都是在腦中推理，沒有寫成證明。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0100：GPT #99 r3下游依賴類修約與接觸範圍**
+
+讀本輪轉交的完整複核與0099原句，包括star的線性count／span提示、可能order型別及L位置
+限制、M_τσ事前固定的提醒，以及F／G_A／smearing／test／state的排名算術漏洞。
+上述reviewer腦中觀察已接觸，未在本輪獨立驗算或補證，不稱盲發現或本作者新結果；
+既有§4.4及其係數未改，未把觀察當作全域存在性證據。
+讀本地conditional契約相關段落及三帳末段；GitHub核對r2 head／tree／parent、draft／未合併、
+main與CI #307 success，Git fetch確認本地文件與公開r2相同，直接以公開r2作parent，
+沒有改寫舊commit。不以本地checkpoint SHA作公開承重證據。
+
+選reviewer(i)允許的更窄子類：下游不再直接讀L、rank／comparison table或重取n_τσ。
+L只在§4.4進入K；其後只能經合規同鏈上游物件傳遞影響。新§4.5列各規則的合法上游輸入、
+typed factorization與相同上游必有相同結果的限制，禁止從K／Green解碼時間序／count後，
+作奇偶、模數、查表、非線性門檻、count特徵乘積或選係數。不能以「透過K」免來源審計。
+區分違禁時間特徵處理與同一inverse／adjoint／CAR／state恆等式所需的代數運算；
+後者仍須事前逐式列型別／用途，無法交代來源時停止，不補例外。
+§5.3另明示Ξ記號不能作隱藏L入口，變更下游依賴類須在新構造前修約並重新exact-head複核。
+這是契約容許規則類的文字設計與邏輯自檢，不是選定下游公式，不預判此子類能完成主問題。
+未選K、M_τσ值、pairing、adjoint／F／state實現或構造／證明策略，未開始conditional構造推導。
+
+本輪未讀新文獻、未作檢索；契約原有§4.1／§4.4／§6、D_Ξ、全部L量詞、primitive型別、
+不看譜與停止條件均不改。只新增§4.5與§5.3兩行限制，另追加三帳；0099逐字。
+README／STATUS、原始輸入契約、OP-01、T3／T6、其他研究稿、acceptance／formal、
+程式／JSON／tests／CI均不改，三帳在r2及main上的byte-prefix完整保留。
+Git／文字／hash／prefix及既有integrity只作repo檢查，本地不重跑全庫，回歸交CI。
+沒有數值／符號計算、模型／toy執行、RNG、撒點、producer、raw／sealed、seed、
+科學主機消費、量測或receipt。新model ID NONE；仍待r3 exact-head GO、必要CI、
+原樣合併與tree核對，不合併、不構造。探索軌，不具§5.2.1(v)依據資格；
+formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。

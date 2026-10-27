@@ -573,3 +573,50 @@ ACT blob `65496ad5ec59acaf57adaf18276b1fcc0fef4085`最初僅被建立、未掛�
 本r2只追加規格／研究稿§8及三帳，所有r1原文作完整byte-prefix；數學與其餘檔案不改。
 #98未GO／未合併，不開始新構造或conditional契約；探索軌不具§5.2.1(v)依據資格，
 formal／E0、A／B及全部既有資料隔離不變。
+
+
+## #98原樣合併與conditional問題起草（2026-10-25；只追加）
+
+操作者「同意授權」後，#98 head ae8d0d3b經GO及CI #304 success，expected-head原樣squash
+為main be55a80a8bbc80f1d5d371ada9c081f78789e094，tree6b9cf7d3與核准相同，parent1ac30ceb。
+Git committer UTC2026-10-24 17:09:47／台北2026-10-25 01:09:47；不是授權或研究開始時間。
+OP-01封存失敗及限定障礙，原始輸入主問題仍OPEN；停止該題新增試作，另立conditional契約。
+接觸帳§43逐字登EXP-0095，0096記操作者／Claude方向、兩篇原文的有限實讀與起草範圍。
+新題擬固定外加preferred時間序L與跨尺寸固定二維Hermitian參考資料，底層不縮D_KQ，
+對所有合規L量化；不以primitive補正譜，不假裝兩側障礙已解除。只定問題、無新model／K／state。
+conditional構造須待新契約GO、必要CI、原樣合併與tree核對；formal／E0及全部資料隔離不變。
+本稿不具§5.2.1(v)依據資格，不提高OP-01或文獻承重資格；無新科學執行。
+
+
+## PR #99 r2：限定時間序讀取與同源CAR條件（2026-10-26；只追加）
+
+r1公開鏈main be55a80a → 1fa6ce70（紀錄）→ 40e14003（契約），treeb440dec3；
+main→r1 patch SHA-256為fcbb4a03a1259ac091f49e0f2d26bcf5e81a1c2b00bba709128d6ee0ada1d84c。
+CI #306（run40188991114）在r1 completed／success，#99仍draft且未合併，main仍be55a80a。
+操作者轉交Claude「需修訂（r2）」；本輪只改conditional契約§4、§5.3、§6(b)，不動其他文件。
+接觸帳§44逐字追加EXP-0097，0098登作者修約／來源及未開始構造的範圍。
+選(ii)：明列L只能透過區間外類空事件的order型別／pre-between-post位置count固定線性和進入K，
+跨P／N固定matrix family，禁止任意rank算術、非線性count處理與逐P調整；不選具體係數或K。
+事件自然性不足及區間型別star觀察標為reviewer提示，承重使用前須另補完整假設／證明。
+總form須有事前宣告A=F(G_R,G_A;Ξ)及同一K的依賴／代數識別證據，不能以獨立δ-CAR補洞。
+不預判新限制足夠；D_Ξ及全部L量詞、§6(a)(c)(d)、primitive型別與停止條件不改。
+三帳完整保留r1及main的byte-prefix；README／STATUS、原契約、OP-01及formal全不改。
+新model ID NONE；r2尚待exact-head增量複核，保持draft、不合併、不開始conditional構造。
+探索軌不具§5.2.1(v)依據資格；formal／E0、A／B及全部資料隔離不變。無新科學執行。
+
+
+## PR #99 r3：整條下游鏈的時間序依賴限制（2026-10-26；只追加）
+
+r2 head a33cb211b65bcc9a712e7479096233624edb5090／tree0b2fc8c6e7f57feb5ddbcd79fb6399b8866bb64c，
+parent為r1 40e14003；r1→r2 patch SHA-256為
+051c20bf83ddfccb6238c9c35162232b5ed93a68d6d4a448b260d702e953a85c，遠端與驗證版相同。
+CI #307（run40217430617）在r2 success；#99仍draft且未合併，main仍be55a80a。
+操作者轉交r2「需修訂（r3）」；接觸帳§45逐字追加EXP-0099，0100登作者修約範圍，下一ID0101。
+只新增契約§4.5及§5.3兩行限制：選(i)的更窄子類，下游不直接讀L或重取時間序統計，
+只經合規K／Green／同鏈物件承接影響。逐規則列合法上游與factorization，禁止解碼排名／count
+後作奇偶、模數、查表、非線性門檻、特徵乘積或係數選擇；合法代數運算仍須逐式交型別／用途。
+Ξ記號不能藏直接L入口；變更任何下游依賴類須在新構造前修約、重新exact-head複核。
+既有§4.4、M_τσ值、§6與原域／量詞不改；不選K、F、pairing、state或證明策略，不預判存在性。
+三帳在r2及main的byte-prefix保持不變；README／STATUS、原契約、OP-01及formal均不改。
+保持draft、不合併；r3須GO、必要CI、原樣合併與tree核對後才可開始conditional構造。
+新model ID NONE；探索軌不具§5.2.1(v)依據資格，formal／E0、A／B與全部隔離不變，無新科學執行。
