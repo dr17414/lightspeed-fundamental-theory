@@ -632,3 +632,20 @@ CI #306（run40188991114）在r1 completed／success，#99仍draft且未合併�
 三帳完整保留r1及main的byte-prefix；README／STATUS、原契約、OP-01及formal全不改。
 新model ID NONE；r2尚待exact-head增量複核，保持draft、不合併、不開始conditional構造。
 探索軌不具§5.2.1(v)依據資格；formal／E0、A／B及全部資料隔離不變。無新科學執行。
+
+
+## PR #99 r3：整條下游鏈的時間序依賴限制（2026-10-26；只追加）
+
+r2 head a33cb211b65bcc9a712e7479096233624edb5090／tree0b2fc8c6e7f57feb5ddbcd79fb6399b8866bb64c，
+parent為r1 40e14003；r1→r2 patch SHA-256為
+051c20bf83ddfccb6238c9c35162232b5ed93a68d6d4a448b260d702e953a85c，遠端與驗證版相同。
+CI #307（run40217430617）在r2 success；#99仍draft且未合併，main仍be55a80a。
+操作者轉交r2「需修訂（r3）」；接觸帳§45逐字追加EXP-0099，0100登作者修約範圍，下一ID0101。
+只新增契約§4.5及§5.3兩行限制：選(i)的更窄子類，下游不直接讀L或重取時間序統計，
+只經合規K／Green／同鏈物件承接影響。逐規則列合法上游與factorization，禁止解碼排名／count
+後作奇偶、模數、查表、非線性門檻、特徵乘積或係數選擇；合法代數運算仍須逐式交型別／用途。
+Ξ記號不能藏直接L入口；變更任何下游依賴類須在新構造前修約、重新exact-head複核。
+既有§4.4、M_τσ值、§6與原域／量詞不改；不選K、F、pairing、state或證明策略，不預判存在性。
+三帳在r2及main的byte-prefix保持不變；README／STATUS、原契約、OP-01及formal均不改。
+保持draft、不合併；r3須GO、必要CI、原樣合併與tree核對後才可開始conditional構造。
+新model ID NONE；探索軌不具§5.2.1(v)依據資格，formal／E0、A／B與全部隔離不變，無新科學執行。

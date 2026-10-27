@@ -169,6 +169,41 @@ reviewer另提示：若block只依賴(P限制於[y,x], L限制於[y,x], R₀)的
 後續研究稿若採用這些觀察作承重論證，須先列完整假設並補正式證明，不記盲發現。
 更改本依賴類，包括讀取更多L資料或改彙總方式，須在新構造前修約並重新exact-head審查。
 
+### 4.5 r3：所有下游規則共用的、更窄的L依賴類
+
+針對reviewer指出的下游漏洞，本版選(i)的**更窄子類：不再直接讀L**。
+§4.4是整條鏈唯一容許將原始L轉為規則資料的入口，且只能在K的明列線性彙總中使用。
+K以後的規則不另讀L、其rank／comparison table，亦不重新取得n_τσ或其他L統計。
+它們只可經由合規K及下表的同鏈上游物件承接L的影響，不新增時間序特徵通道。
+這是事前的規則類限制；沒有選定任何下游公式，也不保證此更窄類能完成主問題。
+
+| 規則 | 除P／R₀外，容許承接L影響的上游物件 |
+| :--- | :--- |
+| G_R與contact／boundary／source規則 | 同一合規K；須滿足§5的inverse／composition與來源義務 |
+| G_A及物理adjoint／pairing規則 | 同一K、G_R及已按本節取得的source／contact；不另給L-adjoint表 |
+| smearing／test、projection／quotient規則 | 同一K及已按本節取得的Green／source物件；完整T及§7反補洞要求不變 |
+| F及總CAR關係 | 同一G_R、G_A及已按本節取得的adjoint／pairing／smearing／contact；不能另帶L或時間統計參數 |
+| state規則與額外dynamics主張 | 上述同鏈K／Green／CAR物件及已按本節取得的資料；不能由L另造covariance或state選擇器 |
+
+對每個規則D須在獨立規格中列明typed factorization
+D=widehat D(P,R₀;已逐項列名的合法上游物件)，並交完整公式、來源及依賴圖。
+若兩個L在固定P／R₀下給出相同的該規則上游輸入，D必須相同；不能暗中保留L參數。
+L仍可用於輸入域／structured morphism的敘述與全量詞證明，這不授權規則重新讀取它。
+primitive容量仍照§3披露，不因下游不再直接讀取而改報零。
+
+**禁令適用整條鏈**：不得直接或從K／Green／其他上游物件解碼／重建L排名、
+時間位置count或標籤，再作奇偶、模k、查表、非線性門檻、count特徵乘積，
+或據此挑adjoint、smearing、test、F、state或其係數。把違禁資料藏進上游物件名稱不算合規。
+後續須逐式審計所有係數／選擇器的來源，不能只以「透過K」宣稱通過。
+禁令針對額外的排名／count特徵處理；它不把同一inverse、adjoint、CAR／state恆等式所需的
+矩陣composition／inverse一概禁止，但每一運算須事前列明其型別與代數用途。
+展開合法上游算式後出現count乘積，不因此自動合規或違規；須檢查是否在履行上述同鏈恆等式，
+而非解碼時間序後產生新的規則係數。無法交代這項來源區別時，停止該規則，不補設例外。
+§5.3的非恆定／同源識別與§7的不看譜均另行適用；事前固定、不看譜不能豁免本節禁令。
+
+更改任何一項下游依賴類，包括重新直接讀L／n_τσ、增加時間特徵或放寬本表，
+必須在新構造之前修契約並重新交exact-head複核；失敗版本保留，不得在同版中放寬補洞。
+
 ## 5. 第一階段實質交付：仍須完成整條同源鏈
 
 固定完整field／test型別T_P=C^P⊗E₀，dim_C T_P=2|P|；
@@ -197,6 +232,8 @@ source／domain、物理smearing及所有projection／quotient規則依§7事前
 後續須在看所得form的符號／譜之前，完整宣告一個有型別、可計算及可審查的規則
 A=F(G_R,G_A;Ξ)。須寫出F的定義域、值域、全部配對／adjoint／smearing／contact資料，
 及G_A由同一K、G_R與Ξ取得的規則；不在本稿選定F的具體實現。
+此處Ξ記號不授權直接使用L：G_A、F及所有配對／smearing／test／state一律受§4.5限制；
+F的實際依賴須展開為該節所列的P／R₀及合法上游物件，不能以Ξ作隱藏的時間序入口。
 只寫「存在F」或把事後得到的A重新命名為F不合格。每次換K，必須從該K重求Green，
 再用**同一F**決定A，不能把獨立的kinematic CAR沿用並聲稱已對接。
 

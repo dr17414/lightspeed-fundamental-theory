@@ -1388,3 +1388,55 @@ producer、raw／sealed、seed、科學主機消費、量測或receipt。
 新model ID NONE；仍待r2 exact-head增量GO、必要CI、原樣合併與tree核對，不合併、不構造。
 探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
 下一個新EXP-ID為0099。
+
+
+## 45. PR #99 r3：將時間序依賴禁令延伸至整條下游鏈（2026-10-26；只追加）
+
+操作者轉交Claude「#99 r2需修訂（r3），只剩一個漏洞」與下列本人申報。
+本輪只補conditional契約§4.5及§5.3交叉限制，三帳只追加；不把複核意見當GO，
+不解除draft／不合併限制，不開始conditional構造。原始輸入問題仍OPEN。
+
+其後r2已發布於既有分支docs/kq-conditional-time-adjoint／draft PR #99：
+公開head a33cb211b65bcc9a712e7479096233624edb5090，tree0b2fc8c6e7f57feb5ddbcd79fb6399b8866bb64c，
+唯一parent為r1 40e140036474db43f8ce67459f38b3f3e3c6f384。
+r1→r2 patch SHA-256為051c20bf83ddfccb6238c9c35162232b5ed93a68d6d4a448b260d702e953a85c，
+main→r2為2f6465ac2206a8780ab06309c8beea34d2f8b4175ffa80960009c233444afab0；
+遠端重新fetch後，tree與完整增量patch均與本地驗證版相同，三帳前綴保留。
+CI #307（run40217430617）在r2 completed／success；這是既有repo回歸，不是科學執行。
+2026-10-26核對時#99仍draft且未合併，main仍be55a80a8bbc80f1d5d371ada9c081f78789e094。
+這是r2發布的其後事實，不是r3尚未完成的發布紀錄或構造開始時間。
+核對r2最後ID0098，以下追加0099／0100，下一可用ID0101。
+
+**EXP-0099：操作者轉交的Claude PR #99 r2增量複核本人申報原句**
+
+> Claude（PR #99 r2 增量複核）：以 exact head `a33cb211` 讀 r1→r2 的全部 diff，包括契約 §4.1、§4.4、§5.3 的修訂與三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff 40e14003 a33cb211` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 r1 與 r2 版本暫存於 scratchpad，逐位元組比對前綴，確認其他檔案沒有改動，並用腳本比對 EXP-0097 原句。在三葉 star 上推算 §4.4 的計數與 block span、可能出現的 order 型別與 L 位置限制，以及 F 一側的排名算術漏洞，都是在腦中推理，沒有寫成證明。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0100：GPT #99 r3下游依賴類修約與接觸範圍**
+
+讀本輪轉交的完整複核與0099原句，包括star的線性count／span提示、可能order型別及L位置
+限制、M_τσ事前固定的提醒，以及F／G_A／smearing／test／state的排名算術漏洞。
+上述reviewer腦中觀察已接觸，未在本輪獨立驗算或補證，不稱盲發現或本作者新結果；
+既有§4.4及其係數未改，未把觀察當作全域存在性證據。
+讀本地conditional契約相關段落及三帳末段；GitHub核對r2 head／tree／parent、draft／未合併、
+main與CI #307 success，Git fetch確認本地文件與公開r2相同，直接以公開r2作parent，
+沒有改寫舊commit。不以本地checkpoint SHA作公開承重證據。
+
+選reviewer(i)允許的更窄子類：下游不再直接讀L、rank／comparison table或重取n_τσ。
+L只在§4.4進入K；其後只能經合規同鏈上游物件傳遞影響。新§4.5列各規則的合法上游輸入、
+typed factorization與相同上游必有相同結果的限制，禁止從K／Green解碼時間序／count後，
+作奇偶、模數、查表、非線性門檻、count特徵乘積或選係數。不能以「透過K」免來源審計。
+區分違禁時間特徵處理與同一inverse／adjoint／CAR／state恆等式所需的代數運算；
+後者仍須事前逐式列型別／用途，無法交代來源時停止，不補例外。
+§5.3另明示Ξ記號不能作隱藏L入口，變更下游依賴類須在新構造前修約並重新exact-head複核。
+這是契約容許規則類的文字設計與邏輯自檢，不是選定下游公式，不預判此子類能完成主問題。
+未選K、M_τσ值、pairing、adjoint／F／state實現或構造／證明策略，未開始conditional構造推導。
+
+本輪未讀新文獻、未作檢索；契約原有§4.1／§4.4／§6、D_Ξ、全部L量詞、primitive型別、
+不看譜與停止條件均不改。只新增§4.5與§5.3兩行限制，另追加三帳；0099逐字。
+README／STATUS、原始輸入契約、OP-01、T3／T6、其他研究稿、acceptance／formal、
+程式／JSON／tests／CI均不改，三帳在r2及main上的byte-prefix完整保留。
+Git／文字／hash／prefix及既有integrity只作repo檢查，本地不重跑全庫，回歸交CI。
+沒有數值／符號計算、模型／toy執行、RNG、撒點、producer、raw／sealed、seed、
+科學主機消費、量測或receipt。新model ID NONE；仍待r3 exact-head GO、必要CI、
+原樣合併與tree核對，不合併、不構造。探索軌，不具§5.2.1(v)依據資格；
+formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
