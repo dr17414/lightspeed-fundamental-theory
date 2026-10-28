@@ -1544,3 +1544,33 @@ numpy2.3.5／scipy1.17.0／threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1重跑�
 integrity與diff --check通過。七檔範圍、三階段分隔、規格自第二commit後逐位元組不變、
 三帳相對main及前兩commit的完整prefix、0101／0102原句、0101–0104唯一ID、
 README／STATUS只改目前狀態段及新文件相對連結均核對通過。這些是repo檢查，不是數學證明的獨立複核。
+
+
+## 49. #100封存與有界量子橋接文獻盤點的接觸起點（2026-10-28；只追加）
+
+操作者轉交CF-01 GO、合併後核對及有界文獻盤點題目。題目記選題時間為2026-10-28 17:39台北，
+先做文獻盤點、暫不開CF-02；此時間依轉交題目記錄，不以Git時間倒填。
+定位是盤點而非構造或新契約；不以盤點直接選CF-02規則，未來若構造須另立事前規格並披露引用。
+#100核准head ac8e685e27649befc8c02fd7f7a4332bd9c5823e／tree81c0105a10186352bfe36d2a0f8e05589c01c9ee。
+CI #310（run40632220559）首次既有parent-death測試遇ProcessLookupError，555 passed／1 failed；
+同head重跑job122661503156成功，556 passed／5 warnings，integrity通過，沒有改任何檔案。
+操作者明確「同意授權」解除draft／不合併限制後，以expected head原樣squash為main
+74b012db50ee1d7ac3e4288284ff3a28686a3cf2，tree與GO一致，唯一parent5e5e819ff76cedac84b1be9c20cac5eb1a047842。
+Git committer為UTC2026-10-28 09:24:45／台北17:24:45，不作授權或閱讀開始時間。
+本交付基線即該main；先逐字登記0105／0106／0107，再另commit交盤點與實讀來源申報。
+兩則方向觀察先記來源是reviewer提示，未升格成已核實文獻或擴大CF-01結論。
+原始輸入及conditional兩個主問題均OPEN；sector只及探索判準，不稱physical spin／完整量子物質已解。
+
+**EXP-0105：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #100 複核）：以 exact head `ac8e685e` 讀 #100 全部 diff、CF-01 規格與研究稿全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 5e5e819f ac8e685e` 的 SHA-256 等於操作者提供的 patch hash；確認規格在研究稿 commit 中沒有改動、規格 commit 中沒有研究稿；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認兩份契約與 acceptance 沒有改動，並用腳本比對 EXP-0101、0102 原句，掃描帳本中的未推送字句。以下都在腦中推理，沒有寫成程式：逐式手算 §2.1 的型別與示例、§3 的自然性與 inverse、§4 的線性獨立性與分情形論證、(CF.5)–(CF.9)、§6 的 G_η 障礙；另外推得「自然性迫使所有 block 落在 span{I,η₀}」，以及「有限維 inverse 唯一、K 與其 adjoint 的符號關係」兩項觀察。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0106：操作者轉交的Claude本人申報原句**
+
+> Claude（#100 合併後核對與方向選項）：以 git 抓取 main，核對 SHA `74b012db`、tree `81c0105a`、parent `5e5e819f` 與 committer 時間。方向選項依據已合併的 KQ 系列文件與我先前的複核意見整理，沒有讀其他檔案內容，也沒有做文獻檢索。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+**EXP-0107：操作者轉交的Claude本人申報原句**
+
+> Claude（文獻盤點題目說明）：依據已合併的 KQ 系列文件與先前的複核意見撰寫題目說明，沒有讀 repo 中的其他檔案，也沒有做文獻檢索。題目說明中提到的作者與研究方向（Johnston、Sverdlov、Noldus、費米子 SJ 態、Feynman checkerboard、Dirac quantum walk、Farrelly–Short、Arrighi）都是憑記憶提出，尚未核實。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+下一個新EXP-ID為0108。只限紙上盤點，不構造、不改契約；探索軌不具§5.2.1(v)依據資格，formal／E0與全部隔離不變。

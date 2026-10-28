@@ -663,3 +663,14 @@ CF-01停止，失敗原樣保留；conditional與原始輸入主問題均OPEN，
 本地既有回歸：CI指定Python3.12.13／依賴pin的uv隔離環境，556 passed、5 warnings；
 integrity及diff --check通過，七檔／prefix／原句／規格保全／目前狀態段範圍核對通過。
 這不取代exact-head獨立數學複核，沒有新增科學執行或scientific PASS。
+
+
+## #100封存與有界文獻盤點起點（2026-10-28；只追加）
+
+#100經GO及CI #310同head重跑成功（556 passed、5 warnings），操作者授權原樣squash，
+main74b012db50ee1d7ac3e4288284ff3a28686a3cf2／tree81c0105a10186352bfe36d2a0f8e05589c01c9ee，
+parent5e5e819f；Git committer台北2026-10-28 17:24:45，不作授權或盤點開始時間。
+操作者選題紀錄2026-10-28 17:39台北：先做有界量子橋接文獻盤點，暫不開CF-02。
+本分支第一commit僅追加三帳，接觸帳§49逐字登EXP-0105／0106／0107；下一ID0108。
+盤點不是構造或新契約，不能直接選CF-02規則；引用實讀範圍與證據等級另行記帳。
+兩主問題OPEN，不升格sector成physical spin；探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
