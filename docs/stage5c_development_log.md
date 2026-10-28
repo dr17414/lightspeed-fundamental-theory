@@ -674,3 +674,25 @@ parent5e5e819f；Git committer台北2026-10-28 17:24:45，不作授權或盤點�
 本分支第一commit僅追加三帳，接觸帳§49逐字登EXP-0105／0106／0107；下一ID0108。
 盤點不是構造或新契約，不能直接選CF-02規則；引用實讀範圍與證據等級另行記帳。
 兩主問題OPEN，不升格sector成physical spin；探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
+
+
+## KQ量子橋接有界文獻盤點交付（2026-10-28；只追加）
+
+基線main74b012db／tree81c0105a；#100已GO、CI成功及原樣合併，CF-01限定失敗正式保存。
+前commit已逐字登EXP-0105–0107；本階段接觸帳§50追加EXP-0108與S1–S15完整選讀範圍、
+未讀／取用失敗及搜尋片段披露。新增docs/foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md，
+逐項附版本／章節／式號及原文明確陳述／作者推論／未查到，附新穎性初對照與Ξ來源分類。
+finite inverse／domain、transpose／formal dual、scalar CCR／fermion CAR、總form／covariance及
+kinematic CAR／unitary分帳；不把Johnston tentative、Noldus ghosts或continuum FP當本題正state解答。
+沒有選CF-02、改契約或新證明，無數值／符號／RNG／撒點／producer／raw／sealed科學執行。
+本交付六檔：新盤點稿、三帳追加、README／STATUS只換目前狀態段；其他歷史文件與formal皆不改。
+兩主問題OPEN；sector span不是physical spin。探索軌不具§5.2.1(v)資格，全部隔離不變。
+本地準備不冒充已發布；後續任何公開傳輸依操作者限定payload授權，draft exact-head由reviewer抽查原文。
+
+
+本地交付驗證完成（2026-10-28）：CI指定Python3.12.13與numpy2.3.5／scipy1.17.0／
+threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1的uv隔離環境跑既有tests：556 passed、5 warnings，
+119.34s。這是既有回歸（含其原有數值測試），不是新文獻模型／符號／數值驗算，未改程式或tests。
+integrity、diff --check、六檔範圍、三帳相對main及第一commit的逐位元組prefix、0105–0107原句、
+0105–0108唯一ID、README／STATUS只動目前段及新增稿相對連結檢查通過。
+這些檢查不證原文引用／分類正確，也不取代reviewer自行讀原文抽查。

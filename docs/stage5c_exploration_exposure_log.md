@@ -1574,3 +1574,84 @@ Git committer為UTC2026-10-28 09:24:45／台北17:24:45，不作授權或閱讀�
 > Claude（文獻盤點題目說明）：依據已合併的 KQ 系列文件與先前的複核意見撰寫題目說明，沒有讀 repo 中的其他檔案，也沒有做文獻檢索。題目說明中提到的作者與研究方向（Johnston、Sverdlov、Noldus、費米子 SJ 態、Feynman checkerboard、Dirac quantum walk、Farrelly–Short、Arrighi）都是憑記憶提出，尚未核實。沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
 
 下一個新EXP-ID為0108。只限紙上盤點，不構造、不改契約；探索軌不具§5.2.1(v)依據資格，formal／E0與全部隔離不變。
+
+
+## 50. KQ量子橋接有界文獻盤點：實讀原文及分類範圍（2026-10-28；只追加）
+
+**EXP-0108：GPT本人申報——檢索、原文選讀及比較分類；不是構造或新證明**
+
+操作者本輪題目限定於文獻盤點、暫不開CF-02。基線74b012db50ee1d7ac3e4288284ff3a28686a3cf2／
+tree81c0105a10186352bfe36d2a0f8e05589c01c9ee；本分支第一commit僅三帳追加、先逐字登0105–0107，
+本階段才新增盤點稿、實讀申報及目前狀態同步。沒有另選K、adjoint、F、state、係數或工作域。
+本輪確有新檢索及原文接觸，不能沿用CF-01「沒有讀新文獻」的歷史申報。
+所有下表來源均有正文選讀；各自範圍及未讀部分逐項列出，不稱全文或獨立逐式驗證。
+正文依原文明確陳述／作者推論／未查到分級；未查到不證文獻不存在。
+報告路徑：docs/foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md。
+此canonical接觸帳為權威登記，報告的同表只是閱讀索引。
+
+| ID／原文與版本 | 實際閱讀及用來承重的位置 | 沒有完成的閱讀／驗證 |
+| :--- | :--- | :--- |
+| S1 Christian Bär, *Green-hyperbolic operators on globally hyperbolic spacetimes*, [1310.0738v2](https://arxiv.org/pdf/1310.0738v2)，2014-07-14 | Def.3.1、3.7，Lemma3.21，Thm.3.22／exact sequence (4)；連帶摘要與 §3.6、§4.1／Thm.4.3 片段 | 非全 26 頁；不搬用未讀的 Dirac 正性證明 |
+| S2 Steven Johnston, *Quantum Fields on Causal Sets*, [1010.5514v1](https://arxiv.org/html/1010.5514v1)，2010-10-26／學位論文 2010-09 | §4.3.1 (4.6)–(4.8)、§4.5.1 (4.23)–(4.29)、§6.1–6.5 選段，重點 (6.13)–(6.19)、(6.25)–(6.26) 及 footnote4；亦見目錄、相鄰 §4.2.3／4.4.2 與 §7.1 片段 | 非整本論文；未讀其所引 Feynman–Hibbs 原書 |
+| S3 E. Dable-Heath, C.J. Fewster, K. Rejzner, N. Woods, *Algebraic Classical and Quantum Field Theory on Causal Sets*, [1908.01973v3](https://arxiv.org/pdf/1908.01973v3)，2020-02-25 | §III.B.1 (33)–(36)、III.B.4 (64)–(67)、III.C.2 (81)–(83)、III.D (89)–(92)，IV.C 定義IV.7／(121) 開頭；連帶摘要、§I–II.B 正文、III.E／Wick (135) 與正性段落的搜尋回傳片段 | 非全 42 頁；未核全套 interacting／state 證明；本篇是純量場 |
+| S4 Johan Noldus, *Free Fermions on causal sets*, [1305.0443](https://arxiv.org/pdf/1305.0443)，頁首 **v3，2015-01-26** | 摘要／§1、§2 generating structure、involution／adjoint 定義與 footnotes5–9，§3 CAR／模式／負範數及 ghosts；連帶 §4 例子與 eigenvalue 片段 | 非逐頁重證 8 頁；未計算任何例子的譜；內頁排版日期不充作 arXiv 版本日期 |
+| S5 Roman Sverdlov, *Spinor fields in Causal Set Theory*, [0808.2956](https://arxiv.org/pdf/0808.2956)，頁首 **v1，2008-08-21** | 摘要，§1 (1)–(3)、(9)–(18)，§2.1／§2.2 開頭 (18)–(21) 的 Lagrangian／holonomy；連帶後段 time-axis 片段 | 非全 21 頁；未核整套離散 Lagrangian，未讀到正 CAR／state 定理 |
+| S6 C.J. Fewster, B. Lang, *Pure quasifree states of the Dirac field from the fermionic projector*, [1408.1645](https://arxiv.org/pdf/1408.1645)，頁首 **v2，2014-09-26** | 摘要／引言，§2.2 (1)–(4)、§2.4 的 Green 映射／Hilbert 空間 (9)–(16) 及 Lemma2.2 相鄰證明，§2.5 CAR 定義；§3 建構的 (21)、(25)–(30) 與 positive projection，§4 結論；另見 §2.3、§3.1 Thm.3.4 的片段 | 非全 26 頁；未完整核 Hadamard 證明；內頁較晚排版日期不改 v2 身分 |
+| S7 E. Hawkins, C. Minz, K. Rejzner, *Quantization, dequantization, and distinguished states*, [2207.05667v2](https://arxiv.org/pdf/2207.05667v2)，2024-09-13 | PDF 摘要、§1、§2.1 (1)–(9)、§6 結論；連帶 §2.2–2.3 開頭、§5 結尾／Appendix A 的回傳正文；另讀出版社搜尋回傳 §2.4 Defs11–13／(33) 片段 | 非全 34 頁；未讀完 geometric quantization 證明；出版社直接開啟受阻，以上主張核回 arXiv |
+| S8 T.C. Farrelly, A.J. Short, *Causal Fermions in Discrete Spacetime*, [1303.4652v1](https://arxiv.org/pdf/1303.4652v1)，2013-03-19 | 摘要／§I、§II (II.1)、(II.4)–(II.5)，§III Def.1、Lemma1／III.A 開頭；§IV.A 的 shift／mass／continuum 式 (IV.5)–(IV.10)、IV.D (IV.30)–(IV.35)；連帶 IV.C、§V 開頭及參考文獻／appendix 搜尋片段 | 非全 16 頁；未核所有 localizability 或 infinite-lattice 證明 |
+| S9 P. Arrighi, V. Nesme, M. Forets, *The Dirac equation as a quantum walk: higher dimensions, observational convergence*, [1307.3524v1](https://arxiv.org/pdf/1307.3524v1)，2013-07-12 | 摘要／引言、§I (2)–(4)、§II Cauchy problem、§III consistency 開頭，另見 §IV norm-stability 片段 | 非全 8 頁；未完整核 §V convergence proof；讀到的是單粒子 walk，不能稱已讀 CAR 建構 |
+| S10 C. Biró, P. Hamburger, A. Pór, W.T. Trotter, *Forcing Posets with Large Dimension to Contain Large Standard Examples*, [1402.5113v3](https://arxiv.org/pdf/1402.5113v3)，2015-08-24 | 摘要及 §1.1 standard example 定義／dim；find 另回傳後續定理及隨機 poset 片段 | 不核那些後續證明；不以本文作者取代其追溯的 Dushnik–Miller 原創歸屬 |
+| S11 Toronto／Meinrenken 課程站，*Clifford algebras*, [Chapter2 PDF](https://www.math.toronto.edu/mein/teaching/LieClifford/cl2.pdf)，**檔內未見版本日期** | §2.3 Prop.2.5、§2.4 Prop.2.6 及相鄰實分類 Prop.2.4；另見開頭 exterior-algebra 定義 | 作者課程材料，不冒稱原始發現論文；非全 13 頁，沒有替無日期檔案編出版年 |
+| S12 D.J. Kleitman, B.L. Rothschild, *Asymptotic Enumeration of Partial Orders on a Finite Set*, Trans.AMS205 (1975),205–220，[DOI](https://doi.org/10.1090/S0002-9947-1975-0369090-9)／[作者上傳正文](https://www.researchgate.net/publication/243778189_Asymptotic_Enumeration_of_Partial_Orders_on_a_Finite_Set) | 作者上傳的原文 OCR：摘要、§1、§2 開頭，pp205–206；上傳頁記 Kleitman 2014-07-22 | AMS PDF 取用失敗；OCR 排版不佳，不藉此認證精確 prefactor 或未讀 §3 證明 |
+| S13 Steven Johnston, *Particle propagators on discrete spacetime*, [0806.3083v2](https://arxiv.org/pdf/0806.3083v2)，2008-10-01 | 摘要，§3 (3.1)–(3.5)、§3.2 結尾 (3.33)–(3.44) 選段、§3.3 fluctuations | 非全 14 頁；未重算 Fourier transform 或數值圖 |
+| S14 F. Dowker, J. Henson, R.D. Sorkin, *Discreteness and the transmission of light from distant sources*, [1009.3058v2](https://arxiv.org/pdf/1009.3058v2)，2010-10-07 | 摘要／引言，§3.1 結尾 (30)–(31)、§3.2 開頭 (32)–(36) 的二階矩與 blocking | 非全 16 頁；未完整核所有 fluctuation bound 或器件近似 |
+| S15 H. Araki, *On Quasifree States of CAR and Bogoliubov Automorphisms*, Publ.RIMS6 (1970/71),385–442，[出版社原文](https://ems.press/content/serial-article-files/41673?nt=1) | 摘要／引言，§2 pp386–387、§3 Lemmas3.2–3.3／(3.3)–(3.5) pp388–389；連帶 Thm.1 敘述 | 非全 58 頁；不把 quasifree state 定理當作由 order 導出 CAR |
+
+
+搜尋主題含 causet fermion／Dirac propagator、finite inverse／Peierls、fermionic SJ／fermionic projector、
+checkerboard、discrete Dirac walk／causal fermion QCA，以及各新穎性項目的具名詞。
+使用兩個網路搜尋引擎及 arXiv／作者站／出版社原文定位，沒有作系統綜述或窮盡引文網絡。
+
+**未查到〔本輪檢索與 S2 §6.5、S4 §3、S6 §2–3、S7 §6〕：**
+沒有核到一個在任意本題有限 causet／完整 T 上，從同一 K 導出正總 CAR 並滿足現行全部量詞的
+「費米子 SJ」定理；這不是宣告文獻不存在。S6 是已讀到的連續 fermionic SJ 類比；S7 的
+§6 明將 fermionic extension 列為後續挑戰，不能據一篇論文推出整個領域的否定結論。
+
+Feynman–Hibbs (1965) 原書 pp35–36 **未讀**，只經 S2 §6.3 讀其 checkerboard 描述。
+Skopenkov–Ustinov *Feynman checkers*（arXiv:2007.12879）PDF 過大、HTML 取用失敗，
+沒有讀正文或核版本；Jacobson checkerboard 相關項目僅見摘要／書目搜尋片段，不承重。
+Fewster–Verch 1206.1562、Finster–Murro–Röken 1501.05522、Minz 2021 thesis／2024 DIAS slides、
+Noldus 其他版本等只見摘要／引文或搜尋片段，沒有聲稱讀其正文。
+二手綜述、百科與書目網站也曾出現在搜尋結果，未用作技術結論依據。
+指定版號 URL／ar5iv 曾取用失敗的 S4–S6，後改由 arXiv PDF 頁首核版本；失敗請求不算原文閱讀。
+
+
+本輪也讀／文字定位了repo的STATUS目前段、兩份KQ契約、OP-01／CF-01規格與研究稿的結果／
+限定類／來源位置、T2 §§2–3及相鄰measure／相消段、T3 §§2.1–2.3／4.3及文獻位置、
+T6 §§1–3及§8–9、兩份C2研究稿的目標／M／V／量詞／文獻段、方向評估及exposure supplement，
+並看過rg回傳的帳本／README相鄰內容。沒有讀raw／sealed或reference-probe新資料。
+對舊接觸帳的文字讀取不可稱從未接觸既有公開摘要，但本題沒有以它們選構造。
+
+有界盤點新增的工作是來源核對、型別比較與新穎性分類，不是構造推導。
+有限inverse問題的直接文獻定位包含Dable-Heath等的純量§III.D；未把它當費米子正性定理。
+Johnston §6.5為tentative，Noldus保留負norm／ghost，Fewster–Lang在正solution CAR後選covariance，
+Farrelly–Short先給kinematic CAR。這些是分帳，沒有挑一項作CF-02方案或補洞。
+沒有新增數學證明、沒有執行本題的新數值或符號計算、RNG、撒點、producer、raw／sealed、seed、
+科學模型或量測。僅使用文字／Git／hash／prefix／連結檢查及既有回歸作repo交付驗證；
+不作科學PASS，不把測試當原文引用或數學分類的獨立複核。
+
+兩主問題OPEN，CF-01失敗原樣保存，沒有用文獻反推改規格；後續如依文獻建構，須另立獨立
+事前規格並披露全部來源。探索軌不具§5.2.1(v)依據資格，formal／E0、A／B、6a-E／Freeze-1a、
+UNKNOWN及全部資料隔離不變。下一個新EXP-ID為0109。
+
+本地準備階段與之後公開發布分開：本段不聲稱已建立遠端分支／PR，也不聲稱其後永遠未發布。
+若取得操作者對限定payload的完整Git blob傳輸授權而發布，實際public head／tree／patch hash
+由發布回報與公開Git核對，不以本地SHA或Git日期證閱讀先後、盲性或優先權。
+
+
+本地交付驗證完成（2026-10-28）：CI指定Python3.12.13與numpy2.3.5／scipy1.17.0／
+threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1的uv隔離環境跑既有tests：556 passed、5 warnings，
+119.34s。這是既有回歸（含其原有數值測試），不是新文獻模型／符號／數值驗算，未改程式或tests。
+integrity、diff --check、六檔範圍、三帳相對main及第一commit的逐位元組prefix、0105–0107原句、
+0105–0108唯一ID、README／STATUS只動目前段及新增稿相對連結檢查通過。
+這些檢查不證原文引用／分類正確，也不取代reviewer自行讀原文抽查。

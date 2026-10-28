@@ -95,21 +95,22 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：conditional契約已定案；CF-01失敗交付待逐式複核（2026-10-28）：**
+**目前狀態：CF-01限定失敗已封存；量子橋接有界文獻盤點待原文複核（2026-10-28）：**
 
-#99 r3 head7fbc53d3／treee925b0e4經exact-head GO、CI #308 success及操作者明確合併授權，
-原樣squash為main `5e5e819ff76cedac84b1be9c20cac5eb1a047842`，唯一parent be55a80a，
-merge tree與核准相同；Git committer台北2026-10-27 13:37:57，不作授權或研究開始時間。
-[X-KQ-COND-TA-P0.1](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)開始條件已滿足。
-本交付第一commit逐字登EXP-0101／0102，第二commit獨立固定[CF-01規格](foundations/kq_conditional_foliation_attempt_spec_v0_1.md)
-及事前已見資訊（0103），其後才交[研究稿](foundations/kq_conditional_foliation_attempt_study_v0_1.md)與0104。
-只在外加Ξ=(L,R₀)之下：K、同一K的完整retarded inverse及structured自然性已交，
-§6(a)傳播、(b)全工作域span恰2、(c)原Hasse-hop非局域性成立；不等於spin／mixing或物理Dirac。
-固定η-adjoint因[K,H]=0實際退回ordinary，總form有零對角及負方向，(d)失敗、無任何正歸一state。
-同鏈恆等式與F非恆定不等於正性或物理來源已解；G_η限定障礙不涵蓋任意F或所有Ξ構造。
-CF-01停止並保留失敗，不回改規格／工作域／pairing／state；conditional與原始輸入主問題均OPEN。
-作者規格前已有腦中論證及reviewer提示，非盲研究；公開Git只證版本順序。結果尚待獨立複核，
-完整文獻mapping／新穎性、actual physical／continuum仍未交；無科學程式或量測。
+#100 head ac8e685e／tree81c0105a經exact-head GO、CI #310同head重跑成功及操作者明確合併授權，
+原樣squash為main `74b012db50ee1d7ac3e4288284ff3a28686a3cf2`，唯一parent5e5e819f，
+merge tree與核准相同；Git committer台北2026-10-28 17:24:45，不作授權或研究開始時間。
+[CF-01規格](foundations/kq_conditional_foliation_attempt_spec_v0_1.md)與[研究稿](foundations/kq_conditional_foliation_attempt_study_v0_1.md)保留原樣。
+在外加Ξ下的全域sector span校準及G_η限定橋接失敗已保存，不升格physical spin／mixing／Dirac，
+不排除任意F或全部Ξ；[原始輸入](foundations/kq_1p1_construction_problem_contract_v0_1.md)及
+[conditional](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)兩主問題均OPEN。
+操作者選題時間依轉交紀錄為台北2026-10-28 17:39：先盤點，暫不開CF-02。
+本交付第一commit逐字登EXP-0105／0106／0107，後續交[有界文獻盤點](foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)
+與0108實讀申報，來源S1–S15逐項標版本／章節／式號與選讀上限。
+盤點區分finite inverse的domain、transpose／formal dual、scalar CCR／fermion CAR、總form／covariance
+及kinematic CAR／unitary；新穎性只是有界初對照。最後按Ξ／G_η分類，不選任何構造方案。
+文獻定位待reviewer自行讀原文抽查；未查到不證不存在，不是新問題契約或完整mapping成果。
+沒有K／F／state／primitive／工作域選擇或新科學執行，後續建構須另立事前規格並披露引用。
 探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、item7／8、6a-E／Freeze-1a及UNKNOWN隔離不變。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**

@@ -30,7 +30,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：conditional契約已定案；CF-01紙上試作失敗，待逐式複核**：#99 r3經GO、CI #308成功及操作者授權，原樣合併main `5e5e819f`（tree `e925b0e4`）。依[契約](docs/foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)，先登EXP-0101／0102，再獨立固定[CF-01規格](docs/foundations/kq_conditional_foliation_attempt_spec_v0_1.md)，最後交[研究稿](docs/foundations/kq_conditional_foliation_attempt_study_v0_1.md)。在外加Ξ下，全部工作域的傳播、sector span恰2及K非局域性成立，但固定η-adjoint／Green-difference總form有負方向、無正state。global R₀自然性迫使K與η交換，η-adjoint退回ordinary的障礙僅及明列類；兩個主問題仍OPEN。規格及失敗原樣保留，不補洞，作者先有預想已披露；EXP-0103／0104記範圍。探索軌不具§5.2.1(v)依據資格，formal／E0及全部隔離不變。
+- **目前狀態：CF-01限定失敗已封存；量子橋接有界文獻盤點待原文複核**：#100經exact-head GO、CI #310同head重跑成功及操作者授權，原樣合併main `74b012db`（tree `81c0105a`）。[CF-01](docs/foundations/kq_conditional_foliation_attempt_study_v0_1.md)在外加Ξ下完成探索sector span校準，固定η-adjoint橋接失敗；不等於physical spin已解，兩個主問題仍OPEN。依操作者選題，暫不開CF-02，新增[有界文獻盤點](docs/foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)，分清finite inverse／domain、transpose／adjoint、總CAR／covariance與kinematic CAR，逐項列版本、實讀範圍及證據等級；最後只分類相對Ξ的額外輸入與G_η界線，不選方案。EXP-0105–0107逐字登記，0108記本輪原文接觸；契約與全部既有研究稿不改。探索軌不具§5.2.1(v)依據資格，formal／E0及全部隔離不變。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
