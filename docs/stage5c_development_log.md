@@ -620,3 +620,15 @@ CI #307（run40217430617）在r2 success；#99仍draft且未合併，main仍be55
 三帳在r2及main的byte-prefix保持不變；README／STATUS、原契約、OP-01及formal均不改。
 保持draft、不合併；r3須GO、必要CI、原樣合併與tree核對後才可開始conditional構造。
 新model ID NONE；探索軌不具§5.2.1(v)依據資格，formal／E0、A／B與全部隔離不變，無新科學執行。
+
+
+## #99合併後與conditional首份交付的紀錄起點（2026-10-28；只追加）
+
+#99經r3 GO、CI #308成功及操作者2026-10-27「同意授權」，expected-head7fbc53d3原樣squash
+為main5e5e819ff76cedac84b1be9c20cac5eb1a047842，treee925b0e4be083478f0372b98994e9b837d45ab53，
+唯一parent be55a80a；Git committer台北2026-10-27 13:37:57，不作授權或研究開始時間。
+操作者轉交合併後核對及分段交付建議；契約§1的GO／CI／原樣合併／tree與登記條件已齊。
+本分支第一commit只追加三帳，接觸帳§46逐字登記EXP-0101／0102，下一ID0103。
+下一獨立規格commit須先固定全部規則、來源與預想，再有研究輸出；Git只證版本順序，不證盲性。
+尚未推送；後續交付須操作者核准具體payload，保持draft，不以本紀錄授權合併。
+探索軌不具§5.2.1(v)依據資格；formal／E0及全部既有隔離不變，無科學程式執行。

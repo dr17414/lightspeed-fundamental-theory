@@ -1440,3 +1440,31 @@ Git／文字／hash／prefix及既有integrity只作repo檢查，本地不重跑
 科學主機消費、量測或receipt。新model ID NONE；仍待r3 exact-head GO、必要CI、
 原樣合併與tree核對，不合併、不構造。探索軌，不具§5.2.1(v)依據資格；
 formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+
+
+## 46. #99合併後接續：conditional首份交付的reviewer申報（2026-10-28；只追加）
+
+操作者轉交#99 r3 GO、本人申報與合併後核對，並建議交付分為紀錄、獨立規格、研究稿三階段。
+#99核准head7fbc53d3361e05a0a84a5c3ee88ebae607e02eaf／treee925b0e4be083478f0372b98994e9b837d45ab53，
+CI #308（run40443079477）成功；操作者2026-10-27表示「同意授權」，解除draft／不合併限制，
+授權轉ready、expected-head原樣squash及核對tree，不含當輪構造。
+原樣合併main5e5e819ff76cedac84b1be9c20cac5eb1a047842，唯一parent be55a80a8bbc80f1d5d371ada9c081f78789e094，
+merge tree與核准相同。Git committer為UTC2026-10-27 05:37:57／台北2026-10-27 13:37:57，
+不是操作者授權或構造開始時間。上文各次「待GO／未合併」保留為當時狀態。
+操作者本輪轉交的合併後核對認定契約§1開始條件滿足，0101／0102隨本交付登記不遞迴阻擋。
+
+核對main帳本止於0100，以下依序逐字登記0101／0102；本commit只有三帳追加。
+新規格另作下一commit；實際科學思考／來源與事前預想須在該規格及作者申報如實披露，
+不能以本紀錄commit或之後的公開Git順序證明內部思考盲固定。
+本地建立交付分支，不改寫main或公開歷史；無遠端推送、無執行科學模型。
+
+**EXP-0101：操作者轉交的Claude #99 r3增量複核本人申報原句**
+
+> Claude（PR #99 r3 增量複核）：以 exact head `7fbc53d3` 讀 r2→r3 的全部 diff，包括契約新增的 §4.5、§5.3 的兩行補充與三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff a33cb211 7fbc53d3` 的 SHA-256 等於操作者提供的 patch hash、四個檔案沒有刪除行；把三本帳的 r2 與 r3 版本暫存於 scratchpad，逐位元組比對前綴，確認其他檔案沒有改動，並用腳本比對 EXP-0099 原句。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0102：操作者轉交的Claude #99合併後核對本人申報原句**
+
+> Claude（#99 合併後核對）：以 git 抓取 main，核對 SHA `5e5e819f`、tree `e925b0e4`、parent `be55a80a` 與 committer 時間。構造交付的分段建議是程序上的意見。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+下一個新EXP-ID為0103。探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，
+formal／E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
