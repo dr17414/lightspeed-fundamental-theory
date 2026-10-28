@@ -1501,3 +1501,46 @@ seed、科學主機消費、量測或receipt；允許的Git／文字及既有rep
 tests／CI均不改，本commit也不動README／STATUS。規格固定後研究失敗將原樣保留，另版才可改law。
 探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，formal／E0、A／B及既有隔離不變。
 下一個新EXP-ID為0104；尚未遠端推送，不宣稱此本地規格是公開可查的事前註冊。
+
+
+## 48. CF-01固定規格之後的紙上證明與失敗交付（2026-10-28；只追加）
+
+**EXP-0104：GPT CF-01紙上研究／範圍及失敗紀錄**
+
+在前一獨立規格commit固定全部規則之後，新增研究稿而未改規格；本輪有紙上代數推導，
+不是「沒有推導」的紀錄工作。實際檢查了七種(τ,σ)可能性及D_KQ內witness、structured自然性、
+完整nilpotent inverse、cover傳播、鏈族原Hasse-hop非局域性、全工作域block span恰2，
+η-adjoint的dual inverse、C Hermitian與同鏈Green恆等式、先定counterfactual F非恆定、
+完整T上的正負方向、任意正state的不可能與Wick trial必要二階正性失敗。
+另用(f=id,V=η₀)的合法共同換基證任意本型別自然K必與H交換，導出G_η限定類障礙；
+不把它擴大為任意F、所有Ξ、一般spinor或原始輸入問題的不可能定理。
+星形count與型別方向來源包括reviewer提示；全域分情形及η風險已有規格前腦中預想，
+詳0103及規格§1，不稱盲／fresh。新稿內的完整代數證明由作者紙上書寫，未用科學計算程式驗算。
+
+本輪只用P、L、R₀與已固定law，未再讀L作下游選擇，未選新primitive、非Hermitian contact、
+pairing／F／state或縮domain來補救。CF-01在每個輸入通過(a)(b)(c)，但(d)前提失敗、
+無相容正歸一state，故整條構造失敗並停止。規格及所有失敗結論原樣保存，主問題均OPEN。
+不稱由span推出physical spin／mixing，不稱同鏈恆等式或F非恆定等於物理CAR已導出。
+本稿未證高階Wick prescription良定：二階必要條件已否定positive state，研究在該處停止。
+
+沒有檢索或讀新文獻，只沿用契約§8及0096的有限閱讀定位，未完成全文mapping／最少輸入／新穎性。
+沒有模型程式、數值／symbolic／toy執行、RNG、撒點、producer、raw／sealed、seed、科學主機消費、
+量測或receipt；新公式、witness與精確代數都在紙上推理。既有測試執行屬repo回歸，非新科學實驗。
+初次用預設Python跑pytest因環境未裝pytest而未開始測試，之後以uv取得CI指定的Python3.12.13與
+numpy2.3.5／scipy1.17.0／threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1重跑既有tests，不改CI或tests。
+此處只記環境處理經過，實際完成結果另隨本地驗證記錄補列，不以啟動測試冒充通過。
+
+本交付共七檔：新增規格及研究稿，三帳只追加，README／STATUS只替換目前狀態段。
+主契約、原始輸入契約、OP-01、T3／T6、其他研究稿、acceptance／formal、程式／JSON／tests／CI均不改。
+第一commit的0101／0102逐字，第二commit的規格與0103保持完整原樣，第三階段才有研究稿及0104。
+前階段的「未推送」句子只記各次編寫時點，不用來聲稱之後永遠未發布；公開版本證據應另由
+可抓取commit／tree／完整patch核對，不以本地checkpoint SHA或Git日期證盲性。
+只準備具體payload供操作者核准，不自行推送／合併／升格；後續須draft exact-head逐式複核。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0105。
+
+
+本地驗證完成（2026-10-28）：上述uv隔離環境跑既有tests，556 passed、5 warnings（122.81s）；
+integrity與diff --check通過。七檔範圍、三階段分隔、規格自第二commit後逐位元組不變、
+三帳相對main及前兩commit的完整prefix、0101／0102原句、0101–0104唯一ID、
+README／STATUS只改目前狀態段及新文件相對連結均核對通過。這些是repo檢查，不是數學證明的獨立複核。

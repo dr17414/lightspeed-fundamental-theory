@@ -95,22 +95,22 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：OP-01已封存；conditional問題契約提案待審（2026-10-25）：**
+**目前狀態：conditional契約已定案；CF-01失敗交付待逐式複核（2026-10-28）：**
 
-#98 r2 head ae8d0d3b／tree6b9cf7d3經exact-head GO、CI #304 success及操作者授權，
-原樣squash為main `be55a80a8bbc80f1d5d371ada9c081f78789e094`，merge tree與核准相同，
-parent1ac30ceb；Git committer台北2026-10-25 01:09:47。[OP-01](foundations/kq_order_polynomial_attempt_study_v0_1.md)
-失敗與G_swap／ordinary-adjoint兩項限定障礙已保存，不升為全面spinor／K不可能定理。
-原始輸入X-KQ-1P1-P0.1仍OPEN；本輪停止該題新增試作，依原契約§5另立
-[X-KQ-COND-TA-P0.1](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)。
-新題事前明列外加preferred時間序L與一次固定的二維Hermitian參考資料R₀；
-底層不刪D_KQ，對全部合規L量化，保持原order支撐及四項最低非平凡性。
-兩側障礙、primitive型別／容量／自然性、不看譜反補洞、已知格點比較與完成義務分帳，
-不預判primitive足夠。只定問題，新model ID NONE，未選K／CAR公式／state或證明策略。
-EXP-0095原句與0096作者原文接觸／起草範圍隨本提案追加，構造須待新契約GO、必要CI、
-原樣合併及tree核對。任何結論只在外加Ξ之下，不能回填原始輸入主問題。
-探索軌，不具§5.2.1(v)依據資格；T6限定確認及全部OPEN、formal／E0、A／B、
-item7／8、6a-E／Freeze-1a、UNKNOWN與禁止資料隔離不變；無新科學執行。
+#99 r3 head7fbc53d3／treee925b0e4經exact-head GO、CI #308 success及操作者明確合併授權，
+原樣squash為main `5e5e819ff76cedac84b1be9c20cac5eb1a047842`，唯一parent be55a80a，
+merge tree與核准相同；Git committer台北2026-10-27 13:37:57，不作授權或研究開始時間。
+[X-KQ-COND-TA-P0.1](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)開始條件已滿足。
+本交付第一commit逐字登EXP-0101／0102，第二commit獨立固定[CF-01規格](foundations/kq_conditional_foliation_attempt_spec_v0_1.md)
+及事前已見資訊（0103），其後才交[研究稿](foundations/kq_conditional_foliation_attempt_study_v0_1.md)與0104。
+只在外加Ξ=(L,R₀)之下：K、同一K的完整retarded inverse及structured自然性已交，
+§6(a)傳播、(b)全工作域span恰2、(c)原Hasse-hop非局域性成立；不等於spin／mixing或物理Dirac。
+固定η-adjoint因[K,H]=0實際退回ordinary，總form有零對角及負方向，(d)失敗、無任何正歸一state。
+同鏈恆等式與F非恆定不等於正性或物理來源已解；G_η限定障礙不涵蓋任意F或所有Ξ構造。
+CF-01停止並保留失敗，不回改規格／工作域／pairing／state；conditional與原始輸入主問題均OPEN。
+作者規格前已有腦中論證及reviewer提示，非盲研究；公開Git只證版本順序。結果尚待獨立複核，
+完整文獻mapping／新穎性、actual physical／continuum仍未交；無科學程式或量測。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、item7／8、6a-E／Freeze-1a及UNKNOWN隔離不變。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 

@@ -673,3 +673,22 @@ K^ord、七個實際允許M格、全部§4.5分解、CAR／state trial及counter
 不稱盲或fresh，Git只證文件版本順序。此commit沒有研究稿、沒有科學程式執行。
 規格固定後失敗原樣保存，不在同版改K、pairing、F、state或domain補洞。
 主契約、formal及其他歷史內容不改；尚未推送，探索軌不具§5.2.1(v)依據資格，全部隔離不變。
+
+
+## CF-01紙上研究與固定橋接失敗（2026-10-28；只追加）
+
+先有紀錄commit、獨立規格commit，後有本研究稿；規格完整不改，接觸帳§48追加EXP-0104。
+所有P∈D_KQ、全部合規L下，inverse／自然性及契約§6(a)(b)(c)成立，sector span恰2。
+固定η-adjoint因[K,H]=0退回ordinary；C Hermitian、同鏈恆等式與F非恆定成立，仍有零對角／負方向，
+故(d)與任意正歸一state均失敗，Wick trial二階即停止，不稱已完成高階state。
+G_η限定類障礙明列全部假設，不排除其他F／Hermitian diagonal前提之外的類，不擴為全面不可能。
+CF-01停止，失敗原樣保留；conditional與原始輸入主問題均OPEN，沒有新增primitive或補洞。
+本階段新增研究稿、三帳追加、README／STATUS只改目前狀態；主契約及其他歷史檔不改。
+作者已有規格前腦中預想與reviewer提示，非盲研究；紙上代數不是科學程式執行。
+本地交付供操作者核准具體payload後推draft，尚待獨立exact-head逐式複核，不自行推送／合併。
+探索軌不具§5.2.1(v)依據資格；formal／E0、A／B及全部資料隔離不變。
+
+
+本地既有回歸：CI指定Python3.12.13／依賴pin的uv隔離環境，556 passed、5 warnings；
+integrity及diff --check通過，七檔／prefix／原句／規格保全／目前狀態段範圍核對通過。
+這不取代exact-head獨立數學複核，沒有新增科學執行或scientific PASS。
