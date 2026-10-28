@@ -1440,3 +1440,107 @@ Git／文字／hash／prefix及既有integrity只作repo檢查，本地不重跑
 科學主機消費、量測或receipt。新model ID NONE；仍待r3 exact-head GO、必要CI、
 原樣合併與tree核對，不合併、不構造。探索軌，不具§5.2.1(v)依據資格；
 formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN／禁止資料隔離不變。
+
+
+## 46. #99合併後接續：conditional首份交付的reviewer申報（2026-10-28；只追加）
+
+操作者轉交#99 r3 GO、本人申報與合併後核對，並建議交付分為紀錄、獨立規格、研究稿三階段。
+#99核准head7fbc53d3361e05a0a84a5c3ee88ebae607e02eaf／treee925b0e4be083478f0372b98994e9b837d45ab53，
+CI #308（run40443079477）成功；操作者2026-10-27表示「同意授權」，解除draft／不合併限制，
+授權轉ready、expected-head原樣squash及核對tree，不含當輪構造。
+原樣合併main5e5e819ff76cedac84b1be9c20cac5eb1a047842，唯一parent be55a80a8bbc80f1d5d371ada9c081f78789e094，
+merge tree與核准相同。Git committer為UTC2026-10-27 05:37:57／台北2026-10-27 13:37:57，
+不是操作者授權或構造開始時間。上文各次「待GO／未合併」保留為當時狀態。
+操作者本輪轉交的合併後核對認定契約§1開始條件滿足，0101／0102隨本交付登記不遞迴阻擋。
+
+核對main帳本止於0100，以下依序逐字登記0101／0102；本commit只有三帳追加。
+新規格另作下一commit；實際科學思考／來源與事前預想須在該規格及作者申報如實披露，
+不能以本紀錄commit或之後的公開Git順序證明內部思考盲固定。
+本地建立交付分支，不改寫main或公開歷史；無遠端推送、無執行科學模型。
+
+**EXP-0101：操作者轉交的Claude #99 r3增量複核本人申報原句**
+
+> Claude（PR #99 r3 增量複核）：以 exact head `7fbc53d3` 讀 r2→r3 的全部 diff，包括契約新增的 §4.5、§5.3 的兩行補充與三帳新增段落。以 git 核對 head、tree、parent，確認 `git diff a33cb211 7fbc53d3` 的 SHA-256 等於操作者提供的 patch hash、四個檔案沒有刪除行；把三本帳的 r2 與 r3 版本暫存於 scratchpad，逐位元組比對前綴，確認其他檔案沒有改動，並用腳本比對 EXP-0099 原句。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0102：操作者轉交的Claude #99合併後核對本人申報原句**
+
+> Claude（#99 合併後核對）：以 git 抓取 main，核對 SHA `5e5e819f`、tree `e925b0e4`、parent `be55a80a` 與 committer 時間。構造交付的分段建議是程序上的意見。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+下一個新EXP-ID為0103。探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，
+formal／E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
+
+
+## 47. CF-01 v0.1獨立規格與事前預想（2026-10-28；只追加）
+
+**EXP-0103：GPT conditional首份規格的來源、選擇與先有預想**
+
+在#99已GO、CI #308成功、原樣合併main5e5e819f並核對treee925b0e4，且操作者轉交合併後
+核對與分段構造建議後，開始本契約授權的紙上X-C工作。第一commit先逐字登0101／0102；
+第二commit新增獨立CF-01規格，不含研究稿；不把Git順序當成思考盲固定證據。
+讀定案conditional契約全文、三帳末段、README／STATUS目前狀態與OP-01研究稿章節標題；
+OP-01結果及先前文獻曝光延續既有0096等申報。本輪未查新文獻／檢索，未重讀兩篇原文全文。
+
+本輪已接觸reviewer的star線性count／span、七種可能位置提醒，以及η／K／Green是否真正改變
+ordinary-adjoint障礙前提的提示。另在寫本規格以前，作者已在腦中設計並預算了若干結果：
+用1、√2、√3分離整數count，擬以有三點鏈／height≤2分情形證全域sector span；
+η協變可能迫使K與η交換，η-adjoint實際退回ordinary，零對角／負方向風險仍在。
+這些包括初步腦中論證，不稱盲研究；曾想到非Hermitian contact可能改變障礙，但本版沒有選它。
+正式研究證明另在規格commit之後書寫，不能反過來宣稱先前沒有預見結果。
+
+探索model ID X-KQ-CF-01-v0.1；K^ord固定I+Z⊗I+Z²⊗η，七個允許(τ,σ)格中pre兩格固定√2η，
+post兩格固定√3η，between三格為0。都屬事前固定L3 law，無可調參數或逐P矩陣，全部D_Ξ不縮。
+固定full T、contact Id、smearing Id、retarded有限inverse、η-adjoint G_A、
+C=iH(G_R−G_A)、charged CAR關係與Q=A/2的Wick trial；失敗不另挑state或正W。
+全部下游只經合規同鏈物件，不再讀L／count；inverse／adjoint／CAR所需運算逐項列用途。
+規格另固定K_t=tI+B（1≤t≤2）作F依賴性的counterfactual比較類，不把t當實際調參或修復版本。
+已預見橋接可能失敗，這是具明確輸入與作用域的校準型試作，不稱已找到物理新機制。
+
+本次是規格選擇／腦中解析設計，不執行數值或符號程式、toy、RNG、撒點、producer、raw／sealed、
+seed、科學主機消費、量測或receipt；允許的Git／文字及既有repo檢查不是科學執行。
+三帳只追加，新增規格；主契約與原始輸入契約、OP-01、其他研究、acceptance／formal、程式／JSON／
+tests／CI均不改，本commit也不動README／STATUS。規格固定後研究失敗將原樣保留，另版才可改law。
+探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，formal／E0、A／B及既有隔離不變。
+下一個新EXP-ID為0104；尚未遠端推送，不宣稱此本地規格是公開可查的事前註冊。
+
+
+## 48. CF-01固定規格之後的紙上證明與失敗交付（2026-10-28；只追加）
+
+**EXP-0104：GPT CF-01紙上研究／範圍及失敗紀錄**
+
+在前一獨立規格commit固定全部規則之後，新增研究稿而未改規格；本輪有紙上代數推導，
+不是「沒有推導」的紀錄工作。實際檢查了七種(τ,σ)可能性及D_KQ內witness、structured自然性、
+完整nilpotent inverse、cover傳播、鏈族原Hasse-hop非局域性、全工作域block span恰2，
+η-adjoint的dual inverse、C Hermitian與同鏈Green恆等式、先定counterfactual F非恆定、
+完整T上的正負方向、任意正state的不可能與Wick trial必要二階正性失敗。
+另用(f=id,V=η₀)的合法共同換基證任意本型別自然K必與H交換，導出G_η限定類障礙；
+不把它擴大為任意F、所有Ξ、一般spinor或原始輸入問題的不可能定理。
+星形count與型別方向來源包括reviewer提示；全域分情形及η風險已有規格前腦中預想，
+詳0103及規格§1，不稱盲／fresh。新稿內的完整代數證明由作者紙上書寫，未用科學計算程式驗算。
+
+本輪只用P、L、R₀與已固定law，未再讀L作下游選擇，未選新primitive、非Hermitian contact、
+pairing／F／state或縮domain來補救。CF-01在每個輸入通過(a)(b)(c)，但(d)前提失敗、
+無相容正歸一state，故整條構造失敗並停止。規格及所有失敗結論原樣保存，主問題均OPEN。
+不稱由span推出physical spin／mixing，不稱同鏈恆等式或F非恆定等於物理CAR已導出。
+本稿未證高階Wick prescription良定：二階必要條件已否定positive state，研究在該處停止。
+
+沒有檢索或讀新文獻，只沿用契約§8及0096的有限閱讀定位，未完成全文mapping／最少輸入／新穎性。
+沒有模型程式、數值／symbolic／toy執行、RNG、撒點、producer、raw／sealed、seed、科學主機消費、
+量測或receipt；新公式、witness與精確代數都在紙上推理。既有測試執行屬repo回歸，非新科學實驗。
+初次用預設Python跑pytest因環境未裝pytest而未開始測試，之後以uv取得CI指定的Python3.12.13與
+numpy2.3.5／scipy1.17.0／threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1重跑既有tests，不改CI或tests。
+此處只記環境處理經過，實際完成結果另隨本地驗證記錄補列，不以啟動測試冒充通過。
+
+本交付共七檔：新增規格及研究稿，三帳只追加，README／STATUS只替換目前狀態段。
+主契約、原始輸入契約、OP-01、T3／T6、其他研究稿、acceptance／formal、程式／JSON／tests／CI均不改。
+第一commit的0101／0102逐字，第二commit的規格與0103保持完整原樣，第三階段才有研究稿及0104。
+前階段的「未推送」句子只記各次編寫時點，不用來聲稱之後永遠未發布；公開版本證據應另由
+可抓取commit／tree／完整patch核對，不以本地checkpoint SHA或Git日期證盲性。
+只準備具體payload供操作者核准，不自行推送／合併／升格；後續須draft exact-head逐式複核。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、6a-E／Freeze-1a及UNKNOWN隔離不變。
+下一個新EXP-ID為0105。
+
+
+本地驗證完成（2026-10-28）：上述uv隔離環境跑既有tests，556 passed、5 warnings（122.81s）；
+integrity與diff --check通過。七檔範圍、三階段分隔、規格自第二commit後逐位元組不變、
+三帳相對main及前兩commit的完整prefix、0101／0102原句、0101–0104唯一ID、
+README／STATUS只改目前狀態段及新文件相對連結均核對通過。這些是repo檢查，不是數學證明的獨立複核。
