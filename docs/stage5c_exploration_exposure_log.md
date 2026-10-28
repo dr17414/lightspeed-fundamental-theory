@@ -1468,3 +1468,36 @@ merge tree與核准相同。Git committer為UTC2026-10-27 05:37:57／台北2026-
 
 下一個新EXP-ID為0103。探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，
 formal／E0、A／B、6a-E／Freeze-1a與UNKNOWN／禁止資料隔離不變。
+
+
+## 47. CF-01 v0.1獨立規格與事前預想（2026-10-28；只追加）
+
+**EXP-0103：GPT conditional首份規格的來源、選擇與先有預想**
+
+在#99已GO、CI #308成功、原樣合併main5e5e819f並核對treee925b0e4，且操作者轉交合併後
+核對與分段構造建議後，開始本契約授權的紙上X-C工作。第一commit先逐字登0101／0102；
+第二commit新增獨立CF-01規格，不含研究稿；不把Git順序當成思考盲固定證據。
+讀定案conditional契約全文、三帳末段、README／STATUS目前狀態與OP-01研究稿章節標題；
+OP-01結果及先前文獻曝光延續既有0096等申報。本輪未查新文獻／檢索，未重讀兩篇原文全文。
+
+本輪已接觸reviewer的star線性count／span、七種可能位置提醒，以及η／K／Green是否真正改變
+ordinary-adjoint障礙前提的提示。另在寫本規格以前，作者已在腦中設計並預算了若干結果：
+用1、√2、√3分離整數count，擬以有三點鏈／height≤2分情形證全域sector span；
+η協變可能迫使K與η交換，η-adjoint實際退回ordinary，零對角／負方向風險仍在。
+這些包括初步腦中論證，不稱盲研究；曾想到非Hermitian contact可能改變障礙，但本版沒有選它。
+正式研究證明另在規格commit之後書寫，不能反過來宣稱先前沒有預見結果。
+
+探索model ID X-KQ-CF-01-v0.1；K^ord固定I+Z⊗I+Z²⊗η，七個允許(τ,σ)格中pre兩格固定√2η，
+post兩格固定√3η，between三格為0。都屬事前固定L3 law，無可調參數或逐P矩陣，全部D_Ξ不縮。
+固定full T、contact Id、smearing Id、retarded有限inverse、η-adjoint G_A、
+C=iH(G_R−G_A)、charged CAR關係與Q=A/2的Wick trial；失敗不另挑state或正W。
+全部下游只經合規同鏈物件，不再讀L／count；inverse／adjoint／CAR所需運算逐項列用途。
+規格另固定K_t=tI+B（1≤t≤2）作F依賴性的counterfactual比較類，不把t當實際調參或修復版本。
+已預見橋接可能失敗，這是具明確輸入與作用域的校準型試作，不稱已找到物理新機制。
+
+本次是規格選擇／腦中解析設計，不執行數值或符號程式、toy、RNG、撒點、producer、raw／sealed、
+seed、科學主機消費、量測或receipt；允許的Git／文字及既有repo檢查不是科學執行。
+三帳只追加，新增規格；主契約與原始輸入契約、OP-01、其他研究、acceptance／formal、程式／JSON／
+tests／CI均不改，本commit也不動README／STATUS。規格固定後研究失敗將原樣保留，另版才可改law。
+探索軌，不具§5.2.1(v)依據資格；原始輸入問題仍OPEN，formal／E0、A／B及既有隔離不變。
+下一個新EXP-ID為0104；尚未遠端推送，不宣稱此本地規格是公開可查的事前註冊。

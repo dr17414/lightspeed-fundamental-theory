@@ -632,3 +632,15 @@ CI #307（run40217430617）在r2 success；#99仍draft且未合併，main仍be55
 下一獨立規格commit須先固定全部規則、來源與預想，再有研究輸出；Git只證版本順序，不證盲性。
 尚未推送；後續交付須操作者核准具體payload，保持draft，不以本紀錄授權合併。
 探索軌不具§5.2.1(v)依據資格；formal／E0及全部既有隔離不變，無科學程式執行。
+
+
+## CF-01 v0.1獨立規格（2026-10-28；只追加）
+
+第一commit已先逐字登EXP-0101／0102；本第二commit新增CF-01獨立規格並追加作者EXP-0103。
+基線main5e5e819f／treee925b0e4；conditional契約§1開始條件已滿足，僅進行E0範圍紙上X-C。
+K^ord、七個實際允許M格、全部§4.5分解、CAR／state trial及counterfactual比較類均固定，
+不縮D_Ξ、不另給primitive；ordinary-adjoint前提表明列已預想而待正式證明的判定。
+作者已腦中預算sector分情形及η-adjoint／零對角風險，來源包括OP-01與reviewer提示；
+不稱盲或fresh，Git只證文件版本順序。此commit沒有研究稿、沒有科學程式執行。
+規格固定後失敗原樣保存，不在同版改K、pairing、F、state或domain補洞。
+主契約、formal及其他歷史內容不改；尚未推送，探索軌不具§5.2.1(v)依據資格，全部隔離不變。
