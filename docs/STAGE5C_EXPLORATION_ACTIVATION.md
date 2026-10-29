@@ -736,3 +736,25 @@ merge tree41ae5e19fecdbd2f4f29166812a3c2c0328a5f18，parent74b012db；Git commit
 以及S4版本號未獨立確認的閱讀上限；不新讀原文補洞。下一ID0112。
 總結將只對回已合併稿與#101分類，不新研究、不升格、不改契約／研究稿；兩主問題、G0-B／G0-C及formal維持原狀。
 探索軌不具§5.2.1(v)資格，全部隔離不變；本commit沒有主文，發布須操作者另核准具體payload，保持draft。
+
+
+## T1–CF-01公開閱讀版階段總結（2026-10-30；只追加）
+
+第一commit僅三帳追加，先逐字登EXP-0109–0111與S2／S7抽查未核實限制；本階段追加作者0112（§52），
+新增docs/foundations/t1_cf01_public_stage_summary_2026_10_30.md，英文主文＋中文摘要已由操作者確認。
+基線main7c4b5d3a／tree41ae5e19；來源表列13份既有稿章節、分析進main SHA與後續scope/review紀錄。
+只重編T1–B6、C2三線、T2／T3／T6、OP-01／CF-01；C2全帶外加Minkowski／Poisson前提，
+no-go保留限定類，novelty沿#101且未涵蓋者記未查，S2／S7引用不冒充reviewer獨立核實。
+獨立未完成節及專家問題／AI協作方法均只沿既有稿；不產生新結論或新研究路線選擇。
+本交付六檔：新Markdown、README目前研究重點只加一行、STATUS只換目前段、三帳只追加。
+兩KQ主問題、G0-B／G0-C與formal不改；6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING、
+item7不可ADOPT／item8 OPEN；探索軌不具§5.2.1(v)資格，全部隔離不變。
+沒有新推導／外部文獻閱讀／數值或符號科學計算／RNG／撒點／producer／raw／sealed。
+只作文件與Git核對，總結待exact-head逐條複核；本地限定payload待操作者另授權推draft，不自行合併。
+
+
+本地文件驗證完成（2026-10-30）：integrity與diff --check通過；第一commit僅三帳、新主文在其後，
+六檔範圍、三帳相對main及第一commit的完整byte-prefix、0109–0111原句及0109–0112唯一ID、
+README單行新增、STATUS只換目前段、13項來源文件逐位元不變、合併SHA ancestry與本地連結均核對。
+本輪是Markdown整理，沒有更動程式／測試，未重跑既有pytest，亦未作新科學執行；
+基線CI #312已成功的事實不冒稱為本總結的新head測試結果。文件檢查不取代scope／文獻的獨立複核。

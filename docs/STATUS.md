@@ -95,23 +95,23 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：CF-01限定失敗已封存；量子橋接有界文獻盤點待原文複核（2026-10-28）：**
+**目前狀態：#101文獻盤點已封存；T1–CF-01公開閱讀版階段總結待複核（2026-10-30）：**
 
-#100 head ac8e685e／tree81c0105a經exact-head GO、CI #310同head重跑成功及操作者明確合併授權，
-原樣squash為main `74b012db50ee1d7ac3e4288284ff3a28686a3cf2`，唯一parent5e5e819f，
-merge tree與核准相同；Git committer台北2026-10-28 17:24:45，不作授權或研究開始時間。
-[CF-01規格](foundations/kq_conditional_foliation_attempt_spec_v0_1.md)與[研究稿](foundations/kq_conditional_foliation_attempt_study_v0_1.md)保留原樣。
-在外加Ξ下的全域sector span校準及G_η限定橋接失敗已保存，不升格physical spin／mixing／Dirac，
-不排除任意F或全部Ξ；[原始輸入](foundations/kq_1p1_construction_problem_contract_v0_1.md)及
-[conditional](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)兩主問題均OPEN。
-操作者選題時間依轉交紀錄為台北2026-10-28 17:39：先盤點，暫不開CF-02。
-本交付第一commit逐字登EXP-0105／0106／0107，後續交[有界文獻盤點](foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)
-與0108實讀申報，來源S1–S15逐項標版本／章節／式號與選讀上限。
-盤點區分finite inverse的domain、transpose／formal dual、scalar CCR／fermion CAR、總form／covariance
-及kinematic CAR／unitary；新穎性只是有界初對照。最後按Ξ／G_η分類，不選任何構造方案。
-文獻定位待reviewer自行讀原文抽查；未查到不證不存在，不是新問題契約或完整mapping成果。
-沒有K／F／state／primitive／工作域選擇或新科學執行，後續建構須另立事前規格並披露引用。
-探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、item7／8、6a-E／Freeze-1a及UNKNOWN隔離不變。
+#101 head9b01f658／tree41ae5e19經exact-head GO、CI #312 success及操作者明確合併授權，
+原樣squash為main `7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace`，唯一parent74b012db，
+merge tree與核准相同；Git committer台北2026-10-30 01:48:22，不作授權或起草開始時間。
+[有界文獻盤點](foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)原樣保存，
+其GO不表示所有引用均由reviewer核實：S2第6章／S7 §6取用被截斷，未能獨立抽查；
+S4的v3頁首版本號reviewer也未獨立確認。限制與EXP-0109–0111逐字登記於接觸帳§51。
+操作者選題時間依轉交紀錄為台北2026-10-30 01:49：先寫總結，暫不修改conditional契約。
+起草前已確認英文主文＋簡短中文摘要；第一commit僅三帳追加，後續才新增
+[T1–CF-01公開閱讀版](foundations/t1_cf01_public_stage_summary_2026_10_30.md)及作者EXP-0112（§52）。
+總結只整理已合併稿：列各項作用域／來源章節／main合併SHA，沿用#101新穎性分類，
+未涵蓋者記未查；獨立列出沒有時空／c／signature／Dirac／質量／重力／量子橋接／新可否證預測。
+不產生新結論、不升格、不改任何契約或研究稿；兩KQ主問題、G0-B／G0-C及全部formal狀態維持原樣。
+沒有新推導、新文獻閱讀、K／F／state／primitive選擇或科學執行。item7不可ADOPT、item8 OPEN，
+6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING；探索軌不具§5.2.1(v)依據資格，
+formal／E0、A／B、UNKNOWN及全部隔離不變。本總結待exact-head逐條scope與來源複核。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 
