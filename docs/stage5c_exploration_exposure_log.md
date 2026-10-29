@@ -1655,3 +1655,37 @@ threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1的uv隔離環境跑既有tests：
 integrity、diff --check、六檔範圍、三帳相對main及第一commit的逐位元組prefix、0105–0107原句、
 0105–0108唯一ID、README／STATUS只動目前段及新增稿相對連結檢查通過。
 這些檢查不證原文引用／分類正確，也不取代reviewer自行讀原文抽查。
+
+
+## 51. #101原樣合併與T1–CF-01公開階段總結的先行紀錄（2026-10-30；只追加）
+
+#101核准head9b01f6589551a304845e9e900843dd8c947a2e48／tree41ae5e19fecdbd2f4f29166812a3c2c0328a5f18，
+經exact-head GO、CI #312（run40737492304）同head success、操作者明確「同意授權」解除draft限制，
+原樣squash為main7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace，tree與GO一致，唯一parent74b012db50ee1d7ac3e4288284ff3a28686a3cf2。
+Git committer UTC2026-10-29 17:48:22／台北2026-10-30 01:48:22；這是合併時間，不倒填操作者授權時間。
+本輪操作者轉交的選題紀錄為台北2026-10-30 01:49：先寫T1–CF-01階段總結，暫不修改conditional契約。
+語言已在起草前由操作者選「英文主文＋中文摘要」，不為此補造時分秒。
+
+S2（Johnston第6章）與S7（Hawkins–Minz–Rejzner §6）：reviewer嘗試抽查，
+但取用被截斷，未能獨立核實。這是reviewer閱讀範圍的限制，不改寫作者原實讀申報，也不把兩條引用升格。
+S4的v3頁首版號reviewer未能獨立確認，其內頁2019-03-25日期不作版本日期；保留#101原有版本披露。
+本輪不新開原文檢索或閱讀來補這些缺口，只在公開整理中如實註明。
+
+本分支第一commit僅三帳追加，先逐字登0109／0110，並一併登操作者本輪轉交的0111；
+沒有階段總結主文，沒有新推導、構造、科學執行或契約修訂。後續總結只依已合併文件作說明，
+新穎性沿用#101，未涵蓋者記未查，不認證優先權；兩KQ主問題、G0-B／G0-C與formal狀態均不變。
+
+**EXP-0109：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #101 複核與原文抽查）：以 exact head `9b01f658` 讀 #101 全部 diff 與文獻盤點全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 74b012db 9b01f658` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0105、0106、0107 原句。以 WebSearch 定位原文，並以 WebFetch 讀取下列內容（工具會擷取原文後回答我的提問）：S3 arXiv:1908.01973（PDF v3：§III.B.1 (34)–(36)、§III.D 與 (90)；ar5iv 版在 §II 被截斷）；S4 arXiv:1305.0443（PDF：§2 的 K=−K\*、Δ_m、† 與 footnotes，§3 的反對易關係、負範數、ghosts 與退化情形）；S8 arXiv:1303.4652v1（§II (II.1)、§III Def.1、§IV.D）；S10 arXiv:1402.5113（§1 standard example 與 dim S_d、Dushnik–Miller 歸屬）。S2 arXiv:1010.5514（PDF 與 ar5iv）和 S7 arXiv:2207.05667（PDF、HTML、ar5iv）的取用都在目標章節之前被截斷，未能抽查。搜尋結果的摘要與連結清單也已接觸。對方向的評估是作者推論，沒有推導；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0110：操作者轉交的Claude本人申報原句**
+
+> Claude（#101 合併後核對）：以 git 抓取 main，核對 SHA `7c4b5d3a`、tree `41ae5e19`、parent `74b012db` 與 committer 時間。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0111：操作者轉交的Claude本人申報原句**
+
+> Claude（階段總結題目說明）：以 git 列出 main `7c4b5d3a` 中 docs/foundations 目錄的檔名，依據已合併的研究系列與先前的複核意見撰寫題目說明。沒有讀檔案內容，沒有推導，沒有做文獻檢索，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+下一個新EXP-ID為0112。方法為整理與對外說明，不授權新研究；探索軌，不具§5.2.1(v)依據資格，
+formal／E0、A／B、6a-E／Freeze-1a、UNKNOWN及既有隔離不變。公開發布需另核准具體payload，保持draft。

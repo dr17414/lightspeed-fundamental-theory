@@ -696,3 +696,14 @@ threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1的uv隔離環境跑既有tests：
 integrity、diff --check、六檔範圍、三帳相對main及第一commit的逐位元組prefix、0105–0107原句、
 0105–0108唯一ID、README／STATUS只動目前段及新增稿相對連結檢查通過。
 這些檢查不證原文引用／分類正確，也不取代reviewer自行讀原文抽查。
+
+
+## #101封存與T1–CF-01公開階段總結的先行紀錄（2026-10-30；只追加）
+
+#101在核准head9b01f658經GO、CI #312 success及操作者授權，原樣squash為main7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace，
+merge tree41ae5e19fecdbd2f4f29166812a3c2c0328a5f18，parent74b012db；Git committer台北2026-10-30 01:48:22，非授權時間。
+操作者選題時間依轉交紀錄為台北01:49；起草前已選英文主文＋中文摘要。
+第一commit僅三帳追加，接觸帳§51逐字登EXP-0109–0111，並記S2／S7的reviewer取用被截斷、未獨立核實，
+以及S4版本號未獨立確認的閱讀上限；不新讀原文補洞。下一ID0112。
+總結將只對回已合併稿與#101分類，不新研究、不升格、不改契約／研究稿；兩主問題、G0-B／G0-C及formal維持原狀。
+探索軌不具§5.2.1(v)資格，全部隔離不變；本commit沒有主文，發布須操作者另核准具體payload，保持draft。
