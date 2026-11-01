@@ -1655,3 +1655,96 @@ threadpoolctl3.6.0／pytest9.1.1／mpmath1.4.1的uv隔離環境跑既有tests：
 integrity、diff --check、六檔範圍、三帳相對main及第一commit的逐位元組prefix、0105–0107原句、
 0105–0108唯一ID、README／STATUS只動目前段及新增稿相對連結檢查通過。
 這些檢查不證原文引用／分類正確，也不取代reviewer自行讀原文抽查。
+
+
+## 51. #101原樣合併與T1–CF-01公開階段總結的先行紀錄（2026-10-30；只追加）
+
+#101核准head9b01f6589551a304845e9e900843dd8c947a2e48／tree41ae5e19fecdbd2f4f29166812a3c2c0328a5f18，
+經exact-head GO、CI #312（run40737492304）同head success、操作者明確「同意授權」解除draft限制，
+原樣squash為main7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace，tree與GO一致，唯一parent74b012db50ee1d7ac3e4288284ff3a28686a3cf2。
+Git committer UTC2026-10-29 17:48:22／台北2026-10-30 01:48:22；這是合併時間，不倒填操作者授權時間。
+本輪操作者轉交的選題紀錄為台北2026-10-30 01:49：先寫T1–CF-01階段總結，暫不修改conditional契約。
+語言已在起草前由操作者選「英文主文＋中文摘要」，不為此補造時分秒。
+
+S2（Johnston第6章）與S7（Hawkins–Minz–Rejzner §6）：reviewer嘗試抽查，
+但取用被截斷，未能獨立核實。這是reviewer閱讀範圍的限制，不改寫作者原實讀申報，也不把兩條引用升格。
+S4的v3頁首版號reviewer未能獨立確認，其內頁2019-03-25日期不作版本日期；保留#101原有版本披露。
+本輪不新開原文檢索或閱讀來補這些缺口，只在公開整理中如實註明。
+
+本分支第一commit僅三帳追加，先逐字登0109／0110，並一併登操作者本輪轉交的0111；
+沒有階段總結主文，沒有新推導、構造、科學執行或契約修訂。後續總結只依已合併文件作說明，
+新穎性沿用#101，未涵蓋者記未查，不認證優先權；兩KQ主問題、G0-B／G0-C與formal狀態均不變。
+
+**EXP-0109：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #101 複核與原文抽查）：以 exact head `9b01f658` 讀 #101 全部 diff 與文獻盤點全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 74b012db 9b01f658` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0105、0106、0107 原句。以 WebSearch 定位原文，並以 WebFetch 讀取下列內容（工具會擷取原文後回答我的提問）：S3 arXiv:1908.01973（PDF v3：§III.B.1 (34)–(36)、§III.D 與 (90)；ar5iv 版在 §II 被截斷）；S4 arXiv:1305.0443（PDF：§2 的 K=−K\*、Δ_m、† 與 footnotes，§3 的反對易關係、負範數、ghosts 與退化情形）；S8 arXiv:1303.4652v1（§II (II.1)、§III Def.1、§IV.D）；S10 arXiv:1402.5113（§1 standard example 與 dim S_d、Dushnik–Miller 歸屬）。S2 arXiv:1010.5514（PDF 與 ar5iv）和 S7 arXiv:2207.05667（PDF、HTML、ar5iv）的取用都在目標章節之前被截斷，未能抽查。搜尋結果的摘要與連結清單也已接觸。對方向的評估是作者推論，沒有推導；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0110：操作者轉交的Claude本人申報原句**
+
+> Claude（#101 合併後核對）：以 git 抓取 main，核對 SHA `7c4b5d3a`、tree `41ae5e19`、parent `74b012db` 與 committer 時間。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0111：操作者轉交的Claude本人申報原句**
+
+> Claude（階段總結題目說明）：以 git 列出 main `7c4b5d3a` 中 docs/foundations 目錄的檔名，依據已合併的研究系列與先前的複核意見撰寫題目說明。沒有讀檔案內容，沒有推導，沒有做文獻檢索，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+下一個新EXP-ID為0112。方法為整理與對外說明，不授權新研究；探索軌，不具§5.2.1(v)依據資格，
+formal／E0、A／B、6a-E／Freeze-1a、UNKNOWN及既有隔離不變。公開發布需另核准具體payload，保持draft。
+
+
+## 52. T1–CF-01公開閱讀版：作者整理範圍與非研究交付（2026-10-30；只追加）
+
+**EXP-0112：GPT本人申報——已合併文件整理／英文主文與中文摘要，不是新研究**
+
+基線main7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace／tree41ae5e19fecdbd2f4f29166812a3c2c0328a5f18。
+起草前由操作者確認「英文主文＋中文摘要」；第一commit僅三帳追加，逐字登0109–0111及
+S2／S7未被reviewer獨立核實、S4頁首版本號未獨立確認的限制。本階段才新增
+ docs/foundations/t1_cf01_public_stage_summary_2026_10_30.md。
+
+實際閱讀／文字定位範圍是既有repo文件，並非新外部文獻：
+- docs/foundations/t1_t5_premise_audit.md：主文所用§§1–6,9及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/b2_b5_interval_volume_cone_audit.md：主文所用§§1–7及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/b3_b4_operational_clock_observer_audit.md：主文所用§§0–7及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/b4_b6_clock_rod_signal_record_realization_audit.md：主文所用§§0–6及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/c2_johnston_link_mv_study_v0_1.md：主文所用§§1–7,9及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/c2_native_detector_mv_study_v0_1.md：主文所用§§1–7,9及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/c2_r3_shared_mvpd_study_v0_1.md：主文所用§§1,5–9及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/t2_class_sum_audit_v0_1.md：主文所用§§2–7及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/t3_sector_capability_audit_v0_1.md：主文所用§§2–6,8及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/t6_quantum_obligation_audit_v0_1.md：主文所用§§2–8,10及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/kq_order_polynomial_attempt_study_v0_1.md：主文所用§§3–8及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/kq_conditional_foliation_attempt_study_v0_1.md：主文所用§§1–7及相鄰回傳／歷史段；合併SHA對照依Git。
+- docs/foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md：主文所用§§2–6,8及相鄰回傳／歷史段；合併SHA對照依Git。
+- README研究目的／進度與未完成項、HOW_THIS_WAS_MADE §§1–6、理論優先roadmap §§1–3及回傳片段；
+  STATUS標記定義、現行／歷史作用域、G0-B／G0-C與formal狀態；兩份KQ契約的domain／依賴／完整T／反補洞條款。
+- Git path history、main ancestry與source register；接觸帳及ACT／dev的既有編號與段落。
+
+批次讀取的部分工具輸出因長度被截斷，之後定向補讀結果／量詞／限制與複核段，
+不稱全文逐式驗算。rg對STATUS／roadmap的文字搜尋也回傳了既有reference-probe、run1／seed命名
+及歷史formal敘述的公開摘要，這些已接觸，不稱未讀；沒有讀底層raw／sealed或依它選構造。
+沒有開任何新外部原文或做文獻搜尋；只沿用#101盤點的來源位置／分類，S2／S7缺口不補成核實。
+
+新增內容僅為對外說明與重新編排，沒有新推導、證明、結論、novelty判斷、K／F／state／
+physical primitive／工作域／規格或研究路線選擇。T1–B6作用域分列，C2三種讀值均明記外加
+Minkowski背景／Poisson模型，T3分格判定不合成全面spinor no-go，T6只及已給CAR資料。
+G_swap、ordinary-adjoint及G_η均帶明列前提；sector span不是physical spin／mixing。
+新穎性僅沿#101 §6；未涵蓋的T1–B6、C2-r3及其他子項記未查，不重新評定優先權。
+source表列原分析進main與後續review紀錄的不同SHA，來源連結固定於本輪main快照。
+
+主文獨立列出未完成：時空、c、signature、Dirac算子、質量、重力、量子橋接、新可否證物理預測；
+兩KQ主問題及G0-B／G0-C OPEN，不改G0原標記或任一formal disposition。
+6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING、item7不可ADOPT、item8 OPEN不變。
+README依題目只加目前研究重點一行；既有pending段落保留原樣，新增行及STATUS記#101已封存與總結待審。
+STATUS只替換目前段；三帳只追加，全部舊契約／研究稿／formal／acceptance／程式／tests／CI不改。
+
+沒有研究數值或符號計算、RNG、撒點、producer、raw／sealed、seed生成、主機／量測或新科學執行。
+只做文字／來源path／Git ancestry／hash／prefix／連結／integrity等文件檢查；不把它們當數學複核。
+探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及全部隔離不變；下一ID0113。
+本地內容先供核准，未以此段聲稱已發布；後續發布需限定payload授權，保持draft、不得自行合併。
+若之後發布，本段的本地準備狀態以公開PR及Git回報另核，不用本地SHA或Git日期證盲性。
+
+
+本地文件驗證完成（2026-10-30）：integrity與diff --check通過；第一commit僅三帳、新主文在其後，
+六檔範圍、三帳相對main及第一commit的完整byte-prefix、0109–0111原句及0109–0112唯一ID、
+README單行新增、STATUS只換目前段、13項來源文件逐位元不變、合併SHA ancestry與本地連結均核對。
+本輪是Markdown整理，沒有更動程式／測試，未重跑既有pytest，亦未作新科學執行；
+基線CI #312已成功的事實不冒稱為本總結的新head測試結果。文件檢查不取代scope／文獻的獨立複核。
