@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：CF-01限定失敗已封存；量子橋接有界文獻盤點待原文複核**：#100經exact-head GO、CI #310同head重跑成功及操作者授權，原樣合併main `74b012db`（tree `81c0105a`）。[CF-01](docs/foundations/kq_conditional_foliation_attempt_study_v0_1.md)在外加Ξ下完成探索sector span校準，固定η-adjoint橋接失敗；不等於physical spin已解，兩個主問題仍OPEN。依操作者選題，暫不開CF-02，新增[有界文獻盤點](docs/foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)，分清finite inverse／domain、transpose／adjoint、總CAR／covariance與kinematic CAR，逐項列版本、實讀範圍及證據等級；最後只分類相對Ξ的額外輸入與G_η界線，不選方案。EXP-0105–0107逐字登記，0108記本輪原文接觸；契約與全部既有研究稿不改。探索軌不具§5.2.1(v)依據資格，formal／E0及全部隔離不變。
+- **目前狀態：階段總結已封存；P0.2初值／守恆型正性問題契約待審**：#102已按GO與CI #314原樣合併main `950c4ea6`（tree `2ac1013d`）。新增[X-KQ-COND-TA-P0.2](docs/foundations/kq_conditional_initial_data_problem_contract_v0_2.md)，只固定B資料型別／先行凍結、內部方程與完整test分帳、初值Gram正性按構造、守恆／microcausality／Green識別及非平凡性；不交β或K。契約GO之後仍須另交B規則登記並取得GO，才可開始K規格／構造。[P0.1](docs/foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)、CF-01及既有研究稿原樣保留，原始輸入與P0.1均OPEN。EXP-0113–0116追加，0109跳脫差異與0c386716來源註記補記不改舊文；探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)

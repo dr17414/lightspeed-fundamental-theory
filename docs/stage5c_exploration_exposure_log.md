@@ -1748,3 +1748,92 @@ STATUS只替換目前段；三帳只追加，全部舊契約／研究稿／forma
 README單行新增、STATUS只換目前段、13項來源文件逐位元不變、合併SHA ancestry與本地連結均核對。
 本輪是Markdown整理，沒有更動程式／測試，未重跑既有pytest，亦未作新科學執行；
 基線CI #312已成功的事實不冒稱為本總結的新head測試結果。文件檢查不取代scope／文獻的獨立複核。
+
+
+## 53. #102原樣合併、兩項更正與P0.2題目來源（2026-11-02；只追加）
+
+#102核准headbcbd087811785609ca22f5aa978cc3d04d1693b4／tree2ac1013de219d1a1a857d7772caffd27cad98c64，
+經exact-head GO、CI #314（run40932623432）同head success及操作者明確授權，原樣squash為main
+950c4ea6d80a0525d3e61ff42046d9f5376b690b，tree與GO相同，唯一parent7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace。
+Git committer UTC2026-11-01 16:37:45／台北2026-11-02 00:37:45；不是授權或選題時間。
+操作者原句：「同意授權，且之後你可以直接執行，不需要再請求授權」。此授權涵蓋後續已指定範圍的直接執行，
+不豁免exact-head偏差、來源隔離、問題契約開始條件或新增研究／primitive的停止規則，也不授權對外聯絡。
+
+**EXP-0109逐字性更正（舊文字保留）：** 帳本原收錄的 `K=−K\*` 中，反斜線是Markdown渲染用的跳脫字元；
+reviewer本人原句是 `K=−K*`，沒有該反斜線。兩者渲染可相同，但bytes不同；先前「逐字相同」的申報對該處不成立。
+本段只追加更正，不刪改EXP-0109或先前驗證記錄；後續核對應以原句無反斜線的事實為準。
+
+**來源登記補記（不改既有總結）：** main合併0c386716701589c9a6b0b799636a808aacb9ade5（#78，ACT-X-0001啟用）
+在以下四份文件開頭各加四行「現行權限對照」標頭，是scope註記，不是新的數學分析交付：
+- docs/foundations/t1_t5_premise_audit.md
+- docs/foundations/b2_b5_interval_volume_cone_audit.md
+- docs/foundations/b3_b4_operational_clock_observer_audit.md
+- docs/foundations/b4_b6_clock_rod_signal_record_realization_audit.md
+#102來源表§7的snapshot連結已包含此標頭，但表未列這個共同註記commit；以本段補齊來源歷史，原表與原稿保留。
+
+操作者轉交的選題時間為台北2026-11-02 16:49：回到conditional契約修訂，Claude將(a)更正為(a′)，
+提出初值／邊界結構與守恆型正性題目。下列EXP-0115是reviewer提示來源，不是本輪作者的盲推導或新定理。
+S3的scalar bracket-null與fermion CAR的正／負方向不能不經型別對接便等同；提示原句仍照原樣登記。
+本分支第一commit只追加三帳，先逐字登0113／0114，並一併登題目申報0115及上述兩項補記，尚無P0.2契約檔。
+
+**EXP-0113：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #102 複核）：以 exact head `bcbd0878` 讀 #102 全部 diff 與階段總結全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 7c4b5d3a bcbd0878` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0109、0110、0111 原句，並找出 EXP-0109 中多出的 Markdown 跳脫字元。抓取 main 的較深歷史（depth 300），用腳本核對來源登記中各檔案的分析交付合併與後續複核合併的 SHA，並查出 `0c38671`、`83b54e0` 改動過的 foundations 檔案。表格中的作用域與新穎性，是依據我先前複核過的研究稿內容和 #101 盤點的 §6 對照的；這輪沒有重讀那些研究稿全文。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0114：操作者轉交的Claude本人申報原句**
+
+> Claude（#102 合併後核對）：以 git 抓取 main，核對 SHA `950c4ea6`、tree `2ac1013d`、parent `7c4b5d3a` 與 committer 時間。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0115：操作者轉交的Claude本人申報原句**
+
+> Claude（(a) 的更正與 P0.2 題目說明）：依據已合併的 KQ 系列文件、#101 盤點中對 S3、S6 的轉述，以及我先前抽查過的 S3 §III.B.1 與 §III.D 撰寫。以下推理都在腦中進行，沒有寫成證明：S3 型取商只移除零方向、拿不掉負方向；連續 Dirac 理論的正性來自 Cauchy 面範數的恆等式；有限完整 T 上可逆的 K 沒有非零齊次解；初值拉回的構造會使正性按構造成立，因此需要守恆、microcausality 與 Green 同源條件作為非平凡判準。S6 和 S3 §III.B.4／III.C.2 的內容只是轉述盤點，我沒有讀原文。這輪沒有做文獻檢索，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+下一個新EXP-ID為0116。本輪只另立X-KQ-COND-TA-P0.2問題，不選K或寫構造；
+P0.1、CF-01、原始輸入問題與全部OPEN保留，舊契約／研究稿不改。
+探索軌，不具§5.2.1(v)依據資格，formal／E0、A／B、UNKNOWN及全部隔離不變。
+
+
+## 54. P0.2問題契約起草：B型別、按構造正性與可失敗義務（2026-11-02；只追加）
+
+**EXP-0116：GPT本人申報——只定X-KQ-COND-TA-P0.2問題，不交構造**
+
+第一commit已僅三帳追加，逐字登EXP-0113–0115、0109反斜線更正與0c386716四稿scope補記；
+此後新增docs/foundations/kq_conditional_initial_data_problem_contract_v0_2.md。
+本題來自操作者台北16:49選題及reviewer的(a)→(a′)提示，並非盲選題；提示原句與原文未讀範圍保留。
+起草時考慮了初值／內部方程／完整test的型別相容、合法面比較空洞、初值維數與增長的界線，
+這些作問題定義／停止條款，不記為已完成的新證明或存在性／不可能結論。
+
+本輪實際讀／文字定位：P0.1契約§1–10（含§4.4–4.5與§6）、#101盤點§3–5／§8的既有轉述，
+CF-01研究§1／§6、T6 §3.1附近與相鄰charged段、README目前狀態及STATUS目前段，
+接觸帳既有ID／末段與ACT／dev；git核對main及0c386716對四稿各加權限標頭的diffstat。
+部分批次輸出長度被截斷，另定向讀P0.1非平凡性等段；不冒稱重讀外部原文或逐式核完整論文。
+沒有新外部文獻檢索／原文閱讀；S3／S6／S8內容只沿#101盤點的閱讀上限與分類。
+S8是先給空間格點模式CAR，不能按題目簡寫誤述成原文在全部時空事件給δ-CAR；
+P0.2坦白初值正pairing也是量子輸入，不預稱比QCA輸入更少或已有新穎性。
+
+本稿選較窄B來源類：只讀order/count，不另讀L；實際β與合法trace／Φ須在另一個只含B資料的
+獨立登記先取得GO、合併與tree核對，才可K規格／構造。這是本題的先行資料門檻，本輪沒有選β。
+新問題中的I是固定內部方程位置、C是可換的trace表述，換面不換K／Sol或重新刪方程。
+固定h_C counting正初值配對及S_C的adjoint型別；A_C=h_C(S_C·,S_C·)正性明記按構造，
+不以Gram重寫當Green識別，不以改面／取譜正部分／縮test補救。
+守恆採同一完整T上的嚴格相等，microcausality用原P不可比，Green需事先具體而非事後定義；
+(a)–(c)保留並只看active rows，(d)明記改題為初值規模／H_A關係與跨尺寸無界，不冒充舊rank≥|P|。
+
+這些是待研究問題的型別與驗收義務，不是K／state／Green規則的候選、構造或證明策略。
+沒有選M_τσ、β、Φ、K、G_A、具體Green式或state；沒有新數學推導、新物理結論或科學執行。
+沒有數值／符號／toy計算、RNG／撒點、producer、raw／sealed、seed、主機／量測或receipt。
+本輪只作文字／Git／prefix／hash／連結／integrity等交付核對，不當科學PASS或獨立數學複核。
+
+P0.1、CF-01、原問題與#102總結／所有歷史研究稿逐位元不改；三帳只追加，README／STATUS只換目前段。
+兩舊主問題OPEN，新P0.2僅提案待審；formal／E0、A／B、UNKNOWN及全部狀態／隔離不變。
+探索軌，不具§5.2.1(v)資格。下一個新EXP-ID為0117。
+操作者已授權後續指定範圍直接執行；本交付將依限定六檔payload發draft供exact-head複核，
+問題GO前不構造；其後還有B資料GO門檻，不由發布或一般授權自動豁免。
+本段的本地準備時點不作「其後永未發布」之聲明；公開head／tree／patch以PR回報核對，Git不證盲性。
+
+
+本地文件驗證（2026-11-02）：integrity、diff --check、六檔範圍、先行commit只有三帳、
+三帳相對main及先行commit的完整byte-prefix、0113–0115原句／0113–0116唯一ID、
+README／STATUS只換目前段、相對連結及P0.1／CF-01／舊總結等來源逐位元不變均通過。
+本輪未改程式／tests，未重跑pytest、未作科學執行；基線CI #314的成功不冒稱本新head測試結果。
+這些是文件與Git檢查，不是P0.2可行性或數學論證的獨立複核。

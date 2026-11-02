@@ -95,23 +95,26 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#101文獻盤點已封存；T1–CF-01公開閱讀版階段總結待複核（2026-10-30）：**
+**目前狀態：#102階段總結已封存；P0.2初值／守恆型正性問題待審（2026-11-02）：**
 
-#101 head9b01f658／tree41ae5e19經exact-head GO、CI #312 success及操作者明確合併授權，
-原樣squash為main `7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace`，唯一parent74b012db，
-merge tree與核准相同；Git committer台北2026-10-30 01:48:22，不作授權或起草開始時間。
-[有界文獻盤點](foundations/kq_quantum_bridge_literature_inventory_2026_10_28.md)原樣保存，
-其GO不表示所有引用均由reviewer核實：S2第6章／S7 §6取用被截斷，未能獨立抽查；
-S4的v3頁首版本號reviewer也未獨立確認。限制與EXP-0109–0111逐字登記於接觸帳§51。
-操作者選題時間依轉交紀錄為台北2026-10-30 01:49：先寫總結，暫不修改conditional契約。
-起草前已確認英文主文＋簡短中文摘要；第一commit僅三帳追加，後續才新增
-[T1–CF-01公開閱讀版](foundations/t1_cf01_public_stage_summary_2026_10_30.md)及作者EXP-0112（§52）。
-總結只整理已合併稿：列各項作用域／來源章節／main合併SHA，沿用#101新穎性分類，
-未涵蓋者記未查；獨立列出沒有時空／c／signature／Dirac／質量／重力／量子橋接／新可否證預測。
-不產生新結論、不升格、不改任何契約或研究稿；兩KQ主問題、G0-B／G0-C及全部formal狀態維持原樣。
-沒有新推導、新文獻閱讀、K／F／state／primitive選擇或科學執行。item7不可ADOPT、item8 OPEN，
-6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING；探索軌不具§5.2.1(v)依據資格，
-formal／E0、A／B、UNKNOWN及全部隔離不變。本總結待exact-head逐條scope與來源複核。
+#102 headbcbd0878／tree2ac1013d經exact-head GO、CI #314 success及操作者授權，原樣合併main
+`950c4ea6d80a0525d3e61ff42046d9f5376b690b`，唯一parent7c4b5d3a；merge tree與核准相同。
+Git committer台北2026-11-02 00:37:45，不作授權或選題時間。
+[公開閱讀版總結](foundations/t1_cf01_public_stage_summary_2026_10_30.md)及原研究稿不改；
+EXP-0109多收Markdown反斜線、0c386716對四份前提稿的權限標頭於接觸帳§53追加更正／補記，
+EXP-0113–0115原句在第一commit只追加三帳，0116另記起草與來源範圍（§54）。
+操作者轉交的選題時間為台北2026-11-02 16:49，Claude(a)→(a′)提示已披露，不當盲推導或定理。
+新增[X-KQ-COND-TA-P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)；
+[P0.1](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)全文及CF-01失敗原樣保存，原始輸入與P0.1均OPEN。
+P0.2只定B型別／規則來源與容量、固定初值正配對、共同內部方程與trace分帳、完整test上的S拉回，
+正性本身按構造成立，不當成果；核心為可失敗的守恆、microcausality及獨立Green識別，
+(a)–(c)只用active方程且保留原強度，(d)明示改為與初值規模相連的非零／無界增長。
+本稿沒有β／K／Green公式／state或構造策略；契約GO／合併後，仍須B規則獨立登記GO／合併／tree核對，
+才可固定K及下游規格或開始構造。不能看輸出後定義合法面、Φ或縮域。
+B規則不直接讀L，P0.1 §4.4–4.5隔離延伸至下游；S8只沿盤點的空間模式CAR作用域，不誤記全時空δ-CAR。
+無新外部文獻閱讀、數值／符號計算、RNG／撒點、producer或raw／sealed；只有問題定義與文件檢查。
+探索軌不具§5.2.1(v)資格；formal／E0、A／B、UNKNOWN隔離及G0-B／G0-C、item7不可ADOPT、
+item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING均不變。P0.2待exact-head問題複核。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 
