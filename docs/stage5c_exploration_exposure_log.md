@@ -1748,3 +1748,46 @@ STATUS只替換目前段；三帳只追加，全部舊契約／研究稿／forma
 README單行新增、STATUS只換目前段、13項來源文件逐位元不變、合併SHA ancestry與本地連結均核對。
 本輪是Markdown整理，沒有更動程式／測試，未重跑既有pytest，亦未作新科學執行；
 基線CI #312已成功的事實不冒稱為本總結的新head測試結果。文件檢查不取代scope／文獻的獨立複核。
+
+
+## 53. #102原樣合併、兩項更正與P0.2題目來源（2026-11-02；只追加）
+
+#102核准headbcbd087811785609ca22f5aa978cc3d04d1693b4／tree2ac1013de219d1a1a857d7772caffd27cad98c64，
+經exact-head GO、CI #314（run40932623432）同head success及操作者明確授權，原樣squash為main
+950c4ea6d80a0525d3e61ff42046d9f5376b690b，tree與GO相同，唯一parent7c4b5d3a098d7d4952bdcbb111575ebf21fc1ace。
+Git committer UTC2026-11-01 16:37:45／台北2026-11-02 00:37:45；不是授權或選題時間。
+操作者原句：「同意授權，且之後你可以直接執行，不需要再請求授權」。此授權涵蓋後續已指定範圍的直接執行，
+不豁免exact-head偏差、來源隔離、問題契約開始條件或新增研究／primitive的停止規則，也不授權對外聯絡。
+
+**EXP-0109逐字性更正（舊文字保留）：** 帳本原收錄的 `K=−K\*` 中，反斜線是Markdown渲染用的跳脫字元；
+reviewer本人原句是 `K=−K*`，沒有該反斜線。兩者渲染可相同，但bytes不同；先前「逐字相同」的申報對該處不成立。
+本段只追加更正，不刪改EXP-0109或先前驗證記錄；後續核對應以原句無反斜線的事實為準。
+
+**來源登記補記（不改既有總結）：** main合併0c386716701589c9a6b0b799636a808aacb9ade5（#78，ACT-X-0001啟用）
+在以下四份文件開頭各加四行「現行權限對照」標頭，是scope註記，不是新的數學分析交付：
+- docs/foundations/t1_t5_premise_audit.md
+- docs/foundations/b2_b5_interval_volume_cone_audit.md
+- docs/foundations/b3_b4_operational_clock_observer_audit.md
+- docs/foundations/b4_b6_clock_rod_signal_record_realization_audit.md
+#102來源表§7的snapshot連結已包含此標頭，但表未列這個共同註記commit；以本段補齊來源歷史，原表與原稿保留。
+
+操作者轉交的選題時間為台北2026-11-02 16:49：回到conditional契約修訂，Claude將(a)更正為(a′)，
+提出初值／邊界結構與守恆型正性題目。下列EXP-0115是reviewer提示來源，不是本輪作者的盲推導或新定理。
+S3的scalar bracket-null與fermion CAR的正／負方向不能不經型別對接便等同；提示原句仍照原樣登記。
+本分支第一commit只追加三帳，先逐字登0113／0114，並一併登題目申報0115及上述兩項補記，尚無P0.2契約檔。
+
+**EXP-0113：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #102 複核）：以 exact head `bcbd0878` 讀 #102 全部 diff 與階段總結全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 7c4b5d3a bcbd0878` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本比對 EXP-0109、0110、0111 原句，並找出 EXP-0109 中多出的 Markdown 跳脫字元。抓取 main 的較深歷史（depth 300），用腳本核對來源登記中各檔案的分析交付合併與後續複核合併的 SHA，並查出 `0c38671`、`83b54e0` 改動過的 foundations 檔案。表格中的作用域與新穎性，是依據我先前複核過的研究稿內容和 #101 盤點的 §6 對照的；這輪沒有重讀那些研究稿全文。沒有讀文獻原文或做檢索；沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0114：操作者轉交的Claude本人申報原句**
+
+> Claude（#102 合併後核對）：以 git 抓取 main，核對 SHA `950c4ea6`、tree `2ac1013d`、parent `7c4b5d3a` 與 committer 時間。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0115：操作者轉交的Claude本人申報原句**
+
+> Claude（(a) 的更正與 P0.2 題目說明）：依據已合併的 KQ 系列文件、#101 盤點中對 S3、S6 的轉述，以及我先前抽查過的 S3 §III.B.1 與 §III.D 撰寫。以下推理都在腦中進行，沒有寫成證明：S3 型取商只移除零方向、拿不掉負方向；連續 Dirac 理論的正性來自 Cauchy 面範數的恆等式；有限完整 T 上可逆的 K 沒有非零齊次解；初值拉回的構造會使正性按構造成立，因此需要守恆、microcausality 與 Green 同源條件作為非平凡判準。S6 和 S3 §III.B.4／III.C.2 的內容只是轉述盤點，我沒有讀原文。這輪沒有做文獻檢索，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有跑測試。
+
+下一個新EXP-ID為0116。本輪只另立X-KQ-COND-TA-P0.2問題，不選K或寫構造；
+P0.1、CF-01、原始輸入問題與全部OPEN保留，舊契約／研究稿不改。
+探索軌，不具§5.2.1(v)依據資格，formal／E0、A／B、UNKNOWN及全部隔離不變。
