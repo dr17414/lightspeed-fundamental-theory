@@ -770,3 +770,22 @@ tree2ac1013de219d1a1a857d7772caffd27cad98c64，parent7c4b5d3a；Git committer台
 reviewer的(a)→(a′)推理作已見提示披露，不作已證的fermion取商／正性定理；P0.1及CF-01原樣保留。
 操作者已允許後續指定範圍直接執行，exact-head／契約開始與停止條件及對外聯絡限制不因此放寬。
 兩KQ主問題與formal／E0、A／B、UNKNOWN隔離不變；探索軌不具§5.2.1(v)資格，無構造或科學執行。
+
+
+## P0.2初值／守恆型正性問題契約（2026-11-02；只追加）
+
+先行三帳commit已登EXP-0113–0115及兩項補記；本階段新增X-KQ-COND-TA-P0.2問題契約，作者0116見§54。
+B結構／初值positive pairing是明列新增資料；I與可換trace C分帳，正性按構造不算成果，
+守恆／microcausality／Green獨立識別可失敗，active K的(a)–(c)保留，(d)明示與初值規模相連的改題。
+契約GO合併後仍須β／合法面／Φ的獨立B登記取得GO合併，再有K規格及研究；本輪不選β或K，不寫構造。
+B不另讀L，P0.1時間序限制保留；S8的先給空間模式CAR與全事件δ-CAR禁令分開敘述。
+六檔：新契約、三帳追加、README／STATUS目前段；P0.1／CF-01／總結與其他歷史／formal全部保全。
+操作者後續指定scope可直接執行，draft發布仍不代替問題／資料GO；無新外部原文／科學執行。
+探索軌不具§5.2.1(v)資格，兩舊主問題及formal／E0、A／B、UNKNOWN隔離與全部OPEN維持。
+
+
+本地文件驗證（2026-11-02）：integrity、diff --check、六檔範圍、先行commit只有三帳、
+三帳相對main及先行commit的完整byte-prefix、0113–0115原句／0113–0116唯一ID、
+README／STATUS只換目前段、相對連結及P0.1／CF-01／舊總結等來源逐位元不變均通過。
+本輪未改程式／tests，未重跑pytest、未作科學執行；基線CI #314的成功不冒稱本新head測試結果。
+這些是文件與Git檢查，不是P0.2可行性或數學論證的獨立複核。
