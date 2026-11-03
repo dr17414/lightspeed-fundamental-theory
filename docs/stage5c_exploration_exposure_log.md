@@ -1837,3 +1837,67 @@ P0.1、CF-01、原問題與#102總結／所有歷史研究稿逐位元不改；�
 README／STATUS只換目前段、相對連結及P0.1／CF-01／舊總結等來源逐位元不變均通過。
 本輪未改程式／tests，未重跑pytest、未作科學執行；基線CI #314的成功不冒稱本新head測試結果。
 這些是文件與Git檢查，不是P0.2可行性或數學論證的獨立複核。
+
+
+## 55. #103原樣合併與β獨立登記起點（2026-11-03；只追加）
+
+#103核准head9714ff4991293dc5867e0d6406f6c07f213a97a6，CI #316（run41420430147）在該head成功，
+依操作者既有「同意授權，且之後你可以直接執行，不需要再請求授權」的指定範圍授權轉ready並原樣squash。
+main為fe24bf3181c8561cd447d066d89032eb97e6574e，tree57530e315914bffc400e1451e290b8b269b135da，
+唯一parent950c4ea6d80a0525d3e61ff42046d9f5376b690b；Git committer台北2026-11-03 00:44:28。
+Git時間只是合併時間，不倒填為授權、β選定或研究開始時間。P0.2問題契約已GO／合併／tree核對，
+但第二道β資料門檻尚未完成；上版契約及狀態文件中的「待審」是起草／交付當時的狀態，保留不改。
+
+本交付第一commit僅三帳追加，逐字登EXP-0117、0118；後一commit才交B資料登記及作者範圍申報。
+reviewer三項提示已接觸：守恆／unitary、共同合法集合的microcausality覆蓋、minimal元素的集合條件。
+它們是腦中推理的提示，不冒稱reviewer已寫成證明，也不把minimal範例說成reviewer替作者選定β。
+β可以作資料規則的紙上定義與集合證明；本輪不固定K、下游規格或任何K輸出。
+具體β的作者選擇、曾考慮的替代與提示用途，於後一commit完整披露，不稱盲選。
+紀錄reviewer申報依既定程序在下一交付追加，這不豁免β本身的GO／合併／tree門檻。
+本地準備狀態不作永久未發布聲明；發布與CI狀態以PR exact head回報，公開Git不證盲性。
+
+**EXP-0117：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #103 複核）：以 exact head `9714ff49` 讀 #103 全部 diff 與 P0.2 契約全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 950c4ea6 9714ff49` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認 P0.1、CF-01 規格與研究稿、階段總結、acceptance 都沒有改動，並用腳本逐字比對 EXP-0113、0114、0115，也讀了兩項更正段落。以下都在腦中推理，沒有寫成證明：守恆等價於初值轉換 unitary；同在一個合法集合中的不可比對，其 microcausality 由守恆推出；「B₀ = minimal 元素」滿足 §3.1 的集合條件。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0118：操作者轉交的Claude本人申報原句**
+
+> Claude（#103 合併後核對）：以 git 抓取 main，核對 SHA `fe24bf31`、tree `57530e31`、parent `950c4ea6` 與 committer 時間。β 登記的核對重點是依據已合併的 P0.2 契約和我先前的複核意見列出的。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+下一個新EXP-ID為0119。兩舊KQ主問題與全部formal狀態不升格。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、UNKNOWN隔離不變，無科學執行。
+
+
+## 56. B-01 v0.1獨立資料登記與紙上集合證明（2026-11-03；只追加）
+
+**EXP-0119：GPT本人申報——β資料規則與證明，不含K或K輸出**
+
+第一commit僅三帳追加EXP-0117、0118及#103原樣合併事實；第二commit新增
+docs/foundations/kq_conditional_boundary_beta_registration_v0_1.md，並只替換README／STATUS目前狀態段。
+本輪沿操作者指定的第二道β門檻與持續直接執行授權工作，不將發布或一般授權視為資料GO。
+來源是已合併P0.2及操作者轉交的reviewer三項提示、七項核對重點；不是盲選。
+
+實際讀取：P0.2契約§1–10全文，原始輸入契約§2中D₁／R₂／q的定義及鄰近定位行，
+README／STATUS目前段、三帳既有末段／ID、verify_integrity.py及CI中檢查命令。
+為沿用追加格式，也讀本地上一輪record_p02_start.py及check_p02.py；它們是文件維護腳本，非科學輸出。
+Git只核對新main、parent／tree及本輪六檔；沒有重新閱讀其他研究稿或外部原文。
+沒有新文獻檢索／閱讀，也沒有使用任何raw／sealed、probe輸出、producer或量測資料。
+
+採用B₀=minimal元素、I=P\B₀，C族是大小|B₀|且與每條極大鏈恰交一次的反鏈。
+B₀來源明確來自reviewer提示3，作者在本稿§3補集合證明；reviewer沒有替作者選β。
+曾考慮所有同基數反鏈、所有同基數極大反鏈，再選全極大鏈橫截，理由是order上完整截面的解讀，
+不是K或form嘗試。提示2用於事前覆蓋分類，提示1僅披露、不作動力學規則選擇或本輪證明。
+作者紙上給出：整域集合條件／q_I=q、面族有限和與確切容量、Φ為不交k≥2份C₂、
+其realizer orbit唯一及對任意m的增長witness、所有order同構下的B／trace／h自然性，
+以及共同合法集合覆蓋predicate／精確對數、鏈／star／diamond與Φ族的紙上分類。
+這些是本輪B資料層的數學論證，待獨立複核；不是已核實的K、CAR、Green、守恆或物理結果。
+沒有把守恆等價unitary提示推成新定理，沒有指定任何K或下游公式、係數、state或構造／證明策略。
+
+上述推理均以文字／紙上數學完成，沒有程式枚舉poset、沒有執行數值／符號科學計算、
+沒有RNG／撒點、producer、raw／sealed、seed／主機／量測。文件腳本只做追加、prefix／引用原句、
+Git／hash／路徑與integrity檢查，不生成或驗算任何B witness的科學資料或任何K輸出。
+本輪未重跑pytest；CI新head的結果另核對，不把#316或reviewer的既有556 passed冒稱本輪本地測試。
+P0.2、P0.1、CF-01與全部舊契約／研究稿不改；B資料GO／原樣合併／tree核對前不固定K。
+所有KQ科學問題與formal均維持原樣，探索軌不具§5.2.1(v)資格；E0、A／B、UNKNOWN隔離不變。
+本段本地準備時點不作永未發布聲明；公開head／tree／patch以PR回報核對，Git不證盲性。
+下一個新EXP-ID為0120。

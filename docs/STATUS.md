@@ -95,26 +95,24 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#102階段總結已封存；P0.2初值／守恆型正性問題待審（2026-11-02）：**
+**目前狀態：P0.2問題已定；第二道β資料登記B-01待複核（2026-11-03）：**
 
-#102 headbcbd0878／tree2ac1013d經exact-head GO、CI #314 success及操作者授權，原樣合併main
-`950c4ea6d80a0525d3e61ff42046d9f5376b690b`，唯一parent7c4b5d3a；merge tree與核准相同。
-Git committer台北2026-11-02 00:37:45，不作授權或選題時間。
-[公開閱讀版總結](foundations/t1_cf01_public_stage_summary_2026_10_30.md)及原研究稿不改；
-EXP-0109多收Markdown反斜線、0c386716對四份前提稿的權限標頭於接觸帳§53追加更正／補記，
-EXP-0113–0115原句在第一commit只追加三帳，0116另記起草與來源範圍（§54）。
-操作者轉交的選題時間為台北2026-11-02 16:49，Claude(a)→(a′)提示已披露，不當盲推導或定理。
-新增[X-KQ-COND-TA-P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)；
-[P0.1](foundations/kq_conditional_time_adjoint_problem_contract_v0_1.md)全文及CF-01失敗原樣保存，原始輸入與P0.1均OPEN。
-P0.2只定B型別／規則來源與容量、固定初值正配對、共同內部方程與trace分帳、完整test上的S拉回，
-正性本身按構造成立，不當成果；核心為可失敗的守恆、microcausality及獨立Green識別，
-(a)–(c)只用active方程且保留原強度，(d)明示改為與初值規模相連的非零／無界增長。
-本稿沒有β／K／Green公式／state或構造策略；契約GO／合併後，仍須B規則獨立登記GO／合併／tree核對，
-才可固定K及下游規格或開始構造。不能看輸出後定義合法面、Φ或縮域。
-B規則不直接讀L，P0.1 §4.4–4.5隔離延伸至下游；S8只沿盤點的空間模式CAR作用域，不誤記全時空δ-CAR。
-無新外部文獻閱讀、數值／符號計算、RNG／撒點、producer或raw／sealed；只有問題定義與文件檢查。
-探索軌不具§5.2.1(v)資格；formal／E0、A／B、UNKNOWN隔離及G0-B／G0-C、item7不可ADOPT、
-item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING均不變。P0.2待exact-head問題複核。
+#103 head9714ff49經exact-head GO、CI #316（run41420430147）同head成功及持續直接執行授權，
+原樣squash為main `fe24bf3181c8561cd447d066d89032eb97e6574e`，
+tree `57530e315914bffc400e1451e290b8b269b135da`與核准版本相同，唯一parent950c4ea6。
+Git committer台北2026-11-03 00:44:28，只記合併時間，不倒填授權／選定／研究時間。
+[P0.2問題契約](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)全文不改；第一道門檻已滿足。
+本交付第一commit僅三帳逐字登EXP-0117、0118；第二commit新增
+[B-01 β獨立資料登記](foundations/kq_conditional_boundary_beta_registration_v0_1.md)，作者範圍見EXP-0119。
+B₀取minimal元素，合法trace為同基數、與每條極大鏈恰交一次的反鏈；不讀L或任何K／form輸出。
+交全D_KQ集合條件、容量精確公式、order/count Φ與每個m的witness、所有同構自然性，
+並列一般不可比對覆蓋判準及對數；reviewer三項提示和考慮過的替代類別全部披露，不稱盲選。
+這只及B資料，不是K、初值可解性、守恆、microcausality、Green、CAR或H_A的科學成果。
+第二道資料門檻仍待exact-head GO、原樣合併及tree核對；完成前不固定K或下游規格。
+原始輸入、P0.1及P0.2科學問題均OPEN，舊契約／CF-01／盤點／公開總結原樣保留。
+無新外部原文、數值／符號科學計算、RNG／撒點、producer、raw／sealed；只作B紙上證明與文件檢查。
+探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及G0-B／G0-C隔離不變；
+item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING維持。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 
