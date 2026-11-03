@@ -1866,3 +1866,38 @@ reviewer三項提示已接觸：守恆／unitary、共同合法集合的microcau
 
 下一個新EXP-ID為0119。兩舊KQ主問題與全部formal狀態不升格。
 探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、UNKNOWN隔離不變，無科學執行。
+
+
+## 56. B-01 v0.1獨立資料登記與紙上集合證明（2026-11-03；只追加）
+
+**EXP-0119：GPT本人申報——β資料規則與證明，不含K或K輸出**
+
+第一commit僅三帳追加EXP-0117、0118及#103原樣合併事實；第二commit新增
+docs/foundations/kq_conditional_boundary_beta_registration_v0_1.md，並只替換README／STATUS目前狀態段。
+本輪沿操作者指定的第二道β門檻與持續直接執行授權工作，不將發布或一般授權視為資料GO。
+來源是已合併P0.2及操作者轉交的reviewer三項提示、七項核對重點；不是盲選。
+
+實際讀取：P0.2契約§1–10全文，原始輸入契約§2中D₁／R₂／q的定義及鄰近定位行，
+README／STATUS目前段、三帳既有末段／ID、verify_integrity.py及CI中檢查命令。
+為沿用追加格式，也讀本地上一輪record_p02_start.py及check_p02.py；它們是文件維護腳本，非科學輸出。
+Git只核對新main、parent／tree及本輪六檔；沒有重新閱讀其他研究稿或外部原文。
+沒有新文獻檢索／閱讀，也沒有使用任何raw／sealed、probe輸出、producer或量測資料。
+
+採用B₀=minimal元素、I=P\B₀，C族是大小|B₀|且與每條極大鏈恰交一次的反鏈。
+B₀來源明確來自reviewer提示3，作者在本稿§3補集合證明；reviewer沒有替作者選β。
+曾考慮所有同基數反鏈、所有同基數極大反鏈，再選全極大鏈橫截，理由是order上完整截面的解讀，
+不是K或form嘗試。提示2用於事前覆蓋分類，提示1僅披露、不作動力學規則選擇或本輪證明。
+作者紙上給出：整域集合條件／q_I=q、面族有限和與確切容量、Φ為不交k≥2份C₂、
+其realizer orbit唯一及對任意m的增長witness、所有order同構下的B／trace／h自然性，
+以及共同合法集合覆蓋predicate／精確對數、鏈／star／diamond與Φ族的紙上分類。
+這些是本輪B資料層的數學論證，待獨立複核；不是已核實的K、CAR、Green、守恆或物理結果。
+沒有把守恆等價unitary提示推成新定理，沒有指定任何K或下游公式、係數、state或構造／證明策略。
+
+上述推理均以文字／紙上數學完成，沒有程式枚舉poset、沒有執行數值／符號科學計算、
+沒有RNG／撒點、producer、raw／sealed、seed／主機／量測。文件腳本只做追加、prefix／引用原句、
+Git／hash／路徑與integrity檢查，不生成或驗算任何B witness的科學資料或任何K輸出。
+本輪未重跑pytest；CI新head的結果另核對，不把#316或reviewer的既有556 passed冒稱本輪本地測試。
+P0.2、P0.1、CF-01與全部舊契約／研究稿不改；B資料GO／原樣合併／tree核對前不固定K。
+所有KQ科學問題與formal均維持原樣，探索軌不具§5.2.1(v)資格；E0、A／B、UNKNOWN隔離不變。
+本段本地準備時點不作永未發布聲明；公開head／tree／patch以PR回報核對，Git不證盲性。
+下一個新EXP-ID為0120。
