@@ -1931,3 +1931,45 @@ B-01第二道資料門檻已GO／合併／tree核對；下一規格依操作者�
 
 下一個新EXP-ID為0122。既有P0.1／P0.2、B-01、全部研究稿與formal狀態不改。
 探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、UNKNOWN隔離不變。
+
+
+## 58. L作用域對齊與IB-01獨立規格提案（2026-11-03；只追加）
+
+**EXP-0122：GPT本人申報——固定IB-01規格，未交研究輸出**
+
+接觸帳§57的「K禁讀L須先對齊」是第一commit當時的狀態。其後作者向操作者列出兩個方向：
+沿用P0.1 §4.4限定L入口，或刻意研究order-only受限類；操作者選擇原句為「沿用契約 (Recommended)」。
+本版因此沿用現行入口，不採本輪reviewer建議中的全面禁L；β和全部下游不另讀L，K不隨合法trace C改變。
+這是作用域選擇，沒有另索取推送／合併授權；既有直接執行授權不取代規格GO或科學停止條件。
+第一commit僅三帳追加EXP-0120、0121；第二commit新增kq_initial_boundary_attempt_spec_v0_1.md及本段，
+README／STATUS只替換目前段。既有母契約、B-01、CF-01、研究稿與formal全文不改。
+
+實際閱讀／定位：P0.2 §1–10定向核對（包括完整§4–10）、P0.1 §3–4.5的primitive、自然性與L限制，
+B-01 §1–2、§6–8及既有容量／Φ的引用定位，CF-01規格§1–7全文、研究稿§1與§6–7附近及關鍵行定位，
+OP-01研究§4.1–4.2的star／G_swap論證、README／STATUS目前段與三帳ID／末段。
+另機械讀Git metadata／diff與文件維護腳本；一個T6檔名讀取失敗，沒有因此聲稱讀了新T6全文。
+沒有新外部文獻檢索／閱讀。未讀任何新的raw／sealed、probe／planted摘要或producer資料。
+
+作者將新「不讀L」建議與既有star對稱性障礙作紙上對讀，預想全面order-only會重現sector不足；
+這是已見既有結果下的事前判斷，不稱本版新證明或模型結果，來源及操作者選擇均在規格§1披露。
+本版是校準型IB-01，不宣稱已找到量子橋接：沿用CF-01七格係數的常數與型別，改為反號off-diagonal、
+內部row方程、初值/source augmentation；固定有限和inverse、數學adjoint、E_C唯一trace逆、S_C=E_C†，
+A_C為母契約已定Gram，另外固定C_G=G_R+G_A−I的strict可比pair識別及source-sensitive檢查。
+comparison只取預定t=1、2、重求同鏈物件；不合法就未完成，不另挑成功比較對象。
+CAR／state trial明列charged關係及Q=A/2 Wick法；generic存在性與Gram正性都不算成果。
+
+規格前已在腦中考慮初值augmentation的三角型inverse、其他path／cover或incidence／反演類、
+boundary-flux類及Green和／差的符號；未採用的想法沒有做成候選、輸出或程式，也未用來調整既有結果。
+已預想不同面trace可逆性、branching microcausality、chain守恆或獨立Green關係可能失敗；
+起草時亦在腦中代入過C₃初值傳播而預見非unitary／Green失敗的風險，不能聲稱完全沒有案例預算，
+也不能把這項事前思考當規格GO後的獨立驗證。沒有據此調係數／回改失敗規則，沒有作程式或科學執行。
+規格列的composition等式是待驗收規則，不是本輪新證明；本交付不列案例矩陣、正負方向或完成判定，
+不繼續案例代入／完整研究，將這項規格前思考如實交reviewer核對程序定位。
+固定紙上目錄只列B-01組合資料的既有公式／紙上代入與分布，不是K評估輸出；c=1只說守恆比較無判別力，
+Ind對須在原P直接檢查，Cov推論須先有初值同構與守恆，不重複計獨立證據。
+
+沒有科學程式、枚舉、數值／符號科學執行、RNG／撒點、producer、raw／sealed、seed、主機量測或receipt。
+只有文字／Git／prefix／原句／hash／路徑／integrity檢查；未本地重跑pytest，不把舊CI的556 passed當本版測試。
+本規格仍待exact-head GO、必要CI、原樣合併與tree核對，完成前不開始案例求解、研究或科學輸出。
+所有KQ主問題、formal／E0、A／B、UNKNOWN及其他隔離不變；探索軌不具§5.2.1(v)資格。
+本地準備文字不作永久未發布聲明；公開版本以PR回報核對，Git不能證盲性。下一新EXP-ID為0123。

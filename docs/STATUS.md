@@ -95,24 +95,26 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.2問題已定；第二道β資料登記B-01待複核（2026-11-03）：**
+**目前狀態：B-01已定；第三道IB-01固定規格待審（2026-11-03）：**
 
-#103 head9714ff49經exact-head GO、CI #316（run41420430147）同head成功及持續直接執行授權，
-原樣squash為main `fe24bf3181c8561cd447d066d89032eb97e6574e`，
-tree `57530e315914bffc400e1451e290b8b269b135da`與核准版本相同，唯一parent950c4ea6。
-Git committer台北2026-11-03 00:44:28，只記合併時間，不倒填授權／選定／研究時間。
-[P0.2問題契約](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)全文不改；第一道門檻已滿足。
-本交付第一commit僅三帳逐字登EXP-0117、0118；第二commit新增
-[B-01 β獨立資料登記](foundations/kq_conditional_boundary_beta_registration_v0_1.md)，作者範圍見EXP-0119。
-B₀取minimal元素，合法trace為同基數、與每條極大鏈恰交一次的反鏈；不讀L或任何K／form輸出。
-交全D_KQ集合條件、容量精確公式、order/count Φ與每個m的witness、所有同構自然性，
-並列一般不可比對覆蓋判準及對數；reviewer三項提示和考慮過的替代類別全部披露，不稱盲選。
-這只及B資料，不是K、初值可解性、守恆、microcausality、Green、CAR或H_A的科學成果。
-第二道資料門檻仍待exact-head GO、原樣合併及tree核對；完成前不固定K或下游規格。
-原始輸入、P0.1及P0.2科學問題均OPEN，舊契約／CF-01／盤點／公開總結原樣保留。
-無新外部原文、數值／符號科學計算、RNG／撒點、producer、raw／sealed；只作B紙上證明與文件檢查。
-探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及G0-B／G0-C隔離不變；
-item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING維持。
+#104 headc686cd53／tree3473d314經exact-head GO、CI #318同head attempt2成功，依持續授權原樣squash為
+main `a8fb088463ee7717e48e6c6640ad6e3107176a3b`，tree與核准相同，唯一parentfe24bf31。
+Git committer台北2026-11-03 12:28:38，只作合併時間。CI首次/proc競態與重跑是GPT的API／日誌核對，
+Claude沒有API權限、未獨立核實CI；其限制與EXP-0120、0121逐字記於第一commit三帳（接觸帳§57）。
+[P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)與[B-01](foundations/kq_conditional_boundary_beta_registration_v0_1.md)
+兩道門檻已完成，舊文字／狀態行保留為歷史。操作者本輪要求第三道規格先GO才研究。
+對新建議K禁讀L與原契約限定入口的差異，操作者選擇「沿用契約 (Recommended)」；
+K只以P0.1 §4.4固定線性統計承接L，β／初值配對與全部下游不另讀L，不改任何母契約。
+新增[IB-01獨立規格](foundations/kq_initial_boundary_attempt_spec_v0_1.md)，只固定規則與可失敗判準，
+不交K案例、Green／A輸出或義務通過判定；作者EXP-0122披露來源、已預想風險與未採用的想法（§58）。
+這是校準型試作，不宣稱新量子橋接；初值Gram正性及generic Wick存在性按構造不算成果。
+守恆採同T嚴格相等，microcausality用原P且Ind逐對直接核對，Green識別另用同源source response與預定比較。
+固定紙上目錄先列c／n_cov／n_ind分布，c=1只說守恆比較不提供判別力，不刪輸入或其他義務。
+規格取得exact-head GO、CI成功、原樣合併並核對tree前，不開始案例求解、研究推導或科學輸出。
+原始輸入、P0.1、P0.2主問題全部OPEN；舊研究稿、CF-01、文獻盤點與公開總結原樣保留。
+無新外部原文／數值或符號科學執行／枚舉／RNG／撒點／producer／raw／sealed；本輪未本地重跑pytest。
+探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、G0-B／G0-C及全部隔離維持；
+item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING不變。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 
