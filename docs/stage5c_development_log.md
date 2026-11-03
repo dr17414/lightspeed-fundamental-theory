@@ -781,3 +781,27 @@ B₀=minimal、合法C為同基數全極大鏈橫截反鏈；全域集合條件�
 六檔：新B登記、三帳只追加、README／STATUS只換目前段；舊契約／研究稿／formal保全。
 無新原文／科學執行，未本地重跑pytest；探索軌不具§5.2.1(v)資格，全部隔離不變。
 下一ID0120；本地準備文字不作永久未發布聲明，以公開PR核對其後發布事實。
+
+
+## #104原樣合併與下一規格先行紀錄（2026-11-03；只追加）
+
+#104經exact-head GO及CI #318相同head attempt2成功，原樣合併main
+a8fb088463ee7717e48e6c6640ad6e3107176a3b，tree3473d31410db2a045fd6598e026ae838150e1924，
+唯一parentfe24bf31；Git committer台北2026-11-03 12:28:38，不作授權／研究起始時間。
+CI首次/proc競態與重跑由GPT直接核對；Claude沒有API權限，未獨立核實，見EXP-0121。
+第一commit僅三帳逐字追加EXP-0120、0121（接觸帳§57）；下一ID0122。
+β資料門檻已完成，第三道規格須先GO；新建議K禁讀L與現行限定入口須先對齊，未固定K或下游規則。
+不更動契約／B-01／歷史研究稿或formal；探索軌不具§5.2.1(v)資格，全部隔離不變。
+
+
+## IB-01規格提案：先GO再研究（2026-11-03；只追加）
+
+第一commit逐字登EXP-0120、0121；第二commit交IB-01規格，作者0122詳見接觸帳§58。
+其後操作者選擇「沿用契約 (Recommended)」，已對齊第一commit的L疑義：K只用原限定線性入口，
+β／trace及下游不另讀L，不採全面order-only的新限制。母契約及B-01完全保留。
+IB-01是固定初值/source分帳、有限和response、強制S=E†、獨立Green和式及charged Wick trial的校準規格，
+未交任何案例K／Green／A輸出或完成判定；守恆／Ind直接microcausality／typed Green均可失敗。
+固定目錄報c／n_cov／n_ind，c=1只列守恆比較無判別力，未覆蓋對直接檢查；不縮全域。
+六檔：新規格、三帳只追加、README／STATUS只換目前段；程式／測試／formal及舊稿不改。
+規格須exact-head GO、CI成功、原樣合併／tree核對後再研究；沒有科學執行，未本地跑pytest。
+探索軌不具§5.2.1(v)資格，全部隔離與OPEN不變。下一ID0123；公開Git不證盲性。

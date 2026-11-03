@@ -1901,3 +1901,75 @@ P0.2、P0.1、CF-01與全部舊契約／研究稿不改；B資料GO／原樣合�
 所有KQ科學問題與formal均維持原樣，探索軌不具§5.2.1(v)資格；E0、A／B、UNKNOWN隔離不變。
 本段本地準備時點不作永未發布聲明；公開head／tree／patch以PR回報核對，Git不證盲性。
 下一個新EXP-ID為0120。
+
+
+## 57. #104原樣合併與下一規格先行紀錄（2026-11-03；只追加）
+
+#104核准headc686cd5359d1cb3e3f42d940e4981e6d3e6a2324，經exact-head GO及持續授權，
+原樣squash為main a8fb088463ee7717e48e6c6640ad6e3107176a3b，
+tree3473d31410db2a045fd6598e026ae838150e1924與核准版本相同，唯一parentfe24bf3181c8561cd447d066d89032eb97e6574e。
+Git committer台北2026-11-03 12:28:38，只作合併時間，不倒填授權／選題／研究時間。
+GPT以GitHub API直接核對CI #318（run41551663459）：attempt1在既有parent-death測試讀/proc時
+遇ProcessLookupError；相同head的attempt2成功，job125726295985日誌為556 passed、5 warnings，integrity通過。
+這是GPT對API／日誌的直接核對，不是Claude的獨立CI核實；reviewer的API權限限制照原句保留。
+該次核對讀了失敗日誌、測試函式附近與新版日誌，未改任何程式或測試；未作新科學執行。
+
+B-01第二道資料門檻已GO／合併／tree核對；下一規格依操作者轉交要求亦須先GO，再開始構造／研究輸出。
+操作者轉交的四點建議中，「K_int不能讀L」較已合併P0.2 §4的限定L入口更窄；尚待對齊，
+本紀錄不默認選取order-only類別，也不默認忽略新建議。未固定K、係數、Green式、state或下游規格。
+第2–4點的守恆／microcausality／typed Green與c=1／未覆蓋對分列不改契約，留待規格完整落實。
+第一commit僅三帳追加EXP-0120、0121及上述合併事實；不是已交第三道規格，也不啟動構造。
+本地準備文字不作永久未發布聲明；其後公開版本與CI以PR exact head回報核對，不以Git證盲性。
+
+**EXP-0120：操作者轉交的Claude本人申報原句**
+
+> Claude（PR #104 複核）：以 exact head `c686cd53` 讀 #104 全部 diff 與 β 登記全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff fe24bf31 c686cd53` 的 SHA-256 等於操作者提供的 patch hash；把三本帳的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，確認 P0.1、P0.2、CF-01、acceptance 與程式碼都沒有改動，並用腳本逐字比對 EXP-0117、0118。以下都在腦中核對，沒有寫成證明：M∈C_β、容量界、Φ 的 D1 實現與 c=2^k、自然性、§7 各例的 n_cov、n_ind 與 c_xy（含 diamond 的 n_ind=1）。沒有讀文獻原文或做檢索；沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0121：操作者轉交的Claude本人申報原句**
+
+> Claude（#104 合併後核對）：以 git 抓取 main，核對 SHA `a8fb0884`、tree `3473d314`、唯一 parent `fe24bf31` 與 committer 時間，並確認合併結果與 GO 的 head `c686cd53` 的 tree 相同。CI #318 的重跑結果是操作者的轉述，我因為沒有 API 權限而沒有獨立核實。第三道門檻的建議重點，是依據已合併的 P0.2 契約、β 登記和我先前的複核意見列出的。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號計算，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+下一個新EXP-ID為0122。既有P0.1／P0.2、B-01、全部研究稿與formal狀態不改。
+探索軌，不具§5.2.1(v)依據資格；formal／E0、A／B、UNKNOWN隔離不變。
+
+
+## 58. L作用域對齊與IB-01獨立規格提案（2026-11-03；只追加）
+
+**EXP-0122：GPT本人申報——固定IB-01規格，未交研究輸出**
+
+接觸帳§57的「K禁讀L須先對齊」是第一commit當時的狀態。其後作者向操作者列出兩個方向：
+沿用P0.1 §4.4限定L入口，或刻意研究order-only受限類；操作者選擇原句為「沿用契約 (Recommended)」。
+本版因此沿用現行入口，不採本輪reviewer建議中的全面禁L；β和全部下游不另讀L，K不隨合法trace C改變。
+這是作用域選擇，沒有另索取推送／合併授權；既有直接執行授權不取代規格GO或科學停止條件。
+第一commit僅三帳追加EXP-0120、0121；第二commit新增kq_initial_boundary_attempt_spec_v0_1.md及本段，
+README／STATUS只替換目前段。既有母契約、B-01、CF-01、研究稿與formal全文不改。
+
+實際閱讀／定位：P0.2 §1–10定向核對（包括完整§4–10）、P0.1 §3–4.5的primitive、自然性與L限制，
+B-01 §1–2、§6–8及既有容量／Φ的引用定位，CF-01規格§1–7全文、研究稿§1與§6–7附近及關鍵行定位，
+OP-01研究§4.1–4.2的star／G_swap論證、README／STATUS目前段與三帳ID／末段。
+另機械讀Git metadata／diff與文件維護腳本；一個T6檔名讀取失敗，沒有因此聲稱讀了新T6全文。
+沒有新外部文獻檢索／閱讀。未讀任何新的raw／sealed、probe／planted摘要或producer資料。
+
+作者將新「不讀L」建議與既有star對稱性障礙作紙上對讀，預想全面order-only會重現sector不足；
+這是已見既有結果下的事前判斷，不稱本版新證明或模型結果，來源及操作者選擇均在規格§1披露。
+本版是校準型IB-01，不宣稱已找到量子橋接：沿用CF-01七格係數的常數與型別，改為反號off-diagonal、
+內部row方程、初值/source augmentation；固定有限和inverse、數學adjoint、E_C唯一trace逆、S_C=E_C†，
+A_C為母契約已定Gram，另外固定C_G=G_R+G_A−I的strict可比pair識別及source-sensitive檢查。
+comparison只取預定t=1、2、重求同鏈物件；不合法就未完成，不另挑成功比較對象。
+CAR／state trial明列charged關係及Q=A/2 Wick法；generic存在性與Gram正性都不算成果。
+
+規格前已在腦中考慮初值augmentation的三角型inverse、其他path／cover或incidence／反演類、
+boundary-flux類及Green和／差的符號；未採用的想法沒有做成候選、輸出或程式，也未用來調整既有結果。
+已預想不同面trace可逆性、branching microcausality、chain守恆或獨立Green關係可能失敗；
+起草時亦在腦中代入過C₃初值傳播而預見非unitary／Green失敗的風險，不能聲稱完全沒有案例預算，
+也不能把這項事前思考當規格GO後的獨立驗證。沒有據此調係數／回改失敗規則，沒有作程式或科學執行。
+規格列的composition等式是待驗收規則，不是本輪新證明；本交付不列案例矩陣、正負方向或完成判定，
+不繼續案例代入／完整研究，將這項規格前思考如實交reviewer核對程序定位。
+固定紙上目錄只列B-01組合資料的既有公式／紙上代入與分布，不是K評估輸出；c=1只說守恆比較無判別力，
+Ind對須在原P直接檢查，Cov推論須先有初值同構與守恆，不重複計獨立證據。
+
+沒有科學程式、枚舉、數值／符號科學執行、RNG／撒點、producer、raw／sealed、seed、主機量測或receipt。
+只有文字／Git／prefix／原句／hash／路徑／integrity檢查；未本地重跑pytest，不把舊CI的556 passed當本版測試。
+本規格仍待exact-head GO、必要CI、原樣合併與tree核對，完成前不開始案例求解、研究或科學輸出。
+所有KQ主問題、formal／E0、A／B、UNKNOWN及其他隔離不變；探索軌不具§5.2.1(v)資格。
+本地準備文字不作永久未發布聲明；公開版本以PR回報核對，Git不能證盲性。下一新EXP-ID為0123。
