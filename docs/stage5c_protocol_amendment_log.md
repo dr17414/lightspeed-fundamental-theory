@@ -21,3 +21,14 @@ PR #78 的獨立 GO head `69e57e4183792c02ba17615b1afce89ee2c71e57`、tree
 原樣 merge main `0c386716701589c9a6b0b799636a808aacb9ade5`，tree 相同，Git committer
 時間 UTC 2026-10-12 09:57:23／台北17:57:23，於此時生效 ACTIVE-PAPER-ONLY。
 原批准列保留；本追加不是 AMEND-0002、formal attempt／budget 或新的執行授權。
+
+
+## #105合併後方向討論漏登更正（2026-11-03；只追加，非AMEND）
+
+PR #105核准head2967719b7a9b3a5e7136fbfacc3da12065972377、CI #320同head success，
+原樣squash main5d7f6e34a3fec401c39c04becff9728a5665929d，tree5a340db02b22ccaaf2b6abfbc434d2445b7dc428，
+唯一parent a8fb088463ee7717e48e6c6640ad6e3107176a3b，Git committer台北2026-11-03 20:32:48。
+GPT直接核實CI；Claude未有API權限，僅按轉述申報，不把兩種證據等級混淆。
+本次三帳追加接觸帳EXP-0123–0127，補前份規格先行登記遺漏的方向討論，明列事後更正與
+「暫存方向紀錄，不作K依據」。IB-01與母契約／B-01原樣不改；不是ACT、AMEND、formal
+attempt、scientific PASS或研究輸出授權，全部既有隔離維持。

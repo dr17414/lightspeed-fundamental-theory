@@ -805,3 +805,18 @@ IB-01是固定初值/source分帳、有限和response、強制S=E†、獨立Gre
 六檔：新規格、三帳只追加、README／STATUS只換目前段；程式／測試／formal及舊稿不改。
 規格須exact-head GO、CI成功、原樣合併／tree核對後再研究；沒有科學執行，未本地跑pytest。
 探索軌不具§5.2.1(v)資格，全部隔離與OPEN不變。下一ID0123；公開Git不證盲性。
+
+
+## #105原樣合併與方向討論漏登更正（2026-11-03；只追加）
+
+#105經exact-head GO與GPT直接核對同head CI #320 completed／success後，依操作者限定授權
+將draft轉ready，鎖定head2967719b7a9b3a5e7136fbfacc3da12065972377原樣squash。
+main5d7f6e34a3fec401c39c04becff9728a5665929d，tree5a340db02b22ccaaf2b6abfbc434d2445b7dc428
+與GO head一致，唯一parent a8fb088463ee7717e48e6c6640ad6e3107176a3b；
+Git committer台北2026-11-03 20:32:48，不倒填為授權／研究時間。
+Claude沒有API權限核實CI，依其原句限定為操作者轉述；四段本人申報按事件順序逐字見接觸帳§59
+EXP-0123–0126。前份IB-01先行帳本漏登方向討論，且EXP-0122未列該接觸；現為事後只追加更正，
+不是聲稱規格前已在Git登記。GPT接觸／判斷與暫存問題見EXP-0127；該方向紀錄不作K依據。
+本commit僅追加三本帳，不修改IB-01規格、母契約、B-01、README／STATUS、程式或formal；
+不交研究輸出。規格GO／合併／tree門檻已完成，後續研究須沿固定IB-01規則如實報FAIL與undefined，
+不更動失敗版。探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。下一ID0128。
