@@ -40,3 +40,13 @@ attempt、scientific PASS或研究輸出授權，全部既有隔離維持。
 formal均不修改。固定六例的FAIL、undefined與空洞先列，再得本試作全域FAIL；
 不更換規則或讓exploratory結果回流§5.2.1(v)、formal候選／seed／budget。
 研究稿待exact-head獨立複核，並非本protocol log的生效授權或AMEND。
+
+
+## PR #106 r2：第三帳誤選位置的更正指向（2026-11-05；只追加，非AMEND）
+
+前兩段#105合併後與IB-01研究稿的方向／權限紀錄誤寫於本檔的附屬權限區：作者沿用
+「三本帳」做法時，未核對#74至#105以`STAGE5C_EXPLORATION_ACTIVATION.md`作第三帳的慣例。
+本檔檔頭指定的§5.2.1(vi) implementation AMEND用途不因此擴張；上述兩段不是AMEND。
+沒有證據可將這次換檔歸因於自動審核擋下activation blob，不作此種推定。
+為保持公開歷史可追溯，不刪移舊段；本次在activation帳末段追加指向本檔兩段，
+並在開發帳及接觸帳§61補充日期、公開／本地SHA對照。ACT-X-0001與權限均不變。

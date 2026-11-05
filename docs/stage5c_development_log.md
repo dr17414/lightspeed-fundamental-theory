@@ -835,3 +835,25 @@ README／STATUS只換目前狀態段，三帳只追加；無程式／tests／for
 本地既有tests以Python3.12.14及其它CI pin依賴跑得556 passed、5 warnings；
 integrity及diff --check通過。Python版本不同於CI pin3.12.13，不冒稱同一runtime或本題驗證。
 探索軌不具§5.2.1(v)資格，原始輸入、P0.1、P0.2均OPEN，全部隔離不變。下一ID0129。
+
+
+## PR #106 r2：複核後更正與公開重建身分（2026-11-05；只追加）
+
+Claude於exact head `e58b1c2c` 獨立複核，指出diamond的(a,b)對漏計(≻,∥)post的√3η、
+C₄已有{1}與{3}兩個已定義面間的守恆FAIL，以及第三帳路徑／時間敘述問題。
+研究稿改正D、E_B、F_d、W_B及t=2 trace，C₄表格與鏈族改判守恆FAIL，
+保留{4}面undefined；固定IB-01全域FAIL的限定結論不變，見接觸帳§61 EXP-0129–0130。
+
+先前帳中的「2026-11-03」是#105事件日期；「本地三帳commit於11/4」只對作者本地Git
+物件成立，不能倒稱公開Git於11/4已有該登記。兩層身分對照如下（均為台北時間）：
+
+| 層次 | 本地SHA／本地Git author、committer | 公開SHA／公開Git author、committer | 相同tree |
+| :--- | :--- | :--- | :--- |
+| 先行三帳 | `30adb53f1b976d8eff2cc51767c5e31cfa146200`；2026-11-04 00:02:28／00:02:28（公開Git無法獨立驗證本地物件） | `1f71e8b9f1cd19fcaf126c6511c3b8c5a5068f74`；2026-11-05 14:47:45／14:47:45 | `d627e180ea31a2e85f8965cfa6cea9738468d9f3` |
+| 研究稿 | `ce168a92d551150dad699090b149fbc944f96ba8`；2026-11-05 01:14:59／01:17:39（同上） | `e58b1c2cae2928e80569f6ec6139b3df394e409e`；2026-11-05 14:49:13／14:49:13 | `44c01a91bb6c20b89926d4b37ab35df59a891f19` |
+
+公開parent鏈為main `5d7f6e34` → `1f71e8b9` → `e58b1c2c`；兩層tree相同，
+但公開commits是11/5以GitHub介面重建，不能把本地日期作公開時間證據。
+原先將第三本帳誤選為protocol-amendment log，未核對先前交付持續使用activation帳；
+保留已公開原文，現以兩帳只追加交叉指向與原因，不把本次更正冒充AMEND／ACT新批准。
+本r2不改固定IB-01規格／契約／B-01／程式／tests或formal，亦不重算新候選。

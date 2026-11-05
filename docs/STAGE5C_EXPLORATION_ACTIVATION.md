@@ -834,3 +834,14 @@ IB-01是固定初值/source分帳、有限和response、強制S=E†、獨立Gre
 六檔：新規格、三帳只追加、README／STATUS只換目前段；程式／測試／formal及舊稿不改。
 規格須exact-head GO、CI成功、原樣合併／tree核對後再研究；沒有科學執行，未本地跑pytest。
 探索軌不具§5.2.1(v)資格，全部隔離與OPEN不變。下一ID0123；公開Git不證盲性。
+
+
+## PR #106 r2：#105合併後與IB-01研究稿的權限紀錄指向（2026-11-05；只追加）
+
+#74至#105沿用本activation帳追加權限／隔離紀錄；#106的先行三帳更正與研究稿兩段卻
+誤登在`stage5c_protocol_amendment_log.md`末段。保留該已公開版本，並在該帳追加原因
+與互指；本帳在此補記指向該兩段、開發帳的本地／公開commit對照及接觸帳§59–61。
+先行公開commit `1f71e8b9` 的tree `d627e180`只含三帳追加；研究稿在後續公開commit
+`e58b1c2c` 的tree `44c01a91`。兩者均於台北2026-11-05以GitHub介面重建；本地
+`30adb53f` 的11/4時間僅為本地Git metadata，公開Git無法驗證，詳見開發帳更正。
+本補記不是ACT-X-0001修訂、新的activation、AMEND或研究執行授權；既有E0與隔離不變。

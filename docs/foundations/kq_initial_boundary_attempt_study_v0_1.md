@@ -5,8 +5,10 @@ Problem ID `X-KQ-COND-TA-P0.2`；model ID `X-KQ-IB-01-v0.1`。
 探索軌，不具 §5.2.1(v) 依據資格；所有結論只限外加 Ξ=(L,R₀) 與已固定 B-01。
 本稿使用已合併的 [IB-01規格](kq_initial_boundary_attempt_spec_v0_1.md) 的原係數、七格、
 全部合法面與固定判準。先交§2的完整固定目錄（含FAIL／undefined），再於§3起解釋原因。
-先行接觸漏登已在獨立的三帳commit（台北2026-11-04）更正；這是事後更正，
+先行接觸漏登在本地三帳commit `30adb53f`（本地Git時間台北2026-11-04；公開Git無法驗證該時間）
+事後更正；公開重建commit `1f71e8b9` 的時間為台北2026-11-05 14:47:45，同tree而不同SHA。
 不冒稱規格前已在Git登記。#105合併與方向討論發生於11/3，研究稿在其後撰寫。
+本地／公開兩層commit對照及程序更正見接觸帳§61與開發帳末段。
 規格前作者曾在腦中預算C₃的非unitary／Green風險，見原規格§1／EXP-0122；本稿不是盲發現。
 Claude於#105複核提出的六點提示已見，均在§1、§2、§4–6具名定位，不冒稱作者獨立發現。
 
@@ -16,7 +18,8 @@ Claude於#105複核提出的六點提示已見，均在§1、§2、§4–6具名
 \(W_C=E_CE_C^\dagger\) 表示規格§6的 \(L_C\)，避免與線性延伸 \(L\) 同名；
 這只是研究稿的記號別名，**不修改已固定規格**。\(A_C(f,g)=h_P(f,W_Cg)\)。
 \(F_C=\gamma_CG_R\iota_B:D_{B_0}\to D_C\)。若F_C不可逆，該面E_C、W_C、A_C及
-相依義務為undefined，不能用廣義逆或刪面。\(n_{\rm cov}\)、\(n_{\rm ind}\)沿B-01。
+涉及該面的比較為undefined，不能用廣義逆或刪面；其他已定義面的失敗照判FAIL。
+\(n_{\rm cov}\)、\(n_{\rm ind}\)沿B-01。
 矩陣式一律以共同h₀正交表述；\(\eta=\eta_0\)有正負各一維，I及η線性獨立。
 
 **先於任何輸出、只看B與原P的分類。** 兩端均在I的strict可比對，在固定六例中
@@ -38,7 +41,7 @@ t=2不是另一個候選，也不能事後用來替換t=1的失敗。
 | 固定P | N,q,k,d_B | c,n_cov,n_ind | I內strict對 | 全面型別 | 守恆 | 微因果 | IB.S2／獨立Green |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 鏈C₃ | 3,3,1,2 | 3,0,0 | 有 | PASS | **FAIL** | 空（無不可比） | **FAIL**（2≺3） |
-| 鏈C₄ | 4,6,1,2 | 4,0,0 | 有 | **FAIL**（面{4}奇異） | undefined（不能補面） | 空／全域未完成 | **FAIL**於B₀面；全域undefined |
+| 鏈C₄ | 4,6,1,2 | 4,0,0 | 有 | **FAIL**（面{4}奇異） | **FAIL**（{3}非unitary；{4}未定義） | 空／全域未完成 | **FAIL**於B₀面；全域undefined |
 | 向下三葉star | 4,3,3,6 | 1,3,0 | 無 | PASS | 空（c=1） | PASS（葉對） | S2按構造；獨立內部檢查空 |
 | diamond | 4,5,1,2 | 2,0,1 | 有 | PASS | **FAIL** | **FAIL**（b∥c） | **FAIL**（內部對） |
 | 不交2份C₂ | 4,2,2,4 | 4,4,0 | 無 | PASS | **FAIL（每個L）** | PASS | **FAIL**於某合法面；內部檢查空 |
@@ -98,8 +101,10 @@ zero-boundary source response、IB.S3–4皆由§3的有限代數成立；後兩
 面{3}的F₃=2I+η不是unitary，故W_{\{3\}}≠W_B；此為守恆FAIL。
 canonical面上的內部對2≺3給\(W_B(3,2)=2I+\eta\)而\(G_R(3,2)=I\)，
 差I+η≠0，IB.S2 FAIL。這是規格前曾預想風險的正式紙上例，未據此改規則。
-對C₄，\(E_B(4,1)=4(I+\eta)\)，其負η方向為零；合法{4}面F₄奇異。
-因此不能算該面的E、A、state，守恆全域undefined；canonical面的2≺3已令S2 FAIL。
+對C₄，\(F_{\{3\}}=2I+\eta\)可逆但非unitary，{1}與{3}的守恆比較已**FAIL**。
+\(E_B(4,1)=4(I+\eta)\)，其負η方向為零；合法{4}面F₄奇異，
+所以該面的E、A、state仍undefined；不能以此掩蓋已定義兩面間的FAIL。
+canonical面的2≺3亦令S2 FAIL。
 
 **向下三葉star。** 三minimal葉\(a_1,a_2,a_3\prec b\)，B₀為全葉，I={b}，
 唯一合法面C=B₀。按L中葉子的先後名次j=1,2,3，
@@ -109,13 +114,17 @@ S2只有y∈B₀的對，按構造成立。I僅一個事件，沒有獨立內部
 c=1時守恆比較沒有判別力，不能稱此例完成完整量子橋接。
 
 **Diamond。** a≺b≺d、a≺c≺d、b∥c，B₀={a}，I={b,c,d}，C={a}或{d}。
-兩個L只交換b,c；較早的中間點到d其D-block為I，較晚者到d因另一中間點在pre格
-而為I+√2η；D(d,a)=I+2η，D(b,a)=D(c,a)=I。故
-\(E_B(b,a)=E_B(c,a)=I\)，\(F_{\{d\}}=E_B(d,a)=3I+(2+\sqrt2)\eta\)。
-其eigenvalues \(5+\sqrt2\)、\(1-\sqrt2\)均非零，故兩面型別成立，但F†F≠I：守恆FAIL。
-原P唯一Ind對b∥c的\(W_B(b,c)=I\)，故微因果直接FAIL。
-對內部對b≺d及c≺d，\(W_B(d,b)=W_B(d,c)=F_{\{d\}}\)，
-而各自\(G_R(d,b)\)僅是I或I+√2η，故IB.S2 FAIL（兩個L都如此）。
+以L=(a,b,c,d)為例，較早的b到d其D-block為I，較晚的c到d因b在pre格
+而為I+√2η；D(d,a)=I+2η。對(a,b)，c排在b之後且屬(≻,∥)post格，
+所以\(D(b,a)=I+\sqrt3\eta\)，而\(D(c,a)=I\)。故
+\(E_B(b,a)=I+\sqrt3\eta\)、\(E_B(c,a)=I\)，
+\(F_{\{d\}}=E_B(d,a)=3I+(2+\sqrt2+\sqrt3)\eta\)。
+其eigenvalues \(5+\sqrt2+\sqrt3\)、\(1-\sqrt2-\sqrt3\)均非零，
+故兩面型別成立，但F†F≠I：守恆FAIL。
+原P唯一Ind對b∥c的\(W_B(b,c)=I+\sqrt3\eta\ne0\)，故微因果直接FAIL。
+對內部對b≺d及c≺d，\(W_B(d,b)=F_{\{d\}}(I+\sqrt3\eta)\)、
+\(W_B(d,c)=F_{\{d\}}\)，而\(G_R(d,b)=I\)、\(G_R(d,c)=I+\sqrt2\eta\)，
+兩對均不相等，IB.S2 FAIL。另一個L只需交換b、c的角色，結論相同。
 
 **不交k份C₂（k=2、3）。** 第i份為\(u_i\prec v_i\)，B₀={u_i}，I={v_i}。
 一個L固定後令p_i、s_i是其它分量落在u_i以前、v_i以後的事件數；
@@ -136,14 +145,14 @@ H_i的span為2（η與I兩方向），但這不修復守恆或S2。
 
 | 固定族 | B／覆蓋、內部對 | IB-01的限定結果 |
 | :--- | :--- | :--- |
-| 全部鏈C_N，N≥3 | B₀={1}；c=N；無不可比對；N≥3有內部對 | C₃已守恆與S2 FAIL；N≥4含合法{4}奇異面，故全面型別FAIL。每個N的canonical 2≺3 S2 FAIL |
+| 全部鏈C_N，N≥3 | B₀={1}；c=N；無不可比對；N≥3有內部對 | 每個N的{1}與{3}已使守恆FAIL、canonical 2≺3使S2 FAIL；N≥4另含合法{4}奇異面，全面型別FAIL且該面undefined |
 | 向下star，r≥2 | B₀為r片minimal葉；c=1；n_cov=binom(r,2)、n_ind=0；無內部對 | 只一面且葉對微因果PASS；守恆與獨立內部Green檢查空。L中葉序給D(b,a_j)=I+√2(j−1)η |
 | dual star，r≥2 | B₀={a}，r片maximal葉；c=1；n_cov=0、n_ind=binom(r,2)；無內部對 | L中第j葉的D(v_j,a)=I+√3(r−j)η，均可逆；任兩不同葉上的W_B=D_iD_j†≠0，原P微因果FAIL。不可把它與向下star混同 |
 | Φ族：不交k份C₂，k≥2 | B₀為k個minimal，c=2^k；n_cov=4binom(k,2)、n_ind=0；無內部對 | 全部合法L及面型別PASS、微因果PASS；每個L至少一個非unitary H_i，故守恆FAIL，某合法面S2 FAIL |
 
 原規格t=2比較：C₃的全合法面對t=1、2皆可逆；t=2時
 \(F_{\{3\}}=6I+2\eta\)，兩個t的canonical strict CAR block不同且非零。
-Diamond的t=2末端trace為\(10I+(4+4\sqrt2)\eta\)（兩個eigenvalues非零）；
+Diamond的t=2末端trace為\(10I+(4+4\sqrt2+4\sqrt3)\eta\)（兩個eigenvalues非零）；
 disjoint族各選maximal的trace block為\(2H_i\)，star仍只有canonical面。
 故§2所列其餘四例也有局部合法且非恆定的比較；t=1已有其它義務FAIL或獨立
 內部檢查空洞，C₄的t=1全面型別失敗，不能據此宣告全域比較義務完成。

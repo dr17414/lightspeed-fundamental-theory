@@ -2050,3 +2050,34 @@ pytest9.1.1／mpmath1.4.1跑既有tests：556 passed、5 warnings；這是本地
 不是與CI逐位元相同的runtime，亦不把既有數值測試當本稿新科學證據。未以本文件宣稱
 physical量子橋接、formal資格或scientific PASS。全域FAIL只限固定IB-01，不推廣至全部K。
 下一新EXP-ID為0129；formal／E0、A／B、UNKNOWN及全部隔離不變。
+
+
+## 61. PR #106 exact-head複核與r2更正（2026-11-05；只追加）
+
+**EXP-0129：操作者轉交的Claude本人申報原句；PR #106複核**
+
+> Claude（PR #106 複核）：以 exact head `e58b1c2c` 讀 #106 全部 diff 和 IB-01 研究稿全文。以 git 核對 head、tree 與 parent 鏈，確認 `git diff 5d7f6e34 e58b1c2c` 的 SHA-256 等於操作者提供的 patch hash；把帳本的 main 與 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本逐字比對 EXP-0123～0126，並查了前幾次合併各自追加到哪些帳本。這次為了複核，在腦中把固定的 IB-01 規則代入研究稿的六個例子和四個跨尺寸族，逐式重算 D、E_B、F_C、W 和 G_R，因此發現 diamond 漏了 (≻,∥) post 的 √3 項，以及 C₄ 守恆的分類問題。沒有寫成程式或證明，沒有考慮或提出替代的 K 或規則。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0130：GPT本人接觸、算式更正與程序說明**
+
+GPT讀到操作者轉交的Claude #106 exact-head複核全文和上段原句；此前本稿作者已算過六例，
+但漏算diamond的(≻,∥)post格，又把C₄已定義兩面的守恆FAIL誤記為undefined。
+本輪對照固定規格與複核算式，在既有研究稿§2、§4–5更正，不更動K、七格係數、t或
+既有契約；Claude已指出的計算不稱作者獨立新發現。diamond在L=(a,b,c,d)的
+`D(b,a)=I+√3η`、`F_d=3I+(2+√2+√3)η`、`W_B(b,c)=I+√3η`，t=2的F_d
+亦增加4√3η；另一L交換b,c。C₄的{1}與{3}守恆比較FAIL，{4}仍undefined。
+固定版全域FAIL不變，研究稿仍待新exact-head複核；不推廣整條因果序先行路線。
+
+帳務接觸：用本地Git讀公開head／tree／parent、author與committer時間、main和兩本帳末段；
+原本第三本帳誤用protocol-amendment log附屬權限區，未核對先前以activation帳作第三帳的慣例。
+本r2於protocol及activation兩帳只追加原因與指向，沒有證據可斷言是自動審核阻擋所致。
+本地先行 `30adb53f1b976d8eff2cc51767c5e31cfa146200` 時間台北11/4 00:02:28，
+公開重建 `1f71e8b9f1cd19fcaf126c6511c3b8c5a5068f74` 時間台北11/5 14:47:45，
+同tree `d627e180ea31a2e85f8965cfa6cea9738468d9f3`；本地研究稿
+`ce168a92d551150dad699090b149fbc944f96ba8` 對公開
+`e58b1c2cae2928e80569f6ec6139b3df394e409e` 同tree
+`44c01a91bb6c20b89926d4b37ab35df59a891f19`，公開時間台北11/5 14:49:13。
+本地時間僅本地Git metadata，公開Git無法獨立驗證。第一公開commit在第二公開commit之前，
+但不能倒稱其在11/4已公開登記，更不能以此證明思想盲性。
+沒有使用RNG、撒點、producer、raw／sealed、seed或主機量測；沒有新數值／符號科學程式，
+沒有新外部原文檢索。舊的EXP-0123–0128原文保留，新更正只追加；下一ID0131。
