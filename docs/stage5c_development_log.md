@@ -820,3 +820,18 @@ EXP-0123–0126。前份IB-01先行帳本漏登方向討論，且EXP-0122未列�
 本commit僅追加三本帳，不修改IB-01規格、母契約、B-01、README／STATUS、程式或formal；
 不交研究輸出。規格GO／合併／tree門檻已完成，後續研究須沿固定IB-01規則如實報FAIL與undefined，
 不更動失敗版。探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。下一ID0128。
+
+
+## IB-01 v0.1規格後紙上研究（2026-11-05；只追加）
+
+第一commit只追加三帳EXP-0123–0127；第二commit才交IB-01固定規格的紙上研究，
+作者限定接觸、事前預想與本輪證明範圍見接觸帳§60 EXP-0128。
+研究稿先列六例N／q／k／d_B／c／n_cov／n_ind、內部比較、全部型別／守恆／微因果／Green的
+PASS、FAIL、空洞或undefined，再列finite-sum逆、canonical初值與其它面、跨尺寸族及局部比較。
+C₃有守恆與Green FAIL、C₄合法面奇異、diamond原P不可比對直接微因果FAIL；
+本版IB-01對全D_KQ的正面完成FAIL，只限固定規格，不擴成母問題或因果序路線no-go。
+Claude六項提醒按作用域列入，既有規格與係數不修；本稿尚待exact-head獨立逐式複核。
+README／STATUS只換目前狀態段，三帳只追加；無程式／tests／formal修改、無新科學執行。
+本地既有tests以Python3.12.14及其它CI pin依賴跑得556 passed、5 warnings；
+integrity及diff --check通過。Python版本不同於CI pin3.12.13，不冒稱同一runtime或本題驗證。
+探索軌不具§5.2.1(v)資格，原始輸入、P0.1、P0.2均OPEN，全部隔離不變。下一ID0129。

@@ -95,24 +95,24 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：B-01已定；第三道IB-01固定規格待審（2026-11-03）：**
+**目前狀態：IB-01規格已合併；固定試作研究稿待審（2026-11-05）：**
 
-#104 headc686cd53／tree3473d314經exact-head GO、CI #318同head attempt2成功，依持續授權原樣squash為
-main `a8fb088463ee7717e48e6c6640ad6e3107176a3b`，tree與核准相同，唯一parentfe24bf31。
-Git committer台北2026-11-03 12:28:38，只作合併時間。CI首次/proc競態與重跑是GPT的API／日誌核對，
-Claude沒有API權限、未獨立核實CI；其限制與EXP-0120、0121逐字記於第一commit三帳（接觸帳§57）。
-[P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)與[B-01](foundations/kq_conditional_boundary_beta_registration_v0_1.md)
-兩道門檻已完成，舊文字／狀態行保留為歷史。操作者本輪要求第三道規格先GO才研究。
-對新建議K禁讀L與原契約限定入口的差異，操作者選擇「沿用契約 (Recommended)」；
-K只以P0.1 §4.4固定線性統計承接L，β／初值配對與全部下游不另讀L，不改任何母契約。
-新增[IB-01獨立規格](foundations/kq_initial_boundary_attempt_spec_v0_1.md)，只固定規則與可失敗判準，
-不交K案例、Green／A輸出或義務通過判定；作者EXP-0122披露來源、已預想風險與未採用的想法（§58）。
-這是校準型試作，不宣稱新量子橋接；初值Gram正性及generic Wick存在性按構造不算成果。
-守恆採同T嚴格相等，microcausality用原P且Ind逐對直接核對，Green識別另用同源source response與預定比較。
-固定紙上目錄先列c／n_cov／n_ind分布，c=1只說守恆比較不提供判別力，不刪輸入或其他義務。
-規格取得exact-head GO、CI成功、原樣合併並核對tree前，不開始案例求解、研究推導或科學輸出。
-原始輸入、P0.1、P0.2主問題全部OPEN；舊研究稿、CF-01、文獻盤點與公開總結原樣保留。
-無新外部原文／數值或符號科學執行／枚舉／RNG／撒點／producer／raw／sealed；本輪未本地重跑pytest。
+#105 head2967719b7a9b3a5e7136fbfacc3da12065972377經Claude exact-head GO；GPT核對
+CI #320（run41612970368）同head completed／success後，依操作者限定授權原樣squash為
+main `5d7f6e34a3fec401c39c04becff9728a5665929d`，tree `5a340db02b22ccaaf2b6abfbc434d2445b7dc428`
+與GO head相同，唯一parent a8fb0884；Git committer台北2026-11-03 20:32:48。
+Claude無API權限核實CI，只按操作者轉述，四段本人申報逐字見接觸帳§59 EXP-0123–0126。
+前份IB-01先行帳本漏登方向討論，EXP-0122亦未列；本交付第一commit於11/4三帳事後更正，
+沒有冒稱規格前Git已登記。GPT自己的接觸／判斷EXP-0127及暫存方向問題只在接觸帳，
+明記不作K／IB-01的依據。第二commit始有
+[固定IB-01紙上研究](foundations/kq_initial_boundary_attempt_study_v0_1.md)與作者EXP-0128。
+研究稿先列六例的B容量、覆蓋與全部PASS／FAIL／undefined，再列限定紙上推導：
+C₃守恆及Green失敗，C₄合法面trace奇異，diamond未覆蓋不可比對直接microcausality失敗。
+這些只給固定IB-01對全域量詞的待複核FAIL，不擴為P0.2一般性no-go、物理spin或量子橋接。
+已合併[IB-01規格](foundations/kq_initial_boundary_attempt_spec_v0_1.md)、[P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)
+及[B-01](foundations/kq_conditional_boundary_beta_registration_v0_1.md)全文不改；不依失敗調係數／面／Green／state。
+原始輸入、P0.1、P0.2仍OPEN。研究稿待exact-head獨立逐式複核，不稱已確認或scientific PASS。
+本輪沒有新外部原文、科學程式／枚舉／RNG／撒點／producer／raw／sealed、seed或主機量測。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、G0-B／G0-C及全部隔離維持；
 item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING不變。
 

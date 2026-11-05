@@ -32,3 +32,11 @@ GPT直接核實CI；Claude未有API權限，僅按轉述申報，不把兩種證
 本次三帳追加接觸帳EXP-0123–0127，補前份規格先行登記遺漏的方向討論，明列事後更正與
 「暫存方向紀錄，不作K依據」。IB-01與母契約／B-01原樣不改；不是ACT、AMEND、formal
 attempt、scientific PASS或研究輸出授權，全部既有隔離維持。
+
+
+## IB-01固定規格後的紙上研究（2026-11-05；只追加，非AMEND）
+
+先行三帳更正commit之後才新增研究稿與EXP-0128；已合併IB-01規格、P0.2、B-01及
+formal均不修改。固定六例的FAIL、undefined與空洞先列，再得本試作全域FAIL；
+不更換規則或讓exploratory結果回流§5.2.1(v)、formal候選／seed／budget。
+研究稿待exact-head獨立複核，並非本protocol log的生效授權或AMEND。

@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：B-01已定案；第三道IB-01規格待複核**：#104經exact-head GO及CI #318同head重跑成功，原樣合併main `a8fb0884`（tree `3473d314`）。[P0.2](docs/foundations/kq_conditional_initial_data_problem_contract_v0_2.md)與[B-01](docs/foundations/kq_conditional_boundary_beta_registration_v0_1.md)不改；新增[IB-01固定規格](docs/foundations/kq_initial_boundary_attempt_spec_v0_1.md)，只交K與初值/source／Green／S／CAR／state trial規則，不交研究輸出。操作者選擇沿用契約的限定L入口，β與下游不另讀L；EXP-0120／0121逐字登記，0122披露選擇與預想。規格GO、原樣合併並核對tree前不做案例求解；所有科學問題仍OPEN，探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
+- **目前狀態：IB-01規格已合併；固定試作的紙上研究待複核（2026-11-05）**：#105在exact-head GO與同head CI #320成功後原樣合併main `5d7f6e34`（tree `5a340db0`），與核准head同tree。[IB-01固定規格](docs/foundations/kq_initial_boundary_attempt_spec_v0_1.md)原樣保留；新增[IB-01紙上研究](docs/foundations/kq_initial_boundary_attempt_study_v0_1.md)先列六例FAIL／undefined，再提出C₃守恆／Green失敗、C₄合法面奇異及diamond原P不可比對失敗，判定只限本版規格，待獨立逐式複核。前份遺漏的方向討論已由先行三帳commit於11/4事後更正，僅作暫存問題、不作K依據；各人接觸與事前預想照實登記。原始輸入、P0.1與P0.2仍OPEN，探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)

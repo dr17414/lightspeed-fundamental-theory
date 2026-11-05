@@ -2025,3 +2025,28 @@ committer時間為台北2026-11-03 20:32:48。Claude沒有API權限核實CI，
 沒有使用RNG、撒點、producer、raw／sealed、seed／主機量測或新的數值／符號科學程式。
 本commit僅三本帳追加，研究輸出及其後作者申報須在後續commit。
 下一新EXP-ID為0128；探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN隔離不變。
+
+
+## 60. IB-01固定規格的紙上研究（2026-11-05；只追加）
+
+**EXP-0128：GPT本人申報——IB-01規格後的限定紙上反例**
+
+前一commit先只追加三帳EXP-0123–0127，補登方向討論遺漏及#105合併事實；本commit才新增
+`docs/foundations/kq_initial_boundary_attempt_study_v0_1.md`、本項與目前狀態段。舊IB-01規格、
+P0.2／P0.1契約、B-01與歷史研究稿不改；Git只證版本先後，不證先前思想的盲性。
+本輪以已合併IB-01規格§1–9、B-01§2–8、P0.1／P0.2相關量詞與三本帳末段作來源。
+此前已看Claude#105複核的六點非阻擋提醒、其C₃／source與分布的腦中核對，以及EXP-0122
+披露的作者規格前C₃預算；它們是已接觸提示，不稱本研究全新或盲推導。
+作者在紙上推導有限和inverse、各合法面F_C判準、守恆等價unitary、S3–4按構造與
+canonical初值欄的S2按構造，逐一計算固定六例的結構性結果和失敗，再給四個跨尺寸族的
+解析反例／判別力分類；特別保留C₃守恆／Green FAIL、C₄奇異trace、diamond原P的Ind FAIL。
+研究稿先列完整目錄及FAIL／undefined，才作任何全域判定；不依失敗改t、係數、B或Green和式。
+研究稿以W_C作舊L_C別名，明列向下star與dual、internal-source空洞及t=2整個D的比較型別。
+上述是待獨立逐式複核的紙上推導，沒有以程式枚舉poset、代入矩陣作數值／符號科學執行、
+RNG／撒點、producer、raw／sealed、seed／主機量測、receipt，也沒有新外部文獻閱讀。
+本地Git／字串／前綴及integrity檢查僅作repo驗證。另以uv暫時環境、Python3.12.14
+（CI pin為3.12.13）、其餘CI pin NumPy2.3.5／SciPy1.17.0／threadpoolctl3.6.0／
+pytest9.1.1／mpmath1.4.1跑既有tests：556 passed、5 warnings；這是本地回歸，
+不是與CI逐位元相同的runtime，亦不把既有數值測試當本稿新科學證據。未以本文件宣稱
+physical量子橋接、formal資格或scientific PASS。全域FAIL只限固定IB-01，不推廣至全部K。
+下一新EXP-ID為0129；formal／E0、A／B、UNKNOWN及全部隔離不變。
