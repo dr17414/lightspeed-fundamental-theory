@@ -2081,3 +2081,37 @@ GPT讀到操作者轉交的Claude #106 exact-head複核全文和上段原句；�
 但不能倒稱其在11/4已公開登記，更不能以此證明思想盲性。
 沒有使用RNG、撒點、producer、raw／sealed、seed或主機量測；沒有新數值／符號科學程式，
 沒有新外部原文檢索。舊的EXP-0123–0128原文保留，新更正只追加；下一ID0131。
+
+
+## 62. PR #106 r2 GO、合併後核對與 dual star 方向提示（2026-11-05；只追加）
+
+**EXP-0131：操作者轉交的Claude本人申報原句；PR #106 r2複核**
+
+> Claude（PR #106 r2 複核）：以 exact head `a38542f0` 讀 r2 對上一版 head `e58b1c2c` 的全部 diff。以 git 核對 head、tree、parent 與 commit 時間，確認兩個 patch 的 SHA-256 都等於操作者提供的值；把四本帳的 main、上一版 head 與新 head 版本暫存於 scratchpad，逐位元組比對前綴，用腳本逐字比對 EXP-0129，搜尋研究稿有無殘留的舊數值，並查看 README 和 STATUS 中提到 C₄ 的行。在腦中核對了 diamond 和 C₄ 修正後的式子和我上次重算的結果一致，沒有重算其他例子，也沒有考慮或提出替代的 K 或規則。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0132：操作者轉交的Claude本人申報原句；#106合併後與方向提示**
+
+> Claude（#106 合併後核對與方向提示）：以 git 抓取 main，核對 SHA `b2532a67`、tree `d0233419`、唯一 parent `5d7f6e34` 與 committer 時間（台北 2026-11-05 19:32:09），並確認合併結果與 GO 的 head `a38542f0` 的 tree 相同。CI #323 的結果是操作者的轉述，我沒有 API 權限，所以沒有獨立核實。之後在腦中推導了一個沒寫成證明的提示：在 P0.2、B-01、P0.1 §4.4 的 L 依賴類和固定有限維 fiber 之下，dual star（r≥3）上的微因果與 §7(a) 非零傳播不能同時成立，任何 K 都一樣；論證用到仿射依賴、列空間正交與維數計數。我建議先把它正式證明，再決定是否做新的試作。沒有讀其他檔案或文獻，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有跑測試，也沒有建立分支或推送任何東西。
+
+**EXP-0133：GPT本人接觸、判斷與本輪界線**
+
+GPT按操作者限定授權核對PR #106 exact head `a38542f097da629c63ef531717a95c1e0ea23f9f`。
+GitHub CI #323 run `42009322713` 在同head首次failure：既有
+`test_worker_kernel_parent_death_guard`於`/proc/<pid>/stat`檢查時遇到程序消失的
+`ProcessLookupError`，另555項通過。GPT重跑同run失敗job，確認最新attempt的
+integrity與regression均success、run completed／success，再將PR轉ready並用
+expected head原樣squash；main為 `b2532a67710526fbaa011ee5ab7da9218a703b72`，
+tree `d023341965602f0e17c4c9635d08f9e0525030ec` 與GO head相同，唯一parent
+`5d7f6e34a3fec401c39c04becff9728a5665929d`，committer台北2026-11-05 19:32:09。
+Claude無API權限核實CI，故其本人申報仍限定為操作者轉述；不改寫證據等級。
+
+本輪GPT讀到操作者轉交的Claude r2 GO、合併後核對與dual star方向提示，並定向閱讀
+公開main的P0.1 §4.4–4.5、P0.2 §4、§6–7、B-01 §2及README／STATUS目前狀態，
+用本地Git與文字搜尋核對版本及帳本。初步判斷該提示值得先正式證明：若增廣
+初值/source映射、同一Gram正初值配對、原P微因果、P0.1限定線性計數及逐P非零傳播
+如草稿所用，dual star可能給出不限於IB-01係數的矛盾；這只是已見reviewer推理下的
+待證命題，未寫成證明，亦不稱對全部K、不同β或整條因果序路線的no-go。
+先只登記並補狀態，不固定新K、β、規格或比較判準；IB-01 v0.1維持FAIL封存。
+沒有執行新的數值／符號科學程式、RNG、撒點、producer或讀raw／sealed資料；
+沒有檢索或閱讀新外部文獻，不聲稱新數學獨立驗證。下一新EXP-ID為0134；
+探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及全部隔離不變。
