@@ -805,3 +805,55 @@ IB-01是固定初值/source分帳、有限和response、強制S=E†、獨立Gre
 六檔：新規格、三帳只追加、README／STATUS只換目前段；程式／測試／formal及舊稿不改。
 規格須exact-head GO、CI成功、原樣合併／tree核對後再研究；沒有科學執行，未本地跑pytest。
 探索軌不具§5.2.1(v)資格，全部隔離與OPEN不變。下一ID0123；公開Git不證盲性。
+
+
+## #105原樣合併與方向討論漏登更正（2026-11-03；只追加）
+
+#105經exact-head GO與GPT直接核對同head CI #320 completed／success後，依操作者限定授權
+將draft轉ready，鎖定head2967719b7a9b3a5e7136fbfacc3da12065972377原樣squash。
+main5d7f6e34a3fec401c39c04becff9728a5665929d，tree5a340db02b22ccaaf2b6abfbc434d2445b7dc428
+與GO head一致，唯一parent a8fb088463ee7717e48e6c6640ad6e3107176a3b；
+Git committer台北2026-11-03 20:32:48，不倒填為授權／研究時間。
+Claude沒有API權限核實CI，依其原句限定為操作者轉述；四段本人申報按事件順序逐字見接觸帳§59
+EXP-0123–0126。前份IB-01先行帳本漏登方向討論，且EXP-0122未列該接觸；現為事後只追加更正，
+不是聲稱規格前已在Git登記。GPT接觸／判斷與暫存問題見EXP-0127；該方向紀錄不作K依據。
+本commit僅追加三本帳，不修改IB-01規格、母契約、B-01、README／STATUS、程式或formal；
+不交研究輸出。規格GO／合併／tree門檻已完成，後續研究須沿固定IB-01規則如實報FAIL與undefined，
+不更動失敗版。探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。下一ID0128。
+
+
+## IB-01 v0.1規格後紙上研究（2026-11-05；只追加）
+
+第一commit只追加三帳EXP-0123–0127；第二commit才交IB-01固定規格的紙上研究，
+作者限定接觸、事前預想與本輪證明範圍見接觸帳§60 EXP-0128。
+研究稿先列六例N／q／k／d_B／c／n_cov／n_ind、內部比較、全部型別／守恆／微因果／Green的
+PASS、FAIL、空洞或undefined，再列finite-sum逆、canonical初值與其它面、跨尺寸族及局部比較。
+C₃有守恆與Green FAIL、C₄合法面奇異、diamond原P不可比對直接微因果FAIL；
+本版IB-01對全D_KQ的正面完成FAIL，只限固定規格，不擴成母問題或因果序路線no-go。
+Claude六項提醒按作用域列入，既有規格與係數不修；本稿尚待exact-head獨立逐式複核。
+README／STATUS只換目前狀態段，三帳只追加；無程式／tests／formal修改、無新科學執行。
+本地既有tests以Python3.12.14及其它CI pin依賴跑得556 passed、5 warnings；
+integrity及diff --check通過。Python版本不同於CI pin3.12.13，不冒稱同一runtime或本題驗證。
+探索軌不具§5.2.1(v)資格，原始輸入、P0.1、P0.2均OPEN，全部隔離不變。下一ID0129。
+
+
+## PR #106 r2：複核後更正與公開重建身分（2026-11-05；只追加）
+
+Claude於exact head `e58b1c2c` 獨立複核，指出diamond的(a,b)對漏計(≻,∥)post的√3η、
+C₄已有{1}與{3}兩個已定義面間的守恆FAIL，以及第三帳路徑／時間敘述問題。
+研究稿改正D、E_B、F_d、W_B及t=2 trace，C₄表格與鏈族改判守恆FAIL，
+保留{4}面undefined；固定IB-01全域FAIL的限定結論不變，見接觸帳§61 EXP-0129–0130。
+
+先前帳中的「2026-11-03」是#105事件日期；「本地三帳commit於11/4」只對作者本地Git
+物件成立，不能倒稱公開Git於11/4已有該登記。兩層身分對照如下（均為台北時間）：
+
+| 層次 | 本地SHA／本地Git author、committer | 公開SHA／公開Git author、committer | 相同tree |
+| :--- | :--- | :--- | :--- |
+| 先行三帳 | `30adb53f1b976d8eff2cc51767c5e31cfa146200`；2026-11-04 00:02:28／00:02:28（公開Git無法獨立驗證本地物件） | `1f71e8b9f1cd19fcaf126c6511c3b8c5a5068f74`；2026-11-05 14:47:45／14:47:45 | `d627e180ea31a2e85f8965cfa6cea9738468d9f3` |
+| 研究稿 | `ce168a92d551150dad699090b149fbc944f96ba8`；2026-11-05 01:14:59／01:17:39（同上） | `e58b1c2cae2928e80569f6ec6139b3df394e409e`；2026-11-05 14:49:13／14:49:13 | `44c01a91bb6c20b89926d4b37ab35df59a891f19` |
+
+公開parent鏈為main `5d7f6e34` → `1f71e8b9` → `e58b1c2c`；兩層tree相同，
+但公開commits是11/5以GitHub介面重建，不能把本地日期作公開時間證據。
+原先將第三本帳誤選為protocol-amendment log，未核對先前交付持續使用activation帳；
+保留已公開原文，現以兩帳只追加交叉指向與原因，不把本次更正冒充AMEND／ACT新批准。
+本r2不改固定IB-01規格／契約／B-01／程式／tests或formal，亦不重算新候選。

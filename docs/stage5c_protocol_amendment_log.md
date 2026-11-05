@@ -21,3 +21,32 @@ PR #78 的獨立 GO head `69e57e4183792c02ba17615b1afce89ee2c71e57`、tree
 原樣 merge main `0c386716701589c9a6b0b799636a808aacb9ade5`，tree 相同，Git committer
 時間 UTC 2026-10-12 09:57:23／台北17:57:23，於此時生效 ACTIVE-PAPER-ONLY。
 原批准列保留；本追加不是 AMEND-0002、formal attempt／budget 或新的執行授權。
+
+
+## #105合併後方向討論漏登更正（2026-11-03；只追加，非AMEND）
+
+PR #105核准head2967719b7a9b3a5e7136fbfacc3da12065972377、CI #320同head success，
+原樣squash main5d7f6e34a3fec401c39c04becff9728a5665929d，tree5a340db02b22ccaaf2b6abfbc434d2445b7dc428，
+唯一parent a8fb088463ee7717e48e6c6640ad6e3107176a3b，Git committer台北2026-11-03 20:32:48。
+GPT直接核實CI；Claude未有API權限，僅按轉述申報，不把兩種證據等級混淆。
+本次三帳追加接觸帳EXP-0123–0127，補前份規格先行登記遺漏的方向討論，明列事後更正與
+「暫存方向紀錄，不作K依據」。IB-01與母契約／B-01原樣不改；不是ACT、AMEND、formal
+attempt、scientific PASS或研究輸出授權，全部既有隔離維持。
+
+
+## IB-01固定規格後的紙上研究（2026-11-05；只追加，非AMEND）
+
+先行三帳更正commit之後才新增研究稿與EXP-0128；已合併IB-01規格、P0.2、B-01及
+formal均不修改。固定六例的FAIL、undefined與空洞先列，再得本試作全域FAIL；
+不更換規則或讓exploratory結果回流§5.2.1(v)、formal候選／seed／budget。
+研究稿待exact-head獨立複核，並非本protocol log的生效授權或AMEND。
+
+
+## PR #106 r2：第三帳誤選位置的更正指向（2026-11-05；只追加，非AMEND）
+
+前兩段#105合併後與IB-01研究稿的方向／權限紀錄誤寫於本檔的附屬權限區：作者沿用
+「三本帳」做法時，未核對#74至#105以`STAGE5C_EXPLORATION_ACTIVATION.md`作第三帳的慣例。
+本檔檔頭指定的§5.2.1(vi) implementation AMEND用途不因此擴張；上述兩段不是AMEND。
+沒有證據可將這次換檔歸因於自動審核擋下activation blob，不作此種推定。
+為保持公開歷史可追溯，不刪移舊段；本次在activation帳末段追加指向本檔兩段，
+並在開發帳及接觸帳§61補充日期、公開／本地SHA對照。ACT-X-0001與權限均不變。
