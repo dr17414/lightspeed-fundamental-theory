@@ -845,3 +845,13 @@ IB-01是固定初值/source分帳、有限和response、強制S=E†、獨立Gre
 `e58b1c2c` 的tree `44c01a91`。兩者均於台北2026-11-05以GitHub介面重建；本地
 `30adb53f` 的11/4時間僅為本地Git metadata，公開Git無法驗證，詳見開發帳更正。
 本補記不是ACT-X-0001修訂、新的activation、AMEND或研究執行授權；既有E0與隔離不變。
+
+
+## #106合併後的探索權限狀態（2026-11-05；只追加）
+
+GO head `a38542f097da629c63ef531717a95c1e0ea23f9f` 經同head CI #323重跑成功後
+原樣squash為main `b2532a67710526fbaa011ee5ab7da9218a703b72`，tree
+`d023341965602f0e17c4c9635d08f9e0525030ec` 相同，committer台北19:32:09。
+IB-01 v0.1探索試作FAIL封存。接觸帳§62的dual star提示僅待證方向紀錄；
+不作新K規格、B-01／P0.2封存、formal claim、ACT修訂或新研究執行授權。
+ACT-X-0001的ACTIVE-PAPER-ONLY、E0、來源隔離及所有停止條件原樣保留。

@@ -857,3 +857,21 @@ C₄已有{1}與{3}兩個已定義面間的守恆FAIL，以及第三帳路徑／
 原先將第三本帳誤選為protocol-amendment log，未核對先前交付持續使用activation帳；
 保留已公開原文，現以兩帳只追加交叉指向與原因，不把本次更正冒充AMEND／ACT新批准。
 本r2不改固定IB-01規格／契約／B-01／程式／tests或formal，亦不重算新候選。
+
+
+## #106原樣合併、IB-01 FAIL封存與 dual star 待證提示（2026-11-05；只追加）
+
+Claude在head `a38542f0` 複核r2為GO，申報原句見接觸帳§62 EXP-0131。
+GPT直接查CI #323 run `42009322713`：同head首次因既有程序死亡競態失敗，
+重跑該失敗job的最新attempt completed／success，才依操作者限定授權解除draft並
+以expected head squash merge。main `b2532a67710526fbaa011ee5ab7da9218a703b72`，
+tree `d023341965602f0e17c4c9635d08f9e0525030ec` 等於GO head，唯一parent
+`5d7f6e34a3fec401c39c04becff9728a5665929d`，Git committer台北2026-11-05 19:32:09。
+Claude的CI敘述僅操作者轉述，不能記為Claude直接核實。IB-01 v0.1固定版全域FAIL封存，
+不改係數／規則／判準；P0.2的一般問題仍OPEN，沒有正在進行的下一試作。
+
+Claude合併後在腦中提出dual star容量／微因果／非零傳播的可能限定障礙，
+含固定有限維fiber與P0.1 §4.4仿射L計數；本人申報逐字見EXP-0132。
+此處只登記**待正式紙上證明及獨立複核**的方向提示，不作B-01或P0.2封存依據，
+不把IB-01單一試作FAIL擴成一般no-go。優先查證此障礙，再決定是否另立IB-02；
+本交付沒有新模型、規格、研究稿、科學執行或任何formal回用。下一ID0134。

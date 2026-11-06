@@ -95,26 +95,30 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：IB-01規格已合併；固定試作研究稿待審（2026-11-05）：**
+**目前狀態：IB-01 v0.1 固定試作 FAIL 封存；dual star 提示待證（2026-11-05）：**
 
-#105 head2967719b7a9b3a5e7136fbfacc3da12065972377經Claude exact-head GO；GPT核對
-CI #320（run41612970368）同head completed／success後，依操作者限定授權原樣squash為
-main `5d7f6e34a3fec401c39c04becff9728a5665929d`，tree `5a340db02b22ccaaf2b6abfbc434d2445b7dc428`
-與GO head相同，唯一parent a8fb0884；Git committer台北2026-11-03 20:32:48。
-Claude無API權限核實CI，只按操作者轉述，四段本人申報逐字見接觸帳§59 EXP-0123–0126。
-前份IB-01先行帳本漏登方向討論，EXP-0122亦未列；本交付第一commit於11/4三帳事後更正，
-沒有冒稱規格前Git已登記。GPT自己的接觸／判斷EXP-0127及暫存方向問題只在接觸帳，
-明記不作K／IB-01的依據。第二commit始有
-[固定IB-01紙上研究](foundations/kq_initial_boundary_attempt_study_v0_1.md)與作者EXP-0128。
-研究稿先列六例的B容量、覆蓋與全部PASS／FAIL／undefined，再列限定紙上推導：
-C₃守恆及Green失敗，C₄合法面trace奇異，diamond未覆蓋不可比對直接microcausality失敗。
-這些只給固定IB-01對全域量詞的待複核FAIL，不擴為P0.2一般性no-go、物理spin或量子橋接。
-已合併[IB-01規格](foundations/kq_initial_boundary_attempt_spec_v0_1.md)、[P0.2](foundations/kq_conditional_initial_data_problem_contract_v0_2.md)
-及[B-01](foundations/kq_conditional_boundary_beta_registration_v0_1.md)全文不改；不依失敗調係數／面／Green／state。
-原始輸入、P0.1、P0.2仍OPEN。研究稿待exact-head獨立逐式複核，不稱已確認或scientific PASS。
-本輪沒有新外部原文、科學程式／枚舉／RNG／撒點／producer／raw／sealed、seed或主機量測。
-探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、G0-B／G0-C及全部隔離維持；
-item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、Freeze-1a PENDING不變。
+#106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
+GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
+重跑失敗job後completed／success，再依操作者限定授權原樣squash main
+`b2532a67710526fbaa011ee5ab7da9218a703b72`，tree
+`d023341965602f0e17c4c9635d08f9e0525030ec`與GO head相同，唯一parent `5d7f6e34`；
+Git committer台北2026-11-05 19:32:09。Claude沒有API權限核實CI，僅按操作者轉述；
+其r2複核與合併後方向提示原句見接觸帳§62 EXP-0131–0132，GPT接觸見EXP-0133。
+
+[IB-01規格](foundations/kq_initial_boundary_attempt_spec_v0_1.md)與
+[固定研究稿](foundations/kq_initial_boundary_attempt_study_v0_1.md)原樣保留，
+六例完整FAIL／undefined與限定紙上推導已複核：C₃守恆及Green識別FAIL；
+C₄的{1}與{3}已定義面守恆FAIL，{4}合法面另有奇異、該面undefined；
+diamond原P不可比對的microcausality FAIL。本版IB-01對全域量詞FAIL封存，
+**不**推出所有P0.2可能K或因果序先行路線的no-go；不改係數、規則、面或判準。
+
+Claude合併後提出dual star的初值容量／仿射L計數／微因果障礙提示，
+目前只是未寫成證明的方向紀錄。優先以另案紙上證明及獨立複核檢查其作用域，
+再決定是否須修約B-01／P0.2或另試IB-02；提示不是本輪新規格、已確認no-go或
+封存P0.2的依據。#106前份本地11/4更正與公開11/5重建的身分／日期對照見接觸帳§61。
+原始輸入、P0.1、P0.2仍OPEN。探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
+G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
+Freeze-1a PENDING不變。本輪沒有新科學執行、RNG／撒點／producer／raw／sealed資料或seed。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 
