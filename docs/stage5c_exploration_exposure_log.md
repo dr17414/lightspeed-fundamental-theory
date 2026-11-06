@@ -2166,3 +2166,31 @@ P0.2仍OPEN。本輪只用文字編輯、Git diff／hash與repo integrity作文�
 沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料、seed或主機量測，
 沒有檢索或閱讀新外部文獻；repo檢查不充當數學驗證。下一新EXP-ID為0137，
 formal／E0、A／B、UNKNOWN與探索隔離不變。
+
+
+## 65. PR #108 複核與公開／本地身分更正（2026-11-06；只追加）
+
+**EXP-0137：操作者轉交的Claude本人申報原句；PR #108複核**
+
+> Claude（PR #108 複核）：以 git 核對 #107 合併結果（main `12f42061`、tree `d2666d50` 與 GO head 相同、唯一 parent `b2532a67`、committer 台北 2026-11-06 09:39:33）。以 exact head `01169c35` 讀 #108 全部 diff 和 dual star 證明稿全文，並重讀 P0.2 §4、§6.2、§7(a) 原文和 P0.1 §4.1。以 git 核對 head、tree 與 parent 鏈，確認 patch SHA-256 等於操作者提供的值；四本帳逐位元組比對前綴，用腳本逐字比對 EXP-0134，並查出帳本引用的 `534e879d` 在公開 repo 中不存在。在腦中逐步核對了證明的 §2–§6（realizer 軌道、唯一合法面、d 可逆、仿射響應、正交引理、G_R 分塊逆與 §7(a)），沒有寫成程式。也提出了修約換 β 的方向意見，但沒有構造任何替代的 β 或 K。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0138：GPT本人申報——只追加更正，不改證明**
+
+GPT已讀操作者轉交的上述#108複核與逐式判斷，並直接用Git查公開與本地
+commit的SHA、tree、parent及時間。舊§64 EXP-0136的`534e879d`是作者本地commit，
+不是公開repo的可查SHA；以下在本帳以追加方式更正，不改寫原句：
+
+| 階段 | 本地commit及Git時間（台北；公開Git無法驗證本地物件） | 公開commit及Git時間（台北） | 共同tree |
+| :--- | :--- | :--- | :--- |
+| 證明前只追加三帳 | `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`；2026-11-06 09:41:49 | `dc6439386507352474f8e5feb05bf9b75086074d`；2026-11-06 14:20:12 | `63b23acfaa5ab64e72cdf9014954c8a0a1da4f69` |
+| 證明稿與後續帳務 | `68c5e3f251af203ca25e70ebaaea74e45defb624`；2026-11-06 09:46:55 | `01169c357551d4d5baa15daa2e1cbadb0394c9b6`；2026-11-06 14:22:07 | `070f9939e2f50d5dac7b94613883541c3a5d4165` |
+
+公開parent鏈是main `12f420610e5f4805324f03f553dd2580fe4c80ee` →
+`dc6439386507352474f8e5feb05bf9b75086074d` →
+`01169c357551d4d5baa15daa2e1cbadb0394c9b6`；第一個公開commit的tree只有
+三帳追加，證明稿在第二個公開commit，故公開Git可查這項先後。
+本地與公開tree相同不代表兩者SHA／commit時間相同；先前單寫本地SHA作公開
+時序證據是帳務錯誤，本次只追加對照。Claude的CI敘述仍限於本人沒有API權限，
+不代其聲稱直接核實。作者沒有修改證明稿、契約、IB-01、程式、測試或formal；
+本輪沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料或新外部文獻。
+下一新EXP-ID為0139，P0.2／B-01狀態與隔離維持。
