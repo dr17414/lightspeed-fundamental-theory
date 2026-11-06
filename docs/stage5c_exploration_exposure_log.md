@@ -2115,3 +2115,82 @@ Claude無API權限核實CI，故其本人申報仍限定為操作者轉述；不
 沒有執行新的數值／符號科學程式、RNG、撒點、producer或讀raw／sealed資料；
 沒有檢索或閱讀新外部文獻，不聲稱新數學獨立驗證。下一新EXP-ID為0134；
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及全部隔離不變。
+
+
+## 63. PR #107 重查、合併與 dual star 證明前接觸（2026-11-06；只追加）
+
+**EXP-0134：操作者轉交的Claude本人申報原句；PR #107重查**
+
+> Claude（PR #107 重複送審的重查）：以 git 重新抓取，確認 PR #107 head 仍是 `c65a6b86`、main 仍是 `b2532a67`，沒有變動，所以沿用先前的 GO，沒有重讀 diff 或重跑測試。沒有推導，沒有讀文獻，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有建立分支或推送任何東西。
+
+**EXP-0135：GPT本人申報——合併核對與正式紙上證明前的已見提示**
+
+GPT已讀操作者轉交的#107 GO重查、合併限定授權及Claude上述申報；此前已見其dual star
+六步腦中提示，亦已在EXP-0133記下初步判斷，不冒稱此次證明將是盲發現。
+本輪以GitHub連接直接核對PR #107 head `c65a6b860c094f24a5fcfed556f1638553af38a3`、
+base `b2532a67710526fbaa011ee5ab7da9218a703b72`，CI #325 run `42029571231`
+在同head completed／success、最新test job及integrity/regression步驟均success；
+依操作者限定授權轉ready、以expected head squash。以本地Git fetch/ls-remote核對main
+`12f420610e5f4805324f03f553dd2580fe4c80ee`、tree
+`d2666d50636f14b219d5b53c3507969d691f1e9b`與核准head相同、唯一parent
+`b2532a67710526fbaa011ee5ab7da9218a703b72`、committer台北2026-11-06 09:39:33，
+兩者Git diff為空。Claude重查沒有自己核實CI，本項不轉述為其直接API驗證。
+
+作者在先行本帳追加前已定向讀公開P0.1 §4.4–4.5、P0.2 §4–7、B-01 §2及
+既有dual star相關研究／帳本，並在腦中對Claude提示檢查了realizer商、葉子對的
+L計數、初值映射、正Gram與source response。這些是**正式撰稿前已有的思考**，
+後續紙上證明須具名引用提示來源，不稱全新獨立推導；本節不把草稿升格為已證障礙。
+操作者將「是否啟動dual star證明」交由GPT決定；本輪選擇先以獨立紙上稿嘗試，
+保留逐項前提、適用域、反例與可能漏洞供exact-head複核，暫不試IB-02／修約。
+本commit僅三帳追加，不修改P0.1／P0.2、B-01、IB-01、formal、README／STATUS或程式。
+沒有執行科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed或主機量測；
+沒有新外部文獻檢索／閱讀。下一新EXP-ID為0136；formal／E0、A／B、UNKNOWN隔離維持。
+
+
+## 64. dual star 限定障礙紙上稿撰寫接觸（2026-11-06；只追加）
+
+**EXP-0136：GPT本人申報——已見提示之後的紙上推導與核對**
+
+GPT在§63先行三帳commit `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`之後，
+撰寫[dual star紙上稿](foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)。
+草稿直接取自已登記的Claude §62 EXP-0132腦中提示；以本地文字閱讀P0.1
+§4.4–4.5、P0.2 §3–7、B-01 §2、原KQ域定義、先前帳本及IB-01狀態，逐式檢查
+dual star的realizer orbit及q、唯一合法初值面、diagonal的共同性及可逆性、L計數仿射式、
+正Gram行空間正交引理、augmented Green所有off-diagonal blocks與§7(a)衝突。
+這是作者在已見提示下的紙上證明嘗試，不是盲發現，也不是獨立reviewer複核。
+
+本稿的量詞只及P0.2＋B-01＋P0.1限定L依賴類、固定二維正初值Gram與既有§7(a)；
+一般固定有限n的段落明列額外條件。未建立新K／β或修改契約、舊IB-01係數，
+沒有把單一構造FAIL外推到整個因果序先行路線；待exact-head獨立逐式複核前，
+P0.2仍OPEN。本輪只用文字編輯、Git diff／hash與repo integrity作文件檢查，
+沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料、seed或主機量測，
+沒有檢索或閱讀新外部文獻；repo檢查不充當數學驗證。下一新EXP-ID為0137，
+formal／E0、A／B、UNKNOWN與探索隔離不變。
+
+
+## 65. PR #108 複核與公開／本地身分更正（2026-11-06；只追加）
+
+**EXP-0137：操作者轉交的Claude本人申報原句；PR #108複核**
+
+> Claude（PR #108 複核）：以 git 核對 #107 合併結果（main `12f42061`、tree `d2666d50` 與 GO head 相同、唯一 parent `b2532a67`、committer 台北 2026-11-06 09:39:33）。以 exact head `01169c35` 讀 #108 全部 diff 和 dual star 證明稿全文，並重讀 P0.2 §4、§6.2、§7(a) 原文和 P0.1 §4.1。以 git 核對 head、tree 與 parent 鏈，確認 patch SHA-256 等於操作者提供的值；四本帳逐位元組比對前綴，用腳本逐字比對 EXP-0134，並查出帳本引用的 `534e879d` 在公開 repo 中不存在。在腦中逐步核對了證明的 §2–§6（realizer 軌道、唯一合法面、d 可逆、仿射響應、正交引理、G_R 分塊逆與 §7(a)），沒有寫成程式。也提出了修約換 β 的方向意見，但沒有構造任何替代的 β 或 K。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。在 detached exact head 上跑了既有回歸測試與 integrity；沒有建立分支，也沒有推送任何東西。
+
+**EXP-0138：GPT本人申報——只追加更正，不改證明**
+
+GPT已讀操作者轉交的上述#108複核與逐式判斷，並直接用Git查公開與本地
+commit的SHA、tree、parent及時間。舊§64 EXP-0136的`534e879d`是作者本地commit，
+不是公開repo的可查SHA；以下在本帳以追加方式更正，不改寫原句：
+
+| 階段 | 本地commit及Git時間（台北；公開Git無法驗證本地物件） | 公開commit及Git時間（台北） | 共同tree |
+| :--- | :--- | :--- | :--- |
+| 證明前只追加三帳 | `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`；2026-11-06 09:41:49 | `dc6439386507352474f8e5feb05bf9b75086074d`；2026-11-06 14:20:12 | `63b23acfaa5ab64e72cdf9014954c8a0a1da4f69` |
+| 證明稿與後續帳務 | `68c5e3f251af203ca25e70ebaaea74e45defb624`；2026-11-06 09:46:55 | `01169c357551d4d5baa15daa2e1cbadb0394c9b6`；2026-11-06 14:22:07 | `070f9939e2f50d5dac7b94613883541c3a5d4165` |
+
+公開parent鏈是main `12f420610e5f4805324f03f553dd2580fe4c80ee` →
+`dc6439386507352474f8e5feb05bf9b75086074d` →
+`01169c357551d4d5baa15daa2e1cbadb0394c9b6`；第一個公開commit的tree只有
+三帳追加，證明稿在第二個公開commit，故公開Git可查這項先後。
+本地與公開tree相同不代表兩者SHA／commit時間相同；先前單寫本地SHA作公開
+時序證據是帳務錯誤，本次只追加對照。Claude的CI敘述仍限於本人沒有API權限，
+不代其聲稱直接核實。作者沒有修改證明稿、契約、IB-01、程式、測試或formal；
+本輪沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料或新外部文獻。
+下一新EXP-ID為0139，P0.2／B-01狀態與隔離維持。

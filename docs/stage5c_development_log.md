@@ -875,3 +875,45 @@ Claude合併後在腦中提出dual star容量／微因果／非零傳播的可�
 此處只登記**待正式紙上證明及獨立複核**的方向提示，不作B-01或P0.2封存依據，
 不把IB-01單一試作FAIL擴成一般no-go。優先查證此障礙，再決定是否另立IB-02；
 本交付沒有新模型、規格、研究稿、科學執行或任何formal回用。下一ID0134。
+
+
+## #107原樣合併與 dual star 紙上證明先行登記（2026-11-06；只追加）
+
+#107的GO head `c65a6b860c094f24a5fcfed556f1638553af38a3` 維持不變；
+GPT直接核實CI #325 run `42029571231` 同head completed／success，轉ready並鎖定
+expected head原樣squash main `12f420610e5f4805324f03f553dd2580fe4c80ee`。
+tree `d2666d50636f14b219d5b53c3507969d691f1e9b`與核准head相同、唯一parent
+`b2532a67710526fbaa011ee5ab7da9218a703b72`、committer台北2026-11-06 09:39:33；
+tree核對通過後才開始下一份紙上證明。Claude重查原句逐字見接觸帳§63 EXP-0134；
+作者接觸及已見腦中提示見EXP-0135。IB-01 v0.1仍FAIL封存，P0.2一般問題仍OPEN。
+
+本commit先只追加三帳，為下一份限域dual star紙上證明登記接觸和決定；
+不交新的K規格／替代β／IB-02或一般P0.2 no-go。任何新證明另在後續commit，
+證明若有漏洞照實保留，不以方向提示替代exact-head獨立複核。下一ID0136。
+
+
+## dual star 紙上限定障礙稿（2026-11-06；只追加）
+
+先行三帳commit `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`僅是證明前接觸登記；
+後續獨立commit才新增[紙上稿](foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)，
+並將README／STATUS目前狀態改為「稿件待exact-head獨立逐式複核」。
+推導依Claude已披露提示，GPT接觸／思考詳見接觸帳§63–64 EXP-0135–0136。
+證明分別核對P_r∈D_KQ、B-01初值面、§4型別、§4.4仿射依賴、正Gram微因果
+及同源G_R所有非對角block；結論只在列明前提下排除整域正面完成，
+目前不是已複核的P0.2／B-01封存裁定。IB-01 v0.1固定版FAIL原狀封存，
+原P0.1／P0.2、B-01、其他契約、程式／測試及formal不改；下一ID0137。
+
+
+## PR #108 r2：本地／公開commit對照的只追加更正（2026-11-06）
+
+Claude複核認為dual star證明本身逐式成立，指出三帳所引`534e879d`只有本地物件，
+公開repo無法查核。原文不改；本帳、activation帳與接觸帳§65只追加更正：
+本地先行`534e879d207c15a0bd75e3f5a93bc2a94ad870e4`（本地台北09:41:49）
+對應公開`dc6439386507352474f8e5feb05bf9b75086074d`（公開台北14:20:12），
+共同tree `63b23acfaa5ab64e72cdf9014954c8a0a1da4f69`；本地證明稿
+`68c5e3f251af203ca25e70ebaaea74e45defb624`（本地台北09:46:55）
+對應公開`01169c357551d4d5baa15daa2e1cbadb0394c9b6`（公開台北14:22:07），
+共同tree `070f9939e2f50d5dac7b94613883541c3a5d4165`。
+公開parent鏈`12f42061` → `dc643938` → `01169c35`確證先登記後寫稿；
+本地commit時間不能由公開Git驗證。Claude申報原句逐字見EXP-0137；本輪只修帳，
+證明稿原樣，P0.2仍待本次更正exact-head複核，未修約或構造新β／K。下一ID0139。

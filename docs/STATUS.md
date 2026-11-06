@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：IB-01 v0.1 固定試作 FAIL 封存；dual star 提示待證（2026-11-05）：**
+**目前狀態：IB-01 v0.1 固定試作 FAIL 封存；dual star 紙上稿待獨立複核（2026-11-06）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -112,10 +112,13 @@ C₄的{1}與{3}已定義面守恆FAIL，{4}合法面另有奇異、該面undefi
 diamond原P不可比對的microcausality FAIL。本版IB-01對全域量詞FAIL封存，
 **不**推出所有P0.2可能K或因果序先行路線的no-go；不改係數、規則、面或判準。
 
-Claude合併後提出dual star的初值容量／仿射L計數／微因果障礙提示，
-目前只是未寫成證明的方向紀錄。優先以另案紙上證明及獨立複核檢查其作用域，
-再決定是否須修約B-01／P0.2或另試IB-02；提示不是本輪新規格、已確認no-go或
-封存P0.2的依據。#106前份本地11/4更正與公開11/5重建的身分／日期對照見接觸帳§61。
+Claude合併後提出dual star的初值容量／仿射L計數／微因果障礙提示；#107在
+exact head `c65a6b86`、同head CI #325成功後原樣合併main `12f42061`（tree
+`d2666d50`，與核准head相同）。其後的獨立[限定紙上稿](foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)
+已逐項列出來源、輸入域、正Gram引理與同源Green的全部非對角block；稿件借助已見
+Claude提示，**尚待exact-head獨立逐式複核**。本稿不是新K、已確認一般no-go或
+封存P0.2的依據；先複核作用域，再決定是否須修約B-01／P0.2或另試IB-02。
+接觸與先後見接觸帳§62–64，#106本地與公開時間對照見§61。
 原始輸入、P0.1、P0.2仍OPEN。探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
 Freeze-1a PENDING不變。本輪沒有新科學執行、RNG／撒點／producer／raw／sealed資料或seed。
