@@ -2145,3 +2145,24 @@ L計數、初值映射、正Gram與source response。這些是**正式撰稿前�
 本commit僅三帳追加，不修改P0.1／P0.2、B-01、IB-01、formal、README／STATUS或程式。
 沒有執行科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed或主機量測；
 沒有新外部文獻檢索／閱讀。下一新EXP-ID為0136；formal／E0、A／B、UNKNOWN隔離維持。
+
+
+## 64. dual star 限定障礙紙上稿撰寫接觸（2026-11-06；只追加）
+
+**EXP-0136：GPT本人申報——已見提示之後的紙上推導與核對**
+
+GPT在§63先行三帳commit `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`之後，
+撰寫[dual star紙上稿](foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)。
+草稿直接取自已登記的Claude §62 EXP-0132腦中提示；以本地文字閱讀P0.1
+§4.4–4.5、P0.2 §3–7、B-01 §2、原KQ域定義、先前帳本及IB-01狀態，逐式檢查
+dual star的realizer orbit及q、唯一合法初值面、diagonal的共同性及可逆性、L計數仿射式、
+正Gram行空間正交引理、augmented Green所有off-diagonal blocks與§7(a)衝突。
+這是作者在已見提示下的紙上證明嘗試，不是盲發現，也不是獨立reviewer複核。
+
+本稿的量詞只及P0.2＋B-01＋P0.1限定L依賴類、固定二維正初值Gram與既有§7(a)；
+一般固定有限n的段落明列額外條件。未建立新K／β或修改契約、舊IB-01係數，
+沒有把單一構造FAIL外推到整個因果序先行路線；待exact-head獨立逐式複核前，
+P0.2仍OPEN。本輪只用文字編輯、Git diff／hash與repo integrity作文件檢查，
+沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料、seed或主機量測，
+沒有檢索或閱讀新外部文獻；repo檢查不充當數學驗證。下一新EXP-ID為0137，
+formal／E0、A／B、UNKNOWN與探索隔離不變。

@@ -890,3 +890,15 @@ tree核對通過後才開始下一份紙上證明。Claude重查原句逐字見�
 本commit先只追加三帳，為下一份限域dual star紙上證明登記接觸和決定；
 不交新的K規格／替代β／IB-02或一般P0.2 no-go。任何新證明另在後續commit，
 證明若有漏洞照實保留，不以方向提示替代exact-head獨立複核。下一ID0136。
+
+
+## dual star 紙上限定障礙稿（2026-11-06；只追加）
+
+先行三帳commit `534e879d207c15a0bd75e3f5a93bc2a94ad870e4`僅是證明前接觸登記；
+後續獨立commit才新增[紙上稿](foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)，
+並將README／STATUS目前狀態改為「稿件待exact-head獨立逐式複核」。
+推導依Claude已披露提示，GPT接觸／思考詳見接觸帳§63–64 EXP-0135–0136。
+證明分別核對P_r∈D_KQ、B-01初值面、§4型別、§4.4仿射依賴、正Gram微因果
+及同源G_R所有非對角block；結論只在列明前提下排除整域正面完成，
+目前不是已複核的P0.2／B-01封存裁定。IB-01 v0.1固定版FAIL原狀封存，
+原P0.1／P0.2、B-01、其他契約、程式／測試及formal不改；下一ID0137。
