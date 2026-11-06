@@ -2115,3 +2115,33 @@ Claude無API權限核實CI，故其本人申報仍限定為操作者轉述；不
 沒有執行新的數值／符號科學程式、RNG、撒點、producer或讀raw／sealed資料；
 沒有檢索或閱讀新外部文獻，不聲稱新數學獨立驗證。下一新EXP-ID為0134；
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN及全部隔離不變。
+
+
+## 63. PR #107 重查、合併與 dual star 證明前接觸（2026-11-06；只追加）
+
+**EXP-0134：操作者轉交的Claude本人申報原句；PR #107重查**
+
+> Claude（PR #107 重複送審的重查）：以 git 重新抓取，確認 PR #107 head 仍是 `c65a6b86`、main 仍是 `b2532a67`，沒有變動，所以沿用先前的 GO，沒有重讀 diff 或重跑測試。沒有推導，沒有讀文獻，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有建立分支或推送任何東西。
+
+**EXP-0135：GPT本人申報——合併核對與正式紙上證明前的已見提示**
+
+GPT已讀操作者轉交的#107 GO重查、合併限定授權及Claude上述申報；此前已見其dual star
+六步腦中提示，亦已在EXP-0133記下初步判斷，不冒稱此次證明將是盲發現。
+本輪以GitHub連接直接核對PR #107 head `c65a6b860c094f24a5fcfed556f1638553af38a3`、
+base `b2532a67710526fbaa011ee5ab7da9218a703b72`，CI #325 run `42029571231`
+在同head completed／success、最新test job及integrity/regression步驟均success；
+依操作者限定授權轉ready、以expected head squash。以本地Git fetch/ls-remote核對main
+`12f420610e5f4805324f03f553dd2580fe4c80ee`、tree
+`d2666d50636f14b219d5b53c3507969d691f1e9b`與核准head相同、唯一parent
+`b2532a67710526fbaa011ee5ab7da9218a703b72`、committer台北2026-11-06 09:39:33，
+兩者Git diff為空。Claude重查沒有自己核實CI，本項不轉述為其直接API驗證。
+
+作者在先行本帳追加前已定向讀公開P0.1 §4.4–4.5、P0.2 §4–7、B-01 §2及
+既有dual star相關研究／帳本，並在腦中對Claude提示檢查了realizer商、葉子對的
+L計數、初值映射、正Gram與source response。這些是**正式撰稿前已有的思考**，
+後續紙上證明須具名引用提示來源，不稱全新獨立推導；本節不把草稿升格為已證障礙。
+操作者將「是否啟動dual star證明」交由GPT決定；本輪選擇先以獨立紙上稿嘗試，
+保留逐項前提、適用域、反例與可能漏洞供exact-head複核，暫不試IB-02／修約。
+本commit僅三帳追加，不修改P0.1／P0.2、B-01、IB-01、formal、README／STATUS或程式。
+沒有執行科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed或主機量測；
+沒有新外部文獻檢索／閱讀。下一新EXP-ID為0136；formal／E0、A／B、UNKNOWN隔離維持。

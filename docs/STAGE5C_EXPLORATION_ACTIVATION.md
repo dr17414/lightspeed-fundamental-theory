@@ -855,3 +855,13 @@ GO head `a38542f097da629c63ef531717a95c1e0ea23f9f` 經同head CI #323重跑成�
 IB-01 v0.1探索試作FAIL封存。接觸帳§62的dual star提示僅待證方向紀錄；
 不作新K規格、B-01／P0.2封存、formal claim、ACT修訂或新研究執行授權。
 ACT-X-0001的ACTIVE-PAPER-ONLY、E0、來源隔離及所有停止條件原樣保留。
+
+
+## #107合併後 dual star 紙上證明的開始界線（2026-11-06；只追加）
+
+#107經同head CI #325成功後原樣合併main `12f420610e5f4805324f03f553dd2580fe4c80ee`，
+tree `d2666d50636f14b219d5b53c3507969d691f1e9b`與GO head同tree，
+Git committer台北09:39:33。先行三帳接觸申報見EXP-0134–0135，後續若提交
+dual star障礙紙上稿須另列前提、來源與失敗作用域，且待獨立複核。
+本記錄不修改E0／ACT-X-0001，不授權新K、IB-02、修約、科學程式或formal回用；
+P0.2／B-01此時仍OPEN／已定案資料，不因提示直接判一般no-go。

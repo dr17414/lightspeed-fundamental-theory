@@ -875,3 +875,18 @@ Claude合併後在腦中提出dual star容量／微因果／非零傳播的可�
 此處只登記**待正式紙上證明及獨立複核**的方向提示，不作B-01或P0.2封存依據，
 不把IB-01單一試作FAIL擴成一般no-go。優先查證此障礙，再決定是否另立IB-02；
 本交付沒有新模型、規格、研究稿、科學執行或任何formal回用。下一ID0134。
+
+
+## #107原樣合併與 dual star 紙上證明先行登記（2026-11-06；只追加）
+
+#107的GO head `c65a6b860c094f24a5fcfed556f1638553af38a3` 維持不變；
+GPT直接核實CI #325 run `42029571231` 同head completed／success，轉ready並鎖定
+expected head原樣squash main `12f420610e5f4805324f03f553dd2580fe4c80ee`。
+tree `d2666d50636f14b219d5b53c3507969d691f1e9b`與核准head相同、唯一parent
+`b2532a67710526fbaa011ee5ab7da9218a703b72`、committer台北2026-11-06 09:39:33；
+tree核對通過後才開始下一份紙上證明。Claude重查原句逐字見接觸帳§63 EXP-0134；
+作者接觸及已見腦中提示見EXP-0135。IB-01 v0.1仍FAIL封存，P0.2一般問題仍OPEN。
+
+本commit先只追加三帳，為下一份限域dual star紙上證明登記接觸和決定；
+不交新的K規格／替代β／IB-02或一般P0.2 no-go。任何新證明另在後續commit，
+證明若有漏洞照實保留，不以方向提示替代exact-head獨立複核。下一ID0136。
