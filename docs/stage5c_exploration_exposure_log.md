@@ -2238,3 +2238,22 @@ Git標題，合併內容與GO head同tree，不重寫歷史，也不當作研究
 合併後才能做資料登記，再經K規格GO才可研究。沒有新科學數值／符號程式、
 RNG、撒點、producer、raw／sealed資料、seed或主機量測；無外部文獻新檢索。
 下一新EXP-ID為0143，formal／E0、A／B、UNKNOWN及全部隔離維持。
+
+
+## 67. P0.3 修約問題草稿的作者接觸（2026-11-06；只追加）
+
+**EXP-0143：GPT本人申報——已見提示下的問題型別與限制**
+
+作者在§66先行三帳commit後，寫
+[P0.3修約契約草稿](foundations/kq_conditional_internal_innovation_problem_contract_v0_3.md)。
+§1 的任意合法β剛性引理以操作者轉交Claude方向提示為已見來源，作者也已在其前
+以進度訊息提出同樣疑慮；它是本版新列的待複核推論，**不**倒稱#108原稿已證。
+作者重讀本地P0.1 §4.1、§4.4、P0.2 §3–10、B-01及已核准dual star稿，
+在紙上檢查Aut不變past-set、源與量子通道的型別差異，以及只加獨立葉子模式
+可能不消除共同起點交叉block的風險；後一點只作早期審查提示，不稱已證一般no-go。
+稿中選內部事件可帶入額外量子模式作為待解問題，未選具體β、通道索引、配對、
+接合、K、Green、CAR或state規則；保留原P微因果、§7(a)及全D_KQ。
+沒有外部文獻原文檢索或閱讀；Claude按記憶提到Sorkin–Johnston不作作者證據。
+沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料、seed或主機量測；
+只做文字及Git／repo integrity檢查，不把它們充作新命題的數學獨立複核。
+契約保持draft，GO之前不登記資料或固定K，下一新EXP-ID為0144；隔離維持。
