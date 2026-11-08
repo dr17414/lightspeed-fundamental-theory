@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：IB-01 v0.1 固定試作 FAIL 封存；dual star 限定紙上稿待複核（2026-11-06）**：#106經exact-head GO、同head CI #323重跑成功後原樣合併main `b2532a67`（tree `d0233419`）。[IB-01規格](docs/foundations/kq_initial_boundary_attempt_spec_v0_1.md)與[研究稿](docs/foundations/kq_initial_boundary_attempt_study_v0_1.md)保留原版：C₃守恆／Green識別FAIL；C₄已定義兩面守恆FAIL，另有合法{4}面奇異、該面undefined；diamond原P不可比對的微因果FAIL。#107經同head CI #325成功原樣合併main `12f42061`（tree `d2666d50`），其後另行撰寫[dual star 限定障礙紙上稿](docs/foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)：已列出逐項前提、輸入域身分、仿射響應與非零傳播的推導，**待exact-head獨立逐式複核**，不據此封存P0.2或改B-01。來源接觸見[接觸帳](docs/stage5c_exploration_exposure_log.md)；未啟動IB-02或修約。原始輸入、P0.1與P0.2仍OPEN，探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
+- **目前狀態：P0.2＋B-01 dual star 限定障礙已複核；P0.3 修約契約待審（2026-11-06）**：IB-01 v0.1 固定試作 FAIL 封存；[dual star 紙上稿](docs/foundations/kq_dual_star_initial_data_obstruction_study_v0_1.md)經#108 exact-head GO、同head CI #328成功後原樣合併main `e2f8e812`（tree `242e31d2`），限定於 P0.2＋B-01，不是因果序先行路線的一般 no-go。新列的「任何現行合法 β 在 dual star 均只能給 B₀={a}」是[P0.3 修約問題草稿](docs/foundations/kq_conditional_internal_innovation_problem_contract_v0_3.md)§1的**待複核引理**。草稿選內部事件量子自由度方向，保留完整 D_KQ、原 P 微因果與逐輸入非零傳播；契約未 GO，尚未登記資料或固定 K。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。原始問題與 P0.1 仍 OPEN，探索軌不具§5.2.1(v)資格，formal／E0及全部隔離不變。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
