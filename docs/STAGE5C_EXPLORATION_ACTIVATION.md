@@ -937,3 +937,26 @@ Claude代推送的PR #110公開先行`8c1e0649`（tree `2eb3a900`）對應GPT本
 開發帳末段、接觸帳§70 EXP-0150–0151。該head的CI #332由Claude以API核實成功。
 本輪僅在Q-01 §5補$K_{2,2}$事前審核列，三本帳只追加；
 沒有K／CAR／state、研究或ACT-X-0001修訂授權，來源與formal隔離維持。
+
+
+## #110 GO後第三門檻規格的權限界線（2026-11-09；只追加）
+
+PR #110 exact head `1694bb07`／tree `b39c2058`經Claude複核GO、同head
+CI #333成功後原樣squash main `9db3ba7d`，tree相同。遠端`q01-data`
+已由操作者刪除，PR head引用保留；完整身分與申報見開發帳末段、接觸帳§71
+EXP-0152–0154。Q-01 v0.1取得資料GO，本commit只追加三帳，不含K規格。
+後續只可先起草獨立K／source／Green／CAR／state規格並待exact-head GO；
+GO前不研究，不修改ACT-X-0001、E0或formal／raw／sealed來源隔離。
+
+Claude的dual star span複核與邊界滿射補強逐字見接觸帳§71
+EXP-0155–0156，GPT補正見EXP-0157；本地先行三帳尚未推送，
+只追加後才另commit寫限定紙上稿。P0.3不保證一般`j_C`單射或滿射，
+非滿射情況列未決，不能擅改契約或資料；探索與formal隔離維持。
+
+
+## dual star span 限定紙上稿的權限指向（2026-11-09；只追加）
+
+先行三帳§71之後另commit新增限定紙上稿，作者接觸見§72 EXP-0158。
+Q-01版本與邊界滿射條件版本各有獨立作用域，非滿射資料未決；
+目前待exact-head獨立複核，不修改P0.3／Q-01或ACT-X-0001，
+不授權K規格、修約、正式候選、研究執行或formal回用。

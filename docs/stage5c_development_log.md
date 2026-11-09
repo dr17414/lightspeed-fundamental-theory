@@ -1001,3 +1001,37 @@ Claude經操作者授權將原patch逐位元組套用並推送draft PR #110，
 Claude複核CI #332同head success，指出§5固定目錄漏列多根共享的$K_{2,2}$。
 本輪僅補該列及三本帳只追加；Claude申報與修訂要求原句見接觸帳§70
 EXP-0150–0151。Q-01仍draft，資料GO前不交K規格或研究，隔離維持。
+
+
+## #110 GO合併與第三門檻前先行三帳（2026-11-09；只追加）
+
+Claude在r2 exact head `1694bb071d5e10498921a2876d7f3a4e0afee9a2`／tree
+`b39c2058cec0b72d9f6c3b26ec39a9e483eddf95`複核GO；其r2代套用原句
+見接觸帳§71 EXP-0152。GPT直接核對CI #333同head首次completed／success，
+原樣squash main `9db3ba7d7de71a61bdfb90dd2ed31bbc863271bf`，同tree，
+唯一parent `59926a64b89f0750729b588ceae33a9c64aa55c9`，committer
+台北2026-11-09 20:18:00；PR #110 merged，head引用仍指向`1694bb07`。
+遠端`q01-data`已由操作者刪除。Claude合併後核對原句見EXP-0153，
+GPT接觸及事前選擇見EXP-0154。
+
+Q-01 v0.1取得資料GO，僅開啟第三道K／source／Green／CAR／state規格草稿；
+本先行commit只追加三帳，不改P0.3、Q-01、IB-01或任何科學檔案，
+未做案例代入。規格另在後一commit，取得exact-head GO前不做研究；
+原P0.2＋B-01限定障礙與IB-01 FAIL維持，formal／E0與來源隔離不變。
+
+Claude兩段追加申報見接觸帳§71 EXP-0155–0156；作者核對P0.3未要求
+一般`j_C`單射／邊界滿射，補正見EXP-0157。先行三帳本地commit尚未公開，
+本次只追加於其後並在紙上稿前amend；後一commit才交限定證明，
+不能把未決非滿射情況寫成契約層一般no-go。
+
+
+## P0.3 dual star span 限定證明草稿（2026-11-09；只追加）
+
+在先行三帳commit後新增
+[限定紙上稿](foundations/kq_p03_dual_star_span_obstruction_paper_v0_1.md)：
+Q-01既定相關下，微因果迫使dual star所有根葉響應相同，
+與逐輸入§7(b)衝突；一般自然資料只在邊界投影滿射的額外條件下
+證相同結論，非滿射類明列未決。作者接觸見EXP-0158。
+稿件待exact-head獨立複核，不當作全P0.3 no-go。
+README／STATUS只替換目前狀態；契約、Q-01、程式與測試不改，
+沒有K規格、修約或案例研究。formal／E0及來源隔離維持。
