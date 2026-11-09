@@ -918,3 +918,12 @@ PR #109 exact head `cdb5d565`由Claude獨立複核GO，CI #330同head成功後
 P0.3契約GO只開啟第二道純資料登記草稿；本先行commit不登記資料，
 其後仍須資料GO／合併及獨立K規格GO才可研究。不是ACT-X-0001修訂、
 formal／E0開放或主機／RNG／producer／raw／sealed權限，全部隔離維持。
+
+
+## Q-01 純資料草稿的隔離指向（2026-11-08；只追加）
+
+在§68先行三帳後另有
+[Q-01資料稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)，
+作者接觸見EXP-0149。它仍是draft／待exact-head資料GO，
+不是K／source／Green／CAR／state規格或研究授權，亦不修改ACT-X-0001、E0、
+formal、raw／sealed／producer隔離及所有停止條件。

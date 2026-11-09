@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.2＋B-01 dual star 限定障礙已獨立複核；P0.3 修約契約 draft（2026-11-06）：**
+**目前狀態：P0.3 契約已 GO，Q-01 純資料稿待獨立複核（2026-11-08）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -122,10 +122,20 @@ Claude合併後提出dual star的初值容量／仿射L計數／微因果障礙�
 見接觸帳§65–66，#106本地／公開對照見§61。
 
 操作者選定「內部事件可帶入量子自由度」的修約方向；
-[P0.3問題契約草稿](foundations/kq_conditional_internal_innovation_problem_contract_v0_3.md)
-§1把現行P0.2 §3任何合法β在dual star被迫B₀={a}列為**新待複核引理**，
+[P0.3問題契約](foundations/kq_conditional_internal_innovation_problem_contract_v0_3.md)
+§1把現行P0.2 §3任何合法β在dual star被迫B₀={a}列為較#108更廣的新引理；
 §2–6固定新的問題型別與停止條件，保留完整D_KQ、原P微因果、逐輸入非零傳播。
-契約仍draft／未GO；未登記新資料，未固定K規格或開始研究。原始輸入與P0.1仍OPEN。
+PR #109由Claude代推送並獨立複核GO，CI #330同head成功，原樣合併main
+`59926a64b89f0750729b588ceae33a9c64aa55c9`，tree
+`c13f9b9ef4c00499b70c98568e02b56f322c53a2`與GO head相同；
+唯一parent `e2f8e812`、Git committer台北2026-11-08 13:25:38。
+squash標題殘留Claude所取「（draft）」不改契約GO；遠端`p03-contract`已由操作者刪除，
+PR head紀錄仍保留，相關原句逐字見接觸帳§68 EXP-0144–0148。
+[Q-01純資料登記稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)
+另在先行三帳後起草，目前**draft／未獲資料GO**。它固定一條order/count資料law，
+未選K、Green、CAR或state；作者接觸見接觸帳§69 EXP-0149。
+資料GO、合併及tree核對後才可獨立起草K規格；K規格GO前不研究。
+原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
 Freeze-1a PENDING不變。本輪沒有新科學執行、RNG／撒點／producer／raw／sealed資料或seed。

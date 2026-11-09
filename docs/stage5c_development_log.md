@@ -972,3 +972,16 @@ Claude兩次失敗的刪除嘗試及確認原句見接觸帳§68 EXP-0146–0147
 本commit只登記已發生事項，先於獨立的純資料規則草稿；資料仍待exact-head GO、
 CI與合併／tree核對。未固定K／source／Green／CAR／state、未做研究輸出；
 原P0.2＋B-01障礙和IB-01 FAIL保留，探索軌及formal隔離不變。下一ID0149。
+
+
+## P0.3 Q-01 純資料登記草稿（2026-11-08；只追加）
+
+在先行三帳 commit 後，另新增
+[Q-01純資料稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)：
+最小元初值集、order-cut加唯一因果配對、同根不可比事件通道、
+明示圖關聯正配對與全部合法面matching/source接合。
+作者接觸、已見提示與紙上預算見接觸帳§69 EXP-0149。
+README／STATUS只更新目前狀態段；P0.3母契約、P0.2、B-01、
+IB-01、證明稿、程式／測試／formal均未修改。
+本稿只提出資料，待exact-head獨立GO、CI、原樣合併與tree核對；
+K規格與研究仍未開始。探索軌及全部來源隔離維持，下一ID0150。
