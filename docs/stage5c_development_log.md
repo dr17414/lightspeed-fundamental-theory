@@ -985,3 +985,19 @@ README／STATUS只更新目前狀態段；P0.3母契約、P0.2、B-01、
 IB-01、證明稿、程式／測試／formal均未修改。
 本稿只提出資料，待exact-head獨立GO、CI、原樣合併與tree核對；
 K規格與研究仍未開始。探索軌及全部來源隔離維持，下一ID0150。
+
+
+## PR #110 r2 的公開／本地對照與限定修訂（2026-11-09；只追加）
+
+Claude經操作者授權將原patch逐位元組套用並推送draft PR #110，
+第一個公開commit `8c1e064900ed096d925e60f6c3405c706b89163a`
+（tree `2eb3a900c2bf3c9c7324632b72a79e3c14572a6e`）只追加三本帳§68，
+對應GPT本地`1388182faa8aad116b083b34d62cdce096d8e061`（同tree）；
+第二個公開head `07c4b3d7692290dbd735877c8410f8129cd20470`
+（tree `89ed983ce0348ab206a2866899aeac68b5f268f4`）對應GPT本地
+`29ec133b58000c6ba2be4335bfb0d7161380454e`（同tree）。
+公開切分點由Claude依帳本§68／§69決定；兩組commit SHA不同，
+公開parent鏈是main `59926a64` → `8c1e0649` → `07c4b3d7`。
+Claude複核CI #332同head success，指出§5固定目錄漏列多根共享的$K_{2,2}$。
+本輪僅補該列及三本帳只追加；Claude申報與修訂要求原句見接觸帳§70
+EXP-0150–0151。Q-01仍draft，資料GO前不交K規格或研究，隔離維持。

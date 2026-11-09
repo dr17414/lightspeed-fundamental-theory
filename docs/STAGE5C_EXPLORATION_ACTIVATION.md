@@ -927,3 +927,13 @@ formal／E0開放或主機／RNG／producer／raw／sealed權限，全部隔離�
 作者接觸見EXP-0149。它仍是draft／待exact-head資料GO，
 不是K／source／Green／CAR／state規格或研究授權，亦不修改ACT-X-0001、E0、
 formal、raw／sealed／producer隔離及所有停止條件。
+
+
+## PR #110 r2 限定增量的權限指向（2026-11-09；只追加）
+
+Claude代推送的PR #110公開先行`8c1e0649`（tree `2eb3a900`）對應GPT本地
+`1388182f`，公開資料head`07c4b3d7`（tree `89ed983c`）對應GPT本地
+`29ec133b`，各對同tree；公開切分點由Claude決定，完整SHA及申報見
+開發帳末段、接觸帳§70 EXP-0150–0151。該head的CI #332由Claude以API核實成功。
+本輪僅在Q-01 §5補$K_{2,2}$事前審核列，三本帳只追加；
+沒有K／CAR／state、研究或ACT-X-0001修訂授權，來源與formal隔離維持。
