@@ -2337,3 +2337,53 @@ GPT本地資料head`29ec133b58000c6ba2be4335bfb0d7161380454e`與公開`07c4b3d7`
 用本地SHA充當公開時序證據。Claude複核指出多根共享的$K_{2,2}$資料缺口，
 本輪只按上述要求補固定目錄；未據此固定K或判任何P0.3義務通過。
 GPT不再嘗試登入操作者的任何帳戶，除非操作者事先逐次授權。
+
+
+## 71. #110 r2 GO、合併後核對及第三門檻前接觸（2026-11-09；只追加）
+
+**EXP-0152：操作者轉交的Claude本人申報原句；#110 r2代套用與複核**
+
+> Claude（PR #110 r2 代套用與複核）：經操作者授權，讀了操作者附上的 `kq_p03_data_registration_r2_increment.patch`（確認 SHA-256 為 `966cba0c…`），確認遠端 `q01-data` 仍指向 `07c4b3d7`，把 patch 套用為單一 commit `1694bb07`，確認增量 diff 和 patch 逐位元組相同、三本帳相對上一版 head 是前綴、資料稿只多出 K₂,₂ 一列，然後推送到同一分支。沒有修改任何文字，沒有合併。用 script 逐字比對了 EXP-0150 和 EXP-0151 引用的修訂要求，在 detached head 上跑了 integrity 與 pytest，並用 API 查到 CI #333 仍在執行中。沒有推導，沒有構造任何 K；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0153：操作者轉交的Claude本人申報原句；#110合併後核對**
+
+> Claude（#110 合併後核對）：以 git 抓取 main，核對 SHA `9db3ba7d`、tree `b39c2058`、唯一 parent `59926a64` 與 committer 時間（台北 2026-11-09 20:18:00），確認合併結果和 GO 的 head `1694bb07` 的 tree 相同；也用 GitHub API 確認 PR #110 的合併狀態、merge commit 與 head 引用，以及 CI #333 在同一個 head 上第一次執行就成功，並確認遠端 `q01-data` 分支已經不存在。也列了 K 規格審查時的重點，依據的是 Q-01 和 P0.3 的既有內容，沒有構造任何 K。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0154：GPT本人申報；Q-01合併核對與K規格前的選擇**
+
+GPT在#110 exact head `1694bb071d5e10498921a2876d7f3a4e0afee9a2` 的
+CI #333（run `42614966847`）completed／success後，依操作者授權將draft轉ready，
+以expected-head鎖定原樣squash。公開main為
+`9db3ba7d7de71a61bdfb90dd2ed31bbc863271bf`，tree
+`b39c2058cec0b72d9f6c3b26ec39a9e483eddf95`與核准head相同，唯一parent
+`59926a64b89f0750729b588ceae33a9c64aa55c9`，Git committer台北
+2026-11-09 20:18:00；PR API顯示merged，head引用仍指向`1694bb07`。
+GPT以git唯讀核對遠端`q01-data`已由操作者刪除，沒有自行登入或刪分支。
+
+本輪再讀本地P0.3、Q-01、P0.2與IB-01規格，已見Claude列出的dual star、
+K₂,₂、diamond判定與兩個kinetic比較要求。作者在紙上選擇以原order
+strict incidence與二步count形成固定kinetic，沿用數學adjoint／Green和式，
+並以同一Q-01資料的finite CAR過程作state trial；這是先行披露的設計意圖，
+不是已交任何案例輸出或物理可行性證據。此commit只追加三帳；後一commit才
+起草K／source／Green／CAR／state規格。未改Q-01，未做科學數值／符號計算、
+RNG、撒點、producer、raw／sealed或新文獻檢索；不登入操作者帳戶。
+下一新EXP-ID為0155，探索軌與formal隔離維持。
+
+**EXP-0155：操作者轉交的Claude本人申報原句；dual star span衝突複核**
+
+> Claude（Q-01／P0.3 dual star span 衝突複核）：以 git 抓取 main `9db3ba7d`，讀了 P0.2 §7(b) 和 P0.3 中保留 §7(b) 的兩行原文。在腦中核對了 GPT 的論證（交叉項公式、D 共同且可逆、三元消去得所有 H_i 相同、span 等於 1），並推導了一個沒寫成證明的更強提示：在 P0.3 下，任何對 S_r 自然的資料都讓葉對交叉 block 呈 H_iPH_j\* + H_iQ + Q′H_j\* + R 的形式，P 正定，配合仿射 L 依賴得 V = 0，所以逐輸入 §7(b) 失敗。我也提了三個後續選項和自己的傾向。沒有構造任何具體的 K、資料或修約文字。沒有讀文獻原文或做檢索，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0156：操作者轉交的Claude本人申報原句；契約層滿射補強意見**
+
+> Claude（契約層證明的補強意見）：沒有讀任何檔案。依操作者轉述 GPT 對「P 為何正定」的質疑，在腦中補想了：P = π_D j_B G (π_D j_B)\* 正定等價於 j_B 的邊界分量是滿射；不滿射時（秩為 1 或 P = 0）結論可能不成立，而 P = 0 的情況可能另被 P0.3 其他條款排除，但需要逐條引原文證明。因此我建議正式稿要明確寫出滿射的前提和出處，排除不了就縮小作用域。沒有構造任何具體的 K、資料或修約文字。沒有讀文獻原文或做檢索，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0157：GPT本人補正；紙上稿前界線**
+
+作者讀P0.3 §3–5、Q-01 §3–4、P0.2 §7及P0.1 §4.4，確認P0.3只寫
+`j_C`線性型別，**未明文要求單射或邊界滿射**；Q-01 §4則明文給出單射且
+在dual star的`U=I`使`dim Q=dim(D_B⊕J)`。上一則對話中把後者可能推廣到
+全部P0.3資料的說法過強，本稿將一般命題限於邊界滿射，非滿射情況未決。
+Claude的更強提示及滿射補強兩段已見申報逐字列於EXP-0155–0156，
+不把提示當已證結果。第一個本地三帳commit `f16da9b03a14af0612051a3c1457ccf9757d68a7`
+尚未推送，這些補記在任何正式紙上稿之前只追加到同一先行commit；
+後續另commit才寫稿，不固定K、不修約或改Q-01。
