@@ -2257,3 +2257,41 @@ RNG、撒點、producer、raw／sealed資料、seed或主機量測；無外部�
 沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed資料、seed或主機量測；
 只做文字及Git／repo integrity檢查，不把它們充作新命題的數學獨立複核。
 契約保持draft，GO之前不登記資料或固定K，下一新EXP-ID為0144；隔離維持。
+
+
+## 68. #109 契約 GO、遠端分支處理與資料稿前接觸（2026-11-08；只追加）
+
+**EXP-0144：操作者轉交的Claude本人申報原句；#109代推送與複核**
+
+> Claude（PR #109 代推送與複核）：經操作者授權，讀了操作者附上的 `kq_p03_contract_review_r2.patch`（確認 SHA-256 為 `a7a0cd69…`），以 push 權限把它套用在 main `e2f8e812` 上，依帳本 §66／§67 的段落界線切成兩個 commit（`916f0dbd` 只追加三本帳，`cdb5d565` 放契約草稿與其餘內容），確認 `git diff e2f8e812 cdb5d565` 和 patch 逐位元組相同、三本帳是前綴，然後推送 `p03-contract` 分支，並用 REST API 建立 draft PR #109。沒有修改任何文字，沒有合併。之後讀了 P0.3 契約全文，在腦中核對 §1 β 剛性引理、dual star 上 U 的自然性選項，以及「陷阱」段的交叉 block 論證，並提出容量必要條件的建議。沒有構造任何具體的 U、h_Q、j_C 或 K。在 detached head 上跑了 integrity 與 pytest，並用 API 查了 CI #330 的結果。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0145：操作者轉交的Claude本人申報原句；#109合併後核對**
+
+> Claude（#109 合併後核對）：以 git 抓取 main，核對 SHA `59926a64`、tree `c13f9b9e`、唯一 parent `e2f8e812` 與 committer 時間（台北 2026-11-08 13:25:38），確認合併結果和 GO 的 head `cdb5d565` 的 tree 相同，也用 GitHub API 確認 PR #109 的合併狀態和 merge commit。注意到我替 PR 取的標題含「（draft）」，已留在 squash 標題中。刪除了本地已合併的 `p03-contract` 分支，遠端分支沒有動。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0146：操作者轉交的Claude本人申報原句；刪除遠端分支的嘗試**
+
+> Claude（刪除遠端分支的嘗試）：經操作者授權，嘗試刪除遠端 `p03-contract` 分支，先用 `git push --delete`（遠端中斷連線），再用 GitHub REST API 的 DELETE ref（被代理以 HTTP 403 拒絕寫入）。兩次都沒有成功，分支仍指向 `cdb5d565`；`refs/pull/109/head` 不受影響。沒有改用其他通道重試，沒有推送或改動任何 commit。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，也沒有跑測試。
+
+**EXP-0147：操作者轉交的Claude本人申報原句；遠端分支刪除確認**
+
+> Claude（遠端分支刪除確認）：以 git 確認遠端 `p03-contract` 分支已由操作者在 GitHub 上刪除，main 仍是 `59926a64`，`refs/pull/109/head` 仍指向 `cdb5d565`。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0148：GPT本人申報；資料規則起草前的接觸與選擇**
+
+GPT已讀上述四段操作者轉交的Claude申報、#109的GO與合併訊息，以及操作者對容量界的更正：
+應按CAR中實際非零的事件響應計數，不把只有Green響應非零者混入。
+作者先前以Git核對#109本地`4b86d59`與公開`916f0dbd`同tree；本輪另以`ls-remote`核對
+公開main為`59926a64b89f0750729b588ceae33a9c64aa55c9`，遠端`p03-contract`已不存在。
+#109契約獲獨立GO並合併，tree `c13f9b9ef4c00499b70c98568e02b56f322c53a2`；
+公開squash標題含Claude所取「（draft）」，只是標題殘留，不回改歷史或把契約GO降格。
+操作者刪除遠端分支後，GPT在未登入的GitHub瀏覽器頁面看見PR #109的刪除事件；
+在此之前曾試圖經安全登入流程，Google帳戶資料請求被拒絕，沒有取得登入資料或刪除分支。
+
+起草前作者重讀P0.3問題契約、P0.2 §3、B-01及既有帳本／STATUS；
+從Claude已揭露的共同起點交叉項提示出發，在紙上選擇order-cut的唯一配對predicate、
+共享根源不可比通道圖及其正定Laplacian配對，並預想dual star的符號交叉項。
+這些是作者在資料門檻前已有的設計意圖，不是獨立盲發現，也沒有宣稱存在合格K。
+本commit只追加三帳；資料規則在後續commit才寫。沒有讀新文獻原文或檢索，
+沒有實例化K／Green／CAR、科學數值或符號程式、RNG、撒點、producer、raw／sealed或測試。
+下一新EXP-ID為0149；formal／E0及全部來源隔離維持。

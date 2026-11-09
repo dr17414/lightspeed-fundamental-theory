@@ -906,3 +906,15 @@ P0.3問題契約另在§66先行三帳commit之後的commit起草，見接觸帳
 此稿僅限探索軌問題修約，尚待exact-head獨立複核／契約GO；不得據此登記新資料、
 固定K規格或開始研究，亦不作formal、ACT-X-0001或E0授權變更。
 dual star在P0.2＋B-01下的限定障礙保留，P0.3存在性未定；來源與資料隔離維持。
+
+
+## #109 GO 後純資料草稿的權限界線（2026-11-08；只追加）
+
+PR #109 exact head `cdb5d565`由Claude獨立複核GO，CI #330同head成功後
+原樣合併main `59926a64`，tree `c13f9b9e`與GO head相同；
+公開squash標題殘留Claude所取「（draft）」，僅是Git標題，不改寫歷史。
+代推送、本地／公開SHA及切分點、遠端分支刪除的完整帳務見開發帳末段和
+接觸帳§68 EXP-0144–0148。操作者已刪遠端`p03-contract`，PR紀錄保留。
+P0.3契約GO只開啟第二道純資料登記草稿；本先行commit不登記資料，
+其後仍須資料GO／合併及獨立K規格GO才可研究。不是ACT-X-0001修訂、
+formal／E0開放或主機／RNG／producer／raw／sealed權限，全部隔離維持。
