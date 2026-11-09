@@ -906,3 +906,34 @@ P0.3問題契約另在§66先行三帳commit之後的commit起草，見接觸帳
 此稿僅限探索軌問題修約，尚待exact-head獨立複核／契約GO；不得據此登記新資料、
 固定K規格或開始研究，亦不作formal、ACT-X-0001或E0授權變更。
 dual star在P0.2＋B-01下的限定障礙保留，P0.3存在性未定；來源與資料隔離維持。
+
+
+## #109 GO 後純資料草稿的權限界線（2026-11-08；只追加）
+
+PR #109 exact head `cdb5d565`由Claude獨立複核GO，CI #330同head成功後
+原樣合併main `59926a64`，tree `c13f9b9e`與GO head相同；
+公開squash標題殘留Claude所取「（draft）」，僅是Git標題，不改寫歷史。
+代推送、本地／公開SHA及切分點、遠端分支刪除的完整帳務見開發帳末段和
+接觸帳§68 EXP-0144–0148。操作者已刪遠端`p03-contract`，PR紀錄保留。
+P0.3契約GO只開啟第二道純資料登記草稿；本先行commit不登記資料，
+其後仍須資料GO／合併及獨立K規格GO才可研究。不是ACT-X-0001修訂、
+formal／E0開放或主機／RNG／producer／raw／sealed權限，全部隔離維持。
+
+
+## Q-01 純資料草稿的隔離指向（2026-11-08；只追加）
+
+在§68先行三帳後另有
+[Q-01資料稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)，
+作者接觸見EXP-0149。它仍是draft／待exact-head資料GO，
+不是K／source／Green／CAR／state規格或研究授權，亦不修改ACT-X-0001、E0、
+formal、raw／sealed／producer隔離及所有停止條件。
+
+
+## PR #110 r2 限定增量的權限指向（2026-11-09；只追加）
+
+Claude代推送的PR #110公開先行`8c1e0649`（tree `2eb3a900`）對應GPT本地
+`1388182f`，公開資料head`07c4b3d7`（tree `89ed983c`）對應GPT本地
+`29ec133b`，各對同tree；公開切分點由Claude決定，完整SHA及申報見
+開發帳末段、接觸帳§70 EXP-0150–0151。該head的CI #332由Claude以API核實成功。
+本輪僅在Q-01 §5補$K_{2,2}$事前審核列，三本帳只追加；
+沒有K／CAR／state、研究或ACT-X-0001修訂授權，來源與formal隔離維持。

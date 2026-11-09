@@ -950,3 +950,54 @@ dual star紙上稿限定於P0.2＋B-01並已獨立複核；保留原始問題與
 保留完整D_KQ、原P微因果與逐輸入非零同源Green傳播，並維持三道依序GO的門檻。
 README／STATUS只更新目前狀態；契約未GO，P0.2限定障礙保留、原始問題仍OPEN。
 作者接觸見EXP-0143，下一ID0144；程式、測試、formal及既有契約不改。
+
+
+## #109 GO 合併與 P0.3 純資料門檻的先行三帳（2026-11-08；只追加）
+
+PR #109由Claude依操作者授權代套用、推送並建立draft；先行公開commit
+`916f0dbd99e1160037f57affce4e97a275a8fb23`與GPT本地
+`4b86d59e44f859158ef588bc0a34583016dd5b9b`同tree `3da824c1`，
+切分點由Claude依§66／§67段落決定。公開head
+`cdb5d565bdbb673ae3a2f8b136d3b1f9f167b886`對應GPT本地
+`f3d9d91a87e80e8b587b0a36e3a541a2faee7566`，共同tree
+`c13f9b9ef4c00499b70c98568e02b56f322c53a2`；公開與本地commit SHA不同。
+Claude獨立核對內容GO，CI #330同head success；原樣squash main
+`59926a64b89f0750729b588ceae33a9c64aa55c9`，tree與GO head同，
+唯一parent `e2f8e812`，committer台北2026-11-08 13:25:38。
+Claude所取PR標題含「（draft）」並殘留在squash標題，不改寫歷史；內容按GO契約處理。
+遠端`p03-contract`由操作者刪除，main和PR #109 head引用不受影響；
+Claude兩次失敗的刪除嘗試及確認原句見接觸帳§68 EXP-0146–0147，
+其#109代推送／複核、合併後核對見EXP-0144–0145；GPT接觸與事前意圖見EXP-0148。
+
+本commit只登記已發生事項，先於獨立的純資料規則草稿；資料仍待exact-head GO、
+CI與合併／tree核對。未固定K／source／Green／CAR／state、未做研究輸出；
+原P0.2＋B-01障礙和IB-01 FAIL保留，探索軌及formal隔離不變。下一ID0149。
+
+
+## P0.3 Q-01 純資料登記草稿（2026-11-08；只追加）
+
+在先行三帳 commit 後，另新增
+[Q-01純資料稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)：
+最小元初值集、order-cut加唯一因果配對、同根不可比事件通道、
+明示圖關聯正配對與全部合法面matching/source接合。
+作者接觸、已見提示與紙上預算見接觸帳§69 EXP-0149。
+README／STATUS只更新目前狀態段；P0.3母契約、P0.2、B-01、
+IB-01、證明稿、程式／測試／formal均未修改。
+本稿只提出資料，待exact-head獨立GO、CI、原樣合併與tree核對；
+K規格與研究仍未開始。探索軌及全部來源隔離維持，下一ID0150。
+
+
+## PR #110 r2 的公開／本地對照與限定修訂（2026-11-09；只追加）
+
+Claude經操作者授權將原patch逐位元組套用並推送draft PR #110，
+第一個公開commit `8c1e064900ed096d925e60f6c3405c706b89163a`
+（tree `2eb3a900c2bf3c9c7324632b72a79e3c14572a6e`）只追加三本帳§68，
+對應GPT本地`1388182faa8aad116b083b34d62cdce096d8e061`（同tree）；
+第二個公開head `07c4b3d7692290dbd735877c8410f8129cd20470`
+（tree `89ed983ce0348ab206a2866899aeac68b5f268f4`）對應GPT本地
+`29ec133b58000c6ba2be4335bfb0d7161380454e`（同tree）。
+公開切分點由Claude依帳本§68／§69決定；兩組commit SHA不同，
+公開parent鏈是main `59926a64` → `8c1e0649` → `07c4b3d7`。
+Claude複核CI #332同head success，指出§5固定目錄漏列多根共享的$K_{2,2}$。
+本輪僅補該列及三本帳只追加；Claude申報與修訂要求原句見接觸帳§70
+EXP-0150–0151。Q-01仍draft，資料GO前不交K規格或研究，隔離維持。
