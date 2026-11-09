@@ -1023,3 +1023,15 @@ Claude兩段追加申報見接觸帳§71 EXP-0155–0156；作者核對P0.3未�
 一般`j_C`單射／邊界滿射，補正見EXP-0157。先行三帳本地commit尚未公開，
 本次只追加於其後並在紙上稿前amend；後一commit才交限定證明，
 不能把未決非滿射情況寫成契約層一般no-go。
+
+
+## P0.3 dual star span 限定證明草稿（2026-11-09；只追加）
+
+在先行三帳commit後新增
+[限定紙上稿](foundations/kq_p03_dual_star_span_obstruction_paper_v0_1.md)：
+Q-01既定相關下，微因果迫使dual star所有根葉響應相同，
+與逐輸入§7(b)衝突；一般自然資料只在邊界投影滿射的額外條件下
+證相同結論，非滿射類明列未決。作者接觸見EXP-0158。
+稿件待exact-head獨立複核，不當作全P0.3 no-go。
+README／STATUS只替換目前狀態；契約、Q-01、程式與測試不改，
+沒有K規格、修約或案例研究。formal／E0及來源隔離維持。

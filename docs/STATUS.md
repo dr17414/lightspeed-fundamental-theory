@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.3 契約已 GO，Q-01 純資料稿待獨立複核（2026-11-08）：**
+**目前狀態：Q-01 資料 GO；dual star span 限定證明待複核（2026-11-09）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -132,9 +132,16 @@ PR #109由Claude代推送並獨立複核GO，CI #330同head成功，原樣合併
 squash標題殘留Claude所取「（draft）」不改契約GO；遠端`p03-contract`已由操作者刪除，
 PR head紀錄仍保留，相關原句逐字見接觸帳§68 EXP-0144–0148。
 [Q-01純資料登記稿](foundations/kq_p03_correlated_innovation_data_registration_v0_1.md)
-另在先行三帳後起草，目前**draft／未獲資料GO**。它固定一條order/count資料law，
-未選K、Green、CAR或state；作者接觸見接觸帳§69 EXP-0149。
-資料GO、合併及tree核對後才可獨立起草K規格；K規格GO前不研究。
+經PR #110 exact head `1694bb07`／tree `b39c2058`獨立GO，CI #333同head首次成功後
+原樣squash main `9db3ba7d7de71a61bdfb90dd2ed31bbc863271bf`，tree相同、
+唯一parent `59926a64`，committer台北2026-11-09 20:18:00。資料GO已取得；
+遠端`q01-data`由操作者刪除，PR head引用仍保留。Claude的r2與合併後申報
+逐字見接觸帳§71 EXP-0152–0153，GPT合併核對見EXP-0154。
+[dual star span 限定紙上稿](foundations/kq_p03_dual_star_span_obstruction_paper_v0_1.md)
+提出Q-01下的微因果／逐輸入§7(b)衝突；一般資料版本**額外要求邊界投影滿射**，
+非滿射類未決。這是待exact-head獨立複核的草稿，不能宣稱一般P0.3 no-go；
+Claude提示及作者接觸見接觸帳§71–72 EXP-0155–0158。
+沒有K規格、修約或研究輸出；若證明需修訂，保留原問題與資料，不事後改判準。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
