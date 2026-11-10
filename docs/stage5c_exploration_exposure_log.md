@@ -2408,3 +2408,31 @@ EXP-0157所記`f16da9b0`是當時尚未公開的暫時本地SHA；加入滿射�
 同一先行三帳commit經本地amend成`6577f5715efc8db36bae84671e4c833fe476d04c`
 （tree `8db66b8ed8ef6768bf4859383a08feac830e83f3`）。兩者皆非公開時序證據；
 這份交付仍由先行三帳commit作第一個parent，證明稿在其後第二個commit。
+
+
+## 73. PR #111 複核與合併、階段整理前接觸（2026-11-09；只追加）
+
+**EXP-0159：操作者轉交的 Claude 本人申報原句；#111 代推送與複核**
+
+> Claude（PR #111 代推送與複核）：經操作者授權，讀了操作者附上的 `kq_p03_dual_star_span_review.patch`（確認 SHA-256 為 `c6f13ccd…`），套用在 main `9db3ba7d` 上，依帳本 §71／§72 的段落界線切成兩個 commit（`7f6df23f` 只追加三本帳，tree 等於 GPT 本地 `6577f571`；`a2c205ec` 放證明稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `span-paper` 分支，並用 REST API 建立 draft PR #111。沒有修改任何文字，沒有合併。之後讀了證明稿全文，在腦中逐式核對 §2 的 d 可逆與響應式、命題一的交叉項與三元消去、命題二的 P\* 滿射充要條件、S_r 2-傳遞得出的對稱係數、雙線性展開與四條差分式，以及 §5 的未決範圍。用 script 比對了 EXP-0152、0153、0155、0156：後兩段只差 Markdown 跳脫字元 `\*`。在 detached head 上跑了 integrity 與 pytest，並用 API 查到 CI #335 仍在執行中。沒有構造任何 K、資料或修約文字；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0160：GPT 本人申報；#111 GO 後合併核對與整理界線**
+
+Claude 已在公開 exact head `a2c205ecdfff1f60748f7c1fb317dd3adc888cf3`
+逐式複核兩個命題並給 GO，保留非滿射未決的作用域。作者由 GitHub
+connector 唯讀確認 PR #111 仍是該 head、base main `9db3ba7d`，
+同 head CI #335（run `42625732239`）completed／success；依操作者
+轉交的限定授權將 draft 轉 ready，重核 head 未變，使用 expected head
+原樣 squash-merge。合併 main `80c55c1e3d0e59538f65118702d8981ae64fb7c1`
+的 tree `14c82a2add3c5aa01bea41c918055bd3a7d24ac8` 與核准 head
+及 GPT 本地 tree 相同，唯一 parent `9db3ba7d7de71a61bdfb90dd2ed31bbc863271bf`，
+committer 台北 2026-11-09 21:32:57。以 git fetch 唯讀核對 SHA、tree、parent
+和 committer 時間；沒有刪除遠端 `span-paper`，沒有推送。
+
+EXP-0155、0156 引用 Claude 原句時為 Markdown 顯示加入的 `\*` 是
+跳脫字元，去掉後與原句逐字一致，不是改動申報內容。#111 由 Claude
+代為套用與推送；公開先行 commit `7f6df23f` 的 tree 等於 GPT 本地
+`6577f571` 的 tree，公開 head `a2c205ec` 的 tree 等於 GPT 本地
+`7e5b36ee` 的 tree。公開 commit 鏈可見先登記後證明，不能由本地 SHA
+單獨推出公開時序。作者接下來只編輯階段整理，依已選的 (c) 不固定 K、
+不修約、不改 Q-01，也不新增科學候選或研究計算；仍待新稿獨立複核。

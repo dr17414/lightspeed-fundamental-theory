@@ -1035,3 +1035,18 @@ Q-01既定相關下，微因果迫使dual star所有根葉響應相同，
 稿件待exact-head獨立複核，不當作全P0.3 no-go。
 README／STATUS只替換目前狀態；契約、Q-01、程式與測試不改，
 沒有K規格、修約或案例研究。formal／E0及來源隔離維持。
+
+
+## #111 GO、合併後的階段整理先行登記（2026-11-09；只追加）
+
+Claude 代為套用 GPT 的 patch、推送 draft PR #111，公開先行 `7f6df23f`
+與 GPT 本地 `6577f571` 同 tree，公開 head `a2c205ec` 與本地
+`7e5b36ee` 同 tree；Claude exact-head 逐式複核兩個命題 GO。
+同 head CI #335 completed／success 後，GPT 依 expected head 原樣 squash，
+main `80c55c1e`，tree `14c82a2a` 與核准 head 相同，唯一 parent
+`9db3ba7d`，committer 台北 2026-11-09 21:32:57。
+完整 Claude 原句、GPT 讀取與合併核對、Markdown `\*` 跳脫說明見
+接觸帳 §73 EXP-0159–0160。現有 Q-01 版受到限定障礙；一般資料的
+結論只在邊界滿射前提下成立，非滿射類未決。依操作者已選 (c)，
+本先行 commit 只追加三本帳，後一 commit 才起草階段整理；
+不動 P0.3、Q-01、證明稿、程式、測試或 formal／E0。
