@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：#111 限定證明已 GO；階段整理待審（2026-11-09）**：P0.3 契約與 Q-01 資料經 #109／#110 GO。[dual star span 證明](docs/foundations/kq_p03_dual_star_span_obstruction_paper_v0_1.md)在 #111 exact-head 獨立複核 GO、同 head CI #335 成功後合併 main `80c55c1e`（tree `14c82a2a`）：Q-01 下原 P 微因果與逐輸入 §7(b) 不可兼得；一般 P0.3 資料只有另加邊界滿射才得同類結論，非滿射類未決。[階段整理稿](docs/foundations/kq_p03_stage_checkpoint_2026_11_09.md)仍待複核；按操作者選定的 (c) 暫停 K 規格，不修約或改 Q-01。原始問題、P0.1、探索軌及 formal／E0 隔離不變。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
+- **目前狀態：#112 階段整理 GO；§7(b) 理由討論待審（2026-11-10）**：[階段整理](docs/foundations/kq_p03_stage_checkpoint_2026_11_09.md)經 #112 exact-head GO、CI #337 成功，原樣合併 main `305ca0be`（tree `5ee6f754`）。操作者新授權的[短稿](docs/foundations/kq_span_two_on_symmetric_inputs_rationale_v0_1.md)僅討論對稱輸入逐輸入 active K span ≥ 2 的正反物理理由，依事先判準提出建議，仍待獨立複核；未改 §7(b)、Q-01 或 K，沒有第三道門檻 GO。#111 的 Q-01 限定障礙、一般資料滿射條件及非滿射未決維持；原始問題、P0.1、探索軌與 formal／E0 隔離不變。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
