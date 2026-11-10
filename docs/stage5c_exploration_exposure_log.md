@@ -2436,3 +2436,29 @@ EXP-0155、0156 引用 Claude 原句時為 Markdown 顯示加入的 `\*` 是
 `7e5b36ee` 的 tree。公開 commit 鏈可見先登記後證明，不能由本地 SHA
 單獨推出公開時序。作者接下來只編輯階段整理，依已選的 (c) 不固定 K、
 不修約、不改 Q-01，也不新增科學候選或研究計算；仍待新稿獨立複核。
+
+
+## 74. P0.3／Q-01 階段整理草稿（2026-11-09；只追加）
+
+**EXP-0161：GPT 本人申報；既有結果編輯整理**
+
+作者在 #111 GO 及合併 tree 核對後，於獨立本地 worktree 讀了
+[T1–CF-01 公開階段總結](foundations/t1_cf01_public_stage_summary_2026_10_30.md)、
+P0.3 §3–5、Q-01 §3–5、#111 紙上證明與 README／STATUS 現行狀態，
+用已合併文件編輯 P0.3／Q-01 的限定階段整理；沒有新文獻檢索、
+原文閱讀或新穎性判定。源表保留 Q-01 限定障礙與一般資料滿射條件的
+區分，非滿射類標未決；原 P0.2＋B-01 障礙及 IB-01 FAIL 另列。
+Claude 的原句在先行 §73 EXP-0159 逐字登記，Markdown 跳脫說明見
+EXP-0160；本稿只依操作者已選的 (c) 做階段整理，仍待 exact-head 複核。
+沒有構造 K、資料或修約，沒有代入案例求 Green／CAR，沒有科學
+數值或符號程式、RNG、撒點、producer、raw／sealed 資料或 seed；
+Git、文件核對與既有回歸檢查只作完整性用途。沒有推送或合併整理稿。
+
+**EXP-0162：GPT 本人申報；已合併分支刪除嘗試**
+
+合併 #111 後以 `git ls-remote` 唯讀確認遠端 `span-paper` 尚指向
+`a2c205ec`。依操作者轉交的合併後清理要求，嘗試以非互動
+`git push origin --delete span-paper` 刪除；Git 通道缺少可用寫入憑證，
+回覆 `could not read Username`，exit 128，沒有刪除分支或改動任何 commit。
+GitHub connector 沒有刪除 ref 的工具；沒有嘗試登入操作者帳戶，
+也沒有改用其他通道繞過。此事不影響 main tree 或 #111 證明作用域。
