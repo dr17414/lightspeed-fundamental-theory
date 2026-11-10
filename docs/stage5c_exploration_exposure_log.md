@@ -2462,3 +2462,36 @@ Git、文件核對與既有回歸檢查只作完整性用途。沒有推送或�
 回覆 `could not read Username`，exit 128，沒有刪除分支或改動任何 commit。
 GitHub connector 沒有刪除 ref 的工具；沒有嘗試登入操作者帳戶，
 也沒有改用其他通道繞過。此事不影響 main tree 或 #111 證明作用域。
+
+
+## 75. #112 複核、合併與 §7(b) 理由討論前接觸（2026-11-10；只追加）
+
+**EXP-0163：操作者轉交的 Claude 本人申報原句；#111 合併後核對與 #112 代推送複核**
+
+> Claude（#111 合併後核對與 PR #112 代推送複核）：以 git 核對 #111 合併結果（main `80c55c1e`、tree 與 GO head `a2c205ec` 相同、唯一 parent `9db3ba7d`、committer 台北 2026-11-09 21:32:57），並確認遠端 `span-paper` 已不存在。經操作者授權，讀了 `kq_p03_stage_checkpoint_review.patch`（確認 SHA-256 為 `89f5aa45…`），套用在 main `80c55c1e` 上，依帳本 §73／§74 的段落界線切成兩個 commit（`43da6d95` 只追加三本帳，`d426297c` 放整理稿與其餘內容；最終 tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `stage-checkpoint` 分支，並用 REST API 建立 draft PR #112。沒有修改任何文字，沒有合併。之後讀了整理稿全文，逐列對照五份已合併交付的作用域。用 script 比對 EXP-0159：只差 Markdown 跳脫字元 `\*`。在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #337 成功。也表達了對三個後續選項的看法，但沒有起草任何修約或理由文字。沒有構造任何 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0164：操作者轉交的 Claude 本人申報原句；#112 合併後核對**
+
+> Claude（#112 合併後核對）：以 git 抓取 main，核對 SHA `305ca0be`、tree `5ee6f754`、唯一 parent `80c55c1e` 與 committer 時間（台北 2026-11-10 13:11:30），確認合併結果和 GO 的 head `d426297c` 的 tree 相同，並確認遠端 `stage-checkpoint` 分支已不存在。也建議了 §7(b) 理由短稿的範圍，但沒有起草任何理由或修約文字。沒有讀其他檔案，沒有推導，沒有構造任何 K 或資料，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0165：GPT 本人申報；§7(b) 理由稿前的閱讀與判準**
+
+作者已由操作者取得純討論稿授權，範圍只限「可比對都對稱等價」輸入上
+逐輸入 active K block span ≥ 2 的獨立物理理由，正反並列；事先判準是
+找到獨立於 Q-01／#111 失敗的修約理由才建議進入修約，否則建議重新比較
+因果序先行／量子過程先行。作者唯讀核對公開 main
+`305ca0be1a9619e06164cf192db3fedc6ea3b6d5`／tree
+`5ee6f754a7ae42d28592bc2770ab49a77ba729d8`，遠端
+`stage-checkpoint` 已不存在，並讀 P0.1 §4.1、P0.2 §7(b)、P0.3 §5、
+T3 §§3–6 和已合併階段整理。已見 Claude 對 §7(b) 的對稱性提示及
+不以 Q-01 失敗作為修約理由的提醒；作者事先辨識出原排除目的和逐輸入
+量詞可能不是同一件事，這是待討論的判斷而非已審結論。
+EXP-0159 所引 Claude 原句中 `\*` 也只是 Markdown 顯示跳脫，去掉後
+與原句一致；和 EXP-0155、0156 的情況相同。公開 #112 先行 commit
+`43da6d95` 的 tree `3f61c4c3` 等於 GPT 本地 `03feab78` 的 tree；
+公開 head `d426297c` 的 tree `5ee6f754` 等於 GPT 本地 `e22d50bb`。
+作者本人於前輪以 GitHub connector 核實同 head CI #337 success，
+expected-head 原樣 squash 合併為上述 main；committer 台北
+2026-11-10 13:11:30。本輪沒有登入、推送、K 規格、資料或契約改動，
+沒有科學數值／符號計算、RNG、撒點、producer、raw／sealed 或新文獻檢索。
+此先行 commit 只追加三本帳，討論稿須另在後一 commit 才起草；下一 ID 0166。

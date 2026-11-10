@@ -1061,3 +1061,15 @@ main `80c55c1e`，tree `14c82a2a` 與核准 head 相同，唯一 parent
 成本。README／STATUS 只更新現行狀態；本稿不封存整個 P0.3 為 FAIL，
 不給 K 規格 GO、任何新資料或修約。作者接觸見 EXP-0161；
 完整稿與三帳追加待 exact-head 複核，formal／E0 隔離維持。
+
+
+## #112 已合併與 §7(b) 理由稿先行登記（2026-11-10；只追加）
+
+#112 由 Claude 代套用並推送，公開先行 `43da6d95`／tree `3f61c4c3`
+與 GPT 本地 `03feab78` 同 tree；公開 head `d426297c`／tree
+`5ee6f754` 與本地 `e22d50bb` 同 tree。CI #337 在核准 head 成功後
+GPT 原樣合併 main `305ca0be`、同 tree、唯一 parent `80c55c1e`、
+committer 台北 2026-11-10 13:11:30；遠端 `stage-checkpoint` 已不存在。
+Claude 兩段原句及 Markdown `\*` 說明見接觸帳 §75 EXP-0163–0165。
+操作者只授權 §7(b) 的正反物理理由純討論，先登記後寫稿，不修約、
+不選替代量詞、不改 Q-01 或 K，不開啟研究門檻，formal／E0 隔離維持。
