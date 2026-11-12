@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#111 限定證明已 GO；階段整理待複核（2026-11-09）：**
+**目前狀態：#112 階段整理 GO；§7(b) 理由討論待複核（2026-11-10）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -146,9 +146,17 @@ CI #335同head completed／success後原樣squash main
 逐輸入§7(b)衝突已限定確認；一般資料的同類結論**額外要求邊界投影滿射**，
 非滿射類未決，不能宣稱一般P0.3 no-go。Claude原句及GPT合併核對見
 接觸帳§73 EXP-0159–0160，Markdown跳脫說明同處。
-[階段整理草稿](foundations/kq_p03_stage_checkpoint_2026_11_09.md)依操作者選定的(c)
-只整理兩代障礙與未決問題，尚待exact-head複核；暫停第三道K規格，
-沒有修約、改Q-01或新增研究輸出。作者接觸見接觸帳§74 EXP-0161。
+[階段整理](foundations/kq_p03_stage_checkpoint_2026_11_09.md)經 PR #112
+exact head `d426297c6f2d737436fde5c055c74ee5159cdfdf`／tree
+`5ee6f754a7ae42d28592bc2770ab49a77ba729d8` 由 Claude 複核 GO，
+同 head CI #337 success 後原樣合併 main
+`305ca0be1a9619e06164cf192db3fedc6ea3b6d5`、同 tree、唯一 parent
+`80c55c1e`，committer 台北 2026-11-10 13:11:30；遠端 `stage-checkpoint`
+已不存在。Claude 兩段原句與 GPT 合併核對見接觸帳 §75 EXP-0163–0165。
+操作者另授權[§7(b) 物理理由短稿](foundations/kq_span_two_on_symmetric_inputs_rationale_v0_1.md)，
+只討論對稱輸入逐輸入 active K span ≥ 2 的正反理由，按事先判準給建議；
+目前待 exact-head 複核，不是修約，未選替代量詞、不改 Q-01 或 K，
+第三道 K 規格與研究關卡仍關閉。作者接觸見接觸帳 §76 EXP-0166。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
