@@ -1084,3 +1084,18 @@ T3 §6「需外加」作用域，正反理由並列；事前判準與作者結�
 README／STATUS 只更新目前狀態，不改 P0.1／P0.2／P0.3、Q-01、K、
 程式、測試或任何已複核證明。作者接觸見 §76 EXP-0166；
 稿件待 exact-head 獨立複核，不是修約 GO，formal／E0 隔離維持。
+
+
+## PR #113 複核要求與歷史補強（2026-11-11；只追加）
+
+Claude 將原 patch 代為套用、推送 draft PR #113；公開先行
+`621a1cc9`／tree `ac0bd506` 等於 GPT 本地 `00eef498` 的 tree，
+公開 head `18e67b80`／tree `54a2473f` 等於本地 `ccaa40e1`。
+Claude exact-head 複核要求短稿補 P0.1 §4.4 中 #99 的 reviewer
+提示、當時的 $L$ 來源定位及「補救失敗後才改驗收」反方論點；
+其本人原句見接觸帳 §77 EXP-0168。GPT 同 head 核對 CI #339
+completed／success。較早的 Claude「選定 §7(b) 理由短稿」申報
+在 r2 草稿後由操作者補傳原句，已以更正追加列為 EXP-0167；
+GPT 當時未取得原句的過程及後補時間差見 EXP-0169。
+本輪僅改短稿與追加三本帳，不修改契約、Q-01、K 或 README／STATUS；
+PR 保持 draft，formal／E0 及來源隔離維持。
