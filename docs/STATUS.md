@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#112 階段整理 GO；§7(b) 理由討論待複核（2026-11-10）：**
+**目前狀態：#113 理由短稿 GO；§7(b) 修約提案待複核（2026-11-13）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -154,9 +154,15 @@ exact head `d426297c6f2d737436fde5c055c74ee5159cdfdf`／tree
 `80c55c1e`，committer 台北 2026-11-10 13:11:30；遠端 `stage-checkpoint`
 已不存在。Claude 兩段原句與 GPT 合併核對見接觸帳 §75 EXP-0163–0165。
 操作者另授權[§7(b) 物理理由短稿](foundations/kq_span_two_on_symmetric_inputs_rationale_v0_1.md)，
-只討論對稱輸入逐輸入 active K span ≥ 2 的正反理由，按事先判準給建議；
-目前待 exact-head 複核，不是修約，未選替代量詞、不改 Q-01 或 K，
-第三道 K 規格與研究關卡仍關閉。作者接觸見接觸帳 §76 EXP-0166。
+經 PR #113 exact head `cfd495c298856821784081b61888086d0e490e2d`／tree
+`8d8e6b3abac044bd970520ff8e1e85f7dcb376b7` 獨立複核 GO、同 head
+CI #340 success 後，原樣合併 main `93b75dc598e3ca83a66205fd18599fac317c7b1e`，
+同 tree、唯一 parent `305ca0be`，committer 台北 2026-11-12 14:30:04；
+遠端 `span-rationale` 已由操作者刪除。Claude 的 r2 和合併後申報見
+接觸帳 §78 EXP-0170–0171；本稿結論只支持啟動修約審查。
+操作者隨後選擇起草[§7(b) 修約審查提案](foundations/kq_span_amendment_review_proposal_v0_1.md)，
+目前仍是待 exact-head 複核的**紙上提案**，不是契約 GO；現行
+§7(b)、Q-01 或 K 均未改，第三道 K 規格與研究關卡仍關閉。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、

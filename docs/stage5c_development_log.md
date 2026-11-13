@@ -1099,3 +1099,38 @@ completed／success。較早的 Claude「選定 §7(b) 理由短稿」申報
 GPT 當時未取得原句的過程及後補時間差見 EXP-0169。
 本輪僅改短稿與追加三本帳，不修改契約、Q-01、K 或 README／STATUS；
 PR 保持 draft，formal／E0 及來源隔離維持。
+
+
+## #113 GO 合併及 §7(b) 修約提案前接觸（2026-11-13；只追加）
+
+Claude 經授權代套用 r2 增量，公開 head `cfd495c298856821784081b61888086d0e490e2d`
+的 tree `8d8e6b3abac044bd970520ff8e1e85f7dcb376b7` 等於 GPT 本地
+`705d19e42ed26d4d56684725d855e5965c553273` 的 tree；兩者 SHA 不同，
+本地 SHA 不能代替公開時序證據。公開 r2 parent 為 `18e67b80`。
+Claude 複核 GO 並經 API 核對同 head CI #340 success；GPT 隨後以
+expected head squash 合併 main `93b75dc598e3ca83a66205fd18599fac317c7b1e`，
+tree 同上、唯一 parent `305ca0be1a9619e06164cf192db3fedc6ea3b6d5`、
+committer 台北 2026-11-12 14:30:04。操作者以 git／API 獨立核對並已
+刪除遠端 `span-rationale`；PR head 引用仍是 `cfd495c2`。
+Claude 的 r2 與合併後兩段逐字申報見接觸帳 §78 EXP-0170–0171。
+
+操作者事後明確選擇啟動 §7(b) 正式修約審查，只交純紙上提案：
+保留排除「純量核 ⊗ 單一矩陣法則化約」的目的，提出仍可失敗的
+判準，回應 #99 歷史反方並對 dual star、向下 star、鏈、diamond、
+$K_{2,2}$ 作事前判定；修約即使 GO 也須重走 Q-01 新版資料門檻。
+本先行 commit 只追加三帳；後一 commit 才交提案。沒有契約修改、
+Q-01／K 規格或研究授權；formal／E0 及來源隔離維持。
+
+
+## §7(b) 純紙上修約審查提案（2026-11-13；只追加）
+
+先行三帳 commit `2591b1ee56ea02264654b2fefec06f792a120777`
+（tree `bdf103866fe2663057d0bdd4064b799379064849`）只記
+§78 EXP-0170–0172 等已見接觸，parent 是公開 main `93b75dc5`。
+此後另 commit 新增
+[審查提案](foundations/kq_span_amendment_review_proposal_v0_1.md)，
+只提出按原 order active pair 軌道檢驗的候選 (b′)、
+可失敗的無界審核族及五類事前輸入適用性，並正面保留 #99 的反方。
+這是作者在已見 #111 失敗後的公開修約建議，不是盲推導、
+現行契約修訂或研究結果。作者接觸見 EXP-0173；README／STATUS
+只換目前狀態段，P0.1／P0.2／P0.3、Q-01、程式與測試不改。
