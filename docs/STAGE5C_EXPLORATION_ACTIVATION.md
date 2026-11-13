@@ -1020,3 +1020,12 @@ main `93b75dc5`，tree `8d8e6b3a` 與 GO head 相同；遠端
 操作者於其後明確選擇啟動 §7(b) 的**純紙上正式修約審查**；本先行
 commit 只追加三帳，後一 commit 才起草提案。這不是修約 GO，也不更動
 P0.3／Q-01、K、ACT-X-0001 或 formal／E0 隔離；不得開始研究。
+
+
+## §7(b) 修約審查提案的交付界線（2026-11-13；只追加）
+
+先行三帳 §78 commit 後另 commit 交
+[純紙上提案](foundations/kq_span_amendment_review_proposal_v0_1.md)，
+作者接觸見 EXP-0173；只建議可供審查的候選判準，不能當成已採納
+的 §7(b) 或 Q-01 資料 GO。README／STATUS 僅更新目前狀態；
+K／source／Green／CAR／state 規格與研究關卡、formal／E0 隔離仍關閉。

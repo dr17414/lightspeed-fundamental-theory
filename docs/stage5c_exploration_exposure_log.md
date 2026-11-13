@@ -2582,3 +2582,23 @@ SHA `93b75dc598e3ca83a66205fd18599fac317c7b1e`、tree
 替代契約正文，未作案例輸出／科學數值或符號計算、RNG、撒點、
 producer、raw／sealed 或文獻檢索。本 commit 只追加三帳，提案在
 後一 commit；不授權契約 GO、K 規格、研究或 formal 回用。下一 ID 0173。
+
+
+## 79. §7(b) 修約審查紙上提案（2026-11-13；只追加）
+
+**EXP-0173：GPT 本人申報；替代驗收量詞的編輯判斷**
+
+作者在先行三帳 commit 後，依已合併 #113 理由短稿與已見
+Claude 指示起草純紙上候選 (b′)：區分原始法則層的單一矩陣
+化約排除和逐輸入驗收；用事前 order/count 可區分的 active pair
+軌道界定本地測試，另要求尺寸無界的事前 witness 族以防真空通過。
+作者自行選擇要求 $K^{ord}$ 和完整 active K 各有兩個方向，避免
+單靠 L 排名通過；此新要求可能排除有物理意義的 L 作用，已在
+提案中明列為代價而非既有定理。dual star、向下 star、鏈、diamond、
+$K_{2,2}$ 只分類測試的適用性，沒有代入具體 K 值或判 PASS。
+先前已接觸 #99 歷史風險、#111 Q-01 限定 FAIL 及一般滿射條件；
+本稿不能宣稱盲性或利用失敗反推成功規則。只修改提案與
+README／STATUS 目前狀態，三帳只有追加；沒有更動契約、Q-01、K、
+Green／CAR／state 規格或已封存 FAIL，沒有新文獻檢索、科學
+數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或
+formal／E0 回用。稿件待獨立 exact-head 複核，下一 ID 0174。
