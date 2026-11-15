@@ -1051,3 +1051,26 @@ ACT-X-0001、formal／E0、raw／sealed／producer 隔離維持。
 新版資料門檻增加事前無界軌道審核族。README／STATUS 僅替換
 目前狀態段；P0.3／Q-01、K 或程式都沒有改。P0.4 未獲契約
 GO 前仍不可啟動資料、第三道規格或研究，formal／E0 隔離不變。
+
+
+## #115 合併後 Q-02 純資料先行界線（2026-11-15；只追加）
+
+P0.4 經 Claude exact-head GO、CI #344 同 head 首次成功後，GPT
+expected-head 原樣 squash main `655e9605`，tree `53e8de08`
+與受審 head `c96500b3` 相同；唯一 parent `4a543e67`。
+Claude 本人申報依時間順序見接觸帳 §82 EXP-0177–0178，
+GPT 合併與已見選擇見 EXP-0179；兩項非阻擋建議已在開發帳
+登記，不改已審契約。遠端兩分支據 Claude 後續核對已刪除。
+本先行 commit 僅追加三帳，後一 commit 才交 Q-02 新版資料。
+舊 Q-01 資料 GO 不繼承；Q-02 GO／合併前不寫 K 規格或研究，
+formal／E0 及全部來源隔離不變。這不是 ACT、AMEND 或資料 GO。
+
+
+## Q-02 草稿交付界線（2026-11-15；只追加）
+
+先行三帳 §82 commit `c24b2e98` 後另 commit 新增
+[Q-02 資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)，
+作者接觸見 EXP-0180。只重登資料及 P0.4 (4.3) 的 order-only
+無界審核族，README／STATUS 僅改目前狀態；P0.4、Q-01 舊版、
+程式與測試不改。這不是資料 GO、第三門檻啟動、ACT 或 AMEND；
+formal／E0、raw／sealed／producer 隔離維持.

@@ -2637,3 +2637,39 @@ state、完整 $D_{KQ}$ 與每個 $L$ 全保留，舊 Q-01／#111 的
 代入、科學數值／符號程式、RNG、撒點、producer、raw／sealed、
 seed 或 formal／E0 回用；僅作文件、Git 與完整性檢查。
 契約草稿待 independent exact-head 複核，下一 ID 0177。
+
+
+## 82. #115 合併後與 Q-02 起草前的先行登記（2026-11-15；只追加）
+
+**EXP-0177：操作者轉交的 Claude 本人申報原句；#114 合併後核對與 PR #115 代推送複核**
+
+> Claude（#114 合併後核對與 PR #115 代推送複核）：以 git 核對 #114 合併結果（main `4a543e67`、tree 與 GO head 相同、唯一 parent `93b75dc5`），並確認遠端 `span-amendment` 仍指向 `aa36032c`。經操作者授權，讀了 `kq_p04_contract_review.patch`（確認 SHA-256 為 `e0b17ce3…`），套用在 main `4a543e67` 上，依帳本 §80／§81 的段落界線切成兩個 commit（`53ecc51c` 只追加三本帳，tree 等於 GPT 本地 `a398fe2a`；`c96500b3` 放契約草稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `p04-contract` 分支，並用 REST API 建立 draft PR #115。沒有修改任何文字，沒有合併。之後讀了 P0.4 全文，並查了 P0.3 中引用 §7(b) 的兩處原文，在腦中核對單軌道引理、(4.2) 的量詞、(4.3)、五類軌道數，以及保留的義務與門檻；另推得一個可預見的後果：若 K^ord 只讀區間型別，在區間型別相同的多軌道輸入上 (4.2) 必 FAIL。這次容器重建後，重新安裝了固定版本的測試依賴，在 detached head 上跑了 integrity 與 pytest，並用 API 查到 CI #344 仍在執行中；用 script 逐字比對了 EXP-0174。沒有構造任何 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0178：操作者轉交的 Claude 本人申報原句；#115 合併後核對**
+
+> Claude（#115 合併後核對）：以 git 抓取 main，核對 SHA `655e9605`、tree `53e8de08`、唯一 parent `4a543e67` 與 committer 時間（台北 2026-11-15 21:09:58），確認合併結果和 GO 的 head `c96500b3` 的 tree 相同；也用 GitHub API 確認 PR #115 的合併狀態、merge commit 與 head 引用，以及 CI #344 在同一個 head 上第一次執行就成功，並確認遠端 `p04-contract` 和 `span-amendment` 都已不存在。也列了 Q-02 複核時的重點，依據的是 P0.4 的既有內容，沒有構造任何資料或 K。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0179：GPT 本人申報；合併核對與資料登記前接觸**
+
+作者在 PR #115 的核准 head `c96500b31ff0ee9bbf97a4db1c83fa7dd7b52057`、CI #344 同 head success 後解除 draft，expected-head squash 合併為 main `655e9605e1b6fa51babf59f187cbd715cce146fd`。以 git fetch 核對 tree `53e8de0831b1894983c48d9f43a781cd163f5aa2` 與受審 tree 相同、唯一 parent `4a543e67`，committer 台北 2026-11-15 21:09:58。當時 git 查得 `p04-contract` 和 `span-amendment` 尚在；GitHub connector 沒有刪 branch 的能力，瀏覽器處於未登入狀態，作者沒有登入或刪除。操作者轉述 Claude 後續以 git／API 確認兩分支已不存在；作者本輪不把此轉述冒充自己的刪除行為。
+
+已見 Claude 上述兩段原句、P0.4 exact-head GO 與兩項非阻擋建議：P0.3 §2 表格及 §5 末段均援引舊 §7(b)，P0.4 的替換範圍日後應明列兩處；以及多軌道而區間型別相同的輸入若只按區間型別定 $K^{ord}$，(4.2) 會 FAIL。P0.4 原文不因此改動。作者重讀 P0.4 §3–5、P0.3 §2–6、Q-01 v0.1 與 STATUS，決定以 Q-01 的同一資料 law 作**新版重登**，並獨立給出鏈族 (4.3) 的 order-only 證明；這是已見 #111 限定失敗與修約後的公開資料選擇，不宣稱盲性或 K 可行。本先行 commit 只追加三帳；下個 commit 才寫 Q-02。沒有代入 K／Green／CAR／state，沒有新文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用。下一 ID 0180。
+
+
+## 83. Q-02 純資料草稿的作者接觸（2026-11-15；只追加）
+
+**EXP-0180：GPT 本人申報；新版重登與 (4.3) 紙上證明**
+
+作者在先行三帳 commit `c24b2e98a8b4cc8c75466a9516a1e507a279b0ad` 後，
+另寫 [Q-02 純資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)。
+逐項重登 Q-01 的 $\beta,\mathcal C,U,Q_P,h_Q,j_C$ 及容量／覆蓋目錄，
+不沿用其 GO；另在資料層以 $C_N$、$N\ge3$ 的 order predicate
+證 (4.3) 的無界 active 多軌道族，和 $k\times C_2$ 的多面族分開。
+事前標記 dual star 的全部葉對與 $K_{2,2}$ 的多根不可比對
+必須在原 P 直接查，單軌道 N/A 只屬 (b′)。這是已知 #111
+失敗與 P0.4 修約後的非盲選擇，不宣稱 K、CAR、Green 或 state 可行。
+作者只讀公開 P0.4、P0.3、Q-01、B-01 的相關原文及三帳、
+README／STATUS；沒有構造或代入 K、Green、CAR、state，
+沒有讀新文獻原文、科學數值／符號程式、RNG、撒點、producer、
+raw／sealed、seed 或 formal 回用。只編輯文件並作 Git／完整性核對；
+草稿保持待獨立複核，下一 ID 0181.

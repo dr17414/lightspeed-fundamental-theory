@@ -1173,3 +1173,39 @@ Claude 複核本人申報逐字見 EXP-0174；其三點非阻擋建議和
 新版資料的無界 active 多軌道先行義務、五類比較目錄與三道門檻；
 不預選任何資料或 K 輸出。作者接觸見 EXP-0176，README／STATUS
 只替換目前狀態；P0.3、Q-01、程式、測試、formal 均未修改。
+
+
+## #115 合併與 Q-02 資料重登前的先行界線（2026-11-15；只追加）
+
+PR #115 公開先行 commit `53ecc51c`（tree `89dafe0b`）與 GPT 本地
+`a398fe2a` 同 tree；公開 head `c96500b31ff0ee9bbf97a4db1c83fa7dd7b52057`
+（tree `53e8de0831b1894983c48d9f43a781cd163f5aa2`）與 GPT 本地
+`77779147` 同 tree。本地 SHA 不作公開時序證據。Claude 代推送並
+exact-head 複核 GO，CI #344 同 head 首次成功；GPT expected-head 合併
+main `655e9605e1b6fa51babf59f187cbd715cce146fd`，tree 同上、
+唯一 parent `4a543e67`、committer 台北 2026-11-15 21:09:58。
+遠端 `p04-contract`、`span-amendment` 後由 Claude 核對已不存在。
+Claude 本人兩段原句與 GPT 接觸見接觸帳 §82 EXP-0177–0179。
+兩項非阻擋建議是替換範圍應明列 P0.3 §2、§5 兩處援引，及
+同區間型別的不同軌道可能要求 $K^{ord}$ 讀更廣的序結構；
+本輪不改已審契約，也不先設 K。
+
+P0.4 取得契約 GO，只開啟純資料新版第二門檻。此先行 commit
+只追加三帳；其後才交 Q-02，沿用 Q-01 law 必須整體重登並另證
+(4.3)，不繼承舊資料 GO。Q-02 資料 GO／合併／tree 核對前
+不得寫 K 規格或研究；P0.3／Q-01 舊版與 #111 作用域保留，
+ACT-X-0001、formal／E0、raw／sealed／producer 隔離維持。
+
+
+## Q-02 純資料新版交付界線（2026-11-15；只追加）
+
+先行三帳 commit `c24b2e98a8b4cc8c75466a9516a1e507a279b0ad`
+（tree `1fb6e18ec1b196cf54e4f7dfa3ec3c56000c88b7`，parent
+`655e9605e1b6fa51babf59f187cbd715cce146fd`）只登記 #115 合併、
+Claude 兩段原句、已見建議及作者選擇；後續獨立 commit 才交
+[Q-02 純資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)。
+它重新固定 Q-01 law 而不繼承其 P0.3 資料 GO，另以鏈族
+證 P0.4 (4.3)，將 dual star／$K_{2,2}$ 原 P 微因果保留為可失敗檢查。
+README／STATUS 只替換目前狀態段；P0.4 契約、P0.3／Q-01
+舊版、K、程式、測試、formal 均不改。作者接觸見 EXP-0180；
+資料草稿未 GO，不寫第三道規格或研究.
