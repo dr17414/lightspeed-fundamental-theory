@@ -1134,3 +1134,29 @@ Q-01／K 規格或研究授權；formal／E0 及來源隔離維持。
 這是作者在已見 #111 失敗後的公開修約建議，不是盲推導、
 現行契約修訂或研究結果。作者接觸見 EXP-0173；README／STATUS
 只換目前狀態段，P0.1／P0.2／P0.3、Q-01、程式與測試不改。
+
+
+## #114 合併與 P0.4 草稿前先行三帳（2026-11-15；只追加）
+
+Claude 經操作者授權代套用／推送 #114，公開先行
+`f9ac2b30a069b2106a40ec0357b40e27739cb859`（tree `bdf103866fe2663057d0bdd4064b799379064849`）
+對應 GPT 本地 `2591b1ee56ea02264654b2fefec06f792a120777`（同 tree）；
+公開 head `aa36032c354986a2c49f307f8e70bef1d8f36e42`（tree
+`d7666db71d8531325670369bf20c23fe22503272`）對應 GPT 本地
+`3c035f3a3983cc2a828aeb6b4fd7846a3f767de6`（同 tree）。
+公開 parent 鏈 main `93b75dc5` → `f9ac2b30`（只追加三帳）→
+`aa36032c`（提案與狀態）；本地 SHA 不能代替公開時序證據。
+Claude exact-head 複核 GO，CI #342 同 head completed／success，
+GPT 以 expected head squash main `4a543e6768b5d488718762194ea34c46708fd29c`，
+tree `d7666db71d8531325670369bf20c23fe22503272`、唯一 parent
+`93b75dc598e3ca83a66205fd18599fac317c7b1e`，committer 台北
+2026-11-15 16:14:04；PR #114 已合併，head 引用保持 `aa36032c`。
+Claude 複核本人申報逐字見 EXP-0174；其三點非阻擋建議和
+單軌道 $K^{ord}$ 引理亦作為起草前已見資訊列在同處。
+截至本次先行記錄的唯讀查詢，遠端 `span-amendment` 仍在；
+作者未刪除、未以其他通道登入。
+
+操作者原句「採納 (b′)，起草 P0.4」開啟新版契約草稿，
+不是 P0.4 契約 GO。第一 commit 只追加三帳，後一 commit 才寫
+契約與 README／STATUS 狀態段；P0.1／P0.2／P0.3、Q-01、程式、
+測試、formal 均不改，不作 K／CAR／state 輸出。GPT 接觸見 EXP-0175。

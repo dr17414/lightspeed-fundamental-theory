@@ -2602,3 +2602,16 @@ README／STATUS 目前狀態，三帳只有追加；沒有更動契約、Q-01、
 Green／CAR／state 規格或已封存 FAIL，沒有新文獻檢索、科學
 數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或
 formal／E0 回用。稿件待獨立 exact-head 複核，下一 ID 0174。
+
+
+## 80. PR #114 合併與 P0.4 起草前接觸（2026-11-15；只追加）
+
+**EXP-0174：操作者轉交的 Claude 本人申報原句；PR #114 代推送與複核**
+
+> Claude（PR #114 代推送與複核）：經操作者授權，讀了 `kq_span_amendment_review.patch`（確認 SHA-256 為 `69662389…`），套用在 main `93b75dc5` 上，依帳本 §78／§79 的段落界線切成兩個 commit（`f9ac2b30` 只追加三本帳，tree 等於 GPT 本地 `2591b1ee`；`aa36032c` 放提案與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `span-amendment` 分支，並用 REST API 建立 draft PR #114。沒有修改任何文字，沒有合併。之後讀了提案全文，在腦中核對 (b′) 對法則層化約的排除、無界審核族防真空、五類輸入的軌道數，並推得一個支持性的觀察：由 K^ord 的自然性，單軌道輸入上的 K^ord span 必然最多是 1。另提出三點非阻擋建議（自然資料不能分裂軌道、diamond 有三條軌道、witness 分屬不同軌道的條件是多餘的），以及我傾向採納的意見。用 script 逐字比對了 EXP-0170、0171，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #342 成功。沒有起草修約正文，沒有構造任何 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0175：GPT 本人申報；#114 合併與 P0.4 起草前決策**
+
+作者從 GitHub connector 唯讀核對 PR #114 exact head `aa36032c354986a2c49f307f8e70bef1d8f36e42`、base main `93b75dc5`、CI #342（run `43347538482`）同 head success；解除 draft 後再核對 head 未變，expected-head squash 合併為 main `4a543e6768b5d488718762194ea34c46708fd29c`。以 git 抓取核對 main tree `d7666db71d8531325670369bf20c23fe22503272`、唯一 parent `93b75dc5`、committer 台北 2026-11-15 16:14:04；當時遠端 `span-amendment` 仍存在。未嘗試登入或刪遠端分支。作者曾明確把這次同意只用於合併，未冒稱提案 GO 等於修約 GO；操作者隨後另以原句「採納 (b′)，起草 P0.4」授權契約草稿，不是科學契約 GO。
+
+作者在本先行 commit 前讀公開 main 上已合併的 #114 提案、P0.3 的承接型別、Q-01 固定資料和三帳末段，並已見 Claude 的單軌道引理、自然資料不分裂軌道、diamond 三軌道及 witness 條件冗餘三點。作者的起草判斷是保留原始全域量詞、原 P 微因果及 §7(a)，只以 (b′) 修改 sector 非化約檢驗並加強資料事前無界審核族；這是已見 #111 限定失敗後的公開修約，不宣稱盲性。尚未起草契約正文、資料或 K；沒有文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed 或 formal 回用。本 commit 只追加三帳；下一 ID 0176。

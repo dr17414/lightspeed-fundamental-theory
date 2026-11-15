@@ -1029,3 +1029,15 @@ P0.3／Q-01、K、ACT-X-0001 或 formal／E0 隔離；不得開始研究。
 作者接觸見 EXP-0173；只建議可供審查的候選判準，不能當成已採納
 的 §7(b) 或 Q-01 資料 GO。README／STATUS 僅更新目前狀態；
 K／source／Green／CAR／state 規格與研究關卡、formal／E0 隔離仍關閉。
+
+
+## #114 合併及 P0.4 契約草稿的先行界線（2026-11-15；只追加）
+
+PR #114 的紙上提案經 Claude exact-head GO、CI #342 同 head success，
+GPT expected-head 原樣 squash main `4a543e67`，tree `d7666db7` 與 GO head
+相同；此 GO **不是**修約採納。Claude 本人複核原句及 GPT 的合併接觸
+依序見接觸帳 §80 EXP-0174–0175。操作者其後明示「採納 (b′)，起草 P0.4」，
+只開啟**契約草稿**；本先行 commit 只追加三帳，後一 commit 才交
+P0.4 文件。契約 exact-head GO／合併／tree 核對之前，不得重登 Q-01、
+寫 K 規格或研究；P0.3 舊版、Q-01 舊版與 #111 限定 FAIL 不改，
+ACT-X-0001、formal／E0、raw／sealed／producer 隔離維持。
