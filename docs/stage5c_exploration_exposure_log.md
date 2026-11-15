@@ -2689,3 +2689,25 @@ raw／sealed、seed 或 formal 回用。只編輯文件並作 Git／完整性核
 
 作者以 GitHub connector 核對 PR #116 exact head `3e045cb2a5480c8b8574884057121178879f1491`、同 head CI #346 completed／success；解除 draft 後再核 head 未變，expected-head squash main `aa9d2fd3d20d0df588a74961ca45ea21811fd67e`，tree `853fc46c448d84249274db875aff22ecfeb30baa` 與 GO head 相同，唯一 parent `655e9605`，Git committer 台北 2026-11-15 22:24:21。作者上則把 `ls-remote` 一次空輸出誤報成遠端 `q02-data` 已刪；Claude 指正後作者重新查得它仍指向 `3e045cb2`。經授權試 `git push origin --delete q02-data`，因本通道沒有 GitHub username／寫入憑證而失敗，沒有刪除；GitHub connector 無刪分支工具，不嘗試登入或另闢通道。**遠端分支待刪除，絕不寫已不存在。**
 作者已見 Claude 兩段原句及其四點第三門檻複核重點，重讀 P0.4、P0.3、Q-02、IB-01 與時間序契約相關段落。對規格的事前設計意圖是只從原序 past-cone 計數構造 K^ord，固定零 L 係數作為契約允許的特例；全域先行固定 R_C、Green、CAR、field/source/state 的 typed 規則、四個關鍵輸入判定式和鏈族 witness，並保留所有 FAIL。這是見過 #111 限定障礙、Q-02 後的公開試作，不聲稱盲選或可行。第一 commit 只追加三帳，第二 commit 才交規格。未代入任何具體 P 求 K／Green／A，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed、formal／E0 回用或新文獻檢索。下一 EXP-ID 0184.
+
+
+## 85. IK-01 第三道規格草稿的作者接觸（2026-11-15；只追加）
+
+**EXP-0184：GPT 本人申報；規格選擇、先驗判定與已知風險**
+
+作者在先行三帳 commit `dd973cea696026bc60895c46658441a835c583f1` 後，
+才起草 [IK-01 v0.1 規格](foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)。
+讀了 P0.4、P0.3、Q-02、IB-01、時間序契約和既有帳本的相關段落；
+看到 IB-01 在 $t=1$ 類型的鏈 $C_4$ 面奇異，所以本版在任何
+IK-01 案例輸出之前固定 $t=1/2$ 候選、$t=2/3$ 比較，並明記
+這受舊結果影響、不宣稱盲性。$K^{ord}$ 讀原 P 的 past-cone
+基數差而不讀 $L$；將 source、inverse、Green、CAR、帶源
+field/state、原 P 不可比對、跨面守恆、(4.2) 每個 $L$ 的雙 span、
+鏈的解析 witness、dual star／$K_{2,2}$／diamond 判定式一次寫死。
+本版可能因多軌道在該 order 統計下相同、面奇異、微因果、
+Green 或其他義務而 FAIL，不因此事後改係數或資料。
+作者只作紙上型別與形式代數核對、文件編輯和 Git／完整性檢查，
+沒有把本 K、$G_R$ 或 $A$ 代入固定目錄求值，沒有科學數值／符號
+程式、RNG、撒點、producer、raw／sealed、seed、formal／E0 回用或
+新文獻原文檢索。規格仍是 draft；沒有規格 GO 或研究授權。
+下一 EXP-ID 0185.

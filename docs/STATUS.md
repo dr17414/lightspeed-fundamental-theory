@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.4 契約 GO；Q-02 純資料重登待複核（2026-11-15）：**
+**目前狀態：P0.4 契約、Q-02 資料 GO；IK-01 第三道規格待複核（2026-11-15）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -177,10 +177,20 @@ Claude 本人原句與 GPT 合併接觸見接觸帳 §80 EXP-0174–0175。
 新 (b′) 正式生效，僅開放第二道資料門檻；遠端 `p04-contract`、
 `span-amendment` 已由 Claude 後續核對不存在。Claude 兩段申報與
 GPT 合併接觸見接觸帳 §82 EXP-0177–0179；兩項非阻擋建議已登記。
-[Q-02 純資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)
-重登 Q-01 的完整 law 並先證鏈族無界多軌道 (4.3)，但仍待 exact-head
-獨立複核與資料 GO，不能繼承舊 Q-01 GO。第三道 K 規格與研究關卡仍關閉；
-舊 Q-01 及 #111 的各自作用域不變。
+[Q-02 純資料](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)
+重新登記 Q-01 law 並以鏈族證 (4.3)，經 PR #116 exact head
+`3e045cb2a5480c8b8574884057121178879f1491` 由 Claude 獨立複核 GO，
+CI #346 同 head 首次成功後原樣合併 main
+`aa9d2fd3d20d0df588a74961ca45ea21811fd67e`，tree
+`853fc46c448d84249274db875aff22ecfeb30baa` 與 GO head 相同，
+唯一 parent `655e9605`，committer 台北 2026-11-15 22:24:21。
+舊 Q-01 GO 不繼承；本版 Q-02 取得 P0.4 資料 GO。Claude 兩段本人
+原句與 GPT 合併／分支更正見接觸帳 §84 EXP-0181–0183。
+遠端 `q02-data` 仍指向 `3e045cb2`，目前 Git push 刪除因缺
+寫入憑證失敗，待操作者在 GitHub 刪除，不得寫已不存在。
+[IK-01 第三道規格草稿](foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)
+在先行三帳後獨立起草，尚待 exact-head 複核與規格 GO；
+沒有代入案例、沒有研究輸出。舊 Q-01、#111 的各自作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、

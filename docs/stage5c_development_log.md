@@ -1227,3 +1227,14 @@ Q-02 v0.1 已有 P0.4 資料 GO；只開第三道規格草稿。此先行
 commit 只追加三帳，後續另交 K／source／Green／CAR／state
 規格。P0.4／Q-02、舊 Q-01、#111 範圍及 formal／E0 隔離
 維持；規格 GO 前沒有案例研究或科學執行。
+
+
+## IK-01 第三道規格草稿交付界線（2026-11-15；只追加）
+
+先行三帳 commit `dd973cea` 後另 commit 新增
+[IK-01 v0.1 規格](foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)，
+README／STATUS 僅更新目前狀態；作者選擇和既有失敗的接觸
+見 EXP-0184。P0.4、Q-02、舊 Q-01、#111、程式與測試不改。
+此稿固定 $K$／source／Green／CAR／state 的同源規則、可失敗義務
+及輸出順序，不是研究結果、規格 GO、ACT 或 AMEND。
+遠端 `q02-data` **待刪除**，不宣稱已刪。
