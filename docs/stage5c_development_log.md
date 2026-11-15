@@ -1209,3 +1209,21 @@ Claude 兩段原句、已見建議及作者選擇；後續獨立 commit 才交
 README／STATUS 只替換目前狀態段；P0.4 契約、P0.3／Q-01
 舊版、K、程式、測試、formal 均不改。作者接觸見 EXP-0180；
 資料草稿未 GO，不寫第三道規格或研究.
+
+
+## #116 合併與第三道規格先行界線（2026-11-15；只追加）
+
+PR #116 公開先行 `a0b1f3fd`（tree `1fb6e18e`）等於 GPT 本地
+`c24b2e98` 的 tree；公開 head `3e045cb2a5480c8b8574884057121178879f1491`
+（tree `853fc46c448d84249274db875aff22ecfeb30baa`）等於 GPT 本地
+`a416f8c6` 的 tree。本地 SHA 不作公開時序證據。Claude 獨立
+exact-head GO、CI #346 同 head 首次成功，GPT expected-head squash
+main `aa9d2fd3d20d0df588a74961ca45ea21811fd67e`，tree 同上、
+唯一 parent `655e9605`、committer 台北 2026-11-15 22:24:21。
+Claude 兩段本人原句見接觸帳 §84 EXP-0181–0182；GPT 的分支狀態
+錯報與更正見 EXP-0183。遠端 `q02-data` 查得仍指向 `3e045cb2`；
+`git push --delete` 因缺寫入憑證失敗，**待操作者刪除**。
+Q-02 v0.1 已有 P0.4 資料 GO；只開第三道規格草稿。此先行
+commit 只追加三帳，後續另交 K／source／Green／CAR／state
+規格。P0.4／Q-02、舊 Q-01、#111 範圍及 formal／E0 隔離
+維持；規格 GO 前沒有案例研究或科學執行。

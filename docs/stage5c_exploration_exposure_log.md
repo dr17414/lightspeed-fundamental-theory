@@ -2673,3 +2673,19 @@ README／STATUS；沒有構造或代入 K、Green、CAR、state，
 沒有讀新文獻原文、科學數值／符號程式、RNG、撒點、producer、
 raw／sealed、seed 或 formal 回用。只編輯文件並作 Git／完整性核對；
 草稿保持待獨立複核，下一 ID 0181.
+
+
+## 84. #116 合併後與第三道規格前的先行登記（2026-11-15；只追加）
+
+**EXP-0181：操作者轉交的 Claude 本人申報原句；PR #116 代推送與複核**
+
+> Claude（PR #116 代推送與複核）：經操作者授權，讀了 `kq_p04_q02_data_registration_review.patch`（確認 SHA-256 為 `787f80b8…`），套用在 main `655e9605` 上，依帳本 §82／§83 的段落界線切成兩個 commit（`a0b1f3fd` 只追加三本帳，tree 等於 GPT 本地 `c24b2e98`；`3e045cb2` 放資料稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `q02-data` 分支，並用 REST API 建立 draft PR #116。沒有修改任何文字，沒有合併。之後讀了 Q-02 全文，用 script 確認其 §2–§4 的資料 law 和 Q-01 對應段落逐字相同，在腦中核對了 (4.3) 的鏈族證明與 active 軌道目錄，也說明了新規則下 dual star 不再直接衝突、但其他義務仍未知。用 script 逐字比對了 EXP-0177、0178，在 detached head 上跑了 integrity 與 pytest，並用 API 查到 CI #346 仍在執行中。沒有構造任何 K；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0182：操作者轉交的 Claude 本人申報原句；#116 合併後核對**
+
+> Claude（#116 合併後核對）：以 git 抓取 main，核對 SHA `aa9d2fd3`、tree `853fc46c`、唯一 parent `655e9605` 與 committer 時間（台北 2026-11-15 22:24:21），確認合併結果和 GO 的 head `3e045cb2` 的 tree 相同；也用 GitHub API 確認 PR #116 的合併狀態、merge commit 與 head 引用，以及 CI #346 在同一個 head 上第一次執行就成功。用 `git ls-remote` 查到遠端 `q02-data` 仍指向 `3e045cb2`，和操作者回報的「已不存在」不符，已請操作者刪除。也列了 K 規格複核的重點，依據的是 P0.4 和 Q-02 的既有內容，沒有構造任何 K。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0183：GPT 本人申報；#116 合併、更正分支狀態與規格前接觸**
+
+作者以 GitHub connector 核對 PR #116 exact head `3e045cb2a5480c8b8574884057121178879f1491`、同 head CI #346 completed／success；解除 draft 後再核 head 未變，expected-head squash main `aa9d2fd3d20d0df588a74961ca45ea21811fd67e`，tree `853fc46c448d84249274db875aff22ecfeb30baa` 與 GO head 相同，唯一 parent `655e9605`，Git committer 台北 2026-11-15 22:24:21。作者上則把 `ls-remote` 一次空輸出誤報成遠端 `q02-data` 已刪；Claude 指正後作者重新查得它仍指向 `3e045cb2`。經授權試 `git push origin --delete q02-data`，因本通道沒有 GitHub username／寫入憑證而失敗，沒有刪除；GitHub connector 無刪分支工具，不嘗試登入或另闢通道。**遠端分支待刪除，絕不寫已不存在。**
+作者已見 Claude 兩段原句及其四點第三門檻複核重點，重讀 P0.4、P0.3、Q-02、IB-01 與時間序契約相關段落。對規格的事前設計意圖是只從原序 past-cone 計數構造 K^ord，固定零 L 係數作為契約允許的特例；全域先行固定 R_C、Green、CAR、field/source/state 的 typed 規則、四個關鍵輸入判定式和鏈族 witness，並保留所有 FAIL。這是見過 #111 限定障礙、Q-02 後的公開試作，不聲稱盲選或可行。第一 commit 只追加三帳，第二 commit 才交規格。未代入任何具體 P 求 K／Green／A，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed、formal／E0 回用或新文獻檢索。下一 EXP-ID 0184.
