@@ -1009,3 +1009,23 @@ Claude exact-head 複核指出短稿漏引 P0.1 §4.4 的 #99 事前
 接觸見 EXP-0169。較早申報由操作者在 r2 草稿後補傳，未冒寫。
 本輪只修訂純討論稿、三帳只追加；
 不修約、不選替代量詞、不改 Q-01 或 K，不授權研究及 formal 回用。
+
+
+## #113 合併後 §7(b) 修約審查的權限指向（2026-11-13；只追加）
+
+PR #113 r2 在 exact head `cfd495c2`、同 head CI #340 成功後原樣合併為
+main `93b75dc5`，tree `8d8e6b3a` 與 GO head 相同；遠端
+`span-rationale` 已由操作者刪除。Claude 兩段本人原句按事件順序見
+接觸帳 §78 EXP-0170–0171，GPT 的合併接觸及此次起草前提見 EXP-0172。
+操作者於其後明確選擇啟動 §7(b) 的**純紙上正式修約審查**；本先行
+commit 只追加三帳，後一 commit 才起草提案。這不是修約 GO，也不更動
+P0.3／Q-01、K、ACT-X-0001 或 formal／E0 隔離；不得開始研究。
+
+
+## §7(b) 修約審查提案的交付界線（2026-11-13；只追加）
+
+先行三帳 §78 commit 後另 commit 交
+[純紙上提案](foundations/kq_span_amendment_review_proposal_v0_1.md)，
+作者接觸見 EXP-0173；只建議可供審查的候選判準，不能當成已採納
+的 §7(b) 或 Q-01 資料 GO。README／STATUS 僅更新目前狀態；
+K／source／Green／CAR／state 規格與研究關卡、formal／E0 隔離仍關閉。

@@ -2552,3 +2552,53 @@ Claude 原句，已按事件先後以更正追加列在本節 EXP-0167，
 沒有構造 K、資料、替代量詞或修約；
 沒有新文獻檢索、科學數值／符號程式、RNG、撒點、producer 或
 raw／sealed 資料。探索與 formal／E0 隔離維持。下一 ID 0170。
+
+
+## 78. #113 r2 合併與 §7(b) 修約提案前接觸（2026-11-13；只追加）
+
+**EXP-0170：操作者轉交的 Claude 本人申報原句；PR #113 r2 代套用與複核**
+
+> Claude（PR #113 r2 代套用與複核）：經操作者授權，讀了 `kq_span_symmetry_rationale_r2_increment.patch`（確認 SHA-256 為 `9219d92e…`），確認遠端 `span-rationale` 仍指向 `18e67b80`，把 patch 套用為單一 commit `cfd495c2`，確認增量 diff 和 patch 逐位元組相同、三本帳相對上一版 head 是前綴、最終 tree 等於 GPT 本地 tree，然後推送到同一分支。沒有修改任何文字，沒有合併。之後讀了 r2 增量全文，並查了時間序契約 P0.1 §6 的原文，確認 (b) 明定對每個完整輸入要求。用 script 逐字比對了 EXP-0167、0168，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #340 成功。也說明了依事先判準下一步應是修約審查，但沒有起草任何修約文字或替代量詞。沒有構造任何 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0171：操作者轉交的 Claude 本人申報原句；#113 合併後核對**
+
+> Claude（#113 合併後核對）：以 git 抓取 main，核對 SHA `93b75dc5`、tree `8d8e6b3a`、唯一 parent `305ca0be` 與 committer 時間（台北 2026-11-12 14:30:04），確認合併結果和 GO 的 head `cfd495c2` 的 tree 相同；也用 GitHub API 確認 PR #113 的合併狀態、merge commit 與 head 引用，並確認遠端 `span-rationale` 分支已不存在。也擬了一段修約審查的指示文字給操作者參考，但沒有起草任何修約內容或替代量詞。沒有讀其他檔案，沒有推導，沒有構造任何 K 或資料，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0172：GPT 本人申報；#113 合併與 §7(b) 修約前閱讀**
+
+作者以 GitHub connector 在 exact head `cfd495c2`、CI #340 success
+確認後解除 draft、按 expected head squash 合併；git 抓取 main 核對
+SHA `93b75dc598e3ca83a66205fd18599fac317c7b1e`、tree
+`8d8e6b3abac044bd970520ff8e1e85f7dcb376b7`、唯一 parent
+`305ca0be`、committer 台北 2026-11-12 14:30:04。當時唯讀確認
+遠端分支尚在，之後操作者及 Claude 確認已刪除，作者沒有執行刪除。
+操作者再明確選擇開啟純紙上的正式修約審查。作者於本先行三帳前
+從公開 main 讀已合併的 #113 理由稿、P0.1 1+1 §4.1(b)、
+時間序 P0.1 §2、§6、P0.2 §3、P0.3 §2–5、Q-01 §2–5 與既有
+帳本末段，已知 #99 事前風險、#111 的 Q-01 限定障礙和一般資料
+邊界滿射條件命題。作者已在腦中考慮「法則層級的非分解 witness」
+和「單一可比對軌道不得靠 L 排名造差異」的提案方向；這是已見
+失敗後的公開修約審查，非盲性構造或新定理。尚未寫 K、資料或
+替代契約正文，未作案例輸出／科學數值或符號計算、RNG、撒點、
+producer、raw／sealed 或文獻檢索。本 commit 只追加三帳，提案在
+後一 commit；不授權契約 GO、K 規格、研究或 formal 回用。下一 ID 0173。
+
+
+## 79. §7(b) 修約審查紙上提案（2026-11-13；只追加）
+
+**EXP-0173：GPT 本人申報；替代驗收量詞的編輯判斷**
+
+作者在先行三帳 commit 後，依已合併 #113 理由短稿與已見
+Claude 指示起草純紙上候選 (b′)：區分原始法則層的單一矩陣
+化約排除和逐輸入驗收；用事前 order/count 可區分的 active pair
+軌道界定本地測試，另要求尺寸無界的事前 witness 族以防真空通過。
+作者自行選擇要求 $K^{ord}$ 和完整 active K 各有兩個方向，避免
+單靠 L 排名通過；此新要求可能排除有物理意義的 L 作用，已在
+提案中明列為代價而非既有定理。dual star、向下 star、鏈、diamond、
+$K_{2,2}$ 只分類測試的適用性，沒有代入具體 K 值或判 PASS。
+先前已接觸 #99 歷史風險、#111 Q-01 限定 FAIL 及一般滿射條件；
+本稿不能宣稱盲性或利用失敗反推成功規則。只修改提案與
+README／STATUS 目前狀態，三帳只有追加；沒有更動契約、Q-01、K、
+Green／CAR／state 規格或已封存 FAIL，沒有新文獻檢索、科學
+數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或
+formal／E0 回用。稿件待獨立 exact-head 複核，下一 ID 0174。
