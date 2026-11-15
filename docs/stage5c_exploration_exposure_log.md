@@ -2615,3 +2615,25 @@ formal／E0 回用。稿件待獨立 exact-head 複核，下一 ID 0174。
 作者從 GitHub connector 唯讀核對 PR #114 exact head `aa36032c354986a2c49f307f8e70bef1d8f36e42`、base main `93b75dc5`、CI #342（run `43347538482`）同 head success；解除 draft 後再核對 head 未變，expected-head squash 合併為 main `4a543e6768b5d488718762194ea34c46708fd29c`。以 git 抓取核對 main tree `d7666db71d8531325670369bf20c23fe22503272`、唯一 parent `93b75dc5`、committer 台北 2026-11-15 16:14:04；當時遠端 `span-amendment` 仍存在。未嘗試登入或刪遠端分支。作者曾明確把這次同意只用於合併，未冒稱提案 GO 等於修約 GO；操作者隨後另以原句「採納 (b′)，起草 P0.4」授權契約草稿，不是科學契約 GO。
 
 作者在本先行 commit 前讀公開 main 上已合併的 #114 提案、P0.3 的承接型別、Q-01 固定資料和三帳末段，並已見 Claude 的單軌道引理、自然資料不分裂軌道、diamond 三軌道及 witness 條件冗餘三點。作者的起草判斷是保留原始全域量詞、原 P 微因果及 §7(a)，只以 (b′) 修改 sector 非化約檢驗並加強資料事前無界審核族；這是已見 #111 限定失敗後的公開修約，不宣稱盲性。尚未起草契約正文、資料或 K；沒有文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed 或 formal 回用。本 commit 只追加三帳；下一 ID 0176。
+
+
+## 81. P0.4 契約草稿（2026-11-15；只追加）
+
+**EXP-0176：GPT 本人申報；單軌道引理與契約替換文字**
+
+作者在先行三帳 commit 後，重讀 P0.3 §§2–6、已合併 #114 提案、
+P0.1 §4.1／§4.4 及時間序 P0.1 §6，起草 P0.4 契約草稿。
+以 Claude 已提出的單軌道 $K^{ord}$ 觀察為引理線索，作者在
+固定共同 fiber、取共同 $V=id$ 的自然性下寫出簡短證明；
+自然資料不能打破原 $\operatorname{Aut}(P)$ 的軌道，除非另改
+資料／契約來源。diamond 的三條軌道及 witness 分屬不同軌道
+由 $K^{ord}$ 非比例性自動得到，已納入文稿。作者選擇
+精確替換舊 §7(b)，另以 (4.3) 把無界 active 多軌道檢查放入
+新版資料門檻；守恆、原 P 微因果、§7(a)、Green 識別、
+state、完整 $D_{KQ}$ 與每個 $L$ 全保留，舊 Q-01／#111 的
+作用域不回填。這是已見 Q-01／#111 限定失敗與 Claude 複核後
+起草的新契約，沒有宣稱盲性、可行 K 或物理表示已證。
+沒有改 P0.3／Q-01 或 K，沒有文獻檢索、具體案例的 K／A／Green
+代入、科學數值／符號程式、RNG、撒點、producer、raw／sealed、
+seed 或 formal／E0 回用；僅作文件、Git 與完整性檢查。
+契約草稿待 independent exact-head 複核，下一 ID 0177。

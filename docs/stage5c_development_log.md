@@ -1160,3 +1160,16 @@ Claude 複核本人申報逐字見 EXP-0174；其三點非阻擋建議和
 不是 P0.4 契約 GO。第一 commit 只追加三帳，後一 commit 才寫
 契約與 README／STATUS 狀態段；P0.1／P0.2／P0.3、Q-01、程式、
 測試、formal 均不改，不作 K／CAR／state 輸出。GPT 接觸見 EXP-0175。
+
+
+## P0.4 契約草稿交付（2026-11-15；只追加）
+
+先行三帳 commit `a398fe2a1bd36bf4b4253a3033a4dc1891d1d651`
+（tree `89dafe0b98b733c10f8796bad422db2e6a6e062b`，parent
+`4a543e6768b5d488718762194ea34c46708fd29c`）只追加已見
+#114 複核與新授權的 §80 EXP-0174–0175。其後獨立 commit 新增
+[P0.4 契約草稿](foundations/kq_conditional_internal_innovation_problem_contract_v0_4.md)，
+重述版本差異、單軌道 $K^{ord}$ 引理、(b′) 兩項 span、
+新版資料的無界 active 多軌道先行義務、五類比較目錄與三道門檻；
+不預選任何資料或 K 輸出。作者接觸見 EXP-0176，README／STATUS
+只替換目前狀態；P0.3、Q-01、程式、測試、formal 均未修改。

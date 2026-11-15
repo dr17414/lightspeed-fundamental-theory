@@ -1041,3 +1041,13 @@ GPT expected-head 原樣 squash main `4a543e67`，tree `d7666db7` 與 GO head
 P0.4 文件。契約 exact-head GO／合併／tree 核對之前，不得重登 Q-01、
 寫 K 規格或研究；P0.3 舊版、Q-01 舊版與 #111 限定 FAIL 不改，
 ACT-X-0001、formal／E0、raw／sealed／producer 隔離維持。
+
+
+## P0.4 契約草稿交付界線（2026-11-15；只追加）
+
+在先行三帳 §80 commit 之後另 commit 新增
+[P0.4 契約草稿](foundations/kq_conditional_internal_innovation_problem_contract_v0_4.md)，
+作者接觸見 EXP-0176；它只精確替換 P0.3 援引的舊 §7(b) 並給
+新版資料門檻增加事前無界軌道審核族。README／STATUS 僅替換
+目前狀態段；P0.3／Q-01、K 或程式都沒有改。P0.4 未獲契約
+GO 前仍不可啟動資料、第三道規格或研究，formal／E0 隔離不變。
