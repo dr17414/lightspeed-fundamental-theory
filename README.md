@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：#113 理由短稿 GO；§7(b) 修約提案待複核（2026-11-13）**：[階段整理](docs/foundations/kq_p03_stage_checkpoint_2026_11_09.md)經 #112 GO 合併；[理由短稿](docs/foundations/kq_span_two_on_symmetric_inputs_rationale_v0_1.md)經 #113 exact-head GO、CI #340 成功後合併 main `93b75dc5`（tree `8d8e6b3a`），只支持開啟正式審查。[修約審查提案](docs/foundations/kq_span_amendment_review_proposal_v0_1.md)仍是待複核紙上稿，不是契約 GO；現行 §7(b)、Q-01、K 都未改，第三道門檻與研究仍關閉。#111 的 Q-01 限定障礙、一般資料滿射條件及非滿射未決維持；原始問題、P0.1、探索軌與 formal／E0 隔離不變。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
+- **目前狀態：#114 修約提案 GO；P0.4 契約草稿待複核（2026-11-15）**：[修約審查提案](docs/foundations/kq_span_amendment_review_proposal_v0_1.md)經 #114 exact-head GO、CI #342 成功後合併 main `4a543e67`（tree `d7666db7`）；該 GO 只確認提案可審。操作者隨後選擇「採納 (b′)，起草 P0.4」。[P0.4 契約草稿](docs/foundations/kq_conditional_internal_innovation_problem_contract_v0_4.md)仍待獨立複核，不是契約 GO；P0.3 現行 §7(b)、Q-01 舊版與 K 都未改，資料重登、第三道 K 規格及研究關卡仍關閉。#111 的 Q-01 限定障礙、一般資料滿射條件及非滿射未決維持；原始問題、探索軌與 formal／E0 隔離不變。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
