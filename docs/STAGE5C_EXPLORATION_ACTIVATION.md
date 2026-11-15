@@ -1064,3 +1064,13 @@ GPT 合併與已見選擇見 EXP-0179；兩項非阻擋建議已在開發帳
 本先行 commit 僅追加三帳，後一 commit 才交 Q-02 新版資料。
 舊 Q-01 資料 GO 不繼承；Q-02 GO／合併前不寫 K 規格或研究，
 formal／E0 及全部來源隔離不變。這不是 ACT、AMEND 或資料 GO。
+
+
+## Q-02 草稿交付界線（2026-11-15；只追加）
+
+先行三帳 §82 commit `c24b2e98` 後另 commit 新增
+[Q-02 資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)，
+作者接觸見 EXP-0180。只重登資料及 P0.4 (4.3) 的 order-only
+無界審核族，README／STATUS 僅改目前狀態；P0.4、Q-01 舊版、
+程式與測試不改。這不是資料 GO、第三門檻啟動、ACT 或 AMEND；
+formal／E0、raw／sealed／producer 隔離維持.

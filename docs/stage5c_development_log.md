@@ -1195,3 +1195,17 @@ P0.4 取得契約 GO，只開啟純資料新版第二門檻。此先行 commit
 (4.3)，不繼承舊資料 GO。Q-02 資料 GO／合併／tree 核對前
 不得寫 K 規格或研究；P0.3／Q-01 舊版與 #111 作用域保留，
 ACT-X-0001、formal／E0、raw／sealed／producer 隔離維持。
+
+
+## Q-02 純資料新版交付界線（2026-11-15；只追加）
+
+先行三帳 commit `c24b2e98a8b4cc8c75466a9516a1e507a279b0ad`
+（tree `1fb6e18ec1b196cf54e4f7dfa3ec3c56000c88b7`，parent
+`655e9605e1b6fa51babf59f187cbd715cce146fd`）只登記 #115 合併、
+Claude 兩段原句、已見建議及作者選擇；後續獨立 commit 才交
+[Q-02 純資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)。
+它重新固定 Q-01 law 而不繼承其 P0.3 資料 GO，另以鏈族
+證 P0.4 (4.3)，將 dual star／$K_{2,2}$ 原 P 微因果保留為可失敗檢查。
+README／STATUS 只替換目前狀態段；P0.4 契約、P0.3／Q-01
+舊版、K、程式、測試、formal 均不改。作者接觸見 EXP-0180；
+資料草稿未 GO，不寫第三道規格或研究.

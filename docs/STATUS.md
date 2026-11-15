@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#114 修約提案 GO；P0.4 契約草稿待複核（2026-11-15）：**
+**目前狀態：P0.4 契約 GO；Q-02 純資料重登待複核（2026-11-15）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -168,9 +168,19 @@ CI #342 同 head 成功後合併 main
 `93b75dc5`，committer 台北 2026-11-15 16:14:04。這個 GO **只是提案可審**。
 Claude 本人原句與 GPT 合併接觸見接觸帳 §80 EXP-0174–0175。
 操作者其後明確選擇「採納 (b′)，起草 P0.4」；
-[P0.4 契約草稿](foundations/kq_conditional_internal_innovation_problem_contract_v0_4.md)
-目前待 exact-head 複核與契約 GO，並未取代 P0.3；P0.4 新版資料
-尚未登記、K 規格與研究關卡仍關閉。舊 Q-01 及 #111 作用域不變。
+[P0.4 契約](foundations/kq_conditional_internal_innovation_problem_contract_v0_4.md)
+經 PR #115 exact-head `c96500b31ff0ee9bbf97a4db1c83fa7dd7b52057`
+獨立複核 GO、CI #344 同 head 首次成功後原樣合併 main
+`655e9605e1b6fa51babf59f187cbd715cce146fd`，tree
+`53e8de0831b1894983c48d9f43a781cd163f5aa2` 與受審 head 相同，
+唯一 parent `4a543e67`，committer 台北 2026-11-15 21:09:58。
+新 (b′) 正式生效，僅開放第二道資料門檻；遠端 `p04-contract`、
+`span-amendment` 已由 Claude 後續核對不存在。Claude 兩段申報與
+GPT 合併接觸見接觸帳 §82 EXP-0177–0179；兩項非阻擋建議已登記。
+[Q-02 純資料草稿](foundations/kq_p04_correlated_innovation_data_registration_v0_1.md)
+重登 Q-01 的完整 law 並先證鏈族無界多軌道 (4.3)，但仍待 exact-head
+獨立複核與資料 GO，不能繼承舊 Q-01 GO。第三道 K 規格與研究關卡仍關閉；
+舊 Q-01 及 #111 的各自作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
