@@ -1074,3 +1074,24 @@ formal／E0 及全部來源隔離不變。這不是 ACT、AMEND 或資料 GO。
 無界審核族，README／STATUS 僅改目前狀態；P0.4、Q-01 舊版、
 程式與測試不改。這不是資料 GO、第三門檻啟動、ACT 或 AMEND；
 formal／E0、raw／sealed／producer 隔離維持.
+
+
+## #116 合併後第三道規格先行界線（2026-11-15；只追加）
+
+PR #116 exact head `3e045cb2` 經 Claude GO 與同 head CI #346
+成功後合併 main `aa9d2fd3`，tree `853fc46c` 與核准 head 相同。
+Claude 兩段申報見接觸帳 §84 EXP-0181–0182；GPT 接觸見 EXP-0183。
+遠端 `q02-data` 仍在，刪除嘗試因憑證不足失敗，**待刪除**。
+本先行 commit 只追加三帳；後一 commit 才交第三道規格稿。
+Q-02 資料 GO 不等於 K 規格 GO；規格 GO 前不代入案例或研究，
+formal／E0、raw／sealed／producer 隔離及 ACT-X-0001 維持。
+
+
+## IK-01 第三道規格草稿界線（2026-11-15；只追加）
+
+先行三帳 commit `dd973cea` 後另交 IK-01 v0.1 純紙上規格；
+作者接觸和選擇見 EXP-0184。只固定同源 $K$、source、Green、
+CAR、state 與預先可失敗的檢查，不代入案例或交研究輸出。
+P0.4／Q-02、formal／E0、raw／sealed／producer 隔離不變；
+規格仍待獨立 GO。本記錄不是 ACT 或 AMEND。
+遠端 `q02-data` 仍**待刪除**，不能誤記為已不存在。
