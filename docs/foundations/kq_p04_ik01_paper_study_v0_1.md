@@ -118,7 +118,7 @@ $H=I+t\eta$；$F_B(a_j)=e_j$、
 $F_B(c_i)=H(e_1+e_2)$，兩個頂點行完全相同。
 因此全部 block 由 (R.1) 定，特別是
 
-$$A_B(c_1,c_2)=2H^2=	frac52I+2\eta\ne0
+$$A_B(c_1,c_2)=2H^2=\tfrac52I+2\eta\ne0
 \quad(t=1/2).\tag{R.2}$$
 
 兩個 eigenvalues 是 $9/2,1/2$，故 full-fiber

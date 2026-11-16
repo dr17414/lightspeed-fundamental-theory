@@ -1115,3 +1115,13 @@ raw／sealed／producer 隔離不變。規格 GO 不等於研究結果 GO。
 不把規格 GO 冒充結果 GO，不修 P0.4／Q-02／IK-01 規則。
 formal／E0、raw／sealed／producer 隔離不變；
 本追加不是 ACT 或 AMEND。
+
+
+## PR #118 一字元修訂界線（2026-11-16；只追加）
+
+#118 公開 head `0d8264c8` 已由 Claude 複核：數學正確，
+研究稿 (R.2) 的單一 TAB 須修回 LaTeX 反斜線。
+Claude 代推送與複核原句、公開／本地先行 tree 對照見
+EXP-0188–0189；遠端 `ik01-spec` 仍待刪除。
+本增量只作該字元修正與三本帳追加，不是結果 GO、
+ACT 或 AMEND；formal／E0、raw／sealed／producer 隔離維持。

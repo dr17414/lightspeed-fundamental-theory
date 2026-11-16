@@ -2742,3 +2742,14 @@ IK-01 固定 law 全域 FAIL 的限定結論；沒有替換 $t$、資料、
 文獻原文、執行科學數值／符號程式、RNG、撒點、producer、
 raw／sealed、seed、測試或 formal／E0 回用。Git、前綴及
 完整性檢查只作文件驗證。下一 EXP-ID 0188.
+
+
+## 88. PR #118 複核後的一字元修訂（2026-11-16；只追加）
+
+**EXP-0188：操作者轉交的 Claude 本人申報原句；#117 合併後核對與 PR #118 代推送複核**
+
+> Claude（#117 合併後核對與 PR #118 代推送複核）：以 git 核對 #117 合併結果（main `6f8b4a17`、tree 與 GO head 相同、唯一 parent `aa9d2fd3`、committer 台北 2026-11-16 00:06:26），並確認遠端 `ik01-spec` 仍在。經操作者授權，讀了 `kq_p04_ik01_paper_study_review.patch`（確認 SHA-256 為 `d91ab57c…`），套用在 main `6f8b4a17` 上，依帳本 §86／§87 的段落界線切成兩個 commit（`76703b35` 只追加三本帳；`0d8264c8` 放研究稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `ik01-study` 分支，並用 REST API 建立 draft PR #118。沒有修改任何文字，沒有合併。之後讀了研究稿全文，在腦中獨立重算鏈（含 (R.6) 遞迴推導與 mod 5、mod 8 論證）、向下 star、dual star、K₂,₂、diamond 兩個面（含 A\_{d}(b,c) 的完整展開）、k×C₂ 以及 §7(a) 的一般論證，全部與研究稿一致；用 grep 查到 (R.2) 有一個 TAB 字元取代了 `\t`。另推導了一個沒寫成證明的提示：在 Q-02 下，任何不讀 L 的 K 在 K₂,₂ 上必然違反微因果或 §7(a)。用 script 逐字比對了 EXP-0185，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #350 成功。沒有構造任何新的 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0189：GPT 本人申報；修訂範圍與接觸**
+
+已見 Claude 上述 exact-head 複核及其對 K₂,₂ 的未證明提示。作者以 GitHub connector 確認 PR #118 仍是 draft、公開 head `0d8264c80828b6518074bcedd2253751914e8a8f`；git fetch 對照本地研究 head `8982af01` 與公開 head 同 tree `de6557c8e8e8641311b99d830c399018d8f426a9`，本地先行 `dd9ef62f` 與公開先行 `76703b35` 同 tree `385bf01dfef5996ea0e1d69c8a053f1520f68cc5`。遠端 `ik01-spec` 尚在，待操作者刪除。此增量只把 (R.2) 的單一 TAB 改回 LaTeX 的反斜線，三本帳只追加；沒有重算案例、補寫 K₂,₂ 的一般證明、修改規格／契約／資料或開始新試作。未用科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 資料。下一 EXP-ID 0190.
