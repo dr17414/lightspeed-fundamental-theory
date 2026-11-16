@@ -2711,3 +2711,14 @@ Green 或其他義務而 FAIL，不因此事後改係數或資料。
 程式、RNG、撒點、producer、raw／sealed、seed、formal／E0 回用或
 新文獻原文檢索。規格仍是 draft；沒有規格 GO 或研究授權。
 下一 EXP-ID 0185.
+
+
+## 86. #117 合併後與 IK-01 研究前的先行登記（2026-11-16；只追加）
+
+**EXP-0185：操作者轉交的 Claude 本人申報原句；PR #117 代推送與複核**
+
+> Claude（PR #117 代推送與複核）：經操作者授權，讀了 `kq_p04_ik01_spec_review.patch`（確認 SHA-256 為 `7d3194f6…`），套用在 main `aa9d2fd3` 上，依帳本 §84／§85 的段落界線切成兩個 commit（`ce8baeb7` 只追加三本帳；`9aa67745` 放規格與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `ik01-spec` 分支，並用 REST API 建立 draft PR #117。沒有修改任何文字，沒有合併。之後讀了 IK-01 規格全文，在腦中核對 K 法則的自然性與零 L 係數、G_R 冪零逆與 composition 等式、(IK.S1–S4) 的型別與帶源方程推導、跨面 field 條件、(4.2) 的 minor 判準、鏈族 witness 與 §7(c) 的推理。核對 d_P 定義時，我在腦中順手看出了少數幾個具體輸入的 d_P 值，並因此看出其中一兩個判定式的走向；為避免在規格 GO 前形成案例輸出，沒有把這些寫進複核，也沒有繼續代入其他輸入。用 script 逐字比對了 EXP-0181、0182，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #348 成功，也確認遠端 `q02-data` 已不存在。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0186：GPT 本人申報；#117 exact-head 合併與研究前接觸**
+
+作者以 GitHub connector 核對 #117 exact head `9aa67745505b21eccabfb41e760df80b4a7c3b6b`、CI #348 同 head completed／success、base `aa9d2fd3`；本地先行 `dd973cea` 的 tree `deff5808` 與 Claude 公開先行 `ce8baeb7` 的 tree 相同。經授權解除 draft，expected-head squash 合併 main `6f8b4a17b5067ef62b43e15617ec623a489b84f3`；git fetch 核對 tree `97b5b67b4471b8c587f42e3052e84ed0a2141121` 與 GO head 相同、唯一 parent `aa9d2fd3`、committer 台北 2026-11-16 00:06:26。`git ls-remote` 確認遠端 `q02-data` 已由操作者刪除；`ik01-spec` 仍指向 GO head，待合併後刪除。本輪已見 Claude 上述原句及非阻擋提醒：鏈上 past-cone 差等於區間內點數、非鏈才可能不同；Claude 曾在規格 GO 前腦中看出部分案例趨向但未披露。本先行 commit 只追加三帳，後一 commit 才寫研究稿。此時沒有代入 IK-01 案例，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed、文獻原文檢索或 formal／E0 回用。下一 EXP-ID 0187.

@@ -1095,3 +1095,14 @@ CAR、state 與預先可失敗的檢查，不代入案例或交研究輸出。
 P0.4／Q-02、formal／E0、raw／sealed／producer 隔離不變；
 規格仍待獨立 GO。本記錄不是 ACT 或 AMEND。
 遠端 `q02-data` 仍**待刪除**，不能誤記為已不存在。
+
+
+## #117 合併後 IK-01 研究前界線（2026-11-16；只追加）
+
+#117 exact head `9aa67745` 獨立規格 GO 且 CI #348 同 head 成功，
+合併 main `6f8b4a17` 的 tree `97b5b67b` 等於 GO head；
+Claude 原句及作者接觸見 EXP-0185–0186。先行 commit 只追加三帳，
+後一 commit 才交紙上研究；Q-02／P0.4、formal／E0、
+raw／sealed／producer 隔離不變。規格 GO 不等於研究結果 GO。
+遠端 `q02-data` 已由操作者刪除，`ik01-spec` 仍待刪；
+本追加不是 ACT 或 AMEND。
