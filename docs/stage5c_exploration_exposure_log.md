@@ -2711,3 +2711,45 @@ Green 或其他義務而 FAIL，不因此事後改係數或資料。
 程式、RNG、撒點、producer、raw／sealed、seed、formal／E0 回用或
 新文獻原文檢索。規格仍是 draft；沒有規格 GO 或研究授權。
 下一 EXP-ID 0185.
+
+
+## 86. #117 合併後與 IK-01 研究前的先行登記（2026-11-16；只追加）
+
+**EXP-0185：操作者轉交的 Claude 本人申報原句；PR #117 代推送與複核**
+
+> Claude（PR #117 代推送與複核）：經操作者授權，讀了 `kq_p04_ik01_spec_review.patch`（確認 SHA-256 為 `7d3194f6…`），套用在 main `aa9d2fd3` 上，依帳本 §84／§85 的段落界線切成兩個 commit（`ce8baeb7` 只追加三本帳；`9aa67745` 放規格與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `ik01-spec` 分支，並用 REST API 建立 draft PR #117。沒有修改任何文字，沒有合併。之後讀了 IK-01 規格全文，在腦中核對 K 法則的自然性與零 L 係數、G_R 冪零逆與 composition 等式、(IK.S1–S4) 的型別與帶源方程推導、跨面 field 條件、(4.2) 的 minor 判準、鏈族 witness 與 §7(c) 的推理。核對 d_P 定義時，我在腦中順手看出了少數幾個具體輸入的 d_P 值，並因此看出其中一兩個判定式的走向；為避免在規格 GO 前形成案例輸出，沒有把這些寫進複核，也沒有繼續代入其他輸入。用 script 逐字比對了 EXP-0181、0182，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #348 成功，也確認遠端 `q02-data` 已不存在。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0186：GPT 本人申報；#117 exact-head 合併與研究前接觸**
+
+作者以 GitHub connector 核對 #117 exact head `9aa67745505b21eccabfb41e760df80b4a7c3b6b`、CI #348 同 head completed／success、base `aa9d2fd3`；本地先行 `dd973cea` 的 tree `deff5808` 與 Claude 公開先行 `ce8baeb7` 的 tree 相同。經授權解除 draft，expected-head squash 合併 main `6f8b4a17b5067ef62b43e15617ec623a489b84f3`；git fetch 核對 tree `97b5b67b4471b8c587f42e3052e84ed0a2141121` 與 GO head 相同、唯一 parent `aa9d2fd3`、committer 台北 2026-11-16 00:06:26。`git ls-remote` 確認遠端 `q02-data` 已由操作者刪除；`ik01-spec` 仍指向 GO head，待合併後刪除。本輪已見 Claude 上述原句及非阻擋提醒：鏈上 past-cone 差等於區間內點數、非鏈才可能不同；Claude 曾在規格 GO 前腦中看出部分案例趨向但未披露。本先行 commit 只追加三帳，後一 commit 才寫研究稿。此時沒有代入 IK-01 案例，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed、文獻原文檢索或 formal／E0 回用。下一 EXP-ID 0187.
+
+
+## 87. IK-01 v0.1 紙上研究的作者接觸（2026-11-16；只追加）
+
+**EXP-0187：GPT 本人申報；固定目錄與跨尺寸解析**
+
+作者在先行三帳 commit `dd9ef62fbea87406af68cb4b605cf06daa098822` 後，
+才將已 GO 的 IK-01 規格代入 Q-02 的固定目錄及四個跨尺寸族。
+以紙上矩陣代數逐類求 $D_t,G_R,F_C,A_C$，包含鏈每個面的
+root response 遞迴、兩個 $t$ 各自的模整數非零證明、
+star／dual star、$K_{2,2}$ 的多根交叉式、diamond 的兩個面、
+$k\times C_2$ 的全部面。事前順序先寫全目錄含 FAIL，才下
+IK-01 固定 law 全域 FAIL 的限定結論；沒有替換 $t$、資料、
+面、量詞或域。另將 Claude 提醒的鏈上 past-cone 與區間
+點數相同寫進稿內。研究稿尚待獨立 exact-head 複核，
+不稱外部同行評審，也不稱 P0.4 或 Q-02 對任意 K 的 no-go。
+只讀 P0.4、Q-02、IK-01、既有帳本與狀態文字；沒有閱讀
+文獻原文、執行科學數值／符號程式、RNG、撒點、producer、
+raw／sealed、seed、測試或 formal／E0 回用。Git、前綴及
+完整性檢查只作文件驗證。下一 EXP-ID 0188.
+
+
+## 88. PR #118 複核後的一字元修訂（2026-11-16；只追加）
+
+**EXP-0188：操作者轉交的 Claude 本人申報原句；#117 合併後核對與 PR #118 代推送複核**
+
+> Claude（#117 合併後核對與 PR #118 代推送複核）：以 git 核對 #117 合併結果（main `6f8b4a17`、tree 與 GO head 相同、唯一 parent `aa9d2fd3`、committer 台北 2026-11-16 00:06:26），並確認遠端 `ik01-spec` 仍在。經操作者授權，讀了 `kq_p04_ik01_paper_study_review.patch`（確認 SHA-256 為 `d91ab57c…`），套用在 main `6f8b4a17` 上，依帳本 §86／§87 的段落界線切成兩個 commit（`76703b35` 只追加三本帳；`0d8264c8` 放研究稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `ik01-study` 分支，並用 REST API 建立 draft PR #118。沒有修改任何文字，沒有合併。之後讀了研究稿全文，在腦中獨立重算鏈（含 (R.6) 遞迴推導與 mod 5、mod 8 論證）、向下 star、dual star、K₂,₂、diamond 兩個面（含 A\_{d}(b,c) 的完整展開）、k×C₂ 以及 §7(a) 的一般論證，全部與研究稿一致；用 grep 查到 (R.2) 有一個 TAB 字元取代了 `\t`。另推導了一個沒寫成證明的提示：在 Q-02 下，任何不讀 L 的 K 在 K₂,₂ 上必然違反微因果或 §7(a)。用 script 逐字比對了 EXP-0185，在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #350 成功。沒有構造任何新的 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0189：GPT 本人申報；修訂範圍與接觸**
+
+已見 Claude 上述 exact-head 複核及其對 K₂,₂ 的未證明提示。作者以 GitHub connector 確認 PR #118 仍是 draft、公開 head `0d8264c80828b6518074bcedd2253751914e8a8f`；git fetch 對照本地研究 head `8982af01` 與公開 head 同 tree `de6557c8e8e8641311b99d830c399018d8f426a9`，本地先行 `dd9ef62f` 與公開先行 `76703b35` 同 tree `385bf01dfef5996ea0e1d69c8a053f1520f68cc5`。遠端 `ik01-spec` 尚在，待操作者刪除。此增量只把 (R.2) 的單一 TAB 改回 LaTeX 的反斜線，三本帳只追加；沒有重算案例、補寫 K₂,₂ 的一般證明、修改規格／契約／資料或開始新試作。未用科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 資料。下一 EXP-ID 0190.

@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.4 契約、Q-02 資料 GO；IK-01 第三道規格待複核（2026-11-15）：**
+**目前狀態：P0.4 契約、Q-02 資料、IK-01 規格 GO；IK-01 研究 FAIL 待獨立複核（2026-11-16）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -186,15 +186,24 @@ CI #346 同 head 首次成功後原樣合併 main
 唯一 parent `655e9605`，committer 台北 2026-11-15 22:24:21。
 舊 Q-01 GO 不繼承；本版 Q-02 取得 P0.4 資料 GO。Claude 兩段本人
 原句與 GPT 合併／分支更正見接觸帳 §84 EXP-0181–0183。
-遠端 `q02-data` 仍指向 `3e045cb2`，目前 Git push 刪除因缺
-寫入憑證失敗，待操作者在 GitHub 刪除，不得寫已不存在。
-[IK-01 第三道規格草稿](foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)
-在先行三帳後獨立起草，尚待 exact-head 複核與規格 GO；
-沒有代入案例、沒有研究輸出。舊 Q-01、#111 的各自作用域不變。
+遠端 `q02-data` 於原規格撰寫時待刪，現已由操作者刪除。
+[IK-01 第三道規格](foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)
+經 PR #117 exact head `9aa67745505b21eccabfb41e760df80b4a7c3b6b`
+由 Claude 獨立規格 GO、同 head CI #348 成功後原樣合併 main
+`6f8b4a17b5067ef62b43e15617ec623a489b84f3`；tree
+`97b5b67b4471b8c587f42e3052e84ed0a2141121` 等於 GO head，
+唯一 parent `aa9d2fd3`，committer 台北 2026-11-16 00:06:26。
+本地先行 `dd973cea` 與公開 `ce8baeb7` 同 tree `deff5808`。
+遠端 `ik01-spec` 待刪。Claude 原句及 GPT 合併接觸見接觸帳
+§86 EXP-0185–0186。[IK-01 紙上研究稿](foundations/kq_p04_ik01_paper_study_v0_1.md)
+依 §8 先列固定目錄含 FAIL，得本版 Q-02＋固定 K 的限定 FAIL：
+$K_{2,2}$ 微因果、鏈守恆／Green、diamond 第二面微因果／守恆／Green。
+此稿待 exact-head 獨立複核，不是 P0.4 全面 no-go；
+舊 Q-01、#111 的各自作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
-Freeze-1a PENDING不變。本輪沒有新科學執行、RNG／撒點／producer／raw／sealed資料或seed。
+Freeze-1a PENDING不變。本輪只作紙上解析，沒有科學數值／符號程式、RNG／撒點／producer／raw／sealed資料或seed。
 
 **前份交付：T6限定解析已確認（2026-10-21）：**
 

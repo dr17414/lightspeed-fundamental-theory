@@ -1238,3 +1238,40 @@ README／STATUS 僅更新目前狀態；作者選擇和既有失敗的接觸
 此稿固定 $K$／source／Green／CAR／state 的同源規則、可失敗義務
 及輸出順序，不是研究結果、規格 GO、ACT 或 AMEND。
 遠端 `q02-data` **待刪除**，不宣稱已刪。
+
+
+## #117 合併後 IK-01 研究前界線（2026-11-16；只追加）
+
+Claude 對 #117 exact head `9aa67745` 的 IK-01 紙上規格獨立 GO；
+CI #348 在同 head 成功。本地先行 `dd973cea` 與公開先行
+`ce8baeb7` 同 tree `deff5808`。按核准 head squash 合併 main
+`6f8b4a17b5067ef62b43e15617ec623a489b84f3`，tree
+`97b5b67b4471b8c587f42e3052e84ed0a2141121` 與受審 head 相同，
+唯一 parent `aa9d2fd3`，committer 台北 2026-11-16 00:06:26。
+Claude 原句與 GPT 接觸見 EXP-0185–0186。遠端 `q02-data`
+已由操作者刪除；`ik01-spec` 待刪。此先行 commit 只追加三帳；
+後一 commit 才交 IK-01 研究稿。Q-02／P0.4 凍結，規格 GO
+僅開紙上研究，不授予研究輸出本身 GO；先列全目錄含 FAIL。
+
+
+## IK-01 v0.1 紙上研究草稿交付界線（2026-11-16；只追加）
+
+先行三帳 commit `dd9ef62f` 後另 commit 新增
+[IK-01 紙上研究稿](foundations/kq_p04_ik01_paper_study_v0_1.md)，
+README／STATUS 只更新目前狀態；接觸見 EXP-0187。固定目錄
+全部先列（含 FAIL），再給 IK-01 v0.1 限定 FAIL 結論。
+P0.4、Q-02、IK-01 規格、舊負面結果、程式與測試均不改。
+仍待 exact-head 獨立複核；不是研究 GO、ACT 或 AMEND。
+
+
+## PR #118 一字元修訂增量（2026-11-16；只追加）
+
+PR #118 公開 head `0d8264c8` 與 GPT 本地研究 head `8982af01`
+同 tree `de6557c8`。公開先行 `76703b35` 與本地先行
+`dd9ef62f` 同 tree `385bf01d`；本地 SHA 不作公開時序證據。
+#118 經 Claude 代套用推送並獨立手算複核，數學部分均正確；
+唯一修訂是研究稿 (R.2) 一個 TAB 還原為 LaTeX `\tfrac52`。
+Claude 的申報原句與 GPT 接觸見 EXP-0188–0189。遠端
+`ik01-spec` 仍在，待操作者刪除。P0.4、Q-02、IK-01 規格、
+其餘研究內容、程式與測試均不改；#118 保持 draft 待新 head
+exact-head 複核，不合併，不進行後續研究或新試作。
