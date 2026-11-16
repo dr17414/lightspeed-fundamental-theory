@@ -2722,3 +2722,23 @@ Green 或其他義務而 FAIL，不因此事後改係數或資料。
 **EXP-0186：GPT 本人申報；#117 exact-head 合併與研究前接觸**
 
 作者以 GitHub connector 核對 #117 exact head `9aa67745505b21eccabfb41e760df80b4a7c3b6b`、CI #348 同 head completed／success、base `aa9d2fd3`；本地先行 `dd973cea` 的 tree `deff5808` 與 Claude 公開先行 `ce8baeb7` 的 tree 相同。經授權解除 draft，expected-head squash 合併 main `6f8b4a17b5067ef62b43e15617ec623a489b84f3`；git fetch 核對 tree `97b5b67b4471b8c587f42e3052e84ed0a2141121` 與 GO head 相同、唯一 parent `aa9d2fd3`、committer 台北 2026-11-16 00:06:26。`git ls-remote` 確認遠端 `q02-data` 已由操作者刪除；`ik01-spec` 仍指向 GO head，待合併後刪除。本輪已見 Claude 上述原句及非阻擋提醒：鏈上 past-cone 差等於區間內點數、非鏈才可能不同；Claude 曾在規格 GO 前腦中看出部分案例趨向但未披露。本先行 commit 只追加三帳，後一 commit 才寫研究稿。此時沒有代入 IK-01 案例，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed、文獻原文檢索或 formal／E0 回用。下一 EXP-ID 0187.
+
+
+## 87. IK-01 v0.1 紙上研究的作者接觸（2026-11-16；只追加）
+
+**EXP-0187：GPT 本人申報；固定目錄與跨尺寸解析**
+
+作者在先行三帳 commit `dd9ef62fbea87406af68cb4b605cf06daa098822` 後，
+才將已 GO 的 IK-01 規格代入 Q-02 的固定目錄及四個跨尺寸族。
+以紙上矩陣代數逐類求 $D_t,G_R,F_C,A_C$，包含鏈每個面的
+root response 遞迴、兩個 $t$ 各自的模整數非零證明、
+star／dual star、$K_{2,2}$ 的多根交叉式、diamond 的兩個面、
+$k\times C_2$ 的全部面。事前順序先寫全目錄含 FAIL，才下
+IK-01 固定 law 全域 FAIL 的限定結論；沒有替換 $t$、資料、
+面、量詞或域。另將 Claude 提醒的鏈上 past-cone 與區間
+點數相同寫進稿內。研究稿尚待獨立 exact-head 複核，
+不稱外部同行評審，也不稱 P0.4 或 Q-02 對任意 K 的 no-go。
+只讀 P0.4、Q-02、IK-01、既有帳本與狀態文字；沒有閱讀
+文獻原文、執行科學數值／符號程式、RNG、撒點、producer、
+raw／sealed、seed、測試或 formal／E0 回用。Git、前綴及
+完整性檢查只作文件驗證。下一 EXP-ID 0188.

@@ -1106,3 +1106,12 @@ Claude 原句及作者接觸見 EXP-0185–0186。先行 commit 只追加三帳�
 raw／sealed／producer 隔離不變。規格 GO 不等於研究結果 GO。
 遠端 `q02-data` 已由操作者刪除，`ik01-spec` 仍待刪；
 本追加不是 ACT 或 AMEND。
+
+
+## IK-01 v0.1 研究稿界線（2026-11-16；只追加）
+
+先行三帳 commit `dd9ef62f` 後才交 IK-01 固定目錄紙上研究；
+作者接觸見 EXP-0187。研究稿列 FAIL 並待獨立複核，
+不把規格 GO 冒充結果 GO，不修 P0.4／Q-02／IK-01 規則。
+formal／E0、raw／sealed／producer 隔離不變；
+本追加不是 ACT 或 AMEND。

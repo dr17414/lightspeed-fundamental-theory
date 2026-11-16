@@ -1252,3 +1252,13 @@ Claude 原句與 GPT 接觸見 EXP-0185–0186。遠端 `q02-data`
 已由操作者刪除；`ik01-spec` 待刪。此先行 commit 只追加三帳；
 後一 commit 才交 IK-01 研究稿。Q-02／P0.4 凍結，規格 GO
 僅開紙上研究，不授予研究輸出本身 GO；先列全目錄含 FAIL。
+
+
+## IK-01 v0.1 紙上研究草稿交付界線（2026-11-16；只追加）
+
+先行三帳 commit `dd9ef62f` 後另 commit 新增
+[IK-01 紙上研究稿](foundations/kq_p04_ik01_paper_study_v0_1.md)，
+README／STATUS 只更新目前狀態；接觸見 EXP-0187。固定目錄
+全部先列（含 FAIL），再給 IK-01 v0.1 限定 FAIL 結論。
+P0.4、Q-02、IK-01 規格、舊負面結果、程式與測試均不改。
+仍待 exact-head 獨立複核；不是研究 GO、ACT 或 AMEND。
