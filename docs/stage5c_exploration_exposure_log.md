@@ -2768,3 +2768,22 @@ raw／sealed、seed、測試或 formal／E0 回用。Git、前綴及
 **EXP-0192：GPT 本人先行接觸與判斷**
 
 操作者指定以 #118 合併 main `0fda7d36` 為基線，起草只及 Q-02 下不讀 L 的 K 的 K₂,₂ 限定紙上證明，並要求三帳先行追加、再交 patch 由 Claude 代套用。作者以 git fetch 核對 main SHA／tree／parent／committer，`ls-remote` 核對兩遠端分支已刪；讀了 P0.4、Q-02、P0.2、P0.1 相關條款、IK-01 研究稿、三帳末段與 README／STATUS。目前只登記接觸及 Claude 的兩段原句，尚未寫證明稿、未定新 K 或改資料；已知 IK-01 在 K₂,₂ 的 FAIL 和 Claude 對一般不讀 L 類的未證提示，不宣稱盲性或把提示當已證定理。EXP-0188 的 `\_` 是 Markdown 顯示跳脫，去掉後與轉交原句一致。沒有文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用；git 查核只作版本驗證。下一 EXP-ID 0193。
+
+
+## 90. K₂,₂ 不讀 L 限定證明稿（2026-11-17；只追加）
+
+**EXP-0193：GPT 本人申報；先行三帳之後的紙上推導**
+
+在先行三帳 commit `f056bbd06f5f5d6779b85b36a0d11b2b07054358` 後，
+作者重讀 P0.4 §1／§3、Q-02 §§2–5、P0.2 §4／§6.2／§7(a)、
+P0.1 §4.4 及先前 dual star 證明；在 Claude 已登記的 K₂,₂ 提示之上，
+寫出 $D_1$ 的 realizer 軌道、Q-02 的唯一面／零通道、自然且不讀 L
+的共同 blocks、diagonal 奇異時的 augmented kernel、可逆時的
+$R_B/G_R/F_B/A_B$ 逐式推導。微因果令 $2HH^\dagger=0$，
+與 §7(a) 的非零傳播不能兼得；讀 L 的完整 K 不受單軌道引理
+此處結論約束，僅列未決的正交必要式，不構造或排除它。
+本次沒有讀新文獻原文、沒有執行科學數值／符號程式、RNG、
+撒點、producer、raw／sealed／seed 或 formal／E0 回用；
+沒有新 K／資料／修約或試算。git、文字及 integrity 檢查
+僅驗證文件與提交邊界；本稿待獨立 exact-head 複核，
+不是外部同行評審或 P0.4 全面 no-go。下一 EXP-ID 0194。

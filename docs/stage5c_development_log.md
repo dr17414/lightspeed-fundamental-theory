@@ -1291,3 +1291,17 @@ EXP-0188 中 `A\_{d}` 的 `\_` 僅為 Markdown 顯示跳脫，去掉後
 後續另 commit 起草 K₂,₂ 在 Q-02＋不讀 L 子類下的限定證明；
 讀 L 類未決，不寫新 K、不改契約／資料／規格、不做研究試算。
 formal／E0 與 raw／sealed／producer 隔離不變。
+
+
+## K₂,₂ 不讀 L 子類紙上證明稿（2026-11-17；只追加）
+
+先行三帳 `f056bbd` 後新增
+[限定證明稿](foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)，
+README／STATUS 只替換目前狀態；接觸 EXP-0193。稿中逐條給出
+$K_{2,2}\in D_{KQ}$、Q-02 唯一合法 B 面且 U 為空、
+自然且不讀 L 的四個共同 order blocks、可逆 diagonal 下的
+同源 Green 與 CAR，推得 $A_B(c_1,c_2)=2HH^\dagger$；
+$H=0$ 則 §7(a) FAIL，$H\ne0$ 則原 P 微因果 FAIL。
+奇異 diagonal 更早使 augmented 型別 FAIL。讀 L 類只列必要的
+響應行正交式，未決；不構造新 K、不修改 Q-02／P0.4，
+不給研究 GO。稿待 Claude exact-head 複核。
