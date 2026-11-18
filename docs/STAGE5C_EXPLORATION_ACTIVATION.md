@@ -1125,3 +1125,27 @@ Claude 代推送與複核原句、公開／本地先行 tree 對照見
 EXP-0188–0189；遠端 `ik01-spec` 仍待刪除。
 本增量只作該字元修正與三本帳追加，不是結果 GO、
 ACT 或 AMEND；formal／E0、raw／sealed／producer 隔離維持。
+
+
+## #118 合併後 K₂,₂ 限定證明先行界線（2026-11-17；只追加）
+
+#118 r2 exact head `4f8b7033` 已獨立 GO，CI #351 同 head 成功；
+合併 main `0fda7d36` 的 tree `9437cfe0` 與 GO head 相同。
+唯一 parent `6f8b4a17`，committer 台北 2026-11-16 18:54:22。
+`ik01-study`、`ik01-spec` 均已由操作者刪除；EXP-0188 的
+`\_` 為 Markdown 顯示用跳脫字元，去掉後與 Claude 原句一致。
+Claude r2 及合併後申報、作者先行接觸見 EXP-0190–0192。
+本 commit 只追加三本帳；後續另交 Q-02 下不讀 L 的 K 在
+K₂,₂ 上的限定紙上證明，不寫新 K 規格、不改 P0.4／Q-02、
+不擴張到讀 L 的 K。formal／E0、raw／sealed／producer 隔離不變；
+本記錄不是 ACT 或 AMEND，也不預告證明 GO。
+
+
+## K₂,₂ 不讀 L 限定證明稿交付界線（2026-11-17；只追加）
+
+先行三帳 commit `f056bbd` 後，另 commit 新增限定紙上證明稿，
+README／STATUS 只替換目前狀態段。作者推導與接觸見 EXP-0193。
+命題只及 P0.4＋Q-02 下不讀 L 的 K；讀 L 類未決，
+不是 P0.4／Q-02 全面 no-go；待 exact-head 獨立複核。
+不改契約、資料、IK-01 規格／研究稿或 formal／E0 隔離；
+本追加不是 ACT 或 AMEND。

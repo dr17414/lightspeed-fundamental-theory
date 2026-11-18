@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.4 契約、Q-02 資料、IK-01 規格 GO；IK-01 研究 FAIL 待獨立複核（2026-11-16）：**
+**目前狀態：P0.4 契約、Q-02 資料、IK-01 規格 GO；IK-01 限定 FAIL 已複核，K₂,₂ 延伸證明待複核（2026-11-17）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -194,12 +194,18 @@ CI #346 同 head 首次成功後原樣合併 main
 `97b5b67b4471b8c587f42e3052e84ed0a2141121` 等於 GO head，
 唯一 parent `aa9d2fd3`，committer 台北 2026-11-16 00:06:26。
 本地先行 `dd973cea` 與公開 `ce8baeb7` 同 tree `deff5808`。
-遠端 `ik01-spec` 待刪。Claude 原句及 GPT 合併接觸見接觸帳
+遠端 `ik01-spec` 已由操作者刪除。Claude 原句及 GPT 合併接觸見接觸帳
 §86 EXP-0185–0186。[IK-01 紙上研究稿](foundations/kq_p04_ik01_paper_study_v0_1.md)
 依 §8 先列固定目錄含 FAIL，得本版 Q-02＋固定 K 的限定 FAIL：
 $K_{2,2}$ 微因果、鏈守恆／Green、diamond 第二面微因果／守恆／Green。
-此稿待 exact-head 獨立複核，不是 P0.4 全面 no-go；
-舊 Q-01、#111 的各自作用域不變。
+#118 r2 exact head `4f8b7033` 經獨立 GO、CI #351 同 head 首次成功後
+合併 main `0fda7d36`，tree `9437cfe0` 同 GO head，唯一 parent
+`6f8b4a17`，committer 台北 2026-11-16 18:54:22；
+遠端 `ik01-study`、`ik01-spec` 已由操作者刪除。EXP-0188 中的
+`\_` 只是 Markdown 跳脫。新[K₂,₂ 不讀 L 限定障礙證明稿](foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)
+以 Q-02 原樣資料與原 P 微因果，推得此子類若要非零同源傳播即在
+$c_1\parallel c_2$ 失敗；此稿尚待 exact-head 獨立複核，讀 L 類未決，
+不稱 P0.4 或 Q-02 對任意 K 的 no-go。舊 Q-01、#111 的作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、

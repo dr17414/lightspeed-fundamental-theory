@@ -2753,3 +2753,37 @@ raw／sealed、seed、測試或 formal／E0 回用。Git、前綴及
 **EXP-0189：GPT 本人申報；修訂範圍與接觸**
 
 已見 Claude 上述 exact-head 複核及其對 K₂,₂ 的未證明提示。作者以 GitHub connector 確認 PR #118 仍是 draft、公開 head `0d8264c80828b6518074bcedd2253751914e8a8f`；git fetch 對照本地研究 head `8982af01` 與公開 head 同 tree `de6557c8e8e8641311b99d830c399018d8f426a9`，本地先行 `dd9ef62f` 與公開先行 `76703b35` 同 tree `385bf01dfef5996ea0e1d69c8a053f1520f68cc5`。遠端 `ik01-spec` 尚在，待操作者刪除。此增量只把 (R.2) 的單一 TAB 改回 LaTeX 的反斜線，三本帳只追加；沒有重算案例、補寫 K₂,₂ 的一般證明、修改規格／契約／資料或開始新試作。未用科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 資料。下一 EXP-ID 0190.
+
+
+## 89. #118 合併後 K₂,₂ 限定證明先行登記（2026-11-17；只追加）
+
+**EXP-0190：操作者轉交的 Claude 本人申報原句；PR #118 r2 代套用與複核**
+
+> Claude（PR #118 r2 代套用與複核）：經操作者授權，讀了 `kq_p04_ik01_paper_study_r2_increment.patch`（確認 SHA-256 為 `df1f10b3…`），確認遠端 `ik01-study` 仍指向 `0d8264c8`，把 patch 套用為單一 commit `4f8b7033`，確認增量 diff 和 patch 逐位元組相同、三本帳相對上一版 head 是前綴、研究稿只有 (R.2) 改回 `\tfrac52` 且全檔已無 TAB 字元，然後推送到同一分支。沒有修改任何文字，沒有合併。用 script 比對 EXP-0188，發現它只差一個 Markdown 跳脫字元 `\_`；在 detached head 上跑了 integrity 與 pytest，並用 API 確認 CI #351 成功；也確認遠端 `ik01-spec` 仍在。另列了三個後續選項和我的建議，但沒有起草任何證明、K 或資料。沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0191：操作者轉交的 Claude 本人申報原句；#118 合併後核對與 K₂,₂ 證明範圍建議**
+
+> Claude（#118 合併後核對與 K₂,₂ 證明範圍建議）：以 git 抓取 main，核對 SHA `0fda7d36`、tree `9437cfe0`、唯一 parent `6f8b4a17` 與 committer 時間（台北 2026-11-16 18:54:22），確認合併結果和 GO 的 head `4f8b7033` 的 tree 相同；用 GitHub API 確認 PR #118 的合併狀態與 merge commit，以及 CI #351 在同一個 head 上第一次執行就成功，並確認遠端 `ik01-study` 和 `ik01-spec` 都已不存在。之後擬了 K₂,₂ 障礙證明的指示文字，並在腦中檢查了讀 L 的 K：發現同一論證不能排除這一類，所以把它列為作用域外的未決情況。為了不替下一版 K 預先設計，我沒有寫出檢查細節。沒有構造任何正式的 K、資料或證明文字。沒有讀其他檔案或文獻，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0192：GPT 本人先行接觸與判斷**
+
+操作者指定以 #118 合併 main `0fda7d36` 為基線，起草只及 Q-02 下不讀 L 的 K 的 K₂,₂ 限定紙上證明，並要求三帳先行追加、再交 patch 由 Claude 代套用。作者以 git fetch 核對 main SHA／tree／parent／committer，`ls-remote` 核對兩遠端分支已刪；讀了 P0.4、Q-02、P0.2、P0.1 相關條款、IK-01 研究稿、三帳末段與 README／STATUS。目前只登記接觸及 Claude 的兩段原句，尚未寫證明稿、未定新 K 或改資料；已知 IK-01 在 K₂,₂ 的 FAIL 和 Claude 對一般不讀 L 類的未證提示，不宣稱盲性或把提示當已證定理。EXP-0188 的 `\_` 是 Markdown 顯示跳脫，去掉後與轉交原句一致。沒有文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用；git 查核只作版本驗證。下一 EXP-ID 0193。
+
+
+## 90. K₂,₂ 不讀 L 限定證明稿（2026-11-17；只追加）
+
+**EXP-0193：GPT 本人申報；先行三帳之後的紙上推導**
+
+在先行三帳 commit `f056bbd06f5f5d6779b85b36a0d11b2b07054358` 後，
+作者重讀 P0.4 §1／§3、Q-02 §§2–5、P0.2 §4／§6.2／§7(a)、
+P0.1 §4.4 及先前 dual star 證明；在 Claude 已登記的 K₂,₂ 提示之上，
+寫出 $D_1$ 的 realizer 軌道、Q-02 的唯一面／零通道、自然且不讀 L
+的共同 blocks、diagonal 奇異時的 augmented kernel、可逆時的
+$R_B/G_R/F_B/A_B$ 逐式推導。微因果令 $2HH^\dagger=0$，
+與 §7(a) 的非零傳播不能兼得；讀 L 的完整 K 不受單軌道引理
+此處結論約束，僅列未決的正交必要式，不構造或排除它。
+本次沒有讀新文獻原文、沒有執行科學數值／符號程式、RNG、
+撒點、producer、raw／sealed／seed 或 formal／E0 回用；
+沒有新 K／資料／修約或試算。git、文字及 integrity 檢查
+僅驗證文件與提交邊界；本稿待獨立 exact-head 複核，
+不是外部同行評審或 P0.4 全面 no-go。下一 EXP-ID 0194。

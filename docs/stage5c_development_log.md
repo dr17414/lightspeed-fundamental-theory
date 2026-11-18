@@ -1275,3 +1275,33 @@ Claude 的申報原句與 GPT 接觸見 EXP-0188–0189。遠端
 `ik01-spec` 仍在，待操作者刪除。P0.4、Q-02、IK-01 規格、
 其餘研究內容、程式與測試均不改；#118 保持 draft 待新 head
 exact-head 複核，不合併，不進行後續研究或新試作。
+
+
+## #118 合併後 K₂,₂ 限定障礙證明先行登記（2026-11-17；只追加）
+
+PR #118 r2 exact head `4f8b703354c530726c5a4120e2fddf4ef5e0e59f`
+經 Claude 獨立 GO、CI #351 同 head success，squash main
+`0fda7d366161ea541d43b58e2836ef092606bce8`，tree
+`9437cfe02c5b6722d0c58134f3acc2611d47e9f6` 與 GO head 相同，
+唯一 parent `6f8b4a17`，committer 台北 2026-11-16 18:54:22。
+兩遠端分支 `ik01-study`、`ik01-spec` 已由操作者刪除。
+EXP-0188 中 `A\_{d}` 的 `\_` 僅為 Markdown 顯示跳脫，去掉後
+與 Claude 原句逐字一致，不回寫歷史。Claude r2 與合併後原句
+及作者接觸見 EXP-0190–0192。此先行 commit 只追加三帳，
+後續另 commit 起草 K₂,₂ 在 Q-02＋不讀 L 子類下的限定證明；
+讀 L 類未決，不寫新 K、不改契約／資料／規格、不做研究試算。
+formal／E0 與 raw／sealed／producer 隔離不變。
+
+
+## K₂,₂ 不讀 L 子類紙上證明稿（2026-11-17；只追加）
+
+先行三帳 `f056bbd` 後新增
+[限定證明稿](foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)，
+README／STATUS 只替換目前狀態；接觸 EXP-0193。稿中逐條給出
+$K_{2,2}\in D_{KQ}$、Q-02 唯一合法 B 面且 U 為空、
+自然且不讀 L 的四個共同 order blocks、可逆 diagonal 下的
+同源 Green 與 CAR，推得 $A_B(c_1,c_2)=2HH^\dagger$；
+$H=0$ 則 §7(a) FAIL，$H\ne0$ 則原 P 微因果 FAIL。
+奇異 diagonal 更早使 augmented 型別 FAIL。讀 L 類只列必要的
+響應行正交式，未決；不構造新 K、不修改 Q-02／P0.4，
+不給研究 GO。稿待 Claude exact-head 複核。
