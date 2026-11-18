@@ -1149,3 +1149,19 @@ README／STATUS 只替換目前狀態段。作者推導與接觸見 EXP-0193。
 不是 P0.4／Q-02 全面 no-go；待 exact-head 獨立複核。
 不改契約、資料、IK-01 規格／研究稿或 formal／E0 隔離；
 本追加不是 ACT 或 AMEND。
+
+
+## #119 合併後下一版必要條件分析先行界線（2026-11-18；只追加）
+
+#119 exact head `d8bb4f08` 經 Claude 獨立 GO，CI #353 第一次因既有
+`/proc` 競態失敗、第二次同 head 重跑成功後，squash main
+`7884ec87`，tree `3c1b975f` 等於 GO head，唯一 parent
+`0fda7d36`，committer 台北 2026-11-18 08:29:57。
+遠端 `k22-paper` 已由操作者刪除。Claude 兩段可得原句與作者
+先行接觸見 EXP-0194–0196；前兩段 #119 代推送複核、重複送審
+重查之逐字原句本輪未取得，列為待更正追加，不冒稱已收錄。
+操作者選擇只作「下一版 K 必要條件」紙上盤點：K₂,₂、鏈、
+diamond；不構造 IK-02、不改 P0.4／Q-02／IK-01，
+不把 IK-01 的 Green 式誤當 P0.4 對所有 K 的唯一式。
+此 commit 只追加三帳，稿件在後；formal／E0、raw／sealed、
+producer 隔離不變。本記錄不是 ACT 或 AMEND。

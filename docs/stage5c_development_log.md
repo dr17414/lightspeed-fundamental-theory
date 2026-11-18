@@ -1305,3 +1305,18 @@ $H=0$ 則 §7(a) FAIL，$H\ne0$ 則原 P 微因果 FAIL。
 奇異 diagonal 更早使 augmented 型別 FAIL。讀 L 類只列必要的
 響應行正交式，未決；不構造新 K、不修改 Q-02／P0.4，
 不給研究 GO。稿待 Claude exact-head 複核。
+
+
+## #119 合併及下一版 K 必要條件紙上盤點先行登記（2026-11-18；只追加）
+
+#119 head `d8bb4f083e63b907e4bd59fbdb447027c322986c` 於 CI #353
+第一次 `/proc` 競態失敗、第二次同 head 成功後，依限定授權
+原樣 squash main `7884ec87b4f295a118729bbe20a3d7810212683d`，
+tree `3c1b975fc3bfa7e080e5b41d7e046f76f6779f59` 同 GO head，
+唯一 parent `0fda7d36`，committer 台北 2026-11-18 08:29:57。
+Claude 代為套用推送 #119，遠端 `k22-paper` 已由操作者刪除；
+可得原句、GPT 接觸與未得兩段原句的更正追加待辦見
+EXP-0194–0196。操作者選擇只列 P0.4＋Q-02 下下一版 K 的
+必要條件，不寫 K 規格、不動契約／資料，IK-01 舊 FAIL 保留。
+本先行 commit 只追加三帳，下一 commit 才交紙上分析；
+所有 formal／E0 與 raw／sealed／producer 隔離不變。
