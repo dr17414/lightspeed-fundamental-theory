@@ -1353,3 +1353,18 @@ tree `50ebf04eb89629e4e72a8ade43138d231e07e792`，
 本 commit 只追加三帳，後續另 commit 起草 #112 式來源表；
 嚴守 #120 的 diamond 作用域，不做新 K、Green、Q-03 或 IK-02。
 formal／E0、raw／sealed、producer 隔離不變。
+
+
+## P0.4 本輪階段整理稿（2026-11-18；只追加）
+
+先行三帳 `041859b` 後另 commit 新增
+[階段整理](foundations/kq_p04_stage_checkpoint_2026_11_18.md)，
+README／STATUS 只替換目前狀態段，作者接觸見 EXP-0204。
+來源表將 IK-01 固定 FAIL、#119 不讀 L 子類障礙、
+#120 K₂,₂ 正交／鏈 unitary／diamond 零 cover block 必要式、
+沿用 IK.S1 才成立的矛盾逐項列出，並在每項對面列
+「不能推出的結論」。diamond 的 `K(d,b)=K(d,c)=0`
+只是在 Q-02 diamond、兩面逆存在且完整守恆時的逐 L
+代數等價，不冒稱其他 P 的 innovation 都不能傳播。
+列四項未決與 Q-03、IK-02、路線比較的代價，不選方向。
+不修改契約／資料／規格或歷史 FAIL；稿待獨立複核。

@@ -2840,3 +2840,10 @@ $R_B/G_R/F_B/A_B$ 逐式推導。微因果令 $2HH^\dagger=0$，
 **EXP-0203：GPT 本人；先行接觸與整理範圍**
 
 作者以 git fetch 核對 #120 main `ff446fd0`、tree `50ebf04e`、唯一 parent `7884ec87` 和台北 committer 2026-11-18 09:15:06；已見操作者轉交的 #120 exact-head GO、CI #355 同 head success 與合併紀錄。此前以 GitHub connector 及 `git ls-remote` 確認遠端 `next-k-conditions` 已不存在；早期 `codex/…` 分支不動。重讀 #112 整理稿、#119／#120 紙上稿、IK-01 研究與三帳尾段，並接受 Claude 對 diamond 物理解讀的限縮。依操作者指示，只整理來源、作用域、不能推出的結論、未決問題及三個選項的代價；本先行 commit 只追加三帳，後一 commit 才寫整理稿。沒有構造 K／Green 式、改資料或契約、代入新案例、讀新文獻、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用。下一 EXP-ID 0204。
+
+
+## 94. P0.4 本輪階段整理稿（2026-11-18；只追加）
+
+**EXP-0204：GPT 本人申報；先行三帳後的來源整理及限定改寫**
+
+在先行三帳 commit `041859beffc57353f0825d46ac086e809626aedf` 之後，作者依 #112 的來源表寫法整理 #118 IK-01 固定試作、#119 K₂,₂ 不讀 L 障礙、#120 鏈與 diamond 必要條件，每列分開列出嚴格作用域和不能推出的結論。接受 Claude 對 diamond 限定作用域的更正；另以同源 inverse 的 cover block 方程把 #120 (N.8) 的 `J_b=J_c=0` 改寫為該 diamond 每 L 的 `K(d,b)=K(d,c)=0`，未把它推到其他 P。列四項未決、Q-03／IK-02／路線比較各自代價，不選版本、不構造 Green 式、K 或資料，不動 P0.4／Q-02／IK-01；此整理與代數改寫待 exact-head 獨立複核，不稱外部同行評審或全面 no-go。只讀已合併文件及帳本、git 身分；沒有新文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用；integrity 和文字／前綴檢查只驗證文件。下一 EXP-ID 0205。
