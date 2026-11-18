@@ -1177,3 +1177,32 @@ K₂,₂ 的原 P 正交、鏈各面 unitary、diamond 兩面守恆／
 不構造新 K、不改 P0.4／Q-02／IK-01，不作資料或規格 GO；
 待 exact-head 獨立複核。formal／E0、raw／sealed、producer
 隔離不變；本追加不是 ACT 或 AMEND。
+
+
+## #120 合併後階段整理先行界線（2026-11-18；只追加）
+
+#120 exact head `8591ee92` 經 Claude 獨立 GO，CI #355
+首次同 head 成功後，squash main `ff446fd0` 的 tree
+`50ebf04e` 與 GO head 相同、唯一 parent `7884ec87`，
+committer 台北 2026-11-18 09:15:06。遠端
+`next-k-conditions` 已刪，早期 `codex/…` 分支不動。
+#119 兩段原句以更正追加補入；Claude #120 代推送／合併後核對／
+遠端確認與措辭更正及 GPT 先行接觸見 EXP-0198–0203。
+操作者指定只作 P0.4 本輪來源／作用域整理：diamond
+`G_R(d,b)=G_R(d,c)=0` 只限 Q-02 的 diamond、兩面 inverse
+存在且完整守恆；等價的 `K(d,b)=K(d,c)=0` 同樣逐 L 限定。
+不作 P0.4 全域 no-go 或資料設計普遍失敗的斷言。
+本 commit 只追加三帳，整理稿在後；不構造 IK-02、
+Q-03 或新 Green 式，不改契約／資料／隔離，本記錄不是 ACT 或 AMEND。
+
+
+## P0.4 階段整理稿交付界線（2026-11-18；只追加）
+
+先行三帳 `041859b` 後另 commit 純來源／作用域整理稿，
+README／STATUS 只替換目前狀態段；作者接觸 EXP-0204。
+嚴格限定 Q-02 diamond 的 `G_R(d,b)=G_R(d,c)=0`、
+等價 `K(d,b)=K(d,c)=0` 所需的雙面逆與完整守恆。
+沿用 IK.S1 的 diamond 條件式矛盾另列；不稱 P0.4 全面
+no-go，不選 Q-03、IK-02 或路線轉向。待 exact-head 複核；
+formal／E0、raw／sealed、producer 隔離維持，本追加
+不是 ACT 或 AMEND。
