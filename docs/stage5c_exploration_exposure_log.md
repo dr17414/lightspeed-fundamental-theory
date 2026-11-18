@@ -2809,3 +2809,34 @@ $R_B/G_R/F_B/A_B$ 逐式推導。微因果令 $2HH^\dagger=0$，
 **EXP-0197：GPT 本人申報；先行三帳之後的條件推導**
 
 在先行三帳 commit `1dedacf` 後，作者重讀 P0.4 §1／§3、P0.3 §§4–5、Q-02 §§2–5、IK-01 規格 §§2–5 與研究稿、#119 限定證明，在紙上推導三種輸入的必要式：K₂,₂ 的兩根響應行正交且逐輸入非零；鏈每面 trace 可逆及根響應 unitary，若沿用 IK.S1 則內部 strict Green 等式另須成立；diamond 的 canonical response／第二面接合三角矩陣及共同正 covariance，完整 CAR 守恆令兩個中間事件到頂點的 source 響應為零，canonical 微因果令兩個根到中間點的響應可逆。若額外沿用 IK.S1，diamond 的 (d,b) 識別式由此矛盾；已明標這不是 P0.4 對所有 Green typed 式的 no-go。沒有構造替代 Green 式、K、資料或新量詞；條件式推導尚待獨立複核，不稱盲發現或外部同行評審。沒有新文獻檢索、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用；git、完整性及文字檢查只作文件驗證。Claude 先前兩段 #119 原句仍未取得，留待更正追加。下一 EXP-ID 0198。
+
+
+## 93. #120 合併後階段整理先行登記（2026-11-18；只追加）
+
+**EXP-0198：更正追加；Claude 本人申報原句（#119 代推送與複核）**
+
+原事件早於 EXP-0194–0197；當時原句未在作者可得對話中，現由操作者轉交，依事件時間補記而不改寫舊帳。
+
+> Claude（PR #119 代推送與複核）：經操作者授權，讀了 `kq_p04_k22_order_only_obstruction_review.patch`（確認 SHA-256 為 `bd2ffbdd…`，無 TAB 字元），套用在 main `0fda7d36` 上，依帳本 §89／§90 的段落界線切成兩個 commit（`4853ca24` 只追加三本帳；`d8bb4f08` 放證明稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `k22-paper` 分支，並用 REST API 建立 draft PR #119。沒有修改任何文字，沒有合併。之後讀了證明稿全文，在腦中逐式核對 realizer 軌道、Q-02 的唯一面與 U = ∅、不讀 L 時共同 block 與 d 的自然性推導、d 奇異的 kernel 論證、R_B、A_B(c₁,c₂) = 2HH† 與兩種情況的窮盡，以及讀 L 時的正交必要式。用 script 逐字比對了 EXP-0190、0191，在 detached head 上跑了 integrity 與 pytest；用 API 查到 CI #353 因 `test_worker_kernel_parent_death_guard` 的 `/proc` 競態失敗，嘗試用 API 重跑 failed job 被拒（HTTP 403），沒有改用其他通道。沒有構造任何 K 或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0199：更正追加；Claude 本人申報原句（#119 重複送審的重查）**
+
+此事件亦早於 EXP-0194–0197；原句現在取得，不冒稱當時已登記。
+
+> Claude（PR #119 重複送審的重查）：確認操作者再次附上的 patch 的 SHA-256 為 `bd2ffbdd…`，和已推送為 PR #119 的那份相同，所以沒有重新套用或推送。以 git 和 GitHub API 確認 PR #119 仍是 draft、head 仍是 `d8bb4f08`、main 仍是 `0fda7d36`，CI #353 仍是第一次執行的 failure、尚未重跑。沿用先前的 GO，沒有重讀證明或重跑測試。沒有推導，沒有讀文獻，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，也沒有推送任何東西。
+
+**EXP-0200：操作者轉交的 Claude 本人申報原句；PR #120 代推送與複核**
+
+> Claude（PR #120 代推送與複核）：經操作者授權，讀了 `kq_p04_next_k_necessary_conditions_review.patch`（確認 SHA-256 為 `fcf02bf0…`，無 TAB 字元），套用在 main `7884ec87` 上，依帳本 §91／§92 的段落界線切成兩個 commit（`19a48bdc` 只追加三本帳；`8591ee92` 放分析稿與其餘內容，tree 等於 GPT 本地 head），確認 diff 和 patch 逐位元組相同、三本帳是前綴，然後推送 `next-k-conditions` 分支，並用 REST API 建立 draft PR #120。沒有修改任何文字，沒有合併。之後讀了分析稿全文，在腦中逐式核對 K₂,₂ 的 (N.2) 與 L 區分的必要性、鏈的 (N.3) 與 unitary 等價、diamond 的 (N.6)、T 的推導、F_B 單射、T H_Q⁻¹ T† 的根／通道塊展開、(N.8)、(N.9) 與 (N.10)；另推得 (N.8) 等價於 K(d,b) = K(d,c) = 0，列為非阻擋建議。也從本對話逐字取出我在 #119 的兩段申報原句交給操作者轉交。用 script 逐字比對 EXP-0194、0195，在 detached head 上跑了 integrity 與 pytest，並用 API 查到 CI #355 仍在執行中。沒有構造任何 K、Green 式或資料；沒有讀文獻原文或做檢索；沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料。
+
+**EXP-0201：操作者轉交的 Claude 本人申報原句；#120 合併後核對**
+
+> Claude（#120 合併後核對）：以 git 抓取 main，核對 SHA `ff446fd0`、tree `50ebf04e`、唯一 parent `7884ec87` 與 committer 時間（台北 2026-11-18 09:15:06），確認合併結果和 GO 的 head `8591ee92` 的 tree 相同；用 GitHub API 確認 PR #120 的合併狀態與 merge commit，以及 CI #355 在同一個 head 上第一次執行就成功；用 `git ls-remote` 查到遠端 `next-k-conditions` 仍指向 `8591ee92`。也以白話說明 diamond 結果的意義，並列了三個後續選項和我的建議，但沒有起草任何整理、資料、K 或 Green 式。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0202：操作者轉交的 Claude 本人申報原句；遠端分支確認與措辭更正**
+
+> Claude（遠端分支確認與措辭更正）：用 `git ls-remote` 確認遠端 `next-k-conditions` 已不存在，也看到 repo 另有一批早期的 `codex/…` 分支，沒有動它們。接受操作者與 GPT 的更正：我上一則把 diamond 上的限定結果說成「中間事件的自由度傳不到後面的事件」，作用域說得太寬；嚴格結論只限 Q-02 的 diamond、兩個面的逆都存在且完整守恆的情況。另建議了階段整理稿的結構，但沒有起草任何整理文字、資料、K 或 Green 式。沒有讀其他檔案，沒有推導，沒有執行任何數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0203：GPT 本人；先行接觸與整理範圍**
+
+作者以 git fetch 核對 #120 main `ff446fd0`、tree `50ebf04e`、唯一 parent `7884ec87` 和台北 committer 2026-11-18 09:15:06；已見操作者轉交的 #120 exact-head GO、CI #355 同 head success 與合併紀錄。此前以 GitHub connector 及 `git ls-remote` 確認遠端 `next-k-conditions` 已不存在；早期 `codex/…` 分支不動。重讀 #112 整理稿、#119／#120 紙上稿、IK-01 研究與三帳尾段，並接受 Claude 對 diamond 物理解讀的限縮。依操作者指示，只整理來源、作用域、不能推出的結論、未決問題及三個選項的代價；本先行 commit 只追加三帳，後一 commit 才寫整理稿。沒有構造 K／Green 式、改資料或契約、代入新案例、讀新文獻、科學數值／符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用。下一 EXP-ID 0204。

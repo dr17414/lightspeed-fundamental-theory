@@ -1335,3 +1335,21 @@ diamond 的 canonical strict Green 方程與前述必要式矛盾。
 此為待複核的紙上推導，不證任何 K 可行，也不宣稱
 P0.4 對其他 typed Green 式或資料有全面障礙。
 兩段未得的 Claude #119 申報仍待更正追加；不回寫先行帳。
+
+
+## #120 合併後階段整理先行登記（2026-11-18；只追加）
+
+PR #120 由 Claude 代為套用推送，公開先行 `19a48bdc` 的
+tree `f731f450` 等於 GPT 本地 `1dedacff`；公開
+head `8591ee92` 的 tree `50ebf04e` 等於本地
+`e92ea19b`，本地 SHA 不是公開先後順序證據。
+CI #355 首次即同 head success，依授權 squash main
+`ff446fd067bfb16cfdb536cfbdb2787a8f0db8e2`，
+tree `50ebf04eb89629e4e72a8ade43138d231e07e792`，
+唯一 parent `7884ec87`，committer 台北 2026-11-18 09:15:06。
+遠端 `next-k-conditions` 後經操作者確認已刪除；早期
+`codex/…` 分支未動。Claude 原句按事件時間見 EXP-0198–0202，
+其中 EXP-0198–0199 是 #119 兩段當時缺漏的更正追加。
+本 commit 只追加三帳，後續另 commit 起草 #112 式來源表；
+嚴守 #120 的 diamond 作用域，不做新 K、Green、Q-03 或 IK-02。
+formal／E0、raw／sealed、producer 隔離不變。
