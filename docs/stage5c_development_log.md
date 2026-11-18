@@ -1320,3 +1320,18 @@ EXP-0194–0196。操作者選擇只列 P0.4＋Q-02 下下一版 K 的
 必要條件，不寫 K 規格、不動契約／資料，IK-01 舊 FAIL 保留。
 本先行 commit 只追加三帳，下一 commit 才交紙上分析；
 所有 formal／E0 與 raw／sealed／producer 隔離不變。
+
+
+## 下一版 K 必要條件紙上分析稿（2026-11-18；只追加）
+
+先行三帳 `1dedacf` 後新增
+[必要條件盤點](foundations/kq_p04_next_k_necessary_conditions_paper_v0_1.md)，
+README／STATUS 只更新目前狀態，接觸見 EXP-0197。
+稿列 Q-02 下 K₂,₂ 每 L 的根響應行正交且非零傳播；
+鏈每個合法切面的根響應 unitary；diamond 若兩面完整守恆，
+中間事件到頂點的 source 響應須零，另與 canonical
+微因果並列。只有額外保留 IK-01 的 (IK.S1) 時，
+diamond 的 canonical strict Green 方程與前述必要式矛盾。
+此為待複核的紙上推導，不證任何 K 可行，也不宣稱
+P0.4 對其他 typed Green 式或資料有全面障礙。
+兩段未得的 Claude #119 申報仍待更正追加；不回寫先行帳。

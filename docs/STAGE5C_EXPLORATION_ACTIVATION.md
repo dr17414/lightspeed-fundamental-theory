@@ -1165,3 +1165,15 @@ diamond；不構造 IK-02、不改 P0.4／Q-02／IK-01，
 不把 IK-01 的 Green 式誤當 P0.4 對所有 K 的唯一式。
 此 commit 只追加三帳，稿件在後；formal／E0、raw／sealed、
 producer 隔離不變。本記錄不是 ACT 或 AMEND。
+
+
+## 下一版 K 必要條件盤點交付界線（2026-11-18；只追加）
+
+先行三帳 commit `1dedacf` 後另 commit 新增純紙上盤點，
+README／STATUS 只換目前狀態段；作者接觸與推導見 EXP-0197。
+K₂,₂ 的原 P 正交、鏈各面 unitary、diamond 兩面守恆／
+微因果是 P0.4＋Q-02 下必要式；沿用 IK.S1 時 diamond
+另有條件式矛盾，不能冒稱 P0.4 對所有 Green 式 no-go。
+不構造新 K、不改 P0.4／Q-02／IK-01，不作資料或規格 GO；
+待 exact-head 獨立複核。formal／E0、raw／sealed、producer
+隔離不變；本追加不是 ACT 或 AMEND。

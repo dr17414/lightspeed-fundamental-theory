@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：P0.4／Q-02／IK-01 規格 GO；IK-01 限定 FAIL 已複核，K₂,₂ 延伸證明待複核（2026-11-17）**：[IK-01 規格](docs/foundations/kq_p04_internal_innovation_attempt_spec_v0_1.md)已於 #117 合併；[IK-01 研究稿](docs/foundations/kq_p04_ik01_paper_study_v0_1.md)經 #118 exact-head GO 與 CI #351 同 head 成功後合併 main `0fda7d36`（tree `9437cfe0`），本版 K＋Q-02 因 $K_{2,2}$ 微因果、鏈守恆／Green、diamond 第二面而限定 FAIL。[K₂,₂ 不讀 L 障礙證明稿](docs/foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)在 Q-02 下指出任何不讀 L 的 K 在該輸入無法兼得微因果及非零傳播；此稿仍待獨立逐式複核，讀 L 類未決，不作 P0.4 全面 no-go。遠端 `ik01-study`、`ik01-spec` 已由操作者刪除；探索軌與 formal／E0 隔離不變。來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
+- **目前狀態：P0.4／Q-02／IK-01 規格 GO；IK-01 限定 FAIL 與 #119 限定障礙已複核，下一版 K 必要條件分析待複核（2026-11-18）**：[IK-01 研究稿](docs/foundations/kq_p04_ik01_paper_study_v0_1.md)的 K₂,₂ 微因果、鏈守恆／Green、diamond 第二面 FAIL 已封存；[#119 的 K₂,₂ 不讀 L 障礙證明](docs/foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)經獨立 GO 後合併 main `7884ec87`（tree `3c1b975f`），只及 Q-02 下不讀 L 的 K，讀 L 類未決。[下一版 K 必要條件紙上盤點](docs/foundations/kq_p04_next_k_necessary_conditions_paper_v0_1.md)列 K₂,₂、鏈、diamond 的必要式，並把沿用 IK.S1 才成立的 diamond 條件式矛盾另列；尚待獨立複核，不是新 K 規格或 P0.4 全面 no-go。遠端 `k22-paper` 已由操作者刪除；來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
