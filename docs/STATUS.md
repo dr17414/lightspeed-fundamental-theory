@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：P0.4 契約、Q-02 資料、IK-01 規格 GO；IK-01 限定 FAIL 已複核，K₂,₂ 延伸證明待複核（2026-11-17）：**
+**目前狀態：P0.4 契約、Q-02 資料、IK-01 規格 GO；IK-01 與 #119 限定結果已複核，下一版 K 必要條件分析待複核（2026-11-18）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -204,8 +204,7 @@ $K_{2,2}$ 微因果、鏈守恆／Green、diamond 第二面微因果／守恆／
 遠端 `ik01-study`、`ik01-spec` 已由操作者刪除。EXP-0188 中的
 `\_` 只是 Markdown 跳脫。新[K₂,₂ 不讀 L 限定障礙證明稿](foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)
 以 Q-02 原樣資料與原 P 微因果，推得此子類若要非零同源傳播即在
-$c_1\parallel c_2$ 失敗；此稿尚待 exact-head 獨立複核，讀 L 類未決，
-不稱 P0.4 或 Q-02 對任意 K 的 no-go。舊 Q-01、#111 的作用域不變。
+$c_1\parallel c_2$ 失敗；#119 exact head `d8bb4f08` 已獨立 GO、CI #353 第一次因既有 `/proc` 競態失敗，第二次同 head 重跑成功後合併 main `7884ec87`，tree `3c1b975f` 與 GO head 相同，唯一 parent `0fda7d36`，committer 台北 2026-11-18 08:29:57。遠端 `k22-paper` 已由操作者刪除。限定結論只及不讀 L 類；讀 L 類未決。新[下一版 K 必要條件紙上盤點](foundations/kq_p04_next_k_necessary_conditions_paper_v0_1.md)只列 K₂,₂ 正交、鏈守恆、diamond 兩面一致性的必要式；沿用 IK.S1 的 diamond 條件式矛盾另列，尚待 exact-head 獨立複核。不稱 P0.4 或 Q-02 全面 no-go，舊 Q-01、#111 的作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、
