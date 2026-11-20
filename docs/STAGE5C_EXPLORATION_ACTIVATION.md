@@ -1230,3 +1230,13 @@ README／STATUS 更新目前狀態，作者接觸 EXP-0208。
 純紙上來源比較，非轉向、Q-03、IK-02 或新問題契約 GO；
 不改 Q-02／P0.4／IK-01、formal／E0、A／B、UNKNOWN、
 raw／sealed／producer 隔離，本追加不是 ACT 或 AMEND。
+
+
+## 路線比較 r2 複核後補充界線（2026-11-20；只追加）
+
+Claude 判前次比較 patch 需修訂且尚未推送；作者提供兩段公開
+重建所需增量與本地 tree，另以第四 commit 補 §2 的 T1–CF-01、
+T2、T3 等 KQ 前限定來源及三帳 EXP-0209–0210。§1 八條標準不改，
+不倒填此複核後內容為事前證據。此為純紙上來源修正，待 exact-head
+複核；不是轉向或新資料／K GO，formal／E0、A／B、UNKNOWN、
+raw／sealed／producer 隔離維持；本追加不是 ACT 或 AMEND。
