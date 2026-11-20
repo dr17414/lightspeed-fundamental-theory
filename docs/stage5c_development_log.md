@@ -1368,3 +1368,17 @@ README／STATUS 只替換目前狀態段，作者接觸見 EXP-0204。
 代數等價，不冒稱其他 P 的 innovation 都不能傳播。
 列四項未決與 Q-03、IK-02、路線比較的代價，不選方向。
 不修改契約／資料／規格或歷史 FAIL；稿待獨立複核。
+
+
+## #121 合併後路線比較框架先行登記（2026-11-19；只追加）
+
+#121 經 Claude exact-head GO 與同 head CI #357 成功後，squash main
+`4b952a5f5177a75c5ef21c5a559773dae4716585`，tree
+`cbeb3d49fa5130dd0796c7be1c02504118ddd4bc` 與 GO head
+`41574ab2` 相同；唯一 parent `ff446fd0`、committer 台北
+2026-11-18 12:04:08。遠端 `p04-checkpoint` 已由操作者刪除。
+Claude 的 #121 合併後核對、選定比較原句與 GPT 本人先行接觸見
+接觸帳 EXP-0205–0207。本 commit 只追加三本帳；下個 commit
+先固定同一組比較標準並保留空欄，後一 commit 才填來源和成本。
+純紙上框架，量子過程未盤點處不推測；不作轉向 GO，不改契約、
+資料、規格或 formal／E0、raw／sealed／producer 隔離。
