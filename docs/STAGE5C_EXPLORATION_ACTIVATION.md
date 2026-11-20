@@ -1206,3 +1206,17 @@ README／STATUS 只替換目前狀態段；作者接觸 EXP-0204。
 no-go，不選 Q-03、IK-02 或路線轉向。待 exact-head 複核；
 formal／E0、raw／sealed、producer 隔離維持，本追加
 不是 ACT 或 AMEND。
+
+
+## #121 合併後路線比較框架先行界線（2026-11-19；只追加）
+
+#121 squash main `4b952a5f5177a75c5ef21c5a559773dae4716585`，
+tree `cbeb3d49fa5130dd0796c7be1c02504118ddd4bc` 與
+已獨立複核 GO 的 head `41574ab2` 相同；唯一 parent `ff446fd0`，
+committer 台北 2026-11-18 12:04:08。遠端 `p04-checkpoint`
+已由操作者刪除。Claude 原句與 GPT 接觸見 EXP-0205–0207。
+本 commit 只追加三帳；下個 commit 預先固定比較標準、內容仍留空，
+再下一 commit 才以已合併結果與 11/3 暫存紀錄填表；不得改標準。
+純紙上比較不是轉向或任何契約／資料／K GO，不作新文獻盤點，
+formal／E0、A／B、UNKNOWN、raw／sealed／producer 隔離不變；
+本追加不是 ACT 或 AMEND。
