@@ -37,11 +37,11 @@
 
 | 同一問題 | 因果序先行 | 量子過程先行 | 來源／證據等級 |
 | :--- | :--- | :--- | :--- |
-| 起始 primitive、自然性與額外選擇 | **現行 KQ 版本的投入**：原 P 的因果偏序與事件數／定義域、全域固定二維 fiber `E₀` 及 `h₀`；conditional 線性延伸 `L` 是額外非局域時間序自由度，order 部分不讀 L；P0.4／Q-02 另登記邊界 `β`、合法面、內部通道 `U`、正定 `h_Q`、接合 `j_C`，再選 K／source／Green／CAR／state。自然性對序同構。這是**當前版本**的帳，不宣稱每種因果序先行理論都要同一套資料。 | **11/3 的暫存方向**：「底層或為可組合的局部量子過程，因果序於某些尺度湧現」。當時討論並排／串接、系統及局部進出端可能已被當作輸入；哪一組是此路線實際 primitive、自然性怎麼定，**空白／未盤點，尚無登記的候選契約**。 | [P0.4](kq_conditional_internal_innovation_problem_contract_v0_4.md) §1、§3–5；[Q-02](kq_p04_correlated_innovation_data_registration_v0_1.md) §§2–4：已合併契約／資料；[接觸帳 EXP-0123／0127](../stage5c_exploration_exposure_log.md)：僅方向紀錄。 |
+| 起始 primitive、自然性與額外選擇 | **現行 KQ 版本的投入**：原 P 的因果偏序與事件數／定義域、全域固定二維 fiber `E₀` 及 `h₀`；conditional 線性延伸 `L` 是額外非局域時間序自由度，order 部分不讀 L；P0.4／Q-02 另登記邊界 `β`、合法面、內部通道 `U`、正定 `h_Q`、接合 `j_C`，再選 K／source／Green／CAR／state。自然性對序同構。這是**當前 KQ 版本**的帳。較早 T1／T2／T3 另把序、計數、phase、類與 measure 分作不同輸入；審計中的幾何背景、時計、線性 fiber／表示及量綱尺度有些必須另給，不能由名稱冒充導出。各「需外加」只針對該審計的來源路徑，不宣稱每種因果序理論都要同一套資料。 | **11/3 的暫存方向**：「底層或為可組合的局部量子過程，因果序於某些尺度湧現」。當時討論並排／串接、系統及局部進出端可能已被當作輸入；哪一組是此路線實際 primitive、自然性怎麼定，**空白／未盤點，尚無登記的候選契約**。 | [T1–CF-01 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §§1–2、[T2](t2_class_sum_audit_v0_1.md) §§1、4–7、[T3](t3_sector_capability_audit_v0_1.md) §§3–6、8：已合併的限定審計；[P0.4](kq_conditional_internal_innovation_problem_contract_v0_4.md) §1、§3–5；[Q-02](kq_p04_correlated_innovation_data_registration_v0_1.md) §§2–4：已合併契約／資料；[接觸帳 EXP-0123／0127](../stage5c_exploration_exposure_log.md)：僅方向紀錄。 |
 | 已證限定障礙及不能推出之結論 | #108、#111、IK-01、#119、#120 有**不同前提的**障礙及必要式，逐項見下表；P0.4 沒有全面 FAIL，且沒有「因果序先行」整條路線的 no-go。 | **空白／未盤點**：11/3 的過程論直覺及對局部方向的疑問沒有在本 repo 形成定義域、模型、證明或固定反例；不能因尚無 FAIL 記為 PASS，也不能拿因果序限定反例推它成功。 | [#112 整理](kq_p03_stage_checkpoint_2026_11_09.md)、[#121 整理](kq_p04_stage_checkpoint_2026_11_18.md)：已合併且獨立文件複核；EXP-0127：方向紀錄。 |
 | 局部進出方向 | 原 P 的 `y≺x` 與 retarded 支撐作為輸入；K 的 equation row、source 與面也有指定方向。**此版沒有從無方向底層導出局部進出**；本問題把部分因果方向預設。 | 11/3 已明列「局部進出方向從哪裡來」為欠帳；若並排／串接定義已帶端口，便不能稱其從無方向導出。**空白／未盤點**，沒有經審的無方向構造。 | P0.4 §1、[11/3 暫存問題 EXP-0127](../stage5c_exploration_exposure_log.md)：前者是投入，後者是未證的問題。 |
-| 近似 3+1 維局部幾何 | 在當前 KQ 的有限序域及固定 fiber 上，未由本系列結果證明流形選擇或近似 3+1 維局部幾何；「為何這個維數」仍欠帳。其他子題即使把 3+1 作目標，也不能填作這裡的湧現證明。 | 11/3 將近似 3+1 維列為欠帳；從組合或糾纏得到一般局部幾何的規則，**空白／未盤點**。 | [#121 整理](kq_p04_stage_checkpoint_2026_11_18.md) §4；EXP-0127：方向問題，無此成果。 |
-| 紀錄與時間箭頭 | 序已提供 `≺` 的前後關係；何以穩定紀錄普遍沿同一方向累積、是否需要低熵起點，現行 KQ 成果沒有推導。不可將預設先後誤寫為熱力學時間箭頭的湧現。 | 11/3 討論了串接／紀錄與低熵過去條件，但只是未核原文的直覺；從過程組合導出紀錄方向與特殊初始條件的關係，**空白／未盤點**。 | EXP-0123／0127：歷史討論，明載未作推導或原文核實。 |
+| 近似 3+1 維局部幾何 | T1 的限定反例指出：裸序／計數在未要求 metric–order compatibility、未固定 density 的前提下，不能單獨選定 metric signature 或物理尺度；clock／rod 等另有輸入。C2 的三段校準在**外加 3+1 Minkowski 與 Poisson 模型**下成立，不是由序導出 3+1、c 或實際器件。T3 §6 的「需外加 P3-GEO」及 3+1 two-order 覆蓋的限定障礙亦只及審計的指定來源／全域。當前 KQ 未證流形選擇或近似 3+1 局部幾何。 | 11/3 將近似 3+1 維列為欠帳；從組合或糾纏得到一般局部幾何的規則，**空白／未盤點**。 | [T1–CF-01 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §§2.1–2.3、4 與 [T1](t1_t5_premise_audit.md) §§3–3.1、[T3](t3_sector_capability_audit_v0_1.md) §6：已合併的限定解析；[#121 整理](kq_p04_stage_checkpoint_2026_11_18.md) §4；EXP-0127。 |
+| 紀錄與時間箭頭 | 序已提供 `≺` 的前後關係；先前 B3／B4 在**給定 affine pointed cone**中證明數學時鐘不唯一，即使固定 rest vector 與 normalization 亦然；B4／B6 的 order-consistent records 也不足以識別操作上的鐘、尺或訊號裝置。這些是可操作時計的限定識別缺口，**不是**「時間箭頭不可能湧現」的定理。何以穩定紀錄普遍沿同一方向累積、是否需要低熵起點，現行成果未推導。 | 11/3 討論了串接／紀錄與低熵過去條件，但只是未核原文的直覺；從過程組合導出紀錄方向與特殊初始條件的關係，**空白／未盤點**。 | [T1–CF-01 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §2.1、[B3／B4](b3_b4_operational_clock_observer_audit.md) §§2–7、[B4／B6](b4_b6_clock_rod_signal_record_realization_audit.md) §§1–6：限定時計／紀錄審計；EXP-0123／0127：另一路線的歷史討論，未作推導或原文核實。 |
 | 事前登記的可失敗檢驗 | P0.4／Q-02／IK-01 具名 `D_{KQ}`、每個 L／合法面、原 P 微因果、守恆、同源 Green 識別、§7(a) 非零傳播、(b′) 的多軌道 span 與無界審核族；固定版 IK-01 已出 FAIL。這是**這個版本**的可失敗檢驗，非本體路線的實驗證實。 | **空白／未盤點**：未給具名輸入域、數據型別、檢驗方程或預定 FAIL 處置；文獻候選若存在也尚未登記為本專案的檢驗。 | [P0.4](kq_conditional_internal_innovation_problem_contract_v0_4.md)、[Q-02](kq_p04_correlated_innovation_data_registration_v0_1.md)、[IK-01 規格與研究](kq_p04_ik01_paper_study_v0_1.md)；EXP-0127。 |
 | 下一步最小成本 | 若維持 Q-02，需事前另立讀 L 的 K 和 Green typed 式規格並面對 K₂,₂ 正交、鏈每面 unitary、diamond 的限定零 cover block；若改資料 Q-03，須重走資料門檻再審 K。兩路均不得倒改 IK-01 FAIL。 | 先作**有界文獻盤點**或明列系統、組合、局部方向來源、與現行路線共同輸入／義務的具體模型；若要作真正可比試作，還須獨立契約、資料和規格 GO。盤點目前沒有執行。 | [#121](kq_p04_stage_checkpoint_2026_11_18.md) §§3–4 與 EXP-0127；後者成本為本稿按固定標準列出的待辦，**非已證成果**。 |
 
@@ -54,6 +54,19 @@
 | [#118 IK-01 固定研究](kq_p04_ik01_paper_study_v0_1.md) | P0.4＋Q-02＋IK-01 的固定 K／source／Green／CAR：dual star 葉對微因果 PASS；K₂,₂、鏈、diamond 的具名義務出現 FAIL，故此試作全域 FAIL。 | 一版 K 失敗不代表任意 K 或另立 Green 式失敗。 |
 | [#119 K₂,₂ 限定障礙](kq_p04_k22_order_only_obstruction_paper_v0_1.md) | P0.4＋Q-02 下完整 K 不讀 L，K₂,₂ 微因果與 §7(a) 不能兼得。 | 讀 L 的 K 未決；不排除改資料後的設計。 |
 | [#120 必要條件](kq_p04_next_k_necessary_conditions_paper_v0_1.md)、[#121 作用域整理](kq_p04_stage_checkpoint_2026_11_18.md) | 同一 Q-02：K₂,₂ 每 L 根響應行須正交，鏈每合法單點面根響應須 unitary；**只在 diamond**、兩面逆存在且完整守恆下，`G_R(d,b)=G_R(d,c)=0`，等價每 L 的 `K(d,b)=K(d,c)=0`；**若另沿用 IK.S1** 才有 diamond 條件式矛盾。 | 其他形狀的 innovation 可否往後傳、其他 Green typed 式與單一跨尺寸 K 均未決；P0.4 未證全面 FAIL。 |
+
+### 2.2 KQ 之前的限定成果：幾何、時計與物質型別
+
+| 已合併來源 | 嚴格作用域和已得結論 | 不能由此推出 |
+| :--- | :--- | :--- |
+| [#102 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §2.1、[T1](t1_t5_premise_audit.md) §§3–3.1 | 裸偏序與 counts 在未附 metric–order compatibility 的反例中可同時配獨立 Euclidean／Lorentzian ambient metric；若 density 未以物理單位固定，constant conformal rescaling 可配合 density 改變而保同一 intensity law。這是在**指定較弱前提下** signature／scale 的不可識別性。 | 不否定已指定 manifold／volume 類中加上充分資料後的幾何重建；也未證物理上 Euclidean metric 生成 Lorentz 因果錐或任何時空全域 no-go。 |
+| [#102 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §2.1、[B3／B4 時計審計](b3_b4_operational_clock_observer_audit.md) §§2–7、[B4／B6 紀錄審計](b4_b6_clock_rod_signal_record_realization_audit.md) §§1–6 | 給定 affine pointed cone 時，存在的正線性時鐘不唯一，固定 rest vector 與 normalization 後仍然如此；單有 order-consistent records 不能識別實際鐘、尺或訊號裝置。 | 不排除另加物質、裝置與校準法則選出可操作時計；這些審計並未推導或排除熱力學時間箭頭。 |
+| [#102 公開總結](t1_cf01_public_stage_summary_2026_10_30.md) §2.2 與其 C2 三個來源 | 在**外加 3+1 Minkowski、Poisson 撒點、固定尺度／來源等各自前提**下，C2 的單段與兩段 readout 得到各自限定的均值／方差／機率或指定判定校準。 | 外加的維數、signature、時計、量尺與參考傳播核不成為湧現輸出；不是物理 c、實際訊號裝置或可否證新預測的完成。 |
+| [#90 T2](t2_class_sum_audit_v0_1.md) §§2–7 | 重標記類的 `1/N!` measure 換算，以及固定純 phase 子題的精確條件比值、一般物質因子的有界充分式；需要事先指定類、measure、weights 和相應分母／極限前提。 | 不給具體物質因子、作用量或流形類分母界；不證動力學實際選出幾何，也不是任意一般物質因子的必要且充分相消定理。 |
+| [#90 T3](t3_sector_capability_audit_v0_1.md) §§2–6、8 | 在其指定 I-ORD／NUM／PHASE／UV 資料與維數／表示前提下，§6 分格判定 1+1 two-order 覆蓋需外加 P3-GEO、linear fiber 需 P3-FIB、Weyl／Spin 與配對需 P3-REP／MASS；全 3+1 Minkowski 撒點域的 two-order 覆蓋有**限定 no-go**，固定 C² 不能承載完整 Cl(1,3)，無量綱輸入無法在該單位自然性條件下給非零量綱質量。 | 「需外加」只指本審計**現有來源路徑**缺資料；不能推出任何尚未給定的 phase law、其他內部 fiber 或 Weyl 路徑都不能奏效，也不是所有因果序理論或 spinor 構造的 no-go。 |
+
+T1–CF-01 是已審稿的來源整理，並未新增定理；上述命題的限定前提仍以各原始審計為準。
+這些結果使因果序欄的額外資料成本更清楚，但不把不同子題合成一條全面不可能定理。
 
 這些是 repo 的探索軌文件與獨立文件複核，並非外部同行評審；
 目前的方向比較不能由此宣告時空湧現、量子過程優勝或因果序失敗。
