@@ -1220,3 +1220,13 @@ committer 台北 2026-11-18 12:04:08。遠端 `p04-checkpoint`
 純紙上比較不是轉向或任何契約／資料／K GO，不作新文獻盤點，
 formal／E0、A／B、UNKNOWN、raw／sealed／producer 隔離不變；
 本追加不是 ACT 或 AMEND。
+
+
+## 兩條路線比較框架填寫界線（2026-11-19；只追加）
+
+先行三帳 `2d200a3`，比較標準與空欄 `51d6779`；
+本次只依先定 §1 標準填已有結果及未盤點欄位，
+README／STATUS 更新目前狀態，作者接觸 EXP-0208。
+純紙上來源比較，非轉向、Q-03、IK-02 或新問題契約 GO；
+不改 Q-02／P0.4／IK-01、formal／E0、A／B、UNKNOWN、
+raw／sealed／producer 隔離，本追加不是 ACT 或 AMEND。
