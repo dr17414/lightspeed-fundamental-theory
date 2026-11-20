@@ -1382,3 +1382,14 @@ Claude 的 #121 合併後核對、選定比較原句與 GPT 本人先行接觸�
 先固定同一組比較標準並保留空欄，後一 commit 才填來源和成本。
 純紙上框架，量子過程未盤點處不推測；不作轉向 GO，不改契約、
 資料、規格或 formal／E0、raw／sealed／producer 隔離。
+
+
+## 兩條路線比較框架填寫（2026-11-19；只追加）
+
+先行三帳 commit `2d200a3`，接著 `51d6779` 只固定
+[比較標準與空欄](foundations/kq_two_routes_comparison_framework_2026_11_19.md)；
+本 commit 在不改 §1 標準下填兩路來源、重開條件與選項代價。
+README／STATUS 只更新目前狀態；作者接觸 EXP-0208。
+因果序限定障礙不擴為本體 no-go，量子過程只列 11/3 暫存方向
+及空白／未盤點；此稿待 exact-head 複核，不是轉向 GO。
+不改既有契約／資料／K／formal 或 raw／sealed 隔離。
