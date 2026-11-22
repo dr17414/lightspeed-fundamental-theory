@@ -2914,3 +2914,10 @@ Claude 以 `git range-diff` 核對 rebase 前後四步內容相同、parent 鏈�
 **EXP-0214：GPT 本人先行接觸與方向判斷**
 
 操作者明確決定轉向「量子過程先行」，要求先以獨立 PR 記錄此決定，再於該 PR 經 exact-head 複核及合併後，另起有界文獻盤點。作者以 git fetch 核對 main `b96a87f8`／tree `4b06558d`，重讀 #122 比較稿 §1–4、三本帳尾段、README／STATUS 目前狀態與相關已合併來源的索引；已知 #122 §3 兩個 11/3 條件分別是「部分」與「未滿足／未盤點」。因此本輪只記操作者方向決定，不冒稱事先條件已觸發，不把限定 FAIL 擴成因果序路線 no-go。本 commit 只追加三本帳，後一 commit 才寫短稿及 README／STATUS 目前狀態；不讀新文獻、不構造量子過程模型、契約、資料、K 或檢驗。未執行科學數值／符號程式、RNG、撒點、producer，未讀 raw／sealed／seed，formal／E0、A／B、UNKNOWN 隔離不變；git 與文字核對只用於文件身分及邊界。此先行登記不是 ACT 或 AMEND；下一 EXP-ID 0215。
+
+
+## 99. 量子過程先行轉向決定紀錄短稿（2026-11-23；只追加）
+
+**EXP-0215：GPT 本人申報；先行三帳後的文件起草**
+
+在本地先行三帳 commit `7abb79909ce8317edc9622ee27685e322738c08e` 後，作者只起草[轉向決定紀錄](foundations/kq_quantum_process_pivot_decision_2026_11_23.md)，並替換 README／STATUS 目前狀態段。短稿明確保留 #122 §3 的「部分／未滿足、未盤點」，把轉向記為操作者決定而非條件觸發；逐項引用 T1–T3、P0.4／Q-02、IK-01 FAIL、#108／#111／#119／#120／#121 的限定作用域，未決義務暫停，不改原始成果或冒稱整條因果序 no-go。有界文獻盤點只列作本稿合併後的下一個獨立 PR，不先查來源、定模型或寫新契約。先行本地 SHA 不是公開時序證據，待由公開提交鏈複核。文件完整性檢查 passed，`git diff --check` 通過；用固定 pytest 9.1.1／mpmath 1.4.1 等版本的環境執行既有回歸測試，556 passed、5 warnings。這些測試只檢驗既有程式，不能驗證方向選擇的物理正確性。沒有文獻檢索、量子過程或 K 構造、科學數值／符號研究程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用；此稿待 exact-head 獨立複核，不是契約或科學執行 GO。下一 EXP-ID 0216。

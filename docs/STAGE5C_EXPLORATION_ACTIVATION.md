@@ -1256,3 +1256,15 @@ P0.4、Q-02、IK-01 FAIL 及限定障礙照原作用域封存，
 或文獻查讀；formal／E0、A／B、UNKNOWN、raw／sealed、
 producer、seed 隔離與既有權限邊界不變。本追加不是
 ACT 或 AMEND，並未開啟任何新研究執行授權。
+
+
+## 量子過程先行決定短稿交付界線（2026-11-23；只追加）
+
+本地先行三帳 `7abb799` 後另 commit 起草決定紀錄，
+README／STATUS 只替換目前狀態段，作者申報 EXP-0215。
+兩項 11/3 條件未充分達成，轉向只由操作者決定；
+舊路線限定成果封存、未決暫停，新路線仍欠契約。
+此稿待 exact-head 複核，合併前不開始有界文獻盤點；
+契約 GO 前不構造模型／資料／K／檢驗。formal／E0、
+A／B、UNKNOWN、raw／sealed／producer／seed 隔離不變；
+本追加不是 ACT 或 AMEND。
