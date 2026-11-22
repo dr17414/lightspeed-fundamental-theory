@@ -1240,3 +1240,19 @@ T2、T3 等 KQ 前限定來源及三帳 EXP-0209–0210。§1 八條標準不改
 不倒填此複核後內容為事前證據。此為純紙上來源修正，待 exact-head
 複核；不是轉向或新資料／K GO，formal／E0、A／B、UNKNOWN、
 raw／sealed／producer 隔離維持；本追加不是 ACT 或 AMEND。
+
+
+## 量子過程先行轉向決定的先行界線（2026-11-23；只追加）
+
+#122 四步 rebase 合併 main `b96a87f8`，tree `4b06558d`；
+三層 SHA／tree 對照和 Claude 原句見 EXP-0211–0214。
+操作者此後決定把研究方向轉向量子過程先行，並明說
+#122 §3 所核 11/3 兩項重新評估條件尚未充分達成；
+本次不冒稱條件觸發。先行 commit 只追加三帳，後續
+另 commit 記錄決定及 README／STATUS 目前狀態，待
+exact-head 複核；文獻盤點須待此步合併後另立 PR。
+P0.4、Q-02、IK-01 FAIL 及限定障礙照原作用域封存，
+未決問題暫停。沒有新過程模型、契約、資料、K、檢驗
+或文獻查讀；formal／E0、A／B、UNKNOWN、raw／sealed、
+producer、seed 隔離與既有權限邊界不變。本追加不是
+ACT 或 AMEND，並未開啟任何新研究執行授權。

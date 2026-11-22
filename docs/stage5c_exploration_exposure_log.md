@@ -2884,3 +2884,33 @@ PR #121 公開 head `41574ab2` 與 squash main `4b952a5f5177a75c5ef21c5a559773da
 **EXP-0210：GPT 本人 r2 接觸及補充申報**
 
 作者在前次本地三 commit `2d200a3` → `51d6779` → `8951691` 之後才收到 Claude 的需修訂意見。本次讀已合併的 T1–CF-01 公開總結、T1 原始限定反例、B3／B4 時計、T2 條件式總量審計、T3 §6 分格能力矩陣及 #121 main 的 Git 身分；另用 GitHub 連接唯讀核對公開同版來源，沒有新外部文獻原文或檢索。只在 §2 補因果序欄的 primitive、signature／scale／3+1、時計／紀錄，以及五條有「不能推出」欄的 KQ 前來源；不把 T2 的條件式換算當作已選幾何，不把 T3「需外加」擴為整條路線 no-go。§1 的八條標準維持與 `51d6779` 逐位元相同；既有量子過程欄、§3 判斷及 §4 選項不因複核而改。沒有新 K／資料／過程模型／修約、科學數值或符號程式、RNG、撒點、producer、raw／sealed、seed 或 formal／E0 回用。此 r2 仍待 exact-head 獨立複核；下一 EXP-ID 0211。
+
+
+## 98. #122 合併後轉向決定先行登記（2026-11-23；只追加）
+
+#122 由 Claude 代推四個公開 commit 並 exact-head GO；CI #359（run `44684855123`）在 PR head `fd677f1bde5c17faaaab5bfd2b36ef7d9880d5de` 首次成功。GPT 隨後在該 exact head 以 rebase 合併，main 為 `b96a87f8a7dc58650d1c0f9ecfaed848358e9bc6`，tree `4b06558daf9fdeaa6fc48319fb0229b7b5c47ffa`。公開提交順序及三層 SHA／tree 對照如下；本地 SHA 不當作公開時序證據：
+
+| 步驟 | GPT 本地 | PR 分支 | main（rebase 後） | tree |
+| :--- | :--- | :--- | :--- | :--- |
+| 帳本 | `2d200a3` | `1d2cbb51` | `9fb3e605` | `87e07b05` |
+| 標準與空表 | `51d6779` | `3ca1191d` | `f7798851` | `c40a9eea` |
+| 初次填表 | `8951691` | `867507f0` | `84196364` | `21231869` |
+| r2 補充 | `f3cbf1a` | `fd677f1b` | `b96a87f8` | `4b06558d` |
+
+Claude 以 `git range-diff` 核對 rebase 前後四步內容相同、parent 鏈從 #121 main `4b952a5f` 連續，四個 main commit 的 committer 時間皆為台北 2026-11-20 15:49:49。遠端 `kq-two-routes-comparison` 後由操作者刪除；GPT 在 GitHub PR 頁面見到刪除事件，未自行刪除。#122 是比較框架，不是轉向 GO；操作者在此後另行作出方向決定。
+
+**EXP-0211：操作者轉交的 Claude 本人申報原句；#122 代推與 exact-head 複核**
+
+> Claude（#122 代推與 exact-head 複核）：核對操作者附上的四份增量 patch 的 SHA-256（`3607e66a…`、`f4d69a4f…`、`5b1f1d5f…`、`a0e4b821…`），均無 TAB 字元。在 main `4b952a5f` 上逐份套用並各自 commit，四個 tree 與 GPT 本地 tree 相同；前三步合併的 diff 與 `a2ff93be…` 逐位元相同。核對 §1 在三版中逐位元相同、三本帳每步皆為前綴追加、r2 只改因果序欄三列並新增 §2.2，EXP-0209 為我的申報原句。推送分支 `kq-two-routes-comparison`，建立 draft PR #122（head `fd677f1b`）。為核對 r2，讀了 T1–CF-01 公開總結 §§2–4、T1 §3–3.1、T3 §§2.2–2.3、5–6 的原文。跑了 integrity、`git diff --check` 與 pytest（556 項通過），用 GitHub API 確認 CI #359 同 head 成功。沒有起草比較內容，沒有構造 K、資料或修約，沒有讀文獻原文或做檢索，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0212：操作者轉交的 Claude 本人申報原句；#122 合併後核對**
+
+> Claude（#122 合併後核對）：以 git 抓取 main，確認 `b96a87f8` 的 tree 為 `4b06558d`，與 GO 指定值相同。確認四個 rebase 後的 commit（`9fb3e605`、`f7798851`、`84196364`、`b96a87f8`）依序以 #121 的 `4b952a5f` 為起點、parent 鏈連續，各步 tree 等於 GPT 本地 tree，committer 時間都是台北 2026-11-20 15:49:49；用 `git range-diff` 確認與 PR 分支四個 commit 的內容逐一相同。用 GitHub API 確認 PR #122 已合併，合併點 `b96a87f8`，head `fd677f1b`。用 `git ls-remote` 確認遠端 `kq-two-routes-comparison` 仍存在。沒有讀其他檔案，沒有推導，沒有起草任何比較、資料、K 或修約，也沒有替操作者選方向。沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0213：操作者轉交的 Claude 本人申報原句；操作者決定轉向**
+
+> Claude（操作者決定轉向）：操作者決定轉向「量子過程先行」。我用一般知識向操作者說明了兩條路線的差別與新路線的空白，並擬了交給 GPT 的兩步指示（轉向決定紀錄、有界文獻盤點），提醒帳本須如實記錄 11/3 兩項條件尚未充分達成。以 `git ls-remote` 確認遠端 `kq-two-routes-comparison` 已刪除、main 仍為 `b96a87f8`。沒有讀其他檔案，沒有推導，沒有起草契約、資料、模型或比較內容，沒有讀文獻原文或做檢索，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0214：GPT 本人先行接觸與方向判斷**
+
+操作者明確決定轉向「量子過程先行」，要求先以獨立 PR 記錄此決定，再於該 PR 經 exact-head 複核及合併後，另起有界文獻盤點。作者以 git fetch 核對 main `b96a87f8`／tree `4b06558d`，重讀 #122 比較稿 §1–4、三本帳尾段、README／STATUS 目前狀態與相關已合併來源的索引；已知 #122 §3 兩個 11/3 條件分別是「部分」與「未滿足／未盤點」。因此本輪只記操作者方向決定，不冒稱事先條件已觸發，不把限定 FAIL 擴成因果序路線 no-go。本 commit 只追加三本帳，後一 commit 才寫短稿及 README／STATUS 目前狀態；不讀新文獻、不構造量子過程模型、契約、資料、K 或檢驗。未執行科學數值／符號程式、RNG、撒點、producer，未讀 raw／sealed／seed，formal／E0、A／B、UNKNOWN 隔離不變；git 與文字核對只用於文件身分及邊界。此先行登記不是 ACT 或 AMEND；下一 EXP-ID 0215。
