@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：P0.4 階段整理已合併；兩條路線比較框架待複核（2026-11-19）**：[本輪階段整理](docs/foundations/kq_p04_stage_checkpoint_2026_11_18.md)在 #121 合併，IK-01 固定 FAIL、#119 不讀 L 障礙與 #120 必要式各守原作用域；[比較框架](docs/foundations/kq_two_routes_comparison_framework_2026_11_19.md)先固定同一標準再填因果序先行與量子過程先行兩欄，未盤點處留空，不作轉向 GO、Q-03 或 IK-02。遠端 `p04-checkpoint` 已由操作者刪除；來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
+- **目前狀態：操作者決定轉向量子過程先行；決定紀錄待複核（2026-11-23）**：[本輪階段整理](docs/foundations/kq_p04_stage_checkpoint_2026_11_18.md)及[#122 同標準比較框架](docs/foundations/kq_two_routes_comparison_framework_2026_11_19.md)已合併。#122 §3 的兩項 11/3 重新評估條件仍為「部分」與「未滿足／未盤點」；轉向是操作者的方向決定，見[決定紀錄](docs/foundations/kq_quantum_process_pivot_decision_2026_11_23.md)，不是條件觸發或新路線可行性結論。因果序既有結果依原作用域封存、未決暫停；先審這份紀錄，合併後才另立有界文獻盤點 PR。尚無新契約、資料、模型或 K 的 GO；來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
