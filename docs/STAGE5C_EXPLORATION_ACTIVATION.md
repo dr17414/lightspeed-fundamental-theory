@@ -1317,3 +1317,18 @@ README／STATUS 僅更新目前狀態，作者接觸 EXP-0222。
 #122／#123 與舊限定成果作用域不動，formal／E0、A／B、
 UNKNOWN、raw／sealed／producer／seed 隔離不變。
 本追加不是 ACT 或 AMEND。
+
+
+## PR #125 複核後契約 r2 修訂界線（2026-11-23；只追加）
+
+Claude 對公開 exact head `7bdcaa8b` 判需修訂；CI #365 同 head
+首次成功不構成契約 GO。PR 留言和原句見 EXP-0223–0224。
+本次在同 tree 本地稿上只改問題契約 §1–4，三本帳追加
+複核與作者接觸；不回寫先行三帳、不改 README／STATUS、
+#122／#123、舊因果序結果或 S6／S7 來源。
+資料 A／B 變體、逐算子來歷與零分母資料歸責只固定
+未來門檻；全網絡複共軛列為本 repo 新條件，非原文定理。
+契約仍 draft，待新 head exact-head 複核；契約 GO 前不作
+資料登記、選擇公式、模型或試算。formal／E0、A／B、
+UNKNOWN、raw／sealed／producer／seed 隔離不變。
+本追加不是 ACT 或 AMEND，不開啟科學執行授權。

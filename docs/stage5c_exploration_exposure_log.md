@@ -3005,3 +3005,45 @@ FAIL-0，Z2 作預先登記的負控制。S7 比例只取正實數並註原文
 未作科學數值／符號程式、RNG、撒點、producer，未讀
 raw／sealed／seed、未回用 formal／E0，僅用 git、文字及
 既有文件檢查核對交付身分。下一 EXP-ID 0223。
+
+
+## 104. PR #125 契約草稿 exact-head 複核後修訂（2026-11-23；只追加）
+
+#125 由 Claude 代推，公開第一步 `d6be9c22`／tree `bcd178e4`，
+第二步 head `7bdcaa8b055f0b08ecdbbfc3b08fdfbb2c2aee6c`／
+ tree `254de16a3233156278693056da8b1c8c972e87b8`，
+與 GPT 本地 `f9540f32`、`8cae3819` 逐步同 tree；
+#124 main `2e253d2d`／tree `7e3187d3` 為公開基線。
+PR 保持 draft、未合併；CI #365 run `45130948198` 同 head
+首次成功（本輪作者另用 GitHub connector 唯讀核對）。
+Claude exact-head 複核判**需修訂後才給契約 GO**，並在
+PR 留言列 A／B／C、四項小修及一項反么正自然性問題。
+原本先行的 EXP-0219–0222 及契約草稿歷史狀態不回寫。
+
+**EXP-0223：操作者轉交的 Claude 本人申報原句；#125 代推與 exact-head 複核**
+
+> Claude（#125 代推與 exact-head 複核）：解開操作者附上的 bundle zip，核對其中說明檔所列兩份增量 patch 的 SHA-256（`4c0b72ff…`、`31b2ad9b…`），複核 patch（`30dc33fb…`）與另附上傳檔相同，三份均無 TAB 或 CR 字元。在 main `2e253d2d` 上依序套用並各自 commit（`d6be9c22`、`7bdcaa8b`），tree `bcd178e4`、`254de16a` 與 GPT 本地 tree 相同；兩步合併的 diff 與複核 patch 逐位元相同。核對三本帳兩步皆為前綴追加、第一步只改三本帳、README／STATUS 只替換目前狀態段，EXP-0219、EXP-0220 與我的申報原句逐字相同；契約中時間相關詞只出現在禁止或不能推出的條款。手算核對 Z2 的 Δ=0。為核對 S6 引用，讀了 ar5iv 上 1406.3829 的式 (1)、(15) 及「Dropping the assumption of predefined time」一節規則 (1)–(2) 與式 (25)–(26)。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #365（run `45130948198`）同 head 成功。推送分支 `kq-qproc-direction-contract`，建立 draft PR #125（head `7bdcaa8b`）。判定需修訂後再給契約 GO：資料參與檢查只設在 P3、資料構造可能暗含方向、正式輸入零分母的歸責對象錯置，另列小修與一項反么正變換的待決問題於 PR 留言。沒有起草契約內容，沒有提出或評估任何方向選擇條件，沒有登記資料或求任何具名網絡的方向，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0224：GPT 本人；#125 複核後的契約文字修訂**
+
+作者唯讀讀取 GitHub PR #125 的公開 head、diff 與 Claude 留言，
+並以 GitHub connector 核對 CI #365 同 head completed／success；
+在本地同 tree 的 `8cae3819` 上讀契約 §1–4 與三本帳尾段。
+本輪只依 Claude A／B／C 修訂契約：P3、Y3、C3、B2 各設
+兩個同圖同維的事前資料變體；每個算子及接線態逐一申報
+構造來歷，有向構造不能作正式「由無向資料導出」證據；
+正式輸入的零分母使**資料版本**不取得或撤回資料 GO，
+不是讓 $\chi$ 候選 FAIL。S6 節內規則與式號分開引，
+(D.1) 明定對全部定向的翻轉對稱、絕對方向域外；
+S7 的正比例只就整組局部操作在重規一化後比較，刪除
+多餘的零總算子句。對 Claude 的自然性問題，選擇要求
+**全網絡同步複共軛**同變，並明列為本 repo 新增穩健性
+條件；部分轉置一般不保正性，不當作資料域同構。
+這些都是契約問題條款，沒有構造選向公式或登記任何
+A／B 算子，也沒有求具名網絡的方向。r2 只改契約與
+三本帳追加，README／STATUS 及舊成果不改；本地 SHA
+與公開 head 須在 Claude 重建增量後另以 tree 查核，
+此刻仍待 exact-head 複核，沒有契約 GO 或推送。
+沒有新外部文獻檢索、科學數值／符號程式、RNG、撒點、
+producer、raw／sealed／seed 或 formal／E0 回用。
+下一 EXP-ID 0225。
