@@ -1305,3 +1305,15 @@ EXP-0219–0221。遠端 `kq-quantum-process-literature-inventory` 與
 舊因果序結果依原作用域封存，#122 標準和 #123 轉向理由不改。
 formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed 隔離維持；
 本追加不是 ACT 或 AMEND，不開啟科學執行授權。
+
+
+## 局部方向問題契約草稿交付界線（2026-11-23；只追加）
+
+先行三帳 commit `f9540f3` 後另 commit 起草待審契約，
+README／STATUS 僅更新目前狀態，作者接觸 EXP-0222。
+契約的圖型是待資料門檻補全的審核模板，不是模型輸出；
+未指定選方向的 Boolean 公式、未求案例方向，未登記資料。
+契約未經 exact-head 複核及 GO 前不啟動資料、規格或研究；
+#122／#123 與舊限定成果作用域不動，formal／E0、A／B、
+UNKNOWN、raw／sealed／producer／seed 隔離不變。
+本追加不是 ACT 或 AMEND。

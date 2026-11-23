@@ -31,7 +31,7 @@
 
 - **T2＋T3限定解析已確認**：[T2總量審計](docs/foundations/t2_class_sum_audit_v0_1.md)與[T3 sector能力審計](docs/foundations/t3_sector_capability_audit_v0_1.md)經 #90 exact-head GO、CI #285成功後原樣合併main `a5f584a6`（tree `bc579c93`）。T2確認measure換算與條件式相消／改善式；T3確認§6各自有作用域的no-go及「需外加」判定，不構成全面spinor不可能定理。物理詮釋仍探索，具體class／F_N／分母界、一般intrinsic spinor與動力學仍OPEN；契約不改，C2暫停；該輪未構造K。
 
-- **目前狀態：#123 轉向決定已合併；量子過程有界文獻盤點待複核（2026-11-23）**：[本輪階段整理](docs/foundations/kq_p04_stage_checkpoint_2026_11_18.md)、[#122 同標準比較框架](docs/foundations/kq_two_routes_comparison_framework_2026_11_19.md)及[操作者決定紀錄](docs/foundations/kq_quantum_process_pivot_decision_2026_11_23.md)已合併。#122 §3 的兩項 11/3 條件仍為「部分」與「未滿足／未盤點」；轉向是操作者決定。新[有界文獻盤點](docs/foundations/kq_quantum_process_literature_inventory_2026_11_23.md)先固定八來源再讀指定原文，定位到局部接線無預設時間方向的 B 類形式，不代表已導出局部方向或 3+1／時間箭頭。因果序既有結果依原作用域封存、未決暫停；尚無新契約、資料、模型或 K 的 GO；來源見[接觸帳](docs/stage5c_exploration_exposure_log.md)。
+- **目前狀態：#124 量子過程八來源盤點已合併；局部方向問題契約待複核（2026-11-23）**：[#122 同標準比較框架](docs/foundations/kq_two_routes_comparison_framework_2026_11_19.md)、[轉向決定紀錄](docs/foundations/kq_quantum_process_pivot_decision_2026_11_23.md)與[八來源有界盤點](docs/foundations/kq_quantum_process_literature_inventory_2026_11_23.md)已合併。S6／S7 定位到 B 類無預設接線時間方向形式，並未導出局部方向；本次[方向問題契約草稿](docs/foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)只固定輸入、唯一性和具名 FAIL，尚未取得契約 GO。#123 是操作者方向決定，不是 11/3 條件觸發；舊因果序成果依原作用域封存、未決暫停。沒有資料、選擇法則、模型或試算 GO；接觸見[帳本](docs/stage5c_exploration_exposure_log.md)。
 
 ### 尚未完成：
 - **Emergent Dirac operator** (湧現自旋/手徵 Dirac 算子)
