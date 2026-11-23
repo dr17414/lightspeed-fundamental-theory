@@ -2941,3 +2941,45 @@ Claude 對 #123 exact head `9b4a8ef4bf30f0ac9a4547c1d6ed8ea483ec42c1` 判 GO，C
 **EXP-0218：GPT 本人；固定問題／八份來源後的原文核讀**
 
 在本地只追加三帳 commit `e58e826` 後，另以 `f7cb00e` 固定文獻盤點 §1–3 的問題、八份來源、A／B／C／D 分類與「不能推出」界線；固定前已見的 metadata／摘要和少量出版社片段如 EXP-0217 披露。之後才讀 S1 arXiv quant-ph/0402130v5 §§3.1、8–9；S2 1510.05468v3 §2 Def.2.1 及相鄰接線說明；S3 1011.6451v3 §II `Transf(A,B)`、並排／串接及 Axiom 1；S4 gr-qc/0608043v1 PDF §§2–4、§6 量子例子；S5 1105.4464v3 Results、補充 `.2` 的局部操作／process matrix；S6 1406.3829v4 Introduction、time-neutral、`Dropping the assumption of predefined time`、(25)–(26) 及 QFT 討論；S7 2502.10368v2 Def.1.2、§3 Examples 3.1–3.3／Def.3.4；S8 1608.06940 PDF 引言、agency 相鄰片段與 §12.5 time-direction field。open／find 回傳的相鄰文字一併曝光；沒有聲稱八份全文逐頁讀完，S4 PDF 內頁另印 2024 日期但 arXiv 標 v1 2006。依事前判準填表，將 S6／S7 的無預設局部接線時間方向歸 B，而非冒稱已由無方向物理底層推得方向或 3+1／箭頭；S5 的 causal inequality 僅作全局排序的可失敗例。沒有增刪固定來源、改 §1–3 標準、構造新模型／資料／契約／K、執行科學數值或符號程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用。文件、Git 身分及既有檢查僅作交付驗證；本稿仍待獨立 exact-head 複核，下一 EXP-ID 0219。
+
+
+## 102. #124 合併後的局部方向問題契約先行接觸（2026-11-23；只追加）
+
+#124 由 Claude 代推三步 PR head `767d7f93`，CI #363
+（run `45103271908`）同 head 首次成功；GPT 隨後 rebase 合併，
+公開 main `2e253d2d`／tree `7e3187d3`。公開 main 的三步
+`33301b49`、`177c3318`、`2e253d2d` 的 tree 依序為
+`6f248992`、`72062a5b`、`7e3187d3`，parent 鏈自
+`e39da6c3` 連續；Claude 以 `git range-diff` 查核 PR 與 main
+內容相同。三步 committer 時間均為台北 2026-11-23 14:10:18。
+遠端兩條 `kq-quantum-process-literature-inventory`、
+`kq-quantum-process-pivot-decision` 已由操作者刪除，GPT 未刪。
+本地三個 SHA `e58e826`、`f7cb00e`、`11459dc4` 的最終 tree
+與公開 main 相同，本地 SHA 不作公開時序證據。
+
+**EXP-0219：操作者轉交的 Claude 本人申報原句；#124 代推與 exact-head 複核**
+
+> Claude（#124 代推與 exact-head 複核）：核對操作者附上的四份 patch 的 SHA-256（`c435e143…`、`09f97073…`、`5a5bdecd…`、`b05a8f43…`），均無 TAB 或 CR 字元。在 main `e39da6c3` 上依序套用前三份並各自 commit（`fc4a34d2`、`702010df`、`767d7f93`；tree `6f248992`、`72062a5b`、`7e3187d3`），三步合併的 diff 與複核 patch 逐位元相同；GPT 未提供本地 tree，未作逐步 tree 比對。核對盤點稿 §1–3 在第二、三步之間逐位元相同，第三步只改狀態行、§4 標題並新增 §4–6；三本帳每步皆為前綴追加，第一步只改三本帳，第二步只新增盤點稿，README／STATUS 只替換目前狀態段。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #363（run `45103271908`）同 head 成功。為複核引用，做了網頁搜尋，取得 S4、S6、S7、S8 的 arXiv 摘要頁與 PDF 首頁片段；並讀了 S7（arXiv PDF）Def.1.2、§3 Example 3.3、Def.3.4，以及 S6（ar5iv HTML）的引言、`Dropping the assumption of predefined time`、(25)–(26) 與結尾的格點／光錐討論。發現 S7 Example 3.3 的比例條件原文前後不一致（文字敘述為非零實數，定義式為 ℝ⁺），S7 在 §2 未列作者，兩點都列為不阻擋合併的留言。未核讀 S1–S3、S5 原文。推送分支 `kq-quantum-process-literature-inventory`，建立 draft PR #124（head `767d7f93`），exact-head GO。沒有起草盤點內容，沒有增刪來源，沒有構造契約、資料、模型或 K，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0220：操作者轉交的 Claude 本人申報原句；#124 合併後核對**
+
+> Claude（#124 合併後核對）：以 git 抓取 main，確認 `2e253d2d` 的 tree 為 `7e3187d3`，與 GO 指定值相同。確認三個 rebase 後的 commit（`33301b49`、`177c3318`、`2e253d2d`）依序以 #123 的 `e39da6c3` 為起點、parent 鏈連續，各步 tree（`6f248992`、`72062a5b`、`7e3187d3`）等於 PR 分支各步 tree，committer 時間都是台北 2026-11-23 14:10:18；用 `git range-diff` 確認與 PR 分支三個 commit 的內容逐一相同。用 GitHub API 確認 PR #124 已合併，合併點 `2e253d2d`，head `767d7f93`。用 `git ls-remote` 確認遠端 `kq-quantum-process-literature-inventory` 與 `kq-quantum-process-pivot-decision` 均已不存在；我沒有刪除任何分支。沒有讀其他檔案或文獻，沒有推導，沒有起草任何內容，也沒有替操作者選方向。沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0221：GPT 本人先行接觸與契約問題界線**
+
+操作者同意在 #124 合併後起草純紙上的量子過程局部方向
+問題契約，並交付六項 exact-head 複核要求。作者讀了本 repo
+#124 盤點 §1–6、#123 決定稿、P0.4 的契約寫法、三本帳末段
+與 README／STATUS 現狀；對 S6 1406.3829v4 的摘要、
+`Dropping the assumption of predefined time` 及 (25)–(26)，
+S7 2502.10368v2 的 §3 Example 3.3／Def.3.4 作原文網頁
+重讀，查明 S6 分母為零時原文定機率為零、S7 文字與式子的
+比例條件前後不一致。這些是本輪起草前的已知接觸，非盲讀；
+問題契約須如實區分 S6／S7 來源與 repo 新增限制。
+本 commit 只追加三本帳，下個 commit 才起草契約、
+更新 README／STATUS 目前狀態；本輪不從舊因果序路線
+借入已封存 K／資料，不重判 #122／#123。沒有具體
+方向選擇法則、模型、資料登記或案例求值；沒有科學數值／
+符號程式、RNG、撒點、producer、raw／sealed／seed 或
+formal／E0 回用。文件與 Git 身分檢查僅作交付驗證。
+下一 EXP-ID 0222。

@@ -1291,3 +1291,17 @@ UNKNOWN、raw／sealed／producer／seed 隔離維持。
 不由文獻直接給新路線契約、資料或規格 GO。
 formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
 隔離不變，本追加不是 ACT 或 AMEND。
+
+## #124 合併後量子過程方向契約先行界線（2026-11-23；只追加）
+
+#124 三步 rebase 合併 main `2e253d2d`／tree `7e3187d3`；
+公開 parent 鏈、三層 SHA 對照、Claude 原句及 GPT 接觸見
+EXP-0219–0221。遠端 `kq-quantum-process-literature-inventory` 與
+`kq-quantum-process-pivot-decision` 已由操作者刪除，作者未刪除。
+操作者同意起草「無時間排序的 B 類輸入如何選局部方向」問題契約，
+並先列出六項 exact-head 審查要點。此先行 commit 只追加三本帳；
+後一 commit 才新增待複核契約稿並更新 README／STATUS 目前狀態。
+契約 GO 前不登記資料、不指定選擇法則、不構造模型或執行試算；
+舊因果序結果依原作用域封存，#122 標準和 #123 轉向理由不改。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed 隔離維持；
+本追加不是 ACT 或 AMEND，不開啟科學執行授權。
