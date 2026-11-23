@@ -2921,3 +2921,16 @@ Claude 以 `git range-diff` 核對 rebase 前後四步內容相同、parent 鏈�
 **EXP-0215：GPT 本人申報；先行三帳後的文件起草**
 
 在本地先行三帳 commit `7abb79909ce8317edc9622ee27685e322738c08e` 後，作者只起草[轉向決定紀錄](foundations/kq_quantum_process_pivot_decision_2026_11_23.md)，並替換 README／STATUS 目前狀態段。短稿明確保留 #122 §3 的「部分／未滿足、未盤點」，把轉向記為操作者決定而非條件觸發；逐項引用 T1–T3、P0.4／Q-02、IK-01 FAIL、#108／#111／#119／#120／#121 的限定作用域，未決義務暫停，不改原始成果或冒稱整條因果序 no-go。有界文獻盤點只列作本稿合併後的下一個獨立 PR，不先查來源、定模型或寫新契約。先行本地 SHA 不是公開時序證據，待由公開提交鏈複核。文件完整性檢查 passed，`git diff --check` 通過；用固定 pytest 9.1.1／mpmath 1.4.1 等版本的環境執行既有回歸測試，556 passed、5 warnings。這些測試只檢驗既有程式，不能驗證方向選擇的物理正確性。沒有文獻檢索、量子過程或 K 構造、科學數值／符號研究程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用；此稿待 exact-head 獨立複核，不是契約或科學執行 GO。下一 EXP-ID 0216。
+
+
+## 100. #123 合併後與有界文獻盤點先行接觸（2026-11-23；只追加）
+
+Claude 對 #123 exact head `9b4a8ef4bf30f0ac9a4547c1d6ed8ea483ec42c1` 判 GO，CI #361（run `45055183346`）同 head 首次成功。GPT 以 expected head 將 PR 改 ready 並 rebase 合併。公開 main `e39da6c395b769493ee5c3deb00401aeeff7d7de` tree `87c7d880b74ecc960033064b7939e14b04213357`；兩步 parent／tree：`b96a87f8` → `5322a29f`（`2d50425e`）→ `e39da6c3`（`87c7d880`）。兩個 main commit 的 committer 時間均為台北 2026-11-23 08:31:41。PR 原 head 仍為 `9b4a8ef4`。遠端 `kq-quantum-process-pivot-decision` 尚在，Git push 刪除因本環境沒有 GitHub 推送憑證而在認證前失敗；未重試其他寫入通道，待操作者在 GitHub 處理。
+
+**EXP-0216：操作者轉交的 Claude 本人申報原句；#123 代推與 exact-head 複核**
+
+> Claude（#123 代推與 exact-head 複核）：核對操作者附上的三份 patch 的 SHA-256（`bb4c53f2…`、`07f83bb5…`、`4362ff09…`），均無 TAB 或 CR 字元。在 main `b96a87f8` 上依序套用前兩份並各自 commit（`0a2859c3`、`9b4a8ef4`），tree `2d50425e`、`87c7d880` 與 GPT 本地 tree 相同；兩步合併的 diff 與複核 patch 逐位元相同。核對三本帳兩步皆為前綴追加、第一步只改三本帳、README／STATUS 只替換目前狀態段；決定紀錄 §1 的「部分」與「未滿足／未盤點」與 #122 §3 原文一致，§1 確為八條標準，新文件的相對連結目標均存在。為此讀了 #122 的 §1 與 §3，並以 grep 查 #101 在開發日誌中的紀錄。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #361（run `45055183346`）同 head 成功。推送分支 `kq-quantum-process-pivot-decision`，建立 draft PR #123（head `9b4a8ef4`），exact-head GO。沒有起草決定內容，沒有構造契約、資料、模型或 K，沒有讀文獻原文或做檢索，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0217：GPT 本人；#123 合併及文獻選題前的接觸**
+
+作者以 GitHub connector 讀 #123 PR 身分、head／parent／tree、main 基線和 CI #361 run `45055183346` 的同 head首次成功狀態，先改 ready，再以 expected head rebase 合併；按公開 Git parent 鏈核對兩步 tree。曾嘗試 `git push origin --delete kq-quantum-process-pivot-decision`，因沒有憑證於認證前退出，沒有刪除或變更該分支。開始盤點準備時重讀本 repo 的 #101 有界文獻稿、#122 比較框架及 #123 決定短稿，定位三本帳尾段。另為挑選固定來源，作 arXiv／出版社／作者頁的題名與識別碼搜尋；搜尋回傳**摘要及少量出版社正文片段**，涉及 Abramsky–Coecke、Chiribella–D’Ariano–Perinotti、Hardy、Oreshkov–Costa–Brukner、Oreshkov–Cerf、time-neutral process theory、operad generalised process theory 等。這些片段是選題前已曝露的內容，不是事前盲讀，也尚未對任何文獻作全文或指定章節核讀；後續須照實記實讀位置。本 commit 只追加三本帳，下個 commit 才固定問題、來源清單與不能推出的結論，後續才按固定表格核讀原文。沒有構造模型、K、資料、契約或檢驗，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用；本輪文獻盤點是探索軌，不是轉向可行性或新門檻 GO。下一 EXP-ID 0218。

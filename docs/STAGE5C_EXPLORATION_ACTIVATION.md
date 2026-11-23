@@ -1268,3 +1268,15 @@ README／STATUS 只替換目前狀態段，作者申報 EXP-0215。
 契約 GO 前不構造模型／資料／K／檢驗。formal／E0、
 A／B、UNKNOWN、raw／sealed／producer／seed 隔離不變；
 本追加不是 ACT 或 AMEND。
+
+## #123 合併後文獻盤點先行界線（2026-11-23；只追加）
+
+Claude exact-head GO、CI #361 同 head 首次成功後，#123 以
+rebase 合併；main `e39da6c3`／tree `87c7d880`，公開兩步
+`5322a29f`／`e39da6c3` 的 tree 與 PR 分支兩步各自相同。
+身份、Claude 原句、接觸、遠端分支仍待刪見 EXP-0216–0217。
+此 commit 只追加三帳；後一 commit 先固定有界文獻來源與問題，
+再另 commit 閱讀原文、填表，不能倒稱事前已驗證來源答案。
+不構造量子過程、K、資料、契約或檢驗；formal／E0、A／B、
+UNKNOWN、raw／sealed／producer／seed 隔離維持。
+本追加不是 ACT 或 AMEND，不開啟研究執行授權。

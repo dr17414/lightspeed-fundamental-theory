@@ -1435,3 +1435,21 @@ README／STATUS 只替換目前狀態段，GPT 申報見 EXP-0215。
 本稿獨立複核與合併後另立 PR。未寫契約、資料、
 模型、K 或新檢驗。文件與既有測試結果見 EXP-0215；
 沒有科學執行、來源隔離變更或外部文獻閱讀。
+
+
+## #123 合併後量子過程文獻盤點先行登記（2026-11-23；只追加）
+
+Claude 對 PR #123 head `9b4a8ef4` 作 exact-head GO；CI #361
+（run `45055183346`）同 head 第一次成功。GPT 將 draft 改 ready，
+以 expected head `9b4a8ef4bf30f0ac9a4547c1d6ed8ea483ec42c1`
+執行 rebase 合併；main `e39da6c395b769493ee5c3deb00401aeeff7d7de`
+的 tree `87c7d880b74ecc960033064b7939e14b04213357` 與 GO 相同。
+公開 main 兩步為 `b96a87f8` → `5322a29f`（tree `2d50425e`）→
+`e39da6c3`（tree `87c7d880`），parent 鏈連續。
+遠端 `kq-quantum-process-pivot-decision` 合併後仍在；本地刪除
+嘗試因缺 GitHub 推送憑證於認證前停止，未刪分支，待操作者處理。
+Claude 原句、GPT 接觸與 metadata／搜尋片段曝露見 EXP-0216–0217。
+本 commit 只追加三本帳；下一 commit 固定文獻盤點的題目、
+來源與不能推出的結論，後續才按固定表閱讀與填寫。
+文獻盤點仍是探索軌，不是契約、資料、規格或構造 GO；
+formal／E0、A／B、UNKNOWN、raw／sealed／producer 隔離不變。
