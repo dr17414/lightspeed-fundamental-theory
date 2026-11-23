@@ -1453,3 +1453,16 @@ Claude 原句、GPT 接觸與 metadata／搜尋片段曝露見 EXP-0216–0217�
 來源與不能推出的結論，後續才按固定表閱讀與填寫。
 文獻盤點仍是探索軌，不是契約、資料、規格或構造 GO；
 formal／E0、A／B、UNKNOWN、raw／sealed／producer 隔離不變。
+
+
+## 量子過程八來源有界盤點填表（2026-11-23；只追加）
+
+先行三帳本地 `e58e826` 後，獨立 commit `f7cb00e` 僅新增
+[盤點稿](foundations/kq_quantum_process_literature_inventory_2026_11_23.md)
+§1–3 的問題／八來源／不能推出界線，§4 結果保持空白。
+後一 commit 方依固定清單核讀 S1–S8 的指定位置、填 §4–6；
+選題前已有摘要及少量正文片段曝光，前後讀取與分類見
+EXP-0217–0218，不能宣稱盲讀。S6／S7 支持局部接線
+無時間方向的 B 類形式，但不能推得局部方向、3+1、
+熱力學箭頭或新路線 PASS。README／STATUS 只更新現狀。
+盤點待 exact-head 複核，不改任何契約／資料／規格或舊 FAIL。
