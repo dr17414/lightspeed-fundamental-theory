@@ -95,7 +95,7 @@ reviewer實際比對的是上傳研究稿／接觸帳與公開版本，不擴張
 
 下方 #75–78 的 pending／未生效文字是各次歷史狀態，現行權限引用上述生效 SHA／E0。
 
-**目前狀態：#122 兩路比較已合併；操作者決定轉向量子過程先行，決定紀錄待複核（2026-11-23）：**
+**目前狀態：#123 轉向決定已合併；量子過程有界文獻盤點待複核（2026-11-23）：**
 
 #106經Claude exact-head GO（head `a38542f097da629c63ef531717a95c1e0ea23f9f`）；
 GPT直接核對CI #323（run `42009322713`）同head首次因既有`/proc`程序消失競態失敗，
@@ -205,7 +205,7 @@ $K_{2,2}$ 微因果、鏈守恆／Green、diamond 第二面微因果／守恆／
 `\_` 只是 Markdown 跳脫。新[K₂,₂ 不讀 L 限定障礙證明稿](foundations/kq_p04_k22_order_only_obstruction_paper_v0_1.md)
 以 Q-02 原樣資料與原 P 微因果，推得此子類若要非零同源傳播即在
 $c_1\parallel c_2$ 失敗；#119 exact head `d8bb4f08` 已獨立 GO，CI #353 第一次因既有 `/proc` 競態失敗、第二次同 head 重跑成功後合併 main `7884ec87`，tree `3c1b975f` 同 GO head。限定結論只及不讀 L 類。[#120 下一版 K 必要條件盤點](foundations/kq_p04_next_k_necessary_conditions_paper_v0_1.md)經 Claude exact-head GO、CI #355 首次同 head 成功後合併 main `ff446fd0`，tree `50ebf04e` 與 GO head `8591ee92` 相同，唯一 parent `7884ec87`，committer 台北 2026-11-18 09:15:06。Q-02 的 diamond 只在兩面逆存在且完整守恆時有 `G_R(d,b)=G_R(d,c)=0`，等價於每 L 的 `K(d,b)=K(d,c)=0`；沿用 IK.S1 的矛盾另列，其他 Green 式與其他形狀未決。遠端 `next-k-conditions` 已刪；早期 `codex/…` 分支不動。[#121 階段整理](foundations/kq_p04_stage_checkpoint_2026_11_18.md)列已證範圍、未決與選項代價；其合併身分及本次比較見下段。
-[#121 階段整理](foundations/kq_p04_stage_checkpoint_2026_11_18.md)經 Claude exact-head GO、CI #357 同 head 首次成功後合併 main `4b952a5f`，tree `cbeb3d49` 同 GO head `41574ab2`，唯一 parent `ff446fd0`，committer 台北 2026-11-18 12:04:08；遠端 `p04-checkpoint` 已由操作者刪除。[#122 兩路比較框架](foundations/kq_two_routes_comparison_framework_2026_11_19.md)以「標準與空表」獨立 commit 在前、填表在後，四步 rebase 合併 main `b96a87f8`／tree `4b06558d`，CI #359 同 head 成功；其比較不是轉向 GO。操作者此後選擇量子過程先行；[轉向決定紀錄](foundations/kq_quantum_process_pivot_decision_2026_11_23.md)待 exact-head 複核。#122 §3 的 11/3 兩項條件仍為「部分」與「未滿足／未盤點」，不冒稱已觸發。P0.4／Q-02、IK-01 FAIL、#108／#111／#119／#120、T1–T3 依原作用域封存，未決義務暫停，不擴大為因果序 no-go；下一步有界文獻盤點須於本決定紀錄合併後另立 PR。舊 Q-01、#111 作用域不變。
+[#121 階段整理](foundations/kq_p04_stage_checkpoint_2026_11_18.md)經 Claude exact-head GO、CI #357 同 head 首次成功後合併 main `4b952a5f`，tree `cbeb3d49` 同 GO head `41574ab2`，唯一 parent `ff446fd0`，committer 台北 2026-11-18 12:04:08；遠端 `p04-checkpoint` 已由操作者刪除。[#122 兩路比較框架](foundations/kq_two_routes_comparison_framework_2026_11_19.md)以「標準與空表」獨立 commit 在前、填表在後，四步 rebase 合併 main `b96a87f8`／tree `4b06558d`，CI #359 同 head 成功；其比較不是轉向 GO。操作者此後選擇量子過程先行；[轉向決定紀錄](foundations/kq_quantum_process_pivot_decision_2026_11_23.md)經 Claude exact-head GO、CI #361 首次同 head 成功後兩步 rebase 合併 main `e39da6c3`／tree `87c7d880`。#122 §3 的 11/3 兩項條件仍為「部分」與「未滿足／未盤點」，不冒稱已觸發。P0.4／Q-02、IK-01 FAIL、#108／#111／#119／#120、T1–T3 依原作用域封存，未決義務暫停，不擴大為因果序 no-go；新[八來源有界文獻盤點](foundations/kq_quantum_process_literature_inventory_2026_11_23.md)先固定問題／來源，再讀指定原文，待 exact-head 複核；S6／S7 的 B 類定位不等於局部方向或 3+1／時間箭頭已湧現。舊 Q-01、#111 作用域不變。
 原始輸入與P0.1仍OPEN。
 探索軌不具§5.2.1(v)資格，formal／E0、A／B、UNKNOWN、
 G0-B／G0-C及全部隔離維持；item7不可ADOPT、item8 OPEN、6a-E PREREGISTRATION-INCOMPLETE、

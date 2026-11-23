@@ -2934,3 +2934,10 @@ Claude 對 #123 exact head `9b4a8ef4bf30f0ac9a4547c1d6ed8ea483ec42c1` 判 GO，C
 **EXP-0217：GPT 本人；#123 合併及文獻選題前的接觸**
 
 作者以 GitHub connector 讀 #123 PR 身分、head／parent／tree、main 基線和 CI #361 run `45055183346` 的同 head首次成功狀態，先改 ready，再以 expected head rebase 合併；按公開 Git parent 鏈核對兩步 tree。曾嘗試 `git push origin --delete kq-quantum-process-pivot-decision`，因沒有憑證於認證前退出，沒有刪除或變更該分支。開始盤點準備時重讀本 repo 的 #101 有界文獻稿、#122 比較框架及 #123 決定短稿，定位三本帳尾段。另為挑選固定來源，作 arXiv／出版社／作者頁的題名與識別碼搜尋；搜尋回傳**摘要及少量出版社正文片段**，涉及 Abramsky–Coecke、Chiribella–D’Ariano–Perinotti、Hardy、Oreshkov–Costa–Brukner、Oreshkov–Cerf、time-neutral process theory、operad generalised process theory 等。這些片段是選題前已曝露的內容，不是事前盲讀，也尚未對任何文獻作全文或指定章節核讀；後續須照實記實讀位置。本 commit 只追加三本帳，下個 commit 才固定問題、來源清單與不能推出的結論，後續才按固定表格核讀原文。沒有構造模型、K、資料、契約或檢驗，沒有科學數值／符號程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用；本輪文獻盤點是探索軌，不是轉向可行性或新門檻 GO。下一 EXP-ID 0218。
+
+
+## 101. 固定來源後的原文選讀及填表（2026-11-23；只追加）
+
+**EXP-0218：GPT 本人；固定問題／八份來源後的原文核讀**
+
+在本地只追加三帳 commit `e58e826` 後，另以 `f7cb00e` 固定文獻盤點 §1–3 的問題、八份來源、A／B／C／D 分類與「不能推出」界線；固定前已見的 metadata／摘要和少量出版社片段如 EXP-0217 披露。之後才讀 S1 arXiv quant-ph/0402130v5 §§3.1、8–9；S2 1510.05468v3 §2 Def.2.1 及相鄰接線說明；S3 1011.6451v3 §II `Transf(A,B)`、並排／串接及 Axiom 1；S4 gr-qc/0608043v1 PDF §§2–4、§6 量子例子；S5 1105.4464v3 Results、補充 `.2` 的局部操作／process matrix；S6 1406.3829v4 Introduction、time-neutral、`Dropping the assumption of predefined time`、(25)–(26) 及 QFT 討論；S7 2502.10368v2 Def.1.2、§3 Examples 3.1–3.3／Def.3.4；S8 1608.06940 PDF 引言、agency 相鄰片段與 §12.5 time-direction field。open／find 回傳的相鄰文字一併曝光；沒有聲稱八份全文逐頁讀完，S4 PDF 內頁另印 2024 日期但 arXiv 標 v1 2006。依事前判準填表，將 S6／S7 的無預設局部接線時間方向歸 B，而非冒稱已由無方向物理底層推得方向或 3+1／箭頭；S5 的 causal inequality 僅作全局排序的可失敗例。沒有增刪固定來源、改 §1–3 標準、構造新模型／資料／契約／K、執行科學數值或符號程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用。文件、Git 身分及既有檢查僅作交付驗證；本稿仍待獨立 exact-head 複核，下一 EXP-ID 0219。

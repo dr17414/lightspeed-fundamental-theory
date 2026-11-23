@@ -1280,3 +1280,14 @@ rebase 合併；main `e39da6c3`／tree `87c7d880`，公開兩步
 不構造量子過程、K、資料、契約或檢驗；formal／E0、A／B、
 UNKNOWN、raw／sealed／producer／seed 隔離維持。
 本追加不是 ACT 或 AMEND，不開啟研究執行授權。
+
+
+## 量子過程有界盤點填表界線（2026-11-23；只追加）
+
+先行三帳 `e58e826`、事前來源與空結果 `f7cb00e` 依序
+先於 S1–S8 指定位置核讀；題名／摘要等先前曝光見 EXP-0217，
+實讀、作者分類及未讀限制見 EXP-0218。盤點只定位
+局部接線可無時間方向的已有形式及其代價，不選模型，
+不由文獻直接給新路線契約、資料或規格 GO。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離不變，本追加不是 ACT 或 AMEND。
