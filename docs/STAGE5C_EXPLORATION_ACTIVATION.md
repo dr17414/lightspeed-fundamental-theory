@@ -1332,3 +1332,20 @@ Claude 對公開 exact head `7bdcaa8b` 判需修訂；CI #365 同 head
 資料登記、選擇公式、模型或試算。formal／E0、A／B、
 UNKNOWN、raw／sealed／producer／seed 隔離不變。
 本追加不是 ACT 或 AMEND，不開啟科學執行授權。
+
+## PR #125 契約 r2 複核後 r3 修訂界線（2026-11-23；只追加）
+
+Claude 對 PR #125 公開 r2 head `a16bc34d`／tree `c3b74c29`
+判小修後才給契約 GO；CI #366 run `45170472362` 同 head
+首次成功不替代契約 GO。Claude 原句及作者接觸見
+EXP-0225–0226。本次只在同 tree 的本地 r2 上增修問題契約：
+探索軌新增九筆保留輸入與承諾／揭示順序，規格 GO 後才揭示；
+逐算子來歷明含 W2，X2 正式錯誤歸資料版本。
+保留集須在未來資料門檻由獨立保管與審查者核定；
+本次不生成保留資料、nonce、digest，不制定 $\chi$，
+不讀或改 formal raw／sealed／producer。三本帳只追加；
+README／STATUS、舊契約及已合併文獻不動。
+PR 保持 draft，r3 待新公開 head exact-head 複核，
+契約 GO 前不作資料登記、模型、選擇規格或科學試算。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離與既有權限邊界不變；本追加不是 ACT 或 AMEND。

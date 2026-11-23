@@ -1506,3 +1506,20 @@ Claude exact-head 複核要求契約修訂，CI #365 同 head 成功不
 全網絡同步複共軛條件。本稿不選 $\chi$、不登記 A／B
 資料，仍待 Claude 對新 head 複核；README／STATUS 不動。
 #122 比較標準、#123 決定及因果序路線封存不變。
+
+## PR #125 r2 複核後 r3 契約修訂（2026-11-23；只追加）
+
+Claude 對公開 head `a16bc34d`／tree `c3b74c29` 作
+exact-head 複核；CI #366（run `45170472362`）同 head
+首次成功，但契約 GO 尚未取得。原句見 EXP-0225。
+操作者交由 GPT 在 Claude 所列兩案中決定；作者選擇
+保留集，因公開資料先於規格固定，僅在公開九筆左右的
+目錄通過容許依樣本調整 $\chi$ 門檻，不能據此主張可推廣。
+本次 r3 只修[問題契約](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)
+與三本帳：固定未來探索軌資料門檻需另外承諾九筆保留
+輸入、由隔離的保管／資料審查者核驗、規格 GO 後揭示，
+同一 $\chi$ 不得調整；W2 明列逐算子構造來歷，X2 正式
+型別錯誤歸資料版本。具體資料、nonce、digest 及 $\chi$
+均未產生。這是本 repo 新增的探索軌程序，不借 formal 的
+raw／sealed／producer。README／STATUS 不動，契約仍 draft；
+本地與公開 SHA／tree 須待 Claude 套用後核對，未宣稱契約 GO。
