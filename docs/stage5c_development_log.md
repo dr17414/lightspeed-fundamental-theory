@@ -1466,3 +1466,79 @@ EXP-0217–0218，不能宣稱盲讀。S6／S7 支持局部接線
 無時間方向的 B 類形式，但不能推得局部方向、3+1、
 熱力學箭頭或新路線 PASS。README／STATUS 只更新現狀。
 盤點待 exact-head 複核，不改任何契約／資料／規格或舊 FAIL。
+
+
+## #124 合併後量子過程方向契約先行登記（2026-11-23；只追加）
+
+#124 經 Claude exact-head GO、CI #363 同 head 首次成功後，以
+rebase 三步合併 main `2e253d2d`／tree `7e3187d3`；
+原 PR head `767d7f93`，三步的 PR／main tree 及 SHA 對照見
+EXP-0219–0221。兩條遠端分支已由操作者刪除。
+操作者接著同意起草新路線的局部方向問題契約，提出六項
+輸入、無偷渡時間、唯一性、具名 FAIL、兩個邊界情況和作用域的
+審查要求。本 commit 只追加三本帳；後一 commit 才起草待審
+契約稿和更新 README／STATUS 目前狀態。契約 GO 前不作
+資料登記、模型構造、選方向的具體規則或試算。
+文獻 B 類不等於方向已導出；#122 比較標準、#123 轉向
+決定及舊路線限定成果不回寫。隔離不變。
+
+
+## 局部方向問題契約草稿交付（2026-11-23；只追加）
+
+本地先行三帳 `f9540f3` 後，另 commit 新增
+[待審問題契約](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)
+及更新 README／STATUS 目前狀態，接觸申報 EXP-0222。
+契約把 S6／S7 已知 B 類的外給資料逐項列名，新增
+逐線定向到全局翻轉、資料／規格門檻、W2／P3／Y3／C3／B2
+與零分母／維度不符的負控制。沒有選擇公式或案例輸出；
+契約 GO 前不得做資料、模型、規格或科學試算，既有來源
+隔離不變。此稿與三本帳不能證明科學 PASS 或盲性。
+
+
+## PR #125 契約草稿複核後 r2（2026-11-23；只追加）
+
+PR #125 公開 head `7bdcaa8b`／tree `254de16a` 保持 draft；
+Claude exact-head 複核要求契約修訂，CI #365 同 head 成功不
+替代契約 GO。申報原句、GPT 接觸及修訂範圍見 EXP-0223–0224。
+在原本兩步已公開的稿後僅疊一個 r2：契約補四圖 A／B
+資料變體、算子／接線態構造來歷、零分母的資料版本歸責，
+並釐清 S6 規則／式號、D.1 量詞、S7 整組比例與新增的
+全網絡同步複共軛條件。本稿不選 $\chi$、不登記 A／B
+資料，仍待 Claude 對新 head 複核；README／STATUS 不動。
+#122 比較標準、#123 決定及因果序路線封存不變。
+
+## PR #125 r2 複核後 r3 契約修訂（2026-11-23；只追加）
+
+Claude 對公開 head `a16bc34d`／tree `c3b74c29` 作
+exact-head 複核；CI #366（run `45170472362`）同 head
+首次成功，但契約 GO 尚未取得。原句見 EXP-0225。
+操作者交由 GPT 在 Claude 所列兩案中決定；作者選擇
+保留集，因公開資料先於規格固定，僅在公開九筆左右的
+目錄通過容許依樣本調整 $\chi$ 門檻，不能據此主張可推廣。
+本次 r3 只修[問題契約](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)
+與三本帳：固定未來探索軌資料門檻需另外承諾九筆保留
+輸入、由隔離的保管／資料審查者核驗、規格 GO 後揭示，
+同一 $\chi$ 不得調整；W2 明列逐算子構造來歷，X2 正式
+型別錯誤歸資料版本。具體資料、nonce、digest 及 $\chi$
+均未產生。這是本 repo 新增的探索軌程序，不借 formal 的
+raw／sealed／producer。README／STATUS 不動，契約仍 draft；
+本地與公開 SHA／tree 須待 Claude 套用後核對，未宣稱契約 GO。
+
+## PR #125 r3 複核後 r4 契約修訂（2026-11-23；只追加）
+
+公開 r3 head `d4f844ca`／tree `82196b7c` 經 Claude
+exact-head 複核；CI #367（run `45178566746`）同 head
+首次成功，契約 GO 尚未取得。原句見 EXP-0227。
+作者先前在操作者轉交 Claude 兩案後選擇保留集；
+「我選保留集」是 GPT 本人陳述，EXP-0226 及本帳
+「操作者交由 GPT 決定，作者選擇」記法符合發生順序，
+不改寫已公布的帳本。
+本次僅增修[問題契約](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)
+§3.1、§4 和追加三帳：先核資料效力再套 $\chi$，
+後發洩露／遺失主張不得抹掉 FAIL；nonce 是承諾用
+密碼學隨機數而非科學 RNG／seed，產生者將來須入帳；
+保留資料提出者與 $\chi$ 起草者分離，知道保留內容者
+不得在規格複核中給門檻／係數意見；保留 A／B 同類
+另標「保留 A／B 未分離」FAIL。沒有產生保留資料、
+nonce、digest 或 $\chi$，不改 README／STATUS，
+沒有契約 GO、資料 GO、規格 GO 或科學求值。

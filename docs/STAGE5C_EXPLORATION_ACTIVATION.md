@@ -1291,3 +1291,77 @@ UNKNOWN、raw／sealed／producer／seed 隔離維持。
 不由文獻直接給新路線契約、資料或規格 GO。
 formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
 隔離不變，本追加不是 ACT 或 AMEND。
+
+## #124 合併後量子過程方向契約先行界線（2026-11-23；只追加）
+
+#124 三步 rebase 合併 main `2e253d2d`／tree `7e3187d3`；
+公開 parent 鏈、三層 SHA 對照、Claude 原句及 GPT 接觸見
+EXP-0219–0221。遠端 `kq-quantum-process-literature-inventory` 與
+`kq-quantum-process-pivot-decision` 已由操作者刪除，作者未刪除。
+操作者同意起草「無時間排序的 B 類輸入如何選局部方向」問題契約，
+並先列出六項 exact-head 審查要點。此先行 commit 只追加三本帳；
+後一 commit 才新增待複核契約稿並更新 README／STATUS 目前狀態。
+契約 GO 前不登記資料、不指定選擇法則、不構造模型或執行試算；
+舊因果序結果依原作用域封存，#122 標準和 #123 轉向理由不改。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed 隔離維持；
+本追加不是 ACT 或 AMEND，不開啟科學執行授權。
+
+
+## 局部方向問題契約草稿交付界線（2026-11-23；只追加）
+
+先行三帳 commit `f9540f3` 後另 commit 起草待審契約，
+README／STATUS 僅更新目前狀態，作者接觸 EXP-0222。
+契約的圖型是待資料門檻補全的審核模板，不是模型輸出；
+未指定選方向的 Boolean 公式、未求案例方向，未登記資料。
+契約未經 exact-head 複核及 GO 前不啟動資料、規格或研究；
+#122／#123 與舊限定成果作用域不動，formal／E0、A／B、
+UNKNOWN、raw／sealed／producer／seed 隔離不變。
+本追加不是 ACT 或 AMEND。
+
+
+## PR #125 複核後契約 r2 修訂界線（2026-11-23；只追加）
+
+Claude 對公開 exact head `7bdcaa8b` 判需修訂；CI #365 同 head
+首次成功不構成契約 GO。PR 留言和原句見 EXP-0223–0224。
+本次在同 tree 本地稿上只改問題契約 §1–4，三本帳追加
+複核與作者接觸；不回寫先行三帳、不改 README／STATUS、
+#122／#123、舊因果序結果或 S6／S7 來源。
+資料 A／B 變體、逐算子來歷與零分母資料歸責只固定
+未來門檻；全網絡複共軛列為本 repo 新條件，非原文定理。
+契約仍 draft，待新 head exact-head 複核；契約 GO 前不作
+資料登記、選擇公式、模型或試算。formal／E0、A／B、
+UNKNOWN、raw／sealed／producer／seed 隔離不變。
+本追加不是 ACT 或 AMEND，不開啟科學執行授權。
+
+## PR #125 契約 r2 複核後 r3 修訂界線（2026-11-23；只追加）
+
+Claude 對 PR #125 公開 r2 head `a16bc34d`／tree `c3b74c29`
+判小修後才給契約 GO；CI #366 run `45170472362` 同 head
+首次成功不替代契約 GO。Claude 原句及作者接觸見
+EXP-0225–0226。本次只在同 tree 的本地 r2 上增修問題契約：
+探索軌新增九筆保留輸入與承諾／揭示順序，規格 GO 後才揭示；
+逐算子來歷明含 W2，X2 正式錯誤歸資料版本。
+保留集須在未來資料門檻由獨立保管與審查者核定；
+本次不生成保留資料、nonce、digest，不制定 $\chi$，
+不讀或改 formal raw／sealed／producer。三本帳只追加；
+README／STATUS、舊契約及已合併文獻不動。
+PR 保持 draft，r3 待新公開 head exact-head 複核，
+契約 GO 前不作資料登記、模型、選擇規格或科學試算。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離與既有權限邊界不變；本追加不是 ACT 或 AMEND。
+
+## PR #125 契約 r3 複核後 r4 修訂界線（2026-11-23；只追加）
+
+Claude 對 PR #125 公開 r3 head `d4f844ca`／tree `82196b7c`
+判四處文字小修後可給契約 GO；CI #367 run `45178566746`
+同 head 首次成功不替代契約 GO。Claude 原句與作者接觸
+見 EXP-0227–0228。此 r4 只補問題契約 §3.1／§4 的
+求值前資料效力判定、後發洩露主張不能抹除 FAIL、
+密碼學 nonce 與科學 RNG／seed 隔離、保留資料與規格
+角色分離，以及保留 A／B 同類的專屬 FAIL 標記。
+三本帳只追加；README／STATUS 不動。未產生任何保留
+資料、nonce、digest 或 $\chi$，不作具名網絡求值。
+PR 保持 draft，待 r4 公開 head exact-head 複核；
+契約 GO 前不登記資料、起草條件規格或開始研究。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離不變；本追加不是 ACT 或 AMEND。

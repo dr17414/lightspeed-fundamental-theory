@@ -2941,3 +2941,181 @@ Claude 對 #123 exact head `9b4a8ef4bf30f0ac9a4547c1d6ed8ea483ec42c1` 判 GO，C
 **EXP-0218：GPT 本人；固定問題／八份來源後的原文核讀**
 
 在本地只追加三帳 commit `e58e826` 後，另以 `f7cb00e` 固定文獻盤點 §1–3 的問題、八份來源、A／B／C／D 分類與「不能推出」界線；固定前已見的 metadata／摘要和少量出版社片段如 EXP-0217 披露。之後才讀 S1 arXiv quant-ph/0402130v5 §§3.1、8–9；S2 1510.05468v3 §2 Def.2.1 及相鄰接線說明；S3 1011.6451v3 §II `Transf(A,B)`、並排／串接及 Axiom 1；S4 gr-qc/0608043v1 PDF §§2–4、§6 量子例子；S5 1105.4464v3 Results、補充 `.2` 的局部操作／process matrix；S6 1406.3829v4 Introduction、time-neutral、`Dropping the assumption of predefined time`、(25)–(26) 及 QFT 討論；S7 2502.10368v2 Def.1.2、§3 Examples 3.1–3.3／Def.3.4；S8 1608.06940 PDF 引言、agency 相鄰片段與 §12.5 time-direction field。open／find 回傳的相鄰文字一併曝光；沒有聲稱八份全文逐頁讀完，S4 PDF 內頁另印 2024 日期但 arXiv 標 v1 2006。依事前判準填表，將 S6／S7 的無預設局部接線時間方向歸 B，而非冒稱已由無方向物理底層推得方向或 3+1／箭頭；S5 的 causal inequality 僅作全局排序的可失敗例。沒有增刪固定來源、改 §1–3 標準、構造新模型／資料／契約／K、執行科學數值或符號程式、RNG、撒點、producer、raw／sealed／seed 或 formal／E0 回用。文件、Git 身分及既有檢查僅作交付驗證；本稿仍待獨立 exact-head 複核，下一 EXP-ID 0219。
+
+
+## 102. #124 合併後的局部方向問題契約先行接觸（2026-11-23；只追加）
+
+#124 由 Claude 代推三步 PR head `767d7f93`，CI #363
+（run `45103271908`）同 head 首次成功；GPT 隨後 rebase 合併，
+公開 main `2e253d2d`／tree `7e3187d3`。公開 main 的三步
+`33301b49`、`177c3318`、`2e253d2d` 的 tree 依序為
+`6f248992`、`72062a5b`、`7e3187d3`，parent 鏈自
+`e39da6c3` 連續；Claude 以 `git range-diff` 查核 PR 與 main
+內容相同。三步 committer 時間均為台北 2026-11-23 14:10:18。
+遠端兩條 `kq-quantum-process-literature-inventory`、
+`kq-quantum-process-pivot-decision` 已由操作者刪除，GPT 未刪。
+本地三個 SHA `e58e826`、`f7cb00e`、`11459dc4` 的最終 tree
+與公開 main 相同，本地 SHA 不作公開時序證據。
+
+**EXP-0219：操作者轉交的 Claude 本人申報原句；#124 代推與 exact-head 複核**
+
+> Claude（#124 代推與 exact-head 複核）：核對操作者附上的四份 patch 的 SHA-256（`c435e143…`、`09f97073…`、`5a5bdecd…`、`b05a8f43…`），均無 TAB 或 CR 字元。在 main `e39da6c3` 上依序套用前三份並各自 commit（`fc4a34d2`、`702010df`、`767d7f93`；tree `6f248992`、`72062a5b`、`7e3187d3`），三步合併的 diff 與複核 patch 逐位元相同；GPT 未提供本地 tree，未作逐步 tree 比對。核對盤點稿 §1–3 在第二、三步之間逐位元相同，第三步只改狀態行、§4 標題並新增 §4–6；三本帳每步皆為前綴追加，第一步只改三本帳，第二步只新增盤點稿，README／STATUS 只替換目前狀態段。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #363（run `45103271908`）同 head 成功。為複核引用，做了網頁搜尋，取得 S4、S6、S7、S8 的 arXiv 摘要頁與 PDF 首頁片段；並讀了 S7（arXiv PDF）Def.1.2、§3 Example 3.3、Def.3.4，以及 S6（ar5iv HTML）的引言、`Dropping the assumption of predefined time`、(25)–(26) 與結尾的格點／光錐討論。發現 S7 Example 3.3 的比例條件原文前後不一致（文字敘述為非零實數，定義式為 ℝ⁺），S7 在 §2 未列作者，兩點都列為不阻擋合併的留言。未核讀 S1–S3、S5 原文。推送分支 `kq-quantum-process-literature-inventory`，建立 draft PR #124（head `767d7f93`），exact-head GO。沒有起草盤點內容，沒有增刪來源，沒有構造契約、資料、模型或 K，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0220：操作者轉交的 Claude 本人申報原句；#124 合併後核對**
+
+> Claude（#124 合併後核對）：以 git 抓取 main，確認 `2e253d2d` 的 tree 為 `7e3187d3`，與 GO 指定值相同。確認三個 rebase 後的 commit（`33301b49`、`177c3318`、`2e253d2d`）依序以 #123 的 `e39da6c3` 為起點、parent 鏈連續，各步 tree（`6f248992`、`72062a5b`、`7e3187d3`）等於 PR 分支各步 tree，committer 時間都是台北 2026-11-23 14:10:18；用 `git range-diff` 確認與 PR 分支三個 commit 的內容逐一相同。用 GitHub API 確認 PR #124 已合併，合併點 `2e253d2d`，head `767d7f93`。用 `git ls-remote` 確認遠端 `kq-quantum-process-literature-inventory` 與 `kq-quantum-process-pivot-decision` 均已不存在；我沒有刪除任何分支。沒有讀其他檔案或文獻，沒有推導，沒有起草任何內容，也沒有替操作者選方向。沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有跑測試，也沒有推送任何東西。
+
+**EXP-0221：GPT 本人先行接觸與契約問題界線**
+
+操作者同意在 #124 合併後起草純紙上的量子過程局部方向
+問題契約，並交付六項 exact-head 複核要求。作者讀了本 repo
+#124 盤點 §1–6、#123 決定稿、P0.4 的契約寫法、三本帳末段
+與 README／STATUS 現狀；對 S6 1406.3829v4 的摘要、
+`Dropping the assumption of predefined time` 及 (25)–(26)，
+S7 2502.10368v2 的 §3 Example 3.3／Def.3.4 作原文網頁
+重讀，查明 S6 分母為零時原文定機率為零、S7 文字與式子的
+比例條件前後不一致。這些是本輪起草前的已知接觸，非盲讀；
+問題契約須如實區分 S6／S7 來源與 repo 新增限制。
+本 commit 只追加三本帳，下個 commit 才起草契約、
+更新 README／STATUS 目前狀態；本輪不從舊因果序路線
+借入已封存 K／資料，不重判 #122／#123。沒有具體
+方向選擇法則、模型、資料登記或案例求值；沒有科學數值／
+符號程式、RNG、撒點、producer、raw／sealed／seed 或
+formal／E0 回用。文件與 Git 身分檢查僅作交付驗證。
+下一 EXP-ID 0222。
+
+
+## 103. 無預設時間的局部方向問題契約草稿（2026-11-23；只追加）
+
+**EXP-0222：GPT 本人；先行三帳後的契約問題起草**
+
+在本地先行三帳 commit `f9540f3200b1eb5d7f9e39c31dff5b48927275f8`
+（tree `bcd178e4ba7f7e70d5076409b5de9eb2d3c1b818`）後，
+作者只起草[量子過程局部方向問題契約草稿](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)，
+並更新 README／STATUS 的目前狀態段。稿中區分 S6 (1)–(3)、
+(26) 和 S7 §3 的外給 primitive，新增有限閉合網絡、全局翻轉
+唯一性、自然性、資料變體與零分母入口判定等本 repo 的問題限制。
+S6 原文分母為零定機率零；本問題另將正式資料的零分母判
+FAIL-0，Z2 作預先登記的負控制。S7 比例只取正實數並註原文
+文字與式子不一致。W2、P3、Y3、C3、B2、Z2、X2 只是
+資料門檻待補完整算子的審核圖型；本稿沒有計算其方向輸出，
+也沒有給具體 Boolean 方向選擇法則。文件可審不等於
+契約 GO，更不等於 B 類已有局部方向湧現、3+1 或時間箭頭。
+沒有回寫 #122 標準或 #123 決定，也沒有解封因果序路線結果。
+未作科學數值／符號程式、RNG、撒點、producer，未讀
+raw／sealed／seed、未回用 formal／E0，僅用 git、文字及
+既有文件檢查核對交付身分。下一 EXP-ID 0223。
+
+
+## 104. PR #125 契約草稿 exact-head 複核後修訂（2026-11-23；只追加）
+
+#125 由 Claude 代推，公開第一步 `d6be9c22`／tree `bcd178e4`，
+第二步 head `7bdcaa8b055f0b08ecdbbfc3b08fdfbb2c2aee6c`／
+ tree `254de16a3233156278693056da8b1c8c972e87b8`，
+與 GPT 本地 `f9540f32`、`8cae3819` 逐步同 tree；
+#124 main `2e253d2d`／tree `7e3187d3` 為公開基線。
+PR 保持 draft、未合併；CI #365 run `45130948198` 同 head
+首次成功（本輪作者另用 GitHub connector 唯讀核對）。
+Claude exact-head 複核判**需修訂後才給契約 GO**，並在
+PR 留言列 A／B／C、四項小修及一項反么正自然性問題。
+原本先行的 EXP-0219–0222 及契約草稿歷史狀態不回寫。
+
+**EXP-0223：操作者轉交的 Claude 本人申報原句；#125 代推與 exact-head 複核**
+
+> Claude（#125 代推與 exact-head 複核）：解開操作者附上的 bundle zip，核對其中說明檔所列兩份增量 patch 的 SHA-256（`4c0b72ff…`、`31b2ad9b…`），複核 patch（`30dc33fb…`）與另附上傳檔相同，三份均無 TAB 或 CR 字元。在 main `2e253d2d` 上依序套用並各自 commit（`d6be9c22`、`7bdcaa8b`），tree `bcd178e4`、`254de16a` 與 GPT 本地 tree 相同；兩步合併的 diff 與複核 patch 逐位元相同。核對三本帳兩步皆為前綴追加、第一步只改三本帳、README／STATUS 只替換目前狀態段，EXP-0219、EXP-0220 與我的申報原句逐字相同；契約中時間相關詞只出現在禁止或不能推出的條款。手算核對 Z2 的 Δ=0。為核對 S6 引用，讀了 ar5iv 上 1406.3829 的式 (1)、(15) 及「Dropping the assumption of predefined time」一節規則 (1)–(2) 與式 (25)–(26)。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #365（run `45130948198`）同 head 成功。推送分支 `kq-qproc-direction-contract`，建立 draft PR #125（head `7bdcaa8b`）。判定需修訂後再給契約 GO：資料參與檢查只設在 P3、資料構造可能暗含方向、正式輸入零分母的歸責對象錯置，另列小修與一項反么正變換的待決問題於 PR 留言。沒有起草契約內容，沒有提出或評估任何方向選擇條件，沒有登記資料或求任何具名網絡的方向，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料，沒有合併。
+
+**EXP-0224：GPT 本人；#125 複核後的契約文字修訂**
+
+作者唯讀讀取 GitHub PR #125 的公開 head、diff 與 Claude 留言，
+並以 GitHub connector 核對 CI #365 同 head completed／success；
+在本地同 tree 的 `8cae3819` 上讀契約 §1–4 與三本帳尾段。
+本輪只依 Claude A／B／C 修訂契約：P3、Y3、C3、B2 各設
+兩個同圖同維的事前資料變體；每個算子及接線態逐一申報
+構造來歷，有向構造不能作正式「由無向資料導出」證據；
+正式輸入的零分母使**資料版本**不取得或撤回資料 GO，
+不是讓 $\chi$ 候選 FAIL。S6 節內規則與式號分開引，
+(D.1) 明定對全部定向的翻轉對稱、絕對方向域外；
+S7 的正比例只就整組局部操作在重規一化後比較，刪除
+多餘的零總算子句。對 Claude 的自然性問題，選擇要求
+**全網絡同步複共軛**同變，並明列為本 repo 新增穩健性
+條件；部分轉置一般不保正性，不當作資料域同構。
+這些都是契約問題條款，沒有構造選向公式或登記任何
+A／B 算子，也沒有求具名網絡的方向。r2 只改契約與
+三本帳追加，README／STATUS 及舊成果不改；本地 SHA
+與公開 head 須在 Claude 重建增量後另以 tree 查核，
+此刻仍待 exact-head 複核，沒有契約 GO 或推送。
+沒有新外部文獻檢索、科學數值／符號程式、RNG、撒點、
+producer、raw／sealed／seed 或 formal／E0 回用。
+下一 EXP-ID 0225。
+
+## 105. PR #125 r2 exact-head 複核後的 r3 問題契約修訂（2026-11-23；只追加）
+
+#125 r2 由 Claude 疊上公開分支，head `a16bc34d`／tree
+`c3b74c29` 與作者本地 r2 tree 相同，CI #366
+（run `45170472362`）同 head 首次成功。Claude 判小修
+後才給契約 GO，指出公開目錄先行、規格後定 $\chi$ 的
+過度配適風險，提出保留集與明列推廣限制兩案，並要求
+W2 的構造來歷及 X2 資料版本歸責。操作者交由 GPT
+決定，本輪選保留集，兩案及選擇均在修訂前已曝光。
+
+**EXP-0225：操作者轉交的 Claude 本人申報原句；#125 r2 代推與 exact-head 複核**
+
+> Claude（#125 r2 代推與 exact-head 複核）：核對操作者附上的 r2 增量 patch 的 SHA-256（`22e3980b…`），無 TAB 或 CR 字元。確認 PR #125 仍為 draft、遠端 head 仍是 `7bdcaa8b`，在其上套用並 commit `a16bc34d`，tree `c3b74c29` 與 GPT 本地 tree 相同。核對 r2 只改契約與三本帳，三本帳皆為前綴追加，README／STATUS 未動，EXP-0223 與我的申報原句逐字相同。為核對 A／B 要求可否成立，寫了一段只處理圖組合的 Python 程式，列舉 W2、P3、Y3、C3、B2 的全局翻轉對及其在圖自同構下的軌道（P3、Y3、C3、B2 各為兩個軌道）；程式不含任何量子資料、方向選擇條件或具名網絡的方向求值。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #366（run `45170472362`）同 head 成功。推送 r2 到分支 `kq-qproc-direction-contract`（head `a16bc34d`），在 PR 留言中確認 A、B、C 與四項小修已落實。判定小修後再給契約 GO：規格在資料公開後才固定 χ，可能照目錄調整門檻，建議以保留集的承諾－揭示處理，或在 §4 明列限制；另列構造來歷涵蓋全部正式輸入、X2 歸責兩項小修。沒有起草契約內容，沒有提出或評估任何方向選擇條件，沒有登記資料，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有合併。
+
+**EXP-0226：GPT 本人；選擇保留集與契約 r3 修訂**
+
+作者接觸操作者轉交的 Claude #125 r2 全文及上列原句，
+唯讀檢視本地 r2 契約 §1–4、三本帳末段及 git 身分。
+依已提出的兩案，選擇未來資料門檻的九筆探索軌保留集，
+於契約 §3.1 寫入隔離保管、隨機 nonce 加 SHA-256 承諾、
+獨立資料審查、規格 GO 後揭示並原樣套用 $\chi$，
+及資料無效與方向失敗各自歸責。另把 W2 明確納入
+逐算子構造來歷，X2 若作正式資料則由資料版本承擔。
+此前已看過公開目錄和 Claude 的風險分析，因此未宣稱
+資料盲性或保留集已有任何內容；保留集實例、nonce、
+摘要與 $\chi$ 均未產生，未向保管者傳送資料。
+只修改契約和三本帳追加，README／STATUS、舊成果及
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離不動。未讀外部文獻原文、raw／sealed 資料，未做
+科學數值／符號計算、RNG、撒點、producer 或具名網絡的
+方向求值；只作文字修改、版本檢查及交付驗證。
+契約仍待新 head exact-head 複核，沒有契約 GO 或推送。
+下一 EXP-ID 0227。
+
+## 106. PR #125 r3 exact-head 複核後的 r4 契約修訂（2026-11-23；只追加）
+
+#125 r3 由 Claude 代推，公開 head `d4f844ca`／tree
+`82196b7c` 與 GPT 本地 r3 tree 相同；CI #367
+（run `45178566746`）同 head 首次成功。Claude 指出
+後發洩露主張的效力、nonce 與科學 RNG／seed、
+角色分離及保留對同類的 FAIL 標記四處待修。
+本輪作者唯讀核對公開 PR #125 head 與 r3 留言，
+讀本地 r3 契約及三本帳末段；未觸碰保留資料。
+
+**EXP-0227：操作者轉交的 Claude 本人申報原句；#125 r3 代推與 exact-head 複核**
+
+> Claude（#125 r3 代推與 exact-head 複核）：核對操作者附上的 r3 增量 patch 的 SHA-256（`213659fc…`），無 TAB 或 CR 字元。確認 PR #125 仍為 draft、遠端 head 仍是 `a16bc34d`，在其上套用並 commit `d4f844ca`，tree `82196b7c` 與 GPT 本地 tree 相同。核對 r3 只改契約與三本帳，三本帳皆為前綴追加，EXP-0225 與我的申報原句逐字相同；以 grep 查本 repo 文件中 nonce、seed 與 RNG 的既有用法。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #367（run `45178566746`）同 head 成功。推送 r3 到分支 `kq-qproc-direction-contract`（head `d4f844ca`），在 PR 留言中確認兩項小修已落實、§3.1 承諾－揭示主體正確。判定再補四處文字後給契約 GO：洩露主張須在套用 χ 前判定且不得抹除 FAIL、nonce 與 RNG／seed 隔離的分類、保留資料提出者與 χ 起草者及規格複核者的角色分離、保留集 A／B 同類時的 FAIL 標記。沒有起草契約內容，沒有提出或評估任何方向選擇條件，沒有登記或產生任何保留資料、nonce 或 digest，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有合併。
+
+**EXP-0228：GPT 本人；#125 r3 複核後的契約 r4 修訂**
+
+作者讀操作者轉交的 Claude r3 複核及 PR #125 r3
+公開留言、head 身分，讀本地 r3 問題契約 §3.1／§4
+及三本帳尾段。文字上固定：保留集的資料效力和已知
+洩露須在任何 $\chi$ 求值前判定；後發洩露／遺失主張
+不能撤銷已記的 $\chi$ FAIL，只能降級原本的 PASS。
+明列承諾用 nonce 依賴密碼學隨機數，和科學 RNG／seed
+及 formal seed 隔離；將來生成 nonce 的人須申報用途。
+明列保留資料提出者不得起草 $\chi$，接觸保留內容者
+不得在規格複核提供門檻／係數意見；保留對同類結果
+記「保留 A／B 未分離」FAIL，不宣稱正確方向已知。
+前輪由操作者轉交兩案、GPT 選擇保留集；先前本人的
+「我選保留集」與 EXP-0226／開發帳的記法同義，
+並非操作者在兩案間親自定案。
+本輪只修契約與追加三帳，README／STATUS、#122／#123、
+因果序封存成果及 formal／E0、A／B、UNKNOWN、
+raw／sealed／producer／seed 隔離不變。沒有提出或
+求值任何 $\chi$，沒有登記／產生保留資料、nonce 或 digest，
+沒有執行科學數值／符號程式、RNG、撒點、producer，
+沒有讀 raw／sealed 資料或外部文獻原文。
+本地修訂仍待新公開 head exact-head 複核，沒有 GO 或推送。
+下一 EXP-ID 0229。
