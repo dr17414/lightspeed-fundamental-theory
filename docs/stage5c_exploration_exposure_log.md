@@ -3081,3 +3081,41 @@ formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
 方向求值；只作文字修改、版本檢查及交付驗證。
 契約仍待新 head exact-head 複核，沒有契約 GO 或推送。
 下一 EXP-ID 0227。
+
+## 106. PR #125 r3 exact-head 複核後的 r4 契約修訂（2026-11-23；只追加）
+
+#125 r3 由 Claude 代推，公開 head `d4f844ca`／tree
+`82196b7c` 與 GPT 本地 r3 tree 相同；CI #367
+（run `45178566746`）同 head 首次成功。Claude 指出
+後發洩露主張的效力、nonce 與科學 RNG／seed、
+角色分離及保留對同類的 FAIL 標記四處待修。
+本輪作者唯讀核對公開 PR #125 head 與 r3 留言，
+讀本地 r3 契約及三本帳末段；未觸碰保留資料。
+
+**EXP-0227：操作者轉交的 Claude 本人申報原句；#125 r3 代推與 exact-head 複核**
+
+> Claude（#125 r3 代推與 exact-head 複核）：核對操作者附上的 r3 增量 patch 的 SHA-256（`213659fc…`），無 TAB 或 CR 字元。確認 PR #125 仍為 draft、遠端 head 仍是 `a16bc34d`，在其上套用並 commit `d4f844ca`，tree `82196b7c` 與 GPT 本地 tree 相同。核對 r3 只改契約與三本帳，三本帳皆為前綴追加，EXP-0225 與我的申報原句逐字相同；以 grep 查本 repo 文件中 nonce、seed 與 RNG 的既有用法。跑了 integrity、`git diff --check` 與 pytest（依 CI 固定版本，Python 3.13，556 passed、5 warnings），並用 GitHub API 確認 CI #367（run `45178566746`）同 head 成功。推送 r3 到分支 `kq-qproc-direction-contract`（head `d4f844ca`），在 PR 留言中確認兩項小修已落實、§3.1 承諾－揭示主體正確。判定再補四處文字後給契約 GO：洩露主張須在套用 χ 前判定且不得抹除 FAIL、nonce 與 RNG／seed 隔離的分類、保留資料提出者與 χ 起草者及規格複核者的角色分離、保留集 A／B 同類時的 FAIL 標記。沒有起草契約內容，沒有提出或評估任何方向選擇條件，沒有登記或產生任何保留資料、nonce 或 digest，沒有執行任何科學數值或符號程式，沒有使用 RNG，沒有撒點，沒有呼叫 producer，沒有讀 raw／sealed 資料或文獻，沒有合併。
+
+**EXP-0228：GPT 本人；#125 r3 複核後的契約 r4 修訂**
+
+作者讀操作者轉交的 Claude r3 複核及 PR #125 r3
+公開留言、head 身分，讀本地 r3 問題契約 §3.1／§4
+及三本帳尾段。文字上固定：保留集的資料效力和已知
+洩露須在任何 $\chi$ 求值前判定；後發洩露／遺失主張
+不能撤銷已記的 $\chi$ FAIL，只能降級原本的 PASS。
+明列承諾用 nonce 依賴密碼學隨機數，和科學 RNG／seed
+及 formal seed 隔離；將來生成 nonce 的人須申報用途。
+明列保留資料提出者不得起草 $\chi$，接觸保留內容者
+不得在規格複核提供門檻／係數意見；保留對同類結果
+記「保留 A／B 未分離」FAIL，不宣稱正確方向已知。
+前輪由操作者轉交兩案、GPT 選擇保留集；先前本人的
+「我選保留集」與 EXP-0226／開發帳的記法同義，
+並非操作者在兩案間親自定案。
+本輪只修契約與追加三帳，README／STATUS、#122／#123、
+因果序封存成果及 formal／E0、A／B、UNKNOWN、
+raw／sealed／producer／seed 隔離不變。沒有提出或
+求值任何 $\chi$，沒有登記／產生保留資料、nonce 或 digest，
+沒有執行科學數值／符號程式、RNG、撒點、producer，
+沒有讀 raw／sealed 資料或外部文獻原文。
+本地修訂仍待新公開 head exact-head 複核，沒有 GO 或推送。
+下一 EXP-ID 0229。

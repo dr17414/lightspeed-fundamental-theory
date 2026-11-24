@@ -1349,3 +1349,19 @@ PR 保持 draft，r3 待新公開 head exact-head 複核，
 契約 GO 前不作資料登記、模型、選擇規格或科學試算。
 formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
 隔離與既有權限邊界不變；本追加不是 ACT 或 AMEND。
+
+## PR #125 契約 r3 複核後 r4 修訂界線（2026-11-23；只追加）
+
+Claude 對 PR #125 公開 r3 head `d4f844ca`／tree `82196b7c`
+判四處文字小修後可給契約 GO；CI #367 run `45178566746`
+同 head 首次成功不替代契約 GO。Claude 原句與作者接觸
+見 EXP-0227–0228。此 r4 只補問題契約 §3.1／§4 的
+求值前資料效力判定、後發洩露主張不能抹除 FAIL、
+密碼學 nonce 與科學 RNG／seed 隔離、保留資料與規格
+角色分離，以及保留 A／B 同類的專屬 FAIL 標記。
+三本帳只追加；README／STATUS 不動。未產生任何保留
+資料、nonce、digest 或 $\chi$，不作具名網絡求值。
+PR 保持 draft，待 r4 公開 head exact-head 複核；
+契約 GO 前不登記資料、起草條件規格或開始研究。
+formal／E0、A／B、UNKNOWN、raw／sealed／producer／seed
+隔離不變；本追加不是 ACT 或 AMEND。

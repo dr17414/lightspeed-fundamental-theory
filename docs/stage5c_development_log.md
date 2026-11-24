@@ -1523,3 +1523,22 @@ exact-head 複核；CI #366（run `45170472362`）同 head
 均未產生。這是本 repo 新增的探索軌程序，不借 formal 的
 raw／sealed／producer。README／STATUS 不動，契約仍 draft；
 本地與公開 SHA／tree 須待 Claude 套用後核對，未宣稱契約 GO。
+
+## PR #125 r3 複核後 r4 契約修訂（2026-11-23；只追加）
+
+公開 r3 head `d4f844ca`／tree `82196b7c` 經 Claude
+exact-head 複核；CI #367（run `45178566746`）同 head
+首次成功，契約 GO 尚未取得。原句見 EXP-0227。
+作者先前在操作者轉交 Claude 兩案後選擇保留集；
+「我選保留集」是 GPT 本人陳述，EXP-0226 及本帳
+「操作者交由 GPT 決定，作者選擇」記法符合發生順序，
+不改寫已公布的帳本。
+本次僅增修[問題契約](foundations/kq_quantum_process_local_direction_problem_contract_v0_1.md)
+§3.1、§4 和追加三帳：先核資料效力再套 $\chi$，
+後發洩露／遺失主張不得抹掉 FAIL；nonce 是承諾用
+密碼學隨機數而非科學 RNG／seed，產生者將來須入帳；
+保留資料提出者與 $\chi$ 起草者分離，知道保留內容者
+不得在規格複核中給門檻／係數意見；保留 A／B 同類
+另標「保留 A／B 未分離」FAIL。沒有產生保留資料、
+nonce、digest 或 $\chi$，不改 README／STATUS，
+沒有契約 GO、資料 GO、規格 GO 或科學求值。
